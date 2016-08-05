@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Timeline</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Timelines</value>
+    </caseValues>
+    <fields>
+        <label><!-- Current NX Maintenance and MR --></label>
+        <name>Current_NX_Maintenance_and_MR__c</name>
+    </fields>
+    <fields>
+        <label><!-- Current Perpetual VRX Maintenance and MR --></label>
+        <name>Current_Perpetual_VRX_Maintenance_and_MR__c</name>
+    </fields>
+    <fields>
+        <label><!-- Current Perpetual VX Maintenance and MR --></label>
+        <name>Current_Perpetual_VX_Maintenance_and_MR__c</name>
+    </fields>
+    <fields>
+        <label><!-- Current VRX Subscription and SR --></label>
+        <name>Current_VRX_Subscription_and_SR__c</name>
+    </fields>
+    <fields>
+        <label><!-- Current VX Subscription and SR --></label>
+        <name>Current_VX_Subscription_and_SR__c</name>
+    </fields>
+    <fields>
+        <label><!-- End Of Maintenance --></label>
+        <name>End_Of_Maintenance__c</name>
+    </fields>
+    <fields>
+        <label><!-- First NX Order --></label>
+        <name>First_NX_Order__c</name>
+    </fields>
+    <fields>
+        <label><!-- First Order Amt --></label>
+        <name>First_Order_Amt__c</name>
+    </fields>
+    <fields>
+        <label><!-- First Order --></label>
+        <name>First_Order__c</name>
+    </fields>
+    <fields>
+        <label><!-- First VRX Perpetual Order --></label>
+        <name>First_VRX_Perp_Order__c</name>
+    </fields>
+    <fields>
+        <label><!-- First VRX Subscription Order --></label>
+        <name>First_VRX_Subs_Order__c</name>
+    </fields>
+    <fields>
+        <label><!-- First VX Perpetual  Order --></label>
+        <name>First_VX_Perp_Order__c</name>
+    </fields>
+    <fields>
+        <label><!-- First VX Subscription Order --></label>
+        <name>First_VX_Subs_Order__c</name>
+    </fields>
+    <fields>
+        <label><!-- First Year Total --></label>
+        <name>First_Year_Total__c</name>
+    </fields>
+    <fields>
+        <label><!-- GMS --></label>
+        <name>GMS__c</name>
+    </fields>
+    <fields>
+        <label><!-- GX --></label>
+        <name>GX__c</name>
+    </fields>
+    <fields>
+        <label><!-- LARGE --></label>
+        <name>LARGE__c</name>
+    </fields>
+    <fields>
+        <label><!-- Last Order Amount --></label>
+        <name>Last_Order_Amt__c</name>
+    </fields>
+    <fields>
+        <label><!-- Last Order Date --></label>
+        <name>Last_Order_Date__c</name>
+    </fields>
+    <fields>
+        <label><!-- MEDIUM --></label>
+        <name>MEDIUM__c</name>
+    </fields>
+    <fields>
+        <label><!-- NX Sales --></label>
+        <name>NX_Sales__c</name>
+    </fields>
+    <fields>
+        <label><!-- NX --></label>
+        <name>NX__c</name>
+    </fields>
+    <fields>
+        <label><!-- Account --></label>
+        <name>Name__c</name>
+        <relationshipLabel><!-- Timelines (Account) --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- 90 days Total --></label>
+        <name>Ninety_Days_Total__c</name>
+    </fields>
+    <fields>
+        <label><!-- Previous VRX Subscription and SR --></label>
+        <name>Previous_VRX_Subscription_and_SR__c</name>
+    </fields>
+    <fields>
+        <label><!-- Previous VX Subscription and SR --></label>
+        <name>Previous_VX_Subscription_and_SR__c</name>
+    </fields>
+    <fields>
+        <label><!-- SMALL --></label>
+        <name>SMALL__c</name>
+    </fields>
+    <fields>
+        <label><!-- Total Sales --></label>
+        <name>Total_Sales__c</name>
+    </fields>
+    <fields>
+        <label><!-- Ultimate Parent Name --></label>
+        <name>UltimateParentName__c</name>
+    </fields>
+    <fields>
+        <label><!-- Ultimate Parent --></label>
+        <name>UltimateParent__c</name>
+        <relationshipLabel><!-- Timelines (Ultimate Parent) --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- VRX Perpetual Sales --></label>
+        <name>VRX_Perpetual_Sales__c</name>
+    </fields>
+    <fields>
+        <label><!-- VRX Subscription Sales --></label>
+        <name>VRX_Subscription_Sales__c</name>
+    </fields>
+    <fields>
+        <label><!-- VRX --></label>
+        <name>VRX__c</name>
+    </fields>
+    <fields>
+        <label><!-- VX Perpetual Sales --></label>
+        <name>VX_Perpetual_Sales__c</name>
+    </fields>
+    <fields>
+        <label><!-- VX Subscription Sales --></label>
+        <name>VX_Subscription_Sales__c</name>
+    </fields>
+    <fields>
+        <label><!-- VX --></label>
+        <name>VX__c</name>
+    </fields>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

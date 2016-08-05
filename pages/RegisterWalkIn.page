@@ -1,0 +1,74 @@
+<apex:page controller="CheckInController" showHeader="false" standardStylesheets="false" id="page">
+    <apex:stylesheet value="{!URLFOR($Resource.PurchaseRequest_NoBanner, 'css/main.css')}"/>
+    <style>
+        ul.infoList li .infoInput input 
+        {
+            margin: 2px 8px 0 5px;
+            width: 300px;
+            height: 20px;
+            line-height: 20px;
+            border: #677F95 1px solid;
+        }
+        ul.infoList li .infoInput 
+        {
+            float: left;
+            width: 330px;
+            height: 25px;
+        }
+    </style>
+
+    <apex:form id="form">
+        <div id="wrap">
+            <h1><a href="#">Silver Peak</a></h1>
+            <h2 class="step4">Register Walk in</h2>
+            <apex:pageMessages />
+            <ul class="infoList">
+                <li>
+                    <div class="infoName">First Name:</div>
+                    <div class="infoInput"><apex:inputText value="{!WalkInLead.FirstName}" required="true" id="firstname" size="40" maxlength="40"  /> *</div>
+                    <div class="infoAdd"><apex:message for="firstname" style="color:red;line-height:14px" /></div>
+                </li>
+                <li>
+                    <div class="infoName">Last Name:</div>
+                    <div class="infoInput"><apex:inputText value="{!WalkInLead.LastName}" required="true" id="lastname" size="40" maxlength="40" /> *</div>
+                    <div class="infoAdd"><apex:message for="lastname" style="color:red;line-height:14px" /></div>
+                </li>
+                <li>
+                    <div class="infoName">Title:</div>
+                    <div class="infoInput"><apex:inputText value="{!WalkInLead.Title}" required="true" id="title" size="40" maxlength="40" /> *</div>
+                    <div class="infoAdd"><apex:message for="title" style="color:red;line-height:14px" /></div>
+                </li>
+                <li>
+                    <div class="infoName">Company:</div>
+                    <div class="infoInput"><apex:inputText value="{!WalkInLead.Company}" required="true" id="company" size="40" maxlength="80" /> *</div>
+                    <div class="infoAdd"><apex:message for="company" style="color:red;line-height:14px" /></div>
+                </li>
+                <li>
+                    <div class="infoName">Email:</div>
+                    <div class="infoInput"><apex:inputText value="{!WalkInLead.Email}" required="true" id="email" size="40" maxlength="40" /> *</div>
+                    <div class="infoAdd"><apex:message for="email" style="color:red;line-height:14px" /></div>
+                </li>
+                <li>
+                    <div class="infoName">Phone:</div>
+                    <div class="infoInput"><apex:inputText value="{!WalkInLead.Phone}" required="true" id="phone" size="40" maxlength="40" /> *</div>
+                    <div class="infoAdd"><apex:message for="phone" style="color:red;line-height:14px" /></div>
+                </li>
+                <li>
+                    <div class="infoName">Checkin Note:</div>
+                    <div class="infoInput"><apex:inputText value="{!WalkInLeadNote}" id="note" size="40" maxlength="50" /></div>
+                    <div class="infoAdd"></div>
+                </li>
+            </ul><!--infoList-->
+            <div style="width:100%;text-align:center">
+            <apex:commandLink style="float:right;" value="Checkin" action="{!saveWalkIn}" styleClass="saveButton" />  
+            </div>
+            <div class="clearfix"></div>
+
+            <div class="footer">
+                <div class="contact">4500 Great America Parkway, Suite 100, Santa Clara, CA 95054 | 888-598-7325</div>
+                <div class="rights">© 2010 Silver Peak Systems, Inc.</div>
+                <div class="clearfix"></div>
+            </div><!--footer-->
+        </div><!--wrap-->
+    </apex:form>
+</apex:page>

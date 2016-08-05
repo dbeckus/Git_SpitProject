@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>LMS Course</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>LMS Courses</value>
+    </caseValues>
+    <fields>
+        <label><!-- Course Description --></label>
+        <name>Course_Description__c</name>
+    </fields>
+    <fields>
+        <label><!-- Course Id --></label>
+        <name>Course_Id__c</name>
+    </fields>
+    <fields>
+        <label><!-- Course Name --></label>
+        <name>Course_Name__c</name>
+    </fields>
+    <fields>
+        <label><!-- Display Name --></label>
+        <name>Display_Name__c</name>
+    </fields>
+    <fields>
+        <label><!-- Is Active --></label>
+        <name>Is_Active__c</name>
+    </fields>
+    <fields>
+        <label><!-- Last Fetch Date --></label>
+        <name>Last_Fetch_Date__c</name>
+    </fields>
+    <fields>
+        <label><!-- New Course Id --></label>
+        <name>New_Course_Id__c</name>
+    </fields>
+    <layouts>
+        <layout>LMS Course Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+    </layouts>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

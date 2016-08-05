@@ -1,0 +1,113 @@
+<apex:page controller="DefineChannelController" tabStyle="Opportunity" showHeader="false" standardStylesheets="true" id="page">
+    <apex:stylesheet value="{!URLFOR($Resource.DefineChannel, 'select2.css')}"/>
+    <apex:includeScript value="https://code.jquery.com/jquery-1.11.1.min.js"/>
+    <apex:includeScript value="{!URLFOR($Resource.DefineChannel, 'select2.min.js')}"/>
+    <style type="text/css">
+        .row {
+            height: 28px;
+        } 
+        .row td {
+            padding-bottom: 5px;
+        }
+    </style>
+    <script type="text/javascript">
+        function singleChecked(oCheckbox)
+        {
+            //var sName=this;
+            var oTable=document.getElementById("page:form:block:table");
+            var oInputs=oTable.getElementsByTagName("input");
+            for(var i=0,j=oInputs.length; i < j ; i++)
+            {
+                if(oInputs[i].type=="checkbox")
+                {
+                    if(oInputs[i].name!=oCheckbox.name)
+                    {
+                        oInputs[i].checked=false;
+                    } 
+                }
+            }
+        }
+        function checkCreditHold()
+        {
+            var partners = [<apex:repeat value="{!CreditHoldPartners}" var="accountId">"{!accountId}", </apex:repeat>"EOF"];
+            var selectedTier1 = document.getElementById("page:form:block:table:0:partner").value;
+            var selectedTier2 = document.getElementById("page:form:block:table:1:partner").value;
+            var selectedTier3 = document.getElementById("page:form:block:table:2:partner").value;
+            var highestPartner = (selectedTier3 != "") ? selectedTier3 : (selectedTier2 != "" ? selectedTier2 : selectedTier1);
+            for(var i = 0; i < partners.length; i++)
+            {
+                if(partners[i] == highestPartner)
+                {
+                    return confirm("The reseller you have identified for this opportunity is currently on credit hold and may not be able to carry out the order. Are you sure you want to continue and save?");
+                }
+            }
+            return true;
+        }
+        var initialSelection = [<apex:repeat value="{!InitialSelectedPartners}" var="initPartner">{"id":"{!initPartner.Id}", "text":"{!SUBSTITUTE(initPartner.Name, '\"', '')}"},</apex:repeat>{}];
+        $(document).ready(function() { 
+            $(".partnerList").each(function(index) {
+                $(this).select2({
+                    width: "300px",
+                    placeholder: "-None-",
+                    placeholderOption: null,
+                    allowClear: true,
+                    initSelection : function (element, callback) {
+                        for(var i = 0; i < initialSelection.length; i++)
+                        {
+                            if(initialSelection[i].id == $(element).val())
+                            {
+                                callback(initialSelection[i]);
+                                break;
+                            }
+                        }
+                    },
+                    query: function(query) {
+                        DefineChannelController.getPartners(index+1, query.term, function (result, event) {
+                            var decodedResult = $("<div/>").html(result).text();
+                            result = JSON.parse(decodedResult);
+                            query.callback({results: result});
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+    <apex:sectionHeader title="Channel Partners for:" subtitle="{!opp.Name}"/>
+    <apex:form id="form" >
+        <apex:pageMessages escape="false"/>
+        <apex:pageBlock title="Define Channel" rendered="{!IsReady}" id="block">
+            <apex:pageBlockButtons location="bottom">
+                <apex:commandButton value="Save" action="{!save}" onclick="return checkCreditHold()"/>
+                <input type="button" class="btn" value="Cancel" onclick="window.close()"/>
+            </apex:pageBlockButtons>
+            <apex:pageblockSection columns="1">
+            <apex:dataTable value="{!partners}" var="partner" rowClasses="row" id="table">
+                <apex:column width="85px" headerClass="row">
+                    <apex:facet name="header">Partner Role</apex:facet>
+                    <apex:outputText value="{!partner.Role}" />
+                </apex:column>
+                <apex:column width="75px">
+                    <apex:facet name="header">Registered</apex:facet>
+                    <apex:inputCheckbox value="{!partner.IsRegistered}" onchange="singleChecked(this)"/>
+                </apex:column>
+                <apex:column >
+                    <apex:facet name="header">Partner</apex:facet>
+                    <!--<apex:selectList value="{!partner.AccountId}" size="1" id="partner" >
+                        <apex:selectOptions value="{!CASE(partner.Role, 'Tier 1', Tier1Partners, 'Tier 2', Tier2Partners, Tier3Partners)}" />
+                    </apex:selectList>-->
+                    <apex:inputText styleClass="partnerList" value="{!partner.AccountId}" />
+                </apex:column>
+            </apex:dataTable>
+            </apex:pageblockSection>
+            <br/>
+            <apex:outputText style="font-style:italic">NOTE: Tier 1 is working directly with the end customer. Highest Tier number is the primary partner to Silver Peak. </apex:outputText>
+        </apex:pageBlock>
+        <apex:pageBlock title="Partner Edit" rendered="{!NOT(IsReady)}">
+            <apex:pageBlockButtons location="bottom">
+                <apex:commandButton value="Delete" action="{!deleteExisting}"/>
+                <input type="button" class="btn" value="Cancel" onclick="window.close()"/>
+            </apex:pageBlockButtons>
+            <apex:outputText >Warning, this action will remove existing partners from this opportunity and you will have to re-enter them. Do you wish to proceed?</apex:outputText>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

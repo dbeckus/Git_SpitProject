@@ -1,0 +1,165 @@
+<apex:page controller="DefineChannelQuoteController" tabStyle="Opportunity" showHeader="false" standardStylesheets="true" id="page">
+    <apex:stylesheet value="{!URLFOR($Resource.DefineChannel, 'select2.css')}"/>
+    <apex:includeScript value="https://code.jquery.com/jquery-1.11.1.min.js"/>
+    <apex:includeScript value="{!URLFOR($Resource.DefineChannel, 'select2.min.js')}"/>
+    <style type="text/css">
+        .row {
+        height: 28px;
+        } 
+        .row td {
+        padding-bottom: 5px;
+        }
+    </style>
+    <script type="text/javascript">
+    
+    $(document).ready(function() { 
+        var initialSelection = [<apex:repeat value="{!InitialSelectedPartners}" var="initPartner">{"id":"{!initPartner.Id}", "text":"{!SUBSTITUTE(initPartner.Name, '\"', '')}"},</apex:repeat>{}];
+        $(".resellerPartnerList").each(function(index) {
+            $(this).select2({
+                width: "300px",
+                placeholder: "-None-",
+                placeholderOption: null,
+                allowClear: true,
+                initSelection : function (element, callback) {
+                        for(var i = 0; i < initialSelection.length; i++)
+                        {
+                            if(initialSelection[i].id == $(element).val())
+                            {
+                                callback(initialSelection[i]);
+                                break;
+                            }
+                        }
+                    },
+                query: function(query) {
+        
+                    DefineChannelQuoteController.InitResellerAccounts("{!reqOpp.AccountId}",query.term,function (result, event) {
+                        var decodedResult = $("<div/>").html(result).text();
+                        result = JSON.parse(decodedResult);
+                        query.callback({results: result});
+                    });
+                }
+            });
+        });
+        
+        $(".distibutorPartnerList").each(function(index) {
+            $(this).select2({
+                width: "300px",
+                placeholder: "-None-",
+                placeholderOption: null,
+                allowClear: true,
+                initSelection : function (element, callback) {
+                        for(var i = 0; i < initialSelection.length; i++)
+                        {
+                            if(initialSelection[i].id == $(element).val())
+                            {
+                                callback(initialSelection[i]);
+                                break;
+                            }
+                        }
+                    },
+                query: function(query) {
+                    DefineChannelQuoteController.InitDistributorAccounts("{!reqOpp.AccountId}",query.term,function (result, event) {
+                        var decodedResult = $("<div/>").html(result).text();
+                        result = JSON.parse(decodedResult);
+                        query.callback({results: result});
+                    });
+                }
+            });
+        });
+        
+        $(".Tier3PartnerList").each(function(index) {
+            $(this).select2({
+                width: "300px",
+                placeholder: "-None-",
+                placeholderOption: null,
+                allowClear: true,
+                initSelection : function (element, callback) {
+                        for(var i = 0; i < initialSelection.length; i++)
+                        {
+                            if(initialSelection[i].id == $(element).val())
+                            {
+                                callback(initialSelection[i]);
+                                break;
+                            }
+                        }
+                    },
+                query: function(query) {
+                    DefineChannelQuoteController.InitTier3Accounts("{!reqOpp.AccountId}",query.term,function (result, event) {
+                        var decodedResult = $("<div/>").html(result).text();
+                        result = JSON.parse(decodedResult);
+                        query.callback({results: result});
+                    });
+                }
+            });
+        });
+        $(".resellerContactList").each(function(index) {
+            $(this).select2({
+                width: "300px",
+                placeholder: "-None-",
+                placeholderOption: null,
+                allowClear: true,
+                initSelection : function (element, callback) {
+                        for(var i = 0; i < initialSelection.length; i++)
+                        {
+                            if(initialSelection[i].id == $(element).val())
+                            {
+                                callback(initialSelection[i]);
+                                break;
+                            }
+                        }
+                    },
+                query: function(query) {
+                    var acctName= $(".resellerPartnerList").text();
+                    acctName= $.trim(acctName);
+                    DefineChannelQuoteController.InitResellerContacts(acctName,query.term,function (result, event) {
+                        var decodedResult = $("<div/>").html(result).text();
+                        result = JSON.parse(decodedResult);
+                        query.callback({results: result});
+                    });
+                }
+            });
+        });
+    });
+    </script>
+    <apex:sectionHeader title="Channel Partners for:" subtitle="{!reqOpp.Name}"/>
+    <apex:form id="form" >
+        <apex:inputHidden id="hidAccountId" value="{!reqOpp.AccountId}"/>
+        <apex:pageMessages escape="false"/>
+        <apex:pageBlock title="Define Channel" id="block">
+            <apex:pageBlockButtons location="bottom">
+                <apex:commandButton value="Save" action="{!save}" rendered="{!IsSaveEnabled}"/>
+                <input type="button" class="btn" value="Cancel" onclick="window.close()"/>
+            </apex:pageBlockButtons>
+            <apex:pageblockSection columns="1">
+                <table width="100%">
+                    <tr>
+                        <td >
+                            <apex:facet name="header">Partner</apex:facet>
+                            <apex:inputText styleClass="resellerPartnerList" label="Reseller Account:" value="{!PartnerData.Registering_PartnerId}" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <apex:facet name="header">Partner</apex:facet>
+                            <apex:inputText styleClass="resellerContactList" label=" Reseller Sales Rep:" value="{!PartnerData.Registering_Partner_Sales_RepId}" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <apex:facet name="header">Partner</apex:facet>
+                            <apex:inputText styleClass="distibutorPartnerList" label="Distributor Account:" value="{!PartnerData.Registered_DistributorId}" />
+                        </td>
+                    </tr>
+                    <tr>    
+                        <td>
+                            <apex:facet name="header">Partner</apex:facet>
+                            <apex:inputText styleClass="Tier3PartnerList" label="Tier 3 Account:" value="{!PartnerData.Tier2_PartnerId}" />
+                        </td>
+                    </tr>
+                </table>
+                
+            </apex:pageblockSection>
+            <br/>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

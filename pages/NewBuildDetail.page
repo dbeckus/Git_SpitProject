@@ -1,0 +1,68 @@
+<apex:page standardController="Builds__c" extensions="BuildExtension">
+    <apex:sectionHeader subtitle="{!Builds__c.ReleaseCode__c}" title="Release"/>
+    <div style="margin-left: 10px; margin-bottom:10px;">
+         « 
+        <a href="/apex/downloads" style="color: #015BA7; text-decoration: none;">Back to list: Releases</a>
+    </div>
+    <apex:pageBlock >
+        <apex:pageMessages ></apex:pageMessages>
+         <h1>
+             Disclosures
+        </h1>
+                <table width="100%"><tr><td></td></tr>
+                     <tr>
+                         <td width="50px"> <p>
+                             <img src="{!URLFOR($Resource.Releases, 'pic/download.png')}" width="20px" />
+                             </p></td>
+                         <td>
+                             <p>
+                                 <apex:outputLabel style="font-weight:bold" >EULA for EdgeConnect family</apex:outputLabel><br/>
+                                 <apex:outputLabel style="font-size:10px;font-style:italic">End User License Agreement</apex:outputLabel><br/>
+                                   <a href="http://www.silver-peak.com/download/latest/eula_edgeconnect.html" target="_blank">
+                              ››&nbsp;Download</a>
+                             </p>
+                             
+                         </td>
+                    </tr>
+                    <tr>
+                         <td width="50px"> <p>
+                             <img src="{!URLFOR($Resource.Releases, 'pic/download.png')}" width="20px" />
+                             </p></td>
+                         <td>
+                             <p>
+                              <apex:outputLabel style="font-weight:bold" >EULA for NX,VX, and VRX family</apex:outputLabel><br/>
+                             <apex:outputLabel style="font-size:10px;font-style:italic">End User License Agreement</apex:outputLabel><br/>
+                              <a href="http://www.silver-peak.com/download/latest/eula_nx-vx-vrx.html" target="_blank">
+                             ››&nbsp; Download</a>
+                             </p>
+                           
+                         </td>
+                    </tr>
+                </table>
+             
+              
+           
+        
+    </apex:pageBlock>
+    <apex:pageBlock >
+        <apex:pageBlockSection columns="1" title="Information" collapsible="false">
+            <apex:outputField label="Release Number" value="{!Builds__c.ReleaseCode__c}"/>
+            <apex:outputField label="ECO Date" value="{!Builds__c.ECO_Date__c}"/>
+            <apex:outputField value="{!Builds__c.Status__c}"/>
+            <apex:outputField label="Release Highlights" value="{!Builds__c.Build_Details__c}"/>
+        </apex:pageBlockSection>
+    </apex:pageBlock>
+    <apex:pageBlock title="Images and Documentation">
+       <apex:outputText rendered="{!AND(FilesData.size = 0)}" value="No records were found." />
+        <apex:pageBlockTable value="{!FilesData}" var="file" rendered="{!AND(FilesData.size > 0)}">
+            <apex:column headerValue="Download" width="50" style="text-align:center">
+                <apex:outputLink value="/apex/Ensemblestorage__DownloadFile?id={!file.Id}" target="_blank">
+                    <img src="{!URLFOR($Resource.Releases, 'pic/download.png')}" width="20px" />
+                </apex:outputLink>
+            </apex:column>
+            <apex:column value="{!file.Name}" />
+            <apex:column value="{!file.Ensemblestorage__Comment__c}"/>
+            <apex:column value="{!file.Ensemblestorage__FormatedSize__c}"/>            
+        </apex:pageBlockTable>
+    </apex:pageBlock>
+</apex:page>

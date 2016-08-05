@@ -1,0 +1,6 @@
+<apex:page controller="PartnerPortalPageRenderController" standardStylesheets="false" showHeader="false" action="{!authenticate}">
+    <apex:composition template="PartnerCommunityTemplate">
+        <apex:define name="title">Channel Partner Program | {!Title}</apex:define>
+        <apex:define name="body"><apex:outputText escape="false" value="{!PageContent}"></apex:outputText></apex:define>
+    </apex:composition>
+</apex:page>

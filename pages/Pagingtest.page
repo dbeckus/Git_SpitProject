@@ -1,0 +1,19 @@
+<apex:page controller="PagingTestController">
+     <apex:form >
+        <apex:pageBlock >
+            <apex:pageBlockTable value="{!Opportunities}" var="o">
+                <apex:column value="{!o.name}"/>
+                <apex:column value="{!o.closedate}"/>
+            </apex:pageBlockTable>
+           
+            <apex:commandButton rendered="{!setCon.hasPrevious}" value="first" action="{!setCon.first}"/>
+            <apex:commandButton rendered="{!setCon.hasPrevious}" value="Previous" action="{!setCon.previous}"/>
+            <apex:outputText rendered="{!(setCon.pageNumber * setCon.pageSize) < setCon.ResultSize}" value="{!setCon.pageNumber * setCon.pageSize} Of {!setCon.ResultSize}"></apex:outputText>
+            <apex:outputText rendered="{!(setCon.pageNumber * setCon.pageSize) >= setCon.ResultSize}" value="{!setCon.ResultSize} Of {!setCon.ResultSize}"></apex:outputText>
+           
+            <apex:commandButton rendered="{!setCon.hasNext}" value="next" action="{!setCon.next}"/>
+           
+            <apex:commandButton rendered="{!setCon.hasNext}" value="last" action="{!setCon.last}"/>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

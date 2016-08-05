@@ -1,0 +1,98 @@
+<apex:page showHeader="false" standardStylesheets="false" controller="PartnerPortalController" applyBodyTag="false">
+ <head id="GlobalHead">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=990" />
+  <meta name="MobileOptimized" content="990" />
+  <title>
+      <apex:insert name="title"/>
+  </title>
+    <link rel="stylesheet" href="{!URLFor($Resource.PartnerPortal, 'css/additional.css')}"></link>
+    <link rel="stylesheet" href ="{!URLFor($Resource.PartnerPortal, 'css/all.css')}"></link>
+    <link rel="stylesheet" href ="{!URLFor($Resource.PartnerPortal, 'css/breadcrumb_navigation.css')}"></link>
+    <link rel="stylesheet" href ="{!URLFor($Resource.PartnerPortal, 'css/calendar.css')}"></link>
+    <link rel="stylesheet" href ="{!URLFor($Resource.PartnerPortal, 'css/top_navigation.css')}"></link>
+  <!--<style type="text/css">
+   .tk-proxima-nova{font-family:"proxima-nova",sans-serif;}
+  </style>
+  <script type="text/javascript">
+   try{
+    Typekit.load();
+   }catch(e){
+   }
+  </script>-->
+  <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script> 
+  <script type="text/javascript">window.jQuery || document.write('<script src="{!URLFor($Resource.PartnerPortal, 'js/jquery-1.8.3.min.js')}"><\/script>')</script>
+  <script type="text/javascript" src="{!URLFOR($Resource.PartnerPortal, 'js/jquery.main.js')}"></script> 
+  <script type="text/javascript" src="{!URLFOR($Resource.PartnerPortal, 'js/jQuery.cookie.js')}"></script> 
+  <!--<script type="text/javascript" src="{!URLFOR($Resource.PartnerPortal, 'js/jquery.validate.min.js')}"></script> -->
+  <script type="text/javascript">
+      $(document).ready(function() {
+          $("a").each(function() {
+              var href = $(this).attr("href");
+              if(href) {
+                  var hrefParts = href.match(/content_download\?doc=([\w\-]+)/i);
+                  if(hrefParts && hrefParts.length == 2) {
+                      var docNumber = hrefParts[1];
+                      $(this).click(function() {
+                          getDownload(docNumber);
+                          return false;
+                      });
+                  }
+              }
+          });
+          $(".ssoLogin").click(function(){
+              setTimeout("$.cookie('sso', 1)", 6000);
+          });
+          $(".ssoInternal").each(function(){
+              $(this).click(function(){
+                  if($.cookie('sso') == 1){
+                      return true;
+                  }else{
+                      $("#overlayMessage").show();
+                      $("#overlayBackground").show();
+                      popup = window.open("/absorb_login", "_blank", "width=400,height=200");
+                      setTimeout("openSSOInternalLink('" + $(this).attr("href") + "')", 8000);
+                      return false;
+                  }
+              });
+          });
+      });
+      function openSSOInternalLink(url)
+      {
+          $("#overlayMessage").hide();
+          $("#overlayBackground").hide();
+          if(popup)popup.close();
+          $.cookie('sso', 1);
+          window.location=url;
+      }
+      function getDownload(docNumber) {
+          Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.PartnerPortalController.getDownloadLink}', 
+              docNumber, 
+              function(result, event) {
+                  if(event.status && result) {
+                      top.location = result;
+                  }
+                  else {
+                      top.location = "/content_download?doc=" + docNumber;
+                  }
+              });
+      }
+      var url = window.location.href.toLowerCase();
+      if(url.indexOf('partner.silver-peak.com') > 0) {
+          url = url.replace('partner.silver-peak.com', 'partners.silver-peak.com');
+          window.location = url;
+      }
+  </script>
+ </head>
+    <body>
+        <apex:outputPanel styleClass="logout" layout="{!IF(IsAuthorized, 'none', 'block')}">
+            <div id="wrapper">
+                <c:PartnerPortalHeader isAuthorized="{!IsAuthorized}" />
+                <apex:insert name="body"/>
+                <c:PartnerPortalFooter />
+            </div>
+        </apex:outputPanel>
+        <div id="overlayMessage" style="display:none; position: fixed;top: 300px;left: 40%;z-index: 50101;padding: 10px;background-color: #B5B5B5;border: 2px solid #B5B5B5;border-radius: 10px;"><span style="font-size: 18px;color:white;">Logging In...</span></div>
+        <div id="overlayBackground" style="width: 10000px; height: 20000px; display: none;background-color: #000;border: none;opacity: .6;position: fixed;top: 0;left: 0;z-index: 50100;"></div>
+ </body>
+</apex:page>

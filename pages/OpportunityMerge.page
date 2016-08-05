@@ -1,0 +1,116 @@
+<apex:page id="page" controller="OpportunityMergeController" tabStyle="Opportunity">
+    <style>
+        .invisibleRadio input
+        {
+            display: none;
+        }
+    </style>
+    <apex:includeScript value="{!URLFOR($Resource.jQuery, 'jquery-1.4.3.min.js')}" />
+    <script type="text/javascript">
+    $(function()
+    {
+        $(":radio").parent().parent().parent().parent().width("90%");
+        $(":radio").parent().css("border-bottom", "none");
+        $(":radio").parent().parent().css("border-bottom", "none");
+        $(":radio").parent().width("55%");
+        $(".headerRow:last").children("div").html
+        (
+            '<div>{!LeftOpp.Name}&nbsp;<a href="javascript:void(0);" onclick="selectAll(0)">[Select All]</a></div>' + 
+            '<div>{!RightOpp.Name}&nbsp;<a href="javascript:void(0);" onclick="selectAll(1)">[Select All]</a></div>'
+        );
+        $(".headerRow:last").children("div").children("div").css({"float": "left", "width": "49.5%"});
+        $(".headerRow:last").children("div").children("div").children("a").css("border-bottom", "solid 1px");
+        $(":radio").next().each(function(e) 
+        {
+            $(this).html($(this).text());
+        });
+    });
+    
+    function selectAll(index)
+    {
+        if(index == 0)
+        {
+            $("[id$='myRadio:0']").each(function() {
+                if($(this).css("display") != "none")
+                {
+                    $(this).attr("checked", "checked");
+                }
+            });
+            $(".ListRadio :radio").each(function()
+            {
+                if($(this).get(0).checked)
+                {
+                    $(this).next().text("Keep");
+                }
+                else
+                {
+                    $(this).next().text("Discard");
+                }
+            });   
+        }
+        if(index == 1)
+        {
+            $("[id$='myRadio:1']").each(function() {
+                if($(this).css("display") != "none")
+                {
+                    $(this).attr("checked", "checked");
+                }
+            });
+            $(".ListRadio :radio").each(function()
+            {
+                if($(this).get(0).checked)
+                {
+                    $(this).next().text("Keep");
+                }
+                else
+                {
+                    $(this).next().text("Discard");
+                }
+            }); 
+        }
+    }
+    
+    function changeLabel(radio)
+    {
+        $(".ListRadio :radio").each(function()
+        {
+            if($(this).attr("name") == radio.attr("name"))
+            {
+                if($(this).get(0).checked)
+                {
+                    $(this).next().text("Keep");
+                }
+                else
+                {
+                    $(this).next().text("Discard");
+                }
+            }
+        });   
+    }
+    </script>
+    <apex:sectionHeader title="Opportunity Merge" subtitle="Choose fields for Merge"/>
+    <apex:form id="form">
+        <apex:pagemessages />
+        <apex:pageBlock id="pageBlock" title="Choose fields">
+            <apex:pageBlockButtons >
+                <apex:commandButton value="Previous" action="{!prev}"/>
+                <apex:commandButton value="Merge" action="{!mergeOpps}"/>
+                <apex:commandButton value="Cancel" action="{!cancel}"/>
+            </apex:pageBlockButtons>
+            <apex:pageBlockSection id="pageBlockSection" collapsible="false" columns="1">
+                <apex:pageBlockTable id="pageBlockTable" value="{!ComparingFields}" var="oppInfo">
+                    <apex:column headerValue="Field Name" value="{!oppInfo.fieldLabel}" width="20%"/>
+                    <apex:column >
+                        <span class="{!IF(oppInfo.KeepDiscard, 'ListRadio', 'FieldRadio')}">
+                            <span class="{!IF(oppInfo.displayRadio, 'visibleRadio', 'invisibleRadio')}">
+                                <apex:selectRadio id="myRadio" value="{!oppInfo.selectedSide}" onClick="changeLabel($(this))">
+                                    <apex:selectOptions value="{!oppInfo.options}"/>
+                                </apex:selectRadio>
+                            </span>
+                        </span>
+                    </apex:column>
+                </apex:pageBlockTable>
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<HomePageComponent xmlns="http://soap.sforce.com/2006/04/metadata">
+    <links>How_Do_I</links>
+    <links>Webex</links>
+    <links>Web_Mail</links>
+    <links>Replication_Demo</links>
+    <links>SPD_Demo</links>
+    <links>SFDC_Friend_Report</links>
+    <pageComponentType>links</pageComponentType>
+</HomePageComponent>

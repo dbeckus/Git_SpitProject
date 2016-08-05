@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Event</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Events</value>
+    </caseValues>
+    <fields>
+        <help><!-- number of attendees that are confirmed in the event --></help>
+        <label><!-- Confirmed Registrations --></label>
+        <name>Confirmed_Registrations__c</name>
+    </fields>
+    <fields>
+        <label><!-- Course Name --></label>
+        <name>Course_Name__c</name>
+        <relationshipLabel><!-- Events --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- End Date --></label>
+        <name>End_Date__c</name>
+    </fields>
+    <fields>
+        <label><!-- Equipment --></label>
+        <name>Equipment__c</name>
+    </fields>
+    <fields>
+        <help><!-- Check this box to prevent the event from being displayed on the Upcoming Events listing on the public registration site --></help>
+        <label><!-- Hide from Event List --></label>
+        <name>Hide_Event__c</name>
+    </fields>
+    <fields>
+        <label><!-- Instructor --></label>
+        <name>Instructor__c</name>
+        <picklistValues>
+            <masterLabel>Abeywickrema</masterLabel>
+            <translation><!-- Abeywickrema --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Berger</masterLabel>
+            <translation><!-- Berger --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Bettolo</masterLabel>
+            <translation><!-- Bettolo --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Bombagi</masterLabel>
+            <translation><!-- Bombagi --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Curl</masterLabel>
+            <translation><!-- Curl --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Fehleisen</masterLabel>
+            <translation><!-- Fehleisen --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Fernando</masterLabel>
+            <translation><!-- Fernando --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Gelman</masterLabel>
+            <translation><!-- Gelman --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Grant</masterLabel>
+            <translation><!-- Grant --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Keinke</masterLabel>
+            <translation><!-- Keinke --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Kwan</masterLabel>
+            <translation><!-- Kwan --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>McCabe</masterLabel>
+            <translation><!-- McCabe --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Meyer</masterLabel>
+            <translation><!-- Meyer --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Miller</masterLabel>
+            <translation><!-- Miller --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Natzke</masterLabel>
+            <translation><!-- Natzke --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Peterson</masterLabel>
+            <translation><!-- Peterson --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Pocciotti</masterLabel>
+            <translation><!-- Pocciotti --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Ricce</masterLabel>
+            <translation><!-- Ricce --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Roberts</masterLabel>
+            <translation><!-- Roberts --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Rogers</masterLabel>
+            <translation><!-- Rogers --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Russell</masterLabel>
+            <translation><!-- Russell --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Stanney</masterLabel>
+            <translation><!-- Stanney --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Suehring</masterLabel>
+            <translation><!-- Suehring --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Thedford</masterLabel>
+            <translation><!-- Thedford --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Yeo</masterLabel>
+            <translation><!-- Yeo --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <help><!-- Silver Peak Systems World Headquarters
+2860 De La Cruz Blvd Suite 100
+Santa Clara, CA 95050
+408-935-1800 --></help>
+        <label><!-- Location --></label>
+        <name>Location__c</name>
+    </fields>
+    <fields>
+        <help><!-- Total spots avaialble for training event --></help>
+        <label><!-- Maximum Attendees --></label>
+        <name>Maximum_Attendees__c</name>
+    </fields>
+    <fields>
+        <label><!-- Openings --></label>
+        <name>Openings__c</name>
+    </fields>
+    <fields>
+        <help><!-- number of contacts registered --></help>
+        <label><!-- Registered Attendees --></label>
+        <name>Registered_Attendees__c</name>
+    </fields>
+    <fields>
+        <help><!-- Enter the times for the event dates (i.e. 9am to 5pm T,W 9am to 1PM Th) --></help>
+        <label><!-- Session Times --></label>
+        <name>Session_Times__c</name>
+    </fields>
+    <fields>
+        <label><!-- Start Date --></label>
+        <name>Start_Date__c</name>
+    </fields>
+    <layouts>
+        <layout>Event Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+        <sections>
+            <label><!-- Equipment --></label>
+            <section>Equipment</section>
+        </sections>
+    </layouts>
+    <recordTypes>
+        <label><!-- Customer --></label>
+        <name>Customer</name>
+    </recordTypes>
+    <recordTypes>
+        <label><!-- Partner --></label>
+        <name>Partner</name>
+    </recordTypes>
+    <startsWith>Vowel</startsWith>
+    <webLinks>
+        <label><!-- MarkParticipantsAsSPXTrained --></label>
+        <name>MarkParticipantsAsSPXTrained</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- Mark_Participants_as_Certified --></label>
+        <name>Mark_Participants_as_Certified</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- Mark_Participants_as_Trained --></label>
+        <name>Mark_Participants_as_Trained</name>
+    </webLinks>
+</CustomObjectTranslation>

@@ -1,0 +1,21 @@
+<apex:component controller="EOMAssetsController" access="global">
+<apex:attribute type="string" name="account" assignTo="{!AccountId}" description="Pass account id"/>
+<table cellpadding="5px" style="font-size:12px;border-collapse:collapse;">
+<tr>
+<td style="border:1px solid black;">Purchase Date</td>
+<td style="border:1px solid black;">Serial Number</td>
+<td style="border:1px solid black;">Model</td>
+<td style="border:1px solid black;">Current Maintenance Expiration</td>
+<td style="border:1px solid black;">EOM Date</td>
+</tr>
+<apex:repeat value="{!EOMAssets}" var="asset">
+<tr>
+<td style="border:1px solid black;"><apex:outputtext value="{0, date, MM'/'dd'/'yyyy}"><apex:param value="{!asset.Ship_Date__c}"/></apex:outputtext></td>
+<td style="border:1px solid black;">{!asset.SerialNumber}</td>
+<td style="border:1px solid black;">{!asset.Model__c}</td>
+<td style="border:1px solid black;"><apex:outputtext value="{0, date, MM'/'dd'/'yyyy}"><apex:param value="{!asset.Contract_End__c}"/></apex:outputtext></td>
+<td style="border:1px solid black;"><apex:outputtext value="{0, date, MM'/'dd'/'yyyy}"><apex:param value="{!asset.End_of_Maintenance__c}"/></apex:outputtext></td>
+</tr>
+</apex:repeat>
+</table>
+</apex:component>

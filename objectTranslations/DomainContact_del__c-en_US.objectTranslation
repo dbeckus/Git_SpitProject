@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>DomainContact</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>DomainContacts</value>
+    </caseValues>
+    <fields>
+        <label><!-- Account --></label>
+        <name>Account__c</name>
+        <relationshipLabel><!-- DomainContacts --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Contact --></label>
+        <name>Contact__c</name>
+        <relationshipLabel><!-- DomainContacts --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Domain --></label>
+        <name>Domain__c</name>
+    </fields>
+    <fields>
+        <label><!-- IsSupport --></label>
+        <name>IsSupport__c</name>
+    </fields>
+    <fields>
+        <label><!-- fax --></label>
+        <name>fax__c</name>
+    </fields>
+    <fields>
+        <label><!-- home --></label>
+        <name>home__c</name>
+    </fields>
+    <fields>
+        <label><!-- mobile --></label>
+        <name>mobile__c</name>
+    </fields>
+    <fields>
+        <label><!-- other --></label>
+        <name>other__c</name>
+    </fields>
+    <fields>
+        <label><!-- phone --></label>
+        <name>phone__c</name>
+    </fields>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

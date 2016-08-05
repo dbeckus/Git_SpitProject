@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Registration</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Registrations</value>
+    </caseValues>
+    <fields>
+        <label><!-- Attendee Company --></label>
+        <name>Attendee_Company__c</name>
+    </fields>
+    <fields>
+        <label><!-- Attendee Email --></label>
+        <name>Attendee_Email__c</name>
+    </fields>
+    <fields>
+        <label><!-- Attendee Phone --></label>
+        <name>Attendee_Phone__c</name>
+    </fields>
+    <fields>
+        <label><!-- Attendee --></label>
+        <name>Attendee__c</name>
+        <relationshipLabel><!-- Registrations --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Authorization Code --></label>
+        <name>Authorization_Code__c</name>
+    </fields>
+    <fields>
+        <label><!-- Authorization Id --></label>
+        <name>Authorization__c</name>
+        <relationshipLabel><!-- Registrations --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Comments --></label>
+        <name>Comments__c</name>
+    </fields>
+    <fields>
+        <help><!-- Training Mgr and Instructor to manage this field --></help>
+        <label><!-- Confirmed --></label>
+        <name>Confirmed__c</name>
+    </fields>
+    <fields>
+        <help><!-- Special Dietary Considerations? We will contact you for more information if yes --></help>
+        <label><!-- Diet --></label>
+        <name>Diet__c</name>
+        <picklistValues>
+            <masterLabel>No</masterLabel>
+            <translation><!-- No --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Yes</masterLabel>
+            <translation><!-- Yes --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Event --></label>
+        <name>Event__c</name>
+        <relationshipLabel><!-- Registrations --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Polo Shirt Size --></label>
+        <name>Polo_Shirt_Size__c</name>
+        <picklistValues>
+            <masterLabel>L</masterLabel>
+            <translation><!-- L --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>M</masterLabel>
+            <translation><!-- M --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>S</masterLabel>
+            <translation><!-- S --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>XL</masterLabel>
+            <translation><!-- XL --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>XS</masterLabel>
+            <translation><!-- XS --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>XXL</masterLabel>
+            <translation><!-- XXL --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>XXXL</masterLabel>
+            <translation><!-- XXXL --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Qty --></label>
+        <name>Qty__c</name>
+    </fields>
+    <fields>
+        <help><!-- Participate in a class dinner sponsored by Silver Peak? --></help>
+        <label><!-- Social --></label>
+        <name>Social__c</name>
+        <picklistValues>
+            <masterLabel>No</masterLabel>
+            <translation><!-- No --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Yes</masterLabel>
+            <translation><!-- Yes --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <help><!-- Check this box if you do not want the registrant to receive an email confirming their registration. --></help>
+        <label><!-- Suppress Confirmation Email --></label>
+        <name>Suppress_Confirmation_Email__c</name>
+    </fields>
+    <fields>
+        <label><!-- Survey Sent --></label>
+        <name>Survey_Sent__c</name>
+    </fields>
+    <layouts>
+        <layout>Registration Layout</layout>
+        <sections>
+            <label><!-- Comments --></label>
+            <section>Comments</section>
+        </sections>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+    </layouts>
+    <startsWith>Consonant</startsWith>
+    <webLinks>
+        <label><!-- Email_Survey --></label>
+        <name>Email_Survey</name>
+    </webLinks>
+</CustomObjectTranslation>

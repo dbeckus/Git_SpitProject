@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Purchase Request Line</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Purchase Request Lines</value>
+    </caseValues>
+    <fields>
+        <label><!-- Account As --></label>
+        <name>Capital_or_Expenses__c</name>
+        <picklistValues>
+            <masterLabel>Capital</masterLabel>
+            <translation><!-- Capital --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Expense</masterLabel>
+            <translation><!-- Expense --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Department --></label>
+        <name>Department__c</name>
+        <picklistValues>
+            <masterLabel>110-Bus Ops</masterLabel>
+            <translation><!-- 110-Bus Ops --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>190-Alloc</masterLabel>
+            <translation><!-- 190-Alloc --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>310-Sales</masterLabel>
+            <translation><!-- 310-Sales --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>321-Singapore</masterLabel>
+            <translation><!-- 321-Singapore --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>331-Brazil</masterLabel>
+            <translation><!-- 331-Brazil --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>380-Support</masterLabel>
+            <translation><!-- 380-Support --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>410-Marketing</masterLabel>
+            <translation><!-- 410-Marketing --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>412-Marketing Communications</masterLabel>
+            <translation><!-- 412-Marketing Communications --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>414-Corporate Communications</masterLabel>
+            <translation><!-- 414-Corporate Communications --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>416-Marketing Operations</masterLabel>
+            <translation><!-- 416-Marketing Operations --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>418-Channel Marketing</masterLabel>
+            <translation><!-- 418-Channel Marketing --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>450-Bus Dev</masterLabel>
+            <translation><!-- 450-Bus Dev --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>510-Engineering</masterLabel>
+            <translation><!-- 510-Engineering --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>520-Product Management</masterLabel>
+            <translation><!-- 520-Product Management --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>710-Operations</masterLabel>
+            <translation><!-- 710-Operations --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Description --></label>
+        <name>Description__c</name>
+    </fields>
+    <fields>
+        <label><!-- GL Account --></label>
+        <name>GL_Account__c</name>
+    </fields>
+    <fields>
+        <label><!-- Line Total --></label>
+        <name>Line_Total__c</name>
+    </fields>
+    <fields>
+        <label><!-- Project --></label>
+        <name>Project__c</name>
+        <picklistValues>
+            <masterLabel>100002-Gartner Data Center-2011</masterLabel>
+            <translation><!-- 100002-Gartner Data Center-2011 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>100004-Gartner Demand-Lead Gen-2012</masterLabel>
+            <translation><!-- 100004-Gartner Demand-Lead Gen-2012 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>100007-Demand-Lead Gen Campaign Q3</masterLabel>
+            <translation><!-- 100007-Demand-Lead Gen Campaign Q3 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>100008-SCTP Training Seminars</masterLabel>
+            <translation><!-- 100008-SCTP Training Seminars --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>100009-Vendor Exp-Eric C Only</masterLabel>
+            <translation><!-- 100009-Vendor Exp-Eric C Only --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>100012-Sales Analytics</masterLabel>
+            <translation><!-- 100012-Sales Analytics --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>100013-Marketing Analytics</masterLabel>
+            <translation><!-- 100013-Marketing Analytics --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>100014-Marketing Database</masterLabel>
+            <translation><!-- 100014-Marketing Database --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>100015-Marketing Automation</masterLabel>
+            <translation><!-- 100015-Marketing Automation --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>100016-CRM Development and Management</masterLabel>
+            <translation><!-- 100016-CRM Development and Management --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>100017-General Marketing Operations</masterLabel>
+            <translation><!-- 100017-General Marketing Operations --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>100018-Salesforce Automation</masterLabel>
+            <translation><!-- 100018-Salesforce Automation --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>100019–Corporate Website Redesign</masterLabel>
+            <translation><!-- 100019–Corporate Website Redesign --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>100020-Vendor Exp-Melanie C Only</masterLabel>
+            <translation><!-- 100020-Vendor Exp-Melanie C Only --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>100021-Tele-Marketing</masterLabel>
+            <translation><!-- 100021-Tele-Marketing --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>100022-MO Events</masterLabel>
+            <translation><!-- 100022-MO Events --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>100024-Contact Acquisition</masterLabel>
+            <translation><!-- 100024-Contact Acquisition --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>100026-Velocity 2013 LNL Tour</masterLabel>
+            <translation><!-- 100026-Velocity 2013 LNL Tour --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>100027-Online Media</masterLabel>
+            <translation><!-- 100027-Online Media --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>100028-Marketing Programs</masterLabel>
+            <translation><!-- 100028-Marketing Programs --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>100030-EMC World 2014</masterLabel>
+            <translation><!-- 100030-EMC World 2014 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>100031-VMworld 2014</masterLabel>
+            <translation><!-- 100031-VMworld 2014 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>100032-MDF-Eric Morin</masterLabel>
+            <translation><!-- 100032-MDF-Eric Morin --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>100033-MDF-Colm Foley</masterLabel>
+            <translation><!-- 100033-MDF-Colm Foley --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>100034-MDF-Glenn Zaffree</masterLabel>
+            <translation><!-- 100034-MDF-Glenn Zaffree --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>100035-MDF-Katie Tracy</masterLabel>
+            <translation><!-- 100035-MDF-Katie Tracy --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>100036-MDF-Michele Pietruszynski</masterLabel>
+            <translation><!-- 100036-MDF-Michele Pietruszynski --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>100037-MDF-Nancy Bradford</masterLabel>
+            <translation><!-- 100037-MDF-Nancy Bradford --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>100038-MDF-Todd Cleveland</masterLabel>
+            <translation><!-- 100038-MDF-Todd Cleveland --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>100039-NetApp Insight 2014</masterLabel>
+            <translation><!-- 100039-NetApp Insight 2014 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>100040-EMC World 2015</masterLabel>
+            <translation><!-- 100040-EMC World 2015 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>100041-VMworld 2015</masterLabel>
+            <translation><!-- 100041-VMworld 2015 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>100042-VMworld Partner Exchange 2015</masterLabel>
+            <translation><!-- 100042-VMworld Partner Exchange 2015 --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Purchasing Request --></label>
+        <name>Purchasing_Request__c</name>
+        <relationshipLabel><!-- Purchase Request Lines --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Qty --></label>
+        <name>Qty__c</name>
+    </fields>
+    <fields>
+        <label><!-- Unit Price --></label>
+        <name>Unit_Price__c</name>
+    </fields>
+    <layouts>
+        <layout>Purchase Request Line Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+        <sections>
+            <label><!-- Finance Use Only --></label>
+            <section>Finance Use Only</section>
+        </sections>
+    </layouts>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

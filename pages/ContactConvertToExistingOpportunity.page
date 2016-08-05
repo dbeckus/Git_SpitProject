@@ -1,0 +1,31 @@
+<apex:page standardController="Contact" extensions="ContactConvertToOpportunityController" tabStyle="Opportunity">
+    <apex:sectionHeader title="Convert to Existing Opportunity" subtitle="{!Contact.Name}" />
+    <apex:pageMessages />
+    <apex:form >
+        <apex:outputPanel layout="inline" rendered="{!OpportunityOptions.size = 0}">There are currently no open opportunities on this account to attach the contact to, please <apex:commandLink value="click here" action="{!Cancel}" /> to go back.</apex:outputPanel>
+
+        <apex:pageBlock mode="edit" rendered="{!OpportunityOptions.size > 0}">
+            <apex:pageBlockButtons >
+                <apex:commandButton value=" Save " action="{!ConvertToExistingOpportunity}" />
+                <apex:commandButton value=" Cancel " action="{!Cancel}" />
+            </apex:pageBlockButtons>
+            <apex:pageBlockSection title="Opportunity" columns="1">
+                <apex:outputField value="{!Opportunity.AccountId}" />
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Opportunity Name" for="opportunitySelect" />
+                    <apex:selectList id="opportunitySelect" size="1" multiselect="false" value="{!OpportunityId}">
+                        <apex:selectOptions value="{!OpportunityOptions}" />
+                    </apex:selectList>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Contact Role" for="contactRole" />
+                    <apex:inputField value="{!OCR.Role}" id="contactRole" required="true"/>
+                </apex:pageBlockSectionItem>
+                <!--<apex:pageBlockSectionItem>
+                    <apex:outputLabel value="Send Email to the Owner" for="emailOpt" />
+                    <apex:inputCheckbox value="{!IsSendNotificationEmail}" id="emailOpt" />
+                </apex:pageBlockSectionItem>--> 
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

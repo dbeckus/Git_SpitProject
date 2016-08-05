@@ -1,0 +1,235 @@
+<apex:page standardController="Quote__c" extensions="QuoteController" sidebar="false" id="page" tabStyle="Quote__c" action="{!copy}">
+    <script>
+        function formatCurrency(value)
+        {
+            var format = "{!CurrencyFormat}";
+            var delimiter = format.substr(1, 1);
+            var decimalPoint = format.substr(5, 1);
+            return addCommas(value.toFixed(2), delimiter, decimalPoint);
+        }
+        function getFloatNumber(str)
+        {
+            var format = "{!CurrencyFormat}";
+            var delimiter = format.substr(1, 1);
+            var decimalPoint = format.substr(5, 1);
+            str = str.replace(/&nbsp;/g, " ");
+            while(str.indexOf(delimiter) >= 0)
+            {
+                str = str.replace(delimiter, "");
+            }
+            str = str.replace(/\s/g, "");
+            str = str.replace(decimalPoint, ".");
+            if(str.substr(0, 1) == "$")
+            {
+                str = str.substr(1);
+            }
+            return parseFloat(str);
+        }
+        function addCommas(nStr, delimiter, decimalPoint)
+        {
+            nStr += '';
+            x = nStr.split(".");
+            x1 = x[0];
+            x2 = x.length > 1 ? decimalPoint + x[1] : '';
+            var rgx = /(\d+)(\d{3})/;
+            while (rgx.test(x1)) {
+                x1 = x1.replace(rgx, '$1' + delimiter + '$2');
+            }
+            return x1 + x2;
+        }
+        function formatListPrices()
+        {
+            var rowIndex = 0;
+            while(true)
+            {
+                var listPriceDom = document.getElementById("page:form:pageblock:section:table:" + rowIndex + ":listPriceValue");
+                if(listPriceDom == null)
+                {
+                    break;
+                }
+                else
+                {
+                    var listPrice = listPriceDom.innerHTML;
+                    listPrice = listPrice.replace(/[,|\$]/g, "");
+                    listPrice = parseFloat(listPrice);
+                    document.getElementById("page:form:pageblock:section:table:" + rowIndex + ":listPriceValue").innerHTML = "$" + formatCurrency(listPrice);
+                }
+                rowIndex++;
+            }
+        }
+        function getListPrice(rowIndex)
+        {
+            var value = document.getElementById("page:form:pageblock:section:table:" + rowIndex + ":listPriceValue").innerHTML;
+            return getFloatNumber(value);
+        }
+        function getQuantity(rowIndex)
+        {
+            var value = document.getElementById("page:form:pageblock:section:table:" + rowIndex + ":quantityValue").value;
+            return getFloatNumber(value);
+        }
+        function getUnitPrice(rowIndex)
+        {
+            var obj = document.getElementById("page:form:pageblock:section:table:" + rowIndex + ":unitPriceValue")
+            if(obj == null)
+            {
+                return getListPrice(rowIndex);
+            }
+            else
+            {
+                return getFloatNumber(obj.value);
+            }
+        }
+        function setUnitPrice(rowIndex, value)
+        {
+            document.getElementById("page:form:pageblock:section:table:" + rowIndex + ":unitPriceValue").value = value;
+        }
+        function getDiscount(rowIndex)
+        {
+            var obj = document.getElementById("page:form:pageblock:section:table:" + rowIndex + ":discountValue");
+            var value = (obj == null) ? 0 : obj.value;
+            return getFloatNumber(value);
+        }
+        function setDiscount(rowIndex, value)
+        {
+            document.getElementById("page:form:pageblock:section:table:" + rowIndex + ":discountValue").value = value;
+        }
+        function getLineSubTotal(rowIndex)
+        {
+            var ctrl = document.getElementById("page:form:pageblock:section:table:" + rowIndex + ":linePriceValue");
+            if(ctrl == null)
+            {
+                return null;
+            }
+            else
+            {
+                return getFloatNumber(ctrl.innerHTML);
+            }
+        }
+        function setLineSubTotal(rowIndex, value)
+        {
+            document.getElementById("page:form:pageblock:section:table:" + rowIndex + ":linePriceValue").innerHTML = "$" + value;
+            updateGrandTotal();
+        }
+        function updateDiscount(rowIndex)
+        {
+            var unitPrice = getUnitPrice(rowIndex);
+            var listPrice = getListPrice(rowIndex);
+            unitPrice = isNaN(unitPrice) ? 0 : unitPrice;
+            if(listPrice == 0)
+            {
+                setDiscount(rowIndex, 0.00);
+            }
+            else
+            {
+                setDiscount(rowIndex, formatCurrency((100 - unitPrice / listPrice * 100)));
+            }
+        }
+        function updateUnitPrice(rowIndex)
+        {
+            var listPrice = getListPrice(rowIndex);
+            var discount = getDiscount(rowIndex);
+            listPrice = isNaN(listPrice) ? 0 : listPrice;
+            discount = isNaN(discount) ? 0 : discount;
+            setUnitPrice(rowIndex, formatCurrency((listPrice * (100 - discount) / 100)));
+        }
+        function updateLineSubtotal(rowIndex)
+        {
+            var unitPrice = getUnitPrice(rowIndex);
+            var qty = getQuantity(rowIndex);
+            unitPrice = isNaN(unitPrice) ? 0 : unitPrice;
+            qty = isNaN(qty) ? 0 : qty;
+            setLineSubTotal(rowIndex, formatCurrency((unitPrice * qty)));
+        }
+        function updateAllSubtotals()
+        {
+            var rowIndex = 0;
+            while(true)
+            {
+                var linePrice = document.getElementById("page:form:pageblock:section:table:" + rowIndex + ":linePriceValue");
+                if(linePrice != null)
+                {
+                    updateLineSubtotal(rowIndex++);
+                }
+                else
+                {
+                    break;
+                }
+            }
+        }
+        function updateGrandTotal()
+        {
+            var total = 0;
+            var rowIndex = 0;
+            while(true)
+            {
+                var subTotal = getLineSubTotal(rowIndex++);
+                if(subTotal == null)
+                {
+                    break;
+                }
+                else
+                {
+                    total += subTotal;
+                }
+            }
+            document.getElementById("page:form:pageblock:section:table:totalAmount").innerHTML = "$" + formatCurrency(total);
+        }
+    </script>
+    <apex:form id="form">
+        <apex:inputHidden id="delId" value="{!delId}"/>
+        <apex:actionFunction name="asyncUpdate" action="{!asyncUpdateProduct}" rerender="pageblock"/>
+        <apex:sectionHeader title="Opportunity" subtitle="{!quote.Opportunity__r.Name} -- {!quote.Opportunity__r.StageName}"/>
+        <!--<div>Quote is locked and can not be edited</div>-->
+        <apex:pageBlock title="Edit Line Items" mode="edit" id="pageblock" rendered="{!NOT(ISNULL(quote))}">
+            <apex:pagemessages />
+            <apex:pageBlockButtons >
+                <apex:commandButton value=" Add " action="{!add}" rendered="{!NOT(quote.Approval_Made__c)}" /> 
+                <apex:commandButton value=" Reset " action="{!reset}" rendered="{!NOT(quote.Approval_Made__c)}" />                
+                <apex:commandButton value=" Save " action="{!save}" rendered="{!NOT(quote.Approval_Made__c)}" />
+                <apex:commandButton value=" Save and Make Primary" action="{!saveAndMakePrimary}" rendered="{!NOT(quote.Approval_Made__c)}" onclick="return confirm('This operation will copy products to opportunity and make this quote primary. Are you sure?')" />
+                <apex:outputPanel layout="inline" rendered="{!quote.Approval_Made__c}">Quote is locked and can not be edited</apex:outputPanel>
+                <apex:commandLink value=" Cancel " action="{!quotePage}" /> 
+            </apex:pageBlockButtons>
+            <apex:pageBlockSection title="Quote Number : {!quote.Name} Valid Until {!quote.Quote_Valid_Until__c}" columns="1" id="section">
+                <apex:variable var="rowIndex" value="{!0}" />
+                <apex:pageBlockTable value="{!items}" var="item" style="width:100%;" styleClass="list" id="table">                     
+                    <apex:column headerValue="Action">
+                        <apex:commandLink value="Del" action="{!del}">
+                            <apex:param name="delIndex" value="{!item.index}" />
+                        </apex:commandLink>
+                    </apex:column> 
+                    <apex:column headerValue="Line Number" >{!item.record.name}</apex:column>
+                    <apex:column headerValue="Product ">
+                        <a href="/{!item.record.Product__c}">{!item.record.Product__r.Name}</a> 
+                    </apex:column>
+                    <apex:column headerValue="List Price" id="listPrice">
+                        <apex:outputField value="{!item.price.UnitPrice}" id="listPriceValue" />
+                    </apex:column>
+                    <apex:column headerValue="Quantity" id="quantity">
+                        <apex:inputField required="true" value="{!item.record.Quantity__c}" id="quantityValue" onkeyup="updateLineSubtotal({!FLOOR(rowIndex)})" />
+                    </apex:column>
+                    <apex:column headerValue="Unit Price" id="unitPrice">
+                        <apex:inputField required="true" value="{!item.record.Unit_Price__c}" id="unitPriceValue" onkeyup="updateLineSubtotal({!FLOOR(rowIndex)});updateDiscount({!FLOOR(rowIndex)});" rendered="{!NOT(item.NotDiscountable)}" />
+                        <apex:outputField value="{!item.price.UnitPrice}" rendered="{!item.NotDiscountable}" />
+                    </apex:column>                    
+                    <apex:column headerValue="Discount (%)" id="discount">
+                        <apex:inputField value="{!item.record.Discount_Percent__c}" id="discountValue" onkeyup="updateUnitPrice({!FLOOR(rowIndex)});updateLineSubtotal({!FLOOR(rowIndex)});" rendered="{!NOT(item.NotDiscountable)}" /> 
+                        <apex:outputText rendered="{!item.NotDiscountable}">0.0</apex:outputText>
+                    </apex:column> 
+                    <apex:column headerValue="Line Price" id="linePrice">
+                        <apex:outputtext value="{!item.amountCurrency}" id="linePriceValue" />
+                        <apex:variable var="rowIndex" value="{!rowIndex + 1}" />
+                        <apex:facet name="footer">
+                            <apex:outputText id="totalAmount"></apex:outputText>
+                        </apex:facet>
+                    </apex:column>
+                </apex:pageBlockTable>
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+    </apex:form>
+    <script>
+        formatListPrices();
+        updateAllSubtotals();
+        updateGrandTotal();
+    </script>
+</apex:page>

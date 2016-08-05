@@ -1,0 +1,83 @@
+<apex:page id="page" Controller="ForwardLeadController" tabStyle="Opportunity"  showHeader="false">
+    <script type="text/javascript">
+    function viewContact()
+    {
+        var obj = document.getElementById("page:form:block:blockSection1:contactNameList");
+        var id = obj.options[obj.selectedIndex].value;
+        if (id == null || id == "")
+        { 
+            alert("You can only view existing contacts."); 
+        } 
+        else 
+        {
+            var url = '/' + id + '/p';
+            openPopupFocus(url,'_blank',700,500,'width=700,height=500,resizable=yes,toolbar=no,status=no,scrollbars=yes,menubar=no,directories=yes,location=no,dependant=no',false,false);
+        } 
+    }
+    function changeOwner()
+    {
+        var obj = document.getElementById("page:form:block:blockSection2:newOwner");
+        var objValue = obj.options[obj.selectedIndex].value;
+        document.getElementById('newOwn_lktp').value = objValue;
+        document.getElementById('page:form:block:blockSection2:newOwn_lkid').value = '';
+        document.getElementById('newOwn_mod').value = '1';
+    }
+    </script>
+    <apex:sectionHeader title="Forward This Deal" subtitle="{!oppty.Name}"/>
+    <apex:pageMessages escape="false" />
+    <apex:outputPanel >
+        <apex:outputText value="Select a contact within account {!oppty.Account.Name} and forward {!oppty.Name} deal info to a partner."/>
+    </apex:outputPanel>
+    <br/>
+    <apex:outputPanel rendered="{!isPanelShow}">
+        <br/>
+        <br/>
+        <apex:outputText value="there is no contact related with this Opportunity !! "/>
+        <br/>
+        <input type="button" onclick="javascript:window.close()" value="Close" style="text-align:center" />
+    </apex:outputPanel>
+    <apex:form id="form" rendered="{!isFormShow}">
+        <apex:pageBlock id="block" mode="edit">           
+            <apex:pageBlockButtons >
+                <apex:commandButton action="{!forward}" value="Forward"/>
+                <apex:commandButton onclick="javascript:window.close()" value="Cancel"/>
+            </apex:pageBlockButtons>
+            <apex:pageBlockSection id="blockSection1" title="Select Customer Contact Below" columns="2">
+                <apex:outputLabel value="Contact:" for="contactNameList"/>
+                <apex:outputPanel >
+                    <apex:selectList id="contactNameList" value="{!contactValue}" size="1">
+                        <apex:selectOptions value="{!contactItems}"/>
+                    </apex:selectList>
+                    <a href="javascript:viewContact()" >View</a>
+                </apex:outputPanel> 
+            </apex:pageBlockSection> 
+            <apex:pageBlockSection id="blockSection2" title="Select New Owner" columns="2">
+                <apex:outputLabel value="Forward This Opportunity:" for="ooptyName"/>
+                <apex:outputText id="ooptyName" value="{!oppty.Name}"/>         
+                <apex:outputLabel value="Select New Owner:" for="newOwner"/>
+                <apex:outputPanel >
+                    <apex:selectList id="newOwner" value="{!newOwner}" size="1" onchange="javascript:changeOwner()">
+                        <apex:selectOption itemValue="005" itemLabel="User"/>
+                        <apex:selectOption itemValue="lead_queue" itemLabel="Queue"/>
+                        <apex:selectOption itemValue="PartnerUserLookup" itemLabel="Partner User"/>
+                    </apex:selectList>
+                    <input type="hidden" name="page:form:block:blockSection2:newOwn_lkold" id="page:form:block:blockSection2:newOwn_lkold" value="null" /> 
+                    <input type="hidden" name="newOwn_lktp" id="newOwn_lktp" value="005" /> 
+                    <input type="hidden" name="newOwn_lspf" id="newOwn_lspf" value="0" /> 
+                    <input type="hidden" name="newOwn_mod" id="newOwn_mod" value="0" />
+                    <apex:inputHidden id="newOwn_lkid"  value="{!newOwnerId}" />    
+                    <apex:inputText id="newOwn" maxlength="80" onchange="document.getElementById('page:form:block:blockSection2:newOwn_lkid').value='';document.getElementById('newOwn_mod').value='1';" size="20" title="Select New Owner"  />
+                    <a href="JavaScript: openLookup('/_ui/common/data/LookupPage?lknm=page:form:block:blockSection2:newOwn&lkfm=editPage&lktp=' + document.getElementById('newOwn_lktp').value,670,document.getElementById('newOwn_mod').value,'&lksrch=' + escapeUTF(document.getElementById('page:form:block:blockSection2:newOwn').value),'maxw')" id="newOwn_lkwgt" onclick="setLastMousePosition(event)" title="Select New Owner Lookup (New Window)">
+                        <img src="/img/lookup.gif" alt="Select New Owner Lookup (New Window)" class="lookupPopup" title="Select New Owner Lookup (New Window)"/>
+                    </a>
+                </apex:outputPanel> 
+                <apex:outputLabel value="Lead Record Type:" for="recordType"/>
+                <apex:selectList id="recordType" value="{!recordTypeId}" size="1">
+                    <apex:selectOptions value="{!typeItems}" />
+                </apex:selectList>
+                <apex:outputLabel value="Send Notification Email:" for="emailStatusCheckBox"/>
+                <apex:inputCheckbox id="emailStatusCheckBox" value="{!emailStatus}" />
+            </apex:pageBlockSection>
+        </apex:pageBlock>   
+    </apex:form>
+</apex:page>

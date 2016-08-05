@@ -1,0 +1,418 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <content>EditQuoteLinesRedirect</content>
+        <skipRecordTypeSelect>false</skipRecordTypeSelect>
+        <type>Visualforce</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <content>EditQuoteLinesRedirect</content>
+        <skipRecordTypeSelect>false</skipRecordTypeSelect>
+        <type>Visualforce</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Follow</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <enableActivities>true</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableEnhancedLookup>false</enableEnhancedLookup>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>true</enableHistory>
+    <enableReports>true</enableReports>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <fields>
+        <fullName>ApprovalLevel__c</fullName>
+        <defaultValue>0</defaultValue>
+        <description>This field decide the Quote Line&apos; s approval level. It gets value from &apos;initApprovalLevel&apos; trigger. The custom setting &apos;Quote Approval Matrix&apos; finally defines the level of the Quote Line through its Type and Discount.
+Type: 
+a) Physical (Physical Appliance)
+b) VIrtual (Virtual Appliance )
+c) New Business( Subscription Product for Virtual Appliance on Opp type of New Business )
+
+Line Item approval level requirements are: 
+for &quot;a&quot;, over 35% goes to level 1, over 45% goes to level 2 and over 50% goes to level 3 
+for &quot;b&quot;, over 45% goes to level 1, over 50% goes to level 2 and over 60% goes to level 3 
+for &quot;c&apos;, over 50% goes to level 1, over 60% goes to level 2 and over 70% goes to level 3</description>
+        <externalId>false</externalId>
+        <label>Approval Level</label>
+        <precision>1</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>ApprovalType__c</fullName>
+        <description>There are three types in &apos;Quote Approval Matrix&apos; custom setting. 
+a) Physical (Physical Appliance )
+b) Virtual ( Virtual Appliance )
+c) New Business (Subscription Product for Virtual Appliance on Opp type of New Business)
+This field is to define which type this quote line need when approval.</description>
+        <externalId>false</externalId>
+        <formula>IF(  IsAppliance__c =1,
+CASE( Product__r.Product_Family_Clean__c , &apos;Virtual&apos;,  IF( AND(  ISPICKVAL(Product__r.Product_Category__c , &apos;Subscription&apos;) ,  ISPICKVAL(Quote__r.Opportunity__r.Type , &apos;New Business&apos;) ) , &apos;New Business&apos;, &apos;Virtual&apos;) , &apos;Physical&apos;), &apos;Service&apos;)</formula>
+        <label>Approval Type</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Discount_Percent__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>Discount Percent</label>
+        <precision>6</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>Include4ConsultingDisc__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>Include4ConsultingDisc</label>
+        <precision>1</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Include4Discount__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>Include4Discount</label>
+        <precision>1</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Include4MultiYYear__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>Include4MultiYYear</label>
+        <precision>1</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Include4ServiceDiscount__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>Include4ServiceDiscount</label>
+        <precision>1</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>IsAppliance__c</fullName>
+        <description>formula before WANCHECK: if( OR(Contains( Prod_Category__c     , &quot;Appliance&quot;),Contains( Prod_Category__c     , &quot;GMS&quot;)) ,1,0)
+formula with WANCHECK as a product: if( OR(Contains( Prod_Category__c , &quot;Appliance&quot;),Contains( Prod_Category__c , &quot;GMS&quot;), Product__r.ProductCode =&apos;300058-001&apos;) ,1,0)</description>
+        <externalId>false</externalId>
+        <formula>if( OR(Contains( Prod_Category__c     , &quot;Appliance&quot;),Contains( Prod_Category__c     , &quot;Upgrade&quot;),Contains( Prod_Category__c     , &quot;GMS&quot;), Contains( Prod_Category__c     , &quot;Subscription&quot;)) ,1,0)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>IsAppliance</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Line_Price__c</fullName>
+        <externalId>false</externalId>
+        <formula>Quantity__c  *  Unit_Price__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Line Price</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>MainDisc__c</fullName>
+        <externalId>false</externalId>
+        <formula>if( contains(Prod_Category__c, &quot;Maintenance&quot;),  Discount_Percent__c, 0)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>MainDisc</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>MultiYearMaint__c</fullName>
+        <externalId>false</externalId>
+        <formula>if( isMaintenance__c =1 ,if( contains(Prod_Category__c ,&apos;2&apos;),2,if(contains( Prod_Category__c ,&apos;3&apos;),3,1)),1)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>MultiYearMaint</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>ProdDisc__c</fullName>
+        <externalId>false</externalId>
+        <formula>if( contains(Prod_Category__c, &quot;Appliance&quot;),  Discount_Percent__c, 0)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>ProdDisc</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>Prod_Category__c</fullName>
+        <externalId>false</externalId>
+        <formula>TEXT(Product__r.Product_Category__c)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Prod_Category</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Product_Code__c</fullName>
+        <externalId>false</externalId>
+        <formula>Product__r.ProductCode</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Product Code</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Product_Description__c</fullName>
+        <externalId>false</externalId>
+        <formula>Product__r.Description</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Product Description</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Product_List__c</fullName>
+        <externalId>false</externalId>
+        <formula>( Unit_Price__c /(1- Discount_Percent__c ))* Quantity__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Product List</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Product__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Product</label>
+        <referenceTo>Product2</referenceTo>
+        <relationshipLabel>Quote Lines</relationshipLabel>
+        <relationshipName>Quote_Lines</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Quantity__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>Quantity</label>
+        <precision>11</precision>
+        <required>true</required>
+        <scale>2</scale>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Quote__c</fullName>
+        <externalId>false</externalId>
+        <label>Quote</label>
+        <referenceTo>Quote__c</referenceTo>
+        <relationshipLabel>Quote Lines</relationshipLabel>
+        <relationshipName>Quote_Lines</relationshipName>
+        <relationshipOrder>0</relationshipOrder>
+        <reparentableMasterDetail>false</reparentableMasterDetail>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>MasterDetail</type>
+        <writeRequiresMasterRead>false</writeRequiresMasterRead>
+    </fields>
+    <fields>
+        <fullName>Unit_Price__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>Unit Price</label>
+        <precision>14</precision>
+        <required>true</required>
+        <scale>2</scale>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>isConsulting__c</fullName>
+        <externalId>false</externalId>
+        <formula>if(Contains( Prod_Category__c  ,&quot;Consulting&quot;),1,0)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>isConsulting</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>isMaintenance__c</fullName>
+        <externalId>false</externalId>
+        <formula>if(contains(Prod_Category__c ,&quot;Maintenance&quot;),1,0)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>isMaintenance</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <label>Quote Line</label>
+    <nameField>
+        <displayFormat>QL{00000}</displayFormat>
+        <label>Line Number</label>
+        <trackHistory>true</trackHistory>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>Quote Lines</pluralLabel>
+    <searchLayouts>
+        <excludedStandardButtons>New</excludedStandardButtons>
+        <excludedStandardButtons>Forward</excludedStandardButtons>
+        <excludedStandardButtons>ChangeOwner</excludedStandardButtons>
+        <excludedStandardButtons>Accept</excludedStandardButtons>
+    </searchLayouts>
+    <sharingModel>ControlledByParent</sharingModel>
+    <validationRules>
+        <fullName>DiscountShouldNotGreaterThan2000</fullName>
+        <active>true</active>
+        <errorConditionFormula>Discount_Percent__c  &gt; 20</errorConditionFormula>
+        <errorDisplayField>Discount_Percent__c</errorDisplayField>
+        <errorMessage>Number is too large.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>QuantityShouldNotEqualToZero</fullName>
+        <active>true</active>
+        <errorConditionFormula>Quantity__c = 0</errorConditionFormula>
+        <errorDisplayField>Quantity__c</errorDisplayField>
+        <errorMessage>Invalid quantity.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>WholeNumberQuantity</fullName>
+        <active>true</active>
+        <description>Quantity shold be whole number if product family is not service</description>
+        <errorConditionFormula>TEXT(Product__r.Family) != &quot;Support&quot; &amp;&amp; TEXT(Product__r.Family) != &quot;Service&quot; &amp;&amp; CEILING(Quantity__c) != Quantity__c &amp;&amp; !CONTAINS( Product__r.Name, &quot;SUBSCRIPTION RENEWAL&quot; )</errorConditionFormula>
+        <errorDisplayField>Quantity__c</errorDisplayField>
+        <errorMessage>Quantity should be whole number.</errorMessage>
+    </validationRules>
+    <webLinks>
+        <fullName>EditQuoteLines</fullName>
+        <availability>online</availability>
+        <displayType>massActionButton</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>Edit Quote Lines</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <requireRowSelection>false</requireRowSelection>
+        <url>if(&quot;{!Quote__c.Approval_Made__c}&quot; == &quot;1&quot; || &quot;{!Quote__c.Approval_Made__c}&quot; == &quot;true&quot; || &quot;{!Quote__c.Approval_Made__c}&quot; == &quot;True&quot;)
+{
+  alert(&quot;Quote is locked and can not be edited&quot;);
+}
+else
+{
+  window.open(&quot;/apex/EditQuoteLines?id={!Quote__c.Id}&quot;, &quot;_top&quot;);
+}</url>
+    </webLinks>
+</CustomObject>

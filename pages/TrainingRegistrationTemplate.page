@@ -1,0 +1,18 @@
+<apex:page showHeader="false">
+    <head>
+        <apex:stylesheet value="{!URLFOR($Resource.RegistrationProcess, 'css/main.css')}"/>
+        <title>Training Registration - Silver Peak Systems</title>
+    </head>
+    <body>
+        <div id="wrap">
+          <h1><a href="{!$Page.UpcomingEvents}">Silver Peak</a></h1> 
+        <!-- <h1><a href="http://www.silverpeaksystems.com">Silver Peak</a></h1> -->
+            <apex:insert name="body"/>
+            <div class="footer">
+                <div class="contact">2860 De La Cruz Blvd, Suite 100, Santa Clara, CA 95050 | 888-598-7325</div>
+                <div class="rights">© 2010 Silver Peak Systems, Inc.</div>
+                <div class="clearfix"></div>
+            </div><!--footer-->
+        </div><!--wrap-->
+    </body>
+</apex:page>

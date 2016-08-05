@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Follow</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <enableActivities>false</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>false</enableReports>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <fields>
+        <fullName>Match_List_Last_Modified_Date__c</fullName>
+        <externalId>false</externalId>
+        <label>Match List Last Modified Date</label>
+        <summarizedField>PatchMatchList__c.LastModifiedDate</summarizedField>
+        <summaryForeignKey>PatchMatchList__c.Patch_Criteria_Rule__c</summaryForeignKey>
+        <summaryOperation>max</summaryOperation>
+        <trackTrending>false</trackTrending>
+        <type>Summary</type>
+    </fields>
+    <fields>
+        <fullName>Operation__c</fullName>
+        <externalId>false</externalId>
+        <label>Operation</label>
+        <picklist>
+            <controllingField>Type__c</controllingField>
+            <picklistValues>
+                <fullName>equals</fullName>
+                <default>false</default>
+                <controllingFieldValues>Company Name</controllingFieldValues>
+                <controllingFieldValues>Country</controllingFieldValues>
+                <controllingFieldValues>Email Domain</controllingFieldValues>
+                <controllingFieldValues>Industry</controllingFieldValues>
+                <controllingFieldValues>State</controllingFieldValues>
+                <controllingFieldValues>Zip Code</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>in</fullName>
+                <default>false</default>
+                <controllingFieldValues>Company Name</controllingFieldValues>
+                <controllingFieldValues>Country</controllingFieldValues>
+                <controllingFieldValues>Email Domain</controllingFieldValues>
+                <controllingFieldValues>Industry</controllingFieldValues>
+                <controllingFieldValues>State</controllingFieldValues>
+                <controllingFieldValues>Zip Code</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>starts with</fullName>
+                <default>false</default>
+                <controllingFieldValues>Company Name</controllingFieldValues>
+                <controllingFieldValues>Country</controllingFieldValues>
+                <controllingFieldValues>Email Domain</controllingFieldValues>
+                <controllingFieldValues>Industry</controllingFieldValues>
+                <controllingFieldValues>State</controllingFieldValues>
+                <controllingFieldValues>Zip Code</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>ends with</fullName>
+                <default>false</default>
+                <controllingFieldValues>Company Name</controllingFieldValues>
+                <controllingFieldValues>Country</controllingFieldValues>
+                <controllingFieldValues>Email Domain</controllingFieldValues>
+                <controllingFieldValues>Industry</controllingFieldValues>
+                <controllingFieldValues>State</controllingFieldValues>
+                <controllingFieldValues>Zip Code</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>contains</fullName>
+                <default>false</default>
+                <controllingFieldValues>Company Name</controllingFieldValues>
+                <controllingFieldValues>Country</controllingFieldValues>
+                <controllingFieldValues>Email Domain</controllingFieldValues>
+                <controllingFieldValues>Industry</controllingFieldValues>
+                <controllingFieldValues>State</controllingFieldValues>
+                <controllingFieldValues>Zip Code</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>in range</fullName>
+                <default>false</default>
+                <controllingFieldValues>Zip Code</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>in match list</fullName>
+                <default>false</default>
+                <controllingFieldValues>Company Name</controllingFieldValues>
+                <controllingFieldValues>Country</controllingFieldValues>
+                <controllingFieldValues>Email Domain</controllingFieldValues>
+                <controllingFieldValues>Industry</controllingFieldValues>
+                <controllingFieldValues>State</controllingFieldValues>
+                <controllingFieldValues>Zip Code</controllingFieldValues>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Patch__c</fullName>
+        <externalId>false</externalId>
+        <label>Patch</label>
+        <referenceTo>Patch__c</referenceTo>
+        <relationshipLabel>Patch Criteria Rules</relationshipLabel>
+        <relationshipName>Patch_Rules</relationshipName>
+        <relationshipOrder>0</relationshipOrder>
+        <reparentableMasterDetail>false</reparentableMasterDetail>
+        <trackTrending>false</trackTrending>
+        <type>MasterDetail</type>
+        <writeRequiresMasterRead>false</writeRequiresMasterRead>
+    </fields>
+    <fields>
+        <fullName>ProcessingSequence__c</fullName>
+        <externalId>false</externalId>
+        <label>Processing Sequence</label>
+        <precision>10</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Range_High__c</fullName>
+        <externalId>false</externalId>
+        <label>Range High</label>
+        <length>10</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Range_Low__c</fullName>
+        <externalId>false</externalId>
+        <label>Range Low</label>
+        <length>10</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Type__c</fullName>
+        <externalId>false</externalId>
+        <label>Type</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Company Name</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Email Domain</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Country</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Zip Code</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>State</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Industry</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Value__c</fullName>
+        <externalId>false</externalId>
+        <label>Value</label>
+        <length>32768</length>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>2</visibleLines>
+    </fields>
+    <label>Patch Criteria Rule</label>
+    <nameField>
+        <displayFormat>R-{00000}</displayFormat>
+        <label>Patch Criteria Rule #</label>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>Patch Criteria Rules</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ControlledByParent</sharingModel>
+</CustomObject>

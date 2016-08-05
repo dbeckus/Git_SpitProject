@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Troubleshoot Aid</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Troubleshoot Aids</value>
+    </caseValues>
+    <fields>
+        <help><!-- Field that the URL is to be launched for --></help>
+        <label><!-- Field Linked --></label>
+        <name>Field_Linked__c</name>
+        <picklistValues>
+            <masterLabel>Reason</masterLabel>
+            <translation><!-- Reason --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <help><!-- Must be an exact match to the values available for the field linked --></help>
+        <label><!-- Field Value --></label>
+        <name>Field_Value__c</name>
+        <picklistValues>
+            <masterLabel>Application Issue/Question</masterLabel>
+            <translation><!-- Application Issue/Question --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Bandwidth/Tunnel settings</masterLabel>
+            <translation><!-- Bandwidth/Tunnel settings --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>CIFS</masterLabel>
+            <translation><!-- CIFS --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Connectivity</masterLabel>
+            <translation><!-- Connectivity --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Deployment</masterLabel>
+            <translation><!-- Deployment --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Drive Failure/Problem</masterLabel>
+            <translation><!-- Drive Failure/Problem --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>GMS</masterLabel>
+            <translation><!-- GMS --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Installation Problem/Question</masterLabel>
+            <translation><!-- Installation Problem/Question --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Logging</masterLabel>
+            <translation><!-- Logging --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Management</masterLabel>
+            <translation><!-- Management --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>NIC Failure/Problem</masterLabel>
+            <translation><!-- NIC Failure/Problem --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Packet Loss</masterLabel>
+            <translation><!-- Packet Loss --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Poor Performance</masterLabel>
+            <translation><!-- Poor Performance --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Qos Configuration/Issue</masterLabel>
+            <translation><!-- Qos Configuration/Issue --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Reordering</masterLabel>
+            <translation><!-- Reordering --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Routing</masterLabel>
+            <translation><!-- Routing --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>System Crash</masterLabel>
+            <translation><!-- System Crash --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>System Rebooting</masterLabel>
+            <translation><!-- System Rebooting --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>System configuration</masterLabel>
+            <translation><!-- System configuration --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Topology question/review</masterLabel>
+            <translation><!-- Topology question/review --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Upgrade Problem</masterLabel>
+            <translation><!-- Upgrade Problem --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>User Interace/CLI</masterLabel>
+            <translation><!-- User Interace/CLI --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <help><!-- Location of troubleshooting information --></help>
+        <label><!-- URL --></label>
+        <name>URL__c</name>
+    </fields>
+    <startsWith>Consonant</startsWith>
+    <validationRules>
+        <errorMessage><!-- You must enter a value --></errorMessage>
+        <name>Field_Linked_Required</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- You must enter a value --></errorMessage>
+        <name>Field_Value_Required</name>
+    </validationRules>
+</CustomObjectTranslation>

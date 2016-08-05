@@ -1,0 +1,48 @@
+<apex:page standardController="Lead" extensions="LeadController,CustomAction" showHeader="true" sidebar="true">
+    <apex:includeScript value="{!URLFOR($Resource.DynamicPage, 'js/jquery.min.js')}" />
+    <apex:includeScript value="{!URLFOR($Resource.DynamicPage, 'js/DynamicPage.js')}" />
+    <apex:sectionHeader title="Lead Edit" subtitle="{!Lead.Name}" />
+    <apex:pagemessages />
+    <script>
+        var spDynamicPage = null;
+        jQuery(document).ready(function() {
+            spDynamicPage = new SPDynamicPage("{!Lead.Id}");
+        });
+    </script>
+    <apex:form >
+        <apex:pageMessages />
+        <apex:pageBlock mode="edit">
+            <apex:pageBlockButtons >
+                <apex:commandButton value="Save" action="{!save}"/>
+                <apex:commandButton value="Cancel" action="{!cancel}"/>
+            </apex:pageBlockButtons>
+
+            <apex:repeat value="{!PageLayout.Sections}" var="section">
+                <apex:pageBlockSection title="{!section.Name}" columns="{!section.Columns}" rendered="{!AND(section.Name != 'Marketo Information', section.Name != 'Sales Team/Channel Information')}">
+                    <apex:repeat value="{!$ObjectType.Lead.FieldSets[section.FieldSet]}" var="f">
+                        <apex:inputField value="{!Lead[f]}" required="{!OR(f.required, f.dbrequired)}" rendered="{!AND(NOT(CONTAINS(PredefinedReadOnlyFields, f)), f!='Name', f!='Street', f!='City', f!='State', f!='PostalCode', f!='Country')}" html-data-field-name="{!f}"/>
+                        <apex:pageBlockSectionItem rendered="{!f='Name'}">
+                            <apex:outputLabel value="Name"></apex:outputLabel>
+                            <apex:outputPanel >
+                                <apex:inputField value="{!Lead.Salutation}" html-data-field-name="Salutation" />
+                                <apex:inputField value="{!Lead.FirstName}" html-placeholder="First Name" html-data-field-name="FirstName" style="width: 77px;"/>
+                                <apex:inputField value="{!Lead.LastName}" html-placeholder="Last Name" html-data-field-name="LastName" />
+                            </apex:outputPanel>
+                        </apex:pageBlockSectionItem>
+                        <apex:pageBlockSectionItem rendered="{!f='Street'}">
+                            <apex:outputLabel value="Address"></apex:outputLabel>
+                            <apex:outputPanel > 
+                                <apex:inputField value="{!Lead.Street}" html-placeholder="Street"  html-data-field-name="Street" style="width: 175px;"/> <br />
+                                <apex:inputField value="{!Lead.City}" html-placeholder="City" html-data-field-name="City" /> <br />
+                                <apex:inputField value="{!Lead.State}" html-placeholder="State" html-data-field-name="State" /> <br />
+                                <apex:inputField value="{!Lead.PostalCode}" html-placeholder="Postal Code" html-data-field-name="PostalCode" /><br />
+                                <apex:inputField value="{!Lead.Country}" html-placeholder="Country" html-data-field-name="Country" />
+                            </apex:outputPanel>
+                        </apex:pageBlockSectionItem>
+                        <apex:outputField value="{!Lead[f]}" rendered="{!CONTAINS(PredefinedReadOnlyFields, f)}" />
+                    </apex:repeat>
+                </apex:pageBlockSection>
+            </apex:repeat>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

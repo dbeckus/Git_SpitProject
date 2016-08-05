@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Forecast History</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Forecast History</value>
+    </caseValues>
+    <fields>
+        <label><!-- Comments --></label>
+        <name>Comments__c</name>
+    </fields>
+    <fields>
+        <label><!-- Date --></label>
+        <name>Date__c</name>
+    </fields>
+    <fields>
+        <label><!-- ForecastSubmit --></label>
+        <name>ForecastSubmit__c</name>
+    </fields>
+    <fields>
+        <label><!-- Old Value --></label>
+        <name>Old_Value__c</name>
+    </fields>
+    <fields>
+        <label><!-- OppAmount --></label>
+        <name>OppAmount__c</name>
+    </fields>
+    <fields>
+        <label><!-- OppCount --></label>
+        <name>OppCount__c</name>
+    </fields>
+    <fields>
+        <label><!-- OppExpAmount --></label>
+        <name>OppExpAmount__c</name>
+    </fields>
+    <fields>
+        <label><!-- Period --></label>
+        <name>Period__c</name>
+    </fields>
+    <fields>
+        <label><!-- Type --></label>
+        <name>Type__c</name>
+        <picklistValues>
+            <masterLabel>MR-Best Case</masterLabel>
+            <translation><!-- MR-Best Case --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>MR-Commit</masterLabel>
+            <translation><!-- MR-Commit --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>MR-Commitment</masterLabel>
+            <translation><!-- MR-Commitment --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>MR-Forecast</masterLabel>
+            <translation><!-- MR-Forecast --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>MR-Pipeline</masterLabel>
+            <translation><!-- MR-Pipeline --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>MR-Quota</masterLabel>
+            <translation><!-- MR-Quota --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>MR-Won</masterLabel>
+            <translation><!-- MR-Won --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>New-Best Case</masterLabel>
+            <translation><!-- New-Best Case --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>New-Commit</masterLabel>
+            <translation><!-- New-Commit --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>New-Physical-Commitment</masterLabel>
+            <translation><!-- New-Physical-Commitment --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>New-Physical-Forecast</masterLabel>
+            <translation><!-- New-Physical-Forecast --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>New-Physical-Quota</masterLabel>
+            <translation><!-- New-Physical-Quota --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>New-Pipeline</masterLabel>
+            <translation><!-- New-Pipeline --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>New-Virtual-Commitment</masterLabel>
+            <translation><!-- New-Virtual-Commitment --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>New-Virtual-Forecast</masterLabel>
+            <translation><!-- New-Virtual-Forecast --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>New-Virtual-Quota</masterLabel>
+            <translation><!-- New-Virtual-Quota --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>New-Won</masterLabel>
+            <translation><!-- New-Won --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>NewOppCount</masterLabel>
+            <translation><!-- NewOppCount --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Total-Base Case</masterLabel>
+            <translation><!-- Total-Base Case --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Total-Commit</masterLabel>
+            <translation><!-- Total-Commit --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Total-Pipeline</masterLabel>
+            <translation><!-- Total-Pipeline --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Total-Won</masterLabel>
+            <translation><!-- Total-Won --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- User --></label>
+        <name>User__c</name>
+        <relationshipLabel><!-- Forecast History --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Value --></label>
+        <name>Value__c</name>
+    </fields>
+    <layouts>
+        <layout>Forecast History Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+    </layouts>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

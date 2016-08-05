@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Dynamic Layout</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Dynamic Layout</value>
+    </caseValues>
+    <fields>
+        <help><!-- Object name, such as &quot;Opportunity&quot; or &quot;Lead&quot; --></help>
+        <label><!-- Object --></label>
+        <name>Object__c</name>
+    </fields>
+    <fields>
+        <label><!-- Record Type --></label>
+        <name>RecordType__c</name>
+    </fields>
+    <fields>
+        <help><!-- Available only when Object equals Opportunity --></help>
+        <label><!-- Sales Process --></label>
+        <name>SalesProcess__c</name>
+    </fields>
+    <fields>
+        <help><!-- Only available when Object equals &quot;Opportunity&quot; --></help>
+        <label><!-- Stage --></label>
+        <name>Stage__c</name>
+    </fields>
+    <fields>
+        <label><!-- User Profile --></label>
+        <name>UserProfile__c</name>
+    </fields>
+    <fields>
+        <label><!-- User Role --></label>
+        <name>UserRole__c</name>
+    </fields>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

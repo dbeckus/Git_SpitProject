@@ -1,0 +1,75 @@
+<apex:page id="page" standardController="Opportunity" extensions="RenewalOpportunityController">
+    <apex:sectionHeader title="Opportunity Edit" subtitle="Renewal Opportunity"/>
+    <apex:form id="form">
+        <apex:pagemessages />
+        <apex:pageBlock id="pageBlock" mode="edit">
+            <apex:pageBlockButtons >
+                <apex:commandButton value="Save" action="{!save}"/>
+                <apex:commandButton value="Cancel" action="{!cancel}"/>
+            </apex:pageBlockButtons>
+            <apex:pageBlockSection title="Opportunity Information" collapsible="false">
+                <apex:outputField value="{!Opportunity.Technical_Responsible__c}"/>
+                <apex:outputField value="{!Opportunity.Name}"/> 
+                <apex:inputField value="{!Opportunity.CloseDate}"/> 
+                <apex:outputField value="{!Opportunity.AccountId}"/> 
+                <apex:outputField value="{!Opportunity.StageName}"/> 
+                <apex:outputField value="{!Opportunity.Type}"/> 
+                <apex:outputField value="{!Opportunity.Probability}"/> 
+                <apex:outputField value="{!Opportunity.Opportunity_Source__c}"/> 
+                <apex:outputField value="{!Opportunity.ForecastCategoryName}"/> 
+                <apex:outputField value="{!Opportunity.RenewedOpportunity__c}" rendered="false"/> 
+                <apex:outputField value="{!Opportunity.POC_Type__c}" rendered="false"/> 
+            </apex:pageBlockSection>
+            <apex:pageBlockSection id="pageBlockSection" title="" collapsible="false" columns="1">
+                <apex:facet name="header">
+                    <apex:outputPanel >
+                        <h3>Products</h3>
+                        <apex:commandLink value="Add a new product" style="float:right" action="{!addProduct}" reRender="oppLineTable" status="addLoading">
+                            <apex:actionStatus id="addLoading">
+                                <apex:facet name="start">
+                                    <img src="/img/loading.gif"/>
+                                </apex:facet>
+                            </apex:actionStatus>
+                        </apex:commandLink>
+                    </apex:outputPanel>
+                </apex:facet>
+                <apex:outputPanel id="oppLineTable">
+                    <apex:variable var="rowIndex" value="{!0}"/>
+                    <apex:pageBlockTable id="pageBlockTable" value="{!NewProducts}" var="prd" rendered="{!NewProducts.size > 0}">
+                        <apex:column headerValue="Action" styleClass="actionColumn">
+                            <apex:commandLink value="Del" styleClass="actionLink" action="{!delProduct}" reRender="oppLineTable">
+                                <apex:param name="index" value="{!rowIndex}" />
+                            </apex:commandLink>
+                            <apex:variable var="rowIndex" value="{!rowIndex + 1}" />
+                        </apex:column>
+                        <apex:column headerValue="Product">
+                            <apex:selectList id="selectId" value="{!prd.ProductId}" size="1" onchange="refreshProductCode(this.value, this.id)">
+                                <apex:selectOptions value="{!ProductOptions}"/>
+                            </apex:selectList>
+                        </apex:column>
+                        <apex:column headerValue="Product Code">
+                            <apex:outputText id="ProductCode" value="{!prd.ProductCode}"/>
+                        </apex:column>
+                        <apex:column headerValue="Quantity">
+                            <apex:inputText value="{!prd.Quantity}"/>
+                        </apex:column>
+                        <apex:column headerValue="Sales Price">
+                            <apex:inputText value="{!prd.SalesPrice}"/>
+                        </apex:column>
+                    </apex:pageBlockTable>
+                    <apex:outputPanel rendered="{!NewProducts.size = 0}">No records to display.</apex:outputPanel>
+                </apex:outputPanel>
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+        <script>
+        function refreshProductCode(prdId, id)
+        {
+            RenewalOpportunityController.getProductCode(prdId, function(result, event)
+            {
+                document.getElementById(id.replace("selectId", "ProductCode")).innerHTML = result;
+            });
+        }
+        function setFocusOnLoad() {}
+        </script>
+    </apex:form>
+</apex:page>

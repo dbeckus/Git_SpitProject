@@ -1,0 +1,50 @@
+<apex:page standardController="Lead" extensions="LeadLayoutPreviewController" showHeader="false">
+    <apex:form >
+    <apex:pageBlock mode="inlineEdit">
+        <div>
+            Select a record type: <apex:selectList size="1" value="{!RecordTypeToDisplay}"><apex:selectOptions value="{!allRecordTypes}" /><apex:actionSupport action="{!refresh}" event="onchange"/></apex:selectList>
+            Select a role group: <apex:selectList size="1" value="{!RoleGroupToDisplay}"><apex:selectOptions value="{!allRoleGroupings}" /><apex:actionSupport action="{!refresh}" event="onchange"/></apex:selectList>
+        </div>
+        <div>Note that profile permissions can alter which fields or buttons are visible for users with certain profiles. Permissions-based changes are not shown in this preview.</div>
+    </apex:pageBlock>
+    
+    <apex:pageBlock mode="maindetail" title="Lead Detail" rendered="{!PageLayout.Sections.size > 0}">
+        <apex:pageblockButtons >
+            <apex:repeat value="{!PageLayout.Buttons}" var="button">
+                    <input type="button" class="DetailButton btn" value="{!button.Label}" />
+            </apex:repeat> 
+        </apex:pageblockButtons>
+
+        <apex:repeat value="{!PageLayout.Sections}" var="section">
+            <apex:pageBlockSection title="{!section.Name}" columns="{!section.Columns}" rendered="{!AND(section.Name != 'Marketo Information', section.Name != 'Sales Team/Channel Information')}">
+                <apex:repeat value="{!$ObjectType.Lead.FieldSets[section.FieldSet]}" var="f">
+                    <apex:outputField value="{!Lead[f]}"  />
+                </apex:repeat>
+            </apex:pageBlockSection>
+            <c:LeadChannelAndSalesTeamList lead="{!Lead.Id}" rendered="{!section.Name = 'Sales Team/Channel Information'}" />
+            <apex:pageblockSection columns="1" title="Marketo Sales Insight" rendered="{!section.Name = 'Marketo Information'}">
+                <div><img height="151" src="data:image/jpeg;base64,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" style="margin-top:0px;margin-right:0px;margin-bottom:0;margin-left:0px" width="151" align="middle" border="0"/></div>
+            </apex:pageBlockSection>
+        </apex:repeat>
+    </apex:pageBlock>
+    </apex:form>
+    <div class="relatedLists">
+    <apex:repeat value="{!PageLayout.RelatedLists}" var="relList">
+        <apex:pageBlock title="Open Activities" rendered="{!relList.ObjectName = 'OpenActivity'}">
+            No records to display
+        </apex:pageBlock>
+        <apex:pageBlock title="Activity History" rendered="{!relList.ObjectName = 'ActivityHistory'}">
+            No records to display
+        </apex:pageBlock>
+        <apex:pageBlock title="Campaign History" rendered="{!relList.ObjectName = 'CampaignMember'}">
+            No records to display
+        </apex:pageBlock>
+        <apex:pageBlock title="Approval History" rendered="{!relList.ObjectName = 'ProcessInstanceHistory'}">
+            No records to display
+        </apex:pageBlock>
+        <apex:pageBlock title="Lead History" rendered="{!relList.ObjectName = 'LeadHistory'}">
+            No records to display
+        </apex:pageBlock>
+    </apex:repeat>
+    </div>
+</apex:page>

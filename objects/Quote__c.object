@@ -1,0 +1,1166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <content>QuoteCloneNoProducts</content>
+        <skipRecordTypeSelect>false</skipRecordTypeSelect>
+        <type>Visualforce</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Follow</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <content>Quote</content>
+        <skipRecordTypeSelect>false</skipRecordTypeSelect>
+        <type>Visualforce</type>
+    </actionOverrides>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>Quote</description>
+    <enableActivities>true</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableEnhancedLookup>false</enableEnhancedLookup>
+    <enableFeeds>true</enableFeeds>
+    <enableHistory>true</enableHistory>
+    <enableReports>true</enableReports>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <fields>
+        <fullName>ApprovalLevelMax__c</fullName>
+        <description>The Quote&apos;s approval level decided by the max approval level of quote lines.</description>
+        <externalId>false</externalId>
+        <label>Approval Level Max</label>
+        <summarizedField>Quote_Line__c.ApprovalLevel__c</summarizedField>
+        <summaryForeignKey>Quote_Line__c.Quote__c</summaryForeignKey>
+        <summaryOperation>max</summaryOperation>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Summary</type>
+    </fields>
+    <fields>
+        <fullName>Approval_Level_Needed__c</fullName>
+        <description>Equals to the max approval level of the quote lines</description>
+        <externalId>false</externalId>
+        <formula>if( Level3Required__c =1,3, MAX(ApprovalLevelMax__c,
+
+
+if(Opportunity__r.Primary_Partner__r.CreditHold__c,2,0) ,
+
+if( 
+OR(
+AND( (AND(Service_Discount_Max__c &gt; RegPartServDisc__c, Service_Discount_Max__c &gt; 0.20)) , MultiYearValue__c &lt;2),
+and(Service_Discount_Max__c &gt; 0.24, MultiYearValue__c =2), 
+and(Service_Discount_Max__c &gt; 0.27, MultiYearValue__c =3))
+,3,0)
+))</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <inlineHelpText>if( Level3Required__c =1,3,
+
+MAX(ApprovalLevelMax__c,
+Approval_Required__c,
+if(Opportunity__r.Primary_Partner__r.CreditHold__c,2,0) ,
+if( Service_Discount_Max__c &gt; RegPartServDisc__c ,3,0)
+))</inlineHelpText>
+        <label>Approval Level Needed</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Approval_Made__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>check this box in the approval stage and then only uncheck it if the discount percentage changes again</description>
+        <externalId>false</externalId>
+        <label>Approval Made</label>
+        <trackFeedHistory>true</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Approval_Required__c</fullName>
+        <description>Formula for Quote Approval Matrix - 06-12-10: IF(or( 
+AND( 
+OR( 
+and(Discount_Max__c &gt; 0.35, Discount_Max__c &gt; RegPartProdDisc__c ), 
+Average_Discount__c &gt; 0.0, 
+and( Service_Discount_Max__c &gt; 0.15, Service_Discount_Max__c &gt; RegPartServDisc__c )), 
+Approval_Made__c =FALSE), OR(and(ConsultingDiscountMax__c &gt;0,Opportunity__r.Account.IsAPartner__c =0) ,AND(ConsultingDiscountMax__c &gt;0.50, Opportunity__r.Account.IsAPartner__c =1))), 
+1, 0)
+Updated for tiering 6-24-2010
+IF(or( 
+AND( 
+OR( 
+and(Discount_Max__c &gt; 0.35, Discount_Max__c &gt; RegPartProdDisc__c ), 
+Average_Discount__c &gt; 0.0, 
+and( OR( and(Service_Discount_Max__c &gt; 0.21, MultiYearValue__c =2), and(Service_Discount_Max__c &gt; 0.27, MultiYearValue__c =3), Service_Discount_Max__c &gt; 0.15), Service_Discount_Max__c &gt; RegPartServDisc__c )), 
+Approval_Made__c =FALSE), OR(and(ConsultingDiscountMax__c &gt;0,Opportunity__r.Account.IsAPartner__c =0) ,AND(ConsultingDiscountMax__c &gt;0.50, Opportunity__r.Account.IsAPartner__c =1))), 
+1, 0)</description>
+        <externalId>false</externalId>
+        <formula>IF(OR( 
+AND( OR( AND( ApprovalLevelMax__c &gt;0, Discount_Max__c &gt; RegPartProdDisc__c  ),  Level3Required__c =1,
+and(Service_Discount_Max__c &gt; 0.24, MultiYearValue__c =2,Service_Discount_Max__c &gt; RegPartServDisc__c), 
+and(Service_Discount_Max__c &gt; 0.27, MultiYearValue__c =3,Service_Discount_Max__c &gt; RegPartServDisc__c), 
+AND(and(Service_Discount_Max__c &gt; 0.20,MultiYearValue__c &lt;2) , Service_Discount_Max__c &gt; RegPartServDisc__c)) 
+, NOT(Approval_Made__c )), 
+OR(and(ConsultingDiscountMax__c &gt;1,Opportunity__r.Account.IsAPartner__c =0) , 
+AND(ConsultingDiscountMax__c &gt;1, Opportunity__r.Account.IsAPartner__c =1) ) 
+, Opportunity__r.Primary_Partner__r.CreditHold__c, 
+AND(ISPICKVAL(Opportunity__r.Type,&apos;Training/WanStart&apos;), ConsultingDiscountMax__c &gt; RegPartServDisc__c ) ) 
+,1, 0)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Approval Required</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Approval_Status__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Use for workflow and approval processes</inlineHelpText>
+        <label>Approval Status</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Approved</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Submitted</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Rejected</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackFeedHistory>true</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Average_Discount__c</fullName>
+        <externalId>false</externalId>
+        <formula>if( Quote_Amount_Rollup__c&gt;0, -(Quote_Discount__c /  Quote_Amount_Rollup__c),0)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Order Discount %</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>1</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>Bill_To_Account__c</fullName>
+        <externalId>false</externalId>
+        <formula>if( Override_Bill_To__c , &quot;&quot; , IF( ISPICKVAL( Quote_Address__c ,&quot;Opportunity Account&quot;) , Opportunity__r.Account.Name  ,  PreparedFor__r.Account.Name))</formula>
+        <label>Bill To Account</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Bill_To_Address__c</fullName>
+        <description>IF( ISPICKVAL( Quote_Address__c ,&quot;Opportunity Account&quot;) ,Opportunity__r.Account.BillingStreet ,  PreparedFor__r.Account.BillingStreet )</description>
+        <externalId>false</externalId>
+        <formula>if(  Override_Bill_To__c ,  Billing_Address__c , IF( ISPICKVAL( Quote_Address__c ,&quot;Opportunity Account&quot;) ,Opportunity__r.Account.BillingStreet ,  PreparedFor__r.Account.BillingStreet ))</formula>
+        <label>Bill To Address</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Bill_To_City__c</fullName>
+        <description>IF( ISPICKVAL( Quote_Address__c ,&quot;Opportunity Account&quot;) ,Opportunity__r.Account.BillingCity ,  PreparedFor__r.Account.BillingCity )</description>
+        <externalId>false</externalId>
+        <formula>if(  Override_Bill_To__c ,  Billing_City__c , IF( ISPICKVAL( Quote_Address__c ,&quot;Opportunity Account&quot;) ,Opportunity__r.Account.BillingCity ,  PreparedFor__r.Account.BillingCity ))</formula>
+        <label>Bill To City</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Bill_To_Country__c</fullName>
+        <description>IF( ISPICKVAL( Quote_Address__c ,&quot;Opportunity Account&quot;) ,Opportunity__r.Account.BillingCountry ,  PreparedFor__r.Account.BillingCountry )</description>
+        <externalId>false</externalId>
+        <formula>if(  Override_Bill_To__c ,  Billing_Country__c , IF( ISPICKVAL( Quote_Address__c ,&quot;Opportunity Account&quot;) ,Opportunity__r.Account.BillingCountry ,  PreparedFor__r.Account.BillingCountry ))</formula>
+        <label>Bill To Country</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Bill_To_State__c</fullName>
+        <description>IF( ISPICKVAL( Quote_Address__c ,&quot;Opportunity Account&quot;) ,Opportunity__r.Account.BillingState ,  PreparedFor__r.Account.BillingState )</description>
+        <externalId>false</externalId>
+        <formula>if(  Override_Bill_To__c ,  Billing_State__c , IF( ISPICKVAL( Quote_Address__c ,&quot;Opportunity Account&quot;) ,Opportunity__r.Account.BillingState ,  PreparedFor__r.Account.BillingState ))</formula>
+        <label>Bill To State</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Bill_To_Zip__c</fullName>
+        <description>IF( ISPICKVAL( Quote_Address__c ,&quot;Opportunity Account&quot;) ,Opportunity__r.Account.BillingPostalCode ,  PreparedFor__r.Account.BillingPostalCode )</description>
+        <externalId>false</externalId>
+        <formula>if(  Override_Bill_To__c ,  Billing_Postal_Code__c , IF( ISPICKVAL( Quote_Address__c ,&quot;Opportunity Account&quot;) ,Opportunity__r.Account.BillingPostalCode ,  PreparedFor__r.Account.BillingPostalCode ))</formula>
+        <label>Bill To Zip</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Billing_Address__c</fullName>
+        <description>Used to Override the Bill To Address Information on the quote</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Used to Override the Bill To Address Information on the quote</inlineHelpText>
+        <label>Billing Address</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Billing_City__c</fullName>
+        <description>Used to Override the Bill To Address Information on the quote</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Used to Override the Bill To Address Information on the quote</inlineHelpText>
+        <label>Billing City</label>
+        <length>125</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Billing_Country__c</fullName>
+        <description>Used to Override the Bill To Address Information on the quote</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Used to Override the Bill To Address Information on the quote</inlineHelpText>
+        <label>Billing Country</label>
+        <length>125</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Billing_Postal_Code__c</fullName>
+        <description>Used to Override the Bill To Address Information on the quote</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Used to Override the Bill To Address Information on the quote</inlineHelpText>
+        <label>Billing Postal Code</label>
+        <length>25</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Billing_State__c</fullName>
+        <description>Used to Override the Bill To Address Information on the quote</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Used to Override the Bill To Address Information on the quote</inlineHelpText>
+        <label>Billing State</label>
+        <length>25</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>ConsultingDiscountMax__c</fullName>
+        <externalId>false</externalId>
+        <label>Consulting Discount Max</label>
+        <summarizedField>Quote_Line__c.Discount_Percent__c</summarizedField>
+        <summaryFilterItems>
+            <field>Quote_Line__c.Include4ConsultingDisc__c</field>
+            <operation>equals</operation>
+            <value>1</value>
+        </summaryFilterItems>
+        <summaryForeignKey>Quote_Line__c.Quote__c</summaryForeignKey>
+        <summaryOperation>max</summaryOperation>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Summary</type>
+    </fields>
+    <fields>
+        <fullName>Discount_Justification__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Note to send to approvers to communicate reason for requesting the discount</inlineHelpText>
+        <label>Discount Justification</label>
+        <length>32000</length>
+        <trackFeedHistory>true</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>5</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Discount_Max__c</fullName>
+        <externalId>false</externalId>
+        <label>Product Discount Max</label>
+        <summarizedField>Quote_Line__c.Discount_Percent__c</summarizedField>
+        <summaryFilterItems>
+            <field>Quote_Line__c.Include4Discount__c</field>
+            <operation>equals</operation>
+            <value>1</value>
+        </summaryFilterItems>
+        <summaryForeignKey>Quote_Line__c.Quote__c</summaryForeignKey>
+        <summaryOperation>max</summaryOperation>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Summary</type>
+    </fields>
+    <fields>
+        <fullName>EC_Approval__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>EC Approval</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Hide_Pricing__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <inlineHelpText>Use this box if you want to generate a quote document that has no pricing on it (i.e. an EMC or HDS configuration outline).</inlineHelpText>
+        <label>Hide Pricing</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Level3Required__c</fullName>
+        <externalId>false</externalId>
+        <formula>if(
+Or( Quote_Discount__c &lt;0, Opportunity__r.Primary_Partner__r.CreditHold__c , not( Opportunity__r.Primary_Partner__r.Reseller_Agreement__c ), 
+and(ispickval( Opportunity__r.Type ,&apos;Training/WanStart&apos;), ( Opportunity__r.Account.IsAPartner__c &lt;&gt;1 )))
+,1,0)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Level3Required</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Matches_Opportunity__c</fullName>
+        <description>IF( AND( Primary__c = True, 
+OR((Opportunity_Amount__c - Quote_Amount_Rollup__c) &lt;100 ,(Quote_Amount_Rollup__c - Opportunity_Amount__c )&lt;100  )
+ ) , 0, 1)</description>
+        <externalId>false</externalId>
+        <formula>IF( AND( Primary__c = True, 
+OR((Opportunity_Amount__c - Quote_Amount_Rollup__c) &lt;100 ,(Quote_Amount_Rollup__c - Opportunity_Amount__c )&lt;100  )
+ ) , 0, 1)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <inlineHelpText>IF( AND( Primary__c = True, Opportunity_Amount__c = Quote_Amount_Rollup__c  ) , 0, 1)</inlineHelpText>
+        <label>Matches Opportunity</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>MultiYearValue__c</fullName>
+        <description>What is the maximum multi year value</description>
+        <externalId>false</externalId>
+        <label>MultiYearValue</label>
+        <summarizedField>Quote_Line__c.Include4MultiYYear__c</summarizedField>
+        <summaryFilterItems>
+            <field>Quote_Line__c.Include4MultiYYear__c</field>
+            <operation>greaterThan</operation>
+            <value>1</value>
+        </summaryFilterItems>
+        <summaryForeignKey>Quote_Line__c.Quote__c</summaryForeignKey>
+        <summaryOperation>max</summaryOperation>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Summary</type>
+    </fields>
+    <fields>
+        <fullName>Number_of_Quote_Lines__c</fullName>
+        <externalId>false</externalId>
+        <label>Number of Quote Lines</label>
+        <summaryForeignKey>Quote_Line__c.Quote__c</summaryForeignKey>
+        <summaryOperation>count</summaryOperation>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Summary</type>
+    </fields>
+    <fields>
+        <fullName>Opportunity_Amount__c</fullName>
+        <externalId>false</externalId>
+        <formula>Opportunity__r.Amount</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Opportunity Amount</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Opportunity__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Opportunity</label>
+        <referenceTo>Opportunity</referenceTo>
+        <relationshipName>Quotes</relationshipName>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Override_Bill_To__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Used to Override the Bill To Address Information on the quote</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Used to Override the Bill To Address Information on the quote</inlineHelpText>
+        <label>Override Bill To</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Override_Ship_To__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Override the account shipping address for this quote</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Override the account shipping address for this quote</inlineHelpText>
+        <label>Override Ship To</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>PartnerCreditHold__c</fullName>
+        <externalId>false</externalId>
+        <formula>if( Opportunity__r.Primary_Partner__r.CreditHold__c ,&quot;On Credit Hold&quot;, &quot;No Holds&quot;)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Partner Credit Hold</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Partner_Discount_Level__c</fullName>
+        <externalId>false</externalId>
+        <formula>Opportunity__r.Partner_Discount_Level__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Partner Discount Level</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>PaymentTermInstructions__c</fullName>
+        <externalId>false</externalId>
+        <label>Payment Term Instructions</label>
+        <length>10000</length>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>5</visibleLines>
+    </fields>
+    <fields>
+        <fullName>PaymentTerm__c</fullName>
+        <externalId>false</externalId>
+        <label>Payment Term</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Net 30</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Cond PO</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Reseller Demo</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>PreparedFor__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Prepared For</label>
+        <referenceTo>Contact</referenceTo>
+        <relationshipName>Quotes</relationshipName>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Primary__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Primary</description>
+        <externalId>false</externalId>
+        <label>Primary</label>
+        <trackFeedHistory>true</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Quote_Address__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Use this to choose which address is to be used on the quote output</inlineHelpText>
+        <label>Quote Address</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Prepared For Contact</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Opportunity Account</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Quote_Amount_Rollup__c</fullName>
+        <externalId>false</externalId>
+        <label>Quote Amount Rollup</label>
+        <summarizedField>Quote_Line__c.Line_Price__c</summarizedField>
+        <summaryForeignKey>Quote_Line__c.Quote__c</summaryForeignKey>
+        <summaryOperation>sum</summaryOperation>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Summary</type>
+    </fields>
+    <fields>
+        <fullName>Quote_Date__c</fullName>
+        <description>Quote Date</description>
+        <externalId>false</externalId>
+        <label>Quote Date</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Quote_Discount_Percent__c</fullName>
+        <externalId>false</externalId>
+        <label>Quote Discount Percent</label>
+        <precision>4</precision>
+        <required>false</required>
+        <scale>1</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>Quote_Discount__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Discount % from list</inlineHelpText>
+        <label>Quote Discount Sum</label>
+        <summarizedField>Quote_Line__c.Line_Price__c</summarizedField>
+        <summaryFilterItems>
+            <field>Quote_Line__c.Line_Price__c</field>
+            <operation>lessThan</operation>
+            <value>0</value>
+        </summaryFilterItems>
+        <summaryForeignKey>Quote_Line__c.Quote__c</summaryForeignKey>
+        <summaryOperation>sum</summaryOperation>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Summary</type>
+    </fields>
+    <fields>
+        <fullName>Quote_Valid_Until__c</fullName>
+        <description>Quote Valid Until</description>
+        <externalId>false</externalId>
+        <label>Quote Valid Until</label>
+        <required>true</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>RegPartProdDisc__c</fullName>
+        <externalId>false</externalId>
+        <formula>MAX(Opportunity__r.Registered_Partner__r.Registered_Discount_Product__c ,
+ Opportunity__r.Registered_Partner__r.Standard_Discount_Product__c,
+ Opportunity__r.Primary_Partner__r.Registered_Discount_Product__c ,
+ Opportunity__r.Primary_Partner__r.Standard_Discount_Product__c,
+ Opportunity__r.Account.Product_Discount__c   )</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <inlineHelpText>this is maximum discount available without requiring approval for a quote on a given opportunity. It is the greater of the primary partner negotiated discount rates or the customer negotiated discount rates.</inlineHelpText>
+        <label>Partner Product Discount</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>RegPartServDisc__c</fullName>
+        <externalId>false</externalId>
+        <formula>Max( Opportunity__r.Registered_Partner__r.Registered_Discount_Service__c ,
+ Opportunity__r.Registered_Partner__r.Standard_Discount_Service__c,
+ Opportunity__r.Primary_Partner__r.Registered_Discount_Service__c ,
+ Opportunity__r.Primary_Partner__r.Standard_Discount_Service__c,
+ Opportunity__r.Account.Maintenance_Discount__c   )</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <inlineHelpText>this is maximum discount available without requiring approval for a quote on a given opportunity. It is the greater of the primary partner negotiated discount rates or the customer negotiated discount rates.</inlineHelpText>
+        <label>Partner Service Discount</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>Renewal_Term__c</fullName>
+        <externalId>false</externalId>
+        <label>Renewal Term</label>
+        <picklist>
+            <picklistValues>
+                <fullName>1 Year</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>3 Years</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>5 Years</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Service_Discount_Max__c</fullName>
+        <externalId>false</externalId>
+        <label>Service Discount Max</label>
+        <summarizedField>Quote_Line__c.Discount_Percent__c</summarizedField>
+        <summaryFilterItems>
+            <field>Quote_Line__c.Include4ServiceDiscount__c</field>
+            <operation>equals</operation>
+            <value>1</value>
+        </summaryFilterItems>
+        <summaryForeignKey>Quote_Line__c.Quote__c</summaryForeignKey>
+        <summaryOperation>max</summaryOperation>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Summary</type>
+    </fields>
+    <fields>
+        <fullName>Ship_To_Address__c</fullName>
+        <description>IF( ISPICKVAL( Quote_Address__c ,&quot;Opportunity Account&quot;) ,Opportunity__r.Account.ShippingStreet ,  PreparedFor__r.Account.ShippingStreet )</description>
+        <externalId>false</externalId>
+        <formula>if(  Override_Ship_To__c , Shipping_Address__c ,IF( ISPICKVAL( Quote_Address__c ,&quot;Opportunity Account&quot;) ,Opportunity__r.Account.ShippingStreet ,  PreparedFor__r.Account.ShippingStreet ))</formula>
+        <label>Ship To Address</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Ship_To_City__c</fullName>
+        <description>IF( ISPICKVAL( Quote_Address__c ,&quot;Opportunity Account&quot;) ,Opportunity__r.Account.ShippingCity ,  PreparedFor__r.Account.ShippingCity )</description>
+        <externalId>false</externalId>
+        <formula>if(  Override_Ship_To__c , Shipping_City__c , IF( ISPICKVAL( Quote_Address__c ,&quot;Opportunity Account&quot;) ,Opportunity__r.Account.ShippingCity ,  PreparedFor__r.Account.ShippingCity ))</formula>
+        <label>Ship To City</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Ship_To_Country__c</fullName>
+        <description>IF( ISPICKVAL( Quote_Address__c ,&quot;Opportunity Account&quot;) ,Opportunity__r.Account.ShippingCountry ,  PreparedFor__r.Account.ShippingCountry )</description>
+        <externalId>false</externalId>
+        <formula>if(  Override_Ship_To__c ,  Shipping_Country__c , IF( ISPICKVAL( Quote_Address__c ,&quot;Opportunity Account&quot;) ,Opportunity__r.Account.ShippingCountry ,  PreparedFor__r.Account.ShippingCountry ))</formula>
+        <label>Ship To Country</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Ship_To_State__c</fullName>
+        <description>IF( ISPICKVAL( Quote_Address__c ,&quot;Opportunity Account&quot;) ,Opportunity__r.Account.ShippingState ,  PreparedFor__r.Account.ShippingState )</description>
+        <externalId>false</externalId>
+        <formula>if(  Override_Ship_To__c ,  Shipping_State__c , IF( ISPICKVAL( Quote_Address__c ,&quot;Opportunity Account&quot;) ,Opportunity__r.Account.ShippingState ,  PreparedFor__r.Account.ShippingState ))</formula>
+        <label>Ship To State</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Ship_To_Zip__c</fullName>
+        <description>IF( ISPICKVAL( Quote_Address__c ,&quot;Opportunity Account&quot;) ,Opportunity__r.Account.ShippingPostalCode ,  PreparedFor__r.Account.ShippingPostalCode )</description>
+        <externalId>false</externalId>
+        <formula>if(  Override_Ship_To__c ,  Shipping_Postal_Code__c , IF( ISPICKVAL( Quote_Address__c ,&quot;Opportunity Account&quot;) ,Opportunity__r.Account.ShippingPostalCode ,  PreparedFor__r.Account.ShippingPostalCode ))</formula>
+        <label>Ship To Zip</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Shipping_Address__c</fullName>
+        <description>Override the account shipping address for this quote</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Override the account shipping address for this quote</inlineHelpText>
+        <label>Shipping Address</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Shipping_City__c</fullName>
+        <description>Override the account shipping address for this quote</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Override the account shipping address for this quote</inlineHelpText>
+        <label>Shipping City</label>
+        <length>125</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Shipping_Country__c</fullName>
+        <description>Override the account shipping address for this quote</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Override the account shipping address for this quote</inlineHelpText>
+        <label>Shipping Country</label>
+        <length>125</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Shipping_Postal_Code__c</fullName>
+        <description>Override the account shipping address for this quote</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Override the account shipping address for this quote</inlineHelpText>
+        <label>Shipping Postal Code</label>
+        <length>25</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Shipping_State__c</fullName>
+        <description>Override the account shipping address for this quote</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Override the account shipping address for this quote</inlineHelpText>
+        <label>Shipping State</label>
+        <length>25</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>ShowDiscount__c</fullName>
+        <defaultValue>true</defaultValue>
+        <externalId>false</externalId>
+        <label>Show Discount</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Show_Subtotal__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <inlineHelpText>Use this checkbox if you want to generate a document with subtotals on Maintenance/Product/Service</inlineHelpText>
+        <label>Show Subtotal</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Show_Virtual_Alternatives__c</fullName>
+        <defaultValue>true</defaultValue>
+        <externalId>false</externalId>
+        <label>Show Virtual Alternatives</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Special_Instructions__c</fullName>
+        <defaultValue>&quot;Pricing shown is transfer prices from Silver Peak to Reseller, NOT End-user pricing.&quot;</defaultValue>
+        <externalId>false</externalId>
+        <label>Special Instructions</label>
+        <length>10000</length>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>5</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Stage__c</fullName>
+        <description>Stage</description>
+        <externalId>false</externalId>
+        <label>Stage</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Draft</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Review</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Presented</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackFeedHistory>true</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>TmpApprovalRequired__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(or( 
+AND(
+OR(
+and(Discount_Max__c &gt; 0.35, Discount_Max__c &gt;  RegPartProdDisc__c ), 
+Average_Discount__c &gt; 0.0,
+and( Service_Discount_Max__c  &gt; 0.15, Service_Discount_Max__c  &gt;   RegPartServDisc__c  )), 
+Approval_Made__c =FALSE), OR(and(ConsultingDiscountMax__c &gt;0,Opportunity__r.Account.IsAPartner__c =0) ,AND(ConsultingDiscountMax__c &gt;0.50, Opportunity__r.Account.IsAPartner__c =1))), 
+1, 0)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>TmpApprovalRequired</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Value_At_List__c</fullName>
+        <externalId>false</externalId>
+        <label>Value At List</label>
+        <summarizedField>Quote_Line__c.Product_List__c</summarizedField>
+        <summaryForeignKey>Quote_Line__c.Quote__c</summaryForeignKey>
+        <summaryOperation>sum</summaryOperation>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Summary</type>
+    </fields>
+    <label>Silver Peak Quote</label>
+    <listViews>
+        <fullName>All</fullName>
+        <columns>NAME</columns>
+        <columns>Opportunity__c</columns>
+        <columns>Quote_Date__c</columns>
+        <columns>PreparedFor__c</columns>
+        <columns>Approval_Status__c</columns>
+        <columns>Approval_Made__c</columns>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+    </listViews>
+    <nameField>
+        <displayFormat>Q{00000000}</displayFormat>
+        <label>Quote ID</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>Silver Peak Quotes</pluralLabel>
+    <searchLayouts>
+        <customTabListAdditionalFields>Opportunity__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Quote_Date__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Quote_Valid_Until__c</customTabListAdditionalFields>
+        <excludedStandardButtons>New</excludedStandardButtons>
+        <excludedStandardButtons>Accept</excludedStandardButtons>
+        <excludedStandardButtons>ChangeOwner</excludedStandardButtons>
+        <listViewButtons>NewQuoteFromOpportunity</listViewButtons>
+        <searchFilterFields>NAME</searchFilterFields>
+    </searchLayouts>
+    <sharingModel>Read</sharingModel>
+    <validationRules>
+        <fullName>Cant_Show_Discounts_and_Hide_Prices</fullName>
+        <active>true</active>
+        <description>Ensure that show discount is disabled if you want to hide pricing</description>
+        <errorConditionFormula>and( Hide_Pricing__c , ShowDiscount__c )</errorConditionFormula>
+        <errorDisplayField>ShowDiscount__c</errorDisplayField>
+        <errorMessage>In order to hide pricing you must disable show discounts too</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>check_Opportunity_Pricebook</fullName>
+        <active>true</active>
+        <errorConditionFormula>Opportunity__r.Pricebook2Id = NULL</errorConditionFormula>
+        <errorMessage>There is no pricebook for the specified opportunity.</errorMessage>
+    </validationRules>
+    <webLinks>
+        <fullName>CloneWithProducts</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <height>600</height>
+        <linkType>page</linkType>
+        <masterLabel>Clone With Products</masterLabel>
+        <openType>sidebar</openType>
+        <page>QuoteClone</page>
+        <protected>false</protected>
+    </webLinks>
+    <webLinks>
+        <fullName>Email_Quote_Document</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>Email Quote Document</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <url>if(&quot;{!Quote__c.Approval_Status__c}&quot; == &quot;Approved&quot; &amp;&amp; &quot;{!Quote__c.Primary__c}&quot; == &quot;1&quot;)
+{
+window.open(&quot;/apex/EmailQuoteDocument?id={!Quote__c.Id}&quot;, &quot;_blank&quot;, &quot;width=600,height=400&quot;);
+}
+else
+{
+alert(&quot;Quote must be approved and primary.&quot;);
+}</url>
+    </webLinks>
+    <webLinks>
+        <fullName>GenerateQuote</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <encodingKey>UTF-8</encodingKey>
+        <height>600</height>
+        <linkType>url</linkType>
+        <masterLabel>Generate Quote Doc</masterLabel>
+        <openType>sidebar</openType>
+        <protected>false</protected>
+        <url>/apex/quoteAttach?id={!Quote__c.Id}</url>
+    </webLinks>
+    <webLinks>
+        <fullName>NewQuoteFromOpportunity</fullName>
+        <availability>online</availability>
+        <displayType>massActionButton</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>New Quote</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <requireRowSelection>false</requireRowSelection>
+        <url>{!REQUIRESCRIPT(&quot;/soap/ajax/29.0/connection.js&quot;)} 
+
+if(&quot;{!Opportunity.Primary_PartnerId__c}&quot; == &quot;&quot;)
+{
+    alert(&quot;Sorry, you must identify and enable the primary partner discount before you can create a quote&quot;);
+}
+else if(&quot;{!Opportunity.Type}&quot; == &quot;Support Renewal&quot;) 
+{ 
+window.location = &quot;/apex/newquote?id={!Opportunity.Id}&quot;; 
+} 
+else
+{
+    var contactRoles = sforce.connection.query(&quot;select Id from OpportunityContactRole where OpportunityId=&apos;{!Opportunity.Id}&apos;&quot;);
+    if(contactRoles.records) 
+    {
+        window.location = &quot;/apex/newquote?id={!Opportunity.Id}&quot;;
+    }
+    else {
+        if(confirm(&quot;Please identify at least one contact role before creating a new quote, i.e. Decision Maker, Budget Owner, Influencer.&quot;))
+        {
+            window.location = &quot;/p/opp/ContactRoleEditUi/e?oppid={!Opportunity.Id}&amp;retURL=%2F{!Opportunity.Id}&quot;;
+        }
+    }
+}</url>
+    </webLinks>
+    <webLinks>
+        <fullName>Oppo2Quote</fullName>
+        <availability>online</availability>
+        <displayType>link</displayType>
+        <encodingKey>UTF-8</encodingKey>
+        <height>600</height>
+        <linkType>url</linkType>
+        <masterLabel>Copy Opportunity Lines into Quote</masterLabel>
+        <openType>sidebar</openType>
+        <protected>false</protected>
+        <url>/apex/editQuoteLines?id={!Quote__c.Id}&amp;reloadQuote=1</url>
+    </webLinks>
+    <webLinks>
+        <fullName>Quote_Document</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>Generate Quote Doc</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <url>{!REQUIRESCRIPT(&quot;/soap/ajax/20.0/connection.js&quot;)}
+{!REQUIRESCRIPT(&quot;/soap/ajax/20.0/apex.js&quot;)}
+
+var callback = {
+  onSuccess : function(queryResult, source)
+  {
+    if(queryResult.size &gt; 0)
+    {
+      var records = queryResult.getArray(&apos;records&apos;);
+      for(var i = 0; i &lt; records.length; i++)
+      {
+        var quote = records[i];
+        if(quote.Approval_Status__c == &quot;Approved&quot;)
+        {
+          window.location = &quot;/apex/quoteAttach?id={!Quote__c.Id}&quot;;
+        }
+        else
+        {
+          alert (&quot;This Quote needs approval, press the submit for approval button&quot;); 
+        }
+      }
+    }
+  },
+  onFailure: function(error, source)
+  {
+    alert(&quot;Error occurred while generating the document, error is: &quot; + error);
+  }
+};
+
+sforce.connection.query(&quot;select Id, Approval_Status__c from Quote__c where Id=&apos;{!Quote__c.Id}&apos; limit 1&quot;, callback);</url>
+    </webLinks>
+    <webLinks>
+        <fullName>UpdateOpportunity</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>Update Oppty/Make Primary</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <url>window.location.href = &quot;/apex/editQuoteLines?id={!Quote__c.Id}&amp;reloadOppo=1&quot;;</url>
+    </webLinks>
+</CustomObject>

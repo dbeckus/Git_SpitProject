@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Purchasing Request</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Purchasing Requests</value>
+    </caseValues>
+    <fields>
+        <help><!-- Approved PR needs to be increased re-submitted for approval. Approval Status will be switched back to draft. Once amount is updated you will have to re-submit for approval. --></help>
+        <label><!-- Amount Increase --></label>
+        <name>Amount_Increase__c</name>
+    </fields>
+    <fields>
+        <label><!-- Approval Status --></label>
+        <name>Approval_Status__c</name>
+        <picklistValues>
+            <masterLabel>Budget Approval</masterLabel>
+            <translation><!-- Budget Approval --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Draft</masterLabel>
+            <translation><!-- Draft --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Final Approval</masterLabel>
+            <translation><!-- Final Approval --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Rejected</masterLabel>
+            <translation><!-- Rejected --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Approved Vendor List --></label>
+        <name>Approved_Vendor_List__c</name>
+        <relationshipLabel><!-- Purchasing Requests --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Partner Mktg Program --></label>
+        <name>Channel_Mkt_Program__c</name>
+    </fields>
+    <fields>
+        <label><!-- Email --></label>
+        <name>Email__c</name>
+    </fields>
+    <fields>
+        <help><!-- Chosen approver on web submission --></help>
+        <label><!-- First Approver --></label>
+        <name>First_Approver__c</name>
+        <relationshipLabel><!-- Purchasing Requests --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Needed By Date --></label>
+        <name>Needed_By_Date__c</name>
+    </fields>
+    <fields>
+        <help><!-- Check this to indicate the PO has been processes --></help>
+        <label><!-- Order Processed --></label>
+        <name>Order_Processed__c</name>
+    </fields>
+    <fields>
+        <label><!-- Order Placed By --></label>
+        <name>Order_to_be_sent_by__c</name>
+        <picklistValues>
+            <masterLabel>Finance</masterLabel>
+            <translation><!-- Finance --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Requestor</masterLabel>
+            <translation><!-- Requestor --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Pay on Credit Card --></label>
+        <name>PayOnCreditCard__c</name>
+    </fields>
+    <fields>
+        <label><!-- Purchasing Instructions --></label>
+        <name>Purchasing_Instructions__c</name>
+    </fields>
+    <fields>
+        <label><!-- Purchasing Justification --></label>
+        <name>Purchasing_Justification__c</name>
+    </fields>
+    <fields>
+        <help><!-- Number of purchasing Request Line on MDF Request. Should be &apos;1&apos; to progress through approvals. --></help>
+        <label><!-- Purchasing Request Lines --></label>
+        <name>Purchasing_Request_Lines__c</name>
+    </fields>
+    <fields>
+        <label><!-- Requested By --></label>
+        <name>Requested_By__c</name>
+    </fields>
+    <fields>
+        <label><!-- Requested Date --></label>
+        <name>Requested_Date__c</name>
+    </fields>
+    <fields>
+        <label><!-- Requested For --></label>
+        <name>Requested_For__c</name>
+    </fields>
+    <fields>
+        <label><!-- Send PO Via --></label>
+        <name>Send_PO_Via__c</name>
+        <picklistValues>
+            <masterLabel>Email</masterLabel>
+            <translation><!-- Email --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Fax</masterLabel>
+            <translation><!-- Fax --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Send PO to Vendor --></label>
+        <name>Send_PO_to_Vendor__c</name>
+        <picklistValues>
+            <masterLabel>No</masterLabel>
+            <translation><!-- No --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Yes</masterLabel>
+            <translation><!-- Yes --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Ship To --></label>
+        <name>Ship_To__c</name>
+    </fields>
+    <fields>
+        <label><!-- Temporary --></label>
+        <name>Temporary__c</name>
+    </fields>
+    <fields>
+        <label><!-- Total Amount --></label>
+        <name>Total_Amount__c</name>
+    </fields>
+    <fields>
+        <label><!-- Vendor Address --></label>
+        <name>Vendor_Address__c</name>
+    </fields>
+    <fields>
+        <help><!-- Include contact name, phone and email --></help>
+        <label><!-- Vendor Contact --></label>
+        <name>Vendor_Contact__c</name>
+    </fields>
+    <fields>
+        <label><!-- Vendor Email --></label>
+        <name>Vendor_Email__c</name>
+    </fields>
+    <fields>
+        <label><!-- Vendor Name --></label>
+        <name>Vendor_Name__c</name>
+    </fields>
+    <layouts>
+        <layout>Marketing Purchasing Request Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+        <sections>
+            <label><!-- Vendor Information --></label>
+            <section>Vendor Information</section>
+        </sections>
+    </layouts>
+    <layouts>
+        <layout>Purchasing Request Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+        <sections>
+            <label><!-- Ship To --></label>
+            <section>Ship To</section>
+        </sections>
+        <sections>
+            <label><!-- Vendor Information --></label>
+            <section>Vendor Information</section>
+        </sections>
+    </layouts>
+    <recordTypes>
+        <label><!-- MDF Request --></label>
+        <name>MDF_Request</name>
+    </recordTypes>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

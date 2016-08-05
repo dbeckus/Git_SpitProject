@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Deficiency Component</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Deficiency Components</value>
+    </caseValues>
+    <fields>
+        <label><!-- Account --></label>
+        <name>Account__c</name>
+        <relationshipLabel><!-- Deficiency Components --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- http://bugs/bugzilla/show_bug.cgi?id= --></label>
+        <name>BUGS_ID__c</name>
+    </fields>
+    <fields>
+        <label><!-- Bugzilla --></label>
+        <name>Bugzilla__c</name>
+    </fields>
+    <fields>
+        <label><!-- Case --></label>
+        <name>Case__c</name>
+        <relationshipLabel><!-- Deficiency Components --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Deficiency --></label>
+        <name>Deficiency__c</name>
+        <relationshipLabel><!-- Deficiency Components --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- lists/FRED/DispForm.aspx?ID= --></label>
+        <name>FRED_URL__c</name>
+    </fields>
+    <fields>
+        <label><!-- FRED --></label>
+        <name>FRED__c</name>
+    </fields>
+    <fields>
+        <label><!-- Opportunity --></label>
+        <name>Opportunity__c</name>
+        <relationshipLabel><!-- Deficiency Components --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- http://intranet.speak.local/marketing/ --></label>
+        <name>base_url__c</name>
+    </fields>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

@@ -1,0 +1,3 @@
+<apex:page showHeader="false" controller="MarketplaceDownloadController" action="{!redirect}" title="Marketplace Trial Download">
+    <apex:pageMessages ></apex:pageMessages>
+</apex:page>

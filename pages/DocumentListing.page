@@ -1,0 +1,7 @@
+<apex:page showHeader="true" tabstyle="Customer_Documentation__tab">
+  <!-- Begin Default Content REMOVE THIS -->
+
+ <apex:ListViews type="Customer_Documents__c" />
+
+  <!-- End Default Content REMOVE THIS -->
+</apex:page>

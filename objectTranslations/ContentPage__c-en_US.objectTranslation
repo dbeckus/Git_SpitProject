@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Partner Portal Page</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Partner Portal Pages</value>
+    </caseValues>
+    <fields>
+        <label><!-- Actual Url --></label>
+        <name>ActualUrl__c</name>
+    </fields>
+    <fields>
+        <label><!-- Content --></label>
+        <name>Content__c</name>
+    </fields>
+    <fields>
+        <label><!-- Parent Page --></label>
+        <name>ParentPage__c</name>
+        <relationshipLabel><!-- Partner Portal Pages --></relationshipLabel>
+    </fields>
+    <fields>
+        <help><!-- Whether this content is public. Non-public pages need authorization. --></help>
+        <label><!-- Public --></label>
+        <name>Public__c</name>
+    </fields>
+    <fields>
+        <label><!-- Virtual Path --></label>
+        <name>VirtualPath__c</name>
+    </fields>
+    <layouts>
+        <layout>Partner Portal Page Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+    </layouts>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

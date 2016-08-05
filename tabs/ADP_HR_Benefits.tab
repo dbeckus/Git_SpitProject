@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomTab xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Link to the ADP site for Silver Peak</description>
+    <frameHeight>600</frameHeight>
+    <hasSidebar>false</hasSidebar>
+    <label>ADP HR/Benefits</label>
+    <mobileReady>false</mobileReady>
+    <motif>Custom77: Locked</motif>
+    <url>https://adp.eease.com/</url>
+    <urlEncodingKey>UTF-8</urlEncodingKey>
+</CustomTab>

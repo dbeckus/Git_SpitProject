@@ -1,0 +1,46 @@
+<apex:page controller="PickAssetForNewCmaController" tabStyle="Asset">
+<style type="text/css">
+    .link{
+        color: blue;
+    }
+</style>
+    <apex:sectionHeader title="Convert to Virtual" />
+    <apex:form >
+        <apex:pageBlock mode="none">
+            <apex:pageMessages />
+            <apex:pageBlockSection title=" Search for a Serial Number" collapsible="false" columns="1">
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Serial Number"/>
+                    <apex:outputPanel layout="none">
+                        <apex:inputText value="{!SearchKey}" />
+                        <apex:commandButton value=" Search " action="{!searchRecord}" />&nbsp;
+                        <apex:commandButton value=" Cancel " action="{!cancel}" />&nbsp;
+                        <a class="link" href="http://marketplace.silver-peak.com/" target="_blank">Try VX Appliance </a> &nbsp;
+                        <a class="link" href="{!$Page.CmaConversionFaq}" target="_blank">Read FAQ</a>
+                    </apex:outputPanel>
+                </apex:pageBlockSectionItem>
+            </apex:pageBlockSection>
+            <apex:outputPanel rendered="{!IsShowErrorMessage}">
+                <apex:outputText value="No activated models to display" />
+            </apex:outputPanel>
+            <apex:pageBlockSection rendered="{!!IsShowErrorMessage}" title=" OR, select a Serial Number from the list below of appliances currently eligible to be converted to virtual." collapsible="false" columns="1">
+                <apex:outputPanel rendered="{!ShowAll && RecordSize > PageSize}" style="float:right">
+                    <apex:commandLink value="Previous Page" action="{!previous}" rendered="{!HasPrevious}" /><apex:outputText value="Previous Page" rendered="{!!HasPrevious}"/>&nbsp;|&nbsp;
+                    <apex:commandLink value="Next Page" action="{!next}" rendered="{!HasNext}" /><apex:outputText value="Next Page" rendered="{!!HasNext}" />
+                </apex:outputPanel>
+                <apex:pageBlockTable value="{!Assets}" var="item" rendered="{!ShowAll}">
+                    <apex:column headerValue="Serial Number">
+                        <apex:commandLink value="{!item.SerialNumber}" action="{!goToCma}">
+                            <apex:param name="aid" value="{!item.Id}"/>
+                        </apex:commandLink>
+                    </apex:column>
+                    <apex:column value="{!item.Model__c}" />
+                </apex:pageBlockTable>
+                <apex:outputPanel rendered="{!ShowAll && RecordSize > PageSize}" style="float:right">
+                    <apex:commandLink value="Previous Page" action="{!previous}" rendered="{!HasPrevious}" /><apex:outputText value="Previous Page" rendered="{!!HasPrevious}"/>&nbsp;|&nbsp;
+                    <apex:commandLink value="Next Page" action="{!next}" rendered="{!HasNext}" /><apex:outputText value="Next Page" rendered="{!!HasNext}" />
+                </apex:outputPanel>
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

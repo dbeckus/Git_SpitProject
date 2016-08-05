@@ -1,0 +1,71 @@
+<apex:page controller="SelfRegisterController" showHeader="false">
+    <style>
+    .formInput {
+        border-right: #666 1px solid;
+        border-top: #666 1px solid;
+        font: 10px Verdana, Helvetica, sans-serif;
+        font-weight: normal;
+        height: 18px;
+        padding-top: 2px;
+        padding-left: 3px;
+        margin: 1px 0;
+        border-left: #666 1px solid;
+        border-bottom: #666 1px solid;
+        background-color: whiteSmoke;
+    }
+    td, th {
+        color: #333;
+        font-size: 11px;
+    }
+    label {
+        cursor: default;
+    }
+    .btn_submit {
+        font: bold 10px Verdana, Helvetica, Arial, sans-serif;
+        width: 80px;
+        color: #333333;
+        background-color: #ebebeb;
+        box-sizing: border-box;
+        border: 2px outset buttonface;
+        padding: 2px 6px 3px;
+    }
+    </style>
+    <apex:pageMessages />
+    <apex:form rendered="{!NOT(Succeeded)}">
+        <table width="100%"  border="0" cellspacing="2" cellpadding="2">
+            <tr>
+                <td width="27%"><label for="name">* Contact Name</label></td>
+                <td colspan="2"><apex:inputText value="{!FullName}" size="35" maxlength="80" styleClass="formInput" /></td>
+            </tr>
+            <tr>
+                <td><label for="email">* Email</label></td>
+                <td colspan="2"><apex:inputText styleClass="formInput" value="{!Email}" size="35"  maxlength="80"  /></td>
+            </tr>
+            <tr>
+                <td><label for="phone">* Phone</label></td>
+                <td colspan="2"><apex:inputText styleClass="formInput" value="{!PhoneNumber}" size="35"  maxlength="40" /></td>
+            </tr>
+            <tr>
+                <td><label for="company">* Company</label></td>
+                <td colspan="2"><apex:inputText styleClass="formInput" value="{!CompanyName}" size="35"  maxlength="80" /></td>
+            </tr>
+            <tr>
+                <td class="bodycopy">* Serial Number (required for entitlement verification):</td>
+                <td colspan="2"><apex:inputText styleClass="formInput" value="{!SerialNumber}" size="35"  maxlength="32" /></td>
+            </tr>
+            <tr>
+                <td><label for="subject">* Subject</label></td>
+                <td colspan="2"><apex:inputText styleClass="formInput" value="{!Subject}" size="35"  maxlength="255" /></td>
+            </tr>
+            <tr>
+                <td>&nbsp;</td>
+                <td colspan="2">&nbsp;</td>
+            </tr>
+            <tr>
+                <td>&nbsp;</td>
+                <td width="21%"><apex:commandButton styleClass="btn_submit" value="Submit" action="{!submit}" /> </td>
+                <td width="52%"><input name="Reset" type="reset" class="btn btn_submit" value="Reset" /></td>
+            </tr>
+        </table>
+    </apex:form>
+</apex:page>

@@ -1,0 +1,7 @@
+<apex:page showHeader="true" tabstyle="Asset">
+  <!-- Begin Default Content REMOVE THIS -->
+
+ <apex:ListViews type="Case" />
+
+  <!-- End Default Content REMOVE THIS -->
+</apex:page>

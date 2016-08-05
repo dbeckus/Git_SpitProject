@@ -1,0 +1,7 @@
+<apex:page showheader="false">
+    <apex:composition template="PartnerCommunityTemplate">
+        <apex:define name="body">
+            Your profile is incomplete. Please click <a href="my_profile">here</a> to complete your profile.
+        </apex:define>
+    </apex:composition>
+</apex:page>

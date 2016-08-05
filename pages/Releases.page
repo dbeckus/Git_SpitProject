@@ -1,0 +1,214 @@
+<apex:page controller="ReleasesController">
+    <apex:stylesheet value="{!URLFOR($Resource.Releases, 'css/tabShift.css')}"/>
+    <apex:includeScript value="{!URLFOR($Resource.Releases, 'js/jquery-1.6.1.min.js')}"/>
+    <apex:includeScript value="{!URLFOR($Resource.Releases, 'js/subNavControl.js')}"/>
+    <style type="text/css">
+        .rls {
+            margin-left: 24px;
+        }
+        .rls a, .bd a {
+            color: #015BA7;
+        }
+    </style>
+    <apex:form >
+        <ul class="nav subpageNavStyle">
+            <li class="{!IF(ActiveTab = 'VAP', 'hovered', '')}">
+                <apex:commandLink action="{!changeBuilds}" value="Virtual Appliance Installation Packages" styleClass="{!IF(ActiveTab = 'VAP', 'active', '')}">
+                    <apex:param name="tab" value="VAP"/>
+                    <apex:param name="clear" value="true"/>
+                </apex:commandLink>
+                <div class="subNav">
+                    <apex:repeat value="{!BuildStatuses}" var="status">
+                        <apex:commandLink value="{!status}" action="{!changeBuilds}" styleClass="{!IF(ActiveTab = 'VAP' && ActiveSubTab = status, 'active', '')}">
+                            <apex:param name="tab" value="VAP"/>
+                            <apex:param name="subtab" value="{!status}"/>
+                        </apex:commandLink>
+                    </apex:repeat>
+                </div>
+            </li>
+            <li class="{!IF(ActiveTab = 'VXOA Release', 'hovered', '')}">
+                <apex:commandLink action="{!changeBuilds}" value="VXOA Software Upgrades" styleClass="{!IF(ActiveTab = 'VXOA Release', 'active', '')}">
+                    <apex:param name="tab" value="VXOA Release"/>
+                    <apex:param name="clear" value="true"/>
+                </apex:commandLink>
+                <div class="subNav">
+                    <apex:repeat value="{!BuildStatuses}" var="status">
+                        <apex:commandLink value="{!status}" action="{!changeBuilds}" styleClass="{!IF(ActiveTab = 'VXOA Release' && ActiveSubTab = status, 'active', '')}">
+                            <apex:param name="tab" value="VXOA Release"/>
+                            <apex:param name="subtab" value="{!status}"/>
+                        </apex:commandLink>
+                    </apex:repeat>
+                </div>
+            </li>
+            <li class="{!IF(ActiveTab = 'GMS', 'hovered', '')}">
+                <apex:commandLink action="{!changeBuilds}" value="Orchestrator (GMS)" styleClass="{!IF(ActiveTab = 'GMS', 'active', '')}">
+                    <apex:param name="tab" value="GMS"/>
+                    <apex:param name="clear" value="true"/>
+                </apex:commandLink>
+                <div class="subNav">
+                    <apex:repeat value="{!BuildStatuses}" var="status">
+                        <apex:commandLink value="{!status}" action="{!changeBuilds}" styleClass="{!IF(ActiveTab = 'GMS' && ActiveSubTab = status, 'active', '')}">
+                            <apex:param name="tab" value="GMS"/>
+                            <apex:param name="subtab" value="{!status}"/>
+                        </apex:commandLink>
+                    </apex:repeat>
+                </div>
+            </li>
+            <li class="{!IF(ActiveTab = 'EdgeConnect', 'hovered', '')}">
+                <apex:commandLink action="{!changeBuilds}" value="EdgeConnect Releases" styleClass="{!IF(ActiveTab = 'EdgeConnect', 'active', '')}">
+                    <apex:param name="tab" value="EdgeConnect"/>
+                    <apex:param name="clear" value="true"/>
+                </apex:commandLink>
+                <div class="subNav">
+                    <apex:repeat value="{!BuildStatuses}" var="status">
+                        <apex:commandLink value="{!status}" action="{!changeBuilds}" styleClass="{!IF(ActiveTab = 'EdgeConnect' && ActiveSubTab = status, 'active', '')}">
+                            <apex:param name="tab" value="EdgeConnect"/>
+                            <apex:param name="subtab" value="{!status}"/>
+                        </apex:commandLink>
+                    </apex:repeat>
+                </div>
+            </li>
+        </ul>
+        <!--<apex:outputText rendered="{!AND(OR(NOT(ISNULL(RecommendedBuilds)), NOT(ISNULL(OtherBuilds))), VAPType='other')}" value="A single ISO image covers all supported models for Xen, KVM and Hyper-V." />-->
+        <div style="margin-top:10px;">
+            <!--<div>{!ActiveTab} - {!ActiveSubTab} - {!VAPType} - {!ActiveModelTab}</div>-->
+            <apex:outputPanel rendered="{!RenderVAP}">
+                <div class="subBlock round5">
+                    <apex:commandLink value="VMware Releases" action="{!changeBuilds}" styleClass="subBlockBtn">
+                        <apex:param name="tab" value="VAP"/>
+                        <apex:param name="vaptype" value="VMware"/>
+                    </apex:commandLink>
+                    <div class="subBlockInfo">
+                        vSphere Installation<br />
+                        OVAs
+                    </div>
+                </div>
+                <div class="subBlock round5">
+                    <apex:commandLink value="Other Hypervisors" action="{!changeBuilds}" styleClass="subBlockBtn">
+                        <apex:param name="tab" value="VAP"/>
+                        <apex:param name="vaptype" value="other"/>
+                    </apex:commandLink>
+                    <div class="subBlockInfo">
+                        Xen<br />
+                        Hyper-V<br />
+                        KVM<br />
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+            </apex:outputPanel>
+            <apex:pageBlock rendered="{!AND(ISNULL(RecommendedBuilds), ISNULL(OtherBuilds), NOT(RenderVAP))}">
+                <b>Silver Peak Software Releases</b>
+                <p class="rls">This page contains Virtual Appliance Packages as well as VXOA and Orchestrator (GMS) software release images.</p>
+                <p class="rls">
+                    <apex:commandLink action="{!changeBuilds}" value="Virtual Appliance Installation Packages">
+                        <apex:param name="tab" value="VAP"/>
+                        <!--<apex:param name="vaprender" value="true"/>-->
+                    </apex:commandLink>
+                     are hypervisor-specific installation packages for Silver Peak virtual (VX and VRX) appliances. In order to download your Silver Peak virtual appliance select the Virtual Appliance Packages tab, then select the tab appropriate for your model, choose the recommend release and then download the install package for your hypervisor. In order to activate your Virtual Appliance you will need your keys which you can retrieve from the “Appliances” tab. Follow the instructions in the quickstart guide for your hypervisor located <a href="http://www.silver-peak.com/Support/user_docs.asp" target="_blank">here</a>.
+                </p>
+                <p class="rls">
+                    <apex:commandLink action="{!changeBuilds}" value="VXOA Software Upgrades">
+                        <apex:param name="tab" value="VXOA Release"/>
+                    </apex:commandLink>
+                     are updated software images for NX physical appliances and VX and VRX virtual appliances. Once you have installed your physical or virtual appliance, download and upgrade to the recommended GA release.
+                </p>
+                <p class="rls">
+                    <apex:commandLink action="{!changeBuilds}" value="Orchestrator (GMS)">
+                        <apex:param name="tab" value="GMS"/>
+                    </apex:commandLink>
+                     are updated software images for the Orchestrator (GMS) software running on Orchestrator (GMS) physical and virtual appliances. Once you have installed your Orchestrator (GMS), download and upgrade to the recommended GA release.
+                </p>
+                <br/>
+                <b>VXOA and Orchestrator (GMS) software releases will be in one of three states:</b>
+                <ol class="bd">
+                    <li>GA (Generally Available) – GA releases are generally available and recommended for all network conditions and all Silver Peak platforms.</li>
+                    <li>FCS (First Customer Ship) – FCS releases are limited availability releases that incorporate all Beta feedback but are not yet Generally Available.</li>
+                    <li>Beta – Beta releases are limited availability releases that serve as vehicles to receive customer feedback on newly-introduced features.</li>
+                </ol>
+                <b>Please remember the following guidelines when upgrading VXOA software:</b>
+                <ul class="bd">
+                    <li>Upgrade Orchestrator (GMS) before upgrading the VXOA software.</li>
+                    <li>Different major/minor numbered releases will not interoperate (for example, 2.1.x.y will not interoperate with 2.0.x.y).</li>
+                    <li>When upgrading to a new major or minor release, upgrade via each intermediate major/minor build number.</li>
+                    <li>Please review the release notes for any special considerations that may need to be addressed prior to upgrading.</li>
+                    <li>Please consult the hardware/software compatibility matrix located <a href="/a0S50000000ZQuC">here</a> to ensure compatibility of software releases with your hardware platform(s).</li>
+                </ul>
+                <b>How to find User Documentation:</b>
+                <ul class="bd">
+                    <li>All User Documentation is available on Silver Peak’s public website <a href="http://www.silver-peak.com/Support/user_docs.asp" target="_blank">here</a>.</li>
+                </ul>
+            </apex:pageBlock>
+            <apex:outputPanel rendered="{!AND(OR(NOT(ISNULL(RecommendedBuilds)), NOT(ISNULL(OtherBuilds))), ActiveTab='VAP', VAPType='VMware')}">
+                <ul class="tabTitleOuter">
+                    <apex:repeat value="{!VapReleases}" var="release">
+                        <li>
+                            <apex:commandLink value="{!release.Name}" action="{!changeBuilds}" styleClass="{!IF(ActiveModelTab = release.Id, 'active', '')}">
+                                <apex:param name="model" value="{!release.Id}"/>
+                                <!--<apex:param name="vaptype" value="VMware" />-->
+                            </apex:commandLink>
+                        </li>
+                    </apex:repeat>
+                </ul>
+                <div style="clear:both"></div>
+                <br />
+                <apex:outputText rendered="{!AND(RecommendedBuilds.size = 0, OtherBuilds.size = 0)}" value="No records were found." />
+            </apex:outputPanel>
+            <apex:outputPanel rendered="{!AND(OR(NOT(ISNULL(RecommendedBuilds)), NOT(ISNULL(OtherBuilds))), ActiveTab='VAP', VAPType='other')}">
+                <ul class="tabTitleOuter">
+                    <apex:repeat value="{!ISOModels}" var="isoModel">
+                        <li>
+                            <apex:commandLink value="{!isoModel}" action="{!changeBuilds}" styleClass="{!IF(ActiveModelTab = isoModel, 'active', '')}">
+                                <apex:param name="model" value="{!isoModel}"/>
+                                <!--<apex:param name="vaptype" value="other" />-->
+                            </apex:commandLink>
+                        </li>
+                    </apex:repeat>
+                </ul>
+                <br />
+                <apex:outputText rendered="{!AND(RecommendedBuilds.size = 0, OtherBuilds.size = 0)}" value="No records were found." />
+            </apex:outputPanel>
+            <apex:pageBlock rendered="{!NOT(ISNULL(RecommendedBuilds)) && RecommendedBuilds.size > 0}">
+                <apex:pageBlockTable value="{!RecommendedBuilds}" var="build">
+                    <apex:column width="12%">
+                        <apex:outputText value="Recommended" style="color:red;" rendered="{!build.IsRecommended__c}"/>
+                    </apex:column>
+                    <apex:column width="12%" headerValue="Release Number">
+                        <apex:outputLink style="text-decoration:none; color:#015BA7;" value="/apex/BuildDetail?id={!build.Id}">{!build.ReleaseCode__c}</apex:outputLink>
+                    </apex:column>
+                    <apex:column width="12%" headerValue="Release Date" value="{!build.ECO_Date__c}"/>
+                    <apex:column width="64%" headerValue="Release Highlights">
+                        <apex:outputField value="{!build.Build_Details__c}"/>
+                    </apex:column>
+                </apex:pageBlockTable>
+            </apex:pageBlock>
+            <apex:pageBlock rendered="{!NOT(ISNULL(OtherBuilds)) && OtherBuilds.size > 0}">
+                <apex:pageBlockTable value="{!OtherBuilds}" var="buildb">
+                    <apex:column width="12%">
+                        <apex:outputText value="Archived" style="color:blue;" />
+                    </apex:column>
+                    <apex:column width="12%" headerValue="Release Number">
+                        <apex:outputLink style="text-decoration:none; color:#015BA7;" value="/apex/BuildDetail?id={!buildb.Id}">{!buildb.ReleaseCode__c}</apex:outputLink>
+                    </apex:column>
+                    <apex:column width="12%" headerValue="Release Date" value="{!buildb.ECO_Date__c}"/>
+                    <apex:column width="64%" headerValue="Release Highlights">
+                        <apex:outputField value="{!buildb.Build_Details__c}"/>
+                    </apex:column>
+                </apex:pageBlockTable>
+            </apex:pageBlock>
+            <!-- <apex:pageBlock rendered="{!NOT(ISNULL(OtherBuilds)) && OtherBuilds.size > 0}">
+                <apex:pageBlockTable value="{!OtherBuilds}" var="buildb">
+                    <apex:column width="12%">
+                        <apex:outputText value="Archived" style="color:blue;" />
+                    </apex:column>
+                    <apex:column width="12%" headerValue="Release Number">
+                        <apex:outputLink style="text-decoration:none; color:#015BA7;" value="/apex/BuildDetail?id={!buildb.Id}">{!buildb.ReleaseCode__c}</apex:outputLink>
+                    </apex:column>
+                    <apex:column width="12%" headerValue="Release Date" value="{!buildb.ECO_Date__c}"/>
+                    <apex:column width="64%" headerValue="Release Highlights">
+                        <apex:outputField value="{!buildb.Build_Details__c}"/>
+                    </apex:column>
+                </apex:pageBlockTable>
+            </apex:pageBlock> -->
+        </div>
+    </apex:form>
+</apex:page>

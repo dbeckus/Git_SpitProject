@@ -1,0 +1,57 @@
+<apex:page standardController="Asset" standardStylesheets="true">
+ <!--   <style>
+        .label
+        {
+            padding-top: 3px;
+            padding-bottom: 3px;
+            padding-left: 2px;
+            padding-right: 22px;
+            color: #4A4A56;
+            width: 18%;
+            border-color: #ECECEC;
+            border-bottom: 1px solid #E3DEB8;
+            vertical-align: top;
+            text-align: right;
+            font-size: 91%;
+            font-weight: bold;
+        }
+        .value
+        {
+            padding-top: 3px;
+            padding-bottom: 3px;
+            border-right-color: white;
+            width: 32%;
+            border-color: #ECECEC;
+            border-bottom: 1px solid #E3DEB8;
+            vertical-align: top;
+            padding-right: 16px;
+            text-align: left;
+            color: black;
+            border-collapse: separate;
+            border-spacing: 2px;
+        }
+        
+    </style>  -->
+    <apex:outputPanel rendered="{!Asset.Hosted_GMS__c}">
+        <table width="100%" border="0" cellpadding="0" cellspacing="0">
+            <tr>
+                <td class="label">Username</td>
+                <td class="value"><apex:outputField value="{!Asset.Username__c}" /></td>
+                <td class="label"></td>
+                <td class="value"></td>
+            </tr>
+            <tr>
+                <td class="label">Password</td>
+                <td class="value"><apex:outputField value="{!Asset.Password__c}" /></td>
+                <td class="label"></td>
+                <td class="value"></td>
+            </tr>
+            <tr>
+                <td class="label">IP Address (click to login)</td>
+                <td class="value"><a href="https://{!Asset.IP_Address__c}" target="_blank">{!Asset.IP_Address__c}</a></td>
+                <td class="label"></td>
+                <td class="value"></td>
+            </tr>
+        </table>
+    </apex:outputPanel>
+</apex:page>

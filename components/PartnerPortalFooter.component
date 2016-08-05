@@ -1,0 +1,16 @@
+<apex:component >
+    <footer id="footer">
+     <div class="footer-holder">
+      <div class="panel">
+       <span class="copyright">&copy; Copyright 2014 Silver Peak, Inc. All Rights Reserved.</span>
+       <nav class="footer-nav">
+        <ul>
+         <li><a href="{!IF(TEXT($User.UserType)='Guest', 'home', 'champions_home')}">Home</a></li>
+         <li><a href="http://www.silver-peak.com/privacy" target="_blank">Privacy</a></li>
+        </ul>
+       </nav>
+      </div>
+      <div class="phone">Call Silver Peak: <span>888-598-7325</span></div>
+     </div>
+    </footer>
+</apex:component>

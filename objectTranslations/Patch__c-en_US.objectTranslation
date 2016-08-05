@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Patch</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Patches</value>
+    </caseValues>
+    <fields>
+        <label><!-- Active --></label>
+        <name>Active__c</name>
+    </fields>
+    <fields>
+        <label><!-- CAM --></label>
+        <name>CSM__c</name>
+        <relationshipLabel><!-- Patches (CAM) --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Catchall --></label>
+        <name>Catchall__c</name>
+    </fields>
+    <fields>
+        <label><!-- Comments --></label>
+        <name>Comments__c</name>
+    </fields>
+    <fields>
+        <label><!-- ISR --></label>
+        <name>ISR__c</name>
+        <relationshipLabel><!-- Patches (ISR) --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Overlay 1 --></label>
+        <name>Overlay_1__c</name>
+        <relationshipLabel><!-- Patches (Overlay 1) --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Overlay 2 --></label>
+        <name>Overlay_2__c</name>
+        <relationshipLabel><!-- Patches (Overlay 2) --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Patch Owner --></label>
+        <name>Owner__c</name>
+        <relationshipLabel><!-- Patches (Patch Owner) --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Patch Name --></label>
+        <name>Patch_Name__c</name>
+    </fields>
+    <fields>
+        <help><!-- Smaller number gets higher priority --></help>
+        <label><!-- Processing Sequence --></label>
+        <name>ProcessingSequence__c</name>
+    </fields>
+    <fields>
+        <label><!-- RSM --></label>
+        <name>RSM__c</name>
+        <relationshipLabel><!-- Patches (RSM) --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Rule Logic --></label>
+        <name>Rule_Logic__c</name>
+    </fields>
+    <fields>
+        <label><!-- SE --></label>
+        <name>SE__c</name>
+        <relationshipLabel><!-- Patches (SE) --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Timestamp --></label>
+        <name>Timestamp__c</name>
+    </fields>
+    <fields>
+        <label><!-- Type --></label>
+        <name>Type__c</name>
+        <picklistValues>
+            <masterLabel>GEO Based</masterLabel>
+            <translation><!-- GEO Based --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Industry</masterLabel>
+            <translation><!-- Industry --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Named Accounts</masterLabel>
+            <translation><!-- Named Accounts --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Other</masterLabel>
+            <translation><!-- Other --></translation>
+        </picklistValues>
+    </fields>
+    <layouts>
+        <layout>Patch Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+    </layouts>
+    <startsWith>Consonant</startsWith>
+    <webLinks>
+        <label><!-- Patch_Realign --></label>
+        <name>Patch_Realign</name>
+    </webLinks>
+</CustomObjectTranslation>

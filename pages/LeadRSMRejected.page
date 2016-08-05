@@ -1,0 +1,37 @@
+<apex:page showheader="false" standardController="Lead" extensions="LeadRejectedController">
+    <apex:sectionHeader title="RSM Rejected" subtitle="{!Lead.Name}"/>
+    <apex:form >
+    <apex:pageMessages escape="false"/>
+    <apex:pageblock rendered="{!IsAllowed}">
+        <apex:pageblockButtons location="bottom">
+            <apex:commandButton value="Reject" action="{!rsmReject}" />
+            <input type="button" class="btn" value="Cancel" onclick="window.close()" />
+        </apex:pageblockButtons>
+        <apex:pageblockSection columns="1">
+            <apex:pageblockSectionItem >
+                <apex:outputLabel >Status</apex:outputLabel>
+                <apex:outputText >Sales Rejected</apex:outputText>
+            </apex:pageblockSectionItem>
+            <apex:pageBlockSectionItem >
+                <apex:outputLabel >Sub Status</apex:outputLabel>
+                <apex:selectList size="1" value="{!Lead.Lead_Sub_Status__c}" required="true">
+                    <apex:selectOption itemLabel="-- Choose a value --" itemValue="" />
+                    <apex:selectOption itemLabel="Not Contactable" itemValue="Not Contactable" />
+                    <apex:selectOption itemLabel="Not Responding" itemValue="Not Responding" />
+                    <apex:selectOption itemLabel="No Opportunity" itemValue="No Opportunity" />
+                    <apex:selectOption itemLabel="Wrong Role" itemValue="Wrong Role" />
+                    <apex:selectOption itemLabel="Hygiene" itemValue="Hygiene" />
+                    <apex:selectOption itemLabel="Competitor" itemValue="Competitor" />
+                    <apex:selectOption itemLabel="Partner/Reseller" itemValue="Partner/Reseller" />
+                    <apex:selectOption itemLabel="Junk Lead" itemValue="Junk Lead" />
+                </apex:selectList>
+            </apex:pageBlockSectionItem>
+            <apex:pageblockSectionItem >
+                <apex:outputLabel >Rejected Comments</apex:outputLabel>
+                <apex:inputtextarea value="{!Lead.Sales_Rejected_Comments__c}" style="width:250px;height:100px;"/>
+            </apex:pageblockSectionItem>
+            <apex:outputField rendered="false" value="{!Lead.OwnerId}" />
+        </apex:pageblockSection>
+    </apex:pageblock>
+    </apex:form>
+</apex:page>

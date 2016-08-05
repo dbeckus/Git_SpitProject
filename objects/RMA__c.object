@@ -1,0 +1,1698 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Follow</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>Basic RMA tracking. This is the RMA header and the details of the items associated with the RMA are in the RMA Details.</description>
+    <enableActivities>true</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>true</enableHistory>
+    <enableReports>true</enableReports>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <fields>
+        <fullName>Account_Manager_Email_1__c</fullName>
+        <externalId>false</externalId>
+        <label>Account Manager Email 1</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Email</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Account_Manager_Email_2__c</fullName>
+        <externalId>false</externalId>
+        <label>Account Manager Email 2</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Email</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Account__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Account</label>
+        <referenceTo>Account</referenceTo>
+        <relationshipLabel>RMA&apos;s</relationshipLabel>
+        <relationshipName>R00N30000000t29BEAQ</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Address1__c</fullName>
+        <externalId>false</externalId>
+        <label>Address - Loc 1</label>
+        <length>32000</length>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>5</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Address_Loc_2__c</fullName>
+        <externalId>false</externalId>
+        <label>Address - Loc 2</label>
+        <length>32000</length>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>5</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Address_Loc_3__c</fullName>
+        <externalId>false</externalId>
+        <label>Address - Loc 3</label>
+        <length>32000</length>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>5</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Address_Loc_4__c</fullName>
+        <externalId>false</externalId>
+        <label>Address - Loc 4</label>
+        <length>32000</length>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>5</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Case_Number__c</fullName>
+        <externalId>false</externalId>
+        <formula>Case__r.CaseNumber</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Case Number</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Case__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Case</label>
+        <referenceTo>Case</referenceTo>
+        <relationshipLabel>RMA&apos;s</relationshipLabel>
+        <relationshipName>R00N30000000t2CnEAI</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Comments__c</fullName>
+        <externalId>false</externalId>
+        <label>Add&apos;l Comments</label>
+        <length>32000</length>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>5</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Compromised_Breached__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Compromised or Breached</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>ContactFirstName__c</fullName>
+        <externalId>false</externalId>
+        <label>Contact First Name</label>
+        <length>80</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>ContactLastName__c</fullName>
+        <externalId>false</externalId>
+        <label>Contact Last Name</label>
+        <length>80</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Contact_Email_Loc_2__c</fullName>
+        <externalId>false</externalId>
+        <label>Contact Email - Loc 2</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Email</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Contact_Email_Loc_3__c</fullName>
+        <externalId>false</externalId>
+        <label>Contact Email - Loc 3</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Email</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Contact_Email_Loc_4__c</fullName>
+        <externalId>false</externalId>
+        <label>Contact Email - Loc 4</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Email</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Contact_Email__c</fullName>
+        <externalId>false</externalId>
+        <label>Contact Email -Loc 1</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Email</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Contact_Loc_1__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Contact - Loc 1</label>
+        <referenceTo>Contact</referenceTo>
+        <relationshipLabel>RMA&apos;s (Contact - Loc 1)</relationshipLabel>
+        <relationshipName>R00N500000021gyAEAQ</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Contact_Loc_2__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Contact - Loc 2</label>
+        <referenceTo>Contact</referenceTo>
+        <relationshipLabel>RMA&apos;s (Contact - Loc 2)</relationshipLabel>
+        <relationshipName>R00N500000021gyBEAQ</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Contact_Loc_3__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Contact - Loc 3</label>
+        <referenceTo>Contact</referenceTo>
+        <relationshipLabel>RMA&apos;s (Contact - Loc 3)</relationshipLabel>
+        <relationshipName>R00N500000021gyCEAQ</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Contact_Loc_4__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Contact - Loc 4</label>
+        <referenceTo>Contact</referenceTo>
+        <relationshipLabel>RMA&apos;s (Contact - Loc 4)</relationshipLabel>
+        <relationshipName>R00N500000021gy1EAA</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Contact_Phone_Loc_2__c</fullName>
+        <externalId>false</externalId>
+        <label>Contact Phone - Loc 2</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Phone</type>
+    </fields>
+    <fields>
+        <fullName>Contact_Phone_Loc_3__c</fullName>
+        <externalId>false</externalId>
+        <label>Contact Phone - Loc 3</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Phone</type>
+    </fields>
+    <fields>
+        <fullName>Contact_Phone_Loc_4__c</fullName>
+        <externalId>false</externalId>
+        <label>Contact Phone - Loc 4</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Phone</type>
+    </fields>
+    <fields>
+        <fullName>Contact_Phone__c</fullName>
+        <externalId>false</externalId>
+        <label>Contact Phone -Loc 1</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Phone</type>
+    </fields>
+    <fields>
+        <fullName>Contact__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Contact</label>
+        <referenceTo>Contact</referenceTo>
+        <relationshipLabel>RMA&apos;s</relationshipLabel>
+        <relationshipName>R00N30000000t2CsEAI</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>ContainsSystemReplacement__c</fullName>
+        <description>summarizes the line item flags</description>
+        <externalId>false</externalId>
+        <label>ContainsSystemReplacement</label>
+        <summarizedField>RMA_Item__c.Chassis__c</summarizedField>
+        <summaryForeignKey>RMA_Item__c.RMA__c</summaryForeignKey>
+        <summaryOperation>sum</summaryOperation>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Summary</type>
+    </fields>
+    <fields>
+        <fullName>Corrective_Action__c</fullName>
+        <externalId>false</externalId>
+        <label>Corrective Action</label>
+        <length>32000</length>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>5</visibleLines>
+    </fields>
+    <fields>
+        <fullName>DOA__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Did this unit or component fail &quot;out of the box&quot;</description>
+        <externalId>false</externalId>
+        <label>Dead On Arrival</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Days_Since_RMA_Open__c</fullName>
+        <externalId>false</externalId>
+        <formula>If ( NOT( OR(
+ISPICKVAL( Status__c ,&apos;Closed&apos;),
+ISPICKVAL( Status__c ,&apos;Cancelled&apos;),
+ISPICKVAL( Status__c ,&apos;In FA/Recd&apos;))),
+TODAY() -  DATEVALUE(CreatedDate) ,0)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Days Since RMA Open</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Disposition_Notes__c</fullName>
+        <externalId>false</externalId>
+        <label>Disposition Notes</label>
+        <length>32000</length>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>5</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Disposition__c</fullName>
+        <externalId>false</externalId>
+        <label>Disposition</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Return to Service</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Engineering</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Scrap</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>ENG FA</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>LANNER FA</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>NO FA REQUIRED</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>None</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>FA_Report_Needed__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <inlineHelpText>Check this field to request Silver Peak Engineering to provide a Failure Analysis Report for this RMA</inlineHelpText>
+        <label>Failure Analysis Report Needed</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Fault_Category__c</fullName>
+        <description>Category of faults found</description>
+        <externalId>false</externalId>
+        <label>Fault Category</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Backplane</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Cable</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Chassis</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Compact Flash Card</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>CPU</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Customer Damage</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Customer Satisfaction</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Disk Drive</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Embedded USB Flash Drive</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Encryption Card</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Fan</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Investigating</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Memory</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Motherboard</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>NIC</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>NTF</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Obsolete no FA</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Power Adapter</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Power Supply</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Raid Controller</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Recall</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Riser Card</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Shipping</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Software</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Unknown Yet</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>USB Flash Card</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Workmanship</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Fault_Code__c</fullName>
+        <externalId>false</externalId>
+        <label>Fault Subcategory</label>
+        <picklist>
+            <picklistValues>
+                <fullName>BIOS</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Firmware</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Hardware</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>MAC Address</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>NTF</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Obsolete no FA</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Fault_Found__c</fullName>
+        <externalId>false</externalId>
+        <label>Fault Found</label>
+        <length>32000</length>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>12</visibleLines>
+    </fields>
+    <fields>
+        <fullName>IsRecycling__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Used for email notification triggered by a workflow</description>
+        <externalId>false</externalId>
+        <label>Is Recycling</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>LineCount__c</fullName>
+        <externalId>false</externalId>
+        <label>LineCount</label>
+        <summaryForeignKey>RMA_Item__c.RMA__c</summaryForeignKey>
+        <summaryOperation>count</summaryOperation>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Summary</type>
+    </fields>
+    <fields>
+        <fullName>Lock_Dispatch_Shipment__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Lock Dispatch Shipment</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Next_Recipient__c</fullName>
+        <externalId>false</externalId>
+        <label>Next Recipient</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Operations</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Engineering</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>TAC</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Note_Loc_1__c</fullName>
+        <externalId>false</externalId>
+        <label>Note -Loc 1</label>
+        <length>32000</length>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>5</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Note_Loc_2__c</fullName>
+        <externalId>false</externalId>
+        <label>Note - Loc 2</label>
+        <length>32000</length>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>5</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Note_Loc_3__c</fullName>
+        <externalId>false</externalId>
+        <label>Note - Loc 3</label>
+        <length>32000</length>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>5</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Note_Loc_4__c</fullName>
+        <externalId>false</externalId>
+        <label>Note - Loc 4</label>
+        <length>32000</length>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>5</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Opp_Owner__c</fullName>
+        <externalId>false</externalId>
+        <formula>Request__r.Opportunity_Owner__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Opp Owner</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Partner_Notification_Text__c</fullName>
+        <externalId>false</externalId>
+        <formula>Account__r.Partner_Notifications__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Partner Notification Text</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Partner_Notification__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>This email is used on selected notifications for partners</inlineHelpText>
+        <label>Partner Notification</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Email</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Pending_EDI_Ack__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Our workflow rules toggle this field based on whether it has been dispatched and acknowledged. When order is sent this flag is set to true, when acknowledgement is made, it is returned to false.</description>
+        <externalId>false</externalId>
+        <label>Pending EDI Ack</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Problem_Description__c</fullName>
+        <externalId>false</externalId>
+        <label>Problem Description</label>
+        <length>32000</length>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>10</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Product_Loc_2__c</fullName>
+        <externalId>false</externalId>
+        <label>Product - Loc 2</label>
+        <length>125</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Product_Loc_3__c</fullName>
+        <externalId>false</externalId>
+        <label>Product - Loc 3</label>
+        <length>125</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Product_Loc_4__c</fullName>
+        <externalId>false</externalId>
+        <label>Product - Loc 4</label>
+        <length>125</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Product__c</fullName>
+        <externalId>false</externalId>
+        <label>Product -Loc 1</label>
+        <length>125</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>RMAId__c</fullName>
+        <externalId>false</externalId>
+        <formula>MID( Name , 14,10)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>RMAId</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Reason_for_Compromise_Breach__c</fullName>
+        <externalId>false</externalId>
+        <label>Reason for Compromise/Breach</label>
+        <length>32000</length>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>10</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Request__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>POC Request</label>
+        <referenceTo>Request__c</referenceTo>
+        <relationshipLabel>RMA&apos;s</relationshipLabel>
+        <relationshipName>RMAs</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Requested_By__c</fullName>
+        <externalId>false</externalId>
+        <label>Requested By</label>
+        <picklist>
+            <picklistValues>
+                <fullName>TAC</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Engineering</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>SE</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Sales</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Root_Case__c</fullName>
+        <externalId>false</externalId>
+        <label>Root Case</label>
+        <length>32000</length>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>5</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Ship_To_Account_Name__c</fullName>
+        <externalId>false</externalId>
+        <formula>Account__r.Name</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Ship To Account Name</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Status__c</fullName>
+        <externalId>false</externalId>
+        <label>Status</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Initiated</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Dispatched</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>In Logistics</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Shipped</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Closed</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Cancelled</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>RSM Assist</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>In FA/Recd</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Dispatch Accepted</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Dispatch Rejected</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>SystemCount__c</fullName>
+        <externalId>false</externalId>
+        <label>SystemCount</label>
+        <summarizedField>RMA_Item__c.Chassis__c</summarizedField>
+        <summaryForeignKey>RMA_Item__c.RMA__c</summaryForeignKey>
+        <summaryOperation>sum</summaryOperation>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Summary</type>
+    </fields>
+    <fields>
+        <fullName>System_Engineer_Email_1__c</fullName>
+        <externalId>false</externalId>
+        <label>System Engineer Email 1</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Email</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>System_Engineer_Email_2__c</fullName>
+        <externalId>false</externalId>
+        <label>System Engineer Email 2</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Email</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Tracking_Information__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Enter in format CARRIER:TRACKING NUMBERS</inlineHelpText>
+        <label>Tracking Information</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Type__c</fullName>
+        <externalId>false</externalId>
+        <label>Type</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Return for Repair</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Advance Replace</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Eval Return</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Recall</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <label>RMA</label>
+    <listViews>
+        <fullName>All</fullName>
+        <columns>NAME</columns>
+        <columns>Account__c</columns>
+        <columns>Contact__c</columns>
+        <columns>Type__c</columns>
+        <columns>Status__c</columns>
+        <columns>CREATED_DATE</columns>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+    </listViews>
+    <listViews>
+        <fullName>AllOpenRMAs</fullName>
+        <columns>NAME</columns>
+        <columns>Account__c</columns>
+        <columns>Type__c</columns>
+        <columns>OWNER.LAST_NAME</columns>
+        <columns>CREATED_DATE</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Status__c</field>
+            <operation>equals</operation>
+            <value>Open</value>
+        </filters>
+        <label>All Open RMA&apos;s</label>
+    </listViews>
+    <listViews>
+        <fullName>NonEvalRMAs</fullName>
+        <columns>NAME</columns>
+        <columns>Status__c</columns>
+        <columns>Account__c</columns>
+        <columns>Case__c</columns>
+        <columns>Type__c</columns>
+        <columns>CREATEDBY_USER</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Type__c</field>
+            <operation>notEqual</operation>
+            <value>Eval Return</value>
+        </filters>
+        <label>Non-Eval RMA&apos;s</label>
+    </listViews>
+    <nameField>
+        <displayFormat>RMA-{YYYY}{MM}{DD}-{0}</displayFormat>
+        <label>RMA Name</label>
+        <trackHistory>false</trackHistory>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>RMA&apos;s</pluralLabel>
+    <recordTypeTrackHistory>false</recordTypeTrackHistory>
+    <recordTypes>
+        <fullName>CMA</fullName>
+        <active>true</active>
+        <description>The CMA process is to be executed as a record type on the RMA object</description>
+        <label>CMA</label>
+        <picklistValues>
+            <picklist>Disposition__c</picklist>
+            <values>
+                <fullName>None</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Fault_Category__c</picklist>
+            <values>
+                <fullName>CPU</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Cable</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Chassis</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Compact Flash Card</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Customer Satisfaction</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Disk Drive</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Embedded USB Flash Drive</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Encryption Card</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Fan</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Investigating</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Memory</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Motherboard</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>NIC</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>NTF</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Obsolete no FA</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Power Adapter</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Power Supply</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Raid Controller</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Recall</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Riser Card</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Shipping</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Software</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>USB Flash Card</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Unknown Yet</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Workmanship</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Fault_Code__c</picklist>
+            <values>
+                <fullName>BIOS</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Firmware</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Hardware</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>MAC Address</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>NTF</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Obsolete no FA</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Next_Recipient__c</picklist>
+            <values>
+                <fullName>Engineering</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Operations</fullName>
+                <default>true</default>
+            </values>
+            <values>
+                <fullName>TAC</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Requested_By__c</picklist>
+            <values>
+                <fullName>Engineering</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>SE</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Sales</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>TAC</fullName>
+                <default>true</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Status__c</picklist>
+            <values>
+                <fullName>Cancelled</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Closed</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Dispatch Accepted</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Dispatch Rejected</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Dispatched</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>In FA%2FRecd</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>In Logistics</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Initiated</fullName>
+                <default>true</default>
+            </values>
+            <values>
+                <fullName>RSM Assist</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Shipped</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Type__c</picklist>
+            <values>
+                <fullName>Advance Replace</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Eval Return</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Recall</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Return for Repair</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <recordTypes>
+        <fullName>Eval_RMA</fullName>
+        <active>true</active>
+        <description>An RMA for an Eval return</description>
+        <label>Eval RMA</label>
+        <picklistValues>
+            <picklist>Disposition__c</picklist>
+            <values>
+                <fullName>None</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Fault_Category__c</picklist>
+            <values>
+                <fullName>NIC</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Power Adapter</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Fault_Code__c</picklist>
+            <values>
+                <fullName>NTF</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Next_Recipient__c</picklist>
+            <values>
+                <fullName>Engineering</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Operations</fullName>
+                <default>true</default>
+            </values>
+            <values>
+                <fullName>TAC</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Requested_By__c</picklist>
+            <values>
+                <fullName>Engineering</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>SE</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Sales</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>TAC</fullName>
+                <default>true</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Status__c</picklist>
+            <values>
+                <fullName>Closed</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>In Logistics</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Initiated</fullName>
+                <default>true</default>
+            </values>
+            <values>
+                <fullName>RSM Assist</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Type__c</picklist>
+            <values>
+                <fullName>Eval Return</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <recordTypes>
+        <fullName>RMA</fullName>
+        <active>true</active>
+        <description>Advance Replace, Repair and REcall RMAs</description>
+        <label>RMA</label>
+        <picklistValues>
+            <picklist>Disposition__c</picklist>
+            <values>
+                <fullName>ENG FA</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>LANNER FA</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>NO FA REQUIRED</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Fault_Category__c</picklist>
+            <values>
+                <fullName>Backplane</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>CPU</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Cable</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Chassis</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Compact Flash Card</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Customer Damage</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Customer Satisfaction</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Disk Drive</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Embedded USB Flash Drive</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Encryption Card</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Fan</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Investigating</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Memory</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Motherboard</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>NIC</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>NTF</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Obsolete no FA</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Power Adapter</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Power Supply</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Raid Controller</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Recall</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Riser Card</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Shipping</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Software</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>USB Flash Card</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Unknown Yet</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Workmanship</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Fault_Code__c</picklist>
+            <values>
+                <fullName>BIOS</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Firmware</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Hardware</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>MAC Address</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Obsolete no FA</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Next_Recipient__c</picklist>
+            <values>
+                <fullName>Engineering</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Operations</fullName>
+                <default>true</default>
+            </values>
+            <values>
+                <fullName>TAC</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Requested_By__c</picklist>
+            <values>
+                <fullName>Engineering</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>SE</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Sales</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>TAC</fullName>
+                <default>true</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Status__c</picklist>
+            <values>
+                <fullName>Cancelled</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Closed</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Dispatch Accepted</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Dispatch Rejected</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Dispatched</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>In FA%2FRecd</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>In Logistics</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Initiated</fullName>
+                <default>true</default>
+            </values>
+            <values>
+                <fullName>Shipped</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Type__c</picklist>
+            <values>
+                <fullName>Advance Replace</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Recall</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Return for Repair</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <searchLayouts>
+        <customTabListAdditionalFields>Account__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Type__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Status__c</customTabListAdditionalFields>
+    </searchLayouts>
+    <sharingModel>Private</sharingModel>
+    <webLinks>
+        <fullName>Create_New_RMA</fullName>
+        <availability>online</availability>
+        <displayType>massActionButton</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>Request a Part</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <requireRowSelection>false</requireRowSelection>
+        <url>window.open(&quot;apex/PickAssetForNewRMA?sfdc.tabName=01rP00000004VC5&quot;, &quot;_top&quot; );</url>
+    </webLinks>
+    <webLinks>
+        <fullName>Dispatch_for_Shipment</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>Dispatch for Shipment</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <url>{!REQUIRESCRIPT(&quot;/soap/ajax/13.0/connection.js&quot;)} 
+/*
+if(&quot;{!RMA__c.LineCount__c}&quot; != &quot;1&quot; || &quot;{!RMA__c.LineCount__c}&quot; != &quot;1.0&quot;)
+{
+  alert(&quot;RMA has &quot; + {!RMA__c.LineCount__c}+ &quot; lines. The order will be dispatched, but updates are made only at the RMA level not per line. To cancel dispatch, reset the status to Initiated&quot;);
+}
+*/
+var rmaObj = new sforce.SObject(&quot;RMA__c&quot;); 
+rmaObj.Id = &apos;{!RMA__c.Id}&apos;; 
+rmaObj.Status__c = &apos;Dispatched&apos;; 
+
+var result = sforce.connection.update([rmaObj]); 
+if (result[0].success==&apos;false&apos;) 
+{ 
+  alert(result[0].errors.message); 
+} 
+else 
+{ 
+  location.reload(true); 
+}</url>
+    </webLinks>
+    <webLinks>
+        <fullName>Open_RMA</fullName>
+        <availability>online</availability>
+        <displayType>massActionButton</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>Open RMA</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <requireRowSelection>false</requireRowSelection>
+        <url>var accountId = &quot;{!Account.Id}&quot;;
+var caseId = &quot;{!Case.Id}&quot;;
+
+if(caseId != &quot;&quot; &amp;&amp; caseId != null)
+{
+window.open(&quot;/apex/newrma?id=&quot;+ caseId, &quot;_top&quot; );
+}
+else
+{
+window.open(&quot;/apex/newrma?id=&quot; + accountId, &quot;_top&quot;);
+}</url>
+    </webLinks>
+</CustomObject>

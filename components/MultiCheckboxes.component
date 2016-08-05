@@ -1,0 +1,9 @@
+<apex:component controller="PartnerPortalProfileCheckboxesController">
+    <apex:attribute name="object" required="true" type="String" assignTo="{!objectToDisplay}" description="The object to be displayed"/>
+    <apex:attribute name="field" required="true" type="String" assignTo="{!fieldToDisplay}" description="The multi-picklist field to be displayed"/>
+    <apex:attribute name="record" required="true" type="sObject" description="The object to display" />
+    <apex:repeat value="{!items}" var="item">
+        <div style="width:200px;float:left"><apex:image value="/img/checkbox_checked.gif" rendered="{!record[field] != null && CONTAINS(record[field], item)}" /><apex:image value="/img/checkbox_unchecked.gif" rendered="{!record[field] == null || NOT(CONTAINS(record[field], item))}"/>{!item}</div>
+    </apex:repeat>
+    <div style="clear:both"></div>
+</apex:component>

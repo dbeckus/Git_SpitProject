@@ -1,0 +1,166 @@
+<apex:page standardController="Lead" extensions="LeadController,CustomAction" showHeader="true" sidebar="true">
+    <apex:includeScript value="{!URLFOR($Resource.DynamicPage, 'js/jquery.min.js')}" />
+    <apex:includeScript value="{!URLFOR($Resource.DynamicPage, 'js/DynamicPage.js')}" />
+    <apex:includeScript value="{!URLFOR($Resource.DynamicPage, 'js/SPDialog.js')}" />
+    <apex:stylesheet value="{!URLFOR($Resource.DynamicPage, 'css/DynamicPage.css')}" />
+    <script>
+        var spDynamicPage = null;
+        var spOppDependency = null;
+        jQuery(document).ready(function() {
+            spDynamicPage = new SPDynamicPage("{!Lead.Id}", {!ButtonDefinitions});
+            if({!IsEditable})spDynamicPage.initLeadFieldsGroup();
+            spDynamicPage.initLeadCampaignHistoryList({!CampaignContacts});
+            
+            var nameDialog = new SPDialogBox($("#nameDialog")[0]);
+            nameDialog.confirmEdit = function() {
+                var firstName = $("input[data-field-name='FirstName']").val();
+                var lastName = $("input[data-field-name='LastName']").val();
+                spDynamicPage.modifyFields(['Name'], [firstName + ' ' + lastName]);
+            };
+            var addrDialog = new SPDialogBox($("#addressDialog")[0]);
+            addrDialog.confirmEdit = function() {
+                var street = $("textarea[data-field-name='Street']").val();
+                var city = $("input[data-field-name='City']").val();
+                var state = $("input[data-field-name='State']").val();
+                var postalcode = $("input[data-field-name='PostalCode']").val();
+                var country = $("input[data-field-name='Country']").val();
+                var address = street + "<br/>" + ((city != null && city != "")? city + ", " : "") + state + " " + postalcode + "<br/>" + country;
+                spDynamicPage.modifyFields(['Address'], [address]);
+            };
+        });
+    </script>
+    <apex:sectionHeader title="{!$ObjectType.Lead.Label}" subtitle="{!Lead.Name}" />
+    <chatter:feedWithFollowers entityId="{!Lead.Id}" showHeader="true" rendered="{!NOT(Lead.IsConverted)}" />
+    <apex:pageMessages />
+
+    <apex:form >
+    <apex:pageBlock mode="maindetail" title="Lead Detail" rendered="{!PageLayout.Sections.size > 0}">
+        <apex:pageblockButtons >
+            <apex:repeat value="{!PageLayout.Buttons}" var="button">
+                <apex:outputPanel layout="none" rendered="{!NOT(OR(CONTAINS(button.Label, 'RSM'), CONTAINS(button.Label, 'ISR')))}">
+                    <input type="button" class="DetailButton btn" value="{!button.Label}" data-button-name="{!button.Name}" />
+                </apex:outputPanel>
+
+                <!-- RSM Accepted / Rejected -->
+                <apex:outputPanel layout="none" rendered="{!CONTAINS(button.Label, 'RSM')}">
+                    <div class="menuButton DetailButton" style="position:relative">
+                        <div class="menuButtonButton" style="white-space: inherit">
+                            <span class="menuButtonLabel">RSM Approval</span>
+                        </div>
+                        <div class="menuButtonMenu">
+                            <a class="menuButtonMenuLink firstMenuItem" data-button-name="LeadRSMAccepted">RSM Accepted</a>
+                            <a class="menuButtonMenuLink" data-button-name="LeadRSMRejected">RSM Rejected</a>
+                        </div>
+                    </div>
+                </apex:outputPanel>
+
+                <!-- ISR Qualified / Rejected -->
+                <apex:outputPanel layout="none" rendered="{!CONTAINS(button.Label, 'ISR')}">
+                    <div class="menuButton DetailButton" style="position:relative">
+                        <div class="menuButtonButton" style="white-space: inherit">
+                            <span class="menuButtonLabel">ISR Approval</span>
+                        </div>
+                        <div class="menuButtonMenu">
+                            <a class="menuButtonMenuLink firstMenuItem" data-button-name="LeadISRQualified">ISR Qualified</a>
+                            <a class="menuButtonMenuLink" data-button-name="LeadISRRejected">ISR Rejected</a>
+                        </div>
+                    </div>
+                </apex:outputPanel>
+            </apex:repeat> 
+            <input type="button" class="btn" id="SaveBtn" value="Save" onclick="spDynamicPage.activateSavingButtons();setTimeout(saveRecord)" style="display:none"/>
+            <input type="button" class="btn" id="CancelBtn" value="Cancel" onclick="spDynamicPage.resetAllInlineEdit()" style="display:none"/>  
+            <apex:actionFunction action="{!save}" name="saveRecord" rendered="{!IsEditable}"/>
+        </apex:pageblockButtons>
+
+        <apex:repeat value="{!PageLayout.Sections}" var="section">
+            <apex:pageBlockSection title="{!section.Name}" columns="{!section.Columns}" rendered="{!AND(section.Name != 'Marketo Information', section.Name != 'Sales Team/Channel Information')}">
+                <apex:repeat value="{!$ObjectType.Lead.FieldSets[section.FieldSet]}" var="f">
+                    <apex:outputField value="{!Lead[f]}" rendered="{!NOT(CONTAINS(PredefinedInlineEditingFields, f))}">
+                        <apex:inlineEditSupport event="ondblclick" resetFunction="spDynamicPage.resetInlineEdit()" rendered="{!IsEditable}" />
+                    </apex:outputField>
+                    <apex:pageblockSectionItem rendered="{!f='OwnerId'}">
+                        <apex:outputLabel value="Lead Owner" />
+                        <apex:outputPanel >
+                            <apex:outputField value="{!Lead.OwnerId}" />
+                            <apex:outputPanel layout="none" rendered="{!Lead.OwnerId = $User.Id}"> [<a href="/{!Lead.Id}/a?retURL=%2F{!Lead.Id}">Change</a>]</apex:outputPanel>
+                        </apex:outputPanel>
+                    </apex:pageblockSectionItem>
+                    <apex:pageBlockSectionItem rendered="{!f='Name'}">
+                        <apex:outputLabel value="Name" />
+                        <apex:outputPanel >
+                            <apex:outputField value="{!Lead.Name}" />
+                            <div data-field-name="Name" data-field-dialog="nameDialog"></div>
+                        </apex:outputPanel>
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem rendered="{!f='Street'}">
+                        <apex:outputLabel value="Address" for="address"/>
+                        <apex:outputPanel id="address">
+                            <apex:outputPanel >{!Lead.Street} <br />
+                            {!IF(Lead.City!=null, Lead.City&',', '')} {!Lead.State} {!Lead.PostalCode} <br />
+                            {!Lead.Country}</apex:outputPanel>
+                            <div data-field-name="Address" data-field-dialog="addressDialog"></div>
+                        </apex:outputPanel>
+                    </apex:pageBlockSectionItem>
+                </apex:repeat>
+            </apex:pageBlockSection>
+
+            <c:LeadChannelAndSalesTeamList lead="{!Lead.Id}" rendered="{!section.Name = 'Sales Team/Channel Information'}" />
+
+            <apex:iframe src="/apex/mkto-si__Lead?id={!Lead.Id}" scrolling="true" height="450px" width="100%" rendered="{!section.Name = 'Marketo Information'}" />
+        </apex:repeat>
+        <div id="nameDialog" style="display:none">
+            <table border="0">
+                <tbody>
+                    <tr>
+                        <td class="labelCol">{!$ObjectType.Lead.Fields.Salutation.Label}</td>
+                        <td><apex:inputField value="{!Lead.Salutation}" html-data-field-name="Salutation" /></td>
+                    </tr>
+                    <tr>
+                        <td class="labelCol">{!$ObjectType.Lead.Fields.FirstName.Label}</td>
+                        <td><apex:inputField value="{!Lead.FirstName}" html-data-field-name="FirstName" /></td>
+                    </tr>
+                    <tr>
+                        <td class="labelCol">{!$ObjectType.Lead.fields.LastName.Label}</td>
+                        <td><apex:inputField value="{!Lead.LastName}" html-data-field-name="LastName" /></td>
+                    </tr>
+                </tbody>
+            </table>          
+        </div>
+        <div id="addressDialog" style="display:none">
+            <table border="0">
+                <tbody>
+                    <tr>
+                        <td class="labelCol">{!$ObjectType.Lead.Fields.Street.Label}</td>
+                        <td><apex:inputField value="{!Lead.Street}" html-data-field-name="Street" /></td>
+                    </tr>
+                    <tr>
+                        <td class="labelCol">{!$ObjectType.Lead.Fields.City.Label}</td>
+                        <td><apex:inputField value="{!Lead.City}" html-data-field-name="City" /></td>
+                    </tr>
+                    <tr>
+                        <td class="labelCol">{!$ObjectType.Lead.fields.State.Label}</td>
+                        <td><apex:inputField value="{!Lead.State}" html-data-field-name="State" /></td>
+                    </tr>
+                    <tr>
+                        <td class="labelCol">{!$ObjectType.Lead.fields.PostalCode.Label}</td>
+                        <td><apex:inputField value="{!Lead.PostalCode}" html-data-field-name="PostalCode" /></td>
+                    </tr>
+                    <tr>
+                        <td class="labelCol">{!$ObjectType.Lead.fields.Country.Label}</td>
+                        <td><apex:inputField value="{!Lead.Country}" html-data-field-name="Country" /></td>
+                    </tr>
+                </tbody>
+            </table>          
+        </div>
+    </apex:pageBlock>
+    </apex:form>
+    <div class="relatedLists">
+    <apex:repeat value="{!PageLayout.RelatedLists}" var="relList">
+        <apex:relatedList list="OpenActivities" rendered="{!relList.ObjectName = 'OpenActivity'}" />
+        <apex:relatedList list="ActivityHistories" rendered="{!relList.ObjectName = 'ActivityHistory'}" />
+        <apex:relatedList list="CampaignMembers" rendered="{!relList.ObjectName = 'CampaignMember'}" />
+        <apex:relatedList list="ProcessSteps" rendered="{!relList.ObjectName = 'ProcessInstanceHistory'}" />
+        <c:HistoryRelatedList parentObjId="{!Lead.Id}" limitNumber="50" rendered="{!relList.ObjectName = 'LeadHistory'}"/>
+    </apex:repeat>
+    </div>
+</apex:page>

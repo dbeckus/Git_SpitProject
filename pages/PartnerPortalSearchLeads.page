@@ -1,0 +1,231 @@
+<apex:page controller="PartnerPortalDealSearchController" showHeader="false" action="{!partnerPortalSearchLeadsInit}">
+    <apex:composition template="{!$Site.Template}">
+        <apex:define name="body">
+            <script type="text/javascript">
+                function doSearch(sortField) {
+                    if(sortField) {
+                        $("input[id$='sortField']").val(sortField);
+                    }
+                    searchLeads(); 
+                }
+                $(document).ready(function() {
+                    $("select[id$='sortFieldName']").change(function() {
+                        if($(this).val() == "UnassignedLeadsOnly") {
+                            $("select[id$='sortFieldValue']").hide();
+                        }
+                        else {
+                            $("select[id$='sortFieldValue']").show();
+                        }
+                    });
+                    $("select[id$='sortFieldName']").trigger("change");
+                    //searchLeads();
+                });
+            </script>
+            <div id="main">
+                <div id="Auth_Breadcrumb">
+                    <table class="BreadCrumb_CssClass" cellspacing="0" style="border-collapse:collapse;">
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <table border="0" cellpadding="0" cellspacing="0">
+                                        <tbody>
+                                            <tr>
+                                                <td>
+                                                    <div class="BreadCrumb_RootNodeCssClass" style="display:inline;">
+                                                        <a href="home">Home</a>
+                                                    </div>
+                                                </td>
+                                                <td>&nbsp;</td>
+                                                <td>
+                                                    <div class="BreadCrumb_ParentNodeCssClass" style="display:inline;">
+                                                        <a href="deals_overview">Deal Registration</a>
+                                                    </div>
+                                                </td>
+                                                <td>&nbsp;</td>
+                                                <td>
+                                                    <div class="BreadCrumb_SelectedNodeCssClass" style="display:inline;">
+                                                        <a href="manage_leads">Manage Leads</a>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <apex:form >
+                    <article id="content_1col">
+                        <div class="txt">
+                            <div class="img-holder">
+                                <img src="{!URLFOR($Resource.PartnerPortal, 'images/img01.jpg')}" alt="Manage Leads" style="height:181px;width:293px;"/>
+                                <h1>Manage Leads</h1>
+                            </div>
+                            <div class="clear"></div>
+                            <table border="0" cellspacing="0" cellpadding="0" width="100%">
+                                <tbody> 
+                                    <tr>
+                                        <td>
+                                            <h2>Manage Leads</h2>
+                                        </td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2">
+                                            <apex:pageMessages />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div>
+                                                <div class="left">
+                                                    <apex:inputText value="{!Leads.Keyword}" html-placeholder="Search" maxlength="40" />
+                                                </div>
+                                                <div class="left" style="margin: 1px 0 0 5px;">
+                                                    <img src="{!URLFOR($Resource.PartnerPortal, 'images/Btn_ArrowRight_Off.gif')}" alt="Go" onclick="doSearch()" style="cursor:pointer" />
+                                                </div>
+                                                <div class="left" style="margin: 1px 0 0 5px;"></div>
+                                                <div class="clear"></div>
+                                            </div>
+                                        </td>
+
+                                        <td align="right">
+                                            <div class="right">
+                                                <apex:actionFunction action="{!Leads.search}" name="searchLeads"></apex:actionFunction>
+                                                <apex:inputHidden value="{!Leads.SortField}" id="sortField" />
+                                                <div class="left">
+                                                    <apex:selectList size="1" value="{!Leads.FilterField}" styleClass="searchList" id="sortFieldName">
+                                                        <apex:selectOption itemLabel="Date Created" itemValue="CreatedDate" />
+                                                        <apex:selectOption itemLabel="Last Updated" itemValue="LastModifiedDate" />
+                                                        <apex:selectOption itemLabel="Unassigned" itemValue="Registered_Partner_Sales_Rep__c" />
+                                                    </apex:selectList>
+                                                    <apex:selectList size="1" value="{!Leads.FilterValue}" styleClass="searchList" id="sortFieldValue">
+                                                        <apex:selectOption itemLabel="Yesterday" itemValue="YESTERDAY" />
+                                                        <apex:selectOption itemLabel="Today" itemValue="TODAY" />
+                                                        <apex:selectOption itemLabel="Last Week" itemValue="LAST_WEEK" />
+                                                        <apex:selectOption itemLabel="This Week" itemValue="THIS_WEEK" />
+                                                        <apex:selectOption itemLabel="Last Month" itemValue="LAST_MONTH" />
+                                                        <apex:selectOption itemLabel="This Month" itemValue="THIS_MONTH" />
+                                                        <apex:selectOption itemLabel="Last 90 Days" itemValue="LAST_90_DAYS" />
+                                                        <apex:selectOption itemLabel="This Quarter" itemValue="THIS_QUARTER" />
+                                                        <apex:selectOption itemLabel="Last Quarter" itemValue="LAST_QUARTER" />
+                                                        <apex:selectOption itemLabel="This Year" itemValue="THIS_YEAR" />
+                                                        <apex:selectOption itemLabel="Last Year" itemValue="LAST_YEAR" />
+                                                    </apex:selectList>
+                                                </div>
+                                                <div class="left" style="margin: 1px 0 0 5px;">
+                                                    <img src="{!URLFOR($Resource.PartnerPortal, 'images/Btn_ArrowRight_Off.gif')}" alt="Go" style="cursor:pointer" onclick="doSearch()" />
+                                                </div>
+                                                <div class="clear"></div>
+                                            </div>
+                                            <div class="clear"></div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            <table border="0" cellspacing="0" cellpadding="0" width="100%" class="basic_table">
+                                <tbody>
+                                    <tr>
+                                        <th class="basic_th">
+                                            <a href="javascript:doSearch('Name')">Name</a>
+                                        </th>
+                                        <th class="basic_th">
+                                            <a href="javascript:doSearch('Company')">Company</a>
+                                        </th>
+                                        <th class="basic_th">
+                                            <a href="javascript:doSearch('Status')">Status</a>
+                                        </th>
+                                        <th class="basic_th">
+                                            <a href="javascript:doSearch('Rating')">Rating</a>
+                                        </th>
+                                        <th class="basic_th">
+                                            <a href="javascript:doSearch('Status')">Acceptance</a>
+                                        </th>
+                                        <th class="basic_th">
+                                            <a href="javascript:doSearch('Deal_Source__c')">Source</a>
+                                        </th>
+                                        <th class="basic_th">
+                                            <a href="javascript:doSearch('CreatedDate desc')">Registered</a>
+                                        </th>
+                                        <th class="basic_th">
+                                            <a href="javascript:doSearch('LastModifiedDate desc')">Updated</a>
+                                        </th>
+                                    </tr>
+                                    <apex:repeat value="{!Leads.Records}" var="ld" first="{!Leads.PageIndex}" rows="{!Leads.PageSize}">
+                                        <tr class="basic_tr_even">
+                                            <td class="basic_td">
+                                                <a href="{!URLFOR($Page.PartnerPortalDealReg)}?id={!ld.Id}">{!ld['Name']}</a>
+                                            </td>
+                                            <td class="basic_td">
+                                                <a href="{!URLFOR($Page.PartnerPortalDealReg)}?id={!ld.Id}">{!ld['Company']}</a>
+                                            </td>
+                                            <td class="basic_td">{!ld['Status']}</td>
+                                            <td class="basic_td">{!ld['Rating']}</td>
+                                            <td class="basic_td"><apex:image value="/img/checkbox_checked.gif" rendered="{!CONTAINS(ld['Status'], 'Accepted')}" /><apex:image value="/img/checkbox_unchecked.gif" rendered="{!NOT(CONTAINS(ld['Status'], 'Accepted'))}" /></td>
+                                            <td class="basic_td">{!ld['Deal_Source__c']}</td>
+                                            <td class="basic_td">
+                                                <apex:outputText value="{0, date, MM/dd/YYYY}">
+                                                    <apex:param value="{!IF(CONTAINS(ld['Status'], 'Accepted'), ld['Date_Passed_to_Partner__c'], ld['CreatedDate'])}"/>
+                                                </apex:outputText>
+                                            </td>
+                                            <td class="basic_td">
+                                                <apex:outputText value="{0, date, MM/dd/YYYY}">
+                                                    <apex:param value="{!ld['LastModifiedDate']}"/>
+                                                </apex:outputText>
+                                            </td>
+                                        </tr>
+                                    </apex:repeat>
+                                </tbody>
+                            </table>
+
+                            <apex:outputPanel layout="block" rendered="{!Leads.Records.size=0}" style="margin:10px 0;">
+                                <span style="font-weight:bold; color:#e3431c; font-size:12px;">No records were found</span>
+                            </apex:outputPanel>
+
+                            <table border="0" cellspacing="0" cellpadding="0" width="100%">
+                                <tbody>
+                                    <tr>
+                                        <td align="right">
+                                            <apex:commandLink value="« Previous Page" action="{!Leads.prev}" rendered="{!!Leads.IsFirstPage}" />
+                                            <apex:outputText rendered="{!NOT(Leads.IsFirstPage) && NOT(Leads.IsLastPage)}">&nbsp;|&nbsp;</apex:outputText>
+                                            <apex:commandLink value="Next Page »" action="{!Leads.next}" rendered="{!!Leads.IsLastPage}" />
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </article>
+                </apex:form>
+
+                <div class="clear"></div>
+                <div class="socialmedia">
+                    <nav class="social">
+                        <ul>
+                            <li>
+                                <a class="facebook" target="_blank" href="http://facebook.com/SilverPeakSystems">facebook</a>
+                            </li>
+                            <li>
+                                <a class="blog" target="_blank" href="http://blog.silver-peak.com/">blog</a>
+                            </li>
+                            <li>
+                                <a class="twitter" target="_blank" href="https://twitter.com/silverpeak">twitter</a>
+                            </li>
+                            <li>
+                                <a class="linkedin" target="_blank" href="http://www.linkedin.com/company/silver-peak-systems">linkedin</a>
+                            </li>
+                            <li>
+                                <a class="youtube" target="_blank" href="http://www.youtube.com/user/silverpeaksystems">youtube</a>
+                            </li>
+                            <li>
+                                <a class="rss" target="_blank" href="http://feeds.feedburner.com/WANspeak">rss</a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </apex:define>
+    </apex:composition>
+</apex:page>

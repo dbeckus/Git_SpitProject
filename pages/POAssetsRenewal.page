@@ -1,0 +1,177 @@
+<apex:page standardController="Purchase_Order__c" extensions="PORenewalAssetsController" docType="html-5.0" showHeader="false" sidebar="false" id="thePage">
+    <apex:includeScript value="{!URLFOR($Resource.jQuery, 'jquery-1.4.3.min.js')}" />
+    <apex:includeScript value="{!URLFOR($Resource.jQuery, 'autoresize.jquery.js')}" />
+    <style type="text/css">
+        .pocLoading {
+        vertical-align: middle;
+        }
+        .pocLoadingText {
+        font-size: 95%;
+        font-weight: bold;
+        color: #666;
+        padding-left: 10px;
+        } 
+    </style>
+    <script type="text/javascript">
+    
+    
+    function disableBox(val)
+    {
+        alert(val);
+    }
+    
+    function checkAll(cb,cbid)
+    {
+        var inputElem = document.getElementsByTagName("input");                     
+        for(var i=0; i<inputElem.length; i++)
+        {             
+            if(inputElem[i].id.indexOf(cbid)!=-1){                                        
+                inputElem[i].checked = cb.checked;
+            }
+        }
+    }
+    function hideDateInput()
+    {
+        $(".dateInput .dateFormat").hide();
+    }
+    function closeDatePopup()
+    {
+        $(".overlayBackground").hide();
+        $("#InlineEditDialog").hide();
+    }
+    function setFocusOnLoad() {}
+    function showDatePopup( val)
+    {
+     
+        $(".overlayBackground").show();
+        $("#InlineEditDialog").show();
+        $(".datePicker").css("z-index", 500);
+        if(val=='Start')
+        {
+            
+            $("#popUpShipDateS").show();
+            $("#popUpShipDateE").hide();
+        }
+        if(val=='End')
+        {
+            
+            $("#popUpShipDateS").hide();
+            $("#popUpShipDateE").show();
+        }
+        $("#datePicker").css("z-index", 50103);
+    }
+    function setValueToAllRows()
+    {
+        
+        $('td[id$="LicenseDateCol"] input').val($("#popUpShipDateS input").val());
+        $('td[id$="LicenseDateEndCol"] input').val($("#popUpShipDateE input").val());
+        
+    }
+    </script>
+    <apex:sectionHeader title="Renew Virtual Assets">
+        <apex:form >
+            <apex:pageMessages id="pageMsg" escape="false" />
+            <apex:pageBlock >
+                <apex:pageBlockSection columns="1">
+                    <table width="100%">
+                        <tr>
+                            <td>
+                                <apex:selectList id="assetType" style="width:20%" label="Asset Type" value="{!AssetTypeSelection}" required="false" size="1">
+                                    <apex:selectOption itemvalue="1" itemLabel="Wan Op"/>
+                                    <apex:selectOption itemvalue="2" itemLabel="Edge Connect"/>
+                                    <apex:actionSupport event="onchange" action="{!ResetFilter}" reRender="listSection" />
+                                </apex:selectList>
+                            </td>
+                            <td>
+                                <apex:inputField label="Customer Contact" value="{!CustomerContact.Email_Contact__c}"/>
+                            </td>
+                        </tr>
+                    </table>
+                    
+                </apex:pageBlockSection>
+                <apex:pageBlockSection columns="1" id="listSection">
+                    <apex:pageBlockTable style="width:100%"   value="{!AssetList}" var="item" id="AssetsList" rendered="{!AssetList.size>0}">
+                        <apex:column ><apex:facet name="header">
+                            <apex:inputCheckbox onclick="checkAll(this,'checkedone')"/>
+                            </apex:facet>
+                            <apex:inputCheckbox value="{!item.Is_Selected_For_Renewal__c}" id="checkedone"/></apex:column>
+                        
+                        <apex:column headerValue="Asset Name" value="{!item.Name}"></apex:column>
+                        <apex:column headerValue="Product Name" value="{!item.Product2.Name}"></apex:column>
+                        <apex:column headerValue="Ship Date" value="{!item.Ship_Date__c}"></apex:column>
+                        <apex:column headerValue="Status" value="{!item.Status}"></apex:column>
+                        <apex:column headerValue="License Expiration" value="{!item.License_Expiration__c}"></apex:column>
+                         <apex:column headerValue="License"  rendered="{!AssetTypeSelection=='2'}" >
+                            <apex:outputText value="{!item.Licenses_Nodes__c}" />
+                        </apex:column> 
+                          <apex:column headerValue="Bandwidth"  rendered="{!AssetTypeSelection=='2'}" >
+                            <apex:outputText value="{!item.Bandwidth_Nodes__c}" />
+                        </apex:column> 
+                          <apex:column headerValue="Updated Nodes"  rendered="{!AssetTypeSelection=='2'}" >
+                            <apex:inputField value="{!item.Renewal_Nodes__c}" rendered="{!IF(CONTAINS(item.Product2.Name,'EC-BOOST')||CONTAINS(item.Product2.Name,'EC-BASE')||CONTAINS(item.Product2.Name,'EC-PLUS'),true,false)}" />
+                            <apex:outputText value="{!item.Renewal_Nodes__c}" rendered="{!IF(CONTAINS(item.Product2.Name,'EC-BOOST')||CONTAINS(item.Product2.Name,'EC-BASE')||CONTAINS(item.Product2.Name,'EC-PLUS'),false,true)}" />
+                        </apex:column> 
+                        <apex:column id="LicenseDateCol" rendered="{!AssetTypeSelection=='2'}">
+                            <apex:facet name="header">
+                                Start Date <img src="/s.gif" alt="Expand" class="moreArrow" title="Expand" onclick="showDatePopup('Start')" style="cursor:pointer"/>
+                            </apex:facet>
+                            <apex:inputField value="{!item.Renewal_Start_Date__c}"   />
+                        </apex:column>   
+                        <apex:column id="LicenseDateEndCol">
+                            <apex:facet name="header">
+                                End Date <img src="/s.gif" alt="Expand" class="moreArrow" title="Expand" onclick="showDatePopup('End')" style="cursor:pointer"/>
+                            </apex:facet>
+                            <apex:inputField value="{!item.Renewal_Date__c}"  />
+                        </apex:column>        
+                    </apex:pageBlockTable>
+                </apex:pageBlockSection>
+                <apex:pageBlockButtons location="Top">
+                    <apex:actionStatus id="btnStatus">
+                        <apex:facet name="start">
+                            <apex:outputPanel >
+                                <img src="/img/loading.gif" alt="Processing..." title="Processing..." width="16" height="16" class="pocLoading"/>
+                                <span class="pocLoading pocLoadingText">Processing...</span>
+                            </apex:outputPanel>
+                        </apex:facet>
+                        <apex:facet name="stop">
+                            <apex:outputPanel >
+                                <apex:commandButton value="Save" action="{!SaveAssets}" reRender="pageMsg,encryptForm" status="btnStatus"/>
+                                <input type="button" value="Cancel" class="btn" onclick="top.close();" />
+                            </apex:outputPanel>
+                        </apex:facet>
+                    </apex:actionStatus>   
+                </apex:pageBlockButtons>   
+            </apex:pageBlock>
+            
+            <div class="overlayBackground" style="display: none; width: 1477px; height: 1817px; "></div>
+            <div id="InlineEditDialog" class="overlayDialog inlineEditDialog" style="max-width: 500px; display: none; visibility: visible; left: 280px; top: 294px; ">
+                <div class="topRight">
+                    <div class="topLeft">
+                        <img id="InlineEditDialogX" onmouseover="this.className = 'dialogCloseOn'" onmouseout="this.className = 'dialogClose'" onclick="closeDatePopup()" class="dialogClose" src="/s.gif"/>
+                        <h2 id="InlineEditDialogTitle">Set value to all rows</h2>
+                    </div>
+                </div>
+                <div class="middle">
+                    <div class="innerContent" id="InlineEditDialogContent">
+                        <div class="activeField">
+                            <div class="inlineEditCompoundDiv" style="width:300px;height:100px">
+                                <span id="popUpShipDateS">License Expiration Date&nbsp;<apex:inputField value="{!StartDate.License_Expiration__c}" /><br/><br/></span>
+                                <span id="popUpShipDateE">License Expiration Date&nbsp;<apex:inputField value="{!EndDate.License_Expiration__c}" /><br/><br/></span>
+                            </div>
+                        </div>
+                        <div></div>
+                        <div style="display: none; "></div>
+                        <div id="InlineEditDialog_buttons" class="buttons">
+                            <input class="btn" type="button" value="OK" onclick="setValueToAllRows();closeDatePopup()"/>
+                            <input class="btn" type="button" value="Cancel" onclick="closeDatePopup()"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="bottomRight">
+                    <div class="bottomLeft"></div>
+                </div>
+            </div>
+            
+        </apex:form>
+    </apex:sectionHeader>
+</apex:page>

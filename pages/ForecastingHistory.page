@@ -1,0 +1,35 @@
+<apex:page controller="ForecastingController" tabStyle="SP_Forecasting__tab">
+ <apex:sectionHeader title="Forecasting History" subtitle="{!currentViewingUser.Name} - {!$CurrentPage.parameters.quarter}" />
+     <apex:pageBlock >
+         <apex:pageBlockTable value="{!ForecastingHistory}" var="fh" id="fh"> 
+              <apex:column >
+                  <apex:facet name="header">Change Area</apex:facet>
+                  {!RIGHT(fh.Type__c, LEN(fh.Type__c) - FIND("-", fh.Type__c))}
+              </apex:column>
+              <apex:column >
+                  <apex:facet name="header">Change Date</apex:facet>
+                  <apex:outputText value="{0, date, MM/dd/yyyy}"><apex:param value="{!fh.CreatedDate}" /></apex:outputText>
+              </apex:column>
+              <apex:column >
+                  <apex:facet name="header">Type</apex:facet>
+                  {!LEFT(fh.Type__c, FIND("-", fh.Type__c)-1)}
+              </apex:column>
+              <apex:column >
+                  <apex:facet name="header">Old Value</apex:facet>
+                  <apex:outputText value="{0, number, $#,###,###}"><apex:param value="{!fh.Old_Value__c}"/></apex:outputText>
+              </apex:column>
+              <apex:column >
+                  <apex:facet name="header">New Value</apex:facet>
+                  <apex:outputText value="{0, number, $#,###,###}"><apex:param value="{!fh.Value__c}"/></apex:outputText>
+              </apex:column>
+              <apex:column >
+                  <apex:facet name="header">Updated By</apex:facet>
+                  <apex:outputField value="{!fh.CreatedById}"></apex:outputField>
+              </apex:column>
+              <apex:column >
+                  <apex:facet name="header">Comments</apex:facet>
+                  {!fh.Comments__c}
+              </apex:column>
+         </apex:pageBlockTable>
+     </apex:pageBlock>
+</apex:page>

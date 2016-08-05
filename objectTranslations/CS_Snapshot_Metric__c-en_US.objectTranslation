@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>CS Snapshot Metric</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>CS Snapshot Metrics</value>
+    </caseValues>
+    <fields>
+        <label><!-- Case Number --></label>
+        <name>Case_Number__c</name>
+    </fields>
+    <fields>
+        <label><!-- Case Type --></label>
+        <name>Case_Type__c</name>
+    </fields>
+    <fields>
+        <label><!-- Escalated --></label>
+        <name>Escalated__c</name>
+    </fields>
+    <fields>
+        <help><!-- Hot List Case --></help>
+        <label><!-- Hot --></label>
+        <name>Hot__c</name>
+    </fields>
+    <fields>
+        <help><!-- description of metric --></help>
+        <label><!-- Status --></label>
+        <name>Metric__c</name>
+    </fields>
+    <fields>
+        <label><!-- Open --></label>
+        <name>Open__c</name>
+    </fields>
+    <fields>
+        <help><!-- Severity --></help>
+        <label><!-- Severity --></label>
+        <name>Severity__c</name>
+    </fields>
+    <fields>
+        <help><!-- Date of Snapshot run --></help>
+        <label><!-- Snapshot Date --></label>
+        <name>Snapshot_Date__c</name>
+    </fields>
+    <fields>
+        <help><!-- Case Type --></help>
+        <label><!-- Type --></label>
+        <name>Type__c</name>
+    </fields>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

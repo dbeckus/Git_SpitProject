@@ -1,0 +1,33 @@
+<apex:page sidebar="false" showHeader="false" id="page" controller="RegisterCustomerController">
+    <apex:composition template="{!$Site.Template}">
+        <apex:define name="body">
+            <h2 class="step4">Registration Result</h2>
+            <div class="textContent">
+                <p>{!Message}</p>       
+            </div>
+            <apex:outputPanel rendered="{!NOT(ISNULL(Registration.Id))}">
+                <h3 class="textPageTitle">Contact Information</h3>
+                <div class="textContent">
+                    Name: {!Student.FirstName} {!Student.LastName}<br/>
+                    Company: {!company}<br/>
+                    Title: {!Student.Title}<br/>
+                    Email Address: {!Student.Email}<br/>
+                    Phone Number: {!Student.Phone}
+                </div>
+                <h3 class="textPageTitle">Event Information</h3>
+                <div class="textContent">
+                    Course Name: {!TrainEvent.Course_Name__r.Name}<br/>
+                    Authorization Code: {!AuthCode}<br/>
+                    Date: <apex:outputText value="{0, date, MM/dd/yyyy}"><apex:param value="{!TrainEvent.Start_Date__c}"/></apex:outputText> - <apex:outputText value="{0, date, MM/dd/yyyy}"><apex:param value="{!TrainEvent.End_Date__c}" /></apex:outputText><br/>
+                    Class Time: {!TrainEvent.Session_Times__c}<br/>
+                    Location: {!TrainEvent.Location__c}<br/>
+                    <!-- Openings: {!TrainEvent.Openings__c}<br/> -->
+                    Polo Shirt Size: {!Registration.Polo_Shirt_Size__c}<br/>
+                    Comments, Special Requests, Topics of Interest: {!Registration.Comments__c}<br/>
+                    Special Dietary Considerations: {!Registration.Diet__c}<br/>
+                    Participate in a class dinner sponsored by Silver Peak? {!Registration.Social__c}<br/>
+                </div>
+            </apex:outputPanel>
+        </apex:define>
+    </apex:composition>
+</apex:page>

@@ -1,0 +1,631 @@
+<apex:page standardController="User" extensions="PartnerPortalMyProfileController" showHeader="false" standardStylesheets="false" >
+    <apex:composition template="{!$Site.Template}">
+        <apex:define name="body">
+            <div id="main">
+                <div id="Auth_Breadcrumb">
+                    <table class="BreadCrumb_CssClass" cellspacing="0" style="border-collapse:collapse;">
+                    <tbody>
+                        <tr><td>
+                            <table border="0" cellpadding="0" cellspacing="0">
+                            <tbody><tr>
+                                <td><div class="BreadCrumb_RootNodeCssClass" style="display:inline;"><a href="home">Home</a></div></td><td>&nbsp;</td><td><div class="BreadCrumb_SelectedNodeCssClass" style="display:inline;"><a href="account_profile">Account Profile</a></div></td>
+                            </tr></tbody>
+                            </table>
+                        </td></tr>
+                    </tbody>
+                    </table>
+                </div>
+                <article id="content_1col">
+                    <div class="txt">
+                        <div class="img-holder">
+                            <img src="{!URLFOR($Resource.PartnerPortal, 'images/img01.jpg')}" alt="Account Profile" style="height:181px;width:293px;"/>
+                            <h1>Account<br/>Profile</h1>
+                        </div>
+                        <div>
+                            <p>To make changes to your account information, contact your account&apos;s Primary Account Contact {!AccountProfile.Account__r.Owner.Name}, to have changes made.</p>
+                        </div>
+
+                        <div class="clear"></div>
+
+                        <div>
+    
+        <table border="0" cellpadding="2" cellspacing="0" width="100%">
+        <tbody><tr>
+            <td valign="top">
+                <h2>Branch Location</h2>
+                <table border="0" cellpadding="2" cellspacing="0" width="100%">
+                <tbody><tr>
+                    <td width="150"><span>Address 1:</span></td>
+                    <td>{!AccountAddresses['Branch'].Address_1__c}</td>
+                </tr>
+                <tr>
+                    <td width="150"><span>Address 2:</span></td>
+                    <td>{!AccountAddresses['Branch'].Address_2__c}</td>
+                </tr>
+                <tr>
+                    <td width="150"><span>City:</span></td>
+                    <td>{!AccountAddresses['Branch'].City__c}</td>
+                </tr>
+                <tr>
+                    <td width="150"><span>State:</span></td>
+                    <td>{!AccountAddresses['Branch'].State__c}</td>
+                </tr>
+                <tr>
+                    <td width="150"><span>Country:</span></td>
+                    <td>{!AccountAddresses['Branch'].Country__c}</td>
+                </tr>
+                <tr>
+                    <td width="150"><span>Zip/Postal:</span></td>
+                    <td>{!AccountAddresses['Branch'].Postal_Code__c}</td>
+                </tr>
+                <tr>
+                    <td width="150"><span>Phone:</span></td>
+                    <td>{!AccountAddresses['Branch'].Phone__c}</td>
+                </tr>
+                <tr>
+                    <td width="150"><span>Fax:</span></td>
+                    <td>{!AccountAddresses['Branch'].Fax__c}</td>
+                </tr>
+                </tbody></table>
+            </td>
+            <td valign="top">
+                <h2>Headquarters Location</h2>
+                <table border="0" cellpadding="2" cellspacing="0" width="100%">
+                <tbody><tr>
+                    <td width="150"><span>Address 1:</span></td>
+                    <td>{!AccountAddresses['Headquarter'].Address_1__c}</td>
+                </tr>
+                <tr>
+                    <td width="150"><span>Address 2:</span></td>
+                    <td>{!AccountAddresses['Headquarter'].Address_2__c}</td>
+                </tr>
+                <tr>
+                    <td width="150"><span>City:</span></td>
+                    <td>{!AccountAddresses['Headquarter'].City__c}</td>
+                </tr>
+                <tr>
+                    <td width="150"><span>State:</span></td>
+                    <td>{!AccountAddresses['Headquarter'].State__c}</td>
+                </tr>
+                <tr>
+                    <td width="150"><span>Country:</span></td>
+                    <td>{!AccountAddresses['Headquarter'].Country__c}</td>
+                </tr>
+                <tr>
+                    <td width="150"><span>Zip/Postal:</span></td>
+                    <td>{!AccountAddresses['Headquarter'].Postal_Code__c}</td>
+                </tr>
+                <tr>
+                    <td width="150"><span>Phone:</span></td>
+                    <td>{!AccountAddresses['Headquarter'].Phone__c}</td>
+                </tr>
+                <tr>
+                    <td width="150"><span>Fax:</span></td>
+                    <td>{!AccountAddresses['Headquarter'].Fax__c}</td>
+                </tr>
+                </tbody></table>
+            </td>
+        </tr>
+        </tbody></table>
+
+
+        <h2>Company Information</h2>
+        <table border="0" cellpadding="2" cellspacing="0" width="100%">
+        <tbody><tr>
+            <td width="150"><span>Company Name:</span> </td>
+            <td>{!AccountProfile.Company_Legal_Name__c}</td>
+        </tr>
+        <tr>
+            <td width="180"><span>Company Legal Name:</span> </td>
+            <td>{!AccountProfile.Company_Legal_Name__c}</td>
+        </tr>
+        <tr>
+            <td width="180"><span>Doing Business As (DBA):</span> </td>
+            <td>{!AccountProfile.Doing_Business_As__c}</td>
+        </tr>
+        <tr>
+            <td width="180"><span>Tax ID Type:</span> </td>
+            <td>{!AccountProfile.Tax_ID_Type__c}</td>
+        </tr>
+        <tr>
+            <td><span>Tax ID Type Other</span></td>
+            <td>{!AccountProfile.Tax_ID_Type_Other__c}</td>
+        </tr>
+        <tr>
+            <td width="180"><span>Tax ID #:</span> </td>
+            <td>{!AccountProfile.Tax_ID_Number__c}</td>
+        </tr>
+        <tr>
+            <td width="180"><span>Company URL:</span> </td>
+            <td></td>
+        </tr>
+        </tbody></table>
+
+
+        <h2>Company Profile</h2>
+        <table border="0" cellpadding="2" cellspacing="0" width="100%">
+        <tbody><tr>
+            <td width="200"><strong><span>How many years have you been in business?</span></strong> </td>
+            <td>{!AccountProfile.Years_in_Business__c}</td>
+        </tr>
+        <tr><td colspan="2">&nbsp;</td></tr>
+        <tr>
+            <td colspan="2">
+                <strong><span>What is your go-to-market sales model?</span></strong> <br/>
+                <table>
+        <tbody><tr>
+            <td>
+                <c:MultiCheckboxes object="Partner_Account_Profile__c" field="Go_To_Market_Sales_Model__c" record="{!AccountProfile}" />
+            </td>
+        </tr>
+    </tbody></table>
+                
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <span>Other</span>: {!AccountProfile.Go_To_Market_Sales_Model_Other__c}
+            </td>
+        </tr>
+        <tr><td colspan="2">&nbsp;</td></tr>
+        <tr><td colspan="2"><strong>Your number of employees:</strong></td></tr>
+        <tr>
+            <td colspan="2">
+                <table border="0">
+                <tbody><tr>
+                    <td style="padding: 0 10px 0 0;">
+                        <strong><em><span>Total Employees</span>:</em></strong> &nbsp;{!AccountProfile.Number_of_Employees__c}&nbsp;
+                    </td>
+                    <td style="padding: 0 10px 0 0;">
+                        <strong><em><span>Sales Representatives</span>:</em></strong> &nbsp;{!AccountProfile.Number_of_Sales_Representatives__c}&nbsp;
+                    </td>
+                    <td style="padding: 0 10px 0 0;">
+                        <strong><em><span>Sales Engineers</span>:</em></strong> &nbsp;{!AccountProfile.Number_of_Sales_Engineers__c}&nbsp;
+                    </td>
+                </tr>
+                </tbody></table>
+            </td>
+        </tr>
+        <tr><td colspan="2">&nbsp;</td></tr>
+        <tr>
+            <td><strong><span>Company Revenue</span>:</strong> </td>
+            <td>{!AccountProfile.Company_Revenue__c}</td>
+        </tr>
+        <tr><td colspan="2">&nbsp;</td></tr>
+        <tr><td colspan="2"><strong>What percentage of above revenue was from these market segments?</strong></td></tr>
+        <tr>
+            <td><strong><em><span>WAN Optimization</span></em></strong> </td>
+            <td>{!AccountProfile.WAN_Optimization__c}</td>
+        </tr>
+        <tr>
+            <td><strong><em><span>Virtualization</span></em></strong> </td>
+            <td>{!AccountProfile.Virtualization__c}</td>
+        </tr>
+        <tr>
+            <td><strong><em><span>Data Center Solutions</span></em></strong> </td>
+            <td>{!AccountProfile.Data_Center_Solutions__c}</td>
+        </tr>
+        <tr>
+            <td><strong><em><span>Security</span></em></strong> </td>
+            <td>{!AccountProfile.Security__c}</td>
+        </tr>
+        <tr>
+            <td><strong><em><span>Storage</span></em></strong> </td>
+            <td>{!AccountProfile.Storage__c}</td>
+        </tr>
+        <tr>
+            <td><strong><em><span>Unified Communications/VOIP</span></em></strong> </td>
+            <td>{!AccountProfile.Unified_Communications_VOIP__c}</td>
+        </tr>
+        <tr>
+            <td><strong><em><span>Wireless WAN/LAN</span></em></strong> </td>
+            <td>{!AccountProfile.Wireless_WAN_LAN__c}</td>
+        </tr>
+        <tr>
+            <td><strong><em><span>Other %</span></em></strong> {!AccountProfile.Other__c}</td>
+            <td>
+                <span>Other</span>: {!AccountProfile.Revenue_Other__c}
+            </td>
+        </tr>
+        <tr><td colspan="2">&nbsp;</td></tr>
+        <tr>
+            <td colspan="2">
+                <strong><span>What top 3 market segments/verticals do you serve?</span></strong> <br/>
+                <table>
+        <tbody><tr>
+            <td>
+                <c:MultiCheckboxes object="Partner_Account_Profile__c" field="Marketing_Segments_Served__c" record="{!AccountProfile}" />
+            </td>
+        </tr>
+    </tbody></table>
+                
+            </td>
+        </tr>
+        <tr><td colspan="2">&nbsp;</td></tr>
+        <tr>
+            <td colspan="2">
+                <strong><span>Which product categories do you currently sell?</span></strong> <br/>
+                <table>
+        <tbody><tr>
+            <td><c:MultiCheckboxes object="Partner_Account_Profile__c" field="Product_Categories_Sold__c" record="{!AccountProfile}" /></td>
+        </tr>
+    </tbody></table>
+            </td>
+        </tr>       
+        <tr><td colspan="2">&nbsp;</td></tr>
+        <tr>
+            <td colspan="2">                
+                <strong><span>Which Silver Peak products do you currently sell?</span></strong> <br/>
+                <br/>
+                <table style="width:300px;">
+        <tbody><tr>
+            <td><c:MultiCheckboxes object="Partner_Account_Profile__c" field="Silver_Peak_Products_Sold__c" record="{!AccountProfile}" /></td>
+        </tr>
+    </tbody></table>
+                
+            </td>
+        </tr>
+        <tr><td colspan="2">&nbsp;</td></tr>
+        <tr>
+            <td colspan="2">
+                <strong><span>Applications:</span></strong> <br/>
+                <br/>
+                <table style="width:920px;">
+        <tbody><tr>
+            <td><c:MultiCheckboxes object="Partner_Account_Profile__c" field="Applications__c" record="{!AccountProfile}" /></td>
+        </tr>
+    </tbody></table>
+                
+            </td>
+        </tr>
+        <tr><td colspan="2">&nbsp;</td></tr>
+        <tr><td colspan="2"><strong><span>What are your business&apos;s Silver Peak Competencies?</span></strong> <br/>
+        </td></tr>
+        <tr>
+            <td colspan="2">
+                <table border="0">
+                <tbody><tr>
+                    <td style="padding: 0 10px 0 0;">
+                        <table>
+        <tbody><tr>
+            <td><c:MultiCheckboxes object="Partner_Account_Profile__c" field="Silver_Peak_Competencies__c" record="{!AccountProfile}" /></td>
+        </tr>
+    </tbody></table>
+
+                    </td>
+                    
+                </tr>
+                </tbody></table>
+            </td>
+        </tr>
+        <tr><td colspan="2">&nbsp;</td></tr>
+        <tr><td colspan="2"><strong>Do you provide:</strong></td></tr>
+        <tr>
+            <td colspan="2">
+                <table border="0" cellpadding="2">
+                <tbody><tr>
+                    <td style="padding: 0 10px 0 0;">
+                        <strong><em><span>Professional Services</span>:</em></strong> &nbsp; {!AccountProfile.Provide_Professional_Services__c}&nbsp;
+                    </td>
+                    <td>
+                        <strong><em><span>Managed Services</span>:</em></strong> &nbsp; {!AccountProfile.Provide_Managed_Services__c}&nbsp;
+                    </td>
+                </tr>
+                </tbody></table>
+            </td>
+        </tr>
+        <tr><td colspan="2">&nbsp;</td></tr>
+        <tr>
+            <td colspan="2">
+                <strong><span>Which Professional Services do you offer?</span></strong><br/>
+                <br/>
+                <table style="width:600px;">
+        <tbody><tr>
+            <td><c:MultiCheckboxes object="Partner_Account_Profile__c" field="Professional_Services_Offered__c" record="{!AccountProfile}" /></td>
+        </tr>
+    </tbody></table>
+                
+            </td>
+        </tr>
+        <tr><td colspan="2">&nbsp;</td></tr>
+        <tr>
+            <td colspan="2">
+                <strong><span>Which of these business partner/channel partner programs does your organization participate in?</span></strong><br/>
+                <table>
+        <tbody><tr>
+            <td><c:MultiCheckboxes object="Partner_Account_Profile__c" field="Channel_Programs_Participated__c" record="{!AccountProfile}" /></td>
+        </tr>
+    </tbody></table>
+                
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <span>Other</span>: {!AccountProfile.Channel_Programs_Participated_Other__c}
+           </td>
+        </tr>
+        <tr><td colspan="2">&nbsp;</td></tr>
+        <tr>
+            <td colspan="2">
+                <strong><span>Email Domains</span> </strong> - We use email domains to validate users associated to your partner account<br/>
+                {!AccountProfile.Email_Domains_Used__c}<br/>
+            </td>
+        </tr>
+        </tbody></table>
+
+
+        <h2 style="margin-bottom: 0;">Company Contact Information</h2>
+        <table border="0" cellpadding="0" cellspacing="0" width="100%">
+        <tbody><tr>
+            <td valign="top">
+                <table border="0" width="100%">
+                <tbody><tr>
+                    <td colspan="2">
+                        <h3>Primary HQ Contact</h3>      
+                        <table>
+                        <tbody><tr>
+                            <td><span>First Name:</span> </td>
+                            <td>{!AccountAddresses['Primary HQ Contact'].First_Name__c}</td>
+                        </tr>
+                        <tr>
+                            <td><span>Last Name:</span> </td>
+                            <td>{!AccountAddresses['Primary HQ Contact'].Last_Name__c}</td>
+                        </tr>
+                        <tr>
+                            <td><span>Address:</span> </td>
+                            <td>{!AccountAddresses['Primary HQ Contact'].Address_1__c}</td>
+                        </tr>
+                        <tr>
+                            <td><span>Address 2:</span></td>
+                            <td>{!AccountAddresses['Primary HQ Contact'].Address_2__c}</td>
+                        </tr>
+                        <tr>
+                            <td><span>City:</span> </td>
+                            <td>{!AccountAddresses['Primary HQ Contact'].City__c}</td>
+                        </tr>
+                        <tr>
+                            <td><span>Country:</span> </td>
+                            <td>{!AccountAddresses['Primary HQ Contact'].Country__c}</td>
+                        </tr>
+                        <tr>
+                            <td><span>State:</span> </td>
+                            <td>{!AccountAddresses['Primary HQ Contact'].State__c}</td>
+                        </tr>
+                        <tr>
+                            <td><span>Postal Code:</span> </td>
+                            <td>{!AccountAddresses['Primary HQ Contact'].Postal_Code__c}</td>
+                        </tr>
+                        <tr>
+                            <td><span>Email:</span> </td>
+                            <td>{!AccountAddresses['Primary HQ Contact'].Email__c}</td>
+                        </tr>
+                        <tr>
+                            <td><span>Phone:</span> </td>
+                            <td>{!AccountAddresses['Primary HQ Contact'].Phone__c}</td>
+                        </tr>
+                        </tbody></table>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <h3>Primary Marketing Contact</h3>
+                        
+                        <table>
+                        <tbody><tr>
+                            <td><span>First Name:</span> </td>
+                            <td>{!AccountAddresses['Primary Marketing Contact'].First_Name__c}</td>
+                        </tr>
+                        <tr>
+                            <td><span>Last Name:</span> </td>
+                            <td>{!AccountAddresses['Primary Marketing Contact'].Last_Name__c}</td>
+                        </tr>
+                        <tr>
+                            <td><span>Address:</span> </td>
+                            <td>{!AccountAddresses['Primary Marketing Contact'].Address_1__c}</td>
+                        </tr>
+                        <tr>
+                            <td><span>Address 2:</span></td>
+                            <td>{!AccountAddresses['Primary Marketing Contact'].Address_2__c}</td>
+                        </tr>
+                        <tr>
+                            <td><span>City:</span> </td>
+                            <td>{!AccountAddresses['Primary Marketing Contact'].City__c}</td>
+                        </tr>
+                        <tr>
+                            <td><span>Country:</span> </td>
+                            <td>{!AccountAddresses['Primary Marketing Contact'].Country__c}</td>
+                        </tr>
+                        <tr>
+                            <td><span>State:</span> </td>
+                            <td>{!AccountAddresses['Primary Marketing Contact'].State__c}</td>
+                        </tr>
+                        <tr>
+                            <td><span>Postal Code:</span> </td>
+                            <td>{!AccountAddresses['Primary Marketing Contact'].Postal_Code__c}</td>
+                        </tr>
+                        <tr>
+                            <td><span>Email:</span> </td>
+                            <td>{!AccountAddresses['Primary Marketing Contact'].Email__c}</td>
+                        </tr>
+                        <tr>
+                            <td><span>Phone:</span> </td>
+                            <td>{!AccountAddresses['Primary Marketing Contact'].Phone__c}</td>
+                        </tr>
+                        </tbody></table>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <h3>Primary Sales Contact</h3>
+                        
+                        <table>
+                        <tbody><tr>
+                            <td><span>First Name:</span> </td>
+                            <td>{!AccountAddresses['Primary Sales Contact'].First_Name__c}</td>
+                        </tr>
+                        <tr>
+                            <td><span>Last Name:</span> </td>
+                            <td>{!AccountAddresses['Primary Sales Contact'].Last_Name__c}</td>
+                        </tr>
+                        <tr>
+                            <td><span>Address:</span> </td>
+                            <td>{!AccountAddresses['Primary Sales Contact'].Address_1__c}</td>
+                        </tr>
+                        <tr>
+                            <td><span>Address 2:</span></td>
+                            <td>{!AccountAddresses['Primary Sales Contact'].Address_2__c}</td>
+                        </tr>
+                        <tr>
+                            <td><span>City:</span> </td>
+                            <td>{!AccountAddresses['Primary Sales Contact'].City__c}</td>
+                        </tr>
+                        <tr>
+                            <td><span>Country:</span> </td>
+                            <td>{!AccountAddresses['Primary Sales Contact'].Country__c}</td>
+                        </tr>
+                        <tr>
+                            <td><span>State:</span> </td>
+                            <td>{!AccountAddresses['Primary Sales Contact'].State__c}</td>
+                        </tr>
+                        <tr>
+                            <td><span>Postal Code:</span> </td>
+                            <td>{!AccountAddresses['Primary Sales Contact'].Postal_Code__c}</td>
+                        </tr>
+                        <tr>
+                            <td><span>Email:</span> </td>
+                            <td>{!AccountAddresses['Primary Sales Contact'].Email__c}</td>
+                        </tr>
+                        <tr>
+                            <td><span>Phone:</span> </td>
+                            <td>{!AccountAddresses['Primary Sales Contact'].Phone__c}</td>
+                        </tr>
+                        </tbody></table>
+                    </td>
+                </tr>
+                </tbody></table>
+            </td>
+            <td valign="top">
+                <table border="0" width="100%">
+                <tbody><tr>
+                    <td colspan="2">
+                        <h3>Primary Technical Contact</h3>
+                        
+                        <table>
+                        <tbody><tr>
+                            <td><span>First Name:</span> </td>
+                            <td>{!AccountAddresses['Primary Technical Contact'].First_Name__c}</td>
+                        </tr>
+                        <tr>
+                            <td><span>Last Name:</span> </td>
+                            <td>{!AccountAddresses['Primary Technical Contact'].Last_Name__c}</td>
+                        </tr>
+                        <tr>
+                            <td><span>Address:</span> </td>
+                            <td>{!AccountAddresses['Primary Technical Contact'].Address_1__c}</td>
+                        </tr>
+                        <tr>
+                            <td><span>Address 2:</span></td>
+                            <td>{!AccountAddresses['Primary Technical Contact'].Address_2__c}</td>
+                        </tr>
+                        <tr>
+                            <td><span>City:</span> </td>
+                            <td>{!AccountAddresses['Primary Technical Contact'].City__c}</td>
+                        </tr>
+                        <tr>
+                            <td><span>Country:</span> </td>
+                            <td>{!AccountAddresses['Primary Technical Contact'].Country__c}</td>
+                        </tr>
+                        <tr>
+                            <td><span>State:</span> </td>
+                            <td>{!AccountAddresses['Primary Technical Contact'].State__c}</td>
+                        </tr>
+                        <tr>
+                            <td><span>Postal Code:</span> </td>
+                            <td>{!AccountAddresses['Primary Technical Contact'].Postal_Code__c}</td>
+                        </tr>
+                        <tr>
+                            <td><span>Email:</span> </td>
+                            <td>{!AccountAddresses['Primary Technical Contact'].Email__c}</td>
+                        </tr>
+                        <tr>
+                            <td><span>Phone:</span> </td>
+                            <td>{!AccountAddresses['Primary Technical Contact'].Phone__c}</td>
+                        </tr>
+                        </tbody></table>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <h3>CEO/General Manager</h3>
+                        
+                        <table>
+                        <tbody><tr>
+                            <td><span>First Name:</span> </td>
+                            <td>{!AccountAddresses['CEO/General Manager'].First_Name__c}</td>
+                        </tr>
+                        <tr>
+                            <td><span>Last Name:</span> </td>
+                            <td>{!AccountAddresses['CEO/General Manager'].Last_Name__c}</td>
+                        </tr>
+                        <tr>
+                            <td><span>Address:</span> </td>
+                            <td>{!AccountAddresses['CEO/General Manager'].Address_1__c}</td>
+                        </tr>
+                        <tr>
+                            <td><span>Address 2:</span></td>
+                            <td>{!AccountAddresses['CEO/General Manager'].Address_2__c}</td>
+                        </tr>
+                        <tr>
+                            <td><span>City:</span> </td>
+                            <td>{!AccountAddresses['CEO/General Manager'].City__c}</td>
+                        </tr>
+                        <tr>
+                            <td><span>Country:</span> </td>
+                            <td>{!AccountAddresses['CEO/General Manager'].Country__c}</td>
+                        </tr>
+                        <tr>
+                            <td><span>State:</span> </td>
+                            <td>{!AccountAddresses['CEO/General Manager'].State__c}</td>
+                        </tr>
+                        <tr>
+                            <td><span>Postal Code:</span> </td>
+                            <td>{!AccountAddresses['CEO/General Manager'].Postal_Code__c}</td>
+                        </tr>
+                        <tr>
+                            <td><span>Email:</span> </td>
+                            <td>{!AccountAddresses['CEO/General Manager'].Email__c}</td>
+                        </tr>
+                        <tr>
+                            <td><span>Phone:</span> </td>
+                            <td>{!AccountAddresses['CEO/General Manager'].Phone__c}</td>
+                        </tr>
+                        </tbody></table>
+                    </td>
+                </tr>
+                </tbody></table>
+            </td>
+        </tr>
+        </tbody></table>
+    
+        </div>
+
+        </div>
+    </article>
+
+            <div class="clear"></div>
+            <div class="socialmedia">
+                <nav class="social">
+                    <ul>
+                        <li><a class="facebook" target="_blank" href="http://facebook.com/SilverPeakSystems">facebook</a></li>
+                        <li><a class="blog" target="_blank" href="http://blog.silver-peak.com/">blog</a></li>
+                        <li><a class="twitter" target="_blank" href="https://twitter.com/silverpeak">twitter</a></li>
+                        <li><a class="linkedin" target="_blank" href="http://www.linkedin.com/company/silver-peak-systems">linkedin</a></li>
+                        <li><a class="youtube" target="_blank" href="http://www.youtube.com/user/silverpeaksystems">youtube</a></li>
+                        <li><a class="rss" target="_blank" href="http://feeds.feedburner.com/WANspeak">rss</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+        </apex:define>
+    </apex:composition>
+</apex:page>

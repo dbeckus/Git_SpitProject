@@ -1,0 +1,25 @@
+<apex:page showHeader="false" sidebar="false" controller="PartnerPortalSSOController" action="{!redirect}">
+      <apex:composition template="PartnerCommunityTemplate">
+        <apex:define name="body">
+            <div id="main">
+   
+            
+             
+             <article id="content">
+              <div class="txt">
+               
+               <p>
+                 <apex:outputText value="{!$Label.ProfileIncomplete}" escape="false" rendered="{!Not(ProfileValid)}">
+                 </apex:outputText>
+               </p>
+               <apex:pageMessages />
+              </div>
+             </article>
+             
+             
+               <div class="clear"></div>
+
+              </div>
+        </apex:define>
+    </apex:composition>
+</apex:page>

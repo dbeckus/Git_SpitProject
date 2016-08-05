@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ApexComponent xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>33.0</apiVersion>
+    <description>Used in VF email template to retrieve values in child object</description>
+    <label>Value Getter</label>
+</ApexComponent>

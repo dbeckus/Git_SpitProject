@@ -1,0 +1,160 @@
+<apex:page standardController="Case" extensions="NewCaseWithArticleController">
+    <script type="text/javascript" src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script type="text/javascript" src="{!URLFOR($Resource.NewCase, 'searchKB.js')}"></script>
+    <apex:stylesheet value="{!URLFOR($Resource.NewCase, 'searchKB.css')}"/>
+    <apex:sectionHeader title="{!CASE(RenderPage, 1, 'Open a Case', 2, Article.Title, 3, 'Submit Case', 'Submit Case')}" />
+    <apex:pageMessages />
+    <apex:outputPanel layout="block" id="page1" rendered="{!RenderPage=1}">
+        <apex:form >
+            <apex:pageBlock mode="edit" title="Question or Problem">
+                <apex:pageBlockButtons location="top">
+                    <apex:commandButton value="Search Knowledge Base" onclick="searchArticle(); return false;"></apex:commandButton>
+                    <apex:commandButton value="Open Case Anyways" id="openCaseAnywaysBtn" onclick="handleOpenCaseAnywaysBtnClick();return false;" style="display: none;"></apex:commandButton>
+                    <apex:commandButton value="Cancel" action="{!cancel}"></apex:commandButton>
+                </apex:pageBlockButtons>
+                <apex:pageBlockSection columns="1">
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="Brief" for="caseSubject"></apex:outputLabel>
+                        <apex:inputField value="{!Case.Subject}" style="width:350px" id="caseSubject"></apex:inputField>
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="Issue" for="caseBody"></apex:outputLabel>
+                        <apex:inputField value="{!Case.Description}" style="width:350px; height:100px" id="caseBody"></apex:inputField>
+                    </apex:pageBlockSectionItem>
+                </apex:pageBlockSection>
+                <apex:pageBlockSection title="Suggested Articles" columns="1">
+                    <apex:actionStatus id="refreshStatus">
+                        <apex:facet name="start">
+                            <img src="/img/loading.gif" alt="Refreshing..." />
+                            <span>Searching...</span>
+                        </apex:facet>
+                    </apex:actionStatus>
+                    <apex:outputPanel id="articleList" layout="block" styleClass="articleList">
+                        <apex:outputText value="No relevant articles found." rendered="{!AND(SearchResult.size = 0, OR(NOT(ISBLANK(Case.Subject)), NOT(ISBLANK(Case.Description))))}" />
+                        <ul>
+                            <apex:repeat value="{!SearchResult}" var="atc">
+                            <li class="articleListItem white">
+                                <div class="articleEntry">
+                                    <div class="articleText">
+                                      <p class="title">
+                                          <span class="stats">
+                                              <img class="viewStat" width="{!ROUND(atc.ViewCount / 5 * 56, 0)}px" src="/img/knowledge/kb2/img_trans.gif" />
+                                              <img class="viewStatBack" src="/img/knowledge/kb2/img_trans.gif" />
+                                              <img class="voteStat" width="{!ROUND(atc.VoteCount / 5 * 56, 0)}px" src="/img/knowledge/kb2/img_trans.gif" alt="Rating: 0" title="Rating: 0"/>
+                                              <img class="voteStatBack" src="/img/knowledge/kb2/img_trans.gif" title="Rating: 0"/>
+                                          </span>
+                                          <a href="javascript: handleViewArticleLink('{!atc.KnowledgeArticleId}')">{!atc.Title}</a>
+                                      </p>
+                                      <p class="summary">{!atc.Summary}</p>
+                                  <ul>
+                                    <li class="displayFieldName" title="{!atc.ArticleNumber}">{!atc.ArticleNumber}</li>
+                                    <!--<li class="displayFieldName" title="Knowledge Base">Knowledge Base</li>-->
+                                    <li class="displayFieldName" title="Last Published 7/18/2014">Last Published <apex:outputText value="{0, date, MM/dd/yyyy}"><apex:param value="{!atc.PublishDate}"/></apex:outputText></li>
+                                  </ul>
+                                </div>
+                            </div>
+                            </li>
+                            </apex:repeat>
+                        </ul>
+                    </apex:outputPanel>
+                </apex:pageBlockSection>
+            </apex:pageBlock>
+        </apex:form>
+        
+        <apex:outputPanel layout="block" id="assetsP1">
+            <apex:form rendered="{!SearchCompleted}">
+                <c:NewCaseWithAsset />
+            </apex:form>
+        </apex:outputPanel>
+
+        <apex:form >
+            <apex:inputHidden value="{!Keyword}" id="keyword" />
+            <apex:inputHidden value="{!Case.Subject}" id="hidSubject" />
+            <apex:inputHidden value="{!Case.Description}" id="hidBody" />
+            <apex:actionFunction name="searchArticle" reRender="articleList" status="refreshStatus" action="{!searchArticle}" oncomplete="handleSearchCompleted()" />
+            <apex:actionFunction name="initSearchArticle" reRender="articleList, assetsP1" status="refreshStatus" action="{!searchArticle}" oncomplete="handleSearchCompleted()" />
+        </apex:form>
+
+        <apex:form >
+            <apex:inputHidden value="{!ArticleId}" id="articleId" />
+            <apex:actionFunction name="viewArticle" action="{!viewArticle}"></apex:actionFunction>
+        </apex:form>
+    </apex:outputPanel>
+
+    <apex:outputPanel layout="block" id="page2" rendered="{!RenderPage=2}">
+        <apex:outputPanel layout="block" id="articleDetail">
+            <knowledge:articleRendererToolbar articleId="{!ArticleId}" canVote="true" includeCSS="true" />
+            <apex:form >
+                 « <apex:commandLink value="Back to article search" action="{!searchArticle}" styleClass="custom-cmd-link"></apex:commandLink>
+                <apex:outputPanel style="float: right">
+                    <apex:commandLink value="Open a case anyway" styleClass="custom-cmd-link custom-cmd-link-opencase" onclick="return handleOpenCaseAnywayLink();" />  »
+                </apex:outputPanel>
+                <apex:pageBlock mode="edit">
+                    <apex:pageBlockSection columns="1">
+                        <apex:outputField value="{!Article.Category__c}"></apex:outputField>
+                        <apex:outputField value="{!Article.Solution__c}"></apex:outputField>
+                    </apex:pageBlockSection>
+                </apex:pageBlock>
+                <apex:pageBlock >
+                    <apex:pageBlockSection columns="1">
+                        <apex:pageBlockSectionItem >
+                            <apex:outputText value="Is this article helpful?" styleClass="view-article-message"></apex:outputText>
+                            <apex:outputPanel styleClass="view-article-item">
+                                <apex:commandLink value="Yes, it solved my case." action="{!markArticle}" styleClass="custom-cmd-link"></apex:commandLink>
+                                <apex:commandLink value="No, let me redo search." action="{!searchArticle}" styleClass="custom-cmd-link"></apex:commandLink>
+                                <apex:commandLink value="No, continue opening a case anyway." styleClass="custom-cmd-link" onclick="return handleOpenCaseAnywayLink();"></apex:commandLink>
+                            </apex:outputPanel>
+                        </apex:pageBlockSectionItem>
+                    </apex:pageBlockSection>
+                </apex:pageBlock>
+            </apex:form>
+        </apex:outputPanel>
+
+        <apex:outputPanel layout="block" id="assetsP2" styleClass="hide">
+            <apex:form >
+                <c:NewCaseWithAsset />
+            </apex:form>
+        </apex:outputPanel>
+    </apex:outputPanel>
+
+    <apex:outputPanel layout="block" id="page3" rendered="{!RenderPage=3}">
+        <apex:form >
+            <apex:pageBlock mode="edit" title="Case Edit">
+                <apex:pageBlockButtons >
+                    <apex:commandButton value="Submit" action="{!saveCase}"></apex:commandButton>
+                    <apex:commandButton value="Cancel" action="{!cancel}"></apex:commandButton>
+                </apex:pageBlockButtons>
+                <apex:pageBlockSection title="Case Information">
+                    <apex:inputField value="{!Case.Alternate_Phone__c}"></apex:inputField>
+                    <apex:inputField value="{!Case.Priority}"></apex:inputField>
+                </apex:pageBlockSection>
+                <apex:pageBlockSection title="Appliance Information" columns="1">
+                    <apex:inputField value="{!Case.AssetId}"></apex:inputField>
+                    <apex:inputField value="{!Case.BuildLink__c}"></apex:inputField>
+                    <apex:inputField value="{!Case.Version__c}"></apex:inputField>
+                </apex:pageBlockSection>
+                <apex:pageBlockSection title="Question or Problem" columns="1">
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="Brief" for="caseSubjectP3"></apex:outputLabel>
+                        <apex:inputField value="{!Case.Subject}" style="width:350px" id="caseSubjectP3"></apex:inputField>
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="Issue" for="caseBodyP3"></apex:outputLabel>
+                        <apex:inputField value="{!Case.Description}" style="width:350px; height:100px" id="caseBodyP3"></apex:inputField>
+                    </apex:pageBlockSectionItem>
+                </apex:pageBlockSection>
+                <apex:pageBlockSection title="CC List">
+                    <apex:inputField value="{!Case.CC1__c}"></apex:inputField>
+                    <apex:inputField value="{!Case.CC2__c}"></apex:inputField>
+                    <apex:inputField value="{!Case.CC3__c}"></apex:inputField>
+                    <apex:inputField value="{!Case.CC4__c}"></apex:inputField>
+                </apex:pageBlockSection>
+            </apex:pageBlock>
+        </apex:form>
+    </apex:outputPanel>
+
+    <apex:form >
+        <apex:inputHidden value="{!Case.AssetId}" id="hidAssetId" />
+        <apex:actionFunction name="openCaseAnyway" action="{!openCaseAnyway}" />
+    </apex:form>
+</apex:page>

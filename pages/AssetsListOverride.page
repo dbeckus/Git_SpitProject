@@ -1,0 +1,200 @@
+<apex:page standardController="Asset"  id="page">
+  <!--
+  recordSetVar="assets" tabStyle="Asset" extensions="Assets_List_Override"
+  <apex:includeScript value="{!$Resource.SFbn}"/>
+  <apex:includeScript value="{!$Resource.SFrsa}"/>
+  <apex:includeScript value="{!$Resource.SFSP}"/>
+  <style type="text/css">
+      .nondisplay
+      {
+          display:none;
+      }
+  </style> 
+  <script type="text/javascript">
+      var $id = function (id) {
+            return "string" == typeof id ? document.getElementById(id) : id;
+      }
+      
+      function swapDate(adate) {
+          var el = adate.split("/");
+          if (el.length != 3) {
+              return "0";  
+          } else {
+              return el[2]+"/"+el[0]+"/"+el[1];
+          }
+      }
+      function generateLicense(product,licenseStartDate,licenseDuration,licenseEndDate,assetName,licenseKey) {
+          //alert("generateLicense");
+          var p=$id(product);
+          var license=p.options[p.selectedIndex].text.toUpperCase().replace(/-/,"") + "-" +
+          swapDate($id(licenseStartDate).firstChild.data) + "-";
+          if ($id(licenseDuration).value==0) {
+              license+="0";
+          } else {
+              license+=swapDate($id(licenseEndDate).firstChild.data);
+          }
+          license+="-1-" + assetName;
+          // alert(license);
+          $id(licenseKey).value=SPencrypt(license);
+          return true;
+      }; //generateLicense
+      
+      function changeDuration(status, licenseDurationString, licenseEndDate, licenseEndDateLabel) {
+          var oSelect = $id(licenseDurationString);
+          if (status.selectedIndex==2) {
+              $id(licenseEndDate).parentNode.style.visibility="hidden";
+              $id(licenseEndDateLabel).parentNode.style.visibility="hidden";
+              $id("page:form:pageBlock:warrantyInformation:evaluation_Start_Date").innerHTML='';
+              $id("page:form:pageBlock:warrantyInformation:evaluation_End_Date").innerHTML='';
+              $id("page:form:pageBlock:warrantyInformation:theHiddenStartDate").value=''; 
+              $id("page:form:pageBlock:warrantyInformation:theHiddenEndDate").value='';                
+              oSelect.options.length=0;
+              oSelect.options.add(new Option("perpetual","0"));
+              oSelect.disabled=true;
+          } else {
+              $id(licenseEndDate).parentNode.style.visibility="visible";
+              $id(licenseEndDateLabel).parentNode.style.visibility="visible";              
+              oSelect.options.length=0;
+              oSelect.options.add(new Option("90 Days","90"));
+              oSelect.options.add(new Option("60 Days","60"));
+              oSelect.options.add(new Option("45 Days","45"));
+              oSelect.options.add(new Option("30 Days","30"));
+              oSelect.disabled=false;
+              
+              changeDate(oSelect,
+                "page:form:pageBlock:assetInformation:licenseStartDate",
+                "page:form:pageBlock:assetInformation:led:licenseEndDate",
+                "page:form:pageBlock:warrantyInformation:evaluation_Start_Date",
+                "page:form:pageBlock:warrantyInformation:evaluation_End_Date"
+                );
+          }
+      }; //changeDuration
+      function changeDate(oSelect, licenseStartDate, licenseEndDate, evaluationStartDate, evaluationEndDate)
+      {
+          var startDate=$id(licenseStartDate).innerHTML;
+          var list=startDate.split("/");
+          var options=oSelect.getElementsByTagName("option");
+          var day=new Number(options[oSelect.selectedIndex].value);
+          if(list.length == 3)
+          {
+              var d = new Date(list[2], list[0]-1, list[1]);
+              if(day!=0)
+              {
+                  d.setDate(d.getDate()+day.valueOf());
+                  var endDate=(d.getMonth()+1) + "/" + (d.getDate()) + "/" + (d.getFullYear());
+                  $id(licenseEndDate).innerHTML=endDate;
+                  $id(evaluationStartDate).innerHTML=startDate;
+                  $id(evaluationEndDate).innerHTML=endDate;
+                  $id("page:form:pageBlock:warrantyInformation:theHiddenStartDate").value=startDate;
+                  $id("page:form:pageBlock:warrantyInformation:theHiddenEndDate").value=endDate;
+              }
+          }
+      }
+  </script>
+  <apex:form id="form">
+      <apex:pageMessages />
+        <apex:pageBlock title="Virtual Asset Edit" mode="edit" id="pageBlock">
+            <apex:pageBlockButtons >
+                <apex:commandButton action="{!nameRankSerial}" value="Save" reRender="step2,assetName" >
+                    <apex:param assignTo="{!saveAndNew}" value="false" />
+                </apex:commandButton>
+                <apex:commandButton action="{!nameRankSerial}" value="Save & New" reRender="step2,assetName" >
+                    <apex:param assignTo="{!saveAndNew}" value="true" />
+                </apex:commandButton>
+                <apex:commandButton action="{!cancel}" value="Cancel" /> 
+            </apex:pageBlockButtons>
+            <apex:pageBlockSection title="Asset Information" columns="2" id="assetInformation">
+                <apex:pageBlockSectionItem id="products">
+                    <apex:outputLabel value="Product" for="product" />
+                    <apex:outputPanel layout="block" styleClass="requiredInput">
+                        <apex:outputPanel layout="block" styleClass="requiredBlock" />
+                            <apex:selectList value="{!asset.Product2Id}" required="true" id="product" multiselect="false" size="1">
+                                <apex:selectOptions value="{!Products}" />
+                            </apex:selectList>
+                        </apex:outputPanel>
+                </apex:pageBlockSectionItem>
+                <apex:inputField value="{!asset.AccountId}" id="account" required="true"/>
+                <apex:pageBlockSectionItem id="statuses" >
+                    <apex:outputLabel value="Status" for="status" />
+                    <apex:outputPanel layout="block" styleClass="requiredInput">
+                        <apex:outputPanel layout="block" styleClass="requiredBlock" />
+                        <apex:selectList value="{!asset.Status}" required="true" id="status" multiselect="false" size="1" 
+                            onChange="changeDuration(this,
+                                '{!$Component.assetInformation.ld.licenseDurationString}',
+                                '{!$Component.assetInformation.led.licenseEndDate}',
+                                '{!$Component.assetInformation.led.licenseEndDatelabel}'               
+                                );">
+                            <apex:selectOption itemLabel="Customer Evaluation" itemValue="Customer Evaluation" />
+                            <apex:selectOption itemLabel="Conditional PO" itemValue="Conditional PO" />
+                            <apex:selectOption itemLabel="Customer Owned" itemValue="Customer Owned" />
+                        </apex:selectList>
+                    </apex:outputPanel>
+                </apex:pageBlockSectionItem>
+                <apex:inputField value="{!asset.ContactId}" required="true" id="contactId" />
+                <apex:outputField value="{!license.Start_Date__c}" id="licenseStartDate" />
+                <apex:pageBlockSectionItem id="ld">
+                    <apex:outputLabel value="License Duration" for="licenseDurationString" />
+                    <apex:selectList value="{!license.Duration__c}" multiselect="false" size="1" id="licenseDurationString" 
+                        onChange="changeDate(this,
+                            '{!$Component.assetInformation.licenseStartDate}',
+                            '{!$Component.assetInformation.led.licenseEndDate}',
+                            '{!$Component.warrantyInformation.evaluation_Start_Date}',
+                            '{!$Component.warrantyInformation.evaluation_End_Date}'
+                            )">
+                        <apex:selectOption itemLabel="90 Days" itemValue="90" />
+                        <apex:selectOption itemLabel="60 Days" itemValue="60" />
+                        <apex:selectOption itemLabel="45 Days" itemValue="45" />
+                        <apex:selectOption itemLabel="30 Days" itemValue="30" />
+                        <apex:selectOption itemLabel="perpetual" itemValue="0" />
+                    </apex:selectList>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem id="led" dataStyle="visibility: {!IF(license.Duration__c==0, 'hidden', 'visible')}" labelStyle="visibility: {!IF(license.Duration__c==0, 'hidden', 'visible')}">
+                    <apex:outputLabel value="License End Date" for="licenseEndDate" id="licenseEndDateLabel" />
+                    <apex:outputText id="licenseEndDate" value="{!licenseEndDate}" />
+                </apex:pageBlockSectionItem>
+                <apex:inputHidden value="{!step}" id="step" />
+                <apex:inputHidden value="{!license.Key__c}" id="licenseKey" />
+                <apex:outputText />
+                <apex:outputField value="{!asset.Name}" id="assetName" />
+                <apex:outputPanel id="step2">
+                    <apex:actionFunction name="save" action="{!save}" />
+                    <apex:outputPanel rendered="{!step = 2}">
+                        <script type="text/javascript">
+                            //alert("step 2");
+                            generateLicense(
+                                '{!$Component.assetInformation.products.product}',
+                                '{!$Component.assetInformation.licenseStartDate}',
+                                '{!$Component.assetInformation.ld.licenseDurationString}',
+                                '{!$Component.assetInformation.led.licenseEndDate}',
+                                '{!asset.Name}',
+                                '{!$Component.assetInformation.licenseKey}');
+                                //alert("step 2");
+                            save();
+                        </script>
+                    </apex:outputPanel>
+                </apex:outputPanel>                 
+            </apex:pageBlockSection>
+            <apex:pageBlockSection title="Warranty Information" columns="2" id="warrantyInformation">
+                <apex:outputField value="{!asset.Ship_Date__c}" id="ship_Date"/>
+                <apex:outputText />
+                <apex:outputField value="{!asset.Evaluation_Start_Date__c}" id="evaluation_Start_Date"/>
+                <apex:outputText />
+                <apex:outputField value="{!asset.Evaluation_End_Date__c}" id="evaluation_End_Date"/>
+                <apex:inputHidden value="{!asset.Evaluation_Start_Date__c}" id="theHiddenStartDate"/>
+                <apex:inputHidden value="{!asset.Evaluation_End_Date__c}" id="theHiddenEndDate"/>
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+        <apex:outputPanel >
+        </apex:outputPanel>
+    </apex:form>
+    <script type="text/javascript">
+        window.onload=function(){
+                            changeDuration($id("page:form:pageBlock:assetInformation:statuses:status"),
+                                "page:form:pageBlock:assetInformation:ld:licenseDurationString",
+                                "page:form:pageBlock:assetInformation:led:licenseEndDate",
+                                "page:form:pageBlock:assetInformation:led:licenseEndDateLabel"              
+                                )
+                      }
+    </script>
+    -->
+</apex:page>

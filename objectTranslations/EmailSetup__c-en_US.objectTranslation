@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Email Setup</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Email Setups</value>
+    </caseValues>
+    <fields>
+        <help><!-- Only used in the &quot;Case Updates&quot; setup --></help>
+        <label><!-- Template: Case Updates --></label>
+        <name>CaseUpdatesTemplate__c</name>
+    </fields>
+    <fields>
+        <label><!-- Case Record Type --></label>
+        <name>Case_Record_Type__c</name>
+        <picklistValues>
+            <masterLabel>IT Help Requests</masterLabel>
+            <translation><!-- IT Help Requests --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Incoming Email</masterLabel>
+            <translation><!-- Incoming Email --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Lab Help Requests</masterLabel>
+            <translation><!-- Lab Help Requests --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Technical Support</masterLabel>
+            <translation><!-- Technical Support --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>WANstart</masterLabel>
+            <translation><!-- WANstart --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <help><!-- If email body contain this delimiter, text below will be dropped. --></help>
+        <label><!-- Delimiter --></label>
+        <name>Delimiter__c</name>
+    </fields>
+    <fields>
+        <help><!-- Drop the emails coming from these addresses. One email address in a line. --></help>
+        <label><!-- Drop Email From --></label>
+        <name>Drop_Email_From__c</name>
+    </fields>
+    <fields>
+        <help><!-- Emails with the subject contains these keyword will be dropped, one keyword in a line --></help>
+        <label><!-- Spam Keywords --></label>
+        <name>Spam_Keywords__c</name>
+    </fields>
+    <layouts>
+        <layout>Email Setup Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+    </layouts>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customSettingsType>List</customSettingsType>
+    <customSettingsVisibility>Protected</customSettingsVisibility>
+    <description>Matrix is used to update the approval level on quote line. 
+If discount of a quote line meet any criteria in the matrix, the level will be set to the quote line.</description>
+    <enableFeeds>false</enableFeeds>
+    <fields>
+        <fullName>Discount__c</fullName>
+        <description>if discount &lt; 0, means the criteria is met everytime.</description>
+        <externalId>false</externalId>
+        <label>Discount</label>
+        <precision>4</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>Level__c</fullName>
+        <description>1 for director approval
+2 for VP
+3 for CXO</description>
+        <externalId>false</externalId>
+        <label>Level</label>
+        <precision>2</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Type__c</fullName>
+        <description>Three values possible:
+Virtual
+Physical
+New Business</description>
+        <externalId>false</externalId>
+        <label>Type</label>
+        <length>20</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <label>Quote Approval Matrix</label>
+</CustomObject>

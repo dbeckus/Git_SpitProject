@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Dynamic Layout Element</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Dynamic Layout Element</value>
+    </caseValues>
+    <fields>
+        <label><!-- Button Label --></label>
+        <name>ButtonLabel__c</name>
+    </fields>
+    <fields>
+        <label><!-- Button Name --></label>
+        <name>ButtonName__c</name>
+    </fields>
+    <fields>
+        <label><!-- Child Object Label --></label>
+        <name>ChildObjectLabel__c</name>
+    </fields>
+    <fields>
+        <help><!-- For Type equals Related List --></help>
+        <label><!-- Child Object --></label>
+        <name>ChildObject__c</name>
+    </fields>
+    <fields>
+        <label><!-- Field Set --></label>
+        <name>FieldSet__c</name>
+    </fields>
+    <fields>
+        <label><!-- Layout Number --></label>
+        <name>LayoutNumber__c</name>
+    </fields>
+    <fields>
+        <help><!-- The name of the lookup field on child object to Opportunity --></help>
+        <label><!-- Related Field --></label>
+        <name>RelatedField__c</name>
+    </fields>
+    <fields>
+        <help><!-- 1 or 2 --></help>
+        <label><!-- Section Columns --></label>
+        <name>SectionColumns__c</name>
+    </fields>
+    <fields>
+        <label><!-- Section Name --></label>
+        <name>SectionName__c</name>
+    </fields>
+    <fields>
+        <label><!-- Sequence --></label>
+        <name>Sequence__c</name>
+    </fields>
+    <fields>
+        <help><!-- Button, Section, Related List --></help>
+        <label><!-- Type --></label>
+        <name>Type__c</name>
+    </fields>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

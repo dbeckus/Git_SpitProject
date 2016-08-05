@@ -1,0 +1,115 @@
+<apex:page standardController="Quote__c" extensions="QuoteController" id="page" tabStyle="product2">
+    <script type="text/javascript">
+    String.prototype.trim = function() 
+    { 
+        return this.replace(/(^\s*)|(\s*$)/g, ""); 
+    } 
+    function checkAll(checked)
+    {
+        var table = document.getElementById("page:form:block:table");
+        var inputs = table.getElementsByTagName("input");            
+        for(var i = 0; i < inputs.length; i++)
+        {
+            if(inputs[i].type = 'checkbox')
+            {
+                inputs[i].checked = checked;
+            }
+        }
+    }
+    function checkKeyword()
+    {
+        var keyword = document.getElementById("page:form:keyword").value.trim();
+        if(keyword != null && keyword != '')
+        {
+            var chars = 0;
+            for(var j = 0; j < keyword.length; j++)
+            {
+                if(keyword.charAt(j) != '*')
+                {
+                    if(++chars >= 2)
+                    {
+                        break;
+                    }
+                }
+                
+            }
+            if(chars < 2)
+            {
+                alert("The keyword must be at least two characters long.");
+                return;
+            }
+        }
+    }
+    function selectProducts()
+    {     
+        var table = document.getElementById("page:form:block:table");
+        var prods = '';
+        var inputs = table.getElementsByTagName("input");
+        for(var i = 0; i < inputs.length; i++)
+        {
+            if(inputs[i].type == 'checkbox' && inputs[i].checked && inputs[i].value != null && inputs[i].value != '')
+            {
+                prods += inputs[i].title + ";";
+            }
+        }
+        document.getElementById("page:form:block:selectedProds").value = prods;
+    }
+    </script>
+    <apex:sectionHeader title="Product Look Up" subtitle="Add line to Quote {!quote.Name}" />
+    <apex:pageMessages />
+    <apex:form id="form">
+        <apex:outputPanel style="margin-left:40px;line-height:24px;" > 
+            <apex:outputText value="Search"> </apex:outputText> &nbsp;&nbsp;&nbsp;&nbsp;
+            <apex:inputText value="{!searchKeyword}" id="keyword"/>&nbsp;&nbsp;&nbsp;&nbsp;
+            <apex:commandButton value="Go! " action="{!search}" onclick="checkKeyword();"/>
+        </apex:outputPanel>
+        <br/>
+        <apex:outputPanel style="margin-left:40px;line-height:24px;" >
+            <apex:outputText value="Filter by"></apex:outputText>&nbsp;&nbsp;&nbsp;&nbsp;
+            <apex:selectList value="{!filterValue}" size="1">
+                <apex:selectOptions value="{!filterValues}"></apex:selectOptions>
+                <apex:actionsupport event="onchange" action="{!search}" rerender="panel"/>
+            </apex:selectList>
+        </apex:outputPanel>
+        <br/>
+        <apex:outputPanel style="margin-left:40px;line-height:24px;" > 
+            <apex:outputText style="margin-left:40px;" >
+            You can use "*" as a wildcard next to other characters to improve your search results.
+            </apex:outputText>
+        </apex:outputPanel>
+        <apex:pageBlock id="block" title="Search Results">
+            <apex:pageBlockButtons location="top">
+                <apex:commandButton value=" Add Selected Products and Continue Selection " onclick="selectProducts();" style="margin-left:5px;" action="{!quickAddProducts}"/>
+                <apex:commandButton value=" Add and Return to Quote " onclick="selectProducts();" style="margin-left:5px;" action="{!addProducts}"/>
+                <apex:commandButton value=" Return to Quote " action="{!editQuoteLinesPage}"/>
+            </apex:pageBlockButtons>
+            <apex:inputhidden value="{!selectedProds}" id="selectedProds"/>
+            <apex:dataTable value="{!searchResults}" headerClass="headerRow" var="result" id="table" cellspacing="0px;" rendered="{!And(Not(IsNull(searchResults)),searchResults.size > 0)}" styleClass="list">
+                <apex:column style="width:3%">
+                    <apex:facet name="header"><apex:inputCheckbox onclick="checkAll(this.checked);"/></apex:facet>
+                    <apex:inputCheckbox title="{!result.Id}"/>
+                </apex:column>
+                <apex:column style="width:10%;">
+                    <apex:facet name="header">Product Category</apex:facet>
+                    <apex:outputText value="{!result.Product_Category__c}"> &nbsp; </apex:outputText>
+                </apex:column>
+                <apex:column style="width:20%;">
+                    <apex:facet name="header">Product Name</apex:facet>
+                    <apex:outputLink value="/{!result.Id}" title="{!result.Name}">{!result.Name}</apex:outputLink>
+                </apex:column>
+                <apex:column style="width:15%;">
+                    <apex:facet name="header">Product Code</apex:facet>
+                    <apex:outputText value="{!result.ProductCode}" styleClass="dataCell">&nbsp; </apex:outputText>
+                </apex:column>
+                <apex:column style="width:40%;">
+                    <apex:facet name="header">Product Description</apex:facet>
+                    <apex:outputText value="{!result.Description}">&nbsp; </apex:outputText>
+                </apex:column>
+            </apex:dataTable>                        
+        </apex:pageBlock>
+        <apex:outputText rendered="{!searchResults.size == 0}">No products found.</apex:outputText>
+        <script type="text/javascript">
+            checkAll(false);
+        </script>
+    </apex:form>
+</apex:page>

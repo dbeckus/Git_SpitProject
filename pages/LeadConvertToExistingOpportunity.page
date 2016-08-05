@@ -1,0 +1,86 @@
+<apex:page standardController="Lead" extensions="LeadConvertToOpportunityController">
+    <script>
+        function selectSObject(selectElement, targetId) {
+            var selectedSObjectId = selectElement.value;
+            var targetElement = document.getElementById(targetId);
+            if(targetElement) {
+                targetElement.href = 'javascript: viewObjectDetail(\''+ selectedSObjectId + '\')';
+            }
+        }
+        function viewObjectDetail(sobjectId) {
+            if(sobjectId && sobjectId != 'new') {
+                window.open('/' + sobjectId + '/p', '_tab');
+            } else {
+                alert('You can only view existing records.');
+            }
+        }
+    </script>
+    <apex:sectionHeader title="Convert Lead" subtitle="{!Lead.Name}" />
+    <apex:pageMessages />
+    <apex:form >
+        <apex:pageBlock mode="edit">
+            <apex:pageBlockButtons >
+                <apex:commandButton value=" Convert " action="{!convert}" />
+                <apex:commandButton value=" Cancel " action="{!cancel}" />
+            </apex:pageBlockButtons>
+            <apex:pageBlockSection title="Convert Lead" columns="1" id="convertLeadSec">
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Record Owner" for="recordOwner" />
+                    <apex:inputField value="{!Contact.OwnerId}" />
+                </apex:pageBlockSectionItem>
+                <!--<apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Send Email to the Owner" for="emailOpt" />
+                    <apex:inputCheckbox value="{!IsSendNotificationEmail}" id="emailOpt" />
+                </apex:pageBlockSectionItem>-->
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Account Name" for="accountName" />
+                    <apex:actionRegion >
+                        <apex:inputField value="{!Contact.AccountId}" id="accountName" required="true" style="float: left">
+                            <apex:actionSupport event="onchange" rerender="convertLeadSec"/>
+                        </apex:inputField>
+                        <a id="viewAccountLink" href="javascript: viewObjectDetail('{!Contact.AccountId}');">View</a>
+                    </apex:actionRegion>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Contact Name" for="contactName" />
+                    <apex:outputPanel layout="block" styleClass="requiredInput">
+                        <div class="requiredBlock"></div>
+                        <apex:selectList id="contactName" label="Contact Name" size="1" multiselect="false" value="{!ContactId}" required="true" onchange="selectSObject(this, 'viewContactLink');">
+                            <apex:selectOptions value="{!ContactOptions}" />
+                        </apex:selectList>
+                        <a id="viewContactLink" href="javascript: viewObjectDetail();">View</a>
+                    </apex:outputPanel>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Opportunity Name" for="opportunityName" />
+                    <apex:outputPanel layout="block" styleClass="requiredInput">
+                        <div class="requiredBlock"></div>
+                        <apex:selectList id="opportunityName" label="Opportunity Name" size="1" multiselect="false" value="{!OpportunityId}" required="true" onchange="selectSObject(this, 'viewOpportunityLink');">
+                            <apex:selectOptions value="{!OpportunityOptions}" />
+                        </apex:selectList>
+                        <a id="viewOpportunityLink" href="javascript: viewObjectDetail();">View</a>
+                    </apex:outputPanel>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Contact Role" for="contactRole" />
+                    <apex:inputField value="{!OCR.Role}" id="contactRole" required="true" />
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Converted Status" for="convertedStatus" />
+                    <apex:outputText value="{!LeadConvertedStatus}" id="convertStatus" />
+                    <!--<apex:outputPanel layout="block" styleClass="requiredInput">
+                        <div class="requiredBlock"></div>
+                        <apex:selectList id="convertedStatus" label="Converted Status" size="1" multiselect="false" value="{!LeadConvertedStatus}" required="true">
+                            <apex:selectOptions value="{!ConvertedStatusOptions}" />
+                        </apex:selectList>
+                    </apex:outputPanel>-->
+                </apex:pageBlockSectionItem>
+            </apex:pageBlockSection>
+            <!--<apex:pageBlockSection title="Overwrite Lead Source" columns="1">
+                <apex:outputPanel layout="inline">
+                    <apex:inputCheckbox value="{!IsOverwriteLeadSource}" /> Replace existing Lead Source with the value from this lead.
+                </apex:outputPanel>
+            </apex:pageBlockSection>-->
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

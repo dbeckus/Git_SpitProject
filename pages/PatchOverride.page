@@ -1,0 +1,35 @@
+<apex:page showHeader="false" controller="PatchOverrideController">
+    <apex:sectionHeader title="Patch Override" subtitle="{!ObjectName}"/>
+    <apex:form >
+    <apex:pageMessages escape="false"/>
+    <apex:pageBlock rendered="{!IsAllowed}">
+        <apex:pageBlockButtons location="bottom">
+            <apex:commandButton value="Reassign" action="{!reassign}" />
+            <input type="button" class="btn" value="Cancel" onclick="window.close()" />
+        </apex:pageBlockButtons>
+        <apex:pageblocksection columns="1">
+            Fill following values to match a patch. This patch will be locked to the record after reassignment.
+            <apex:pageBlockSectionItem >
+                <apex:outputLabel >Company Name</apex:outputLabel>
+                <apex:inputText value="{!CompanyName}" />
+            </apex:pageBlockSectionItem>
+            <apex:pageBlockSectionItem >
+                <apex:outputLabel >Email Domain</apex:outputLabel>
+                <apex:inputText value="{!EmailDomain}" />
+            </apex:pageBlockSectionItem>
+            <apex:pageBlockSectionItem >
+                <apex:outputLabel >Country</apex:outputLabel>
+                <apex:inputText value="{!Country}" />
+            </apex:pageBlockSectionItem>
+            <apex:pageBlockSectionItem >
+                <apex:outputLabel >State</apex:outputLabel>
+                <apex:inputText value="{!State}" />
+            </apex:pageBlockSectionItem>
+            <apex:pageBlockSectionItem >
+                <apex:outputLabel >Zip/Postal Code</apex:outputLabel>
+                <apex:inputText value="{!ZipCode}" />
+            </apex:pageBlockSectionItem>
+        </apex:pageblocksection>
+    </apex:pageBlock>
+    </apex:form>
+</apex:page>

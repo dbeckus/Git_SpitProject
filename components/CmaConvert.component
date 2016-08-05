@@ -1,0 +1,62 @@
+<apex:component controller="CmaConvertComponentController" access="global" layout="none">
+    <apex:stylesheet value="{!URLFOR($Resource.Bootstrap, 'bootstrap.css')}" />
+    <apex:attribute name="CmaId" description="Id of the CMA" type="String" assignTo="{!CmaRecordId}" />
+    <apex:attribute name="IsShowContract" description="Is show maintenance contract" type="Boolean" default="true"/>
+    <apex:repeat value="{!Cmas}" var="cma">
+        <table class="table table-bordered">
+            <thead>
+                <th style="text-align: center" colspan="3">Appliance</th>
+                <tr>
+                    <th>NX Model</th>
+                    <th>NX Serial Number</th>
+                    <th>Converts to VX Model</th>
+                    <th>VX Serial number</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>{!cma.NxModel}</td>
+                    <td>{!cma.NxSerialNumber}</td>
+                    <td>{!cma.VxModel}</td>
+                    <td>{!cma.VxSerialNumber}</td>
+                </tr>
+            </tbody>
+        </table>
+        <br/>
+        <apex:outputPanel rendered="{!IsShowContract}" layout="none">
+            <table class="table table-bordered">
+                <thead>
+                    <th style="text-align: center" colspan="7">Maintenance Service Contract</th>
+                    <tr>
+                        <th>Model</th>
+                        <th>Type</th>
+                        <th>Expiring</th>
+                        <th>Converts to</th>
+                        <th>Model</th>
+                        <th>Type</th>
+                        <th>Expiring</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>{!cma.NxModel}</td>
+                        <td>{!cma.ContractType}</td>
+                        <td>
+                            <apex:outputText value="{0, date, MMM dd, yyyy}">
+                                <apex:param value="{!cma.ContractEndDate}" />
+                            </apex:outputText>
+                        </td>
+                        <td></td>
+                        <td>{!cma.VxModel}</td>
+                        <td>{!cma.ContractType}</td>
+                        <td>
+                            <apex:outputText value="{0, date, MMM dd, yyyy}">
+                                <apex:param value="{!cma.ContractEndDate}" />
+                            </apex:outputText>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </apex:outputPanel>
+    </apex:repeat>
+</apex:component>

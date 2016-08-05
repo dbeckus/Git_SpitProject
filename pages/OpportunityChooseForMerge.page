@@ -1,0 +1,79 @@
+<apex:page id="page" controller="OpportunityChooseForMergeController" tabStyle="Opportunity">
+    <apex:includeScript value="{!URLFOR($Resource.jQuery, 'jquery-1.4.3.min.js')}" />
+    <script type="text/javascript">
+    function choose(oppId)
+    {
+        $("[id$='myCheckbox']").each(function()
+        {
+            if($(this).parent().attr("oppId") != oppId)
+            {
+                $(this).get(0).checked = false;
+            }
+        });
+    }
+    
+    function checkSelected()
+    {
+        var selected = 0;
+        $("[id$='myCheckbox']").each(function()
+        {
+            if($(this).get(0).checked)
+            {
+                selected++;
+            }
+        });
+        
+        if(selected == 0)
+        {
+            alert("There is no Opportunity checked. Please choose one.");
+        }
+        else
+        {
+            nextStep();
+        }
+    }
+    </script>
+    <apex:sectionHeader title="Opportunity Choose" subtitle="{! 'Choose an Opportunity for ' & Opportunity.Name}"/>
+    <apex:form id="form">
+        <apex:pagemessages />
+        <apex:pageBlock id="pageBlock" title="Choose an Opportunity">
+            <apex:pageBlockButtons >
+                <apex:actionFunction action="{!nextStep}" name="nextStep"/>
+                <apex:commandButton value="Next" onClick="checkSelected();return false;"/>
+                <apex:commandButton value="Cancel" action="{!cancel}"/>
+            </apex:pageBlockButtons>
+            <span style="float:right">
+                <apex:outputText >Opportunity Name: &nbsp;</apex:outputText>
+                <apex:inputText value="{!Keyword}" onkeydown="if(event.keyCode==13){searchOpp();return false;}" />
+                <apex:actionFunction action="{!search}" name="searchOpp" status="searchLoading" reRender="oppList"/>
+                <apex:actionStatus id="searchLoading">
+                    <apex:facet name="start">
+                        <img src="/img/loading.gif"/>
+                    </apex:facet>
+                    <apex:facet name="stop">
+                        <input type="button" class="btn" value="Search" onclick="searchOpp()"/>
+                    </apex:facet>
+                </apex:actionStatus>
+            </span>
+            <div style="clear:both"></div>
+            <apex:outputPanel id="oppList">
+                <apex:pageBlockSection id="pageBlockSection" collapsible="false" columns="1">
+                    <apex:pageBlockTable id="pageBlockTable" value="{!OppInfos}" var="oppInfo">
+                        <apex:column >
+                            <span oppId="{!oppInfo.Opportunity.Id}">
+                                <apex:inputCheckbox id="myCheckbox" value="{!oppInfo.IsSelected}" onClick="choose($(this).parent().attr('oppId'))"/>
+                            </span>
+                        </apex:column>
+                        <apex:column headerValue="Opportunity Name" value="{!oppInfo.Opportunity.Name}" width="30%"/>
+                        <apex:column headerValue="Opportunity Owner" value="{!oppInfo.Opportunity.Owner.Name}" width="15%"/>
+                        <apex:column headerValue="Account Name" value="{!oppInfo.Opportunity.Account.Name}" width="15%"/>
+                        <apex:column headerValue="Amount" value="{!oppInfo.Opportunity.Amount}"/>
+                        <apex:column headerValue="Close Date" value="{!oppInfo.Opportunity.CloseDate}"/>
+                        <apex:column headerValue="Stage" value="{!oppInfo.Opportunity.StageName}"/>
+                        <apex:column headerValue="Created Date" value="{!oppInfo.Opportunity.CreatedDate}"/>
+                    </apex:pageBlockTable>
+                </apex:pageBlockSection>
+            </apex:outputPanel>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

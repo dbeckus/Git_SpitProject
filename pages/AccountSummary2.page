@@ -1,0 +1,1249 @@
+<apex:page showheader="true" standardStylesheets="false"  tabStyle="SPIRE__tab" >
+     <script src="{!URLFOR($Resource.Account_Summary, 'app/js/lib/jquery.min.js')}"></script>
+     <script src="https://rawgithub.com/developerforce/Force.com-JavaScript-REST-Toolkit/master/forcetk.js"></script>
+    
+     <html xmlns:ng="http://angularjs.org"  lang="en">
+        <head>
+            <meta charset="utf-8" name="viewport" content="width=device-width initial-scale=1.0"/>
+
+            <apex:stylesheet value="{!URLFOR($Resource.Account_Summary, 'app/css/bootstrap-combined.min.css')}"/>
+            <apex:stylesheet value="{!URLFOR($Resource.Account_Summary, 'app/css/ng-grid/ng-grid.css')}"/>
+            <apex:stylesheet value="https://cdnjs.cloudflare.com/ajax/libs/select2/3.4.4/select2.css"/>
+            
+            <!--<script src="{!URLFOR($Resource.Account_Summary, 'app/js/lib/jquery.min.js')}"></script>-->
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/3.4.4/select2.min.js" type="text/javascript"></script>  
+            <script src="{!URLFOR($Resource.Account_Summary, 'app/js/lib/angular-all/angular.min.js')}"></script>
+            <script src="{!URLFOR($Resource.Account_Summary, 'app/js/lib/twitter-bootstrap/bootstrap.min.js')}"></script>      
+            <!--<script src="https://rawgithub.com/angular-ui/ui-select2/master/src/select2.js" type="text/javascript"></script>-->
+            <script src="https://rawgithub.com/dcolens/ui-select2/2e457ed98597c57bf3cb747f5d976f99b7ac5756/src/select2.js" type="text/javascript"></script>
+    
+            <!--<script src="{!URLFOR($Resource.Account_Summary, 'app/js/lib/angular-ui/angular-ui.min.js')}"></script> -->           
+            <script src="{!URLFOR($Resource.Account_Summary, 'app/js/lib/ui-bootstrap-tpls-0.6.0.js')}"></script>                        
+            <script src="{!URLFOR($Resource.Account_Summary, 'app/js/lib/ng-grid/ng-grid.min.js')}"></script>
+            
+            <script src="{!URLFOR($Resource.Account_Summary, 'app/js/lib/highcharts/highcharts.src.js')}"></script>
+            <script src="{!URLFOR($Resource.Account_Summary, 'app/js/lib/highcharts/highchart-plain.js')}"></script>
+            <script src="{!URLFOR($Resource.Account_Summary, 'app/js/lib/highcharts/exporting.js')}"></script>
+            <script src="{!URLFOR($Resource.Account_Summary, 'app/js/lib/bootstrap-daterangepicker-master/moment.min.js')}"></script>
+            <script src="{!URLFOR($Resource.Account_Summary, 'app/js/lib/jquery.knob.js')}"></script>
+            <script src="{!URLFOR($Resource.Account_Summary, 'app/js/lib/numeral.min.js')}"></script>           
+            
+             <!--
+             <script src="{!URLFOR($Resource.Account_Summary, 'app/js/lib/ngForce/safeApply.js')}"></script>
+            <script src="{!URLFOR($Resource.Account_Summary, 'app/js/lib/ngForce/ngForce.js')}"></script>
+            -->
+
+
+            <!-- Local Static Resource css and javascript, all part of Angular-Seed app. -->
+            <apex:stylesheet value="{!URLFOR($Resource.Account_Summary, 'app/css/app.css')}"/>
+            
+        </head>
+        <!--- Javascript -->
+        <script src="{!URLFOR($Resource.Account_Summary, 'app/js/lib/underscore/underscore.js')}"></script>
+        <script src="{!URLFOR($Resource.Account_Summary, 'app/js/lib/angular-all/angular-strap.js')}"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/async/0.2.7/async.min.js"></script>
+        <script type="text/javascript">
+            <!-- Name your application -->
+
+                
+                    var myapp = angular.module('AccountSummary', ['ngGrid', 'ui.select2', 'chartsExample.directives', 'ui.bootstrap', '$strap.directives']);
+                    myapp.config(function ($routeProvider, $locationProvider, $httpProvider) {
+                        $locationProvider.html5Mode(true);
+                    });
+                    
+                    
+                    myapp.directive('wanOpReduction', function() {
+                
+                        return {
+                
+                            restrict: "C",
+                            scope: {
+                                value: "@"
+                            },
+                            compile: function(tElement,tAttrs,transclude){
+                                
+                                return function(scope, element, attrs){
+                
+                                    attrs.$observe("value", function(newValue){
+                                        //console.log("value: " + newValue);
+                                        //console.log(element);
+                                        var setVal = newValue;
+                                        if(newValue === "") {
+                                            setVal = 0;
+                                        }
+                
+                                        element.knob({
+                
+                                        });
+                                        element.val(setVal).change();
+                                        
+                                    });
+                                };
+                            }
+                
+                        };
+                
+                    });
+                    myapp.filter('humanReadableByteSize', function() {
+                        return function(string) {
+                            var bytes = string * 1000000;
+                            var sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
+                            if (isNaN(bytes) || bytes === 0) {
+                                return '0';
+                            }
+                            var i = parseInt(Math.floor(Math.log(bytes) / Math.log(1024)));
+                            return Math.round(bytes / Math.pow(1024, i), 2) + ' ' + sizes[i];//  + " - ( " + string + " )";
+                        };
+                    }); 
+                    myapp.filter('endDate', function() {
+                        return function(licenses) {
+                            //console.log(licenses);
+                            if(!licenses) 
+                                return moment("2299-12-31").format('MMM DD, YYYY');
+                            var maxDate = _.max(licenses.records, function(license){ 
+                                //console.log(license); 
+                                    if(license.License_Expiration__c === null) 
+                                        return moment("2299-12-31");
+                                    return moment(license.License_Expiration__c); 
+                                }).License_Expiration__c;
+                            if(maxDate === null) 
+                                        maxDate =  "2299-12-31";    
+                            return moment(maxDate).format('MMM DD, YYYY');
+
+                        };
+                    }); 
+                     myapp.filter('startDate', function() {
+                        return function(d) {                           
+                           //console.log(d);
+                            if(d.Model__c.substring(0,1) === 'V') {                               
+                                  var maxDate = _.max(d.licenses__r.records, function(license){ 
+                                        //console.log(license); 
+                                        return moment(license.Start_Date__c); 
+                                    }).Start_Date__c;
+                                    return moment(maxDate).format('MMM DD, YYYY');
+                               } else {
+                                   return d.Ship_Date__c;
+                               }
+                        };
+                    });
+                       
+                    myapp.filter('supportStatus', function() {
+                        return function(dat, supportStatusType) {
+                           
+                            if(!dat) {
+                                return;
+                            }
+                            
+                            if(supportStatusType === 'Supported') {
+                                
+                                return _.filter(dat,function(d) {
+                                   //console.log('Supported - Model:' + d.Model__c + ', Con End: '+ d.Contract_End__c + ', License End: ' + d.License_End_Date__c);
+                                    if(d.Model__c.substring(0,1) === 'V') {
+                                        // Find max expiry date.
+                                        var license = _.max(d.licenses__r.records, function(lic){ 
+                                            //console.log(lic); 
+                                            if(lic.License_Expiration__c === null) 
+                                                return moment("2299-12-31");
+                                            return moment(lic.License_Expiration__c); 
+                                        });
+                                        if (d.Status === 'Customer Subscription') {                                            
+                                            // If Status === 'Customer Subscription' --> Subscription license - supported if end date in future
+                                            var licDate = license.License_Expiration__c;
+                                            if(licDate === null) 
+                                                licDate = moment("2299-12-31");
+                                            return (moment(licDate).unix() - moment().unix() > 0);
+                                            
+                                        } else if(d.Status === 'Customer Owned') {                                                          
+                                            var licDate = license.License_Expiration__c
+                                            if(licDate === null) 
+                                                licDate = moment("2299-12-31");
+                                            return (moment(licDate).unix() - moment().unix() > 0) 
+                                                    && d.Contract_Status__c !== 'Expired'
+                                                    && d.Contract_Type__c !== 'No Contract-Warranty Only'; 
+                                            
+                                        } else {
+                                            console.log('VX in unknown Status: ' + d.Status + ', SN: ' + d.SerialNumber)
+                                        }
+                                        
+                                    } else {
+                                        return (d.Contract_Status__c === 'Activated') ||
+                                            (d.Contract_Status__c === '' && d.Status === 'Customer Evaluation') ||
+                                            (d.Contract_Status__c === '' && d.Status === 'Conditional PO') ||
+                                            (d.Contract_Type__c === 'Maintenance for Evaluation Period') ;
+                                      
+                                    }
+                                });
+                                
+                               
+                            } else if(supportStatusType === 'Unsupported') {
+                                
+                                return _.filter(dat,function(d) {
+                                      //console.log('Unsupported - Model:' + d.Model__c + ', Con End: '+ d.Contract_End__c +   ', License End: ' + d.License_End_Date__c  + ',' + (d.Model__c.substring(0,1) === 'V'));
+                                     if(d.Model__c.substring(0,1) === 'V') {
+                                        // Find max expiry date.
+                                        var license = _.max(d.licenses__r.records, function(lic){ 
+                                            //console.log(lic); 
+                                            if(lic.License_Expiration__c === null) 
+                                                return moment("2299-12-31");
+                                            return moment(lic.License_Expiration__c); 
+                                        });
+                                        
+                                        if (d.Status === 'Customer Subscription') {
+                                            var licDate = license.License_Expiration__c
+                                            if(licDate === null) 
+                                                licDate = moment("2299-12-31");
+                                            // If Status === 'Customer Subscription' --> Subscription license - unsupported if end date in past
+                                            return (moment(licDate).unix() - moment().unix() < 0);
+                                            
+                                        } else if(d.Status === 'Customer Owned') {              
+                                            var licDate = license.License_Expiration__c
+                                            if(licDate === null) 
+                                                licDate = moment("2299-12-31");
+                                            // If Status === 'Customer Owned' --> Perpetual license                                                                           
+                                            var licenseInFuture = (moment(licDate).unix() - moment().unix() > 0);
+                                            
+                                            // If license date in future but contract has expired - it is unsupported
+                                            // If license is active but contract type is Warranty only, it is still unsupported.
+                                            return  (licenseInFuture && d.Contract_Type__c === 'No Contract-Warranty Only') || 
+                                                    (licenseInFuture && d.Contract_Status__c === 'Expired'  );  
+                                            
+                                        } else {
+                                            console.log('VX in unknown Status: ' + d.Status + ', SN: ' + d.SerialNumber)
+                                        }                                                                          
+                                         
+                                     } else {
+                                        return (d.Contract_Type__c === 'No Contract-Warranty Only') ||
+                                                (d.Contract_Status__c === 'Expired') ||
+                                                (d.Contract_Status__c === 'Declined Service') ||
+                                                (d.Contract_Status__c === '' && d.Status === 'Customer Owned');
+                                    }
+                                });
+                                    
+                            
+                            } else if(supportStatusType === 'All') {
+                                return _.filter(dat,function(d) {
+                                    return d;
+                                });
+                            }
+                        };
+            });
+            var client = new forcetk.Client();
+            client.setSessionToken('{!$Api.Session_ID}'); 
+            myapp.factory('AccountSummaryService', function($http, $rootScope, $q) {
+                return {
+                  
+                    getAllAccounts: function(userId, inputString){
+                        //Creating a deferred object
+                        var deferred = $q.defer();
+                        var q = "SELECT Id, Name, OwnerId, Owner.Name from Account where Type = 'Customer'";
+                        if(inputString.length > 0) {
+                            q = q +  " and Name like '%" + inputString + "%'";
+                        } else {
+                            q = q + " and OwnerId='" + userId + "'";
+                        }
+                        q = q + " order by Name";
+                        console.log(q);
+                        client.query(q, function(response){
+                            //console.log(response);
+                            $rootScope.$apply(function() {
+                                deferred.resolve(response);           
+                            });                                                                
+                        });
+                        
+                        
+                        //Returning the promise object
+                        return deferred.promise;
+                    }, 
+                    getMyAccounts: function(userId){
+                        //Creating a deferred object
+                        var deferred = $q.defer();
+                        var q = "SELECT Id, Name, OwnerId, Owner.Name from Account where Type = 'Customer' and OwnerId='" + userId + "'" + " order by Name";
+                        console.log(q);
+                        client.query(q, function(response){
+                            //console.log(response);
+                            $rootScope.$apply(function() {
+                                deferred.resolve(response);           
+                            });                                                                
+                        });                                
+                        //Returning the promise object
+                        return deferred.promise;
+                    }, 
+                    getResultsForQuery: function(q) {
+                        var deferred = $q.defer();                                
+                        console.log("Executing query: " + q);
+                        client.query(q, function(response){
+                            $rootScope.$apply(function() {
+                                deferred.resolve(response);           
+                            });                                                                
+                        });                                
+                        //Returning the promise object
+                        return deferred.promise;
+                    }
+              }
+              
+          });
+            <!-- Define Controller  -->
+                    var contrl=myapp.controller('AccountSummaryController', function ($scope, $timeout, $filter, $q, $location, $window, AccountSummaryService ) {
+                        $scope.userId = "{!$User.Id}" ;
+                        
+                         
+                        //$scope.userId = "00550000001AQwGAAW"
+                        $scope.selected = undefined;
+                        $scope.filters = {};
+                          $scope.filters.accounts = [];
+                          $scope.filters.accountsOptions = { 
+                            multiple: true,
+                            allowClear:true,                            
+                            dropdownAutoWidth : true,
+                            width: '900px',                          
+                            initSelection : function (element, callback) {
+                              callback($(element).data('$ngModelController').$modelValue);
+                            },
+                            
+                            query: function(query) {                                 
+                                AccountSummaryService.getAllAccounts($scope.userId, query.term).then(function(data) {
+                                    //console.log("In query callback");
+                                    var modData = data.records;
+                                    _.each(modData, function(d) { 
+                                            d.text = d.Name; 
+                                            d.id = d.Id;
+                                    });
+                                    var myaccts =[];
+                                    var otherAccts = [];
+                                    
+                                    _.each(modData, function(d) {
+                                        if(d.OwnerId !== $scope.userId) {
+                                            otherAccts.push(d);
+                                        } else {
+                                            myaccts.push(d);
+                                        };
+                                    });
+                                    
+                                    var dat = [{text: "My Accounts", children : myaccts }, 
+                                                {text: "Other Accounts", children : otherAccts}];
+                                    $scope.dataMod = dat;
+                                    query.callback({results: $scope.dataMod}); 
+                               }); 
+                                                             
+                            }
+                          };
+                          $scope.clearFilter = function() {
+                              $scope.filters.accounts= [];
+                              $(".select2-offscreen").select2('data', []);
+                              $scope.items = []; 
+                              $scope.origItems =  $scope.items; 
+                              $scope.applyPageFilters();                           
+                          };
+                          $(".select2-offscreen").on("select2-removed", function(e) { console.log ("removed val="+ e.val+" choice="+ JSON.stringify(e.choice));})
+                           $scope.setMyAccountsFilter = function() {
+                              $scope.filters.accounts= $scope.myAccounts;
+                              $(".select2-offscreen").select2('data', $scope.filters.accounts);
+                              
+                          };
+                          $timeout(function() {
+                               // Hack for removal of items
+                               console.log($(".select2-offscreen"));    
+                               console.log("Attached on change handler");
+                               $(".select2-offscreen").on("change", function(e) { 
+                                   console.log("change "+JSON.stringify({val:e.val, added:e.added, removed:e.removed})); 
+                                   var index = $scope.filters.accounts.indexOf(e.removed);
+                                   if (index > -1) {
+                                        $scope.filters.accounts.splice(index, 1);
+                                        $(".select2-offscreen").select2('data', $scope.filters.accounts);
+                                   }
+                                   
+                                   //$scope.filters.accounts = $(".select2-offscreen").select2('data');
+                                   $scope.$apply();
+                               });
+                          }, 2000);
+                          AccountSummaryService.getMyAccounts($scope.userId).then(function(data) {
+                                var modData = data.records;
+                                _.each(modData, function(d) { 
+                                        d.text = d.Name; 
+                                        d.id = d.Id;
+                                });
+                                $scope.myAccounts = modData;
+                          });
+                          $scope.getAssetsForSelectedAccounts = function(callback) {
+                              if($scope.filters.accounts.length === 0) return [];
+                              var filterAccts = [];
+                              _.each($scope.filters.accounts, function(d) {
+                                      filterAccts.push("'" + d.Id + "'");
+                              });
+                              
+                              var assetQuery = "SELECT Id, SerialNumber, Status, Contract_Type__c, Contract_Status__c, Contract_End__c, Ship_Date__c,Model__c, License_End_Date__c, Account.Owner.Name, Account.Name,(SELECT Start_Date__c, License_Expiration__c, Duration__c FROM licenses__r), (SELECT WAN_Total_15_days__c,Release__c,Reduction_Total_15_days__c,Platform__c,Last_Contact__c,LAN_Total_15_days__c,CreatedById,Name FROM Summary_of_Asset__r) FROM Asset where (AccountId in (" + filterAccts.join(',') +  ")  AND Status in ('Customer Owned', 'Cold Spare', 'Customer Subscription', 'Conditional PO'))";
+                              AccountSummaryService.getResultsForQuery(assetQuery).then(function(data) {
+                                    var modData = data.records;
+                                    _.each(modData, function(d) { 
+                                            d.text = d.Name; 
+                                            d.id = d.Id;
+                                    });
+                                    $scope.items = modData;
+                                    $scope.origItems =  $scope.items;
+                                    callback(null, 'one');  
+                              });
+                          };
+                          $scope.getAcctTimeline = function(callback) {
+                              if($scope.filters.accounts.length === 1) {
+                                  
+                                  var acctTimeLineQuery = "SELECT Name, Name__c, First_Order__c, First_Order_Amt__c, First_Year_Total__c," + 
+                                          "  Last_Order_Amt__c, Last_Order_Date__c,Total_Sales__c, UltimateParent__c, UltimateParentName__c" +
+                                          " FROM AccountWithTimeline__c where Name__c = '" + $scope.filters.accounts[0].Id + "'";
+                                    
+                                  AccountSummaryService.getResultsForQuery(acctTimeLineQuery).then(function(data) {                                    
+                                        $scope.acctTimeline = data.records[0];
+                                        //$scope.acctTimeline= {acctTimelineJSON};
+                                        if($scope.acctTimeline != null) {
+                                            $scope.totalSales = numeral($scope.acctTimeline.Total_Sales__c).format('0.0a');
+                                            $scope.firstOrder = moment($scope.acctTimeline.First_Order__c).format('MMM \'YY');
+                                            $scope.firstOrderAmt = numeral($scope.acctTimeline.First_Order_Amt__c).format('0a');
+                                            $scope.lastOrder = moment($scope.acctTimeline.Last_Order_Date__c).format('MMM \'YY');
+                                            $scope.lastOrderAmt = numeral($scope.acctTimeline.Last_Order_Amt__c).format('0a');
+                                                                   
+                                            //var timelineData = {timelineChartDataJSON}; 
+                                            //var timelineChartData = [];
+                                            //var i = 0;
+                                            //_.each(timelineData, function(item) {
+                                            //    i+= item.Amount;
+                                            //    timelineChartData.push([moment(item.CloseDate).unix()* 1000 , i]);
+                                            //});
+                                            //$scope.timelineChartData = timelineChartData; 
+                                        } 
+                                        callback(null, 'two');  
+                                  });  
+                              
+                              }
+                              callback(null, 'two');  
+                              
+                          };
+                          $scope.getCasesClosedIn90Days = function(callback) {
+                              var filterAccts = [];
+                              _.each($scope.filters.accounts, function(d) {
+                                      filterAccts.push("'" + d.Id + "'");
+                              });
+                              var casesClosedQuery = "SELECT Count(Id) Total FROM Case where IsClosed = True and Type in ('Incoming Email','WANstart','Technical Support') " +
+                                                      "AND ClosedDate =LAST_90_DAYS and AccountId in (" + filterAccts.join(',') +  ")";
+                                
+                              AccountSummaryService.getResultsForQuery(casesClosedQuery).then(function(data) {                                    
+                                    $scope.closedLast90Days = data.records[0].Total;
+                                    callback(null, 'three');  
+                              });  
+                              
+                          };
+                          $scope.getCasesCreatedLast90Days = function(callback) {
+                              var filterAccts = [];
+                              _.each($scope.filters.accounts, function(d) {
+                                      filterAccts.push("'" + d.Id + "'");
+                              });
+                              var createdLast90Days = "SELECT Count(Id) Total FROM Case where IsClosed = True and Type in ('Incoming Email','WANstart','Technical Support')" +
+                                                      " and CreatedDate = LAST_90_DAYS and AccountId in (" + filterAccts.join(',') +  ")";
+                                
+                              AccountSummaryService.getResultsForQuery(createdLast90Days).then(function(data) {                                    
+                                    $scope.createdLast90Days = data.records[0].Total;
+                                    callback(null, 'four');  
+                              });  
+                              
+                          };  
+                           $scope.getOpenCases = function(callback) {
+                              var filterAccts = [];
+                              _.each($scope.filters.accounts, function(d) {
+                                      filterAccts.push("'" + d.Id + "'");
+                              });
+                              var openCasesQuery = "SELECT Count(Id) Total FROM Case where IsClosed = False and Type in ('Incoming Email','WANstart','Technical Support') " +
+                                                      " and CreatedDate = LAST_90_DAYS and AccountId in (" + filterAccts.join(',') +  ")";
+                                
+                              AccountSummaryService.getResultsForQuery(openCasesQuery).then(function(data) {                                    
+                                    $scope.openCases = data.records[0].Total;
+                                    callback(null, 'five');  
+                              });  
+                              
+                          };  
+                          $scope.getTimelineChartData = function(callback) {
+                              var filterAccts = [];
+                              _.each($scope.filters.accounts, function(d) {
+                                      filterAccts.push("'" + d.Id + "'");
+                              });
+                              var timelineChartDataQuery = "SELECT  Account.Name, CloseDate, SUM(Amount) Amount FROM Opportunity where IsClosed =  True and StageName = 'Closed Won'" + 
+                                                            " AND AccountId in (" + filterAccts.join(',') +  ") GROUP BY CloseDate,Account.Name  ORDER BY CloseDate" ;
+
+                                
+                              AccountSummaryService.getResultsForQuery(timelineChartDataQuery).then(function(data) {                                    
+                                    var timelineData = data.records;
+                                    
+                                    //var timelineData = {timelineChartDataJSON}; 
+                                    var timelineChartData = [];
+                                    var i = 0;
+                                    _.each(timelineData, function(item) {
+                                        i+= item.Amount;
+                                        timelineChartData.push([moment(item.CloseDate).unix()* 1000 , i, item.Name]);
+                                    });
+                                    $scope.timelineChartData = timelineChartData; 
+                                    $scope.cumulativeTimelineChart = {
+                                        chart: {
+                                        },
+                                        xAxis: {
+                                            type: 'datetime',
+                                           
+                                        },
+                                        yAxis: {
+                                             min: 0,
+                                             title: {
+                                                text: 'Total Sales'
+                                            }
+                                        },
+                                        rangeSelector: {
+                                            selected: 1
+                                        },
+                            
+                                        title: {
+                                            text: 'Cumulative Sales Timeline'
+                                        },
+                                        
+                                        series: [{
+                                            name: 'Total Sales',
+                                            data: $scope.timelineChartData,
+                                            step: true,
+                                            tooltip: {
+                                                valueDecimals: 2
+                                            }
+                                        }]
+                                    };
+                                    callback(null, 'six');  
+                              });  
+                              
+                          }; 
+                        $scope.$watch('filters.accounts', function() {                            
+                            if($scope.filters.accounts.length === 0) 
+                                return;
+                            async.series([
+                                function(callback){
+                                    $scope.getAssetsForSelectedAccounts(callback);                                    
+                                },
+                                function(callback){
+                                    $scope.getAcctTimeline(callback);
+                                },
+                                function(callback){
+                                    $scope.getCasesClosedIn90Days(callback);
+                                },
+                                function(callback){
+                                    $scope.getCasesCreatedLast90Days(callback);
+                                },
+                                function(callback){
+                                    $scope.getOpenCases(callback);
+                                }
+                                ,
+                                function(callback){
+                                    $scope.getTimelineChartData(callback);
+                                }
+                            ],
+                            // optional callback
+                            function(err, results){
+                                $scope.applyPageFilters();
+                            });
+                           
+                        }, true);
+                        $scope.initialAccount = $location.search().id ? $location.search().id : undefined;
+                        if($scope.initialAccount) {
+                             console.log("Initial Acct: " + $scope.initialAccount) ;
+                             AccountSummaryService.getResultsForQuery("SELECT Id, Name from Account where Id ='" + $scope.initialAccount + "'").then(function(data) {   
+                                    var record = data.records[0];
+                                    record.text = record.Name;                                 
+                                    record.id = record.Id;
+                                    $scope.filters.accounts.push(record);
+                                    $(".select2-offscreen").select2('data', $scope.filters.accounts);  
+                              });  
+                        }
+                        $scope.assetGridColumnDefs = [
+
+                                { field: 'Account.Owner.Name', displayName: 'Account Owner',width: 125},
+                                { field: 'Account.Name', displayName: 'Account',width: 125 },
+                                { field: 'SerialNumber', displayName: 'Serial',width: 150 , cellTemplate: '<div style="text-align:center;"><a href="/{{row.entity.Id}}" target="_blank">{{row.entity.SerialNumber}}</a>&nbsp;&nbsp;<a href="http://autosupport.silverpeaksystems.com/spire/tac/serial?id={{row.entity.SerialNumber}}" target="_blank"><img src="{!URLFOR($Resource.Account_Summary, 'app/images/aspire.png')}" width="16" alt="SPIRE"  title ="View in SPIRE"></a></div>'},
+                                { field: 'Model__c', displayName: 'Model' ,width: 80},
+                                { field: 'Status', displayName: 'Asset Status' ,width: 150}, 
+                                { field: 'Ship_Date__c', displayName: 'Start/Ship Date', width: 125, width: 100 ,
+                                         cellTemplate: '<div class="ngCellText" ng-class="col.colIndex()"><span ng-cell-text>{{row.entity | startDate }}</span></div>'},
+                                { field: 'licenses__r', displayName: 'End Date', cellFilter : 'endDate' , width: 150}, 
+                                { field: 'Contract_Type__c', displayName: 'Contract Type',width: 125 },
+                                { field: 'Contract_Status__c', displayName: 'Contract Status',width: 125 },                               
+                                { field: 'Contract_End__c', displayName: 'Contract End', cellFilter : 'date:"MMM d, y"' , width: 150},                                                                                             
+                                { field: 'Summary_of_Asset__r.records[0].Reduction_Total_15_days__c', displayName: 'Reduction - 15 days', width: 125,
+                                    cellTemplate: '<div style="text-align:center;"><input class="knob wanOpReduction" data-fgColor="#2f7ed8", data-thickness=".3" data-width="40" data-readOnly=true, value="{{row.entity.Summary_of_Asset__r.records[0].Reduction_Total_15_days__c}}"></div>' },
+                                { field: 'Summary_of_Asset__r.records[0].LAN_Total_15_days__c', displayName: 'LAN - 15 days', width: 120, cellFilter: 'humanReadableByteSize' },
+                                { field: 'Summary_of_Asset__r.records[0].WAN_Total_15_days__c', displayName: 'WAN - 15 days', width: 120, cellFilter: 'humanReadableByteSize' },                                                                                           
+                                { field: 'Summary_of_Asset__r.records[0].Last_Contact__c', displayName: 'Last Contact', width: 200, cellFilter : 'date:"MMM d, y h:mm a"' },
+                                 { field: 'Summary_of_Asset__r.records[0].Release__c', displayName: 'Release' ,width: 125 },
+                                { field: 'Summary_of_Asset__r === undefined ? "No": "Yes"', displayName: 'Phoned Home',width: 100 },                                    
+                                { field: 'Summary_of_Asset__r.records[0].Platform__c', displayName: 'Platform',width: 125 },
+                                
+                            ];
+                        $scope.searchAcct = null;
+                        $scope.matchedAccts = [];
+                        $scope.getAccounts = function(query) {                            
+                            return RemotingService.get(query);
+                                
+                        }
+                        
+                        $scope.directToSearch = function($item, $model, $label) {
+                       
+                            if($model.length > 0) {                               
+                                $window.location.href = '/apex/AccountSummary?id=' + $item.Id ;                                
+                            }
+                        };
+                        $scope.items = [];                        
+                        $scope.origItems =  $scope.items;   
+                        //$scope.caseSummary = {casesSummaryJSON};
+                        
+                        
+                        $scope.assetGridOptions = { 
+                            data: 'items' ,
+                            columnDefs: $scope.assetGridColumnDefs,
+                            showGroupPanel: true,
+                            showFooter: true,
+                            showFilter: true,
+                            enableColumnResize: true,
+                            enableHighlighting: true,
+                            enablePaging: false,
+                            showColumnMenu: true,
+                            totalServerItems: 'items.size',
+                            sortInfo: {
+                                fields: ['Summary_of_Asset__r.records[0].Last_Contact__c'],
+                                directions: ['asc']
+                            }, 
+                            rowHeight: 40
+                        };
+                        
+                        
+                        //Charts
+                        $scope.makeReleaseDistributionChartByType = function (filter) {
+
+                            // Release Chart
+                            var newRelData = _.pairs(
+                                                _.countBy(
+                                                        _.filter(
+                                                            $scope.items, function(dat){
+                                                                return dat.Summary_of_Asset__r && dat.Summary_of_Asset__r.records[0].Release__c !== null;
+                                                            }
+                                                        ), function (dat) {
+                                                            if(filter ==='major') {
+                                                                var rel = dat.Summary_of_Asset__r.records[0].Release__c;
+                                                                return  rel.split('.')[0] + ".x";
+                                                            }  else if(filter ==='minor') {
+                                                                var rel = dat.Summary_of_Asset__r.records[0].Release__c.split('.');
+                                                                return  rel[0] + "."+ rel[1] + ".x";
+                                                            } else if(filter ==='maintain') {
+                                                                var rel = dat.Summary_of_Asset__r.records[0].Release__c.split('.');
+                                                                return  rel[0] + "."+ rel[1] + "."+ rel[2]+ ".x";
+                                                            }
+                                                    
+                                                            return dat.Summary_of_Asset__r.records[0].Release__c;
+                                                        }
+                                                )
+                            ).sort();
+                
+                            $scope.releaseChart = {
+                                options: {
+                                    chart: {
+                                        type: 'pie'
+                                    }
+                                },
+                                series: [
+                                    {
+                                        type: 'pie',
+                                        name: 'Total',
+                                        data: newRelData
+                                    }
+                                ],
+                                title: {
+                                    text: 'Release Distribution (' + ($scope.phonedHome.true || 0) + ' Reporting)'
+                                }
+                            };
+                
+                        };
+                        $scope.cumulativeTimelineChart = {
+                            chart: {
+                            },
+                            xAxis: {
+                                type: 'datetime',
+                               
+                            },
+                            yAxis: {
+                                 min: 0,
+                                 title: {
+                                    text: 'Total Sales'
+                                }
+                            },
+                            rangeSelector: {
+                                selected: 1
+                            },
+                
+                            title: {
+                                text: 'Cumulative Sales Timeline'
+                            },
+                            
+                            series: [{
+                                name: 'Total Sales',
+                                data: $scope.timelineChartData,
+                                step: true,
+                                tooltip: {
+                                    valueDecimals: 2
+                                }
+                            }]
+                        };
+                         $scope.makeModelDistributionChart = function (filter) {
+
+                            var newModelData = _.pairs(
+                                _.countBy(
+                                    _.filter(
+                                        $scope.items, function(dat){
+                                            return  dat.Model__c !== null;
+                                        }
+                                    ), function (dat) {
+                
+                                        if(filter ==='family') {
+                                            if(dat.Model__c.length === 8) {
+                                                return  dat.Model__c.substr(0,5) + "000";
+                                            } else {
+                                                return  dat.Model__c.substr(0,4) + "000";
+                                            }
+                                        }  else if(filter ==='generation') {
+                                            if(dat.Model__c.length === 8) {
+                                                return "x"+  dat.Model__c.substr(5,1) + "00";
+                                            } else {
+                                                return  "x"+ dat.Model__c.substr(4,1) + "00";
+                                            }
+                                        }
+                
+                                        return dat.Model__c;
+                                    }
+                                )
+                            ).sort();
+                            //console.log(newModelData);
+                
+                
+                                $scope.modelChart = {
+                                    options: {
+                                        chart: {
+                                            type: 'pie'
+                                        }
+                                    },
+                                    series: [
+                                        {
+                                            type: 'pie',
+                                            name: 'Model',
+                                            data: newModelData
+                                        }
+                                    ],
+                                    tooltip: {
+                                        pointFormat: '<b>Appliances: {point.y}</b>'
+                                    },
+                                    plotOptions: {
+                                        pie: {
+                                            allowPointSelect: true,
+                                            cursor: 'pointer',
+                                            dataLabels: {
+                                                enabled: true,
+                                                color: '#000000',
+                                                connectorColor: '#000000',
+                                                format: '<b>{point.name}  ({point.percentage:.1f}%)</b>',
+                                                width: '50px'
+                
+                                            }
+                                        }
+                                    },
+                                    title: {
+                                        text: 'Model Distribution'
+                                    }
+                                };
+                
+                        };
+                        
+                        $scope.supportStatusFilterTypes= [
+                            {
+                                name: 'Supported' ,
+                                description:'<div> VX <ul><li>Asset Status = Customer Subscription and license is active </li><li>Perpetual license with an active contract </li></ul></div> <div> NX <ul><li>Contract Status is Activated</li><li>No Contract; Asset Status is Customer Evaluation</li><li> No Contract; Asset Status is Conditional PO </li></ul></div>'
+                            },
+                            {
+                                name: 'Unsupported' ,
+                                description:'<div> VX <ul><li>Asset Status = Customer Subscription and license has expired </li><li>Perpetual License with expired contract </li><li>Perpetual License with Warranty Only contract </li></ul></div> <div> NX <ul><li>Contract Status is Expired or Declined Service</li><li> No Contract; Asset Status is Customer Owned</li></ul></div>'
+                            },
+                            {
+                                name: 'All' ,
+                                description:'All'
+                            }
+                        ];
+                        $scope.noDataAlerts = [
+                            { type: 'error', msg: 'No data found for this account' }
+                        ];
+                        $scope.selectedSupportStatusFilter = $scope.supportStatusFilterTypes[2];
+                        $scope.applyPageFilters = function () {  
+                            //console.log('calling apply page filters');                          
+                            $scope.items = $filter('supportStatus')( $scope.origItems, $scope.selectedSupportStatusFilter.name );
+                            $scope.supported = $filter('supportStatus')( $scope.items, 'Supported' ).length;  
+                            $scope.unsupported = $filter('supportStatus')( $scope.items, 'Unsupported' ).length;  
+                             
+                            $scope.counts = _.countBy($scope.items, function(item) { 
+                                var mod = item.Model__c;
+                                if(mod.substring(0,3) === 'VRX') {
+                                    return mod.substring(0,3);
+                                } else if(mod.substring(0,1) === 'G') {
+                                    return "GMS";
+                                } else {
+                                    return mod.substring(0,2); 
+                                }
+                            }); 
+                            $scope.phonedHome = _.countBy($scope.items, function (a) {return a.Summary_of_Asset__r !== undefined});                          
+                            $scope.assetStatusSummary = _.countBy($scope.items, function (a) {return a.Status});
+                            $scope.nxNotCurrentPercent = Math.round(_.filter($scope.items, function(item) {
+                                        if(item.Model__c ==='NX-7700 COLD SPARE') 
+                                            return false;
+                                        return item.Model__c.substring(0,1) === 'N' && item.Model__c.substring(item.Model__c.length - 3) !== '700'; 
+                            }).length/$scope.counts['NX']  * 100);
+                            
+                            $scope.vxExpiringIn60Days = _.countBy(_.filter($scope.items, function (item) {
+                                    return item.Model__c.substring(0,1) === 'V';
+                                }) , function(item) { 
+                                var mod = item.Model__c;
+                                if(item.Contract_Type__c ==='No Contract-Warranty Only') 
+                                    return 'current';
+                                if(mod.substring(0,1) === 'N' || mod.substring(0,1) === 'G') {
+                                    if(moment(item.Contract_End__c).unix() - moment().unix() < 0) 
+                                        return 'expired'
+                                    if(moment(item.Contract_End__c).unix() - moment().add('days', 60).unix() < 0)
+                                        return 'expiring';
+                                    return 'current';
+                                } else if(mod.substring(0,1) === 'V') {
+                                    var expiring = false;
+                                    var expired = false;
+                                    
+                                    _.each(item.licenses__r.records,function(d) {
+                                        if(d.Duration__c < 730) {
+                                            //console.log(item.SerialNumber + ',' + item.Model__c+ ',' +d.License_Expiration__c)
+                                            if(moment(d.License_Expiration__c).unix() - moment().unix() < 0) {
+                                                expired = true;
+                                            };
+                                            if(moment(d.License_Expiration__c).unix() - moment().add('days', 60).unix() < 0) {
+                                                expiring = true;
+                                            };
+                                        }
+                                    });
+                                    //console.log(item.SerialNumber + ',' + item.Model__c+ ',' +expiring)
+                                    if(!expiring && ! expired) 
+                                        return 'current';
+                                    return expiring ? 'expiring' : 'expired' ;
+                                }
+                            }); 
+                            
+                            $scope.updateCharts();
+                            if (!$scope.$$phase) {
+                                $scope.$apply();
+                            }
+                
+                        };
+                        $scope.updateCharts = function() {
+                            $scope.makeReleaseDistributionChartByType();
+                            $scope.makeModelDistributionChart();
+                        };
+                        $scope.applyPageFilters();
+                        
+                });
+            
+            
+        </script>
+        
+        <body ng-app="AccountSummary">
+            <style>
+                h1 {
+                    font-size: 25px;
+                    line-height: 1;
+                    text-align: center;
+                                      
+                    
+                }
+                h4 {
+                    font-size: 17.5px;
+                    }
+               .h1Heading {
+                    margin: 10px 0px 10px 0px; 
+               } 
+            </style>
+            <div ng-controller="AccountSummaryController" class="row">
+                <!--<div class= 'text-center h1Heading'>
+                    <h1>{account.name}</h1>  
+                    <alert ng-repeat="alert in noDataAlerts" type="alert.type" ng-show="$parent.origItems.length === 0">{{alert.msg}}</alert>
+                </div>
+                <div>
+                    <form class="pull-right">
+                      <div class="input-append">                        
+                        <input type="text" ng-model="searchAcct" typeahead="acct.Name for acct in getAccounts($viewValue)" placeholder="Enter another Account Name" items ='25' typeahead-on-select="directToSearch($item, $model, $label)" ></input>                        
+                      </div>
+                    </form>
+                    
+                </div>
+                -->
+                <div class="container first" style ="margin-top:25px;">
+                    <form class="form-horizontal">
+                        <fieldset>                                        
+                            <!--<legend>Accounts</legend>-->                        
+                            <div class="control-group">
+                              <label class="control-label" for="textinput">Accounts:</label>
+                              <div class="controls"> 
+                                                        
+                                <input type="text" ng-model="filters.accounts" ui-select2="filters.accountsOptions" data-placeholder="Start typing to select an account..."> </input>
+                                <!--<pre>Selected accounts: {{filters.accounts.length}}</pre>                           -->
+                              </div>
+                                
+                            </div> 
+                            <div class="control-group"> 
+                            <div class="controls">                             
+                                <button ng-click="setMyAccountsFilter()" class="btn-primary">View My Acccounts</button> 
+                                <button ng-click="clearFilter()" class="btn-primary" ng-show="filters.accounts.length > 0">Clear</button>
+                            </div>
+                            </div>                   
+                        </fieldset>                    
+                    </form> 
+                </div>
+                
+                
+                        <div class="container-fluid" ng-show = "filters.accounts.length > 0">
+                            <div class="row-fluid hidden-print">
+                                <div class = 'text-center'>
+                                      <strong>Support Status: &nbsp;
+                                      <div class="btn-group">
+                                        <button ng-repeat="suppStatusFilter in supportStatusFilterTypes" type="button" ng-change="applyPageFilters()" ng-model="$parent.selectedSupportStatusFilter" btn-radio="suppStatusFilter" class="btn btn-mini">
+                                                <span tooltip-placement="bottom" tooltip-html-unsafe="{{suppStatusFilter.description}}">{{suppStatusFilter.name}}</span>
+                                        </button>
+                                      </div></strong>
+                                 </div>
+                            </div>
+                            
+                            <div class="row-fluid hidden-print" ng-show = "acctTimeline !== null && filters.accounts.length === 1">
+                                  <div id="big_stats_container" class="row-fluid">
+                                    <div class="cf big_stats">
+                                      <div class="stat span2" >
+                                        <h4>First Order - {{firstOrder}}</h4>
+                                        <br/><br/>
+                                        <span class="value">${{firstOrderAmt| uppercase }}  </span>
+
+                                        <br/><br/>
+                                        
+                                      </div>
+                                      <div class="stat span2" >
+                                        <h4>Last Order - {{lastOrder}}</h4>
+                                        <br/><br/>
+                                        <span class="value">${{lastOrderAmt | uppercase}}</span>
+                                        
+                                      </div>
+                                      <div class="stat span2" >
+                                        <h4>Total Sales</h4><br/><br/><span class="value"> ${{totalSales | uppercase}}</span>
+                                      </div>
+                                      <div class="stat span2">
+                                        <h4>NX - not current generation</h4><br/><br/><span class="value">{{nxNotCurrentPercent || 0}}%</span>
+                                      </div>
+                                      <div class="stat span2">
+                                        <h4>Expired VX Subscriptions</h4><br/><br/><span class="value">{{vxExpiringIn60Days.expired || 0 }}</span>
+                                      </div>                                      
+                                      <div class="stat span2">
+                                        <h4>Expiring VX Subscriptions - next 60 days</h4><br/><br/><span class="value">{{vxExpiringIn60Days.expiring || 0 }}</span>
+                                      </div>
+                                    </div>
+                                  </div>
+                            </div>
+                            <div class="row-fluid hidden-print" ng-show = "acctTimeline !== null && filters.accounts.length !== 1 ">
+                                  <div id="big_stats_container" class="row-fluid">
+                                    <div class="cf big_stats">
+                                      
+                                      <div class="stat span4">
+                                        <h4>NX - not current generation</h4><br/><br/><span class="value">{{nxNotCurrentPercent || 0}}%</span>
+                                      </div>
+                                      <div class="stat span4">
+                                        <h4>Expired VX Subscriptions</h4><br/><br/><span class="value">{{vxExpiringIn60Days.expired || 0 }}</span>
+                                      </div>                                      
+                                      <div class="stat span4">
+                                        <h4>Expiring VX Subscriptions - next 60 days</h4><br/><br/><span class="value">{{vxExpiringIn60Days.expiring || 0 }}</span>
+                                      </div>
+                                    </div>
+                                  </div>
+                            </div>
+                            <div class="row-fluid span12">
+                                                                 
+                                 <div id="statsTableRow" class="row-fluid span12">
+
+                                     <div id="modelTable" class="span2 row offset1">
+                                         <table class="table table-hover table-bordered statsTable table-condensed">
+                                             <caption class="capStyle">
+                                                 <h4>Models</h4>
+                                             </caption>
+                                             <tbody>
+                                                 <tr>
+                                                     <td  class="tabledesclink">
+                                                         NX
+                                                     </td>
+                                                     <td>
+                                                         <div class="text-center ng-binding tablevaluelink">{{counts['NX'] || 0}}</div>
+                                                     </td>
+                                                </tr>
+                                                <tr>
+                                                     <td  class="tabledesclink">
+                                                         VX
+                                                     </td>
+                                                     <td>
+                                                         <div class="text-center ng-binding tablevaluelink">{{counts['VX'] || 0}}</div>
+                                                     </td>
+                                                     
+                                                </tr>
+                                                <tr>
+                                                    <td class="tabledesclink">
+                                                         VRX
+                                                     </td>
+                                                    <td>
+                                                         <div class="text-center ng-binding tablevaluelink">{{counts['VRX'] || 0}}</div>
+                                                     </td>
+                                                </tr>
+                                                <tr>
+                                                    <td  class="tabledesclink">
+                                                         GMS
+                                                     </td>
+                                                    <td>
+                                                         <div class="text-center ng-binding tablevaluelink">{{counts['GMS'] || 0}}</div>
+                                                     </td>
+                                                </tr>
+                                                
+                                                <tr class='info'>
+                                                     <td  class="tabledesclink">
+                                                         Total
+                                                     </td>
+                                                     <td>
+                                                         <div class="text-center ng-binding tablevaluelink">{{items.length}}</div>
+                                                     </td>
+                                                </tr>
+                                            </tbody>
+                                         </table>
+                                     </div>
+                                     <div id="supportTable" class="span2">
+                                         <table class="table table-hover table-bordered statsTable table-condensed">
+                                             <caption class="capStyle">
+                                                 <h4>Support</h4>
+                                             </caption>
+                                             <tbody>
+                                                 <tr>
+                                                     <td width="50%" class="tabledesclink">
+                                                         Supported
+                                                     </td>
+                                                     <td>
+                                                         <div class="text-center ng-binding tablevaluelink">{{supported}}</div>
+                                                     </td>
+                                                </tr>
+                                                <tr>
+                                                     <td width="50%" class="tabledesclink">
+                                                         Unsupported
+                                                     </td>
+                                                     <td>
+                                                         <div class="text-center ng-binding tablevaluelink">{{unsupported}}</div>
+                                                     </td>
+                                                </tr>
+                                                <tr class='info'>
+                                                     <td width="50%" class="tabledesclink">
+                                                         Total
+                                                     </td>
+                                                     <td>
+                                                         <div class="text-center ng-binding tablevaluelink">{{ (supported + unsupported)}}</div>
+                                                     </td>
+                                                </tr>
+                                            </tbody>
+                                         </table>
+                                     </div>
+                                     <div id="casesTable" class="span2">
+                                         <table class="table table-hover table-bordered statsTable table-condensed">
+                                             <caption class="capStyle">
+                                                 <h4>Cases</h4>
+                                             </caption>
+                                             <tbody>
+                                                 <tr>
+                                                     <td width="80%" class="tabledesclink">
+                                                         Currently open
+                                                     </td>
+                                                     <td>
+                                                         <div class="text-center ng-binding tablevaluelink">{{openCases}}</div>
+                                                     </td>
+                                                </tr>
+                                                <tr>
+                                                     <td width="80%" class="tabledesclink">
+                                                         Opened last 90 days
+                                                     </td>
+                                                     <td>
+                                                         <div class="text-center ng-binding tablevaluelink">{{createdLast90Days}}</div>
+                                                     </td>
+                                                     
+                                                     
+                                                </tr>
+                                                <tr >
+                                                     <td width="80%" class="tabledesclink">
+                                                         Closed last 90 days
+                                                     </td>
+                                                     <td>
+                                                         <div class="text-center ng-binding tablevaluelink">{{closedLast90Days}}</div>
+                                                     </td>
+                                                </tr>
+                                            </tbody>
+                                         </table>
+                                     </div>
+                                     <div id="phoneHomeTable" class="span2">
+                                         <table class="table table-hover table-bordered statsTable table-condensed">
+                                             <caption class="capStyle">
+                                                 <h4>Phone Home</h4>
+                                             </caption>
+                                             <tbody>
+                                                 <tr>
+                                                     <td width="80%" class="tabledesclink">
+                                                       Phoned Home
+                                                     </td>
+                                                     <td>
+                                                         <div class="text-center ng-binding tablevaluelink">{{phonedHome.true || 0}}</div>
+                                                     </td>
+                                                </tr>
+                                                <tr>
+                                                     <td width="80%" class="tabledesclink">
+                                                         Never Phoned Home
+                                                     </td>
+                                                     <td>
+                                                         <div class="text-center ng-binding tablevaluelink">{{phonedHome.false || 0}}</div>
+                                                     </td>
+                                                </tr>
+                                                <tr class='info'>
+                                                     <td width="80%" class="tabledesclink">
+                                                         Total
+                                                     </td>
+                                                     <td>
+                                                         <div class="text-center ng-binding tablevaluelink">{{items.length}}</div>
+                                                     </td>
+                                                </tr>
+                                            </tbody>
+                                         </table>
+                                     </div>
+                                     <div id="assetSummaryTable" class="span2">
+                                         <table class="table table-hover table-bordered statsTable table-condensed">
+                                             <caption class="capStyle">
+                                                 <h4>Asset Status</h4>
+                                             </caption>
+                                             <tbody>
+                                                <tr>
+                                                     <td width="80%" class="tabledesclink">
+                                                      Owned
+                                                     </td>
+                                                     <td>
+                                                         <div class="text-center ng-binding tablevaluelink">{{assetStatusSummary['Customer Owned'] || 0}}</div>
+                                                     </td>
+                                                </tr>
+                                                 <tr>
+                                                     <td width="80%" class="tabledesclink">
+                                                       Subscription
+                                                     </td>
+                                                     <td>
+                                                         <div class="text-center ng-binding tablevaluelink">{{assetStatusSummary['Customer Subscription'] || 0}}</div>
+                                                     </td>
+                                                </tr>
+                                                <tr>
+                                                     <td width="80%" class="tabledesclink">
+                                                       Conditional PO
+                                                     </td>
+                                                     <td>
+                                                         <div class="text-center ng-binding tablevaluelink">{{assetStatusSummary['Conditional PO'] || 0}}</div>
+                                                     </td>
+                                                </tr>
+                                                
+                                                <tr>
+                                                     <td width="80%" class="tabledesclink">
+                                                         Cold Spare
+                                                     </td>
+                                                     <td>
+                                                         <div class="text-center ng-binding tablevaluelink">{{assetStatusSummary['Cold Spare'] || 0}}</div>
+                                                     </td>
+                                                </tr>
+                                                <tr class='info'>
+                                                     <td width="80%" class="tabledesclink">
+                                                         Total
+                                                     </td>
+                                                     <td>
+                                                         <div class="text-center ng-binding tablevaluelink">{{items.length}}</div>
+                                                     </td>
+                                                </tr>
+                                            </tbody>
+                                         </table>
+                                     </div>
+                                </div>
+                             </div>
+                             <div id="chartContainer" class="container-fluid">
+                              <div class="row-fluid">
+                                <div class="span3 chartDiv offset1">
+                                  <chart value="releaseChart" type="area" height="325"></chart>
+                                  <div>
+
+                                        <div class="span3"></div>
+                                        <div class="span6">
+                                            <a href="" ng-click="makeReleaseDistributionChartByType('major')" class="chartLink">Major</a>
+                                            |&nbsp;
+                                            <a href="" ng-click="makeReleaseDistributionChartByType('minor')" class="chartLink">Minor</a>
+                                            |&nbsp;
+                                            <a href="" ng-click="makeReleaseDistributionChartByType('maintain')" class="chartLink">Maintenance</a>
+                                            |&nbsp;
+                                            <a href="" ng-click="makeReleaseDistributionChartByType()" class="chartLink">All</a>
+                                        </div>
+                                        <div class="span3"></div>
+
+
+                                  </div>
+                                </div>
+                                <div class="span4 chartDiv">
+                                  <chart value="modelChart" type="area" height="325"></chart>
+                                  <div>
+                                    <div class="span4"></div>
+                                        <div class="span6">
+                                            <a href="" ng-click="makeModelDistributionChart('family')" class="chartLink">Family</a>
+                                            &nbsp;|&nbsp;
+                                            <a href="" ng-click="makeModelDistributionChart('generation')" class="chartLink">Generation</a>
+                                            &nbsp;|&nbsp;
+                                            <a href="" ng-click="makeModelDistributionChart()" class="chartLink">All</a>
+                                        </div>
+                                    
+                                  </div>
+                                </div>
+                                 <div class="span3 chartDiv"  ng-show = "acctTimeline !== null && filters.accounts.length === 1">
+                                  <chart value="cumulativeTimelineChart"  height="350"></chart>
+                                </div>
+                              </div>
+                               
+                            </div>
+                        </div>
+                <div ng-show="filters.accounts.length > 0">
+                    <apex:pageBlock id="assetGridBlock" >
+                        <apex:pageBlockSection id="assetGridSection" collapsible="true" columns="1" title="Asset Details">
+                            <div >
+                                <div class="container-fluid">
+                                     <div class="gridStyle" ng-grid="assetGridOptions" style = "border: 1px solid rgb(212,212,212);height:600px;"></div>
+                                 </div>
+                            </div>
+                        </apex:pageBlockSection>
+                     </apex:pageBlock>
+                </div>    
+                
+                <!--
+                <script> twistSection(document.getElementById('{!$Component.assetGridBlock.assetGridSection}').getElementsByTagName('img')[0]) </script>
+                -->
+            </div>
+        </body>
+        <script type="text/javascript">
+              
+              
+              var _gaq = _gaq || [];
+              _gaq.push(['_setAccount', 'UA-45765411-1']);
+              _gaq.push(['_trackPageview']);
+            
+              (function() {
+                var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+                ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+                var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+              })();
+            
+        </script>
+    </html>
+</apex:page>

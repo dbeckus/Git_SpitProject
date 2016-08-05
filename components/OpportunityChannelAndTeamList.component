@@ -1,0 +1,51 @@
+<apex:component controller="OpportunityChannelAndTeamController">
+    <apex:stylesheet value="https://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" />
+    <style>
+        .listCaption {
+            font-size: 15px;
+            font-weight: bold;
+            line-height: 20px;
+        }
+        .opplist caption {
+            background-color: #FDF0B8;
+        }
+        .listAction {
+            float:right;
+            line-height:20px;
+            font-size: 12px;
+        }
+    </style>
+    <apex:attribute name="opportunity" type="String" assignTo="{!oppId}" required="true" description="Opportunity Id"/>
+    <apex:pageBlockSection columns="2" title="Sales Team/Channel Information">
+        <apex:outputField value="{!opp.Registered_Partner__c}" />
+        <apex:pageblocksectionItem >
+            <apex:outputLabel value="{!$ObjectType.Opportunity.fields.Patch__c.Label}"/>
+            <apex:panelGrid columns="2">
+                <apex:outputField value="{!opp.Patch__c}" />
+                <apex:outputField value="{!opp.Patch__r.Patch_Name__c}" />
+            </apex:panelGrid>
+        </apex:pageblocksectionItem>
+        <apex:outputField value="{!opp.Sales_Region__c}" />
+        <apex:outputField value="{!opp.Patch_Locked__c}" />
+        <apex:pageBlockTable value="{!AllPartners}" var="p" headerClass="hidden" styleClass="opplist">
+            <apex:facet name="caption">
+                <span class="fa fa-globe listCaption">{!IF(AllPartners.size > 0, 'Channels', 'No channel defined')}</span>
+                <span class="listAction"><a href="javascript:spDynamicPage.onButtonClick('OpportunityDefineChannel')">Define Channel</a></span>
+            </apex:facet>
+            <apex:column headerValue="Role">
+                <apex:outputText value="{!p.Role}"/>
+            </apex:column>
+            <apex:column headerValue="Partner">
+                <a href="/{!p.AccountId}" target="_blank">{!p.AccountName}</a>
+            </apex:column>
+        </apex:pageBlockTable>
+        <apex:pageBlockTable value="{!AllMembers}" var="t" headerClass="hidden" styleClass="opplist">
+            <apex:facet name="caption">
+                <span class="fa fa-user listCaption">{!IF(AllMembers.size > 0, 'Team Members', 'No team members')}</span>
+                <span class="listAction"><a href="javascript:void(0)" onclick="spDynamicPage.onButtonClick('OpportunityPatchLock')" class="{!IF(ShowLockButton, '', 'hidden')}">Lock Patch</a><a href="javascript:void(0)" onclick="spDynamicPage.onButtonClick('OpportunityPatchUnlock')" class="{!IF(ShowUnlockButton, '', 'hidden')}">Unlock Patch</a><span class="{!IF(ShowLockButton || ShowUnlockButton, '', 'hidden')}">&nbsp;|&nbsp;</span><a href="javascript:spDynamicPage.onButtonClick('OpportunityPatchOverride')">Override Patch</a></span>
+            </apex:facet>
+            <apex:column value="{!t.TeamMemberRole}"/>
+            <apex:column value="{!t.UserId}"/>
+        </apex:pageBlockTable>
+    </apex:pageBlockSection>
+</apex:component>

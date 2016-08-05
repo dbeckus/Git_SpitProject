@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Follow</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>This is a repositroy for monthly reporting stats for the sales funnel metrics identified by Chris, Duke, Jeff and John</description>
+    <enableActivities>false</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>true</enableReports>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <fields>
+        <fullName>Category__c</fullName>
+        <externalId>false</externalId>
+        <label>Category</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Marketing</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Inside Sales</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Outside Sales</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Pipeline</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Metric_Value__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>Metric Value</label>
+        <precision>8</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Metric__c</fullName>
+        <externalId>false</externalId>
+        <label>Metric</label>
+        <picklist>
+            <controllingField>Category__c</controllingField>
+            <picklistValues>
+                <fullName>New eTrigue Entries</fullName>
+                <default>false</default>
+                <controllingFieldValues>Marketing</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Total eTrigue Entries</fullName>
+                <default>false</default>
+                <controllingFieldValues>Marketing</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>New eTrigue Enabled</fullName>
+                <default>false</default>
+                <controllingFieldValues>Marketing</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>eTrigue Converts to SFDC</fullName>
+                <default>false</default>
+                <controllingFieldValues>Marketing</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>New Leads</fullName>
+                <default>false</default>
+                <controllingFieldValues>Inside Sales</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Total Active Leads</fullName>
+                <default>false</default>
+                <controllingFieldValues>Inside Sales</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>First Meetings Set</fullName>
+                <default>false</default>
+                <controllingFieldValues>Inside Sales</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Converts to Oppty Pipeline</fullName>
+                <default>false</default>
+                <controllingFieldValues>Inside Sales</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Disqualified</fullName>
+                <default>false</default>
+                <controllingFieldValues>Inside Sales</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Unresponsive</fullName>
+                <default>false</default>
+                <controllingFieldValues>Inside Sales</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>New Opptys</fullName>
+                <default>false</default>
+                <controllingFieldValues>Outside Sales</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Opptys in Prospecting</fullName>
+                <default>false</default>
+                <controllingFieldValues>Outside Sales</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Opptys in Pipeline</fullName>
+                <default>false</default>
+                <controllingFieldValues>Outside Sales</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Closed Won</fullName>
+                <default>false</default>
+                <controllingFieldValues>Outside Sales</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Closed Dead</fullName>
+                <default>false</default>
+                <controllingFieldValues>Outside Sales</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Closed Lost</fullName>
+                <default>false</default>
+                <controllingFieldValues>Outside Sales</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Closed Opptys</fullName>
+                <default>false</default>
+                <controllingFieldValues>Outside Sales</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Converts to Oppty Prospecting</fullName>
+                <default>false</default>
+                <controllingFieldValues>Inside Sales</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>SFDC Campaign Participant</fullName>
+                <default>false</default>
+                <controllingFieldValues>Marketing</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Convert Contact</fullName>
+                <default>false</default>
+                <controllingFieldValues>Inside Sales</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Total Converts</fullName>
+                <default>false</default>
+                <controllingFieldValues>Inside Sales</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Competitive User</fullName>
+                <default>false</default>
+                <controllingFieldValues>Inside Sales</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Opportunity Value</fullName>
+                <default>false</default>
+                <controllingFieldValues>Pipeline</controllingFieldValues>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Month_Close_Date__c</fullName>
+        <description>Date of the reporting data</description>
+        <externalId>false</externalId>
+        <inlineHelpText>End the month end date for this entry</inlineHelpText>
+        <label>Month Close Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <label>Sales Funnel</label>
+    <listViews>
+        <fullName>All</fullName>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+    </listViews>
+    <nameField>
+        <displayFormat>M-{000000}</displayFormat>
+        <label>Metric Id</label>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>Sales Funnel</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ReadWrite</sharingModel>
+</CustomObject>

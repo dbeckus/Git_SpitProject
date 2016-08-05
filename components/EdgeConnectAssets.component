@@ -1,0 +1,14 @@
+<apex:component controller="ECAssetListComponentController" access="global" layout="none">
+    <apex:attribute name="POCRequestId" description="Id of the POC request" type="Id" assignTo="{!RequestId}" />
+    <apex:variable var="termvalue" value="{!DefaultDate}"/>
+     <apex:variable var="idx" value="{!0}"/>
+     {!IF(idx==0,' ',' ')}
+     <apex:repeat var="cx" value="{!assets}">
+     {!cx.Model__c}, S/N {!cx.Name}
+     <apex:variable var="termvalue" value="{!IF(idx==0,cx.License_End_Date__c,termvalue)}"/>
+     <apex:variable var="idx" value="{! idx+ 1}" />
+      
+    </apex:repeat>  
+    
+   Your term will expire on:<apex:outputText value="{0, date, MMMM d','  yyyy}"><apex:param value="{!termvalue}" /> </apex:outputText>
+</apex:component>

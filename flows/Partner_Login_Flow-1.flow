@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <decisions>
+        <name>Is_License_Agreement_Checked</name>
+        <label>Is License Agreement Checked</label>
+        <locationX>397</locationX>
+        <locationY>93</locationY>
+        <defaultConnectorLabel>[Default Outcome]</defaultConnectorLabel>
+        <rules>
+            <name>Yes</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>CurerntUser.License_Agreement_Checked__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <label>Yes</label>
+        </rules>
+        <rules>
+            <name>No</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>CurerntUser.License_Agreement_Checked__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>License_Agreement</targetReference>
+            </connector>
+            <label>No</label>
+        </rules>
+    </decisions>
+    <formulas>
+        <description>Current user&apos;s ID value.</description>
+        <name>UserID</name>
+        <dataType>String</dataType>
+        <expression>{!$User.Id}</expression>
+    </formulas>
+    <label>Partner Login Flow</label>
+    <processType>Flow</processType>
+    <recordLookups>
+        <name>Get_License_Agreement_Checked_c_Value</name>
+        <label>Get License_Agreement_Checked__c Value</label>
+        <locationX>218</locationX>
+        <locationY>92</locationY>
+        <assignNullValuesIfNoRecordsFound>true</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Is_License_Agreement_Checked</targetReference>
+        </connector>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>UserID</elementReference>
+            </value>
+        </filters>
+        <object>User</object>
+        <outputReference>CurerntUser</outputReference>
+        <queriedFields>License_Agreement_Checked__c</queriedFields>
+    </recordLookups>
+    <recordUpdates>
+        <name>Update_License_Agreement_Checkbox</name>
+        <label>Update License Agreement Checkbox</label>
+        <locationX>749</locationX>
+        <locationY>97</locationY>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>UserID</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>License_Agreement_Checked__c</field>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </inputAssignments>
+        <object>User</object>
+    </recordUpdates>
+    <screens>
+        <name>License_Agreement</name>
+        <label>License Agreement</label>
+        <locationX>581</locationX>
+        <locationY>93</locationY>
+        <allowBack>false</allowBack>
+        <allowFinish>true</allowFinish>
+        <connector>
+            <targetReference>Update_License_Agreement_Checkbox</targetReference>
+        </connector>
+        <fields>
+            <name>LicenseAgreementText</name>
+            <fieldText>Silver Peak software and license keys are subject to United States export controls and may be subject to the export or import regulations of other countries. You agree to comply strictly with all applicable export and import laws and regulations. 
+
+In particular, you: 
+(a) represent and warrant that you are not a party identified on any government export exclusion lists, including but not limited to the U.S. Denied Persons, Entity, and Specially Designated Nationals Lists; 
+(b) you are not located in or a national of a country subject to U.S. embargo or trade sanctions; 
+(c) agree not to use the Service for military, nuclear, missile, chemical or biological weaponry end uses in violation of U.S. export laws; and 
+(d) agree not to re-export or transfer Silver Peak software and/or license keys in violation of the U.S. export controls.</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <fields>
+            <name>I_will_comply_with_the_above_representations</name>
+            <dataType>Boolean</dataType>
+            <defaultValue>
+                <booleanValue>false</booleanValue>
+            </defaultValue>
+            <fieldText>I will comply with the above representations</fieldText>
+            <fieldType>InputField</fieldType>
+            <isRequired>true</isRequired>
+            <validationRule>
+                <errorMessage>&lt;SPAN ALIGN=&quot;LEFT&quot;&gt;&lt;FONT FACE=&quot;Arial&quot; STYLE=&quot;font-size:12px&quot; COLOR=&quot;#FF0000&quot; LETTERSPACING=&quot;0&quot; KERNING=&quot;0&quot;&gt;You must agree to comply with the above representations before proceeding.&lt;/FONT&gt;&lt;/SPAN&gt;</errorMessage>
+                <formulaExpression>{!I_will_comply_with_the_above_representations}</formulaExpression>
+            </validationRule>
+        </fields>
+    </screens>
+    <startElementReference>Get_License_Agreement_Checked_c_Value</startElementReference>
+    <variables>
+        <name>CurerntUser</name>
+        <dataType>SObject</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>true</isOutput>
+        <objectType>User</objectType>
+    </variables>
+</Flow>

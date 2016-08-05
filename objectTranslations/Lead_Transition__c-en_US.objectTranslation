@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Lead Transition</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Lead Transitions</value>
+    </caseValues>
+    <fields>
+        <label><!-- Converted to Opp --></label>
+        <name>Converted_to_Opp__c</name>
+    </fields>
+    <fields>
+        <label><!-- IQL Campaign --></label>
+        <name>IQL_Campaign__c</name>
+    </fields>
+    <fields>
+        <label><!-- IQL Date --></label>
+        <name>IQL_Date__c</name>
+    </fields>
+    <fields>
+        <label><!-- Lead ID --></label>
+        <name>Lead_ID__c</name>
+        <relationshipLabel><!-- Lead Transitions --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Lead --></label>
+        <name>Lead__c</name>
+    </fields>
+    <fields>
+        <label><!-- MN Campaign --></label>
+        <name>MN_Campaign__c</name>
+    </fields>
+    <fields>
+        <label><!-- MN Date --></label>
+        <name>MN_Date__c</name>
+    </fields>
+    <fields>
+        <label><!-- MQL Campaign --></label>
+        <name>MQL_Campaign__c</name>
+    </fields>
+    <fields>
+        <label><!-- MQL Date --></label>
+        <name>MQL_Date__c</name>
+    </fields>
+    <fields>
+        <label><!-- Marketing Nurture --></label>
+        <name>Marketing_Nurture__c</name>
+    </fields>
+    <fields>
+        <label><!-- Marketing Qualified --></label>
+        <name>Marketing_Qualified__c</name>
+    </fields>
+    <fields>
+        <label><!-- OPP Campaign --></label>
+        <name>OPP_Campaign__c</name>
+    </fields>
+    <fields>
+        <label><!-- OPP Date --></label>
+        <name>OPP_Date__c</name>
+    </fields>
+    <fields>
+        <label><!-- OPP Type --></label>
+        <name>OPP_Type__c</name>
+        <picklistValues>
+            <masterLabel>Existing</masterLabel>
+            <translation><!-- Existing --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>New</masterLabel>
+            <translation><!-- New --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- REJ Campaign --></label>
+        <name>REJ_Campaign__c</name>
+    </fields>
+    <fields>
+        <label><!-- REJ Date --></label>
+        <name>REJ_Date__c</name>
+    </fields>
+    <fields>
+        <label><!-- Rejected --></label>
+        <name>Rejected__c</name>
+    </fields>
+    <fields>
+        <label><!-- SAL Campaign --></label>
+        <name>SAL_Campaign__c</name>
+    </fields>
+    <fields>
+        <label><!-- SAL Date --></label>
+        <name>SAL_Date__c</name>
+    </fields>
+    <fields>
+        <label><!-- Sales Accepted --></label>
+        <name>Sales_Accepted__c</name>
+    </fields>
+    <fields>
+        <label><!-- Sales Qualifying --></label>
+        <name>Sales_Qualifying__c</name>
+    </fields>
+    <fields>
+        <label><!-- WON Campaign --></label>
+        <name>WON_Campaign__c</name>
+    </fields>
+    <fields>
+        <label><!-- WON Date --></label>
+        <name>WON_Date__c</name>
+    </fields>
+    <fields>
+        <label><!-- Won Business --></label>
+        <name>Won_Business__c</name>
+    </fields>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

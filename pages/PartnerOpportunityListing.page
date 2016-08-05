@@ -1,0 +1,11 @@
+<apex:page showHeader="true" tabstyle="Opportunity">
+  <!-- Begin Default Content REMOVE THIS -->
+  <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+  <apex:ListViews type="Opportunity" />
+
+  <script>
+      $(document).ready(function() {
+          $("input.btn").hide();
+      });
+  </script>
+</apex:page>

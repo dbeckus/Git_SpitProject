@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Shipment</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Shipments</value>
+    </caseValues>
+    <fields>
+        <label><!-- Account Owner Email --></label>
+        <name>AccountOwnerEmail__c</name>
+    </fields>
+    <fields>
+        <help><!-- After saving, the shipment email will be send to the Account owner as well as this email field. --></help>
+        <label><!-- Email --></label>
+        <name>Email__c</name>
+    </fields>
+    <fields>
+        <label><!-- IsVirtualShipment --></label>
+        <name>IsVirtualShipment__c</name>
+    </fields>
+    <fields>
+        <label><!-- POC Request --></label>
+        <name>POC_Request__c</name>
+        <relationshipLabel><!-- Shipments --></relationshipLabel>
+    </fields>
+    <fields>
+        <help><!-- Free form input for purchase order numbers not linked to an opportunity --></help>
+        <label><!-- Purchase Order Number --></label>
+        <name>PurchaseOrderNumber__c</name>
+    </fields>
+    <fields>
+        <help><!-- Link to Purchase Orders recorded against Opportunities --></help>
+        <label><!-- Purchase Order --></label>
+        <name>PurchaseOrder__c</name>
+        <relationshipLabel><!-- Shipments --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Sales Order Number --></label>
+        <name>SalesOrderNumber__c</name>
+    </fields>
+    <fields>
+        <label><!-- Secondary Email --></label>
+        <name>Secondary_Email__c</name>
+    </fields>
+    <fields>
+        <help><!-- If checked, an email will be sent out after saving. --></help>
+        <label><!-- Send Tracking Information --></label>
+        <name>SendTrackingInformation__c</name>
+    </fields>
+    <fields>
+        <label><!-- Send Email --></label>
+        <name>Send_Email__c</name>
+    </fields>
+    <fields>
+        <label><!-- Ship Date --></label>
+        <name>Ship_Date__c</name>
+    </fields>
+    <fields>
+        <label><!-- Shipment Account --></label>
+        <name>Shipment_Account__c</name>
+        <relationshipLabel><!-- Shipments --></relationshipLabel>
+    </fields>
+    <fields>
+        <help><!-- Set all assets to this contact --></help>
+        <label><!-- Shipment Contact --></label>
+        <name>Shipment_Contact__c</name>
+        <relationshipLabel><!-- Shipments --></relationshipLabel>
+    </fields>
+    <fields>
+        <help><!-- set all shipment line assets to this contract --></help>
+        <label><!-- Shipment Contract --></label>
+        <name>Shipment_Contract__c</name>
+        <relationshipLabel><!-- Shipments --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Third Email --></label>
+        <name>Third_Email__c</name>
+    </fields>
+    <fields>
+        <label><!-- To Be Swapped Asset --></label>
+        <name>To_Be_Swapped_Asset__c</name>
+        <relationshipLabel><!-- Shipments --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Tracking Information --></label>
+        <name>Tracking_Information__c</name>
+    </fields>
+    <layouts>
+        <layout>Shipment Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+    </layouts>
+    <startsWith>Consonant</startsWith>
+    <webLinks>
+        <label><!-- New_Renewal_Shipment --></label>
+        <name>New_Renewal_Shipment</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- New_Shipment --></label>
+        <name>New_Shipment</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- New_Virtual_Shipment --></label>
+        <name>New_Virtual_Shipment</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- Send_Fulfillment_Email --></label>
+        <name>Send_Fulfillment_Email</name>
+    </webLinks>
+</CustomObjectTranslation>

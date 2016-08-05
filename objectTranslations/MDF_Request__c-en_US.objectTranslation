@@ -1,0 +1,604 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Funding Requests</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Funding Requests</value>
+    </caseValues>
+    <fields>
+        <label><!-- Account --></label>
+        <name>Account__c</name>
+        <relationshipLabel><!-- Funding Requests --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Accounting PoC: Email --></label>
+        <name>Accounting_PoC_Email__c</name>
+    </fields>
+    <fields>
+        <label><!-- Accounting PoC: Name --></label>
+        <name>Accounting_PoC_Name__c</name>
+    </fields>
+    <fields>
+        <label><!-- Activity Complete --></label>
+        <name>Activity_Complete__c</name>
+    </fields>
+    <fields>
+        <help><!-- Use: xx/xx/xxxx date format or the date picker --></help>
+        <label><!-- Activity Date --></label>
+        <name>Activity_Date__c</name>
+    </fields>
+    <fields>
+        <label><!-- Actual Partner Cost --></label>
+        <name>Actual_Partner_Cost__c</name>
+    </fields>
+    <fields>
+        <label><!-- Actual Program Cost --></label>
+        <name>Actual_Program_Cost__c</name>
+    </fields>
+    <fields>
+        <label><!-- Additional Vendor Cost 1 --></label>
+        <name>Additional_Vendor_Cost_1__c</name>
+    </fields>
+    <fields>
+        <label><!-- Additional Vendor Cost 2 --></label>
+        <name>Additional_Vendor_Cost_2__c</name>
+    </fields>
+    <fields>
+        <label><!-- Vendor 1 --></label>
+        <name>Addl_Vendor_1__c</name>
+    </fields>
+    <fields>
+        <label><!-- Vendor 2 --></label>
+        <name>Addl_Vendor_2__c</name>
+    </fields>
+    <fields>
+        <label><!-- Vendor 3 --></label>
+        <name>Addl_Vendor_3__c</name>
+    </fields>
+    <fields>
+        <label><!-- Approval Date --></label>
+        <name>Approval_Date__c</name>
+    </fields>
+    <fields>
+        <help><!-- Field for MDF Approval Process --></help>
+        <label><!-- Approval Status (Hidden) --></label>
+        <name>Approval_Status_Hidden__c</name>
+        <picklistValues>
+            <masterLabel>Approval 1</masterLabel>
+            <translation><!-- Approval 1 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Approval 2</masterLabel>
+            <translation><!-- Approval 2 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Approval 3</masterLabel>
+            <translation><!-- Approval 3 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Approval 4</masterLabel>
+            <translation><!-- Approval 4 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Approval 5</masterLabel>
+            <translation><!-- Approval 5 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Approval 6</masterLabel>
+            <translation><!-- Approval 6 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Approved</masterLabel>
+            <translation><!-- Approved --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Denied</masterLabel>
+            <translation><!-- Denied --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Pending</masterLabel>
+            <translation><!-- Pending --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Approval Status --></label>
+        <name>Approval_Status__c</name>
+        <picklistValues>
+            <masterLabel>Approved</masterLabel>
+            <translation><!-- Approved --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Denied</masterLabel>
+            <translation><!-- Denied --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Pending</masterLabel>
+            <translation><!-- Pending --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Unsubmitted</masterLabel>
+            <translation><!-- Unsubmitted --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- CAM --></label>
+        <name>CSM__c</name>
+        <relationshipLabel><!-- Funding Requests (CAM) --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Campaign --></label>
+        <name>Campaign__c</name>
+        <relationshipLabel><!-- Funding Requests --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Country --></label>
+        <name>Co_Country__c</name>
+    </fields>
+    <fields>
+        <label><!-- Comments --></label>
+        <name>Comments__c</name>
+    </fields>
+    <fields>
+        <label><!-- Company Address --></label>
+        <name>Company_Address__c</name>
+    </fields>
+    <fields>
+        <label><!-- Company Billing Address --></label>
+        <name>Company_Billing_Address__c</name>
+    </fields>
+    <fields>
+        <help><!-- Estimated Value of Expected Opportunities --></help>
+        <label><!-- Est Value of Expected Opportunities --></label>
+        <name>Est_Value_of_Expected_Opportunities__c</name>
+    </fields>
+    <fields>
+        <label><!-- Estimated Other Vendor(s) Amount: --></label>
+        <name>Estimated_Other_Vendor_s_Amount__c</name>
+    </fields>
+    <fields>
+        <label><!-- Estimated Partner Amount --></label>
+        <name>Estimated_Partner_Amount__c</name>
+    </fields>
+    <fields>
+        <label><!-- Estimated Pipeline Value --></label>
+        <name>Estimated_Pipeline_Value__c</name>
+    </fields>
+    <fields>
+        <label><!-- Estimated Silver Peak Amount --></label>
+        <name>Estimated_Silver_Peak_Amount__c</name>
+    </fields>
+    <fields>
+        <label><!-- Event/Campaign Name --></label>
+        <name>Event_Campaign_Name__c</name>
+    </fields>
+    <fields>
+        <label><!-- Event Location (City) --></label>
+        <name>Event_Location_City__c</name>
+    </fields>
+    <fields>
+        <label><!-- Event Location (Country) --></label>
+        <name>Event_Location_Country__c</name>
+    </fields>
+    <fields>
+        <label><!-- Event Location (State) --></label>
+        <name>Event_Location_State__c</name>
+    </fields>
+    <fields>
+        <label><!-- Event Location (Zip) --></label>
+        <name>Event_Location_Zip__c</name>
+    </fields>
+    <fields>
+        <label><!-- Exception Granted Reason --></label>
+        <name>Exception_Granted_Reason__c</name>
+    </fields>
+    <fields>
+        <label><!-- Expected Audience Size --></label>
+        <name>Expected_Audience_Size__c</name>
+    </fields>
+    <fields>
+        <label><!-- Expected Number of Leads --></label>
+        <name>Expected_Number_of_Leads__c</name>
+    </fields>
+    <fields>
+        <help><!-- Fast Start Marketing Program? --></help>
+        <label><!-- Fast Start Marketing Program --></label>
+        <name>Fast_Start_Marketing_Program__c</name>
+    </fields>
+    <fields>
+        <label><!-- GEO --></label>
+        <name>GEO__c</name>
+    </fields>
+    <fields>
+        <label><!-- GEO of Owner Acct --></label>
+        <name>GEO_of_Owner_Acct__c</name>
+    </fields>
+    <fields>
+        <help><!-- Industry/Vertical Being Targeted --></help>
+        <label><!-- Industry/Vertical Being Targeted --></label>
+        <name>Industry_Vertical_Being_Targeted__c</name>
+    </fields>
+    <fields>
+        <label><!-- Invoice No. --></label>
+        <name>Invoice_No__c</name>
+    </fields>
+    <fields>
+        <label><!-- Is Portal Request --></label>
+        <name>Is_Portal_Request__c</name>
+    </fields>
+    <fields>
+        <help><!-- Location of Event(City or Geography Targeted): --></help>
+        <label><!-- Location of Event --></label>
+        <name>Location_of_Event__c</name>
+    </fields>
+    <fields>
+        <label><!-- MDF Status --></label>
+        <name>MDF_Status__c</name>
+        <picklistValues>
+            <masterLabel>Cancelled</masterLabel>
+            <translation><!-- Cancelled --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Completed</masterLabel>
+            <translation><!-- Completed --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>In Progress</masterLabel>
+            <translation><!-- In Progress --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Marketing Activity PoC: Email --></label>
+        <name>Marketing_Activity_PoC_Email__c</name>
+    </fields>
+    <fields>
+        <help><!-- Point of Contact for Marketing --></help>
+        <label><!-- Marketing Activity PoC: Name --></label>
+        <name>Marketing_Activity_Point_of_Contact_Nam__c</name>
+    </fields>
+    <fields>
+        <label><!-- Owner Role --></label>
+        <name>Owner_Role__c</name>
+    </fields>
+    <fields>
+        <label><!-- PO No. --></label>
+        <name>PO_No__c</name>
+    </fields>
+    <fields>
+        <label><!-- PO Received --></label>
+        <name>PO_Received__c</name>
+    </fields>
+    <fields>
+        <label><!-- Partner Account --></label>
+        <name>Partner_Account__c</name>
+    </fields>
+    <fields>
+        <label><!-- Partner Instructions --></label>
+        <name>Partner_Instructions__c</name>
+    </fields>
+    <fields>
+        <help><!-- Partner at Platinum Level? --></help>
+        <label><!-- Partner at Platinum Level --></label>
+        <name>Partner_at_Platinum_Level__c</name>
+    </fields>
+    <fields>
+        <label><!-- Preferred Phone --></label>
+        <name>Preferred_Phone__c</name>
+    </fields>
+    <fields>
+        <help><!-- Number of Purchasing Request Lines on this MDF Request. Should be at least &apos;1&apos; to progress through the approval process. (Purchasing Req Line contains Gl Code, Dept/Proj Number) --></help>
+        <label><!-- Purchasing Request Line Added --></label>
+        <name>Purchasing_Request_Line_Added__c</name>
+    </fields>
+    <fields>
+        <label><!-- Purchasing Request --></label>
+        <name>Purchasing_Request__c</name>
+        <relationshipLabel><!-- Funding Requests --></relationshipLabel>
+    </fields>
+    <fields>
+        <help><!-- Included In Joint Quarterly Marketing Plan? --></help>
+        <label><!-- Quarterly Marketing Plan --></label>
+        <name>Quarterly_Marketing_Plan__c</name>
+    </fields>
+    <fields>
+        <label><!-- RSM --></label>
+        <name>RSM__c</name>
+        <relationshipLabel><!-- Funding Requests (RSM) --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Reason Denied --></label>
+        <name>Reason_Rejected__c</name>
+        <picklistValues>
+            <masterLabel>Budget</masterLabel>
+            <translation><!-- Budget --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Date/Venue/Topic to Change</masterLabel>
+            <translation><!-- Date/Venue/Topic to Change --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Duplicate MDF</masterLabel>
+            <translation><!-- Duplicate MDF --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Event Cancelled</masterLabel>
+            <translation><!-- Event Cancelled --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Incorrect Info</masterLabel>
+            <translation><!-- Incorrect Info --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Missing Documentation</masterLabel>
+            <translation><!-- Missing Documentation --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Not Generally Accepted</masterLabel>
+            <translation><!-- Not Generally Accepted --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <help><!-- used for the MDF reference to previous portal --></help>
+        <label><!-- Reference Id --></label>
+        <name>Reference_field__c</name>
+    </fields>
+    <fields>
+        <label><!-- Address 1 --></label>
+        <name>Remit_Address_1__c</name>
+    </fields>
+    <fields>
+        <label><!-- Address 2 --></label>
+        <name>Remit_Address_2__c</name>
+    </fields>
+    <fields>
+        <label><!-- City --></label>
+        <name>Remit_City__c</name>
+    </fields>
+    <fields>
+        <label><!-- Country --></label>
+        <name>Remit_Country__c</name>
+    </fields>
+    <fields>
+        <label><!-- State --></label>
+        <name>Remit_State__c</name>
+    </fields>
+    <fields>
+        <label><!-- Zip/Postal Code --></label>
+        <name>Remit_Zip_Postal_Code__c</name>
+    </fields>
+    <fields>
+        <help><!-- Only included if different than Company address. --></help>
+        <label><!-- Remit to Address --></label>
+        <name>Remit_to_Address__c</name>
+    </fields>
+    <fields>
+        <label><!-- Requested Reimbursement Amount --></label>
+        <name>Requested_Reimbursement_Amount__c</name>
+    </fields>
+    <fields>
+        <label><!-- Result Detail --></label>
+        <name>Result_Detail__c</name>
+    </fields>
+    <fields>
+        <label><!-- Submitted For --></label>
+        <name>Submitted_For__c</name>
+    </fields>
+    <fields>
+        <label><!-- Submitted to AP --></label>
+        <name>Submitted_to_AP__c</name>
+    </fields>
+    <fields>
+        <label><!-- Submitter --></label>
+        <name>Submitter__c</name>
+        <relationshipLabel><!-- Funding Requests --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Target Audience Profile --></label>
+        <name>Target_Audience_Profile__c</name>
+    </fields>
+    <fields>
+        <label><!-- Total Attendees --></label>
+        <name>Total_Attendees__c</name>
+    </fields>
+    <fields>
+        <label><!-- Total Estimated Program Costs --></label>
+        <name>Total_Estimated_Program_Costs__c</name>
+    </fields>
+    <fields>
+        <label><!-- Total Leads Generated --></label>
+        <name>Total_Leads_Generated__c</name>
+    </fields>
+    <fields>
+        <label><!-- Total Qualified Leads --></label>
+        <name>Total_Qualified_Leads__c</name>
+    </fields>
+    <fields>
+        <label><!-- Type of Program --></label>
+        <name>Type_of_Program__c</name>
+        <picklistValues>
+            <masterLabel>Advertisement - 1/2 page</masterLabel>
+            <translation><!-- Advertisement - 1/2 page --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Advertisement - 1/4 page</masterLabel>
+            <translation><!-- Advertisement - 1/4 page --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Advertisement - Full page</masterLabel>
+            <translation><!-- Advertisement - Full page --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Broadcast (Television/Radio)</masterLabel>
+            <translation><!-- Broadcast (Television/Radio) --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Collateral/Literature</masterLabel>
+            <translation><!-- Collateral/Literature --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Direct Mail</masterLabel>
+            <translation><!-- Direct Mail --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Email Blast</masterLabel>
+            <translation><!-- Email Blast --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Floor Day</masterLabel>
+            <translation><!-- Floor Day --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>List Acquisition</masterLabel>
+            <translation><!-- List Acquisition --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Lunch and Learn</masterLabel>
+            <translation><!-- Lunch and Learn --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Other</masterLabel>
+            <translation><!-- Other --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Sales Conference</masterLabel>
+            <translation><!-- Sales Conference --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Sales Incentives/Promotional Contest/Giveaways</masterLabel>
+            <translation><!-- Sales Incentives/Promotional Contest/Giveaways --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Seminars</masterLabel>
+            <translation><!-- Seminars --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Telemarketing</masterLabel>
+            <translation><!-- Telemarketing --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Trade Industry Shows</masterLabel>
+            <translation><!-- Trade Industry Shows --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Training Seminar</masterLabel>
+            <translation><!-- Training Seminar --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Web Advertising</masterLabel>
+            <translation><!-- Web Advertising --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Webinars</masterLabel>
+            <translation><!-- Webinars --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>eNewletters</masterLabel>
+            <translation><!-- eNewletters --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <help><!-- What is your post event follow up plan? --></help>
+        <label><!-- What is your post event follow up plan? --></label>
+        <name>post_event_follow_up_plan__c</name>
+    </fields>
+    <layouts>
+        <layout>MDF Request Layout</layout>
+        <sections>
+            <label><!-- Approval Information --></label>
+            <section>Approval Information</section>
+        </sections>
+        <sections>
+            <label><!-- Contact and Address Information --></label>
+            <section>Contact and Address Information</section>
+        </sections>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+        <sections>
+            <label><!-- Event Results --></label>
+            <section>Event Results</section>
+        </sections>
+        <sections>
+            <label><!-- Finance Information --></label>
+            <section>Finance Information</section>
+        </sections>
+        <sections>
+            <label><!-- Program Details --></label>
+            <section>Program Details</section>
+        </sections>
+    </layouts>
+    <layouts>
+        <layout>Partner MDF Approved Layout</layout>
+        <sections>
+            <label><!-- Approval Information --></label>
+            <section>Approval Information</section>
+        </sections>
+        <sections>
+            <label><!-- Contact and Address Information --></label>
+            <section>Contact and Address Information</section>
+        </sections>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+        <sections>
+            <label><!-- Event Results --></label>
+            <section>Event Results</section>
+        </sections>
+        <sections>
+            <label><!-- Finance Information --></label>
+            <section>Finance Information</section>
+        </sections>
+        <sections>
+            <label><!-- INSTRUCTIONS --></label>
+            <section>INSTRUCTIONS</section>
+        </sections>
+        <sections>
+            <label><!-- Program Details --></label>
+            <section>Program Details</section>
+        </sections>
+    </layouts>
+    <layouts>
+        <layout>Partner MDF Request Layout</layout>
+        <sections>
+            <label><!-- Approval Information --></label>
+            <section>Approval Information</section>
+        </sections>
+        <sections>
+            <label><!-- Contact and Address Information --></label>
+            <section>Contact and Address Information</section>
+        </sections>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+        <sections>
+            <label><!-- Event Results --></label>
+            <section>Event Results</section>
+        </sections>
+        <sections>
+            <label><!-- Finance Information --></label>
+            <section>Finance Information</section>
+        </sections>
+        <sections>
+            <label><!-- INSTRUCTIONS --></label>
+            <section>INSTRUCTIONS</section>
+        </sections>
+        <sections>
+            <label><!-- Program Details --></label>
+            <section>Program Details</section>
+        </sections>
+    </layouts>
+    <recordTypes>
+        <label><!-- Approved MDF --></label>
+        <name>Approved_MDF</name>
+    </recordTypes>
+    <startsWith>Consonant</startsWith>
+    <validationRules>
+        <errorMessage><!-- You cannot submit an MDF where the number of leads exceeds the number of attendees. Please fix the data and submit again. --></errorMessage>
+        <name>Leads_should_not_exceed_Attendees</name>
+    </validationRules>
+</CustomObjectTranslation>

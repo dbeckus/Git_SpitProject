@@ -1,0 +1,76 @@
+<apex:page standardController="Asset" extensions="OpenRMAController" recordSetVar="unused" tabStyle="RMA__c" id="thePage">
+    <apex:form id="theForm">
+        <apex:sectionHeader title="Open RMA" />
+        <apex:pageBlock id="pageBlock">
+            <apex:pageBlockButtons id="pageBlockButtons">
+                <apex:commandButton value="Open RMA" id="openRMABtn" action="{!openRMA}"/>
+                <apex:commandButton value="Cancel" id="cancelBtn" action="{!cancel}"/>
+            </apex:pageBlockButtons>
+            <div id="assetSection">
+                <div class="pbSubheader tertiaryPalette" style="padding-left: 8px;">
+                    <h3>Selected Assets</h3>
+                </div>
+                <div class="pbSubsection" style="padding: 8px;">
+                    <apex:pageBlockTable value="{!assets}" var="a" id="assetTable">
+                        <apex:column headerValue="Asset Name">
+                            <a href="/{!a.Id}">{!a.Name}</a>
+                        </apex:column>
+                        <apex:column headerValue="Product Code">
+                            <a href="/{!a.Product2Id}">{!a.Product2.ProductCode}</a>
+                        </apex:column>
+                        <apex:column headerValue="Product Name">
+                            <a href="/{!a.Product2Id}">{!a.Product2.Name}</a>
+                        </apex:column>
+                        <apex:column value="{!a.Ship_Date__c}" />
+                        <apex:column value="{!a.Evaluation_End_Date__c}" />
+                        <apex:column value="{!a.Warranty_End_Date__c}" />
+                        <apex:column value="{!a.Contract_Number__c}" />
+                        <apex:column value="{!a.Contract_Type__c}" />
+                        <apex:column value="{!a.Contract_End__c}" />
+                    </apex:pageBlockTable>
+                </div>
+            </div>
+            <div id="contactSection">
+                <div class="pbSubheader tertiaryPalette" style="padding-left: 8px;">
+                    <h3>Please select the contact for the RMA:</h3>
+                </div>
+                <div class="pbSubsection" style="padding: 8px;">
+                    <apex:pageBlockTable value="{!contacts}" var="contact" id="contactTable">
+                        <apex:column >
+                            <input type="radio" value="{!contact.Id}" name="SelectedContactRadio" />
+                        </apex:column>
+                        <apex:column value="{!contact.Name}" />
+                        <apex:column value="{!contact.Email}" />
+                    </apex:pageBlockTable>
+                </div>
+            </div>
+        </apex:pageBlock>
+        <apex:inputHidden value="{!contactId}" id="contactId" />
+    </apex:form>
+
+    <script type="text/javascript">
+        window.onload = function() {
+            document.getElementById('thePage:theForm:pageBlock:pageBlockButtons:openRMABtn').onclick = function() {
+                var contactId = document.getElementById('thePage:theForm:contactId').value;
+                if(contactId == '' || contactId == null) {
+                    alert('Please select one contact.');
+                    return false;
+               }
+            }
+            
+            var radioBtns = new Array();
+            var elems = document.getElementById('thePage:theForm:pageBlock:contactTable').getElementsByTagName('input');
+            for(var i = 0, elem; elem = elems[i]; i++) {
+                if(elem.type == 'radio') {
+                    radioBtns.push(elem);
+                }
+            }
+            
+            for(var i = 0, radioBtn; radioBtn = radioBtns[i]; i++) {
+                radioBtn.onclick = function() {
+                    document.getElementById('thePage:theForm:contactId').value = this.value;
+                }
+            }
+        }
+    </script>
+</apex:page>

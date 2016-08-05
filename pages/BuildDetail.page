@@ -1,0 +1,41 @@
+<apex:page standardController="Builds__c">
+    <apex:sectionHeader subtitle="{!Builds__c.ReleaseCode__c}" title="Release"/>
+    <div style="margin-left: 10px; margin-bottom:10px;">
+         « 
+        <a href="/apex/releases" style="color: #015BA7; text-decoration: none;">Back to list: Releases</a>
+    </div>
+    <apex:pageBlock >
+        <apex:pageMessages ></apex:pageMessages>
+        <apex:pageBlockSection columns="1" title="End User License Agreement" collapsible="false">
+            <apex:pageBlockSectionItem >
+                <apex:outputLabel >EULA Agreement</apex:outputLabel>
+                <apex:outputText >
+                    By downloading this software you agree to the terms of the EULA here: 
+                    <a href="http://www.silver-peak.com/download/latest/EULA.html">
+                        http://www.silver-peak.com/download/latest/EULA.html
+                    </a>
+                </apex:outputText>
+            </apex:pageBlockSectionItem>
+        </apex:pageBlockSection>
+    </apex:pageBlock>
+    <apex:pageBlock >
+        <apex:pageBlockSection columns="1" title="Information" collapsible="false">
+            <apex:outputField label="Release Number" value="{!Builds__c.ReleaseCode__c}"/>
+            <apex:outputField label="ECO Date" value="{!Builds__c.ECO_Date__c}"/>
+            <apex:outputField value="{!Builds__c.Status__c}"/>
+            <apex:outputField label="Release Highlights" value="{!Builds__c.Build_Details__c}"/>
+        </apex:pageBlockSection>
+    </apex:pageBlock>
+    <apex:pageBlock title="Images and Documentation">
+        <apex:pageBlockTable value="{!Builds__c.Files1__r}" var="file">
+            <apex:column headerValue="Download" width="50" style="text-align:center">
+                <apex:outputLink value="/apex/Ensemblestorage__DownloadFile?id={!file.Id}" target="_blank">
+                    <img src="{!URLFOR($Resource.Releases, 'pic/download.png')}" width="20px" />
+                </apex:outputLink>
+            </apex:column>
+            <apex:column value="{!file.Name}" />
+            <apex:column value="{!file.Ensemblestorage__Comment__c}"/>
+            <apex:column value="{!file.Ensemblestorage__FormatedSize__c}"/>            
+        </apex:pageBlockTable>
+    </apex:pageBlock>
+</apex:page>

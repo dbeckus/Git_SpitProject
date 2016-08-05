@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Knowledge Base</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Knowledge</value>
+    </caseValues>
+    <fields>
+        <label><!-- Category --></label>
+        <name>Category__c</name>
+        <picklistValues>
+            <masterLabel>Best Pratices</masterLabel>
+            <translation><!-- Best Pratices --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>FAQ</masterLabel>
+            <translation><!-- FAQ --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>How To</masterLabel>
+            <translation><!-- How To --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Troubleshooting Tip</masterLabel>
+            <translation><!-- Troubleshooting Tip --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Document --></label>
+        <name>Document__c</name>
+    </fields>
+    <fields>
+        <label><!-- Internal Notes --></label>
+        <name>Internal_Notes__c</name>
+    </fields>
+    <fields>
+        <label><!-- Solution --></label>
+        <name>Solution__c</name>
+    </fields>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

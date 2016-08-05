@@ -1,0 +1,304 @@
+<apex:page standardController="POC_Summary__c"  showHeader="false" sidebar="false">
+    <table width="100%">
+        <tr>
+            <td  width="25%"><EM><b>POC For:</b></EM></td>
+            <td width="75%">&nbsp;{!POC_Summary__c.POC_For__r.Name}</td>
+        </tr>
+        <tr>
+            <td  width="25%"><EM><b>POC Status:</b></EM></td>
+            <td width="75%">&nbsp;{!POC_Summary__c.POC_Status__c}</td>
+        </tr>
+        <tr>
+            <td><EM><b>SE Contact:</b></EM></td><td>&nbsp;{!POC_Summary__c.SE_Contact__c}</td>
+        </tr>
+        <tr>
+            <td><EM><b>RSM Contact:</b></EM></td><td>&nbsp;{!POC_Summary__c.RSM_Contact__c}</td>
+        </tr>
+    </table>
+    <br/>
+    <EM><b>Contacts:</b></EM>
+    <table borderColor="#cccccc" cellSpacing="0" cellPadding="3" width="100%" bgColor="#ffffff" border="1">
+        <tr>
+          <td>&nbsp;<b>Contact #</b></td>
+          <td>&nbsp;<b>Name/Address</b></td>
+          <td>&nbsp;<b>Company</b></td>
+          <td>&nbsp;<b>Role</b></td>
+          <td>&nbsp;<b>Phone</b></td>
+          <td>&nbsp;<b>Email</b></td>
+        </tr>
+        <tr>
+          <td>&nbsp;Contact 1</td>
+          <td>&nbsp;{!POC_Summary__c.POC_Contact1__r.Name}</td>
+          <td>&nbsp;{!POC_Summary__c.POC_Contact1__r.Account.Name}</td>
+          <td>&nbsp;{!POC_Summary__c.Contact_1_Role__c}</td>
+          <td>&nbsp;{!POC_Summary__c.POC_Contact1__r.Phone}</td>
+          <td>&nbsp;{!POC_Summary__c.POC_Contact1__r.Email}</td>
+        </tr>
+        <tr>
+          <td>&nbsp;Contact 2</td>
+          <td>&nbsp;{!POC_Summary__c.POC_Contact2__r.Name}</td>
+          <td>&nbsp;{!POC_Summary__c.POC_Contact2__r.Account.Name}</td>
+          <td>&nbsp;{!POC_Summary__c.Contact_2_Role__c}</td>
+          <td>&nbsp;{!POC_Summary__c.POC_Contact2__r.Phone}</td>
+          <td>&nbsp;{!POC_Summary__c.POC_Contact2__r.Email}</td>
+        </tr>
+        <tr>
+          <td>&nbsp;Contact 3</td>
+          <td>&nbsp;{!POC_Summary__c.POC_Contact3__r.Name}</td>
+          <td>&nbsp;{!POC_Summary__c.POC_Contact3__r.Account.Name}</td>
+          <td>&nbsp;{!POC_Summary__c.Contact_3_Role__c}</td>
+          <td>&nbsp;{!POC_Summary__c.POC_Contact3__r.Phone}</td>
+          <td>&nbsp;{!POC_Summary__c.POC_Contact3__r.Email}</td>
+        </tr>
+    </table>
+    <br/>
+    <EM><b>POC Timeline:</b></EM>
+    <table borderColor="#cccccc" cellSpacing="0" cellPadding="3" width="100%" bgColor="#ffffff" border="1">
+        <tr>
+          <td>&nbsp;<b>Start Date:</b>&nbsp;<apex:outputfield value="{!POC_Summary__c.POC_Start_Date__c}" /></td>
+          <td>&nbsp;<b>Duration:</b>&nbsp;<apex:outputfield value="{!POC_Summary__c.POC_Duration__c}" /></td>
+          <td>&nbsp;<b>End Date:</b>&nbsp;<apex:outputfield value="{!POC_Summary__c.POC_End_Date__c}"/></td>
+        </tr>
+    </table>
+    <br/>
+    <EM><b>POC Objectives:</b></EM>
+    <table borderColor="#cccccc" cellSpacing="0" cellPadding="3" width="100%" bgColor="#ffffff" border="1">
+        <tr>
+          <td>&nbsp;<b>What will be tested?</b></td>
+          <td>&nbsp;<b>Objective #</b></td>
+          <td>&nbsp;<b>Success Criteria - Quantify</b></td>
+          <td>&nbsp;<b>How will the test be run?</b></td>
+        </tr>
+        <tr>
+          <td rowSpan="5">&nbsp;{!POC_Summary__c.What_wll_be_tested__c}</td>
+          <td>&nbsp;{!POC_Summary__c.Objective_1__c}</td>
+          <td>&nbsp;{!POC_Summary__c.Success_Criteria_Obj1__c}</td>
+          <td>&nbsp;{!POC_Summary__c.How_Tested_Obj1__c}</td>
+        </tr>
+        <tr>
+          <td>&nbsp;{!POC_Summary__c.Objective_2__c}</td>
+          <td>&nbsp;{!POC_Summary__c.Success_Criteria_Obj2__c}</td>
+          <td>&nbsp;{!POC_Summary__c.How_Tested_Obj2__c}</td>
+        </tr>
+        <tr>
+          <td>&nbsp;{!POC_Summary__c.Objective_3__c}</td>
+          <td>&nbsp;{!POC_Summary__c.Success_Criteria_Obj3__c}</td>
+          <td>&nbsp;{!POC_Summary__c.How_Tested_Obj3__c}</td>
+        </tr>
+        <tr>
+          <td>&nbsp;{!POC_Summary__c.Objective_4__c}</td>
+          <td>&nbsp;{!POC_Summary__c.Success_Criteria_Obj4__c}</td>
+          <td>&nbsp;{!POC_Summary__c.How_Tested_Obj4__c}</td>
+        </tr>
+        <tr>
+          <td>&nbsp;{!POC_Summary__c.Objective_5__c}</td>
+          <td>&nbsp;{!POC_Summary__c.Success_Criteria_Obj5__c}</td>
+          <td>&nbsp;{!POC_Summary__c.How_Tested_Obj5__c}</td>
+        </tr>
+        <tr>
+          <td>&nbsp;Testing Notes </td>
+          <td colSpan="3"><apex:outputfield value="{!POC_Summary__c.Testing_Notes__c}"/></td>
+        </tr>
+    </table>
+    <br/>
+    <EM><b>POC Environment: </b></EM>
+    <table borderColor="#cccccc" cellSpacing="0" cellPadding="3" width="100%" bgColor="#ffffff" border="1">
+        <tr>
+          <td>&nbsp;<b>GMS Used </b></td>
+          <td>&nbsp;<b>Kwanem Used </b></td>
+          <td>&nbsp;<b>GMS Site </b></td>
+          <td>&nbsp;<b>GMS SW Version </b></td>
+        </tr>
+        <tr>
+          <td>&nbsp;{!IF(POC_Summary__c.GMS_Deployed__c=true,'Yes','No')} </td>          
+          <td>&nbsp;{!IF(POC_Summary__c.Kwanem_Used__c=true,'Yes','No')} </td>
+          <td>&nbsp;{!POC_Summary__c.GMS_Site__c}</td>
+          <td>&nbsp;{!POC_Summary__c.GMS_SW_Version__c}</td>
+        </tr>
+    </table>
+    <br/>
+    <div style="page-break-after:always;"></div>
+    <table borderColor="#cccccc" cellSpacing="0" cellPadding="3" width="100%" bgColor="#ffffff" border="1">
+        <tr>
+            <td>&nbsp;<b>Site #</b></td>
+            <td>&nbsp;<b>Site Name</b></td>
+            <td>&nbsp;<b>Location</b></td>
+            <td>&nbsp;<b>Local Contact</b></td>
+            <td>&nbsp;<b>Local HW Vendors </b></td>
+            <td>&nbsp;<b>Local HW</b></td>
+            <td>&nbsp;<b>OS Vers. </b></td>
+        </tr>
+        <tr>
+            <td>&nbsp;1</td>
+            <td>&nbsp;{!POC_Summary__c.Site_1_Name__c}</td>
+            <td><apex:outputField value="{!POC_Summary__c.Site_1_Address__c}"/></td>
+            <td>&nbsp;{!POC_Summary__c.Site_1_Contact__r.Name}</td>
+            <td>&nbsp;{!POC_Summary__c.Site_1_HW_Vendors__c}</td>
+            <td>&nbsp;{!POC_Summary__c.Site_1_HW__c}</td>
+            <td>&nbsp;{!POC_Summary__c.Site_1_OS_Versions__c}</td>
+        </tr>
+        <tr>
+            <td>&nbsp;2</td>
+            <td>&nbsp;{!POC_Summary__c.Site_2_Name__c}</td>
+            <td>&nbsp;<apex:outputField value="{!POC_Summary__c.Site_2_Address__c}"/> </td>
+            <td>&nbsp;{!POC_Summary__c.Site_2_Contact__r.Name}</td>
+            <td>&nbsp;{!POC_Summary__c.Site_2_HW_Vendors__c}</td>
+            <td>&nbsp;{!POC_Summary__c.Site_2_HW__c}</td>
+            <td>&nbsp;{!POC_Summary__c.Site_2_OS_Versions__c}</td>
+        </tr>
+        <tr>
+            <td>&nbsp;3</td>
+            <td>&nbsp;{!POC_Summary__c.Site_3_Name__c}</td>
+            <td>&nbsp;<apex:outputField value="{!POC_Summary__c.Site_3_Address__c}"/> </td>
+            <td>&nbsp;{!POC_Summary__c.Site_3_Contact__r.Name}</td>
+            <td>&nbsp;{!POC_Summary__c.Site_3_HW_Vendors__c}</td>
+            <td>&nbsp;{!POC_Summary__c.Site_3_HW__c}</td>
+            <td>&nbsp;{!POC_Summary__c.Site_3_OS_Versions__c}</td>
+        </tr>
+        <tr>
+            <td>&nbsp;4</td>
+            <td>&nbsp;{!POC_Summary__c.Site_4_Name__c}</td>
+            <td>&nbsp;<apex:outputField value="{!POC_Summary__c.Site_4_Address__c}"/> </td>
+            <td>&nbsp;{!POC_Summary__c.Site_4_Contact__r.Name}</td>
+            <td>&nbsp;{!POC_Summary__c.Site_4_HW_Vendors__c}</td>
+            <td>&nbsp;{!POC_Summary__c.Site_4_HW__c}</td>
+            <td>&nbsp;{!POC_Summary__c.Site_4_OS_Versions__c}</td>
+        </tr>
+    </table>
+    <br/>
+    <table borderColor="#cccccc" cellSpacing="0" cellPadding="3" width="100%" bgColor="#ffffff" border="1">
+        <tr>
+            <td>&nbsp;<b>Site # con’t</b></td>
+            <td>&nbsp;<b>Lab or Prod.</b></td>
+            <td>&nbsp;<b>Local Connection</b></td>
+            <td>&nbsp;<b>NX 1</b></td>
+            <td>&nbsp;<b>NX 2</b></td>
+            <td>&nbsp;<b>NX Version</b></td>
+            <td>&nbsp;<b>Deployment Mode</b></td>
+        </tr>
+        <tr>
+            <td>1</td>  
+            <td>&nbsp;{!POC_Summary__c.Installed_In_site1__c}</td>
+            <td>&nbsp;{!POC_Summary__c.Site1_Connection_Type__c}-{!POC_Summary__c.Site1_Connection_Speed__c}</td>
+            <td>&nbsp;{!POC_Summary__c.Site1_Appliances__c}</td>
+            <td>&nbsp; {!IF(POC_Summary__c.NX_Count_Site1__c='2', POC_Summary__c.Site1_Appliances__c,'')} </td>
+            <td>&nbsp;{!POC_Summary__c.NX_SW_Version_Site1__c}</td>
+            <td>&nbsp;{!POC_Summary__c.Site1_Deployment_Mode__c}</td>
+        </tr>
+        <tr>
+            <td>2</td>  
+            <td>&nbsp;{!POC_Summary__c.Installed_In_site2__c}</td>
+            <td>&nbsp;{!POC_Summary__c.Site2_Connection_Type__c}-{!POC_Summary__c.Site2_Connection_Speed__c}</td>
+            <td>&nbsp;{!POC_Summary__c.Site2_Appliances__c}</td>
+            <td>&nbsp; {!IF(POC_Summary__c.NX_Count_Site2__c='2', POC_Summary__c.Site2_Appliances__c,'')} </td>
+            <td>&nbsp;{!POC_Summary__c.NX_SW_Version_Site2__c}</td>
+            <td>&nbsp;{!POC_Summary__c.Site2_Deployment_Mode__c}</td>
+        </tr>
+        <tr> 
+            <td>3</td>  
+            <td>&nbsp;{!POC_Summary__c.Installed_In_site3__c}</td>
+            <td>&nbsp;{!POC_Summary__c.Site3_Connection_Type__c}-{!POC_Summary__c.Site3_Connection_Speed__c}</td>
+            <td>&nbsp;{!POC_Summary__c.Site3_Appliances__c}</td>
+            <td>&nbsp; {!IF(POC_Summary__c.NX_Count_Site3__c='2',POC_Summary__c.Site3_Appliances__c,'')} </td>
+            <td>&nbsp;{!POC_Summary__c.NX_SW_Version_Site3__c}</td>
+            <td>&nbsp;{!POC_Summary__c.Site3_Deployment_Mode__c}</td>
+        </tr>
+        <tr>
+            <td>4</td>  
+            <td>&nbsp;{!POC_Summary__c.Installed_In_site4__c}</td>
+            <td>&nbsp;{!POC_Summary__c.Site4_Connection_Type__c}-{!POC_Summary__c.Site4_Connection_Speed__c}</td>
+            <td>&nbsp;{!POC_Summary__c.Site4_Appliances__c}</td>
+            <td>&nbsp;{!IF(POC_Summary__c.NX_Count_Site4__c='2',POC_Summary__c.Site4_Appliances__c,'')} </td>
+            <td>&nbsp;{!POC_Summary__c.NX_SW_Version_Site4__c}</td>
+            <td>&nbsp;{!POC_Summary__c.Site4_Deployment_Mode__c}</td>
+        </tr>
+    </table>
+    <br/>
+    <EM><b>WAN Metrics: </b></EM>
+    <table borderColor="#cccccc" cellSpacing="0" cellPadding="3" width="100%" bgColor="#ffffff" border="1">
+        <tr>
+          <td>&nbsp;<b>Link # </b></td>
+          <td>&nbsp;<b>Link Name</b></td>
+          <td>&nbsp;<b>Verified BW (Mbps)</b></td>
+          <td>&nbsp;<b>Verified RTT (ms)</b></td>
+          <td>&nbsp;<b>Verified Loss (%)</b></td>
+        </tr>
+        <tr>
+            <td>&nbsp;1</td>
+            <td>&nbsp;{!POC_Summary__c.Link_1_Name__c}</td>
+            <td>&nbsp;<apex:outputfield value="{!POC_Summary__c.Verified_BW_Mbps_Link1__c}"/></td>
+            <td>&nbsp;<apex:outputfield value="{!POC_Summary__c.Verified_RTT_ms_Link1__c}"/></td>
+            <td>&nbsp;<apex:outputfield value="{!POC_Summary__c.Verified_Loss_Link1__c}"/></td>
+        </tr>
+        <tr>
+            <td>&nbsp;2</td>
+            <td>&nbsp;{!POC_Summary__c.Link_2_Name__c}</td>
+            <td>&nbsp;<apex:outputfield value="{!POC_Summary__c.Verified_BW_Mbps_Link2__c}"/></td>
+            <td>&nbsp;<apex:outputfield value="{!POC_Summary__c.Verified_RTT_ms_Link2__c}"/></td>
+            <td>&nbsp;<apex:outputfield value="{!POC_Summary__c.Verified_Loss_Link2__c}"/></td>
+        </tr>
+        <tr>
+            <td>&nbsp;3</td>
+            <td>&nbsp;{!POC_Summary__c.Link_3_Name__c}</td>
+            <td>&nbsp;<apex:outputfield value="{!POC_Summary__c.Verified_BW_Mbps_Link3__c}"/></td>
+            <td>&nbsp;<apex:outputfield value="{!POC_Summary__c.Verified_RTT_ms_Link3__c}"/></td>
+            <td>&nbsp;<apex:outputfield value="{!POC_Summary__c.Verified_Loss_Link3__c}"/></td>
+        </tr>
+        <tr>
+            <td>&nbsp;4</td>
+            <td>&nbsp;{!POC_Summary__c.Link_4_Name__c}</td>
+            <td>&nbsp;<apex:outputfield value="{!POC_Summary__c.Verified_BW_Mbps_Link4__c}"/></td>
+            <td>&nbsp;<apex:outputfield value="{!POC_Summary__c.Verified_RTT_ms_Link4__c}"/></td>
+            <td>&nbsp;<apex:outputfield value="{!POC_Summary__c.Verified_Loss_Link4__c}"/></td>
+        </tr>
+        <tr>
+            <td>&nbsp;5</td>
+            <td>&nbsp;{!POC_Summary__c.Link_5_Name__c}</td>
+            <td>&nbsp;<apex:outputfield value="{!POC_Summary__c.Verified_BW_Mbps_Link5__c}"/></td>
+            <td>&nbsp;<apex:outputfield value="{!POC_Summary__c.Verified_RTT_ms_Link5__c}"/></td>
+            <td>&nbsp;<apex:outputfield value="{!POC_Summary__c.Verified_Loss_Link5__c}"/></td>
+        </tr>
+        <tr>
+            <td>&nbsp;6</td>
+            <td>&nbsp;{!POC_Summary__c.Link_6_Name__c}</td>
+            <td>&nbsp;<apex:outputfield value="{!POC_Summary__c.Verified_BW_Mbps_Link6__c}"/></td>
+            <td>&nbsp;<apex:outputfield value="{!POC_Summary__c.Verified_RTT_ms_Link6__c}"/></td>
+            <td>&nbsp;<apex:outputfield value="{!POC_Summary__c.Verified_Loss_Link6__c}"/></td>
+        </tr>
+    </table>
+    <br/>
+    <div style="page-break-inside: avoid; page-break-after: always">
+        <EM><b>POC Results:   </b></EM>
+        <table borderColor="#cccccc" cellSpacing="0" cellPadding="3" width="100%" bgColor="#ffffff" border="1">
+            <tr>
+              <td>&nbsp;<b>Result# </b></td>
+              <td>&nbsp;<b>What was Tested</b></td>
+              <td>&nbsp;<b>Metric Tested</b></td>
+              <td>&nbsp;<b>Baseline Value</b></td>
+              <td>&nbsp;<b>Success Criteria</b></td>
+              <td>&nbsp;<b>Actual Result</b></td>
+              <td>&nbsp;<b>Comments</b></td>
+            </tr>
+            <apex:variable value="{!1}" var="index"/>
+            <apex:repeat var="cx" value="{!POC_Summary__c.POC_Results__r}">
+                <tr>
+                    <td>{!FLOOR(index)}</td>
+                    <td>{!cx.What_was_tested__c}</td>
+                    <td>{!cx.Metric_Tested__c}</td>
+                    <td><apex:outputfield value="{!cx.Baseline_Value__c}"/></td>
+                    <td><apex:outputfield value="{!cx.Success_Criteria__c}"/></td>
+                    <td><apex:outputfield value="{!cx.Actual_Results__c}"/></td>
+                    <td><apex:outputfield value="{!cx.Comments__c}"/></td>
+                </tr>
+                <apex:variable value="{!index+1}" var="index"/>
+            </apex:repeat>
+        </table>
+    </div>
+    <br/>
+    <EM><b>POC Summary:   </b></EM> Free-form summary of the PoC experience. 
+    <table borderColor="#cccccc" cellSpacing="0" cellPadding="3" width="100%" bgColor="#ffffff" border="1">
+        <tr>
+            <td><apex:outputfield value="{!POC_Summary__c.POC_Summary__c}" />&nbsp;</td>
+        </tr>
+    </table>
+</apex:page>

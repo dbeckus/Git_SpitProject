@@ -1,0 +1,300 @@
+<apex:page controller="PartnerPortalDealRegController" showHeader="false" docType="html-5.0">
+    <apex:composition template="{!$Site.Template}">
+        <apex:define name="body">
+            <script>
+                $(document).ready(function() {
+                    if({!NOT(IsNewLead)}) {
+                        $("#main input, #main textarea, #main select").attr("disabled", "disabled");
+                        $(".dateFormat").hide();
+                    }
+                });
+            </script>
+            <div id="main">
+                <div id="Auth_Breadcrumb">
+                    <table class="BreadCrumb_CssClass" cellspacing="0" style="border-collapse:collapse;">
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <table border="0" cellpadding="0" cellspacing="0">
+                                        <tbody>
+                                            <tr>
+                                                <td>
+                                                    <div class="BreadCrumb_RootNodeCssClass" style="display:inline;">
+                                                        <a href="home">Home</a>
+                                                    </div>
+                                                </td>
+                                                <td>&nbsp;</td>
+                                                <td>
+                                                    <div class="BreadCrumb_ParentNodeCssClass" style="display:inline;">
+                                                        <a href="deals_overview">Deal Registration</a>
+                                                    </div>
+                                                </td>
+                                                <td>&nbsp;</td>
+                                                <td>
+                                                    <div class="BreadCrumb_SelectedNodeCssClass" style="display:inline;">
+                                                        <a href="register_deal">Register an Opportunity</a>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <article id="content_1col">
+                    <div class="txt">
+                        <div class="img-holder">
+                            <img src="{!URLFOR($Resource.PartnerPortal, 'images/img01.jpg')}" alt="Deal Registration" style="height:181px;width:293px;"/>
+                            <h1>
+                                Deal
+                                <br/>
+                                Registration
+                            </h1>
+                        </div>
+
+                        <p>
+                            To submit a new deal, simply fill out the forms below and click <strong>Submit</strong>. Fields with an asterisk (<span class="required_field">*</span>) are required.
+                        </p>
+                        <div class="clear"></div>
+
+                        <apex:form >
+                            <table border="0" cellpadding="0" cellspacing="0" width="100%" class="formTable">
+                                <tbody>
+                                    <tr>
+                                        <td widht="100%">
+                                            <apex:pageMessages />
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <h2>End Customer Information</h2>
+                            
+                            <table border="0" cellpadding="0" cellspacing="0" width="100%" class="formTable">
+                                <tbody>
+                                    <tr>
+                                        <td width="100">
+                                            <span>Company:</span> <em style="color: red;">*</em>
+                                        </td>
+                                        <td width="300">
+                                            <apex:inputField value="{!Lead.Company}" required="true" html-maxlength="255" />
+                                        </td>
+                                        <td width="160">
+                                            <span>Contact Title:</span> <em style="color: red;">*</em>
+                                        </td>
+                                        <td>
+                                            <apex:inputField value="{!Lead.Title}" required="true" html-maxlength="128" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <span>First Name:</span>
+                                            <em style="color: red;">*</em>
+                                        </td>
+                                        <td>
+                                            <apex:inputField value="{!Lead.FirstName}" required="true" html-maxlength="40" />
+                                        </td>
+                                        <td>
+                                            <span>Last Name:</span>
+                                            <em style="color: red;">*</em>
+                                        </td>
+                                        <td>
+                                            <apex:inputField value="{!Lead.LastName}" required="true" html-maxlength="80" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <span >Phone:</span>
+                                            <em style="color: red;">*</em>
+                                        </td>
+                                        <td>
+                                            <apex:inputField value="{!Lead.Phone}" required="true" html-maxlength="40" />
+                                        </td>
+                                        <td>
+                                            <span>Email:</span>
+                                            <em style="color: red;">*</em>
+                                        </td>
+                                        <td>
+                                            <apex:inputField value="{!Lead.Email}" type="email" required="true" html-maxlength="80" />
+                                        </td>
+                                    </tr>
+                                    <tr valign="top">
+                                        <td>
+                                            <span>Address:</span>
+                                            <em style="color: red;">*</em>
+                                        </td>
+                                        <td>
+                                            <apex:inputField value="{!Lead.Street}" required="true" html-rows="2" html-cols="20" style="width:260px;" />
+                                        </td>
+                                        <td>
+                                            <span>City:</span>
+                                            <em style="color: red;">*</em>
+                                        </td>
+                                        <td>
+                                            <apex:inputField value="{!Lead.City}" required="true" html-maxlength="40" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <span>State:</span>
+                                            <em style="color: red;">*</em>
+                                        </td>
+                                        <td>
+                                            <apex:inputField value="{!Lead.State}" required="true" html-maxlength="80" />
+                                        </td>
+                                        <td>
+                                            <span>Zip:</span>
+                                            <em style="color: red;">*</em>
+                                        </td>
+                                        <td>
+                                            <apex:inputField value="{!Lead.PostalCode}" required="true" html-maxlength="20" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <span>Country:</span>
+                                            <em style="color: red;">*</em>
+                                        </td>
+                                        <td>
+                                            <apex:inputField value="{!TemporaryAddress.Country__c}" required="true" html-maxlength="80" />
+                                        </td>
+                                        <apex:outputPanel rendered="{!NOT(ISBLANK(DealID))}">
+                                            <td>
+                                                <span>Deal ID:</span>
+                                            </td>
+                                            <td>
+                                                <apex:inputText value="{!DealID}" disabled="true" />
+                                            </td>
+                                        </apex:outputPanel>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+
+                            <br/>
+                            <h2>Reseller Qualification Information</h2>
+                            <table border="0" cellpadding="0" cellspacing="0" width="100%" class="formTable">
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <span >Project Name:</span>
+                                            <em style="color: red;">*</em>
+                                        </td>
+                                        <td>
+                                            <apex:inputField value="{!Lead.Project_Name__c}" required="true" html-maxlength="50" />
+                                        </td>
+                                        <td>
+                                            <span>Estimated Close Date:</span>
+                                            <em style="color: red;">*</em>
+                                        </td>
+                                        <td>
+                                            <apex:inputField value="{!Lead.Estimated_Close_Date__c}" required="true" html-maxlength="20" style="width: 260px;" />
+                                            <span></span>
+                                        </td>
+                                    </tr>
+                                    <tr valign="top">
+                                        <td>
+                                            <span>Project Description:</span>
+                                            <em style="color: red;">*</em>
+                                        </td>
+                                        <td colspan="3">
+                                            <apex:inputField value="{!Lead.Project_Description__c}" required="true" html-rows="2" html-cols="20" style="width:560px;" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <span>Project Budgeted:</span>
+                                        </td>
+                                        <td>
+                                            <apex:inputField value="{!Lead.Project_Budgeted__c}" />
+                                            Yes
+                                        </td>
+                                        <td>
+                                            <span>Project Budget Amount:</span>
+                                            <em style="color: red;">*</em>
+                                        </td>
+                                        <td>
+                                            <apex:inputField value="{!Lead.Project_Budget_Amount__c}" required="true" html-maxlength="25" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <span>Competitive Deal:</span>
+                                        </td>
+                                        <td>
+                                            <apex:inputField value="{!Lead.Competitive_Deal__c}" />
+                                            Yes
+                                        </td>
+                                        <td>
+                                            <span>Competition:</span>
+                                        </td>
+                                        <td>
+                                            <apex:inputField value="{!Lead.Competition__c}" html-maxlength="80" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <span>Deal Source:</span>
+                                            <em style="color: red;">*</em>
+                                        </td>
+                                        <td>
+                                            <apex:inputField value="{!Lead.Deal_Source__c}" required="true" style="width:133px;" />
+                                        </td>
+                                        <td>
+                                            <span>Distributor/Reseller:</span>
+                                        </td>
+                                        <td>
+                                            <apex:inputField value="{!Lead.Distributor__c}" html-maxlength="100" style="width:133px;"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <span>Deal Type</span>
+                                            <em style="color: red;">*</em>
+                                        </td>
+                                        <td colspan="3">
+                                            <apex:inputField value="{!Lead.Deal_Type__c}" required="true" style="width:133px;" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="4">
+                                            <apex:commandButton value="Submit" action="{!submit}" styleClass="btn" rendered="{!IsNewLead}" />
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </apex:form>
+                    </div>
+                </article>
+
+                <div class="clear"></div>
+                <div class="socialmedia">
+                    <nav class="social">
+                        <ul>
+                            <li>
+                                <a class="facebook" target="_blank" href="http://facebook.com/SilverPeakSystems">facebook</a>
+                            </li>
+                            <li>
+                                <a class="blog" target="_blank" href="http://blog.silver-peak.com/">blog</a>
+                            </li>
+                            <li>
+                                <a class="twitter" target="_blank" href="https://twitter.com/silverpeak">twitter</a>
+                            </li>
+                            <li>
+                                <a class="linkedin" target="_blank" href="http://www.linkedin.com/company/silver-peak-systems">linkedin</a>
+                            </li>
+                            <li>
+                                <a class="youtube" target="_blank" href="http://www.youtube.com/user/silverpeaksystems">youtube</a>
+                            </li>
+                            <li>
+                                <a class="rss" target="_blank" href="http://feeds.feedburner.com/WANspeak">rss</a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </apex:define>
+    </apex:composition>
+</apex:page>

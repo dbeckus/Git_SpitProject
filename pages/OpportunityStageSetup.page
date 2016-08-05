@@ -1,0 +1,80 @@
+<apex:page controller="OpportunityStageSetupController" tabStyle="MiscellaneousSetup__tab" sidebar="false" action="{!init}">
+    <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css" />
+    <style>
+        .matrix {
+            width: 100%;
+            background-color: #fff;
+            border: 1px solid #e0e3e5;
+        }
+        .matrix th {
+            text-align: center;
+            background: #f2f3f3;
+            border-width: 0 0 1px 1px;
+            border-color: #e0e3e5;
+            color: #000;
+            font-size: .9em;
+            font-weight: bold;
+            padding: 5px 2px 4px 5px;
+            border: 1px solid #ededed;
+        }
+        .matrix th:first-child {
+            border-left-width: 0;
+        }
+        .matrix .vheader {
+            padding-left: 3px;
+        }
+        .matrix .check {
+            text-align: center;
+        }
+        .matrix .bar {
+            font-size: 14px;
+            line-height: 24px;
+            background-color: rgb(3, 206, 245);
+            color: white;
+            padding-left: 3px;
+        }
+        .matrix .row:hover td {
+            background-color: #e3f3ff;
+        }
+        .matrix .row td {
+            border-bottom: rgb(245, 245, 245) solid 1px;
+        }
+    </style>
+    <script>
+        $(function() {
+            $(".check input").tooltip();
+          });
+    </script>
+    <apex:sectionHeader title="Opportunity Stage Setup"/>
+    <a href="/apex/MiscellaneousSetup">« Back to Miscellaneous Setup</a>
+    <apex:form >
+        <apex:pageMessages />
+        <apex:pageBlock >
+            <apex:pageBlockButtons location="bottom" >
+                <apex:commandButton value="Save" action="{!save}" />
+                <apex:commandButton value="Reset" action="{!init}" />
+            </apex:pageBlockButtons>
+            <table class="matrix" cellspacing="0" cellpadding="0">
+                <tr>
+                    <th></th>
+                    <apex:repeat value="{!StageOptions}" var="stage">
+                        <th>{!stage}</th>
+                    </apex:repeat>
+                </tr>
+                <apex:repeat value="{!StageMatrix}" var="fromStage">
+                    <tr class="row">
+                        <td class="vheader">{!fromStage.StageName}</td>
+                        <apex:repeat value="{!fromStage.ToStages}" var="toStage">
+                            <td class="check">
+                                <apex:inputCheckbox value="{!toStage.IsChecked}" title="{!fromStage.StageName + ' -> ' + toStage.StageName}" rendered="{!fromStage.StageName != toStage.StageName}" />
+                                <apex:image value="/img/checkbox_checked.gif" rendered="{!fromStage.StageName == toStage.StageName}"/>
+                            </td>
+                        </apex:repeat>
+                    </tr>
+                </apex:repeat>
+            </table>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

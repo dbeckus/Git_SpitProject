@@ -1,0 +1,7 @@
+<apex:page showHeader="true" tabstyle="Purchase_Appliances__tab">
+  <!-- Begin Default Content REMOVE THIS -->
+
+ <apex:ListViews type="Asset" />
+
+  <!-- End Default Content REMOVE THIS -->
+</apex:page>

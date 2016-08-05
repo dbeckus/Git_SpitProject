@@ -1,0 +1,155 @@
+<apex:page showheader="false" controller="PartnerPortalLoginController">
+    <apex:composition template="PartnerCommunityTemplate">
+    <apex:define name="body">
+    <style>
+        .body input.btn, body input.btnDisabled, body input.btnCancel {
+            padding: 20px 0px;
+        }
+        
+        .form-signin .btn-primary {
+            color: #fff;
+            background-color: #337ab7;
+            border-color: #2e6da4;
+        }
+
+        .requestBtnContainer {margin-top:68px}
+        .partner-tab ul {
+            float: right;
+            margin-bottom: 0px;
+            border-right: 1px solid #e6e6e6;
+            padding: 0;
+            margin-right: 20%;
+        }
+        .partner-tab ul li {
+            float: left;
+            display: block;
+            border-left: 1px solid #e6e6e6;
+            margin: 0;
+        }
+
+        .wrapper {
+        /* Delete the inline css on the wrapper element */
+            margin: 40px 15%;   
+        }
+
+        .form-signin {
+            /* Delete any other version of this rule */
+            padding-bottom: 10px;
+            display: inline-block;
+            float: left;
+            margin-right: 20px;
+            min-height: 350px;
+            width: 45%;
+            border-radius: 4px;
+            max-width: 380px;
+            padding: 20px 30px 20px;
+            border: 1px solid #E2E2E2;
+        }
+    
+        .form-signin-heading {
+            font-size: 2em;
+            margin: 0 0 20px 0;
+            display: block;
+        }
+    
+        .loginBtnContainer {
+            width: 100%;
+            display: block;
+        }
+
+        .body button, body .x-btn, body .btn, body .btnDisabled, body .btnCancel, body .menuButton .menuButtonButton, .form-signin .btn-primary {
+            color: #FFF;
+            margin: 0;
+            font-weight: 400;
+            font-size: 1.2em;
+            line-height: .9em;
+            border-radius: 3px;
+            text-transform: uppercase;
+            border: none;
+            padding: 20px 0;
+            width: 100%;
+            background-image: none;
+        }
+
+        .form-signin .btn-primary:hover {
+            background-color: #275984;
+        }
+
+        
+
+        .btn-group-lg>.btn, .btn-lg {
+            line-height: .9;
+            padding: 20px 0px;
+        }
+    
+        .loginLinkContainer {
+            float: right;
+            margin-top: 25px;
+        }
+    
+        .loginLinkContainer .loginLink {
+            display: block;
+            line-height: 25px;
+            text-align: right;
+            font-family: 'GillSansMT-Light';
+        }
+    
+        .form-signin .requestBtnContainer input {
+            background-color: #D8D8D8;
+            color: #255884;
+            padding: 20px 0;
+        }
+    
+        .form-signin .requestBtnContainer input:hover {
+            color: #000;
+            background-color: #C3C3C3;
+        }
+
+
+    @media only screen and (max-width: 600px) {
+        .form-signin {
+            width: 100%;
+            max-width: auto;
+            max-height: none;
+            margin-bottom: 35px;
+            display: block;
+        }
+    }
+    </style>
+    <script>
+        if(window.location.hostname == "partner.silver-peak.com") {
+            window.location.href = window.location.href.replace("partner.", "partners.");
+        }
+    </script>
+    <div>
+        <div class="wrapper" >
+            <div class="signin-logo"></div>
+            <apex:pageMessages />
+            <apex:form styleClass="form-signin">
+                <h3 class="form-signin-heading">Sign In</h3>
+                <apex:inputText styleClass="form-control" value="{!username}" html-placeholder="Email" />
+                <apex:inputSecret styleClass="form-control" value="{!password}" html-placeholder="Password" />
+                <div class="loginBtnContainer">
+                    <apex:commandButton action="{!login}" styleClass="btn btn-lg btn-primary btn-block loginBtn" value="Login" />
+                </div>
+                <div class="loginLinkContainer">
+                    <a href="/PartnerPortalForgotPassword" class="loginLink">Forgot your Password?</a>
+                    <!--<a href="/PartnerPortalIndividualReg" class="loginLink">New user? Register Here</a>-->
+                    <a href="mailto:channel@silver-peak.com" class="loginLink">Contact Partner Support</a>
+                </div>
+                <div style="clear:both"></div>
+            </apex:form>
+            <apex:form styleClass="form-signin"> 
+                <h3 class="form-signin-heading">Request Login</h3>
+                <p>Need Access to the Silver Peak Partner Portal (BaseCamp)?</p>
+                <div class="requestBtnContainer">
+                    <apex:commandButton value="Request Login" onclick="window.open('/PartnerPortalIndividualReg')" />
+                </div>
+            </apex:form>
+            <div style="clear:both"></div>
+        </div>    
+    </div>
+    
+    </apex:define>
+    </apex:composition>
+</apex:page>

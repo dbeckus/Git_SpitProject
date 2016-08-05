@@ -1,0 +1,996 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>POC Request</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>POC Requests</value>
+    </caseValues>
+    <fields>
+        <label><!-- Account Name --></label>
+        <name>AccountName__c</name>
+    </fields>
+    <fields>
+        <label><!-- Account Manager Email 1 --></label>
+        <name>Account_Manager_Email_1__c</name>
+    </fields>
+    <fields>
+        <label><!-- Account Manager Email 2 --></label>
+        <name>Account_Manager_Email_2__c</name>
+    </fields>
+    <fields>
+        <label><!-- ActiveForNotices --></label>
+        <name>ActiveForNotices__c</name>
+    </fields>
+    <fields>
+        <label><!-- Actual Ship Date --></label>
+        <name>Actual_Ship_Date__c</name>
+    </fields>
+    <fields>
+        <label><!-- Allow Fulfillment --></label>
+        <name>Allow_Fulfillment__c</name>
+    </fields>
+    <fields>
+        <help><!-- set by trigger creation of the POC --></help>
+        <label><!-- Auto Fulfill --></label>
+        <name>Auto_Fulfill__c</name>
+    </fields>
+    <fields>
+        <label><!-- Bandwidth --></label>
+        <name>Bandwidth__c</name>
+        <picklistValues>
+            <masterLabel>&lt;2Mb</masterLabel>
+            <translation><!-- &lt;2Mb --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>&gt;10Mb</masterLabel>
+            <translation><!-- &gt;10Mb --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>&gt;2Mb</masterLabel>
+            <translation><!-- &gt;2Mb --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>&gt;30Mb</masterLabel>
+            <translation><!-- &gt;30Mb --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Days Remaining to Expire --></label>
+        <name>Days_Remaining_to_Expire__c</name>
+    </fields>
+    <fields>
+        <label><!-- EdgeConnect POC --></label>
+        <name>EdgeConnect_POC__c</name>
+    </fields>
+    <fields>
+        <label><!-- End Customer Name 1 --></label>
+        <name>EndCustomerName1__c</name>
+    </fields>
+    <fields>
+        <label><!-- End Customer Name 2 --></label>
+        <name>EndCustomerName2__c</name>
+    </fields>
+    <fields>
+        <label><!-- End Customer Name 3 --></label>
+        <name>EndCustomerName3__c</name>
+    </fields>
+    <fields>
+        <label><!-- End Customer Name 4 --></label>
+        <name>EndCustomerName4__c</name>
+    </fields>
+    <fields>
+        <label><!-- End Customer Name 5 --></label>
+        <name>EndCustomerName5__c</name>
+    </fields>
+    <fields>
+        <label><!-- Estimated Ship Date --></label>
+        <name>Estimated_Ship_Date__c</name>
+    </fields>
+    <fields>
+        <label><!-- Eval Network --></label>
+        <name>Eval_Network__c</name>
+        <picklistValues>
+            <masterLabel>Production</masterLabel>
+            <translation><!-- Production --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Simulated</masterLabel>
+            <translation><!-- Simulated --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Evaluation Product Hypervisor --></label>
+        <name>EvaluationProductHypervisor__c</name>
+        <picklistValues>
+            <masterLabel>Citrix Xen</masterLabel>
+            <translation><!-- Citrix Xen --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>KVM</masterLabel>
+            <translation><!-- KVM --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Microsoft Hyper V</masterLabel>
+            <translation><!-- Microsoft Hyper V --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>VMWare</masterLabel>
+            <translation><!-- VMWare --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Evaluation Product 1 --></label>
+        <name>Evaluation_Product_1__c</name>
+        <picklistValues>
+            <masterLabel>GMS-10 on GX-V</masterLabel>
+            <translation><!-- GMS-10 on GX-V --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>NX 1700</masterLabel>
+            <translation><!-- NX 1700 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>NX 2700</masterLabel>
+            <translation><!-- NX 2700 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>NX 3700</masterLabel>
+            <translation><!-- NX 3700 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>NX 5700</masterLabel>
+            <translation><!-- NX 5700 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>NX 7700</masterLabel>
+            <translation><!-- NX 7700 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>NX 8700</masterLabel>
+            <translation><!-- NX 8700 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>NX 9700</masterLabel>
+            <translation><!-- NX 9700 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>VRX-2</masterLabel>
+            <translation><!-- VRX-2 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>VRX-4</masterLabel>
+            <translation><!-- VRX-4 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>VRX-6</masterLabel>
+            <translation><!-- VRX-6 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>VRX-8</masterLabel>
+            <translation><!-- VRX-8 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>VX 1000</masterLabel>
+            <translation><!-- VX 1000 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>VX 2000</masterLabel>
+            <translation><!-- VX 2000 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>VX 3000</masterLabel>
+            <translation><!-- VX 3000 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>VX 500</masterLabel>
+            <translation><!-- VX 500 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>VX 5000</masterLabel>
+            <translation><!-- VX 5000 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>VX 6000</masterLabel>
+            <translation><!-- VX 6000 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>VX 7000</masterLabel>
+            <translation><!-- VX 7000 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>VX 8000</masterLabel>
+            <translation><!-- VX 8000 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>VX 9000</masterLabel>
+            <translation><!-- VX 9000 --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Evaluation Product 2 --></label>
+        <name>Evaluation_Product_2__c</name>
+        <picklistValues>
+            <masterLabel>GMS-10 on GX-V</masterLabel>
+            <translation><!-- GMS-10 on GX-V --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>NX 1700</masterLabel>
+            <translation><!-- NX 1700 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>NX 2700</masterLabel>
+            <translation><!-- NX 2700 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>NX 3700</masterLabel>
+            <translation><!-- NX 3700 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>NX 5700</masterLabel>
+            <translation><!-- NX 5700 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>NX 7700</masterLabel>
+            <translation><!-- NX 7700 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>NX 8700</masterLabel>
+            <translation><!-- NX 8700 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>NX 9700</masterLabel>
+            <translation><!-- NX 9700 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>VRX-2</masterLabel>
+            <translation><!-- VRX-2 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>VRX-4</masterLabel>
+            <translation><!-- VRX-4 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>VRX-6</masterLabel>
+            <translation><!-- VRX-6 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>VRX-8</masterLabel>
+            <translation><!-- VRX-8 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>VX 1000</masterLabel>
+            <translation><!-- VX 1000 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>VX 2000</masterLabel>
+            <translation><!-- VX 2000 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>VX 3000</masterLabel>
+            <translation><!-- VX 3000 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>VX 500</masterLabel>
+            <translation><!-- VX 500 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>VX 5000</masterLabel>
+            <translation><!-- VX 5000 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>VX 6000</masterLabel>
+            <translation><!-- VX 6000 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>VX 7000</masterLabel>
+            <translation><!-- VX 7000 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>VX 8000</masterLabel>
+            <translation><!-- VX 8000 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>VX 9000</masterLabel>
+            <translation><!-- VX 9000 --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <help><!-- Will you need expedited shipping for hardware? --></help>
+        <label><!-- Expedited Shipping? --></label>
+        <name>Expedited_Shipping__c</name>
+        <picklistValues>
+            <masterLabel>No</masterLabel>
+            <translation><!-- No --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Yes</masterLabel>
+            <translation><!-- Yes --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <help><!-- Input your justification and resubmit for approval --></help>
+        <label><!-- Why is an extension needed? --></label>
+        <name>Extension_Justification__c</name>
+    </fields>
+    <fields>
+        <label><!-- First Extension Granted --></label>
+        <name>First_Extension_Granted__c</name>
+    </fields>
+    <fields>
+        <label><!-- GMS Ship To --></label>
+        <name>GMS_Needed__c</name>
+        <picklistValues>
+            <masterLabel>Hosted</masterLabel>
+            <translation><!-- Hosted --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>None Req&apos;d</masterLabel>
+            <translation><!-- None Req&apos;d --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Site1</masterLabel>
+            <translation><!-- Site1 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Site2</masterLabel>
+            <translation><!-- Site2 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Virtual</masterLabel>
+            <translation><!-- Virtual --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Has Phone --></label>
+        <name>Has_Phone__c</name>
+    </fields>
+    <fields>
+        <help><!-- Hardware Shipping Outside US Required? --></help>
+        <label><!-- International Shipping? --></label>
+        <name>International_Shipping__c</name>
+        <picklistValues>
+            <masterLabel>No</masterLabel>
+            <translation><!-- No --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Yes</masterLabel>
+            <translation><!-- Yes --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- IsAllVirtual --></label>
+        <name>IsAllVirtual__c</name>
+    </fields>
+    <fields>
+        <label><!-- Is Closed --></label>
+        <name>IsClosed__c</name>
+    </fields>
+    <fields>
+        <label><!-- Latency (msecs) --></label>
+        <name>Latency__c</name>
+    </fields>
+    <fields>
+        <label><!-- Loss % --></label>
+        <name>Loss__c</name>
+    </fields>
+    <fields>
+        <label><!-- Marketplace Sourced Opp --></label>
+        <name>Marketplace_Sourced_Opp__c</name>
+    </fields>
+    <fields>
+        <help><!-- These notes go to Chris Helfer to get additional feedback from him before shipping --></help>
+        <label><!-- Need Additional Approval For --></label>
+        <name>Need_Additional_Approval_For__c</name>
+    </fields>
+    <fields>
+        <label><!-- Number of Appliances --></label>
+        <name>Number_of_Appliances__c</name>
+    </fields>
+    <fields>
+        <label><!-- OppStage --></label>
+        <name>OppStage__c</name>
+    </fields>
+    <fields>
+        <label><!-- Opportunity Owner --></label>
+        <name>Opportunity_Owner__c</name>
+    </fields>
+    <fields>
+        <label><!-- Opportunity --></label>
+        <name>Opportunity__c</name>
+        <relationshipLabel><!-- POC Requests --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Oppty Amount --></label>
+        <name>Oppty_Amount__c</name>
+    </fields>
+    <fields>
+        <label><!-- Original POC End Date --></label>
+        <name>Original_POC_End_Date__c</name>
+    </fields>
+    <fields>
+        <help><!-- link to contact record for POC communications --></help>
+        <label><!-- POC Contact --></label>
+        <name>POC_Contact__c</name>
+        <relationshipLabel><!-- POC Requests --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- POC Type --></label>
+        <name>POC_Type__c</name>
+        <picklistValues>
+            <masterLabel>EdgeConnect</masterLabel>
+            <translation><!-- EdgeConnect --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Service Provider</masterLabel>
+            <translation><!-- Service Provider --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>WAN Op</masterLabel>
+            <translation><!-- WAN Op --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <help><!-- check if this is only partially shipped --></help>
+        <label><!-- Partial Ship --></label>
+        <name>Partial_Ship__c</name>
+    </fields>
+    <fields>
+        <label><!-- Physical Location1 --></label>
+        <name>PhysicalLocation1__c</name>
+    </fields>
+    <fields>
+        <label><!-- Physical Location2 --></label>
+        <name>PhysicalLocation2__c</name>
+    </fields>
+    <fields>
+        <label><!-- Physical Location3 --></label>
+        <name>PhysicalLocation3__c</name>
+    </fields>
+    <fields>
+        <label><!-- Physical Location4 --></label>
+        <name>PhysicalLocation4__c</name>
+    </fields>
+    <fields>
+        <label><!-- Physical Location5 --></label>
+        <name>PhysicalLocation5__c</name>
+    </fields>
+    <fields>
+        <label><!-- Physical Product1 --></label>
+        <name>PhysicalProduct1__c</name>
+        <picklistValues>
+            <masterLabel>NX 10700</masterLabel>
+            <translation><!-- NX 10700 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>NX 1700</masterLabel>
+            <translation><!-- NX 1700 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>NX 2700</masterLabel>
+            <translation><!-- NX 2700 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>NX 3700</masterLabel>
+            <translation><!-- NX 3700 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>NX 5700</masterLabel>
+            <translation><!-- NX 5700 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>NX 6700</masterLabel>
+            <translation><!-- NX 6700 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>NX 7700</masterLabel>
+            <translation><!-- NX 7700 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>NX 8700</masterLabel>
+            <translation><!-- NX 8700 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>NX 9700</masterLabel>
+            <translation><!-- NX 9700 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>NX700</masterLabel>
+            <translation><!-- NX700 --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Physical Product2 --></label>
+        <name>PhysicalProduct2__c</name>
+    </fields>
+    <fields>
+        <label><!-- Physical Product3 --></label>
+        <name>PhysicalProduct3__c</name>
+    </fields>
+    <fields>
+        <label><!-- Physical Product4 --></label>
+        <name>PhysicalProduct4__c</name>
+    </fields>
+    <fields>
+        <label><!-- Physical Product5 --></label>
+        <name>PhysicalProduct5__c</name>
+    </fields>
+    <fields>
+        <label><!-- Physical Quantity1 --></label>
+        <name>PhysicalQuantity1__c</name>
+    </fields>
+    <fields>
+        <label><!-- Physical Quantity2 --></label>
+        <name>PhysicalQuantity2__c</name>
+    </fields>
+    <fields>
+        <label><!-- Physical Quantity3 --></label>
+        <name>PhysicalQuantity3__c</name>
+    </fields>
+    <fields>
+        <label><!-- Physical Quantity4 --></label>
+        <name>PhysicalQuantity4__c</name>
+    </fields>
+    <fields>
+        <label><!-- Physical Quantity5 --></label>
+        <name>PhysicalQuantity5__c</name>
+    </fields>
+    <fields>
+        <help><!-- Enter the contact name for the person to be granted Portal Access duing the POC --></help>
+        <label><!-- Portal Access Contact --></label>
+        <name>Portal_Access_Contact__c</name>
+    </fields>
+    <fields>
+        <help><!-- Email address for portal contact requested for POC. Must be correct as this is where the username and password will be sent once activated --></help>
+        <label><!-- Portal Contact Email --></label>
+        <name>Portal_Contact_Email__c</name>
+    </fields>
+    <fields>
+        <label><!-- Priority --></label>
+        <name>Priority__c</name>
+        <picklistValues>
+            <masterLabel>P1 - Urgent</masterLabel>
+            <translation><!-- P1 - Urgent --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>P2 - High</masterLabel>
+            <translation><!-- P2 - High --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>P3 - Medium</masterLabel>
+            <translation><!-- P3 - Medium --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>P4 - Low</masterLabel>
+            <translation><!-- P4 - Low --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <help><!-- What problem is the customer trying to solve? --></help>
+        <label><!-- Define Problem? --></label>
+        <name>Problem_Criteria__c</name>
+    </fields>
+    <fields>
+        <help><!-- Is there budget for this project? --></help>
+        <label><!-- Project Budget? --></label>
+        <name>Project_Budget__c</name>
+        <picklistValues>
+            <masterLabel>No</masterLabel>
+            <translation><!-- No --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Yes</masterLabel>
+            <translation><!-- Yes --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Quantity - Location 1 --></label>
+        <name>Quantity_Location_1__c</name>
+    </fields>
+    <fields>
+        <label><!-- Quantity - Location 2 --></label>
+        <name>Quantity_Location_2__c</name>
+    </fields>
+    <fields>
+        <label><!-- RSM Approved --></label>
+        <name>RSM_Approved__c</name>
+    </fields>
+    <fields>
+        <label><!-- RSM Sales Director --></label>
+        <name>RSM_Manager__c</name>
+        <relationshipLabel><!-- POC Requests (RSM Sales Director) --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- RSM VP Sales --></label>
+        <name>RSM_VP_Sales__c</name>
+        <relationshipLabel><!-- POC Requests (RSM VP Sales) --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- RSM --></label>
+        <name>RSM__c</name>
+        <relationshipLabel><!-- POC Requests (RSM) --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Requested Delivery Date --></label>
+        <name>Requested_Delivery_Date__c</name>
+    </fields>
+    <fields>
+        <label><!-- Extend to Date --></label>
+        <name>Requested_End_Date__c</name>
+    </fields>
+    <fields>
+        <label><!-- Return Date --></label>
+        <name>Return_Date__c</name>
+    </fields>
+    <fields>
+        <label><!-- SE Director --></label>
+        <name>SE_Director__c</name>
+        <relationshipLabel><!-- POC Requests (SE Director) --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- SE Email Address --></label>
+        <name>SE_Email_Address__c</name>
+    </fields>
+    <fields>
+        <label><!-- SE Manager --></label>
+        <name>SE_Manager__c</name>
+        <relationshipLabel><!-- POC Requests (SE Manager) --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- SE --></label>
+        <name>SE__c</name>
+        <relationshipLabel><!-- POC Requests (SE) --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Second Extension Granted --></label>
+        <name>Second_Extension_Granted__c</name>
+    </fields>
+    <fields>
+        <label><!-- Send Email --></label>
+        <name>Send_Email__c</name>
+    </fields>
+    <fields>
+        <label><!-- Sending Reminder Email --></label>
+        <name>Sending_Reminder_Email__c</name>
+    </fields>
+    <fields>
+        <label><!-- Ship To Contact (if different than POC) --></label>
+        <name>Ship_To_Contact__c</name>
+    </fields>
+    <fields>
+        <label><!-- Ship To - Location 1 --></label>
+        <name>Ship_To_Location_1__c</name>
+    </fields>
+    <fields>
+        <label><!-- Ship To - Location 2 --></label>
+        <name>Ship_To_Location_2__c</name>
+    </fields>
+    <fields>
+        <help><!-- Enter the phone number for the shipping contact here. We can&apos;t ship without a phone number!!! --></help>
+        <label><!-- Shipping Contact Phone --></label>
+        <name>Shipping_Contact_Phone__c</name>
+    </fields>
+    <fields>
+        <label><!-- Status --></label>
+        <name>Status__c</name>
+        <picklistValues>
+            <masterLabel>Approved to Ship</masterLabel>
+            <translation><!-- Approved to Ship --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Closed - Denied</masterLabel>
+            <translation><!-- Closed - Denied --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Closed - Returned</masterLabel>
+            <translation><!-- Closed - Returned --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Closed - Won</masterLabel>
+            <translation><!-- Closed - Won --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Open</masterLabel>
+            <translation><!-- Open --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Pending Approvals</masterLabel>
+            <translation><!-- Pending Approvals --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Pending Return</masterLabel>
+            <translation><!-- Pending Return --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Pending Return - Invoiced</masterLabel>
+            <translation><!-- Pending Return - Invoiced --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Shipped</masterLabel>
+            <translation><!-- Shipped --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Shipped - Extended</masterLabel>
+            <translation><!-- Shipped - Extended --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Submission Condition Satisfied --></label>
+        <name>Submission_Condition_Satisfied__c</name>
+    </fields>
+    <fields>
+        <label><!-- Submission Requirements --></label>
+        <name>Submission_Requirements__c</name>
+    </fields>
+    <fields>
+        <help><!-- What is the success criteria? --></help>
+        <label><!-- Success Criteria? --></label>
+        <name>Success_Criteria__c</name>
+    </fields>
+    <fields>
+        <label><!-- System Engineer Email 1 --></label>
+        <name>System_Engineer_Email_1__c</name>
+    </fields>
+    <fields>
+        <label><!-- System Engineer Email 2 --></label>
+        <name>System_Engineer_Email_2__c</name>
+    </fields>
+    <fields>
+        <label><!-- TRLinkEmail --></label>
+        <name>TRLinkEmail__c</name>
+    </fields>
+    <fields>
+        <label><!-- SE Approved --></label>
+        <name>TR_Approved__c</name>
+    </fields>
+    <fields>
+        <label><!-- SE Email --></label>
+        <name>TR_Email__c</name>
+    </fields>
+    <fields>
+        <label><!-- Target End Date Duration --></label>
+        <name>Target_End_Date_Duration__c</name>
+    </fields>
+    <fields>
+        <help><!-- This is the date the POC request is approved to run to --></help>
+        <label><!-- Target End Date --></label>
+        <name>Target_End_Date__c</name>
+    </fields>
+    <fields>
+        <help><!-- Set by automation --></help>
+        <label><!-- Tech Responsible Email --></label>
+        <name>Tech_Responsible_Email__c</name>
+    </fields>
+    <fields>
+        <help><!-- What is going to be tested as part of the evaluation? --></help>
+        <label><!-- Testing Criteria? --></label>
+        <name>Testing_Criteria__c</name>
+    </fields>
+    <fields>
+        <label><!-- Trigger POC Approvers --></label>
+        <name>Trigger_POC_Approvers__c</name>
+    </fields>
+    <fields>
+        <label><!-- Trigger POC Email --></label>
+        <name>Trigger_POC_Email__c</name>
+    </fields>
+    <fields>
+        <label><!-- Type --></label>
+        <name>Type__c</name>
+        <picklistValues>
+            <masterLabel>Discount</masterLabel>
+            <translation><!-- Discount --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Evaluation</masterLabel>
+            <translation><!-- Evaluation --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Wan Emulator</masterLabel>
+            <translation><!-- Wan Emulator --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Virtual Product1 --></label>
+        <name>VirtualProduct1__c</name>
+        <picklistValues>
+            <masterLabel>GMS-10</masterLabel>
+            <translation><!-- GMS-10 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Unity Cloud Intelligence</masterLabel>
+            <translation><!-- Unity Cloud Intelligence --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>VRX-2</masterLabel>
+            <translation><!-- VRX-2 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>VRX-4</masterLabel>
+            <translation><!-- VRX-4 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>VRX-6</masterLabel>
+            <translation><!-- VRX-6 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>VRX-8</masterLabel>
+            <translation><!-- VRX-8 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>VX 1000</masterLabel>
+            <translation><!-- VX 1000 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>VX 2000</masterLabel>
+            <translation><!-- VX 2000 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>VX 3000</masterLabel>
+            <translation><!-- VX 3000 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>VX 500</masterLabel>
+            <translation><!-- VX 500 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>VX 5000</masterLabel>
+            <translation><!-- VX 5000 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>VX 6000</masterLabel>
+            <translation><!-- VX 6000 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>VX 7000</masterLabel>
+            <translation><!-- VX 7000 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>VX 8000</masterLabel>
+            <translation><!-- VX 8000 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>VX 9000</masterLabel>
+            <translation><!-- VX 9000 --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Virtual Product2 --></label>
+        <name>VirtualProduct2__c</name>
+    </fields>
+    <fields>
+        <label><!-- Virtual Product3 --></label>
+        <name>VirtualProduct3__c</name>
+    </fields>
+    <fields>
+        <label><!-- Virtual Product4 --></label>
+        <name>VirtualProduct4__c</name>
+    </fields>
+    <fields>
+        <label><!-- Virtual Product5 --></label>
+        <name>VirtualProduct5__c</name>
+    </fields>
+    <fields>
+        <label><!-- Virtual Quantity1 --></label>
+        <name>VirtualQuantity1__c</name>
+    </fields>
+    <fields>
+        <label><!-- Virtual Quantity2 --></label>
+        <name>VirtualQuantity2__c</name>
+    </fields>
+    <fields>
+        <label><!-- Virtual Quantity3 --></label>
+        <name>VirtualQuantity3__c</name>
+    </fields>
+    <fields>
+        <label><!-- Virtual Quantity4 --></label>
+        <name>VirtualQuantity4__c</name>
+    </fields>
+    <fields>
+        <label><!-- Virtual Quantity5 --></label>
+        <name>VirtualQuantity5__c</name>
+    </fields>
+    <fields>
+        <help><!-- Duration for the eval license key to be generated for --></help>
+        <label><!-- Virtual Eval License Duration --></label>
+        <name>Virtual_Eval_License_Duration__c</name>
+        <picklistValues>
+            <masterLabel>30 Days</masterLabel>
+            <translation><!-- 30 Days --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>60 Days</masterLabel>
+            <translation><!-- 60 Days --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- eval_length --></label>
+        <name>eval_length__c</name>
+    </fields>
+    <layouts>
+        <layout>Request Layout</layout>
+        <sections>
+            <label><!-- Approver Section --></label>
+            <section>Approver Section</section>
+        </sections>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+        <sections>
+            <label><!-- Extension Request --></label>
+            <section>Extension Request</section>
+        </sections>
+        <sections>
+            <label><!-- Products and Ship To --></label>
+            <section>Products and Ship To</section>
+        </sections>
+        <sections>
+            <label><!-- Success Criteria --></label>
+            <section>Success Criteria</section>
+        </sections>
+    </layouts>
+    <startsWith>Consonant</startsWith>
+    <validationRules>
+        <errorMessage><!-- Both the RSM and Technically Responsible must review and approve this request before it can be submited for approvals --></errorMessage>
+        <name>Cant_submit_until_approved</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- The selected POC Type is not valid for this account. Service Provider is valid for ECSP Enabled Service Provider accounts . Edge Connect and Wan OP is valid for non-Service Provider accounts. --></errorMessage>
+        <name>ECSP_Poc_cant_be_created_for_non_servPr</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Request can only be opened in stage &quot;Open&quot;. After RSM and TR approvals are made it can be submitted for approval --></errorMessage>
+        <name>Must_Open_as_Draft</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- POC cannot be created for the selected opportunity as there is no primary quote defined. --></errorMessage>
+        <name>POC_cant_be_created_without_prim_quotes</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Only the oportunity owner can approve this request --></errorMessage>
+        <name>RSM_of_Oppty_Approves</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Your Requested End Date must be after the Target End Date of the POC. --></errorMessage>
+        <name>Req_End_Date_after_Target_End_Date</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Your Requested End Date can be entered for POC extensions only. --></errorMessage>
+        <name>Req_End_Date_notreq_OnInsert</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Requested End Date cannot be more than 30 days. --></errorMessage>
+        <name>Requested_End_Date_cannot_exceed_30_days</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Requested End Date cannot be more than 90 days. --></errorMessage>
+        <name>Requested_End_Date_cannot_exceed_90_days</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Only the person selected as Technical Responsibility can approve this request --></errorMessage>
+        <name>TR_Approval_Check</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Use the Submit for Approval button instead of changing the status to request approval --></errorMessage>
+        <name>enforce_approval_process_to_advance</name>
+    </validationRules>
+    <webLinks>
+        <label><!-- Refresh_POC_Approvers --></label>
+        <name>Refresh_POC_Approvers</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- Renew_Virtual_Assets --></label>
+        <name>Renew_Virtual_Assets</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- Submit_for_Approval_Custom --></label>
+        <name>Submit_for_Approval_Custom</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- Virtual_POC_Fulfillment --></label>
+        <name>Virtual_POC_Fulfillment</name>
+    </webLinks>
+</CustomObjectTranslation>

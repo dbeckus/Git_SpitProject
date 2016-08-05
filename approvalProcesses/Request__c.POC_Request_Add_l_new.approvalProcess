@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ApprovalProcess xmlns="http://soap.sforce.com/2006/04/metadata">
+    <active>false</active>
+    <allowRecall>true</allowRecall>
+    <allowedSubmitters>
+        <submitter>arule@silver-peak.com</submitter>
+        <type>user</type>
+    </allowedSubmitters>
+    <allowedSubmitters>
+        <submitter>lquilici@silver-peak.com</submitter>
+        <type>user</type>
+    </allowedSubmitters>
+    <approvalPageFields>
+        <field>Name</field>
+        <field>Owner</field>
+    </approvalPageFields>
+    <approvalStep>
+        <allowDelegate>true</allowDelegate>
+        <assignedApprover>
+            <approver>
+                <name>pgilbreath@silver-peak.com</name>
+                <type>user</type>
+            </approver>
+            <whenMultipleApprovers>FirstResponse</whenMultipleApprovers>
+        </assignedApprover>
+        <entryCriteria>
+            <formula>AND( 
+NOT(ISPICKVAL(Opportunity__r.Owner.Region__c,&quot;&quot;)), 
+OR( 
+ISPICKVAL(Opportunity__r.Owner.Region__c,&quot;West&quot;), 
+ISPICKVAL(Opportunity__r.Owner.Region__c,&quot;South&quot;), 
+ISPICKVAL(Opportunity__r.Owner.Region__c,&quot;Central&quot;) 
+), 
+ISPICKVAL(Opportunity__r.Owner.GEO__c,&quot;NAM&quot;))</formula>
+        </entryCriteria>
+        <ifCriteriaNotMet>GotoNextStep</ifCriteriaNotMet>
+        <label>Region West South Central goes to Pat Gilbreath</label>
+        <name>Region_West_South_Central_goes_to_Pat_Gilbreath</name>
+    </approvalStep>
+    <approvalStep>
+        <allowDelegate>true</allowDelegate>
+        <assignedApprover>
+            <approver>
+                <name>chelfer@silver-peak.com</name>
+                <type>user</type>
+            </approver>
+            <whenMultipleApprovers>FirstResponse</whenMultipleApprovers>
+        </assignedApprover>
+        <entryCriteria>
+            <formula>OR( 
+
+ISPICKVAL(Opportunity__r.Owner.Region__c,&quot;&quot;), 
+NOT( 
+AND( 
+OR( 
+ISPICKVAL(Opportunity__r.Owner.Region__c,&quot;West&quot;), 
+ISPICKVAL(Opportunity__r.Owner.Region__c,&quot;South&quot;), 
+ISPICKVAL(Opportunity__r.Owner.Region__c,&quot;Central&quot;) 
+), 
+ISPICKVAL(Opportunity__r.Owner.GEO__c,&quot;NAM&quot;) 
+) 
+) 
+)</formula>
+        </entryCriteria>
+        <label>Other Region goes to Chris Helfer</label>
+        <name>Other_Region_goes_to_Chris_Helfer</name>
+        <rejectBehavior>
+            <type>RejectRequest</type>
+        </rejectBehavior>
+    </approvalStep>
+    <description>Additional Approvals for OPS from SVP Sales</description>
+    <emailTemplate>POC/NeedAddlApproval</emailTemplate>
+    <enableMobileDeviceAccess>false</enableMobileDeviceAccess>
+    <entryCriteria>
+        <criteriaItems>
+            <field>Request__c.Status__c</field>
+            <operation>equals</operation>
+            <value>Approved to Ship</value>
+        </criteriaItems>
+    </entryCriteria>
+    <finalApprovalActions>
+        <action>
+            <name>EvalApprovedtoShip</name>
+            <type>Alert</type>
+        </action>
+        <action>
+            <name>SetStatusApproved</name>
+            <type>FieldUpdate</type>
+        </action>
+    </finalApprovalActions>
+    <finalApprovalRecordLock>false</finalApprovalRecordLock>
+    <finalRejectionActions>
+        <action>
+            <name>NotifyRequestorofevaldenied</name>
+            <type>Alert</type>
+        </action>
+        <action>
+            <name>SetStatusOpen</name>
+            <type>FieldUpdate</type>
+        </action>
+    </finalRejectionActions>
+    <finalRejectionRecordLock>false</finalRejectionRecordLock>
+    <initialSubmissionActions>
+        <action>
+            <name>SetPendingApprovals</name>
+            <type>FieldUpdate</type>
+        </action>
+    </initialSubmissionActions>
+    <label>POC Request Add&apos;l new</label>
+    <recallActions>
+        <action>
+            <name>SetStatusApproved</name>
+            <type>FieldUpdate</type>
+        </action>
+    </recallActions>
+    <recordEditability>AdminOnly</recordEditability>
+    <showApprovalHistory>true</showApprovalHistory>
+</ApprovalProcess>

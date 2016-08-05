@@ -1,0 +1,515 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Follow</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <enableActivities>true</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableEnhancedLookup>false</enableEnhancedLookup>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>true</enableReports>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <fields>
+        <fullName>Active__c</fullName>
+        <defaultValue>true</defaultValue>
+        <externalId>false</externalId>
+        <label>Active</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Product_Area__c</fullName>
+        <externalId>false</externalId>
+        <label>Product Area</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Core - Architecture</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>CSS</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>CSS - Knowledge Base</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Ideas</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Partner Networks</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Platform - Administration &amp; Distribution</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Platform - Analytics</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Platform - AppExchange</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Platform - Application Development</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Platform - Application Services</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Platform - Appstore</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Mobile</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Platform - Other</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>SFA</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>SFA - Forecasting</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>SFA - Calendar &amp; Activities</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Collaboration</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>SFA - Pipeline Management</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Content</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Exchange Edition</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Marketing/SFGA</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Web</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Messaging</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Email Clients</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Product_Division__c</fullName>
+        <externalId>false</externalId>
+        <label>Product Division</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Core</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Internal</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>IT</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>R&amp;D Products</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Tech Ops</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Web</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Product_Line__c</fullName>
+        <externalId>false</externalId>
+        <label>Product Line</label>
+        <picklist>
+            <controllingField>Product_Division__c</controllingField>
+            <picklistValues>
+                <fullName>ADN</fullName>
+                <default>false</default>
+                <controllingFieldValues>Web</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Analytics</fullName>
+                <default>false</default>
+                <controllingFieldValues>R&amp;D Products</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>AppExchange</fullName>
+                <default>false</default>
+                <controllingFieldValues>Web</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Application Services</fullName>
+                <default>false</default>
+                <controllingFieldValues>R&amp;D Products</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Appstore</fullName>
+                <default>false</default>
+                <controllingFieldValues>IT</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Architecture</fullName>
+                <default>false</default>
+                <controllingFieldValues>Core</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Content</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Documentation</fullName>
+                <default>false</default>
+                <controllingFieldValues>Internal</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>ISV &amp; IT App Dev</fullName>
+                <default>false</default>
+                <controllingFieldValues>R&amp;D Products</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Ideas</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Labs</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Marketing</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Mobile</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Monitoring</fullName>
+                <default>false</default>
+                <controllingFieldValues>Tech Ops</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Partner Networks - Partner Portal</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Partner Networks - S2S</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Process</fullName>
+                <default>false</default>
+                <controllingFieldValues>Internal</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Sales &amp; Marketing</fullName>
+                <default>false</default>
+                <controllingFieldValues>R&amp;D Products</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Customer Service</fullName>
+                <default>false</default>
+                <controllingFieldValues>R&amp;D Products</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Successforce</fullName>
+                <default>false</default>
+                <controllingFieldValues>Web</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Testing</fullName>
+                <default>false</default>
+                <controllingFieldValues>Internal</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Tools</fullName>
+                <default>false</default>
+                <controllingFieldValues>Internal</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>UI and Application Development</fullName>
+                <default>false</default>
+                <controllingFieldValues>R&amp;D Products</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>User Experience</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Verticals</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>www</fullName>
+                <default>false</default>
+                <controllingFieldValues>Web</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Release</fullName>
+                <default>false</default>
+                <controllingFieldValues>Internal</controllingFieldValues>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Related_Links__c</fullName>
+        <externalId>false</externalId>
+        <formula>HYPERLINK(&quot;/a01?rlid=00NT0000000qYTU&amp;id=&quot; &amp;  Id , &quot;Product Backlog&quot; , &quot;_top&quot;)  &amp; &quot; &quot; &amp; 
+HYPERLINK(&quot;/a03?rlid=00NT0000000qYTo&amp;id=&quot; &amp;  Id , &quot;Sprints&quot; , &quot;_top&quot;)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Related Links</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Rollup_Reporting_Group__c</fullName>
+        <externalId>false</externalId>
+        <label>Rollup Reporting Group</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Platform</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Sales &amp; Marketing</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>AppStore</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Systems</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Public Websites</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>AX Apps</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Internal</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>IT Business Applications</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>IT Infrastructure</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Service &amp; Support</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>MultiselectPicklist</type>
+        <visibleLines>10</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Scrum_Meeting_Time_Location__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>The time and location of the team&apos;s scrum meeting. Include dial-in #, if applicable.</inlineHelpText>
+        <label>Scrum Meeting Time/Location</label>
+        <length>50</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Special_Views__c</fullName>
+        <externalId>false</externalId>
+        <formula>HYPERLINK(&quot;/servlet/servlet.Integration?lid=00bT0000000ebwl&amp;eid=&quot; &amp; Id &amp; &quot;&amp;ic=1&amp;scontrolCaching=1&quot;, &quot;Prioritization&quot; ,&quot;_top&quot;) &amp; &quot; &quot; &amp; HYPERLINK(&quot;/servlet/servlet.Integration?lid=00bT0000000ebwn&amp;eid=&quot; &amp; Id &amp; &quot;&amp;ic=1&amp;scontrolCaching=1&quot;, &quot;Sprint Assignment&quot; ,&quot;_top&quot;) &amp; &quot; &quot; &amp; HYPERLINK(&quot;/servlet/servlet.Integration?lid=00bT0000000ecls&amp;eid=&quot; &amp; Id &amp; &quot;&amp;ic=1&amp;scontrolCaching=1&quot;, &quot;Theme Assignment&quot; ,&quot;_top&quot;)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Special Views</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Story_Point_Scale__c</fullName>
+        <defaultValue>&quot;1,2,4,8,16,24,32,40,60&quot;</defaultValue>
+        <externalId>false</externalId>
+        <inlineHelpText>Enter the estimated hours scale your team uses. This field must be a number comma separated list.</inlineHelpText>
+        <label>Estimated Hours Scale</label>
+        <length>50</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Team_Email_Group_ID__c</fullName>
+        <externalId>false</externalId>
+        <label>Team Email Group ID</label>
+        <length>18</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Team_Queue_ID__c</fullName>
+        <externalId>false</externalId>
+        <label>Team Queue ID</label>
+        <length>18</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Team_Queue__c</fullName>
+        <externalId>false</externalId>
+        <formula>HYPERLINK(&quot;p/own/Queue/d?id=&quot; &amp; Team_Queue_ID__c ,  Name &amp; &quot; Scrum Team&quot;)</formula>
+        <label>Team Queue</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <label>Scrum Team</label>
+    <nameField>
+        <label>Scrum Team Name</label>
+        <type>Text</type>
+    </nameField>
+    <pluralLabel>Scrum Teams</pluralLabel>
+    <searchLayouts>
+        <customTabListAdditionalFields>Scrum_Meeting_Time_Location__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Story_Point_Scale__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Active__c</customTabListAdditionalFields>
+        <searchFilterFields>NAME</searchFilterFields>
+        <searchResultsAdditionalFields>Related_Links__c</searchResultsAdditionalFields>
+    </searchLayouts>
+    <sharingModel>Read</sharingModel>
+    <validationRules>
+        <fullName>No_Ampersand_in_names</fullName>
+        <active>true</active>
+        <description>We want to make sure that teams don&apos;t use &amp; in names because it breaks certain reports where team name is used in the URL for the scontrol</description>
+        <errorConditionFormula>CONTAINS(Name, &apos;&amp;&apos;)</errorConditionFormula>
+        <errorDisplayField>Name</errorDisplayField>
+        <errorMessage>Scrum Team name cannot contain &quot;&amp;&quot;, please use &quot;and&quot; instead</errorMessage>
+    </validationRules>
+    <webLinks>
+        <fullName>Sprints_Stories_and_Story_points</fullName>
+        <availability>online</availability>
+        <description>Displays the sprint with user stories assigned to them and a sum of their story points</description>
+        <displayType>link</displayType>
+        <encodingKey>UTF-8</encodingKey>
+        <hasMenubar>false</hasMenubar>
+        <hasScrollbars>true</hasScrollbars>
+        <hasToolbar>false</hasToolbar>
+        <height>600</height>
+        <isResizable>true</isResizable>
+        <linkType>url</linkType>
+        <masterLabel>Story Points By Sprint</masterLabel>
+        <openType>newWindow</openType>
+        <position>none</position>
+        <protected>false</protected>
+        <showsLocation>false</showsLocation>
+        <showsStatus>false</showsStatus>
+        <url>/00O50000002FZTI?pv0={!Scrum_Team__c.Name}</url>
+    </webLinks>
+</CustomObject>

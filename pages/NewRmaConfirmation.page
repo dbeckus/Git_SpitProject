@@ -1,0 +1,68 @@
+<apex:page controller="NewRMAController" tabStyle="RMA__c">
+    <style type="text/css">
+    .componentTable
+    {
+        display:none;
+    }
+    </style>
+    <apex:form id="form">
+        <apex:sectionHeader title="RMA Edit" subtitle="New RMA Confirmation" />
+        <apex:pageMessage detail="Please note, if you are opening an RMA for a complete system, the RMA will not be immediately dispatched and a case will be open as well. A Silver Peak Technical Support engineer will contact you for additional information to authorize the RMA's release." rendered="{!isPortalUser}" severity="INFO" strength="3" />
+        <apex:pageMessages />
+        <apex:pageBlock mode="edit" id="block">
+            <apex:pageBlockButtons >
+                <apex:commandButton value="Previous" action="{!previous}" immediate="true"/>
+                <apex:commandButton value="Continue and Create Part Request" action="{!save}" />
+				<apex:commandButton value="Cancel" action="{!cancel}" immediate="true"/>
+           <!--     <apex:commandButton value="Save & New" action="{!saveAndNew}" />  -->
+            </apex:pageBlockButtons>
+            <apex:pageBlockSection title="Return Authorization Information" columns="2" id="infoSection">
+                <apex:outputField value="{!RMA.Type__c}" />
+                <apex:outputField value="{!RMA.Case__c}" rendered="{!!isPortalUser}" />
+                <apex:outputField value="{!RMAItem.Delivery_Class__c}"/>
+                <apex:outputField value="{!RMA.Account__c}"/>
+                <apex:outputField value="{!RMAItem.Asset__c}" />
+             </apex:pageBlockSection>
+             <apex:pageBlockSection title="Component(s) to be replaced" columns="2" id="componetSection">
+                 <apex:pageBlockTable value="{!SelectedProducts}" var="prd" width="200px" id="prdTable" headerClass="componentTable" footerClass="componentTable">
+                     <apex:column width="100px" style="text-align:center; font-weight:bold; font-size:91%;">
+                         <apex:outputLabel value="{!prd.Name}" for="prdSelect"/>
+                     </apex:column>
+                     <apex:column >
+                         <apex:outputLabel value="Qty"  for="prdQty" style="font-weight:bold; font-size:91%; padding:0px 10px 0px 0px;" rendered="{!prd.Name <> 'System'}" />
+                         <apex:outputText value="{!prd.Qty}" rendered="{!prd.Name <> 'System'}" />
+                     </apex:column>
+                 </apex:pageBlockTable>
+             </apex:pageBlockSection>
+             <apex:pageBlockSection title="Contact Information" id="contactSection">
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Contact Name" />
+                    <apex:outputText value="{!RMA.ContactFirstName__c + ' ' + RMA.ContactLastName__c}" />
+                </apex:pageBlockSectionItem>
+                <apex:outputText />
+                <apex:outputField value="{!RMAItem.Contact_Email__c}" />
+                <apex:outputText />
+                <apex:outputField value="{!RMAItem.Contact_Phone__c}" />
+                <apex:outputText />
+                <apex:outputField value="{!RMAItem.ShipToCompany__c}" />
+                <apex:outputText />
+                <apex:outputField value="{!RMAItem.ShipToCountry__c}" />
+                <apex:outputText />
+                <apex:outputField value="{!RMAItem.ShipToAddress__c}" />
+                <apex:outputText />
+                <apex:outputField value="{!RMAItem.ShipToAddressAdditional__c}" />
+                <apex:outputText />
+                <apex:outputField value="{!RMAItem.ShipToCity__c}" />
+                <apex:outputText />
+                <apex:outputField value="{!RMAItem.ShipToStateOrProvince__c}" />
+                <apex:outputText />
+                <apex:outputField value="{!RMAItem.ShipToPostalCode__c}" />
+            </apex:pageBlockSection>
+            <apex:pageBlockSection title="Problem Report" columns="1">
+                <apex:outputField value="{!RMA.DOA__c}"/>
+                <apex:outputField value="{!RMA.FA_Report_Needed__c}" rendered="{!!isPortalUser}" />
+                <apex:outputField value="{!RMA.Problem_Description__c}" />
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

@@ -1,0 +1,16 @@
+<apex:page standardController="Lead" recordSetVar="Leads">
+    <apex:form >
+        <apex:pageBlock mode="edit" title="Mass Assign Leads to Registered Partner">
+            <apex:pageMessages />
+            <apex:pageBlockSection columns="1">
+                <apex:repeat value="{!$ObjectType.Lead.FieldSets.Assign_To_Partner}" var="f">
+                    <apex:inputField value="{!Lead[f.FieldPath]}" required="{!f.required}"/>
+                </apex:repeat>
+            </apex:pageBlockSection>
+            <apex:pageBlockButtons location="bottom">
+                <apex:commandButton value="Save" action="{!save}" />
+                <apex:commandButton value="Cancel" action="{!cancel}" />
+            </apex:pageBlockButtons>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

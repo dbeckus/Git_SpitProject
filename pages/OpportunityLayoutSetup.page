@@ -1,0 +1,172 @@
+<apex:page controller="OpportunityLayoutSetupController" tabStyle="MiscellaneousSetup__tab" sidebar="false" action="{!init}">
+    <style>
+        .matrix {
+            width: 100%;
+            background-color: #fff;
+            border: 1px solid #e0e3e5;
+        }
+        .matrix th {
+            text-align: center;
+            background: #f2f3f3;
+            border-width: 0 0 1px 1px;
+            border-color: #e0e3e5;
+            color: #000;
+            font-size: .9em;
+            font-weight: bold;
+            padding: 5px 2px 4px 5px;
+            border: 1px solid #ededed;
+        }
+        .matrix th.alt {
+            background-color: rgb(201, 201, 201);
+        }
+        .matrix th:first-child {
+            border-left-width: 0;
+        }
+        .matrix .vheader {
+            padding-left: 3px;
+        }
+        .matrix .check {
+            text-align: center;
+        }
+        .matrix .bar {
+            font-size: 14px;
+            line-height: 24px;
+            background-color: rgb(3, 206, 245);
+            color: white;
+            padding-left: 3px;
+        }
+        .matrix .row:hover td {
+            background-color: #e3f3ff;
+        }
+        .matrix .row td {
+            border-bottom: rgb(245, 245, 245) solid 1px;
+        }
+    </style>
+    <apex:sectionHeader title="Opportunity Layout Setup"/>
+    <a href="/apex/MiscellaneousSetup">« Back to Miscellaneous Setup</a>
+    <apex:form >
+    <apex:pageMessages />
+    <apex:pageBlock >
+        <apex:pageBlockButtons location="bottom" >
+            <apex:commandButton value="Save" action="{!save}" />
+            <apex:commandButton value="Reset" action="{!init}" />
+            <apex:commandButton value="Preview" onclick="window.open('{!$Page.OpportunityLayoutPreview}', '_blank', 'width=700,height=500,location=no,resizable=yes,scrollbars=yes');return false;" />
+        </apex:pageBlockButtons>
+            <table class="matrix" cellspacing="0" cellpadding="0">
+                <tr>
+                    <th>Sales Process/Record Type</th>
+                    <th colspan="6">New</th>
+                    <th colspan="6" class="alt">Follow On</th>
+                    <th colspan="6">Maintenance</th>
+                    <th rowspan="2" valign="middle" class="alt">Deleted</th>
+                    <th rowspan="2" valign="middle">Default</th>
+                </tr>
+                <tr>
+                    <th>Stage/Stage Grouping</th>
+                    <th>New</th>
+                    <th>Discovery</th>
+                    <th>Qualified</th>
+                    <th>Approved</th>
+                    <th>Final</th>
+                    <th>Closed</th>
+                    <th class="alt">New</th>
+                    <th class="alt">Discovery</th>
+                    <th class="alt">Qualified</th>
+                    <th class="alt">Approved</th>
+                    <th class="alt">Final</th>
+                    <th class="alt">Closed</th>
+                    <th>New</th>
+                    <th>Discovery</th>
+                    <th>Qualified</th>
+                    <th>Approved</th>
+                    <th>Final</th>
+                    <th>Closed</th>
+                </tr>
+                <tr>
+                    <td colspan="21" class="bar">Section/Field Set Name</td>
+                </tr>
+                <apex:repeat value="{!Sections}" var="item">
+                    <tr class="row">
+                        <td class="vheader"><a href="/setup/FieldSetEditor.apexp?tableEnumOrId=Opportunity&setupid=OpportunityFieldSets&retURL=%2Fapex%2FOpportunityLayoutSetup&id={!item.FieldSetId}">{!item.Label}</a></td>
+                        <td class="check"><apex:inputCheckbox value="{!item.NewProcess.NewStage.IsChecked}"/></td>
+                        <td class="check"><apex:inputCheckbox value="{!item.NewProcess.DiscoveryStage.IsChecked}"/></td>
+                        <td class="check"><apex:inputCheckbox value="{!item.NewProcess.QualifiedStage.IsChecked}"/></td>
+                        <td class="check"><apex:inputCheckbox value="{!item.NewProcess.ApprovedStage.IsChecked}"/></td>
+                        <td class="check"><apex:inputCheckbox value="{!item.NewProcess.FinalStage.IsChecked}"/></td>
+                        <td class="check"><apex:inputCheckbox value="{!item.NewProcess.ClosedStage.IsChecked}"/></td>
+                        <td class="check"><apex:inputCheckbox value="{!item.FollowOnProcess.NewStage.IsChecked}"/></td>
+                        <td class="check"><apex:inputCheckbox value="{!item.FollowOnProcess.DiscoveryStage.IsChecked}"/></td>
+                        <td class="check"><apex:inputCheckbox value="{!item.FollowOnProcess.QualifiedStage.IsChecked}"/></td>
+                        <td class="check"><apex:inputCheckbox value="{!item.FollowOnProcess.ApprovedStage.IsChecked}"/></td>
+                        <td class="check"><apex:inputCheckbox value="{!item.FollowOnProcess.FinalStage.IsChecked}"/></td>
+                        <td class="check"><apex:inputCheckbox value="{!item.FollowOnProcess.ClosedStage.IsChecked}"/></td>
+                        <td class="check"><apex:inputCheckbox value="{!item.MaintenanceProcess.NewStage.IsChecked}"/></td>
+                        <td class="check"><apex:inputCheckbox value="{!item.MaintenanceProcess.DiscoveryStage.IsChecked}"/></td>
+                        <td class="check"><apex:inputCheckbox value="{!item.MaintenanceProcess.QualifiedStage.IsChecked}"/></td>
+                        <td class="check"><apex:inputCheckbox value="{!item.MaintenanceProcess.ApprovedStage.IsChecked}"/></td>
+                        <td class="check"><apex:inputCheckbox value="{!item.MaintenanceProcess.FinalStage.IsChecked}"/></td>
+                        <td class="check"><apex:inputCheckbox value="{!item.MaintenanceProcess.ClosedStage.IsChecked}"/></td>
+                        <td class="check"><apex:inputCheckbox value="{!item.DeletedProcess.ClosedStage.IsChecked}"/></td>
+                        <td class="check"><apex:inputCheckbox value="{!item.DefaultProcess.DefaultStage.IsChecked}"/></td>
+                    </tr>
+                </apex:repeat>
+                <tr>
+                    <td colspan="21" class="bar">Buttons</td>
+                </tr>
+                <apex:repeat value="{!Buttons}" var="item">
+                    <tr class="row">
+                        <td class="vheader">{!item.Label}</td>
+                        <td class="check"><apex:inputCheckbox value="{!item.NewProcess.NewStage.IsChecked}"/></td>
+                        <td class="check"><apex:inputCheckbox value="{!item.NewProcess.DiscoveryStage.IsChecked}"/></td>
+                        <td class="check"><apex:inputCheckbox value="{!item.NewProcess.QualifiedStage.IsChecked}"/></td>
+                        <td class="check"><apex:inputCheckbox value="{!item.NewProcess.ApprovedStage.IsChecked}"/></td>
+                        <td class="check"><apex:inputCheckbox value="{!item.NewProcess.FinalStage.IsChecked}"/></td>
+                        <td class="check"><apex:inputCheckbox value="{!item.NewProcess.ClosedStage.IsChecked}"/></td>
+                        <td class="check"><apex:inputCheckbox value="{!item.FollowOnProcess.NewStage.IsChecked}"/></td>
+                        <td class="check"><apex:inputCheckbox value="{!item.FollowOnProcess.DiscoveryStage.IsChecked}"/></td>
+                        <td class="check"><apex:inputCheckbox value="{!item.FollowOnProcess.QualifiedStage.IsChecked}"/></td>
+                        <td class="check"><apex:inputCheckbox value="{!item.FollowOnProcess.ApprovedStage.IsChecked}"/></td>
+                        <td class="check"><apex:inputCheckbox value="{!item.FollowOnProcess.FinalStage.IsChecked}"/></td>
+                        <td class="check"><apex:inputCheckbox value="{!item.FollowOnProcess.ClosedStage.IsChecked}"/></td>
+                        <td class="check"><apex:inputCheckbox value="{!item.MaintenanceProcess.NewStage.IsChecked}"/></td>
+                        <td class="check"><apex:inputCheckbox value="{!item.MaintenanceProcess.DiscoveryStage.IsChecked}"/></td>
+                        <td class="check"><apex:inputCheckbox value="{!item.MaintenanceProcess.QualifiedStage.IsChecked}"/></td>
+                        <td class="check"><apex:inputCheckbox value="{!item.MaintenanceProcess.ApprovedStage.IsChecked}"/></td>
+                        <td class="check"><apex:inputCheckbox value="{!item.MaintenanceProcess.FinalStage.IsChecked}"/></td>
+                        <td class="check"><apex:inputCheckbox value="{!item.MaintenanceProcess.ClosedStage.IsChecked}"/></td>
+                        <td class="check"><apex:inputCheckbox value="{!item.DeletedProcess.ClosedStage.IsChecked}"/></td>
+                        <td class="check"><apex:inputCheckbox value="{!item.DefaultProcess.DefaultStage.IsChecked}"/></td>
+                    </tr>
+                </apex:repeat>
+                <tr>
+                    <td colspan="21" class="bar">Related Lists</td>
+                </tr>
+                <apex:repeat value="{!RelatedLists}" var="item">
+                    <tr class="row">
+                        <td class="vheader">{!item.Label}</td>
+                        <td class="check"><apex:inputCheckbox value="{!item.NewProcess.NewStage.IsChecked}"/></td>
+                        <td class="check"><apex:inputCheckbox value="{!item.NewProcess.DiscoveryStage.IsChecked}"/></td>
+                        <td class="check"><apex:inputCheckbox value="{!item.NewProcess.QualifiedStage.IsChecked}"/></td>
+                        <td class="check"><apex:inputCheckbox value="{!item.NewProcess.ApprovedStage.IsChecked}"/></td>
+                        <td class="check"><apex:inputCheckbox value="{!item.NewProcess.FinalStage.IsChecked}"/></td>
+                        <td class="check"><apex:inputCheckbox value="{!item.NewProcess.ClosedStage.IsChecked}"/></td>
+                        <td class="check"><apex:inputCheckbox value="{!item.FollowOnProcess.NewStage.IsChecked}"/></td>
+                        <td class="check"><apex:inputCheckbox value="{!item.FollowOnProcess.DiscoveryStage.IsChecked}"/></td>
+                        <td class="check"><apex:inputCheckbox value="{!item.FollowOnProcess.QualifiedStage.IsChecked}"/></td>
+                        <td class="check"><apex:inputCheckbox value="{!item.FollowOnProcess.ApprovedStage.IsChecked}"/></td>
+                        <td class="check"><apex:inputCheckbox value="{!item.FollowOnProcess.FinalStage.IsChecked}"/></td>
+                        <td class="check"><apex:inputCheckbox value="{!item.FollowOnProcess.ClosedStage.IsChecked}"/></td>
+                        <td class="check"><apex:inputCheckbox value="{!item.MaintenanceProcess.NewStage.IsChecked}"/></td>
+                        <td class="check"><apex:inputCheckbox value="{!item.MaintenanceProcess.DiscoveryStage.IsChecked}"/></td>
+                        <td class="check"><apex:inputCheckbox value="{!item.MaintenanceProcess.QualifiedStage.IsChecked}"/></td>
+                        <td class="check"><apex:inputCheckbox value="{!item.MaintenanceProcess.ApprovedStage.IsChecked}"/></td>
+                        <td class="check"><apex:inputCheckbox value="{!item.MaintenanceProcess.FinalStage.IsChecked}"/></td>
+                        <td class="check"><apex:inputCheckbox value="{!item.MaintenanceProcess.ClosedStage.IsChecked}"/></td>
+                        <td class="check"><apex:inputCheckbox value="{!item.DeletedProcess.ClosedStage.IsChecked}"/></td>
+                        <td class="check"><apex:inputCheckbox value="{!item.DefaultProcess.DefaultStage.IsChecked}"/></td>
+                    </tr>
+                </apex:repeat>
+            </table>
+    </apex:pageBlock>
+    </apex:form>
+</apex:page>

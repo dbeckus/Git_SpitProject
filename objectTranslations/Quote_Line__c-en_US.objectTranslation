@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Quote Line</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Quote Lines</value>
+    </caseValues>
+    <fields>
+        <label><!-- Approval Level --></label>
+        <name>ApprovalLevel__c</name>
+    </fields>
+    <fields>
+        <label><!-- Approval Type --></label>
+        <name>ApprovalType__c</name>
+    </fields>
+    <fields>
+        <label><!-- Discount Percent --></label>
+        <name>Discount_Percent__c</name>
+    </fields>
+    <fields>
+        <label><!-- Include4ConsultingDisc --></label>
+        <name>Include4ConsultingDisc__c</name>
+    </fields>
+    <fields>
+        <label><!-- Include4Discount --></label>
+        <name>Include4Discount__c</name>
+    </fields>
+    <fields>
+        <label><!-- Include4MultiYYear --></label>
+        <name>Include4MultiYYear__c</name>
+    </fields>
+    <fields>
+        <label><!-- Include4ServiceDiscount --></label>
+        <name>Include4ServiceDiscount__c</name>
+    </fields>
+    <fields>
+        <label><!-- IsAppliance --></label>
+        <name>IsAppliance__c</name>
+    </fields>
+    <fields>
+        <label><!-- Line Price --></label>
+        <name>Line_Price__c</name>
+    </fields>
+    <fields>
+        <label><!-- MainDisc --></label>
+        <name>MainDisc__c</name>
+    </fields>
+    <fields>
+        <label><!-- MultiYearMaint --></label>
+        <name>MultiYearMaint__c</name>
+    </fields>
+    <fields>
+        <label><!-- ProdDisc --></label>
+        <name>ProdDisc__c</name>
+    </fields>
+    <fields>
+        <label><!-- Prod_Category --></label>
+        <name>Prod_Category__c</name>
+    </fields>
+    <fields>
+        <label><!-- Product Code --></label>
+        <name>Product_Code__c</name>
+    </fields>
+    <fields>
+        <label><!-- Product Description --></label>
+        <name>Product_Description__c</name>
+    </fields>
+    <fields>
+        <label><!-- Product List --></label>
+        <name>Product_List__c</name>
+    </fields>
+    <fields>
+        <label><!-- Product --></label>
+        <name>Product__c</name>
+        <relationshipLabel><!-- Quote Lines --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Quantity --></label>
+        <name>Quantity__c</name>
+    </fields>
+    <fields>
+        <label><!-- Quote --></label>
+        <name>Quote__c</name>
+        <relationshipLabel><!-- Quote Lines --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Unit Price --></label>
+        <name>Unit_Price__c</name>
+    </fields>
+    <fields>
+        <label><!-- isConsulting --></label>
+        <name>isConsulting__c</name>
+    </fields>
+    <fields>
+        <label><!-- isMaintenance --></label>
+        <name>isMaintenance__c</name>
+    </fields>
+    <layouts>
+        <layout>Quote Line Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+    </layouts>
+    <startsWith>Consonant</startsWith>
+    <validationRules>
+        <errorMessage><!-- Number is too large. --></errorMessage>
+        <name>DiscountShouldNotGreaterThan2000</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Invalid quantity. --></errorMessage>
+        <name>QuantityShouldNotEqualToZero</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Quantity should be whole number. --></errorMessage>
+        <name>WholeNumberQuantity</name>
+    </validationRules>
+    <webLinks>
+        <label><!-- EditQuoteLines --></label>
+        <name>EditQuoteLines</name>
+    </webLinks>
+</CustomObjectTranslation>

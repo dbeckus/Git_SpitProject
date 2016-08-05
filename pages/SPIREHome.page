@@ -1,0 +1,213 @@
+<apex:page standardStylesheets="false" >
+    <script src="{!URLFOR($Resource.Account_Summary, 'app/js/lib/jquery.min.js')}"></script>
+    <!--<script src="https://rawgithub.com/developerforce/Force.com-JavaScript-REST-Toolkit/master/forcetk.js"></script>-->
+    
+   
+    
+    <html xmlns:ng="http://angularjs.org"  lang="en">
+        <head>
+            <meta charset="utf-8" name="viewport" content="width=device-width initial-scale=1.0"/>
+
+            <apex:stylesheet value="{!URLFOR($Resource.Account_Summary, 'app/css/bootstrap-combined.min.css')}"/>
+            
+            <!--<apex:stylesheet value="{!URLFOR($Resource.Account_Summary, 'app/css/bootstrap-tagsinput.css')}"/>
+            <apex:stylesheet value="{!URLFOR($Resource.Account_Summary, 'app/css/angular-multiselect.css')}"/>
+            <apex:stylesheet value="https://rawgithub.com/davidstutz/bootstrap-multiselect/master/css/bootstrap-multiselect.css"/>-->
+            <apex:stylesheet value="https://cdnjs.cloudflare.com/ajax/libs/select2/3.4.4/select2.css"/>
+            
+            <script src="{!URLFOR($Resource.Account_Summary, 'app/js/lib/jquery.min.js')}"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/3.4.4/select2.min.js" type="text/javascript"></script>    
+            <script src="{!URLFOR($Resource.Account_Summary, 'app/js/lib/angular-all/angular.js')}"></script>
+            <script src="{!URLFOR($Resource.Account_Summary, 'app/js/lib/twitter-bootstrap/bootstrap.min.js')}"></script>      
+            <script src="https://rawgithub.com/alexmahu/ui-select2/1714cc853ab61d52856f3b2622b23de731065c42/src/select2.js" type="text/javascript"></script>
+    
+            <script src="{!URLFOR($Resource.Account_Summary, 'app/js/lib/angular-ui/angular-ui.min.js')}"></script>            
+            <script src="{!URLFOR($Resource.Account_Summary, 'app/js/lib/ui-bootstrap-tpls-0.6.0.js')}"></script>                        
+            <script src="{!URLFOR($Resource.Account_Summary, 'app/js/lib/ng-grid/ng-grid.min.js')}"></script>
+            
+            <script src="{!URLFOR($Resource.Account_Summary, 'app/js/lib/highcharts/highcharts.src.js')}"></script>
+            <script src="{!URLFOR($Resource.Account_Summary, 'app/js/lib/highcharts/highchart-plain.js')}"></script>
+            <script src="{!URLFOR($Resource.Account_Summary, 'app/js/lib/highcharts/exporting.js')}"></script>
+            <script src="{!URLFOR($Resource.Account_Summary, 'app/js/lib/bootstrap-daterangepicker-master/moment.min.js')}"></script>
+            <script src="{!URLFOR($Resource.Account_Summary, 'app/js/lib/jquery.knob.js')}"></script>
+            <script src="{!URLFOR($Resource.Account_Summary, 'app/js/lib/numeral.min.js')}"></script> 
+            <!--<script src="https://rawgithub.com/esvit/ng-table/master/ng-table.js"></script>
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/3.4.4/select2-bootstrap.css"></link>
+            <link rel="stylesheet" href="https://rawgithub.com/esvit/ng-table/master/ng-table.css"></link>-->
+   
+            <apex:stylesheet value="{!URLFOR($Resource.Account_Summary, 'app/css/app.css')}"/>
+            
+        </head>
+        <script src="{!URLFOR($Resource.Account_Summary, 'app/js/lib/underscore/underscore.js')}"></script>
+        <script src="{!URLFOR($Resource.Account_Summary, 'app/js/lib/angular-all/angular-strap.js')}"></script>
+        <script type="text/javascript">
+           
+                    
+                    var myapp = angular.module('SpireHome', ['ngGrid', 'chartsExample.directives', 'ui.bootstrap', '$strap.directives']);
+                    myapp.config(function ($routeProvider, $locationProvider, $httpProvider) {
+                        $locationProvider.html5Mode(true);
+                    });
+                    var contrl= myapp.controller('SpireHomeController', function ($scope, $filter, $q, $location, $window) {
+                        
+                    }); 
+         </script>  
+         <body ng-app="SpireHome">
+            <style>
+                h1 {
+                    font-size: 25px;
+                    line-height: 1;
+                    text-align: center;
+                   
+                }
+                h2 {
+                    font-size: 31.5px;
+                }
+                .addTotalRow {
+                    border-top: 5px solid #252CE0 !important;
+                }
+                h4 {
+                    font-size: 17.5px;
+                    }
+               .h1Heading {
+                    margin: 10px 0px 10px 0px; 
+               } 
+               .btn-primary {
+                    color: #ffffff;
+                    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+                    background-color: #006dcc;
+                    background-image: -moz-linear-gradient(top, #0088cc, #0044cc);
+                    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#0088cc), to(#0044cc));
+                    background-image: -webkit-linear-gradient(top, #0088cc, #0044cc);
+                    background-image: -o-linear-gradient(top, #0088cc, #0044cc);
+                    background-image: linear-gradient(to bottom, #0088cc, #0044cc);
+                    background-repeat: repeat-x;
+                    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff0088cc', endColorstr='#ff0044cc', GradientType=0);
+                    border-color: #0044cc #0044cc #002a80;
+                    border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+                    filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
+                }
+                .bigcircle {
+                    display: block;
+                    width: 175px;
+                    height: 175px;
+                    margin: 1em auto;
+                    background-size: cover;
+                    background-repeat: no-repeat;
+                    background-position: center center;
+                    -webkit-border-radius: 99em;
+                    -moz-border-radius: 99em;
+                    border-radius: 99em;
+                    border: 5px solid #eeeeee;
+                    box-shadow: 0 3px 2px rgba(0, 0, 0, 0.3);
+                }
+            </style>
+            <div ng-controller="SpireHomeController" >
+                
+                <div class="row-fluid">
+                  <div class="container">
+                    <div class="jumbotron">
+                      <div class="row-fluid">
+                        <div class="span6 offset3">
+                          <p><img alt="SPIRE" src="{!URLFOR($Resource.Account_Summary, 'app/images/aspire.png')}" width="150" height="150" style="float:left;margin-right:25px;margin-top=25px;"/>
+                            <h1 style="margin-top:10px;margin-right:25px;">SPIRE
+                              <h4 style="margin-top:-12px;"><i>Silver Peak Intelligence and Reporting</i></h4>
+                            </h1>
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row-fluid warehouseContainer">
+                  <div class="container-fluid homeContainer">
+                    <div class="row-fluid" >
+                      <div class = "text-center" style="margin-bottom:15px;">
+                          <h2 style="text-align:center;color:white">Warehouses</h2>
+                      </div>
+                      <ul class="thumbnails">
+                        <li class="span2 offset1">
+                          <div style="padding: 0;" class="thumbnail">
+                            <div style="padding: 4px;"><a href="http://autosupport.silverpeaksystems.com/spire/autosupport?filter=none&amp;licenseType=30&amp;licenseStatus=Active&amp;licenseStart=afterJuly15&amp;groupBy=" target="_self"><img alt="AutoSupport" style="width:90%;margin-left: 15px;" src="{!URLFOR($Resource.Account_Summary, 'app/images/autosupport.png')}"/></a></div>
+                            <div class="caption text-center"><a href="http://autosupport.silverpeaksystems.com/spire/autosupport?filter=none&amp;licenseType=30&amp;licenseStatus=Active&amp;licenseStart=afterJuly15&amp;groupBy=" target="_blank" class="homelink">AutoSupport</a>
+                              <br/> 
+                              <p>Analysis of Phone-home data</p><a href="http://autosupport.silverpeaksystems.com/spire/project/view?id=1" target="_blank" class="btn-mini btn-primary">Learn more &raquo;</a>
+                            </div>
+                            <div style="text-align: left;" class="modal-footer">
+                              <div class="row-fluid">
+                                <div class="text-center"><img src="{!URLFOR($Resource.Account_Summary, 'app/images/status-active.png')}" style="margin-left:5px;margin-right:10px;" title="Live"/><strong>LIVE</strong></div>
+                              </div>
+                            </div>
+                          </div>
+                        </li>                       
+                        <li class="span2">
+                          <div style="padding: 0;" class="thumbnail">
+                            <div style="padding: 4px;" class="bigcircle"><a href="/apex/AccountSummary" target="_self"><img alt="Account Summary" style="width:100%;" src="{!URLFOR($Resource.Account_Summary, 'app/images/acctSummary.png')}"/></a></div>
+                            <div class="caption text-center"><a href="/apex/AccountSummary" target="_blank" class="homelink">Account Summary</a>
+                              <br/> 
+                              <p>Single Page summary of an account</p><a href="http://autosupport.silverpeaksystems.com/spire/project/view?id=10" target="_blank" class="btn-mini btn-primary">Learn more </a>
+                              <br/>  
+                            </div>
+                            <div style="text-align: left;" class="modal-footer">
+                              <div class="row-fluid">
+                                <div class="text-center"><img src="{!URLFOR($Resource.Account_Summary, 'app/images/status-active.png')}" style="margin-left:5px;margin-right:10px;" title="Live"/><strong>LIVE</strong></div>
+                              </div>
+                            </div>
+                          </div>
+                        </li>
+                        <li class="span2">
+                          <div style="padding: 0;" class="thumbnail">
+                            <div style="padding: 4px;" class="bigcircle"><a href="/apex/SubscriptionSummary" target="_self"><img alt="Subscription Summary" style="width:100%;" src="{!URLFOR($Resource.Account_Summary, 'app/images/subscription.png')}"/></a></div>
+                            <div class="caption text-center"><a href="/apex/SubscriptionSummary" target="_blank" class="homelink">Subscription Summary</a>
+                              <br/> 
+                              <p>Summary of Subscriptions</p><a href="http://autosupport.silverpeaksystems.com/spire/project/view?id=12" target="_blank" class="btn-mini btn-primary">Learn more </a>
+                            </div>
+                            <div style="text-align: left;" class="modal-footer">
+                              <div class="row-fluid">
+                                <div class="text-center"><img src="{!URLFOR($Resource.Account_Summary, 'app/images/status-active.png')}" style="margin-left:5px;margin-right:10px;" title="Live"/><strong>LIVE</strong></div>
+                              </div>
+                            </div>
+                          </div>
+                        </li>
+                        <li class="span2">
+                          <div style="padding: 0;" class="thumbnail">
+                            <div style="padding: 4px;" class="bigcircle"><a href="/apex/LeadAnalysis" target="_self"><img alt="Lead Analysis" style="width:100%;" src="{!URLFOR($Resource.Account_Summary, 'app/images/leadSummary.png')}"/></a></div>
+                            <div class="caption text-center"><a href="/apex/LeadAnalysis" target="_blank" class="homelink">Lead Analysis</a>
+                              <br/> 
+                               
+                              <p>Detailed analysis of Leads</p>                              
+                                                    
+                              <a href="http://autosupport.silverpeaksystems.com/spire/project/view?id=13" target="_blank" class="btn-mini btn-primary">Learn more </a>
+                            </div>
+                            <div style="text-align: left;" class="modal-footer">
+                              <div class="row-fluid">
+                                <div class="text-center"><img src="{!URLFOR($Resource.Account_Summary, 'app/images/status-active.png')}" style="margin-left:5px;margin-right:10px;" title="Live"/><strong>LIVE</strong></div>
+                              </div>
+                            </div>
+                          </div>
+                        </li>
+                        <li class="span2">
+                          <div style="padding: 0;" class="thumbnail">
+                            <div style="padding: 4px;" class="bigcircle"><a href="/apex/LeadsByCampaignName" target="_self"><img alt="Leads by Campaign" style="width:100%;margin-top:15px;" src="{!URLFOR($Resource.Account_Summary, 'app/images/funnel-resized-600.png')}"/></a></div>
+                            <div class="caption text-center">                              
+                              <a href="/apex/LeadsByCampaignName" target="_blank" class="homelink">Leads by Campaign</a>  
+                              <br/>                                                                                                                                            
+                              <div style="text-decoration: underline;"><a href="/apex/LeadsByCampaignTypes" target="_blank">Leads by Campaign Type</a><br/></div>                                                       
+                              <br/>
+                              <a href="http://autosupport.silverpeaksystems.com/spire/project/view?id=13" target="_blank" class="btn-mini btn-primary">Learn more </a>
+                             
+                            </div>
+                            <div style="text-align: left;" class="modal-footer">
+                              <div class="row-fluid">
+                                <div class="text-center"><img src="{!URLFOR($Resource.Account_Summary, 'app/images/status-active.png')}" style="margin-left:5px;margin-right:10px;" title="Live"/><strong>LIVE</strong></div>
+                              </div>
+                            </div>
+                          </div>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+               </div>
+            </div>
+        </body>
+     </html>
+</apex:page>

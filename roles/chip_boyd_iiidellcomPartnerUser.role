@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Role xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseAccessLevel>None</caseAccessLevel>
+    <contactAccessLevel>Edit</contactAccessLevel>
+    <description>chip_boyd_iii@dell.com Partner User</description>
+    <mayForecastManagerShare>false</mayForecastManagerShare>
+    <name>chip_boyd_iii@dell.com Partner User</name>
+    <opportunityAccessLevel>None</opportunityAccessLevel>
+    <parentRole>chip_boyd_iiidellcomPartnerManager</parentRole>
+</Role>

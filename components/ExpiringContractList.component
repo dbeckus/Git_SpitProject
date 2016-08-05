@@ -1,0 +1,28 @@
+<apex:component controller="ExpiringContractListController" access="global">
+    <apex:attribute name="accountId" description="id of the account to list the contract" type="Id" assignTo="{!AccountId}"/>
+    <apex:attribute name="days" description="days before expiration" type="Integer" />
+    <center>
+    <table cellspacing="0" cellpadding="5" border="1" style="text-align:left">
+        <tr style="background-color:#dddddd">
+            <td>Contract #</td>
+            <td>Contract Email</td>
+            <td>Expiration Date</td>
+            <td> Contract Status</td>
+            <td>Units on Contract</td>
+        </tr>
+        <apex:repeat value="{!Contracts}" var="contract">
+            <tr>
+                <td>{!contract.ContractNumber}</td>
+                <td>{!contract.CustomerSigned.Email}</td>
+                <td style="color:{!IF(contract.EndDate - TODAY() <= days, 'red', '')}"><apex:outputText value="{0, Date, MM/dd/yyyy}"><apex:param value="{!contract.EndDate}"/></apex:outputText></td>
+                <td>{!contract.Status}</td>
+				<td style="text-align:right">
+					<apex:repeat value="{!contract.Assets1__r}" var="sn">
+               			{!sn.name} ({!sn.Model__c})<br/>
+				</apex:repeat>
+				</td>
+            </tr>
+        </apex:repeat>
+    </table>
+    </center>
+</apex:component>

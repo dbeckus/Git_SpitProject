@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Deficiency</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Deficiencies</value>
+    </caseValues>
+    <fields>
+        <label><!-- Date/Time Closed --></label>
+        <name>Date_Time_Closed__c</name>
+    </fields>
+    <fields>
+        <label><!-- Deficiency ID --></label>
+        <name>Deficiency_ID__c</name>
+    </fields>
+    <fields>
+        <label><!-- Issue Description --></label>
+        <name>Issue_Description__c</name>
+    </fields>
+    <fields>
+        <label><!-- PM Classification --></label>
+        <name>PM_Classification__c</name>
+        <picklistValues>
+            <masterLabel>Bug</masterLabel>
+            <translation><!-- Bug --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Config Issue</masterLabel>
+            <translation><!-- Config Issue --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Documentation</masterLabel>
+            <translation><!-- Documentation --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>H/W Issue</masterLabel>
+            <translation><!-- H/W Issue --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Lacking Feature</masterLabel>
+            <translation><!-- Lacking Feature --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Lacking Performance</masterLabel>
+            <translation><!-- Lacking Performance --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Missed Requirement</masterLabel>
+            <translation><!-- Missed Requirement --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>User Interface</masterLabel>
+            <translation><!-- User Interface --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Resolution Code --></label>
+        <name>Resolution_Code__c</name>
+        <picklistValues>
+            <masterLabel>Bug - Code Change</masterLabel>
+            <translation><!-- Bug - Code Change --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Documentation</masterLabel>
+            <translation><!-- Documentation --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Feature Enhancement</masterLabel>
+            <translation><!-- Feature Enhancement --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Feature Request</masterLabel>
+            <translation><!-- Feature Request --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Workaround</masterLabel>
+            <translation><!-- Workaround --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Resolution --></label>
+        <name>Resolution__c</name>
+    </fields>
+    <fields>
+        <label><!-- Root Cause Code --></label>
+        <name>Root_Cause_Code__c</name>
+        <picklistValues>
+            <masterLabel>Bug - Code Change</masterLabel>
+            <translation><!-- Bug - Code Change --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Configuration</masterLabel>
+            <translation><!-- Configuration --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Customer Network Issue</masterLabel>
+            <translation><!-- Customer Network Issue --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Hardware</masterLabel>
+            <translation><!-- Hardware --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Interoperability</masterLabel>
+            <translation><!-- Interoperability --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Performance Enhancement</masterLabel>
+            <translation><!-- Performance Enhancement --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Requirements</masterLabel>
+            <translation><!-- Requirements --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>System Behaviour</masterLabel>
+            <translation><!-- System Behaviour --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Under Investigation</masterLabel>
+            <translation><!-- Under Investigation --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Usability Improvement</masterLabel>
+            <translation><!-- Usability Improvement --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Root Cause --></label>
+        <name>Root_Cause__c</name>
+    </fields>
+    <fields>
+        <label><!-- Status --></label>
+        <name>Status__c</name>
+        <picklistValues>
+            <masterLabel>Closed</masterLabel>
+            <translation><!-- Closed --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Open</masterLabel>
+            <translation><!-- Open --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Where Resolved --></label>
+        <name>Where_Resolved__c</name>
+        <picklistValues>
+            <masterLabel>Eng</masterLabel>
+            <translation><!-- Eng --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>PM</masterLabel>
+            <translation><!-- PM --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>TAC</masterLabel>
+            <translation><!-- TAC --></translation>
+        </picklistValues>
+    </fields>
+    <layouts>
+        <layout>Deficiency Layout</layout>
+        <sections>
+            <label><!-- Notes Fields --></label>
+            <section>Notes Fields</section>
+        </sections>
+    </layouts>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

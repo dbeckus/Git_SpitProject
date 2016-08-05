@@ -1,0 +1,102 @@
+<apex:page sidebar="false" showHeader="false" id="page" controller="RegisterCustomerController">
+    <apex:stylesheet value="{!URLFOR($Resource.RegistrationProcess, 'res/css/main.css')}"/>
+    <apex:includeScript value="{!URLFOR($Resource.RegistrationProcess, 'res/js/jquery-1_3_2.js')}"/>
+    <apex:includeScript value="{!URLFOR($Resource.RegistrationProcess, 'res/js/pageControl.js')}"/>
+    <script type="text/javascript">
+        function checkInput()
+        {
+            var lastname = document.getElementById("page:j_id4:form:lastname"); 
+            var email = document.getElementById("page:j_id4:form:email");
+            var emailRegExp = /^(.+)@(.+)$/;
+            if(lastname == null || lastname.value == "")
+            {
+                alert("Last Name must have a value!");
+                lastname.focus();
+                return false;
+            }
+            if(email == null || email.value == "")
+            {
+                alert("Email must have a value!");
+                email.focus();
+                return false;
+            }
+            if(!emailRegExp.test(email.value))
+            {
+                alert("Invalid email address!");
+                email.focus();
+                return false;
+            }
+            return true;
+        }
+    </script>
+        
+    <apex:composition template="{!$Site.Template}">
+        <apex:define name="body">
+            <apex:form id="form">
+                <h2 class="step4">Your Information</h2>
+                <p><i> NOTE: An authorization code is required to complete your registration. Contact your account team or email training@silver-peak.com if you need to obtain one.</i> </p>
+                <ul class="infoList">
+                    <li>
+                        <div class="infoName">First Name:</div>
+                        <div class="infoInput"><apex:inputText value="{!student.Firstname}"/></div>
+                    </li>   
+                    <li>
+                        <div class="infoName">Last Name:</div>
+                        <div class="infoInput"><apex:inputText value="{!student.Lastname}" id="lastname"/></div>
+                    </li>       
+                    <li>
+                        <div class="infoName">Title:</div>
+                        <div class="infoInput"><apex:inputText value="{!student.Title}"/></div>
+                    </li>
+                    <li>
+                        <div class="infoName">Email Address:</div>
+                        <div class="infoInput"><apex:inputText value="{!student.Email}" id="email"/></div>
+                    </li>   
+                    <li>
+                        <div class="infoName">Phone Number:</div>   
+                        <div class="infoInput"><apex:inputText value="{!student.Phone}"/></div>
+                    </li> 
+                    <li>
+                        <div class="infoName">Polo Shirt - Choose your Size:</div>
+                        <div class="infoInput">
+                            <apex:selectList value="{!Registration.Polo_Shirt_Size__c}" size="1">
+                                <apex:selectOption itemLabel="XS" itemvalue="XS" />
+                                <apex:selectOption itemLabel="S" itemvalue="S" />
+                                <apex:selectOption itemLabel="M" itemvalue="M" />
+                                <apex:selectOption itemLabel="L" itemvalue="L" />
+                                <apex:selectOption itemLabel="XL" itemvalue="XL" />
+                                <apex:selectOption itemLabel="XXL" itemvalue="XXL" />
+                                <apex:selectOption itemLabel="XXXL" itemvalue="XXXL" />
+                            </apex:selectList>
+                        </div>
+                    </li>
+                    <!--<li>
+                        <div class="infoName"> Special Dietary Considerations:</div>
+                        <div class="infoInput">
+                        <apex:selectList value="{!diet}" size="1">
+                        <apex:selectOption itemLabel="Yes" itemvalue="Yes" />
+                        <apex:selectOption itemLabel="No" itemvalue="No" />
+                        </apex:selectList>    
+                        </div>
+                    </li>
+                    <li>
+                        <div class="infoName">Participate in a class dinner sponsored by Silver Peak?</div>
+                        <div class="infoInput">
+                        <apex:selectList value="{!social}" size="1">
+                        <apex:selectOption itemLabel="Yes" itemvalue="Yes" />
+                        <apex:selectOption itemLabel="No" itemvalue="No" />
+                        </apex:selectList>                
+                        </div>
+                    </li> <br/>-->
+                    <li>
+                        <div class="infoName">Comments, Special Requests, Topics of Interest:</div>
+                        <div class="infoInput"><apex:inputTextarea value="{!Registration.Comments__c}" cols="60" rows="5"/></div>
+                    </li>
+                </ul><!--infoList--> <br/> <br/>
+
+                <apex:commandLink styleClass="nextBtn" action="{!GotoStep2}" onclick="return checkInput();">next &gt;</apex:commandLink><a class="preBtn" href="{!$Page.UpcomingEvents}">Back to previous step</a>
+                <div class="clearfix"></div>        
+            </apex:form>
+        </apex:define>
+    </apex:composition>
+</apex:page>

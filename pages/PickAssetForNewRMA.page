@@ -1,0 +1,39 @@
+<apex:page controller="PickAssetForNewRMAController" tabStyle="Open_RMA__tab">  
+    <apex:sectionHeader title="Open a RMA" />
+    <apex:form >
+        <apex:pageBlock mode="edit">
+            <apex:pageMessages />
+            <apex:pageBlockSection title=" Enter a Serial Number" collapsible="false">
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Serial Number"/>
+                    <apex:outputPanel >
+                        <apex:inputText value="{!SearchKey}" />
+                        <apex:commandButton value=" Search " action="{!searchRecord}" />
+                    </apex:outputPanel>
+                </apex:pageBlockSectionItem>
+            </apex:pageBlockSection>
+            <apex:pageBlockSection title=" If you don't know your serial number, you can list them below and select the appropriate one for this case" collapsible="false" columns="1">
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Show me my Serial Numbers" />
+                    <apex:commandButton value=" Go! " action="{!showAllRecord}" />
+                </apex:pageBlockSectionItem>
+                <apex:outputPanel rendered="{!ShowAll && RecordSize > PageSize}" style="float:right">
+                    <apex:commandLink value="Previous Page" action="{!previous}" rendered="{!HasPrevious}" /><apex:outputText value="Previous Page" rendered="{!!HasPrevious}"/>&nbsp;|&nbsp;
+                    <apex:commandLink value="Next Page" action="{!next}" rendered="{!HasNext}" /><apex:outputText value="Next Page" rendered="{!!HasNext}" />
+                </apex:outputPanel>
+                <apex:pageBlockTable value="{!Assets}" var="item" rendered="{!ShowAll}">
+                    <apex:column headerValue="Serial Number">
+                        <apex:commandLink value="{!item.SerialNumber}" action="{!gotoRMA}">
+                            <apex:param name="aid" value="{!item.Id}"/>
+                        </apex:commandLink>
+                    </apex:column>
+                    <apex:column value="{!item.Model__c}" />
+                </apex:pageBlockTable>
+                <apex:outputPanel rendered="{!ShowAll && RecordSize > PageSize}" style="float:right">
+                    <apex:commandLink value="Previous Page" action="{!previous}" rendered="{!HasPrevious}" /><apex:outputText value="Previous Page" rendered="{!!HasPrevious}"/>&nbsp;|&nbsp;
+                    <apex:commandLink value="Next Page" action="{!next}" rendered="{!HasNext}" /><apex:outputText value="Next Page" rendered="{!!HasNext}" />
+                </apex:outputPanel>
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

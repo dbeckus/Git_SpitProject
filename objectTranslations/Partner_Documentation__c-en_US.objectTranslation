@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Partner Documentation</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Partner Documents</value>
+    </caseValues>
+    <fields>
+        <label><!-- Description --></label>
+        <name>Description__c</name>
+    </fields>
+    <fields>
+        <label><!-- File --></label>
+        <name>File__c</name>
+        <relationshipLabel><!-- Partner Documents --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Folder --></label>
+        <name>Folder__c</name>
+        <picklistValues>
+            <masterLabel>Case Studies</masterLabel>
+            <translation><!-- Case Studies --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Competitive</masterLabel>
+            <translation><!-- Competitive --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Data Sheets</masterLabel>
+            <translation><!-- Data Sheets --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Events</masterLabel>
+            <translation><!-- Events --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Hot Selling Tools</masterLabel>
+            <translation><!-- Hot Selling Tools --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Logos and Icons</masterLabel>
+            <translation><!-- Logos and Icons --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Marketing Tools</masterLabel>
+            <translation><!-- Marketing Tools --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Presentations</masterLabel>
+            <translation><!-- Presentations --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Training Webinars</masterLabel>
+            <translation><!-- Training Webinars --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Welcome Information</masterLabel>
+            <translation><!-- Welcome Information --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>White Papers</masterLabel>
+            <translation><!-- White Papers --></translation>
+        </picklistValues>
+    </fields>
+    <layouts>
+        <layout>Portal Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+    </layouts>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

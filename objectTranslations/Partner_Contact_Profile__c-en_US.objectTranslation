@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Partner Contact Profile</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Partner Contacts Profile</value>
+    </caseValues>
+    <fields>
+        <label><!-- Address 1 --></label>
+        <name>Address_1__c</name>
+    </fields>
+    <fields>
+        <label><!-- Address 2 --></label>
+        <name>Address_2__c</name>
+    </fields>
+    <fields>
+        <label><!-- Administrative Privileges --></label>
+        <name>Administrative_Privileges__c</name>
+    </fields>
+    <fields>
+        <label><!-- Agreement Version --></label>
+        <name>Agreement_Version__c</name>
+    </fields>
+    <fields>
+        <label><!-- Birth Date --></label>
+        <name>Birth_Date__c</name>
+    </fields>
+    <fields>
+        <label><!-- City --></label>
+        <name>City__c</name>
+    </fields>
+    <fields>
+        <label><!-- Comments --></label>
+        <name>Comments__c</name>
+    </fields>
+    <fields>
+        <label><!-- Contact Me For --></label>
+        <name>Contact_Me_For__c</name>
+        <picklistValues>
+            <masterLabel>Assistance with the partner application</masterLabel>
+            <translation><!-- Assistance with the partner application --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Information on the Partner Program</masterLabel>
+            <translation><!-- Information on the Partner Program --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Need access to the Support Site</masterLabel>
+            <translation><!-- Need access to the Support Site --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Need to talk with my Silver Peak Sales Representative</masterLabel>
+            <translation><!-- Need to talk with my Silver Peak Sales Representative --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Please Send Me A Login</masterLabel>
+            <translation><!-- Please Send Me A Login --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Contact --></label>
+        <name>Contact__c</name>
+        <relationshipLabel><!-- Partner Contacts Profile --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Country --></label>
+        <name>Country__c</name>
+    </fields>
+    <fields>
+        <label><!-- Date Agreed to Terms --></label>
+        <name>Date_Agreed_to_Terms__c</name>
+    </fields>
+    <fields>
+        <label><!-- Date Created --></label>
+        <name>Date_Created__c</name>
+    </fields>
+    <fields>
+        <label><!-- Dell Segment --></label>
+        <name>Dell_Segment__c</name>
+        <picklistValues>
+            <masterLabel>Federal</masterLabel>
+            <translation><!-- Federal --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Global 500</masterLabel>
+            <translation><!-- Global 500 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Global Commercial Channel</masterLabel>
+            <translation><!-- Global Commercial Channel --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Healthcare &amp; Life Sciences</masterLabel>
+            <translation><!-- Healthcare &amp; Life Sciences --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Large Institutions – Corporate</masterLabel>
+            <translation><!-- Large Institutions – Corporate --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Large Institutions – Education, State, &amp; Local Government</masterLabel>
+            <translation><!-- Large Institutions – Education, State, &amp; Local Government --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Other</masterLabel>
+            <translation><!-- Other --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Preferred Corporate Accounts</masterLabel>
+            <translation><!-- Preferred Corporate Accounts --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Preferred Public Accounts</masterLabel>
+            <translation><!-- Preferred Public Accounts --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Email Opt In --></label>
+        <name>Email_Opt_In__c</name>
+    </fields>
+    <fields>
+        <label><!-- IM Name --></label>
+        <name>IM_Name__c</name>
+    </fields>
+    <fields>
+        <label><!-- IP Agreed to Terms --></label>
+        <name>IP_Agreed_to_Terms__c</name>
+    </fields>
+    <fields>
+        <label><!-- Inactive --></label>
+        <name>Inactive__c</name>
+    </fields>
+    <fields>
+        <label><!-- Industry Certifications Held --></label>
+        <name>Industry_Certifications_Held__c</name>
+    </fields>
+    <fields>
+        <label><!-- Job Function --></label>
+        <name>Job_Function__c</name>
+        <picklistValues>
+            <masterLabel>CEO/General Manager</masterLabel>
+            <translation><!-- CEO/General Manager --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Marketing Contact</masterLabel>
+            <translation><!-- Marketing Contact --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Primary Sales Contact</masterLabel>
+            <translation><!-- Primary Sales Contact --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Primary Technical Contact</masterLabel>
+            <translation><!-- Primary Technical Contact --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Last Login --></label>
+        <name>Last_Login__c</name>
+    </fields>
+    <fields>
+        <label><!-- Lms User Id --></label>
+        <name>LmsUserId__c</name>
+    </fields>
+    <fields>
+        <label><!-- Lms Username --></label>
+        <name>LmsUsername__c</name>
+    </fields>
+    <fields>
+        <label><!-- Member Id --></label>
+        <name>Member_Id__c</name>
+    </fields>
+    <fields>
+        <label><!-- Partner Level --></label>
+        <name>Partner_Level__c</name>
+    </fields>
+    <fields>
+        <label><!-- Partner Locator --></label>
+        <name>Partner_Locator__c</name>
+    </fields>
+    <fields>
+        <label><!-- Primary Member --></label>
+        <name>Primary_Member__c</name>
+    </fields>
+    <fields>
+        <label><!-- RV User Name --></label>
+        <name>RV_User_Name__c</name>
+    </fields>
+    <fields>
+        <label><!-- Receive Email --></label>
+        <name>Receive_Email__c</name>
+    </fields>
+    <fields>
+        <label><!-- Receive Mail --></label>
+        <name>Receive_Mail__c</name>
+    </fields>
+    <fields>
+        <label><!-- Reports To --></label>
+        <name>Reports_To__c</name>
+    </fields>
+    <fields>
+        <label><!-- Skype Name --></label>
+        <name>Skype_Name__c</name>
+    </fields>
+    <fields>
+        <label><!-- ZipCode --></label>
+        <name>ZipCode__c</name>
+    </fields>
+    <layouts>
+        <layout>Partner Contact Profile Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+    </layouts>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

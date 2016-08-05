@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ApexComponent xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>22.0</apiVersion>
+    <description>lists the assets of a request:
+&lt;Model&gt; S/N &lt;S/N&gt;
+&lt;Model&gt; S/N &lt;S/N&gt;
+&lt;Model&gt; S/N &lt;S/N&gt;...</description>
+    <label>Asset List</label>
+</ApexComponent>

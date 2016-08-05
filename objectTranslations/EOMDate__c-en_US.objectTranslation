@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>EOM Date</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>EOM Date</value>
+    </caseValues>
+    <fields>
+        <label><!-- EOM Date --></label>
+        <name>EOMDate__c</name>
+    </fields>
+    <fields>
+        <label><!-- Model --></label>
+        <name>Model__c</name>
+    </fields>
+    <fields>
+        <label><!-- Ship Date (Prior to) --></label>
+        <name>ShipDate__c</name>
+    </fields>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

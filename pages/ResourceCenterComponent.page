@@ -1,0 +1,112 @@
+<apex:page showHeader="false" sidebar="false">
+    <style type="text/css">
+        div#container {
+            width: 95%;
+            margin: 5px auto;
+        }
+        div#banner {
+            width: 100%;
+            padding: 20px 0;
+            text-align: center;
+            font-size: 40px;
+            color: #fff;
+            background-color: #175087;
+            border-radius: 5px;            
+            letter-spacing: 2px;
+        }
+        div#blurb {            
+            padding: 20px 0;
+        }
+
+        div#container .panel {
+            margin-bottom: 40px;
+            background-color: #fff;
+            border: 1px solid transparent;
+            border-radius: 4px;
+            box-shadow: 0 1px 1px rgba(0,0,0,.05);
+            border-color: #3170A3;
+        }
+        div#container .panel-heading {
+            padding: 10px 0;
+            border-bottom: 1px solid transparent;
+            border-top-left-radius: 3px;
+            border-top-right-radius: 3px;
+            color: #fff;
+            background-color: #3170A3;
+            border-color: #3170A3;  
+            font-weight: bold;
+            font-size: 14px;
+            text-align: center;
+        }
+
+        div#container table td {
+            padding: 10px 20px;
+            width: 50%;
+        }
+
+        div#container .btn-link {
+          -webkit-border-radius: 5;
+          -moz-border-radius: 5;
+          border-radius: 5px;
+          color: #ffffff;
+          background: #00AFD1;
+          background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0.41, #00A2CB), color-stop(1, #4CCFE3));
+          padding: 10px 20px 10px 20px;
+          text-decoration: none;
+          display: block;
+        }
+        
+        div#container .btn-link:hover {
+          background: #059EBB;
+          background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0.41, #4CCFE3), color-stop(1, #00A2CB));
+          text-decoration: none;
+        }
+
+    </style>
+    <div id="container">
+        <div id="banner">Silver Peak Systems Resource Center</div>
+        <div id="blurb">
+            Welcome to the Resource Center, dedicated to providing our channel partners with the information and tools needed to successfully drive business. The resource center offers access to the latest sales presentations, sales playbooks, data sheets, training materials, special reports, marketing materials and more.
+        </div>
+
+        <div class="panel">
+            <div class="panel-heading">Content Center</div>
+            <div class="panel-body">
+                <table width="100%" cellspacing="0">
+                    <tr>
+                        <td><a href="/sfc/#search?searchPageNum=0&searchTags=%5B%22marketing%22%5D&searchExtensions=%5B%5D&searchWorkspaceIds=%5B%5D&searchLanguageFilters=%5B%5D&searchCreatorIds=%5B%5D&resultsListType=s&searchRefreshFacets=false" class="btn-link" target="_top">Marketing Materials</a></td>
+                        <td><a href="/sfc/#search?searchPageNum=0&searchTags=%5B%22sales%22%5D&searchExtensions=%5B%5D&searchWorkspaceIds=%5B%5D&searchLanguageFilters=%5B%5D&searchCreatorIds=%5B%5D&resultsListType=s&searchRefreshFacets=false" class="btn-link" target="_top">Sales Tool</a></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        
+        <div class="panel">
+            <div class="panel-heading">Support Center</div>
+            <div class="panel-body">
+                <table width="100%" cellspacing="0">
+                    <tr>
+                        <td><a href="{!$Page.CaseListOverride}" class="btn-link" target="_top">Open/Manage a Case</a></td>
+                        <td><a href="{!URLFOR('/_ui/knowledge/ui/KnowledgeHome')}" class="btn-link" target="_top">Search our Knowledge Base</a></td>
+                    </tr>
+                    <tr>
+                        <td><a href="{!$Page.Releases}" class="btn-link" target="_top">Download Software</a></td>
+                        <td><a href="{!$Page.PickAssetForNewRMA}" class="btn-link" target="_top">Open a Self Service RMA</a></td>
+                    </tr>
+                    <tr>
+                        <td><a href="{!$Page.AssetListView_EC}" class="btn-link" target="_top">EdgeConnect Subscriptions &nbsp; Appliances</a></td>
+                        <td><a href="{!$Page.AssetListView}" class="btn-link" target="_top">VX/VRX Licenses &nbsp;NX Appliances</a></td>
+                    </tr>                
+                    <tr>
+                        <td><a href="http://www.silverpeaksystems.com/Support/user_docs.asp" class="btn-link" target="_top">View Documentation</a></td>
+                        <td><a href="{!$Page.DocumentListing}" class="btn-link" target="_top">Supplemental Documents</a></td>
+                    </tr>
+                    <tr>
+                        <td><a href="{!$Page.AssetListView_NXToVX}" class="btn-link" target="_top">Convert NX to VX</a></td>
+                        
+                    </tr>
+                </table>
+            </div>
+        </div>        
+    </div>
+</apex:page>

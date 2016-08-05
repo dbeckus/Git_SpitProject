@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ApprovalProcess xmlns="http://soap.sforce.com/2006/04/metadata">
+    <active>true</active>
+    <allowRecall>true</allowRecall>
+    <allowedSubmitters>
+        <type>creator</type>
+    </allowedSubmitters>
+    <allowedSubmitters>
+        <type>owner</type>
+    </allowedSubmitters>
+    <approvalPageFields>
+        <field>Name</field>
+        <field>Estimated_Close_Date__c</field>
+        <field>Funded_Project__c</field>
+        <field>Project_Budget_Amount__c</field>
+        <field>Owner</field>
+    </approvalPageFields>
+    <approvalStep>
+        <allowDelegate>true</allowDelegate>
+        <assignedApprover>
+            <approver>
+                <name>DealRegistration</name>
+                <type>queue</type>
+            </approver>
+            <whenMultipleApprovers>FirstResponse</whenMultipleApprovers>
+        </assignedApprover>
+        <description>Used to automatically approve this types of registrations</description>
+        <entryCriteria>
+            <criteriaItems>
+                <field>Lead.RecordType</field>
+                <operation>equals</operation>
+                <value>Deal Registration</value>
+            </criteriaItems>
+        </entryCriteria>
+        <ifCriteriaNotMet>ApproveRecord</ifCriteriaNotMet>
+        <label>Step 1</label>
+        <name>Step_1</name>
+    </approvalStep>
+    <description>Process for a partner to convert a lead handed to them for deal registration</description>
+    <enableMobileDeviceAccess>true</enableMobileDeviceAccess>
+    <entryCriteria>
+        <criteriaItems>
+            <field>Lead.RecordType</field>
+            <operation>notEqual</operation>
+            <value>Deal Registration</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Lead.Reseller_Email__c</field>
+            <operation>contains</operation>
+            <value>@</value>
+        </criteriaItems>
+    </entryCriteria>
+    <finalApprovalActions>
+        <action>
+            <name>Change_Lead_Record_Type</name>
+            <type>FieldUpdate</type>
+        </action>
+        <action>
+            <name>Change_Lead_Source_to_Deal_Registration</name>
+            <type>FieldUpdate</type>
+        </action>
+        <action>
+            <name>Change_Lead_Status_to_Draft</name>
+            <type>FieldUpdate</type>
+        </action>
+        <action>
+            <name>Partner_Acknowledgement</name>
+            <type>Alert</type>
+        </action>
+    </finalApprovalActions>
+    <finalApprovalRecordLock>false</finalApprovalRecordLock>
+    <finalRejectionRecordLock>false</finalRejectionRecordLock>
+    <label>Partner Lead to Deal Registration</label>
+    <recordEditability>AdminOnly</recordEditability>
+    <showApprovalHistory>false</showApprovalHistory>
+</ApprovalProcess>

@@ -1,0 +1,620 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>RMA</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>RMA&apos;s</value>
+    </caseValues>
+    <fields>
+        <label><!-- Account Manager Email 1 --></label>
+        <name>Account_Manager_Email_1__c</name>
+    </fields>
+    <fields>
+        <label><!-- Account Manager Email 2 --></label>
+        <name>Account_Manager_Email_2__c</name>
+    </fields>
+    <fields>
+        <label><!-- Account --></label>
+        <name>Account__c</name>
+        <relationshipLabel><!-- RMA&apos;s --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Address - Loc 1 --></label>
+        <name>Address1__c</name>
+    </fields>
+    <fields>
+        <label><!-- Address - Loc 2 --></label>
+        <name>Address_Loc_2__c</name>
+    </fields>
+    <fields>
+        <label><!-- Address - Loc 3 --></label>
+        <name>Address_Loc_3__c</name>
+    </fields>
+    <fields>
+        <label><!-- Address - Loc 4 --></label>
+        <name>Address_Loc_4__c</name>
+    </fields>
+    <fields>
+        <label><!-- Case Number --></label>
+        <name>Case_Number__c</name>
+    </fields>
+    <fields>
+        <label><!-- Case --></label>
+        <name>Case__c</name>
+        <relationshipLabel><!-- RMA&apos;s --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Add&apos;l Comments --></label>
+        <name>Comments__c</name>
+    </fields>
+    <fields>
+        <label><!-- Compromised or Breached --></label>
+        <name>Compromised_Breached__c</name>
+    </fields>
+    <fields>
+        <label><!-- Contact First Name --></label>
+        <name>ContactFirstName__c</name>
+    </fields>
+    <fields>
+        <label><!-- Contact Last Name --></label>
+        <name>ContactLastName__c</name>
+    </fields>
+    <fields>
+        <label><!-- Contact Email - Loc 2 --></label>
+        <name>Contact_Email_Loc_2__c</name>
+    </fields>
+    <fields>
+        <label><!-- Contact Email - Loc 3 --></label>
+        <name>Contact_Email_Loc_3__c</name>
+    </fields>
+    <fields>
+        <label><!-- Contact Email - Loc 4 --></label>
+        <name>Contact_Email_Loc_4__c</name>
+    </fields>
+    <fields>
+        <label><!-- Contact Email -Loc 1 --></label>
+        <name>Contact_Email__c</name>
+    </fields>
+    <fields>
+        <label><!-- Contact - Loc 1 --></label>
+        <name>Contact_Loc_1__c</name>
+        <relationshipLabel><!-- RMA&apos;s (Contact - Loc 1) --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Contact - Loc 2 --></label>
+        <name>Contact_Loc_2__c</name>
+        <relationshipLabel><!-- RMA&apos;s (Contact - Loc 2) --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Contact - Loc 3 --></label>
+        <name>Contact_Loc_3__c</name>
+        <relationshipLabel><!-- RMA&apos;s (Contact - Loc 3) --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Contact - Loc 4 --></label>
+        <name>Contact_Loc_4__c</name>
+        <relationshipLabel><!-- RMA&apos;s (Contact - Loc 4) --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Contact Phone - Loc 2 --></label>
+        <name>Contact_Phone_Loc_2__c</name>
+    </fields>
+    <fields>
+        <label><!-- Contact Phone - Loc 3 --></label>
+        <name>Contact_Phone_Loc_3__c</name>
+    </fields>
+    <fields>
+        <label><!-- Contact Phone - Loc 4 --></label>
+        <name>Contact_Phone_Loc_4__c</name>
+    </fields>
+    <fields>
+        <label><!-- Contact Phone -Loc 1 --></label>
+        <name>Contact_Phone__c</name>
+    </fields>
+    <fields>
+        <label><!-- Contact --></label>
+        <name>Contact__c</name>
+        <relationshipLabel><!-- RMA&apos;s --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- ContainsSystemReplacement --></label>
+        <name>ContainsSystemReplacement__c</name>
+    </fields>
+    <fields>
+        <label><!-- Corrective Action --></label>
+        <name>Corrective_Action__c</name>
+    </fields>
+    <fields>
+        <label><!-- Dead On Arrival --></label>
+        <name>DOA__c</name>
+    </fields>
+    <fields>
+        <label><!-- Days Since RMA Open --></label>
+        <name>Days_Since_RMA_Open__c</name>
+    </fields>
+    <fields>
+        <label><!-- Disposition Notes --></label>
+        <name>Disposition_Notes__c</name>
+    </fields>
+    <fields>
+        <label><!-- Disposition --></label>
+        <name>Disposition__c</name>
+        <picklistValues>
+            <masterLabel>ENG FA</masterLabel>
+            <translation><!-- ENG FA --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Engineering</masterLabel>
+            <translation><!-- Engineering --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>LANNER FA</masterLabel>
+            <translation><!-- LANNER FA --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>NO FA REQUIRED</masterLabel>
+            <translation><!-- NO FA REQUIRED --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>None</masterLabel>
+            <translation><!-- None --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Return to Service</masterLabel>
+            <translation><!-- Return to Service --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Scrap</masterLabel>
+            <translation><!-- Scrap --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <help><!-- Check this field to request Silver Peak Engineering to provide a Failure Analysis Report for this RMA --></help>
+        <label><!-- Failure Analysis Report Needed --></label>
+        <name>FA_Report_Needed__c</name>
+    </fields>
+    <fields>
+        <label><!-- Fault Category --></label>
+        <name>Fault_Category__c</name>
+        <picklistValues>
+            <masterLabel>Backplane</masterLabel>
+            <translation><!-- Backplane --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>CPU</masterLabel>
+            <translation><!-- CPU --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Cable</masterLabel>
+            <translation><!-- Cable --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Chassis</masterLabel>
+            <translation><!-- Chassis --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Compact Flash Card</masterLabel>
+            <translation><!-- Compact Flash Card --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Customer Damage</masterLabel>
+            <translation><!-- Customer Damage --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Customer Satisfaction</masterLabel>
+            <translation><!-- Customer Satisfaction --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Disk Drive</masterLabel>
+            <translation><!-- Disk Drive --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Embedded USB Flash Drive</masterLabel>
+            <translation><!-- Embedded USB Flash Drive --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Encryption Card</masterLabel>
+            <translation><!-- Encryption Card --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Fan</masterLabel>
+            <translation><!-- Fan --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Investigating</masterLabel>
+            <translation><!-- Investigating --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Memory</masterLabel>
+            <translation><!-- Memory --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Motherboard</masterLabel>
+            <translation><!-- Motherboard --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>NIC</masterLabel>
+            <translation><!-- NIC --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>NTF</masterLabel>
+            <translation><!-- NTF --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Obsolete no FA</masterLabel>
+            <translation><!-- Obsolete no FA --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Power Adapter</masterLabel>
+            <translation><!-- Power Adapter --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Power Supply</masterLabel>
+            <translation><!-- Power Supply --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Raid Controller</masterLabel>
+            <translation><!-- Raid Controller --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Recall</masterLabel>
+            <translation><!-- Recall --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Riser Card</masterLabel>
+            <translation><!-- Riser Card --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Shipping</masterLabel>
+            <translation><!-- Shipping --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Software</masterLabel>
+            <translation><!-- Software --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>USB Flash Card</masterLabel>
+            <translation><!-- USB Flash Card --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Unknown Yet</masterLabel>
+            <translation><!-- Unknown Yet --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Workmanship</masterLabel>
+            <translation><!-- Workmanship --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Fault Subcategory --></label>
+        <name>Fault_Code__c</name>
+        <picklistValues>
+            <masterLabel>BIOS</masterLabel>
+            <translation><!-- BIOS --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Firmware</masterLabel>
+            <translation><!-- Firmware --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Hardware</masterLabel>
+            <translation><!-- Hardware --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>MAC Address</masterLabel>
+            <translation><!-- MAC Address --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>NTF</masterLabel>
+            <translation><!-- NTF --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Obsolete no FA</masterLabel>
+            <translation><!-- Obsolete no FA --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Fault Found --></label>
+        <name>Fault_Found__c</name>
+    </fields>
+    <fields>
+        <label><!-- Is Recycling --></label>
+        <name>IsRecycling__c</name>
+    </fields>
+    <fields>
+        <label><!-- LineCount --></label>
+        <name>LineCount__c</name>
+    </fields>
+    <fields>
+        <label><!-- Lock Dispatch Shipment --></label>
+        <name>Lock_Dispatch_Shipment__c</name>
+    </fields>
+    <fields>
+        <label><!-- Next Recipient --></label>
+        <name>Next_Recipient__c</name>
+        <picklistValues>
+            <masterLabel>Engineering</masterLabel>
+            <translation><!-- Engineering --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Operations</masterLabel>
+            <translation><!-- Operations --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>TAC</masterLabel>
+            <translation><!-- TAC --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Note -Loc 1 --></label>
+        <name>Note_Loc_1__c</name>
+    </fields>
+    <fields>
+        <label><!-- Note - Loc 2 --></label>
+        <name>Note_Loc_2__c</name>
+    </fields>
+    <fields>
+        <label><!-- Note - Loc 3 --></label>
+        <name>Note_Loc_3__c</name>
+    </fields>
+    <fields>
+        <label><!-- Note - Loc 4 --></label>
+        <name>Note_Loc_4__c</name>
+    </fields>
+    <fields>
+        <label><!-- Opp Owner --></label>
+        <name>Opp_Owner__c</name>
+    </fields>
+    <fields>
+        <label><!-- Partner Notification Text --></label>
+        <name>Partner_Notification_Text__c</name>
+    </fields>
+    <fields>
+        <help><!-- This email is used on selected notifications for partners --></help>
+        <label><!-- Partner Notification --></label>
+        <name>Partner_Notification__c</name>
+    </fields>
+    <fields>
+        <label><!-- Pending EDI Ack --></label>
+        <name>Pending_EDI_Ack__c</name>
+    </fields>
+    <fields>
+        <label><!-- Problem Description --></label>
+        <name>Problem_Description__c</name>
+    </fields>
+    <fields>
+        <label><!-- Product - Loc 2 --></label>
+        <name>Product_Loc_2__c</name>
+    </fields>
+    <fields>
+        <label><!-- Product - Loc 3 --></label>
+        <name>Product_Loc_3__c</name>
+    </fields>
+    <fields>
+        <label><!-- Product - Loc 4 --></label>
+        <name>Product_Loc_4__c</name>
+    </fields>
+    <fields>
+        <label><!-- Product -Loc 1 --></label>
+        <name>Product__c</name>
+    </fields>
+    <fields>
+        <label><!-- RMAId --></label>
+        <name>RMAId__c</name>
+    </fields>
+    <fields>
+        <label><!-- Reason for Compromise/Breach --></label>
+        <name>Reason_for_Compromise_Breach__c</name>
+    </fields>
+    <fields>
+        <label><!-- POC Request --></label>
+        <name>Request__c</name>
+        <relationshipLabel><!-- RMA&apos;s --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Requested By --></label>
+        <name>Requested_By__c</name>
+        <picklistValues>
+            <masterLabel>Engineering</masterLabel>
+            <translation><!-- Engineering --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>SE</masterLabel>
+            <translation><!-- SE --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Sales</masterLabel>
+            <translation><!-- Sales --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>TAC</masterLabel>
+            <translation><!-- TAC --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Root Case --></label>
+        <name>Root_Case__c</name>
+    </fields>
+    <fields>
+        <label><!-- Ship To Account Name --></label>
+        <name>Ship_To_Account_Name__c</name>
+    </fields>
+    <fields>
+        <label><!-- Status --></label>
+        <name>Status__c</name>
+        <picklistValues>
+            <masterLabel>Cancelled</masterLabel>
+            <translation><!-- Cancelled --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Closed</masterLabel>
+            <translation><!-- Closed --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Dispatch Accepted</masterLabel>
+            <translation><!-- Dispatch Accepted --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Dispatch Rejected</masterLabel>
+            <translation><!-- Dispatch Rejected --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Dispatched</masterLabel>
+            <translation><!-- Dispatched --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>In FA/Recd</masterLabel>
+            <translation><!-- In FA/Recd --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>In Logistics</masterLabel>
+            <translation><!-- In Logistics --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Initiated</masterLabel>
+            <translation><!-- Initiated --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>RSM Assist</masterLabel>
+            <translation><!-- RSM Assist --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Shipped</masterLabel>
+            <translation><!-- Shipped --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- SystemCount --></label>
+        <name>SystemCount__c</name>
+    </fields>
+    <fields>
+        <label><!-- System Engineer Email 1 --></label>
+        <name>System_Engineer_Email_1__c</name>
+    </fields>
+    <fields>
+        <label><!-- System Engineer Email 2 --></label>
+        <name>System_Engineer_Email_2__c</name>
+    </fields>
+    <fields>
+        <help><!-- Enter in format CARRIER:TRACKING NUMBERS --></help>
+        <label><!-- Tracking Information --></label>
+        <name>Tracking_Information__c</name>
+    </fields>
+    <fields>
+        <label><!-- Type --></label>
+        <name>Type__c</name>
+        <picklistValues>
+            <masterLabel>Advance Replace</masterLabel>
+            <translation><!-- Advance Replace --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Eval Return</masterLabel>
+            <translation><!-- Eval Return --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Recall</masterLabel>
+            <translation><!-- Recall --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Return for Repair</masterLabel>
+            <translation><!-- Return for Repair --></translation>
+        </picklistValues>
+    </fields>
+    <layouts>
+        <layout>Eval Returns</layout>
+        <sections>
+            <label><!-- Comments --></label>
+            <section>Comments</section>
+        </sections>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+        <sections>
+            <label><!-- Location 1 --></label>
+            <section>Location 1</section>
+        </sections>
+        <sections>
+            <label><!-- Location 2 --></label>
+            <section>Location 2</section>
+        </sections>
+        <sections>
+            <label><!-- Location 3 --></label>
+            <section>Location 3</section>
+        </sections>
+        <sections>
+            <label><!-- Location 4 --></label>
+            <section>Location 4</section>
+        </sections>
+        <sections>
+            <label><!-- System Info --></label>
+            <section>System Info</section>
+        </sections>
+    </layouts>
+    <layouts>
+        <layout>RMA Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+        <sections>
+            <label><!-- Disposition --></label>
+            <section>Disposition</section>
+        </sections>
+        <sections>
+            <label><!-- Order Information  (Note 1 = Error Messages) (Note 2 = Success Messages) --></label>
+            <section>Order Information  (Note 1 = Error Messages) (Note 2 = Success Messages)</section>
+        </sections>
+        <sections>
+            <label><!-- Repair/Analysis Information --></label>
+            <section>Repair/Analysis Information</section>
+        </sections>
+        <sections>
+            <label><!-- Reported Problem --></label>
+            <section>Reported Problem</section>
+        </sections>
+        <sections>
+            <label><!-- System Info --></label>
+            <section>System Info</section>
+        </sections>
+    </layouts>
+    <layouts>
+        <layout>SupportCenter</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+        <sections>
+            <label><!-- Reported Problem --></label>
+            <section>Reported Problem</section>
+        </sections>
+    </layouts>
+    <recordTypes>
+        <label><!-- CMA --></label>
+        <name>CMA</name>
+    </recordTypes>
+    <recordTypes>
+        <label><!-- Eval RMA --></label>
+        <name>Eval_RMA</name>
+    </recordTypes>
+    <recordTypes>
+        <label><!-- RMA --></label>
+        <name>RMA</name>
+    </recordTypes>
+    <startsWith>Consonant</startsWith>
+    <webLinks>
+        <label><!-- Create_New_RMA --></label>
+        <name>Create_New_RMA</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- Dispatch_for_Shipment --></label>
+        <name>Dispatch_for_Shipment</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- Open_RMA --></label>
+        <name>Open_RMA</name>
+    </webLinks>
+</CustomObjectTranslation>

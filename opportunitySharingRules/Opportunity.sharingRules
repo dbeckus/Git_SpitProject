@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<OpportunitySharingRules xmlns="http://soap.sforce.com/2006/04/metadata">
+    <criteriaBasedRules>
+        <fullName>All_Opportunities_but_Deleted_Shared_with_All_Internal_Users</fullName>
+        <sharedTo>
+            <allInternalUsers></allInternalUsers>
+        </sharedTo>
+        <criteriaItems>
+            <field>Type</field>
+            <operation>notEqual</operation>
+            <value>Marketplace</value>
+        </criteriaItems>
+        <name>All Opportunities but Deleted Shared with All Internal Users</name>
+        <opportunityAccessLevel>Edit</opportunityAccessLevel>
+    </criteriaBasedRules>
+    <criteriaBasedRules>
+        <fullName>Marketplace_Shares_with_All_but_Marketo</fullName>
+        <sharedTo>
+            <roleAndSubordinatesInternal>CFO</roleAndSubordinatesInternal>
+        </sharedTo>
+        <criteriaItems>
+            <field>Type</field>
+            <operation>equals</operation>
+            <value>Marketplace</value>
+        </criteriaItems>
+        <name>CFO &amp; Subordinates</name>
+        <opportunityAccessLevel>Edit</opportunityAccessLevel>
+    </criteriaBasedRules>
+    <criteriaBasedRules>
+        <fullName>Marketplace_Shares_with_VP_Operations_and_Below</fullName>
+        <sharedTo>
+            <roleAndSubordinatesInternal>VPOperations</roleAndSubordinatesInternal>
+        </sharedTo>
+        <criteriaItems>
+            <field>Type</field>
+            <operation>equals</operation>
+            <value>Marketplace</value>
+        </criteriaItems>
+        <description>Marketplace Shares with VP Operations and Below</description>
+        <name>Marketplace Shares with VP Operations and Below</name>
+        <opportunityAccessLevel>Edit</opportunityAccessLevel>
+    </criteriaBasedRules>
+    <criteriaBasedRules>
+        <fullName>Marketplace_Shares_with_VP_Product_M_Below</fullName>
+        <sharedTo>
+            <roleAndSubordinatesInternal>VPProductManagement</roleAndSubordinatesInternal>
+        </sharedTo>
+        <criteriaItems>
+            <field>Type</field>
+            <operation>equals</operation>
+            <value>Marketplace</value>
+        </criteriaItems>
+        <name>Marketplace Shares with VP Product M &amp; Below</name>
+        <opportunityAccessLevel>Edit</opportunityAccessLevel>
+    </criteriaBasedRules>
+    <criteriaBasedRules>
+        <fullName>Marketplace_Shares_with_VP_of_Business_Development_and_Below</fullName>
+        <sharedTo>
+            <roleAndSubordinatesInternal>VPofBusinessDevlopment</roleAndSubordinatesInternal>
+        </sharedTo>
+        <criteriaItems>
+            <field>Type</field>
+            <operation>equals</operation>
+            <value>Marketplace</value>
+        </criteriaItems>
+        <description>Marketplace shares with VP of Business Development and below</description>
+        <name>Marketplace Shares with VP of Business Development and Below</name>
+        <opportunityAccessLevel>Edit</opportunityAccessLevel>
+    </criteriaBasedRules>
+    <criteriaBasedRules>
+        <fullName>Marketplace_shares_with_VP_of_Engineering_and_below</fullName>
+        <sharedTo>
+            <roleAndSubordinatesInternal>VPofEngineering</roleAndSubordinatesInternal>
+        </sharedTo>
+        <criteriaItems>
+            <field>Type</field>
+            <operation>equals</operation>
+            <value>Marketplace</value>
+        </criteriaItems>
+        <description>Marketplace shares with VP of Engineering and below</description>
+        <name>Marketplace shares with VP of Engineering and below</name>
+        <opportunityAccessLevel>Edit</opportunityAccessLevel>
+    </criteriaBasedRules>
+    <ownerRules>
+        <fullName>AllInternalUsers737553</fullName>
+        <sharedTo>
+            <allInternalUsers></allInternalUsers>
+        </sharedTo>
+        <sharedFrom>
+            <allPartnerUsers></allPartnerUsers>
+        </sharedFrom>
+        <name>AllInternalUsers</name>
+        <opportunityAccessLevel>Edit</opportunityAccessLevel>
+    </ownerRules>
+</OpportunitySharingRules>

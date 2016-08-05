@@ -1,0 +1,379 @@
+<apex:page showHeader="true" sidebar="true" tabStyle="Asset" docType="html-5.0" controller="AssetListViewController_EC"  id="assetList">
+    <script src="{!URLFOR($Resource.jQuery, 'jquery-1.4.3.min.js')}" type="text/javascript"></script>
+
+    <style type="text/css">
+    th {
+        background-color: #f2f3f3;
+    }
+    body .bPageTitle .pageTitleIcon {
+        margin-top: -4px;
+    }
+    .apexp .bPageBlock.apexDefaultPageBlock .pbBody {
+        margin: 0px;
+    }
+    body .bRelatedList .pbBody table.list, body .apexp .pbBody table.list {
+        border: 0px;
+    }
+    body .bEditBlock .pbHeader, body .bLayoutBlock .pbHeader, body .apexp .bPageBlock.apexDefaultPageBlock .pbHeader {
+        border-bottom: 0px;
+    }
+    .list tr.even th, .list tr.odd th, .list tr.even td, .list tr.odd td {
+        vertical-align: middle;
+    }
+    .message {
+        margin-left: 0px;
+    }
+    </style>
+    <script type="text/javascript">
+        function showPencil(currentTD) {
+            $(currentTD).css({"background-image":"url(/img/func_icons/util/pencil12.gif)"});
+            $(currentTD).css("background-position-y", "40%");
+            $(currentTD).css("background-position-x", "100%");
+            $(currentTD).css("background-repeat", "no-repeat");
+        }
+
+        function hidePencil(currentTD) {
+            $(currentTD).css({"background-image":"none"});
+        }
+
+        function setSearch() {
+            $("[id*=seachValue]").val($(".search-control").val());
+        }
+
+        function searchAsset() {
+            setSearch();
+            reloadData();
+        }
+
+        function confirmOperation() {
+            return confirm('An email with the asset list will be sent to your email address. Do you want to continue?');
+        }
+
+        function showInlineEditMode(currentTag, inputClass, outputClass) {
+            $(currentTag).find("." + outputClass).css("display", "none");
+            $(currentTag).find("." + inputClass).css("display", "inline");
+            $(currentTag).find("." + inputClass).val("").focus().val($(currentTag).find("." + outputClass).text().trim()); 
+            $("[id$=saveBtn]").css("display", "inline");
+            $("[id$=cancelBtn]").css("display", "inline");
+        }
+
+        function hideInlineEditMode(currentTag, outputClass) {
+            $(currentTag).closest("td").find("." + outputClass).css("display", "inline");
+            if($(currentTag).val() != $(currentTag).closest("td").find("." + outputClass).text()) {
+                $(currentTag).closest("td").find("." + outputClass).addClass("inlineEditModified");
+            }
+            $(currentTag).closest("td").find("." + outputClass).text($(currentTag).val());
+            $(currentTag).css("display", "none");
+            SpDialogBox.close('inputDialog');
+        }
+
+        function hideInlineEditDate(currentTag, outputClass) {
+            $(currentTag).closest("td").find("." + outputClass).css("display", "inline");
+            if($(currentTag).val() != $(currentTag).closest("td").find("." + outputClass).text()) {
+                $(currentTag).closest("td").find("." + outputClass).addClass("inlineEditModified");
+            }
+            $(currentTag).closest("td").find("." + outputClass).text($(currentTag).val());
+            $(currentTag).css("display", "none");
+        }
+
+        function showInlineEditDate(currentTag, inputClass, outputClass) {
+            $(currentTag).find("." + outputClass).css("display", "none");
+            $(currentTag).find("." + inputClass).css("display", "inline");
+            $(currentTag).find("." + inputClass).focus();
+            $("[id$=saveBtn]").css("display", "inline");
+            $("[id$=cancelBtn]").css("display", "inline");
+        }
+        
+        var editingNotesIndex = null;
+        function showInlineEditPopup(currentTag, inputClass, outputClass) {
+            editingNotesIndex = currentTag.id;
+            var inputCtrlId = editingNotesIndex.replace("custCell", "custNotes");
+            $("#notesInput").val(document.getElementById(inputCtrlId).value);
+            SpDialogBox.open('inputDialog');
+            $("[id$=saveBtn]").css("display", "inline");
+            $("[id$=cancelBtn]").css("display", "inline");
+            
+        }
+
+        function hideInlineEditPopup(currentTag, outputClass) {
+            $(currentTag).closest("td").find("." + outputClass).css("display", "inline");
+            if($(currentTag).val() != $(currentTag).closest("td").find("." + outputClass).text()) {
+                $(currentTag).closest("td").find("." + outputClass).addClass("inlineEditModified");
+            }
+            $(currentTag).closest("td").find("." + outputClass).text($(currentTag).val());
+            $(currentTag).css("display", "none");
+            SpDialogBox.close('inputDialog');
+        }
+    </script>
+    <script>
+    function SpDialogBox(boxContent, title, saveButtonLabel, cancelButtonLabel)
+    {
+        if(!boxContent)return;
+        if(!saveButtonLabel) {
+            saveButtonLabel = "OK";
+        }
+        if(!cancelButtonLabel) {
+            cancelButtonLabel = "Cancel";
+        }
+        this.name = boxContent.id;
+        this.title = title || "Dependent Fields";
+        $(boxContent).css("display", "");
+        this.dialog = $("<div class='overlayDialog cssDialog inlineEditDialog' style='max-width: 650px; display: none; margin-top: -43.75px; margin-left: -172px; visibility: visible;'>" +
+                        "<div class='topRight'>" +
+                            "<div class='topLeft'>" +
+                                "<a title='Close' tabindex='0' onmouseover=\"this.className='dialogCloseOn'\" onmouseout=\"this.className='dialogClose'\" href='javascript:void(0)' class='dialogClose cancelBtn'>Close</a>"+
+                                "<h2>" + this.title + "</h2>" +
+                            "</div>" +
+                        "</div>" +
+                        "<div class='middle'>" +
+                            "<div class='innerContent'>" +
+                                "<div class='activeField'>" +
+                                    "<div class='inlineEditDiv dependentFields'>" +
+    
+                                    "</div>" +
+                                "</div>" +
+                                "<div></div>" +
+                                "<div style='display: none;'></div>" +
+                                "<div class='buttons zen'>" +
+                                    "<input class='zen-btn saveBtn' type='button' value='"+saveButtonLabel+"' />" +
+                                    "<input class='zen-btn cancelBtn' type='button' value='"+cancelButtonLabel+"' />" +
+                                "</div>" +
+                            "</div>" +
+                        "</div>" +
+                        "<div class='bottomRight'>" +
+                            "<div class='bottomLeft'></div>" +
+                        "</div>" +
+                    "</div>").insertAfter(boxContent);
+        this.dialog.find(".inlineEditDiv").append($(boxContent).contents().clone());
+        this.id = boxContent.id;
+        $(boxContent).detach();
+        var d = this;
+        this.dialog.find(".saveBtn").click(function() { d.onSave(); d.close(); } );
+        this.dialog.find(".cancelBtn").click(function() { d.onCancel(); d.close(); });
+    
+        if($("#spOverlayBackground").length == 0) {
+            $("<div id='spOverlayBackground' class='overlayBackground' style='position: fixed; width: 10000px; height: 20000px; display: none;'></div>").insertAfter(this.dialog);
+        }
+        this.background = $("#spOverlayBackground");
+        var innerFields = $(this.dialog).find("input[data-field-name], select[data-field-name], textarea[data-field-name]");
+        this.fields = [];
+        if(innerFields.length > 0) {
+            for(var i = 0; i < innerFields.length; i++) {
+                var field = innerFields[i];
+                this.fields.push({ controller: field, name: $(field).attr("data-field-name"), defaultValue: $(field).val() });
+            }
+        }
+    
+        SpDialogBox.dialogs[this.name] = this;
+    
+        this.open = function() {
+            $(this.dialog).css("display", "block");
+            $(this.background).css("display", "block");
+        };
+        this.close = function() {
+            $(this.dialog).css("display", "none");
+            $(this.background).css("display", "none");
+        };
+        this.onCancel = function() {
+        };
+        this.onSave = function() {
+        };
+    }
+    SpDialogBox.dialogs = {};
+    SpDialogBox.close = function() {
+        for(var name in SpDialogBox.dialogs)
+        {
+            SpDialogBox.dialogs[name].close();
+        }
+    };
+    SpDialogBox.open = function(dialogId) {
+        SpDialogBox.close();
+        SpDialogBox.dialogs[dialogId].open();
+        return SpDialogBox.dialogs[dialogId];
+    };
+    
+    </script>
+    <apex:sectionHeader subtitle="EdgeConnect Assets"></apex:sectionHeader>
+    <apex:form id="assetListForm">
+        <apex:pageMessages id="errorMsg"/>
+        <apex:actionFunction name="reloadData" action="{!searchAssets}" status="loading" reRender="assetListBlock,errorMsg"></apex:actionFunction>
+			<apex:pageblock >
+           <apex:pageBlockTable value="{!AccountKeyList}" var="acct" style="width:100%" >
+        	<apex:column style="width:30%" headerValue="Account Name"  value="{!acct.AccountName}" />
+             <apex:column headerValue="Account Key" value="{!acct.AccountKey}" />
+           </apex:pageBlockTable>
+       
+        
+         </apex:pageblock>
+        <span id="searchSection">
+            <apex:selectList value="{!ListView}" size="1" id="listViewOption">
+                <apex:selectOption itemLabel="Edge Connect Subscriptions" itemValue="EdgeConnect_Subscriptions"></apex:selectOption>
+                <apex:actionSupport event="onchange" action="{!initSort}" status="loading" reRender="assetListBlock,errorMsg"></apex:actionSupport>
+            </apex:selectList>
+           
+            <input type="search" class="search-control"  onsearch="searchAsset();"/>
+            <apex:inputHidden value="{!SearchAsset}" id="seachValue"></apex:inputHidden>
+            <apex:commandButton value="Search" onclick="setSearch();" action="{!searchAssets}" reRender="assetListBlock,errorMsg" status="loading"></apex:commandButton>
+            <apex:commandLink value="Send Me the List" onclick="return confirmOperation();" action="{!sendListToCurrentUser}" style="float: right; margin-top: 6px;"></apex:commandLink>
+            <apex:actionStatus id="loading">
+                 <apex:facet name="start">
+                    <apex:image value="/img/loading.gif" alt="loading" style="margin-right: 5px; margin-left: -2px; margin-bottom: -5px;"/>
+                 </apex:facet>
+            </apex:actionStatus>
+        </span>
+        <apex:outputPanel id="assetListBlock">
+            <apex:pageBlock id="block">
+                <apex:pageBlockButtons >
+                    <apex:commandButton id="saveBtn" value="Save" action="{!saveAsset}" status="loading" reRender="assetListBlock,errorMsg" style="display:none;"></apex:commandButton>
+                    <apex:commandButton id="cancelBtn" value="Cancel" status="loading" reRender="assetListBlock,errorMsg" style="display:none;" action="{!searchAssets}" ></apex:commandButton>
+                </apex:pageBlockButtons>
+                <apex:outputPanel id="assetListTable" style="display: block;">
+                    <apex:pageBlockTable value="{!AssetsInCurrentPage}" var="item" id="pageBlockTable" styleClass="table-secction">
+                        <apex:column >
+                            <apex:facet name="header">
+                                <apex:commandLink action="{!sortTable}" reRender="assetListBlock,errorMsg" status="loading">
+                                    <apex:param name="fieldName" value="Product2.Name"/>
+                                    <span>Product Name</span>
+                                    <apex:outputText rendered="{!FieldName == 'Product2.Name'}">
+                                        <img src="/s.gif" class="{!SortFunction}"/>
+                                    </apex:outputText>
+                                </apex:commandLink>
+                            </apex:facet>
+                            <apex:outputText value="{!item.ProductName}"></apex:outputText>
+                        </apex:column>
+                        <apex:column >
+                            <apex:facet name="header">
+                                <apex:commandLink action="{!sortTable}" reRender="assetListBlock,errorMsg" status="loading">
+                                    <apex:param name="fieldName" value="SerialNumber"/>
+                                    <span>Serial Number</span>
+                                    <apex:outputText rendered="{!FieldName == 'SerialNumber'}">
+                                        <img src="/s.gif" class="{!SortFunction}"/>
+                                    </apex:outputText>
+                                </apex:commandLink>
+                            </apex:facet>
+                            <apex:outputLink value="/{!item.AssetRecord.Id}">{!item.AssetRecord.SerialNumber}</apex:outputLink>
+                        </apex:column>
+                           <apex:column >
+                            <apex:facet name="header">
+                                <apex:commandLink action="{!sortTable}" reRender="assetListBlock,errorMsg" status="loading">
+                                    <apex:param name="fieldName" value="Account.Name"/>
+                                    <span>Account Name</span>
+                                    <apex:outputText rendered="{!FieldName == 'Account.Name'}">
+                                        <img src="/s.gif" class="{!SortFunction}"/>
+                                    </apex:outputText>
+                                </apex:commandLink>
+                            </apex:facet>
+                            <apex:outputField value="{!item.AssetRecord.Account.Name}"/>
+                        </apex:column>
+                        <apex:column >
+                             <apex:facet name="header">
+                                <apex:commandLink action="{!sortTable}" reRender="assetListBlock,errorMsg" status="loading">
+                                    <apex:param name="fieldName" value="License_End_Date__c"/>
+                                    <span>License End Date</span>
+                                    <apex:outputText rendered="{!FieldName == 'License_End_Date__c'}">
+                                        <img src="/s.gif" class="{!SortFunction}"/>
+                                    </apex:outputText>
+                                </apex:commandLink>
+                            </apex:facet>
+                            <apex:outputField value="{!item.AssetRecord.License_End_Date__c}"/>
+                        </apex:column>
+                         <apex:column >
+                            <apex:facet name="header">
+                                <apex:commandLink action="{!sortTable}" reRender="assetListBlock,errorMsg" status="loading">
+                                    <apex:param name="fieldName" value="Licenses_Nodes__c"/>
+                                    <span>Licenses</span>
+                                    <apex:outputText rendered="{!FieldName == 'Licenses_Nodes__c'}">
+                                        <img src="/s.gif" class="{!SortFunction}"/>
+                                    </apex:outputText>
+                                </apex:commandLink>
+                            </apex:facet>
+                            <apex:outputText value="{!item.AssetRecord.Licenses_Nodes__c}"></apex:outputText>
+                        </apex:column>
+                         <apex:column >
+                            <apex:facet name="header">
+                                <apex:commandLink action="{!sortTable}" reRender="assetListBlock,errorMsg" status="loading">
+                                    <apex:param name="fieldName" value="Bandwidth_Nodes__c"/>
+                                    <span>Boost Units</span>
+                                    <apex:outputText rendered="{!FieldName == 'Bandwidth_Nodes__c'}">
+                                        <img src="/s.gif" class="{!SortFunction}"/>
+                                    </apex:outputText>
+                                </apex:commandLink>
+                            </apex:facet>
+                            <apex:outputText value="{!item.AssetRecord.Bandwidth_Nodes__c}"></apex:outputText>
+                        </apex:column>
+                         <apex:column >
+                             <apex:facet name="header">
+                                <apex:commandLink action="{!sortTable}" reRender="assetListBlock,errorMsg" status="loading">
+                                    <apex:param name="fieldName" value="Ship_Date__c"/>
+                                    <span>Ship Date</span>
+                                    <apex:outputText rendered="{!FieldName == 'Ship_Date__c'}">
+                                        <img src="/s.gif" class="{!SortFunction}"/>
+                                    </apex:outputText>
+                                </apex:commandLink>
+                            </apex:facet>
+                            <apex:outputField value="{!item.AssetRecord.Ship_Date__c}"/>
+                        </apex:column>
+                         <apex:column >
+                             <apex:facet name="header">
+                                <apex:commandLink action="{!sortTable}" reRender="assetListBlock,errorMsg" status="loading">
+                                    <apex:param name="fieldName" value="Warranty_End_Date__c"/>
+                                    <span>Warranty End Date</span>
+                                    <apex:outputText rendered="{!FieldName == 'Warranty_End_Date__c'}">
+                                        <img src="/s.gif" class="{!SortFunction}"/>
+                                    </apex:outputText>
+                                </apex:commandLink>
+                            </apex:facet>
+                            <apex:outputField value="{!item.AssetRecord.Warranty_End_Date__c}"/>
+                        </apex:column>
+                        <apex:column style="width: 15%;" onmouseover="showPencil(this);" onmouseout="hidePencil(this);" ondblclick="showInlineEditPopup(this, 'input-notes', 'output-notes');" id="custCell">
+                            <apex:facet name="header">
+                                <apex:commandLink action="{!sortTable}" reRender="assetListBlock,errorMsg" status="loading">
+                                    <apex:param name="fieldName" value="Customer_Notes__c"/>
+                                    <span>Customer Notes</span>
+                                    <apex:outputText rendered="{!FieldName == 'Customer_Notes__c'}">
+                                        <img src="/s.gif" class="{!SortFunction}"/>
+                                    </apex:outputText>
+                                </apex:commandLink>
+                            </apex:facet>
+                            <apex:outputPanel >
+                                <apex:outputText value="{!item.CustomerNotes}" styleClass="output-notes"></apex:outputText>
+                                <apex:inputText value="{!item.CustomerNotes}" styleClass="input-notes" style="display:none" onblur="hideInlineEditPopup(this, 'output-notes');" id="custNotes" />
+                            </apex:outputPanel>
+                        </apex:column>
+                    </apex:pageBlockTable>
+                    <apex:panelGrid id="buttonsSection" columns="4" cellspacing="5" style="padding: 5px 35%;" width="80%">
+                        <apex:commandLink value="<Previous" rendered="{!PageNumber > 0}" action="{!previous}" reRender="assetListBlock,errorMsg" status="loading2"/>
+                        <apex:outputText value="<Previous" rendered="{!PageNumber == 0}" style="color:#999999"/>
+                        <apex:commandLink value="Next>" rendered="{!HasNext}" action="{!next}" reRender="assetListBlock,errorMsg" status="loading2"/>
+                        <apex:outputText value="Next>" rendered="{!NOT(HasNext)}" style="color:#999999"/>
+                        <apex:actionStatus id="loading2">
+                         <apex:facet name="start">
+                            <apex:image value="/img/loading.gif" alt="loading" />
+                         </apex:facet>
+            </apex:actionStatus>
+                    </apex:panelGrid>
+                </apex:outputPanel>
+            </apex:pageBlock>
+            
+            <div id="inputDialog" style="display:none" >
+                <div>
+                    <textarea style="width:250px;height:100px" id="notesInput"></textarea>
+                </div>
+            </div>
+            
+            <script type="text/javascript">
+                $("th").hover(function() {
+                    $(this).css("background-color", "#e0e3e5");
+                }, function(){
+                    $(this).css("background-color", "#f2f3f3");
+                });
+                var dialog = new SpDialogBox($("#inputDialog")[0], 'Customer Notes');
+                dialog.onSave = function() {
+                    var inputCtrlId = editingNotesIndex.replace("custCell", "custNotes");
+                    document.getElementById(inputCtrlId).value = document.getElementById("notesInput").value;
+                    hideInlineEditPopup(document.getElementById(inputCtrlId), 'output-notes');
+                };
+            </script>
+        </apex:outputPanel>
+    </apex:form>
+</apex:page>

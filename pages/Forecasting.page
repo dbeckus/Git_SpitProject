@@ -1,0 +1,378 @@
+<apex:page controller="ForecastingController" extensions="ForecastingOppListService,ForecastingStatsService,ForecastingPipelineChangesController" id="page" sidebar="false" tabStyle="SP_Forecasting__tab">
+    <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular-animate.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+    <apex:stylesheet value="{!URLFOR($Resource.Forecasting, 'FiscalQuarter.css')}" />
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css" />
+    <script language="javascript">
+        var quotaEditable = {!AND($User.Id != currentViewingUser.Id, CurrentUser.SPForecastEnabled__c)};
+        var spForecastEnabled = {!CurrentUser.SPForecastEnabled__c};
+        var fiscalQtr = "{!currentFiscalQuarter}";
+        var startDate = "{!StartDate}";
+        var endDate = "{!EndDate}";
+        var currentViewingUserId = "{!currentViewingUser.Id}";
+        var path = "{!Path}";
+     </script>
+    <script src="{!URLFOR($Resource.Forecasting, 'forecast.js')}" type="text/javascript"></script>
+    <apex:sectionHeader title="Forecasting" subTitle="{!currentFiscalQuarter + ' - ' + currentViewingUser.Name}" />
+    <div style="float:right">
+        <!--<a href="/apex/ForecastingHistoryOppList?uid={!currentViewingUser.Id}&quarter={!CurrentFiscalQuarter}&type=overdue" target="_blank" style="margin-right:200px"><font color="red">Opportunities with Overdue Close Dates</font></a> -->
+        <span class="fa fa-question-circle">&nbsp;</span><a href="https://ensemblestorage.na3.visual.force.com/apex/DownloadFile?scontrolCaching=1&id=a0O50000003KCLJ" target="_blank">Opportunity Management Guidelines</a>
+        
+    </div>
+    <apex:PageMessages escape="true" id="pagemessage"/>
+    <apex:form id="form">
+    <div id="ngContainer" ng-app="spForecastingApp" ng-controller="spForecastingCtrl">
+        <div class="ptBreadcrumb"><span class="fa fa-user"></span>
+            <apex:variable var="p" value="" />
+            <apex:repeat value="{!userNavigate}" var="un">
+                <apex:variable var="p" value="{!p + '/' + un.Id}" />
+                <a href="/apex/Forecasting?path={!p}&quarter={!currentFiscalQuarter}">{!un.Name}</a> &gt;
+            </apex:repeat> 
+            <span style="margin-left:30%;color:red;" ng-show="requestInProgress>0">Loading...</span>
+            <span style="color:red;" ng-show="errorMessage != null">{{errorMessage}}</span>
+        </div>
+        <br/>
+        <div id="wrap">
+            <div class="fqTitleCon">
+                <span class="fqTitle">Fiscal Quarter</span>
+                <span class="fqNum">{!currentFiscalQuarter}</span>
+        
+                <a class="fqBtn" href="/apex/Forecasting?path={!$currentPage.parameters.path}&quarter={!previousFiscalQuarter}" title="Previous quarter"><img src="{!URLFOR($Resource.Forecasting, 'images/fqBtnLeft.gif')}" /></a>
+                <a class="fqBtn" href="/apex/Forecasting?path={!$currentPage.parameters.path}&quarter={!nextFiscalQuarter}" title="Next quarter"><img src="{!URLFOR($Resource.Forecasting, 'images/fqBtnRight.gif')}" /></a>
+                <!--<span class="userName">User: {!currentViewingUser.Name}</span>-->
+                <span class="displayUnits">
+                    <input type="radio" name="displayUnits" value="M" ng-click="displayFormat='M'" />Millions
+                    <input type="radio" name="displayUnits" value="K" checked="true" ng-click="displayFormat='K'" />Thousands
+                    <input type="radio" name="displayUnits" value="W" ng-click="displayFormat='W'" />Whole
+                    <input type="radio" name="displayUnits" value="E" ng-click="displayFormat='E'" />Exact
+                </span>
+                <span style="float:right;margin-right:80px;">
+                    <a href="javascript:void(0)" onclick="window.open('/apex/ForecastHistoryChart?id={!currentViewingUser.Id}&quater={!currentFiscalQuarter}', 'ForecastHistory', 'fullscreen=no, width=1500px, height=600px, left=100px, top=100px, resizable=yes'); return false;"><div class="forecastBtn historyChart" title="Forecast History">Forecast History</div></a>
+                    <a href="javaScript:showPop()"><div class="forecastBtn pipelineChanges" title="Pipeline Changes">Pipeline Changes</div></a>
+                    <apex:outputPanel rendered="{!forecastingHistory.size > 0}" layout="none"><a href="/apex/ForecastingHistory?path={!$CurrentPage.parameters.path}&quarter={!currentFiscalQuarter}" target="_History"><div class="forecastBtn changeLog" title="Change Log">Change Log</div></a></apex:outputPanel>
+                    <a href="/01Z50000000Wkd5" target="_blank"><div class="forecastBtn forecastDashboard" title="Forecast Dashboard">Forecast Dashboard</div></a>
+                    <a href="/00O500000020psW" target="_blank"><div class="forecastBtn myPipeline" title="My Pipeline">My Pipeline</div></a>
+                    <a href="/00O50000003a4ot" target="_blank"><div class="forecastBtn targetAccounts" title="Target Accounts">Target Accounts</div></a>
+                    <a href="javascript:void(0)" onclick="openPopupFocus('/apex/ForecastingDealflow?id={!currentViewingUser.Id}', '_blank', 890,700, 'width=890,height=700,resizable=yes,toolbar=no,status=no,scrollbars=yes,menubar=no,directories=no,location=no,dependant=no', false, false);"><div class="forecastBtn dealFlow" title="Deal Flow Dashboard">Deal Flow Dashboard</div></a>
+                     <a href="/apex/ForecastingHistoryOppList?uid={!currentViewingUser.Id}&quarter={!CurrentFiscalQuarter}&type=overdue" target="_blank"><div class="forecastBtn overdue" title="Opportunities with Overdue Close Dates">Opportunities with Overdue Close Dates</div></a>
+                </span>
+            </div>
+        </div>
+         
+        <apex:pageBlock id="firstBlock">
+             <div style="text-align:right">
+             <table class="report" style="float:left;" ng-show="legacyForecast">
+                <tr class="header">
+                    <th rowspan="2">Forecast</th>
+                    <th colspan="5">New &amp; Follow On</th>
+                    <th>MR</th>
+                    <th rowspan="2">Grand Total</th>
+                </tr>
+                <tr class="header">
+                    <td >Physical $</td>
+                    <td >Physical %</td>
+                    <td >Virtual $</td>
+                    <td >Virtual %</td>
+                    <td >Total</td>
+                    <td>Amount</td> 
+                </tr>               
+                <tr class="line">
+                    <td>Quota</td>
+                    <td class="number">{{formatDecimal(bookingSummary.data.quotaNewPhysicalAmount, displayFormat)}}</td>
+                    <td class="number">{{formatPercentage(bookingSummary.data.quotaNewPhysicalAmount *1.0 / (bookingSummary.data.quotaNewPhysicalAmount + bookingSummary.data.quotaNewVirtualAmount))}}</td>
+                    <td class="number">{{formatDecimal(bookingSummary.data.quotaNewVirtualAmount, displayFormat)}}</td>
+                    <td class="number">{{formatPercentage(bookingSummary.data.quotaNewVirtualAmount * 1.0 / (bookingSummary.data.quotaNewPhysicalAmount + bookingSummary.data.quotaNewVirtualAmount))}}</td>
+                    <td class="number">{{formatDecimal(bookingSummary.data.quotaNewAmount, displayFormat)}}</td>
+                    <td class="number">{{formatDecimal(bookingSummary.data.quotaMRAmount, displayFormat)}}</td>
+                    <td class="number">{{formatDecimal(bookingSummary.data.quotaNewAmount + bookingSummary.data.quotaMRAmount, displayFormat)}}</td>
+                </tr>
+                <tr class="line2">
+                    <td>Commitment</td>
+                    <td class="number">{{formatDecimal(bookingSummary.data.commitmentNewPhysicalAmount, displayFormat)}}</td>
+                    <td class="number">{{formatPercentage(bookingSummary.data.commitmentNewPhysicalAmount * 1.0 / (bookingSummary.data.commitmentNewPhysicalAmount + bookingSummary.data.commitmentNewVirtualAmount))}}</td>
+                    <td class="number">{{formatDecimal(bookingSummary.data.commitmentNewVirtualAmount, displayFormat)}}</td>
+                    <td class="number">{{formatPercentage(bookingSummary.data.commitmentNewVirtualAmount * 1.0 / (bookingSummary.data.commitmentNewPhysicalAmount + bookingSummary.data.commitmentNewVirtualAmount))}}</td>
+                    <td class="number">{{formatDecimal(bookingSummary.data.commitmentNewAmount, displayFormat)}}</td>
+                    <td class="number">{{formatDecimal(bookingSummary.data.commitmentMRAmount, displayFormat)}}</td>
+                    <td class="number">{{formatDecimal(bookingSummary.data.commitmentNewAmount + bookingSummary.data.commitmentMRAmount, displayFormat)}}</td>
+                </tr>
+                <tr class="line">
+                    <td class="nowrap">Current Forecast</td>
+                    <td class="number">{{formatDecimal(bookingSummary.data.forecastNewPhysicalAmount, displayFormat)}}</td>
+                    <td class="number">{{formatPercentage(bookingSummary.data.forecastNewPhysicalAmount * 1.0 / (bookingSummary.data.forecastNewPhysicalAmount + bookingSummary.data.forecastNewVirtualAmount))}}</td>
+                    <td class="number">{{formatDecimal(bookingSummary.data.forecastNewVirtualAmount, displayFormat)}}</td>
+                    <td class="number">{{formatPercentage(bookingSummary.data.forecastNewVirtualAmount * 1.0 / (bookingSummary.data.forecastNewPhysicalAmount + bookingSummary.data.forecastNewVirtualAmount))}}</td>
+                    <td class="number">{{formatDecimal(bookingSummary.data.forecastNewAmount, displayFormat)}}</td>
+                    <td class="number">{{formatDecimal(bookingSummary.data.forecastMRAmount, displayFormat)}}</td>
+                    <td class="number">{{formatDecimal(bookingSummary.data.forecastNewAmount + bookingSummary.data.forecastMRAmount, displayFormat)}}</td>
+                </tr>                    
+            </table>
+            <table class="report" style="float:left;width:200px" ng-hide="legacyForecast">
+                <tr class="header">
+                    <th colspan="2">
+                    Current Forecast
+                    <span class="edit" ng-show="forecastEnabled">
+                        [<a ng-click="editForecast()" class="action" ng-show="!bookingSummary.editingForecast">Edit</a><a ng-click="showEditPopup()" class="action" ng-show="bookingSummary.editingForecast">Save</a><a ng-click="cancelEdit()" class="action" ng-show="bookingSummary.editingForecast">Undo</a>]
+                    </span>
+                    </th>
+                </tr>
+                <tr class="line">
+                    <td style="width:110px">New &amp; Follow On</td>
+                    <td><span ng-hide="bookingSummary.editingForecast">{{formatDecimal(bookingSummary.data.forecastNewFollowOnAmount, displayFormat)}}</span><span ng-show="bookingSummary.editingForecast"><input type="text" class="edit" ng-model="bookingSummary.editingModal.nbValue"/></span></td>
+                </tr>
+            </table>
+            <table class="report" style="float:left;margin-left:50px;width:220px;" ng-hide="legacyForecast">
+                <tr class="line">
+                    <td>Annual Target</td>
+                    <td><span class="pointer minW40" title="Annual target set on user record">{{formatDecimal(dashboard.attainment.annualTarget, displayFormat)}}</span></td>
+                </tr>
+                <tr class="line2">
+                    <td>Amount Closed YTD</td>
+                    <td><span class="pointer" title="Summary of opportunities of : 1) owner under my role hierarchy; 2) Closed Won; 3) Close date in this fiscal year; 4) Type is New or Follow On">{{formatDecimal(dashboard.attainment.amountClosedYtd, displayFormat)}}</span></td>
+                </tr>
+                <tr class="line">
+                    <td>YTD Attainment</td>
+                    <td><span class="pointer" title="= AmountClosedYTD / AnnualTarget">{{dashboard.attainment.ytdAttainment * 100 | number: 1}}%</span></td>
+                </tr>
+                <tr class="line2">
+                    <td>% Fiscal Year Passed</td>
+                    <td><span class="pointer" title="= #DaysYTD / 365">{{dashboard.attainment.daysPassed / 365.0 * 100 | number: 1}}%</span></td>
+                </tr>
+            </table>
+                <table class="report" style="float:right;">
+                    <tr class="line">
+                        <td>New Opportunities / Cur Qtr</td>
+                        <td style="padding-left:5px"><span class="pointer minW40" title="# of opportunities of: 1) owner is under my role hierarchy; 2) type is new or follow-on; 3) created in this qtr ({{fiscalQtr}}); 4) stage <> new">{{dashboard.newOppCount}}</span></td>
+                    </tr>
+                    <tr class="line2">
+                        <td>Ave Deal Size/ Cur Qtr Pipeline</td>
+                        <td><span class="pointer" title="Average deal amount of opportunities of: 1) owner is under my role hierarchy; 2) type is new or follow-on; 3) close date is in this qtr ({{fiscalQtr}}); 4) stage <> new">{{formatDecimal(dashboard.aveDealSize, displayFormat)}}</span></td> 
+                    </tr>
+                    <tr class="line">
+                        <td>Median Deal Size/ Cur Qtr Pipeline</td>
+                        <td><span class="pointer" title="Median deal amount of opportunities of: 1) owner is under my role hierarchy; 2) type is new or follow-on; 3) close date is in this qtr ({{fiscalQtr}}); 4) stage <> new">{{formatDecimal(dashboard.medianDealSize, displayFormat)}}</span></td> 
+                    </tr>
+                    <tr class="line2">
+                        <td>#Deals > 100K / Cur Qtr</td>
+                        <td><span class="pointer" title="# of opportunities of: 1) owner is under my role hierarchy; 2) close date is in this qtr ({{fiscalQtr}}); 3) stage <> new; 4) type is not marketplace; 5) amount is greater than or equal to 100K">{{dashboard.dealsOver100K}}</span></td>
+                    </tr>
+                    <tr class="line">
+                        <td>#Opps Closed Dead This Qtr</td>
+                        <td><a href="/apex/ForecastingHistoryOppList?uid={!currentViewingUser.Id}&quarter={!CurrentFiscalQuarter}&type=closedDead" target="_blank" title="# of opportunities of: 1) owner is under my role hierarchy; 2) close date is in this qtr ({{fiscalQtr}}); 3) type is not marketplace; 4) stage is Closed Dead ">{{dashboard.deadOppCount}}</a></td>
+                    </tr>
+                    <tr class="line2">
+                        <td>Next Qtr Total Pipeline</td>
+                        <td><span class="pointer" title="Total amount of opportunities of: 1) owner is under my role hierarchy; 2) close date is in next qtr ({{getNextQtr(fiscalQtr)}}); 3) stage <> new">{{formatDecimal(dashboard.totalPipelines, displayFormat)}}</span></td>
+                    </tr>
+                 </table>
+                 <!--<table class="report" style="float:right;margin-right:50px;">
+                    <tr class="line">
+                        <td >Active Leads in my territory</td>
+                        <td style="padding-left:5px;width:50px"><a href="/apex/PatchAssignments?uid={{currentUser}}" target="_blank" title="# of leads in my territory with status not equal to rejected, nurturing or qualifying. A lead in my territory means any of the lead member is under my user role hierarhy.">{{dashboard.activeLeads}}</a></td>
+                    </tr>
+                    <tr class="line2">
+                        <td>Leads being qualified </td>
+                        <td><a href="/apex/PatchAssignments?uid={{currentUser}}&bucket=Being+Qualified" target="_blank" title="current # of leads in my territory with status equal to Marketing Qualified">{{dashboard.qualifiedLeads}}</a></td>
+                    </tr>
+                    <tr class="line">
+                        <td>Untouched Qualified Leads </td>
+                        <td><a href="/apex/PatchAssignments?uid={{currentUser}}&bucket=Qualified+-+Untouched" target="_blank" title="current # of leads in my territory with status and screening results are qualified">{{dashboard.untouchedQualifiedLeads}}</a></td>
+                    </tr>
+                    <tr class="line2">
+                        <td>In Progress Qualified Leads </td>
+                        <td><a href="/apex/PatchAssignments?uid={{currentUser}}&bucket=Qualified+-+In+Progress" target="_blank" title="current # of leads in my territory with screening results is qualified and status is in (Sales Accepted - Contacting, Sales Accepted - Qualifying, Sales Accepted - Passed to Partner, Partner Accepted, Sales Accepted - Deferred, RSM Accepted)">{{dashboard.inProgressQualifiedLeads}}</a></td>
+                    </tr>
+                    <tr class="line">
+                        <td>Qualified Leads in Progress &gt; 14 Days</td>
+                        <td><a href="/apex/PatchAssignments?uid={{currentUser}}&bucket=Qualified+-+Overdue" target="_blank" title="current # of leads in my territory with screening result is qualified, status is in (Sales Accepted - Contacting, Sales Accepted - Qualifying, Sales Accepted - Passed to Partner, Partner Accepted, Sales Accepted - Deferred) and is updated before 14 days">{{dashboard.overdueLeads}}</a></td>
+                    </tr>
+                    <tr class="line2">
+                        <td>Deferred Leads</td>
+                        <td><a href="/apex/PatchAssignments?uid={{currentUser}}&bucket=Deferred" target="_blank" title="current # of leads in my territory with status equals to 'Sales Accepted - Deferred'">{{dashboard.deferredLeads}}</a></td>
+                    </tr>
+                </table>-->
+            </div>
+            <div style="clear:both"></div>
+        </apex:pageBlock>
+
+        <apex:pageBlock id="secondBlock">
+            <apex:facet name="header">
+                <div class="sectionTitle"><span ng-class="{'fa':true, 'fa-caret-down':!bookingSummary.collapsed, 'fa-caret-right':bookingSummary.collapsed}" ng-click="toggleSection(bookingSummary)"> Booking Summary</span></div>
+            </apex:facet>
+            <div class="reportContainer" ng-hide="bookingSummary.collapsed || bookingSummary.data == null" ng-include="'{!URLFOR($Resource.Forecasting, 'templates/bookingsummary.html')}'">
+            </div>
+        </apex:pageBlock>
+        <apex:pageBlock >
+            <apex:facet name="header">
+                <div class="sectionTitle"><span ng-class="{'fa':true, 'fa-caret-down':!dellBookings.collapsed, 'fa-caret-right':dellBookings.collapsed}" ng-click="toggleSection(dellBookings)"> Dell Bookings</span></div>
+            </apex:facet>
+            <div class="reportContainer" ng-hide="dellBookings.collapsed || dellBookings.data == null" ng-include="'{!URLFOR($Resource.Forecasting, 'templates/dellbookings.html')}'">
+            </div>
+        </apex:pageBlock>
+        <!-- popup for edit -->
+        <div id="InlinEditDialog" class="overlayDialog inlineEditDialog" style="width: 600px; display:none; left:300px; top:110px;">           
+            <div class="topRight">
+                <div class="topLeft">
+                    <a ng-click="closeEditPopup()"><img id="InlineEditDialogX" onmouseover="this.className='dialogCloseOn'" onmouseout="this.className='dialogClose'" class="dialogClose" src="/s.gif" /></a>
+                    <h2 id="InlineEditDialogTitle">Confirm Forecast Updates</h2>
+                </div>
+            </div>
+            <apex:outputPanel id="abc"></apex:outputPanel>
+            <div class="middle">
+                <div class="innerContent" id="InlineEditDialogContent">
+                    <div class="activeField">
+                        <div class="inlineEditCompoundDiv" style="text-align:left">
+                            <apex:pageBlock >
+                                <apex:pageBlockSection columns="1">
+                                    <apex:pageBlockSectionItem >
+                                        <apex:outputLabel value="Comments" />
+                                        <textarea ng-model="bookingSummary.editingModal.comment" style="width:400px;height:50px"></textarea>
+                                    </apex:pageBlockSectionItem>
+                                </apex:pageBlockSection>
+                            </apex:pageBlock>
+                        </div>
+                    </div>
+                    <div></div>
+                    <div id="InlineEditDialog_buttons" class="buttons">
+                        <input type="button" class="btn" value="Save" ng-click="saveEdit()" />
+                        <input type="button" class="btn" value="Cancel" ng-click="closeEditPopup()" />
+                    </div>
+                </div>
+            </div>
+            <div class="bottomRight">
+                <div class="bottomLeft"></div>
+            </div>            
+        </div>
+        <div class="overlayBackground" id="background" style="width: 3289px; height: 1200px; display: none; position: fixed"></div>
+        <!-- end of popup -->
+        
+       <!-- popup for pipeline changes -->
+        <div id="InlinEditDialog2" class="overlayDialog inlineEditDialog" style="width: 600px; display:block; left:300px; top:110px; visibility:hidden;">           
+            <div class="topRight">
+                <div class="topLeft">
+                    <img id="InlineEditDialogX2" onmouseover="this.className='dialogCloseOn'" onmouseout="this.className='dialogClose'" onclick="closePop()" class="dialogClose" src="/s.gif" />
+                    <h2 id="InlineEditDialogTitle2">Pipeline Changes</h2>
+                </div>
+            </div>
+            <apex:outputPanel id="abcd"></apex:outputPanel>
+            <div class="middle">
+                <div class="innerContent" id="InlineEditDialogContent2">
+                    <div class="activeField">
+                        <div class="inlineEditCompoundDiv" style="text-align:left">
+                            <apex:pageBlock >
+                                <table class="report" width="100%">
+                                    <tr class="header">
+                                        <td width="25%">% <span style="color:green">&uarr;</span></td>
+                                        <td width="25%">% <span style="color:red">&darr;</span></td>
+                                        <td width="25%">Close Date<span style="color:green">&uarr;</span></td>
+                                        <td width="25%">Close Date<span style="color:red">&darr;</span></td>
+                                    </tr>
+                                    <tr class="header" style="background-color:#FFF">
+                                        <td width="25%">
+                                            <a href="/apex/ForecastingHistoryOppList?uid={{currentUser}}&quarter={{fiscalQtr}}&type=probabilityUp" target="History" style="color:green">{{pipelineChange.probabilityUpCount}}</a>
+                                        </td>
+                                        <td width="25%">
+                                            <a href="/apex/ForecastingHistoryOppList?uid={{currentUser}}&quarter={{fiscalQtr}}&type=probabilityDown" target="History" style="color:red">{{pipelineChange.probabilityDownCount}}</a>
+                                        </td>
+                                        <td width="25%">
+                                            <a href="/apex/ForecastingHistoryOppList?uid={{currentUser}}&quarter={{fiscalQtr}}&type=closeDateUp" target="History" style="color:green">{{pipelineChange.closeDateUpCount}}</a>
+                                        </td>
+                                        <td width="25%">
+                                            <a href="/apex/ForecastingHistoryOppList?uid={{currentUser}}&quarter={{fiscalQtr}}&type=closeDateDown" target="History" style="color:red">{{pipelineChange.closeDateDownCount}}</a>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </apex:pageBlock>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="bottomRight">
+                <div class="bottomLeft"></div>
+            </div>            
+        </div>
+        <div class="overlayBackground" id="background2" style="width: 3289px; height: 1200px; display: none; position: fixed"></div>
+        <!-- end of popup -->
+        
+        <apex:pageBlock id="subordinateBlock1">
+            <apex:facet name="header">
+                <div class="sectionTitle"><span ng-class="{'fa':true, 'fa-caret-down':!teamBookings.nf.collapsed, 'fa-caret-right':teamBookings.nf.collapsed}" ng-click="toggleSection(teamBookings.nf)"> New &amp; Follow-On Bookings by RSM</span></div>
+            </apex:facet>
+            <div class="reportContainer" ng-hide="teamBookings.nf.collapsed || teamBookings.data == null || teamBookings.data.length == 0" ng-include="'{!URLFOR($Resource.Forecasting, 'templates/newfoteambookings.html')}'">
+            </div>
+       </apex:pageBlock>
+       <apex:pageBlock id="subordinateBlock2">
+            <apex:facet name="header">
+                <div class="sectionTitle"><span ng-class="{'fa':true, 'fa-caret-down':!teamBookings.mr.collapsed, 'fa-caret-right':teamBookings.mr.collapsed}" ng-click="toggleSection(teamBookings.mr)"> Support Renewal Booking by RSM</span></div>
+            </apex:facet>
+            <div class="reportContainer" ng-hide="teamBookings.mr.collapsed || teamBookings.data == null || teamBookings.data.length == 0" ng-include="'{!URLFOR($Resource.Forecasting, 'templates/mrteambookings.html')}'">
+            </div>
+       </apex:pageBlock>
+        <apex:pageBlock id="oppBlock">    
+            <apex:facet name="header">
+                <div class="sectionTitle"><span ng-class="{'fa':true, 'fa-caret-down':!oppList.collapsed, 'fa-caret-right':oppList.collapsed}" ng-click="toggleSection(oppList)"> Opportunity List <span ng-hide="oppList.collapsed || oppList.data == null">- Page {{oppList.pageCount==0? 0 : oppList.pageIndex}} / {{oppList.pageCount}}</span></span></div>
+            </apex:facet>
+            <div class="reportContainer" ng-hide="oppList.collapsed" style="display:inline">
+                <div class="listCaption"> 
+                    <select ng-model="oppList.filter.typeOption" ng-change="oppList.filter.pageIndex=1;loadOppList()">
+                        <option value="New" title="Open & Stage is not New & New type & CloseDate in current viewing qtr">New</option>
+                        <option value="Follow On" title="Open & Stage is not New & Follow On type & Close Date in current viewing qtr">Follow On</option>
+                        <option value="New & Follow On">New &amp; Follow On</option>
+                        <option value="Maintenance Renewal" title="Open & MR & Close Date in current viewing qtr">Maintenance Renewal</option>
+                        <option value="All Open" title="all open opportunities in system">All Open</option>
+                        <option value="Current Quarter" title="all open opportunities in current quarter">Current Quarter</option>
+                        <option value="Rolling 90 Days" title="Open & Close Date in next 90 days">Rolling 90 Days</option>
+                        <option value="Rolling 180 Days" title="Open & Close Date in next 180 days">Rolling 180 Days</option>
+                        <option value="Dell" title="Dell & Stage is not New & Close Date in current viewing qtr">Dell</option>
+                        <option value="Closed Won" title="ClosedWon & Close Date in current viewing qtr ">Closed Won</option>
+                    </select>&nbsp;
+                    <input type="checkbox" ng-model="oppList.filter.isOver100K" ng-change="oppList.filter.pageIndex=1;loadOppList()" />Over 100K
+                    <img src="/img/loading.gif" alt="loading" ng-show="oppList.isLoading" />
+                    <span style="float:right">
+                        <a class="actionLink fa fa-angle-double-left" ng-click="turnPageOppList(oppList.pageIndex-1)" ng-show="oppList.hasPrevious"> Previous Page</a> <select ng-model="oppList.pageIndex" ng-options="p as p for p in oppList.pagers" ng-show="oppList.pageCount>1" ng-change="turnPageOppList(oppList.pageIndex)"></select> <a class="actionLink" ng-click="turnPageOppList(oppList.pageIndex+1)" ng-show="oppList.hasNext">Next Page <span class="fa fa-angle-double-right"></span></a>
+                    </span>
+                </div>
+                <table class="report borderReport" width="100%">
+                    <tr class="header">
+                        <th><a class="actionLink" ng-click="sortOppList('Name')">Opportunity Name</a></th>
+                        <th><a class="actionLink" ng-click="sortOppList('Amount')">Amount</a></th>
+                        <th><a class="actionLink" ng-click="sortOppList('StageName')">Stage</a></th>
+                        <th><a class="actionLink" ng-click="sortOppList('Probability')">Prob(%)</a></th>
+                        <th><a class="actionLink" ng-click="sortOppList('CloseDate')">Close Date</a></th>
+                        <th><a class="actionLink" ng-click="sortOppList('ForecastCategory')">Forecast</a></th>
+                        <th><a class="actionLink" ng-click="sortOppList('Type')">Type</a></th>
+                        <th><a class="actionLink" ng-click="sortOppList('Tier1_Partner__c')">Tier 1 Partner</a></th>
+                        <th><a class="actionLink" ng-click="sortOppList('Tier2_Partner__c')">Tier 2 Partner</a></th>
+                        <th><a class="actionLink" ng-click="sortOppList('NextStep')">Next Step</a></th>
+                        <th><a class="actionLink" ng-click="sortOppList('Owner.Name')">Owner</a></th>
+                        <th><a class="actionLink" ng-click="sortOppList('Technical_Responsible__r.Name')">Technical</a></th>
+                    </tr>
+                    <tr ng-class="{'line': !($index % 2), 'line2': !!($index % 2) }" ng-repeat="opp in oppList.data">
+                        <td><a class="link" href="/{{opp.oppId}}" target="_blank">{{opp.oppName}}</a></td>
+                        <td ng-class="{'em': opp.amount<=0}">{{formatDecimal(opp.amount, displayFormat)}}</td>
+                        <td>{{opp.stage}}</td>
+                        <td>{{opp.probability}}%</td>
+                        <td ng-class="{'em': dateInThePast(opp.closeDate)}">{{opp.closeDate}}</td>
+                        <td>{{opp.forecastCategory}}</td>
+                        <td>{{opp.type}}</td>
+                        <td><a class="link" href="/{{opp.tier1Id}}" target="_blank">{{opp.tier1Name}}</a></td>
+                        <td><a class="link" href="/{{opp.tier2Id}}" target="_blank">{{opp.tier2Name}}</a></td>
+                        <td>{{opp.nextStepReportingField}}</td>
+                        <td><a class="link" href="/{{opp.ownerId}}" target="_blank">{{opp.ownerName}}</a></td>
+                        <td><a class="link" href="/{{opp.technicalResponsibleId}}" target="_blank">{{opp.technicalResponsibleName}}</a></td>
+                    </tr>
+                </table>
+                <div class="listCaption">
+                    <span style="float:right">
+                        <a class="actionLink fa fa-angle-double-left" ng-click="turnPageOppList(oppList.pageIndex-1)" ng-show="oppList.hasPrevious"> Previous Page</a> <select ng-model="oppList.pageIndex" ng-options="p as p for p in oppList.pagers" ng-show="oppList.pageCount>1" ng-change="turnPageOppList(oppList.pageIndex)"></select> <a class="actionLink" ng-click="turnPageOppList(oppList.pageIndex+1)" ng-show="oppList.hasNext">Next Page <span class="fa fa-angle-double-right"></span></a>
+                    </span>
+                </div>
+                <div style="clear:both"> </div>
+            </div>
+        </apex:pageBlock> 
+     </div>
+   </apex:form>
+</apex:page>

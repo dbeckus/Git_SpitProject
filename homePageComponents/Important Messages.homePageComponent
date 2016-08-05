@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<HomePageComponent xmlns="http://soap.sforce.com/2006/04/metadata">
+    <body>&lt;p style=&quot;font-size: 12.0096px; font-family: proxima-nova, Arial, Helvetica, sans-serif;&quot;&gt;&lt;b&gt;New Release&lt;/b&gt;&lt;br style=&quot;font-size: 12.0108px;&quot;&gt;
+&lt;span style=&quot;font-size: 12.0108px;&quot;&gt;VXOA &amp;amp; GMS 7.3 is GA and recommended for all environments.  Please refer to the Release Notes for further details which are located with the software download.&lt;br style=&quot;font-size: 12.012px;&quot;&gt;
+&lt;br style=&quot;font-size: 12.012px;&quot;&gt;
+&lt;b&gt;Did You Know&lt;/b&gt;&lt;/span&gt;&lt;br style=&quot;font-size: 12.0108px;&quot;&gt;
+&lt;span style=&quot;font-size: 12.0108px;&quot;&gt;Did you know that VXOA/GMS 5.2 &amp;amp; 6.0 are End-of-Life?  Please refer to the release notes and upgrade to the latest 7.3 GA build.&lt;/span&gt;&lt;/p&gt;
+
+&lt;p class=&quot;MsoNormal&quot;&gt;&lt;span style=&quot;font-family: proxima-nova,arial,helvetica,sans-serif; font-size: 12.0096px;&quot;&gt;Did you know that all Silver Peak License &amp;amp; Asset details can be found and retrieved in the customer support portal?&lt;/span&gt;&lt;br style=&quot;font-size: 12.0096px; font-family: proxima-nova, Arial, Helvetica, sans-serif;&quot;&gt;
+ &lt;/p&gt;</body>
+    <pageComponentType>htmlArea</pageComponentType>
+    <width>narrow</width>
+</HomePageComponent>

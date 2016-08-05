@@ -1,0 +1,1894 @@
+<apex:page tabStyle="SPIRE__tab" >
+    
+    <script src="{!URLFOR($Resource.Account_Summary, 'app/js/lib/jquery.min.js')}"></script>
+    <script src="{!URLFOR($Resource.Account_Summary, 'app/js/lib/force.com.js.rest.toolkit/forcetk.js')}"></script>
+    
+   
+    
+    <html xmlns:ng="http://angularjs.org"  lang="en">
+        <head>
+            <meta charset="utf-8" name="viewport" content="width=device-width initial-scale=1.0"/>
+
+            <apex:stylesheet value="{!URLFOR($Resource.Account_Summary, 'app/css/bootstrap-combined.min.css')}"/>
+            <apex:stylesheet value="{!URLFOR($Resource.Account_Summary, 'app/css/ng-grid/ng-grid.css')}"/>
+            <apex:stylesheet value="{!URLFOR($Resource.Account_Summary, 'app/css/daterangepicker-bs2.css')}"/>
+            <apex:stylesheet value="{!URLFOR($Resource.Account_Summary, 'app/css/select2.css')}"/>
+            <apex:stylesheet value="{!URLFOR($Resource.Account_Summary, 'app/css/joint.css')}"/>
+            <apex:stylesheet value="{!URLFOR($Resource.Account_Summary, 'app/css/ng-grid/ng-grid.css')}"/>
+            
+            <script src="{!URLFOR($Resource.Account_Summary, 'app/js/lib/jquery.min.js')}"></script>
+            <script src="{!URLFOR($Resource.Account_Summary, 'app/js/lib/select2/select2.min.js')}" type="text/javascript"></script>    
+            <script src="{!URLFOR($Resource.Account_Summary, 'app/js/lib/angular-all/angular.js')}"></script>
+            <script src="{!URLFOR($Resource.Account_Summary, 'app/js/lib/twitter-bootstrap/bootstrap.min.js')}"></script>      
+            <script src="{!URLFOR($Resource.Account_Summary, 'app/js/lib/ui-select2/select2.js')}" type="text/javascript"></script>
+    
+            <script src="{!URLFOR($Resource.Account_Summary, 'app/js/lib/angular-ui/angular-ui.min.js')}"></script>            
+            <script src="{!URLFOR($Resource.Account_Summary, 'app/js/lib/ui-bootstrap-tpls-0.6.0.js')}"></script>                        
+            <script src="{!URLFOR($Resource.Account_Summary, 'app/js/lib/ng-grid/ng-grid.min.js')}"></script>
+            
+            <script src="{!URLFOR($Resource.Account_Summary, 'app/js/lib/highcharts/highcharts.src.js')}"></script>
+            <script src="{!URLFOR($Resource.Account_Summary, 'app/js/lib/highcharts/highchart-plain.js')}"></script>
+            
+            
+            
+             
+            <script src="{!URLFOR($Resource.Account_Summary, 'app/js/lib/highcharts/exporting.js')}"></script>
+            <script src="{!URLFOR($Resource.Account_Summary, 'app/js/lib/bootstrap-daterangepicker-master/moment.min.js')}"></script>
+            <script src="{!URLFOR($Resource.Account_Summary, 'app/js/lib/bootstrap-daterangepicker-master/daterangepicker.js')}"></script>
+            <script src="{!URLFOR($Resource.Account_Summary, 'app/js/lib/jquery.knob.js')}"></script>
+            <script src="{!URLFOR($Resource.Account_Summary, 'app/js/lib/jquery.sparkline.js')}"></script>
+            <script src="{!URLFOR($Resource.Account_Summary, 'app/js/lib/numeral.min.js')}"></script> 
+            <script src="{!URLFOR($Resource.Account_Summary, 'app/js/lib/ng-table/ng-table.js')}"></script>
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/3.4.4/select2-bootstrap.css"></link>
+            <apex:stylesheet value="{!URLFOR($Resource.Account_Summary, 'app/css/select2-bootstrap.css')}"/>
+            <script src= "{!URLFOR($Resource.Account_Summary, 'app/js/lib/angular-table/angular-table.js')}"></script>
+            <script src= "{!URLFOR($Resource.Account_Summary, 'app/js/lib/notificationWidget.js')}"></script>
+            <apex:stylesheet value="{!URLFOR($Resource.Account_Summary, 'app/css/app.css')}"/>
+            
+        </head>
+        <script src="{!URLFOR($Resource.Account_Summary, 'app/js/lib/underscore/underscore.js')}"></script>
+        <script src="{!URLFOR($Resource.Account_Summary, 'app/js/lib/angular-all/angular-strap.js')}"></script>
+       
+        <script src="{!URLFOR($Resource.Account_Summary, 'app/js/lib/jointjs/joint.nojquery.js')}"></script>           
+               
+        <script type="text/javascript">
+           
+                    
+                    var myapp = angular.module('LeadsSummary', ['ngGrid', 'chartsExample.directives', 'ui.bootstrap', '$strap.directives', 'ngTable', 'angular-table', 'notificationWidget']);
+                    myapp.config(function ($routeProvider, $locationProvider, $httpProvider) {
+                        $locationProvider.html5Mode(true);
+                    });
+                    myapp.filter('encodeURIComponent', function() {
+                        return window.encodeURIComponent;
+                    });
+                    myapp.filter('notPromoted', function() {
+                      return function(input) {
+                        return input ? '\u2718' : '\u2713';
+                      };
+                    });
+                    myapp.directive('spDatePicker', function () {
+                            return {
+                                restrict: 'A',
+                                link: function (scope, element, attr) {
+                                    $(element).daterangepicker({
+                                            ranges: {
+                                                'This Quarter': [moment().month((Math.floor((moment().month()-1)/3)*3)+1).startOf('month'), moment()],
+                                                'Last Quarter': [moment().subtract({ months: (moment().month() % 3) + 1}).endOf('month').subtract({ months: 3 }).startOf('month'), moment().subtract({ months: (moment().month() % 3) + 1}).endOf('month')],                                                
+                                                'This Year': [moment().startOf('year')],
+                                                'Last Year': [moment().subtract('year', 1).startOf('year'), moment().startOf('year')],                                                
+                                                'All': [moment("01/01/2013"), moment()]
+                                            },
+                                            startDate: moment("01/01/2013"),
+                                            endDate: moment(),
+                                            minDate: '01/01/2013',
+                                            showDropdowns: true,
+                                        },function (startDate, endDate) {
+                                        scope.$eval(attr.spDatePicker, {$startDate: startDate, $endDate: endDate});
+                                    });
+                                }
+                            };
+                    });
+                    myapp.directive('leadSparkline', [function () {
+                        'use strict';
+                        return {
+                            restrict: 'A',
+                            
+                            require: 'ngModel',
+                            link: function (scope, elem, attrs, ngModel) {                    
+                                //var values = [100.00,100.00,100.00,80.00,80.00,66.67];
+                                var opts={};
+                                
+                                
+                                var property = scope.text;
+                                scope.$watch(attrs.ngModel, function () {
+                                    //console.log('Model changed');
+                                    //console.log(ngModel);
+                                    render();
+                                });
+                                var render = function () {
+                                    var model;
+                                    if(ngModel.$viewValue)  {
+                                        
+                                        var vals = [];
+                                        
+                                        model = ngModel.$viewValue;
+                                        vals.push(model['Less than 2 days'] ? model['Less than 2 days'] : 0);
+                                        vals.push(model['Less than a week'] ? model['Less than a week'] : 0);
+                                        vals.push(model['Less than 3 weeks'] ? model['Less than 3 weeks'] : 0);
+                                        vals.push(model['Less than 6 weeks'] ? model['Less than 6 weeks'] : 0);                                        
+                                        vals.push(model['More than 6 weeks'] ? model['More than 6 weeks'] : 0);
+                                        
+                                        // debugger;
+                                        // Draw a sparkline for the #sparkline element
+                                        $(elem).sparkline(vals, {
+                                            type: "bar",
+                                            // Map the offset in the list of values to a name to use in the tooltip
+                                            tooltipFormat: 'Status changed :    {{offset:offset}} - {{value}}',
+                                            tooltipValueLookups: {
+                                                'offset': {
+                                                    0: 'Less than 2 days',
+                                                    1: 'Less than a week',
+                                                    2: 'Less than 3 weeks',
+                                                    3: 'Less than 6 weeks',
+                                                    4: 'More than 6 weeks',
+                                                    
+                                                }
+                                            },
+                                            width: '100',
+                                            barWidth: 10
+                                        });
+                                    }
+                                };
+                            }
+                        };
+                    }]);
+                    myapp.directive('loadingWidget', ['requestNotificationChannel', function (requestNotificationChannel) {
+                        return {
+                            restrict: "A",
+                            link: function (scope, element) {
+                                // hide the element initially
+                                element.hide();
+                    
+                                var startRequestHandler = function() {
+                                    // got the request start notification, show the element
+                                    element.show();
+                                };
+                    
+                                var endRequestHandler = function() {
+                                    // got the request start notification, show the element
+                                    element.hide();
+                                };
+                                // register for the request start notification
+                                requestNotificationChannel.onRequestStarted(scope, startRequestHandler);
+                                // register for the request end notification
+                                requestNotificationChannel.onRequestEnded(scope, endRequestHandler);
+                            }
+                        };
+                    }]);
+                    myapp.directive('transitionProcess', [function () {
+                        'use strict';
+                        return {
+                            restrict: 'A',                            
+                            require: 'ngModel',
+                            link: function (scope, elem, attrs, ngModel) {
+                                
+                                var graph = new joint.dia.Graph;
+                                var paper = new joint.dia.Paper({ el: $('#paper'), width: 1350, height: 800, gridSize: 1, model: graph });
+                                scope.graphEl = graph;
+                                // Create a custom element.
+                                // ------------------------
+                                joint.shapes.custom = {};
+                                
+                                joint.shapes.custom.ModelLink = joint.dia.Link.extend({
+                                     defaults: joint.util.deepSupplement({
+                                        type: 'custom.ModelLink',
+                                    }, joint.dia.Link.prototype.defaults)
+                                });
+                                joint.shapes.html = {};
+                                joint.shapes.html.Element = joint.shapes.basic.Rect.extend({
+                                    defaults: joint.util.deepSupplement({
+                                        type: 'html.Element',
+                                        attrs: {
+                                            rect: { stroke: 'none', 'fill-opacity': 0 }
+                                        }
+                                    }, joint.shapes.basic.Rect.prototype.defaults)
+                                });
+                                
+                                // Create a custom view for that element that displays an HTML div above it.
+                                // -------------------------------------------------------------------------
+                                
+                                joint.shapes.html.ElementView = joint.dia.ElementView.extend({
+                                
+                                    template: [
+                                        '<div class="html-element text-center" >',       
+                                        '<label id = "nameLabel" style="vertical-align:middle;"  ></label>',
+                                        '<label id = "countLabel"></label>',
+                                        '<span ></span>', '<br/>',        
+                                        
+                                        '<div class="weekTransitions" style="margin-top:-100px;vertical-align:middle;">',
+                                        '</div>', 
+                                        '<div class="blah" style="vertical-align:middle;">',
+                                        '</div>',
+                                       
+                                        
+                                        '</div>'
+                                    ].join(''),
+                                
+                                    initialize: function() {
+                                        _.bindAll(this, 'updateBox');
+                                        joint.dia.ElementView.prototype.initialize.apply(this, arguments);
+                                
+                                        this.$box = $(_.template(this.template)());
+                                        // Prevent paper from handling pointerdown.
+                                        this.$box.find('input,select').on('mousedown click', function(evt) { evt.stopPropagation(); });
+                                        // This is an example of reacting on the input change and storing the input data in the cell model.
+                                        this.$box.find('input').on('change', _.bind(function(evt) {
+                                            this.model.set('input', $(evt.target).val());
+                                        }, this));
+                                        this.$box.find('select').on('change', _.bind(function(evt) {
+                                            this.model.set('select', $(evt.target).val());
+                                        }, this));
+                                        this.$box.find('select').val(this.model.get('select'));
+                                        this.$box.find('.delete').on('click', _.bind(this.model.remove, this.model));
+                                        // Update the box position whenever the underlying model changes.
+                                        this.model.on('change', this.updateBox, this);
+                                        // Remove the box when the model gets removed from the graph.
+                                        this.model.on('remove', this.removeBox, this);
+                                       
+                                        //this.updateBox();
+                                    },
+                                    render: function() {
+                                        joint.dia.ElementView.prototype.render.apply(this, arguments);
+                                        this.paper.$el.prepend(this.$box);
+                                        this.updateBox();
+                                        return this;
+                                    },
+                                    updateBox: function() {
+                                        // Set the position and dimension of the box so that it covers the JointJS element.
+                                        var bbox = this.model.getBBox();
+                                        
+                                        
+                                        // Draw the status history sparkline
+                                        var model = this.model.get('histData');
+                                        var showhist = this.model.get('showhist');
+                                        var showtrans = this.model.get('showtrans');                                        
+                                        var timeFrame = scope.transitionTimeframe;
+                                        var tpwModel = this.model.get('transitionsPerWeekData');
+                                        var serName = this.model.get('name')
+                                        if(!model) {
+                                            model = {};
+                                        }
+                                           
+                                        var vals = [];
+                                        
+                                        vals.push(model['Less than 2 days'] ? model['Less than 2 days'] : 0);
+                                        vals.push(model['Less than a week'] ? model['Less than a week'] : 0);
+                                        vals.push(model['Less than 3 weeks'] ? model['Less than 3 weeks'] : 0);
+                                        vals.push(model['Less than 6 weeks'] ? model['Less than 6 weeks'] : 0);                                        
+                                        vals.push(model['More than 6 weeks'] ? model['More than 6 weeks'] : 0);
+                                        
+                                        // debugger;
+                                        // Draw a sparkline for the #sparkline element
+                                        if(showhist) {
+                                           this.$box.find('.blah').sparkline(vals, {
+                                                type: "bar",
+                                                // Map the offset in the list of values to a name to use in the tooltip
+                                                tooltipFormat: 'Status changed :    {{offset:offset}} - {{value}}',
+                                                tooltipValueLookups: {
+                                                    'offset': {
+                                                        0: 'Less than 2 days',
+                                                        1: 'Less than a week',
+                                                        2: 'Less than 3 weeks',
+                                                        3: 'Less than 6 weeks',
+                                                        4: 'More than 6 weeks',
+                                                        
+                                                    }
+                                                },
+                                                width: '100',
+                                                barWidth: 10
+                                            });
+                                        }
+                                        if(showtrans) {
+                                            //if(serName === 'RSM Accepted') debugger;
+                                            var modtpw = tpwModel ? tpwModel[serName] : undefined;
+                                            if(!modtpw) {
+                                                modtpw = {};
+                                            }
+                                            var i = 1;
+                                            
+                                            var parent = this.$box.find('.weekTransitions');
+                                            
+                                             _.each( _.keys(modtpw), function(d) {
+                                                
+                                                var tpwVals = [];
+                                                var tpwLookupValue = [];
+                                                var chartData = {};
+                                                var now = moment().startOf('week');
+                                                var start = moment().subtract('days',timeFrame );
+                                                var startWeek = start.startOf('week');
+                                                
+                                                while (startWeek.unix() < now.unix()) {
+                                                    var newDate = startWeek.add('days', 7);
+                                                    //console.log('Pushing: ' + newDate.format() + ' for ' + d);
+                                                    chartData[newDate.unix()] = 0;
+                                                    startWeek = newDate;
+                                                }
+                                                var tpwObj = modtpw[d];
+                                                    _.each(_.keys(tpwObj), function (da) {
+                                                        var key = '20' + da;
+                                                        var date = key.substring(0,4) + '-' + key.substring(4,6) + '-' + key.substring(6,8)
+                                                        //console.log(date);
+                                                        var key = moment(date).add('days', 1).unix();
+                                                        var val = tpwObj[da];
+                                                        //console.log(key + ',' + val);
+                                                        chartData[key] = val;
+                                                    
+                                                    });
+                                                    _.each(_.keys(chartData), function(dt) {
+                                                        //console.log(d + ': ' + model.data[dt]);
+                                                        tpwLookupValue.push(moment(dt* 1000).format('MMM DD, YYYY'));
+                                                        tpwVals.push(chartData[dt]);
+                                                }); 
+                                                    //console.log(chartData)
+                                                    //console.log(tpwLookupValue);
+                                                    //console.log(tpwVals);
+                                            
+                                                //; 
+                                            
+                                                // Draw a sparkline for the #sparkline element
+                                                var newId = serName.replace(' ', '') + i;
+                                                i+=1;
+                                                parent.append("<div id= \'" + newId+ "\' style='margin-left:-250px;margin-bottom:100px;'></div>");
+                                                parent.find('#' + newId) 
+                                                 .sparkline(tpwVals, {
+                                                    type: "line",
+                                                    // Map the offset in the list of values to a name to use in the tooltip
+                                                    tooltipFormat: 'From ' + d.replace(':', ' to ') +  ' - Transitions in Week of {{offset:offset}}:  {{y}}',
+                                                    tooltipValueLookups: {
+                                                    'offset': tpwLookupValue
+                                                    },
+                                            
+                                            
+                                                    width: '50',
+                                                    height: '30'
+                                            
+                                            
+                                                });
+                                                     
+                                            });
+                                        
+                                        }
+                                        
+                                            
+                                        //this.$box.find('div').sparkline(this.model.get('data')[5,6,7,2,0,4,2,4], { type: 'bar', height: 100});
+                                        var bg = this.model.get('bg');
+                                        var textClr = "black";
+                                        if(bg === 'red') {
+                                            textClr = 'white';
+                                        }
+                                        this.$box.find('#nameLabel').text(this.model.get('display'));
+                                        
+                                        this.$box.find('#countLabel').text(this.model.get('count')).css({color: textClr});
+                                       
+                                        var topInd = this.model.get('labelTopIndent');
+                                        this.$box.find('#nameLabel').css({ "margin-top": topInd, color: textClr});
+                                        
+                                        var sptopInd = this.model.get('barChartTopIndent');
+                                        if(sptopInd != '0px')
+                                            this.$box.find('.blah').css({ "margin-top": sptopInd});
+                                        
+                                        //this.$box.find('span').text(this.model.get('select'));
+                                        
+                                        this.$box.css({ color: textClr, background: bg , width: bbox.width, height: bbox.height, left: bbox.x, top: bbox.y, transform: 'rotate(' + (this.model.get('angle') || 0) + 'deg)' });
+                                    },
+                                    removeBox: function(evt) {
+                                        this.$box.remove();
+                                    }
+                                });
+                                var createLink = function (src, tgt, label,vert) {
+                                    //console.log('Creating link with label: ' + label);
+                                    return new joint.dia.Link({
+                                                source: src,
+                                                target: tgt,
+                                                vertices: vert,
+                                                attrs: {
+                                                     '.connection': { stroke: '#4897f1', 'stroke-width': 15 },     
+                                                    '.marker-target': { d: 'M 30 0 L 0 15 L 30 30 z' , stroke: '#4897f1', fill: '#4897f1',}
+                                                },
+                                                labels: [
+                                                    { position: .45, attrs: { text: { text: label, fill: 'black', 'font-family': 'sans-serif', }, 
+                                                    rect: { stroke: '#F39C12', 'stroke-width': 1, width: 25, height: 10, rx: 5, ry: 5} }},
+                                                ],
+                                                labelMarkup: [
+                                                    '<g class="label">',
+                                                    '<rect />',
+                                                    '<text />',
+                                                    //'<foreignObject width="100" height="500" >',
+                                                    //'<body xmlns="http://www.w3.org/1999/xhtml">',
+                                                    //'<div class="svgdiv">' + label +'</div>',
+                                                    //'<div></div>',
+                                                    //'<a href="www.gmail.com">Gmail</a>',
+                                                   //'</body>',
+                                                    //'</foreignObject>',
+                                                    '</g>'
+                                                ].join(''),    
+                                                
+                                            });
+                                }
+                                // Create JointJS elements and add them to the graph as usual.
+                                // -----------------------------------------------------------
+                                var createCell = function (xpos, ypos, w, h, key, displayName, bkgrd, labelmgnTop, bcmgnTop,  showHisto, showTransitions) {
+                                    
+                                    return new joint.shapes.html.Element(
+                                    { 
+                                        position: { x: xpos, y: ypos }, 
+                                        size: { width: w, height:  h }, 
+                                        name: key,
+                                        display:displayName ,
+                                        select: 'one', 
+                                        histData:  ngModel.$viewValue.histogramData ? ngModel.$viewValue.histogramData[key]: [],
+                                        transitionsPerWeekData :  ngModel.$viewValue.toTransitions,
+                                        bg: bkgrd,                                        
+                                        labelTopIndent: labelmgnTop,
+                                        barChartTopIndent: bcmgnTop,
+                                        count: getLabelForTransition(key, ngModel.$viewValue.activeStatus),
+                                        showhist : showHisto,
+                                        showtrans : showTransitions
+                                       
+                                    });
+                                };
+                                var getTransitionValue = function(from, to, model) {
+                                    if(model === undefined) 
+                                        return 'N/A';
+                                    var found = _.filter(model, function (d) { 
+                                        return d.from === from && d.to === to;
+                                    });
+                                    return found.length === 1 ? found[0].value : '0'; // + from +';'+ to;
+                                };
+                                var getLabelForTransition = function(transition, model) {
+                                    
+                                    if(transition === 'ISR Accepted') {
+                                        var filt = _.filter(_.keys(model), function(d) {
+                                            return d.indexOf('Sales Accepted - Contacting') != -1 ||
+                                                   d.indexOf('Sales Accepted - Deferred') != -1 ||
+                                                   d.indexOf('Sales Accepted - Qualifying') != -1 ;
+                                        });
+                                        var sum = _.reduce(filt, function(memo, num){                                         
+                                                return memo + model[num]; 
+                                        }, 0);
+                                        return sum;
+                                    } else if(transition === 'ISR Accepted2') {
+                                        var filt = _.filter(_.keys(model), function(d) {
+                                            return d.indexOf('Sales Accepted - Passed to Partner') != -1 ||
+                                                   d.indexOf('Partner Accepted') != -1;
+                                        });
+                                        var sum = _.reduce(filt, function(memo, num){                                         
+                                                return memo + model[num]; 
+                                        }, 0);
+                                        return sum;
+                                    } else if(transition === 'Converted') {
+                                        //return '';
+                                        var keys  = _.filter(_.keys(model), function (d) { return d.indexOf('Converted') === 0;})
+                                        var sum = _.reduce(keys, function(memo, num){                                         
+                                                return memo + model[num]; 
+                                        }, 0);
+                                        return sum;
+                                    } else {
+                                        var val =  model ? model[transition] : undefined;
+                                        return val ? val : '0'
+                                    }
+                                };
+                                
+                                var render = function(ngModel, scope) {           
+                                            if(!ngModel.$viewValue || _.size(ngModel.$viewValue) === 0) 
+                                                return;
+                                            var cells = [];
+                                            var currentSt = ngModel.$viewValue.activeStatus;
+                                            var convertedSt = ngModel.$viewValue.convertedStatus;
+                                            var model = ngModel.$viewValue.transitionData;
+                                            var histoData = ngModel.$viewValue.histogramData;
+                                            // Show histogram when no campaign and no campaing selected
+                                            var showHisto = true;
+                                            var showTransitions = true;
+                                            if(scope.selectedCampaignType) {
+                                                showHisto = false;
+                                                showTransitions = true;
+                                            };
+                                            
+                                            var mn = createCell( 10, 25, 125, 375, 'Marketing Nurturing', 'Marketing Nurturing', "#ffe773", 150, "0px", false, false);
+                                            var nonmql = createCell( 10, 450, 125, 300, "DontMQL", "Don't MQL", "#ff7d73", 125, "0px", false, false);
+                                            var mq = createCell(230, 25, 125, 475,'Marketing Qualified', 'Marketing Qualified', "#ffe773", 200, "0px", showHisto, showTransitions  );
+                                            var sr = createCell(230, 600, 1050, 150, 'Sales Rejected',  'Sales Rejected', "#ff7d73", 25, "0px",  showHisto , showTransitions);
+                                            var rsma = createCell(900, 25, 125, 250,'RSM Accepted', 'RSM Accepted', "#64a8d1", 50, "-100px",  showHisto, showTransitions);
+                                            var isra = createCell(450, 200, 125, 300,'ISR Accepted', 'ISR Accepted', "#64a8d1", 100, "0px",  showHisto, showTransitions);
+                                            var isrq = createCell(675, 200, 125, 300,'ISR Qualified', 'ISR Qualified', "#64a8d1", 100, "0px",  showHisto, showTransitions);
+                                            var isra_2 = createCell(900, 300, 125, 200,'ISR Accepted2', 'ISR Accepted', "#64a8d1", 50, "0px",  showHisto, showTransitions);
+                                            var conv = createCell(1120, 25, 150, 475,'Converted',  'Converted', "#74e868", 200, "0px", showHisto, showTransitions);
+                                            
+                                            
+                                            
+                                            // Marketing Nurturing
+                                            var l_mn_mq = createLink(mn, {"x": 230, "y": 213}, getTransitionValue('Marketing Nurturing', 'Marketing Qualified', model));
+                                            //var l_mn_sr = createLink(mn, sr, getTransitionValue('Marketing Nurturing', 'Sales Rejected',  model));
+                                            
+                                            // Marketing Qualified
+                                            var l_mq_sr = createLink(mq, {"x": 295, "y": 600}, getTransitionValue('Marketing Qualified', 'Sales Rejected',  model));
+                                            var l_mq_rsma = createLink({"x": 357, "y": 96} , {"x": 905, "y": 96}, getTransitionValue('Marketing Qualified', 'RSM Accepted', model));
+                                            var l_mq_isra = createLink({"x": 357, "y": 350}, {"x": 450, "y": 350}, getTransitionValue('Marketing Qualified', 'ISR Accepted',  model));
+                                            
+                                            // ISR Accepted
+                                            var l_isra_isrq = createLink(isra, {"x": 670, "y": 351}, getTransitionValue('ISR Accepted', 'ISR Qualified',  model)); 
+                                            var l_isra_sr = createLink(isra, {"x": 512, "y": 600}, getTransitionValue('ISR Accepted', 'Sales Rejected', model));
+                                            
+                                            // ISR Qualified
+                                            
+                                            var l_isrq_isra_2 = createLink({"x": 800, "y": 400}, isra_2, getTransitionValue('ISR Qualified', 'ISR Accepted2',  model));
+                                            var l_isrq_rsma = createLink({"x": 797, "y": 228}, {"x": 900, "y": 228}, getTransitionValue('ISR Qualified', 'RSM Accepted',  model));
+                                            var l_isrq_sr = createLink(isrq, {"x": 736, "y": 600}, getTransitionValue('ISR Qualified', 'Sales Rejected', model));
+                                            
+                                            // RSM Accepted
+                                            var l_rsma_conv = createLink(rsma, {"x": 1119, "y": 153}, getTransitionValue('RSM Accepted', 'Converted', model));
+                                            
+                                            // ISR Accepted - 2
+                                            var l_isra_2_conv = createLink({"x": 1027, "y": 400}, {"x": 1116, "y": 400}, getTransitionValue('ISR Accepted2', 'Converted', model));                                            
+                                            var l_isra_2_sr = createLink(isra_2, {"x": 962, "y": 600} , getTransitionValue('ISR Accepted2', 'Sales Rejected', model));                                            
+                                            
+                                            var l_rsma_sr = createLink({"x": 993, "y": 23}, {"x": 1190, "y": 598}, getTransitionValue('RSM Accepted', 'Sales Rejected', model),  
+                                             [{"x":994,"y":10},{"x":1314,"y":10},{"x":1314,"y":544},{"x":1190,"y":544}]);                                            
+                                            
+                                            
+                                            cells.push(
+                                                //Cells
+                                                mn, mq, sr, rsma, isra, isrq, isra_2, conv, nonmql,  
+                                                
+                                                //Links
+                                                l_mn_mq, l_mq_sr, l_mq_rsma, l_mq_isra, l_isra_isrq, l_isra_sr, l_isrq_sr,
+                                                l_isrq_isra_2, l_isrq_rsma, l_rsma_conv, l_isra_2_conv, l_rsma_sr, l_isra_2_sr
+                                            );
+                                            graph.clear();
+                                            _.each(graph.getLinks(), function(d) {
+                                                graph.removeLink(d);
+                                            });
+                                            graph.resetCells();
+                                            graph.addCells(cells);
+                                            //console.log(graph.toJSON());
+                                };   
+                                scope.$watch(attrs.ngModel, function () {
+                                    //console.log('Model changed');
+                                    //console.log(ngModel);
+                                    render(ngModel, scope);
+                                    _.each($('.labels') , function(d) {
+                                           var rect = d.firstChild.firstChild;
+                                           rect.setAttribute('height', 15);
+                                           rect.setAttribute('width', 35);
+                                           rect.setAttribute('x', -18);
+                                            rect.setAttribute('y', -2);
+                                        }); 
+                                }); 
+                                         
+                            }
+                        };
+                    }]); 
+                    myapp.directive('transitionSparkline', [function () {
+                        'use strict';
+                        return {
+                            restrict: 'A',
+                            
+                            require: 'ngModel',
+                            link: function (scope, elem, attrs, ngModel) {                    
+                                //var values = [100.00,100.00,100.00,80.00,80.00,66.67];
+                                var opts={};
+                                
+                                
+                                var property = scope.text;
+                                scope.$watch(attrs.ngModel, function () {
+                                    //console.log('Model changed');
+                                    //console.log(ngModel);
+                                    render();
+                                });
+                                var render = function () {
+                                    var model;
+                                    if(ngModel.$viewValue)  {
+                                        
+                                        
+                                        model = ngModel.$viewValue;
+                                        var vals = [];
+                                        var lookupValue = [];
+                                       
+
+                                        _.each(_.keys(model.data), function(d) {
+                                            //console.log(d + ': ' + model.data[d]);
+                                            lookupValue.push(moment(d* 1000).format('MMM DD, YYYY'));
+                                            vals.push(model.data[d]);
+                                        }); 
+                                        
+                                        var serName = model.name;
+                                        
+                                        // Draw a sparkline for the #sparkline element
+                                        $(elem).sparkline(vals, {
+                                            type: "line",
+                                            // Map the offset in the list of values to a name to use in the tooltip
+                                            tooltipFormat: 'Transitions in Week of {{offset:offset}}:  {{y}}',
+                                            tooltipValueLookups: {
+                                                'offset': lookupValue
+                                            },
+                                            
+                                            
+                                            width: '200', 
+                                            height: '75'
+                                            
+                                            
+                                        });
+                                    }
+                                };
+                            }
+                        }
+                    }]);
+                    var contrl= myapp.controller('LeadsSummaryController', function ($scope, $filter, $q, $location, $window, LeadRemoteService) {
+                        $scope.currentlyViewingStatus = "Marketing Qualified";
+                        $scope.showDetails = false;
+                        $scope.showCampaignType = false;
+                        
+                        $scope.leadRecordsGridColumnDefs = [
+
+                                { field: 'Name', displayName: 'Name', width: 200, cellTemplate: '<div style="text-align:center;text-decoration: underline;"><a href="/{{row.entity.Id}}" target="_blank">{{row.entity[col.field]}}</a> </div>'},
+                                { field: 'Company', displayName: 'Company',width: 125 },
+                                { field: 'Owner.Name', displayName: 'Owner',width: 125 },
+                                { field: 'Status', displayName: 'Status' ,width: 150}, 
+                                { field: 'LastChange.CreatedDate', displayName: 'Last Modified' ,width: 150, cellFilter : 'date:"MMM d, y h:mm a"'},
+                                { field: 'LastChange.OldValue', displayName: 'Old Value' ,width: 150},
+                                { field: 'LastChange.NewValue', displayName: 'New Value' ,width: 150},
+                                { field : 'LastChange.CreatedBy.Name', displayName: 'Changed By' ,width: 150},
+                                { field : 'ChangeIn45days', displayName: 'Status changed in last 45 days' ,width: 250},
+                                { field : 'TimeAgo', displayName: 'Updated' ,width: 150},
+                                { field : "dontMQL", displayName: "Don't MQL",width: 150},
+                                
+
+                            ];
+                            
+                        $scope.fromDate = moment("01/01/2013");
+                        $scope.toDate = moment();
+                        $scope.rangeStartDate = $scope.fromDate.format("MMM D, YYYY");
+                        $scope.rangeEndDate = $scope.toDate.format("MMM D, YYYY");    
+                        $scope.changeDate = function(fromDate, toDate) {
+                            $scope.fromDate = fromDate;
+                            $scope.toDate = toDate;
+                            $scope.rangeStartDate = fromDate.format("MMM D, YYYY");
+                            $scope.rangeEndDate = toDate.format("MMM D, YYYY");
+                            if (!$scope.$$phase) {
+                                $scope.$apply();
+                            }
+                        };
+                                    
+                                      
+                        $scope.leadRecordsData = []; 
+                        $scope.histogramData = {};
+                        $scope.transitionProcessChartData = {};
+                         
+                        $scope.leadRecordsGridOptions = { 
+                            data: 'leadRecordsData.records' ,
+                            columnDefs: $scope.leadRecordsGridColumnDefs,
+                            showGroupPanel: true,
+                            showFooter: true,
+                            showFilter: true,
+                            enableColumnResize: true,
+                            enableHighlighting: true,
+                            enablePaging: false,
+                            showColumnMenu: true,
+                            
+                            totalServerItems: 'leadRecordsData.records.length',
+                            sortInfo: {
+                                fields: ['Status'],
+                                directions: ['asc']
+                            }, 
+                            rowHeight: 40
+                        };
+                        $scope.convertedStatusList = [];
+                        
+                        
+                        $scope.getCampaigns = function(val) {
+                            var query = "SELECT Id, Name FROM Campaign where Name like \'%" + val + "%'";
+                            query = query + " and EndDate > " + $scope.fromDate.format('YYYY-MM-DD');
+                            query = query + " and EndDate < " + $scope.toDate.format('YYYY-MM-DD');
+                            query = query + " order by EndDate desc";                            
+                            return LeadRemoteService.getResultsForQuery(query).then(function(data) {
+                                return data.records;                                
+                            });
+                        
+                        };
+                        $scope.updateActiveStatusForLeads = function() {
+                            var newData = _.clone($scope.transitionProcessChartData);  
+                            var statusList = _.countBy($scope.leadRecordsData.records, 'Status');
+                            var count = _.filter($scope.leadRecordsData.records, function(d) { 
+                                     return d.Status === 'Marketing Nurturing' 
+                                     && (d.DoNotCall === true || d.Do_Not_Tele_Qualify__c === true 
+                                     || d.Non_qualifying_Contact__c === true 
+                                     || d.Partner_Domain__c === true);
+                            }).length;
+                            statusList['Marketing Nurturing'] = statusList['Marketing Nurturing'] - count;
+                            statusList['DontMQL'] = count;                           
+                            newData.activeStatus = statusList;
+                            $scope.transitionProcessChartData= newData;
+                              
+                        };
+                        
+                       
+                        $scope.getLeadsForSelectedCampaignType = function() {
+                            LeadRemoteService.getResultsForQuery("SELECT CampaignId, Id, Lead.Id, Lead.Owner.Name, Lead.Name, Lead.Status ,Status FROM CampaignMember where Campaign.Type = '" +
+                                 $scope.selectedCampaignType.value + "' and  Lead.Id != NULL and Lead.CreatedDate = LAST_N_DAYS:" + $scope.transitionTimeframe).then(function(data) {
+                                var leadData = _.pluck(data.records , 'Lead');
+                                $scope.leadRecordsData = {
+                                    'records' : leadData,
+                                    'totalSize' : data.totalSize,
+                                    'done': data.done,
+                                    'nextRecordsUrl': data.nextRecordsUrl
+                                }; 
+                                $scope.currentlyViewingStatus = $scope.selectedCampaignType.value;  
+                                $scope.updateActiveStatusForLeads();
+                                $scope.getLeadTransitions(); 
+                                $scope.getTransitionsPerWeek();                              
+                            });
+                        
+
+                        }
+                        
+                        $scope.transitionTimeframe = '30';
+                        $scope.getTransitionsPerWeek = function() {
+                            LeadRemoteService.getResultsForQuery("SELECT  JSON__c,  CreatedDate FROM Misc_Data__c where Name = 'TranstionsPerWeek-"
+                                                                 + ($scope.selectedCampaignType ? $scope.selectedCampaignType.value + '-' : '') + $scope.transitionTimeframe + "' order by CreatedDate desc limit 1").then(function(data){
+                                    $scope.leadsPerWeekData = data;
+                                    $scope.top10LeadTransitions = [];
+                                    if($scope.leadsPerWeekData.records.length > 0) {
+                                       var leadsPerWeekObj = JSON.parse($scope.leadsPerWeekData.records[0].JSON__c);
+                                       var mergeValues = function(keys, leadObj) {
+                                            var temp = {}
+                                            _.each(keys, function(d) {
+                                                var obj = leadObj[d];
+                                                _.each(_.keys(obj) , function(k) {
+                                                    if(!temp[k]) {
+                                                      temp[k] = obj[k];     
+                                                    } else {
+                                                       temp[k] += obj[k];
+                                                    }
+                                                });
+                                            });
+                                            return temp;
+                                        };
+                                                                                        
+                                                                                        
+                                        var mq_isr_keys = _.filter(_.keys(leadsPerWeekObj), function (d) {
+                                                     return d.indexOf('Marketing Qualified:Sales Accepted - Contacting') != -1 ||
+                                                            d.indexOf('Marketing Qualified:Sales Accepted - Qualifying') != -1 ||
+                                                            d.indexOf('Marketing Qualified:Sales Accepted - Deferred') != -1  
+                                        });                                                
+                                        
+                                        
+                                        
+                                        leadsPerWeekObj ['Marketing Qualified:ISR Accepted'] = mergeValues(mq_isr_keys, leadsPerWeekObj);
+                                         
+                                        var isra_isrq_keys = _.filter(_.keys(leadsPerWeekObj), function (d) {
+                                                     return d.indexOf('Sales Accepted - Contacting:ISR Qualified') != -1 ||
+                                                            d.indexOf('Sales Accepted - Qualifying:ISR Qualified') != -1 ||
+                                                            d.indexOf('Sales Accepted - Deferred:ISR Qualified') != -1  
+                                        });                                                
+                                        
+                                        
+                                        
+                                        leadsPerWeekObj ['ISR Accepted:ISR Qualified'] = mergeValues(isra_isrq_keys, leadsPerWeekObj);
+                                        
+                                         
+                                        var isrq_isra_2_keys = _.filter(_.keys(leadsPerWeekObj), function (d) {
+                                                     return d.indexOf('ISR Qualified:Sales Accepted - Passed to Partner') != -1 ||
+                                                            d.indexOf('ISR Qualified:Partner Accepted') != -1;  
+                                        });                                                
+                                        
+                                        
+                                        leadsPerWeekObj ['ISR Qualified:ISR Accepted2'] = mergeValues(isrq_isra_2_keys, leadsPerWeekObj);          
+                                       
+                                        var isrq_conv_keys = _.filter(_.keys(leadsPerWeekObj), function (d) {
+                                                     return d.indexOf('Sales Accepted - Passed to Partner:Converted into Existing Opportunity') != -1 ||
+                                                            d.indexOf('Sales Accepted - Passed to Partner:Converted to New Opportunity') != -1 ||
+                                                            d.indexOf('Sales Accepted - Passed to Partner:Converted to New Contact') != -1 || 
+                                                            d.indexOf('Partner Accepted:Converted into Existing Opportunity') != -1 ||
+                                                            d.indexOf('Partner Accepted:Converted to New Opportunity') != -1 ||
+                                                            d.indexOf('Partner Accepted:Converted to New Contact') != -1;  
+                                        });                                                
+                                        
+                                        
+                                        leadsPerWeekObj ['ISR Accepted2:Converted'] = mergeValues(isrq_conv_keys, leadsPerWeekObj);          
+                                       
+                                       var rsma_conv_keys = _.filter(_.keys(leadsPerWeekObj), function (d) {
+                                                     return d.indexOf('RSM Accepted:Converted into Existing Opportunity') != -1 ||
+                                                            d.indexOf('RSM Accepted:Converted to New Opportunity') != -1 ||
+                                                            d.indexOf('RSM Accepted:Converted to New Contact') != -1;  
+                                        });                                                
+                                        
+                                        
+                                        leadsPerWeekObj ['RSM Accepted:Converted'] = mergeValues(rsma_conv_keys, leadsPerWeekObj);          
+                                       
+                                        var leadArr = [];
+                                            
+                                        _.each(_.keys(leadsPerWeekObj).sort(), function(d) {
+                                                var tot = 0;
+                                                _.each(leadsPerWeekObj[d], function(d1) {
+                                                     tot +=d1;
+                                                }); 
+                                                leadArr.push({'transition' : d , 'value' : tot});
+                                        });
+                                        var leadArrSorted = _.sortBy(leadArr, 'value');
+                                        leadArrSorted = leadArrSorted.slice(Math.max(leadArrSorted.length - 10, 1)).reverse();
+                                        
+                                            
+                                        _.each(_.pluck(leadArrSorted, 'transition'), function(d) {
+                                            var chartData = {};
+                                            var now = moment().startOf('week');
+                                            var start = moment().subtract('days', $scope.transitionTimeframe);
+                                            var startWeek = start.startOf('week');
+                                            while (startWeek.unix() < now.unix()) {
+                                                var newDate = startWeek.add('days', 7);
+                                                //console.log('Pushing: ' + newDate.format() + ' for ' + d);
+                                                chartData[newDate.unix()] = 0;
+                                                startWeek = newDate;
+                                            }
+                                            //console.log(chartData);
+                                            var initialData = leadsPerWeekObj[d];
+                                            
+                                            _.each(_.keys(initialData), function(da) {
+                                                var key = '20' + da;
+                                                var date = key.substring(0,4) + '-' + key.substring(4,6) + '-' + key.substring(6,8)
+                                                //console.log(date);
+                                                var key = moment(date).add('days', 1).unix();
+                                                var val = initialData[da];
+                                                //console.log(key + ',' + val);
+                                                chartData[key] = val;
+                                            });
+                                            $scope.top10LeadTransitions.push({ name: d,  data : chartData});
+                                        });
+                                        var obj = {
+                                            'Marketing Qualified': {
+                                                'Marketing Nurturing:Marketing Qualified' : leadsPerWeekObj['Marketing Nurturing:Marketing Qualified']
+                                            },   
+                                            'ISR Accepted': {
+                                                'Marketing Qualified:ISR Accepted' : leadsPerWeekObj['Marketing Qualified:ISR Accepted'],
+                                                
+                                            },
+                                            'ISR Qualified': {
+                                                'ISR Accepted:ISR Qualified': leadsPerWeekObj['ISR Accepted:ISR Qualified']
+                                            },
+                                            'RSM Accepted': {
+                                                'Marketing Qualified:RSM Accepted': leadsPerWeekObj['Marketing Qualified:RSM Accepted'],
+                                                'ISR Qualified:RSM Accepted': leadsPerWeekObj['ISR Qualified:RSM Accepted']
+                                            },
+                                            'Converted': {
+                                                'RSM Accepted:Converted': leadsPerWeekObj['RSM Accepted:Converted'],
+                                                'ISR Accepted:Converted': leadsPerWeekObj['ISR Accepted:Converted']
+                                            },
+                                            'ISR Accepted2': {
+                                                'ISR Qualified:ISR Accepted2' : leadsPerWeekObj['ISR Qualified:ISR Accepted2'],
+                                                
+                                            },
+                                            'Converted': {
+                                                'RSM Accepted:Converted' : leadsPerWeekObj['RSM Accepted:Converted'],
+                                                'ISR Accepted2:Converted' : leadsPerWeekObj['ISR Accepted2:Converted'],
+                                                
+                                            },
+                                                 
+                                        };
+                                        $scope.leadsPerWeekObjRO = leadsPerWeekObj;
+                                        var newData = _.clone($scope.transitionProcessChartData)
+                                        //newData.top10LeadTransitionsData =  $scope.top10LeadTransitions; 
+                                        newData.toTransitions = obj;
+                                        $scope.transitionProcessChartData= newData;
+                                   }
+                            });
+                        };
+                        
+                        $scope.getLeadTransitions = function() {
+                            // Get Lead Transitions
+                            
+                            
+                            LeadRemoteService.getResultsForQuery("SELECT  JSON__c,  CreatedDate FROM Misc_Data__c where Name = 'LeadTransitions-" 
+                                                                 + ($scope.selectedCampaignType ? $scope.selectedCampaignType.value + '-' : '')+ $scope.transitionTimeframe + "' order by CreatedDate desc limit 1 ").then(function(data){
+                                    $scope.leadTransitionRawData = data;
+                                    var leadObj = [];
+                                    if($scope.leadTransitionRawData.records.length > 0) {
+                                        
+                                        var leadTranstionObj = JSON.parse($scope.leadTransitionRawData.records[0].JSON__c)
+                                        _.each(_.keys(leadTranstionObj).sort(), function(d) {
+                                                 var parentObj = leadTranstionObj[d];
+                                                 _.each( _.keys(parentObj ).sort(), function (d1) {
+                                                     leadObj.push( {from: d, to:  d1 , value:parentObj [d1]});
+                                                 });        
+                                        
+                                        });
+                                    }
+                                    var validTransitions = [
+                                        'Marketing Nurturing:Marketing Qualified',
+                                                                                
+                                        'Marketing Qualified:RSM Accepted',
+                                        'Marketing Qualified:Sales Accepted - Contacting',
+                                        'Marketing Qualified:Sales Accepted - Qualifying',
+                                        'Marketing Qualified:Sales Accepted - Deferred',
+                                        'Marketing Qualified:Sales Rejected',
+                                        
+                                        'Sales Accepted - Contacting:ISR Qualified',
+                                        'Sales Accepted - Qualifying:ISR Qualified',
+                                        'Sales Accepted - Deferred:ISR Qualified',  
+                                        'Sales Accepted - Contacting:Sales Rejected',
+                                        'Sales Accepted - Qualifying:Sales Rejected',
+                                        'Sales Accepted - Deferred:Sales Rejected', 
+                                        
+                                        'ISR Qualified:Sales Accepted - Passed to Partner', 
+                                        'ISR Qualified:Partner Accepted',
+                                        'ISR Qualified:RSM Accepted', 
+                                        'ISR Qualified:Sales Rejected', 
+                                        
+                                        'RSM Accepted:Converted to New Contact', 
+                                        'RSM Accepted:Converted to New Opportunity', 
+                                        'RSM Accepted:Converted to Existing Opportunity', 
+                                        'RSM Accepted:Sales Rejected', 
+                                        
+                                        'Sales Accepted - Passed to Partner:Converted to New Contact', 
+                                        'Sales Accepted - Passed to Partner:Converted to New Opportunity', 
+                                        'Sales Accepted - Passed to Partner:Converted to Existing Opportunity', 
+                                        
+                                        'Partner Accepted:Converted to New Contact', 
+                                        'Partner Accepted:Converted to New Opportunity', 
+                                        'Partner Accepted:Converted to Existing Opportunity',                                                                                                           
+                                    ];
+                                    $scope.leadTransitionExceptions = _.filter(leadObj, function(d) {
+                                         return validTransitions.indexOf(d.from+ ':' + d.to) === -1;
+                                    });
+                                    $scope.leadTransitionExceptionsSum = _.reduce($scope.leadTransitionExceptions, function(memo, num){ 
+                                        //console.log(num.value);
+                                        return memo + num.value; 
+                                    }, 0);
+                                    
+                                    $scope.leadTransitionData = leadObj;
+                                    $scope.leadTransitionSum = _.reduce($scope.leadTransitionData, function(memo, num){ 
+                                        //console.log(num.value);
+                                        return memo + num.value; 
+                                    }, 0);
+                                    
+                                    // merge to create to and from for ISR Qualified and ISR Accepted
+                                    var combineValues = function(items) {
+                                        return _.reduce(items, function(memo, num){ 
+                                            //console.log(num.value);
+                                            return memo + num.value; 
+                                        }, 0);   
+                                        
+                                    };
+                                    
+                                    $scope.leadTransitionDataCalc = _.clone($scope.leadTransitionData);                                                
+                                    
+                                    // MQL to ISA1
+                                    var isa_items = _.filter($scope.leadTransitionData, function (d) { 
+                                         //console.log(d);
+                                         return (d.from === 'Marketing Qualified' && d.to === 'Sales Accepted - Contacting') ||
+                                            (d.from === 'Marketing Qualified' && d.to === 'Sales Accepted - Qualifying') ||
+                                            (d.from === 'Marketing Qualified' && d.to === 'Sales Accepted - Deferred');  
+                                    }); 
+                                    
+                                    
+                                    $scope.leadTransitionDataCalc.push( {
+                                        'from': 'Marketing Qualified',
+                                        'to' : 'ISR Accepted',
+                                        'value': combineValues(isa_items)
+                                    });
+                                    
+                                    // ISA1 to IQL
+                                    var isa_isrq_items = _.filter($scope.leadTransitionData, function (d) {
+                                         //console.log(d);
+                                         return (d.to === 'ISR Qualified' && d.from === 'Sales Accepted - Contacting') ||
+                                            (d.to === 'ISR Qualified' && d.from === 'Sales Accepted - Qualifying') ||
+                                            (d.to === 'ISR Qualified' && d.from === 'Sales Accepted - Deferred');  
+                                    }); 
+                                    
+                                    
+                                    $scope.leadTransitionDataCalc.push( {
+                                        'from': 'ISR Accepted',
+                                        'to' : 'ISR Qualified',
+                                        'value': combineValues(isa_isrq_items)
+                                    });
+                                    
+                                    // ISA1 to SR
+                                    var isa_sr_items = _.filter($scope.leadTransitionData, function (d) { 
+                                         //console.log(d);
+                                         return (d.to === 'Sales Rejected' && d.from === 'Sales Accepted - Contacting') ||
+                                            (d.to === 'Sales Rejected' && d.from === 'Sales Accepted - Qualifying') ||
+                                            (d.to === 'Sales Rejected' && d.from === 'Sales Accepted - Deferred');  
+                                    }); 
+                                    
+                                    
+                                    $scope.leadTransitionDataCalc.push( {
+                                        'from': 'ISR Accepted',
+                                        'to' : 'Sales Rejected',
+                                        'value': combineValues(isa_sr_items)
+                                    });
+                                    
+                                    // IQL to ISA2                                                
+                                    var isrq_isa_2_items = _.filter($scope.leadTransitionData, function (d) { 
+                                         //console.log(d);
+                                         return (d.from === 'ISR Qualified' && d.to === 'Sales Accepted - Passed to Partner') ||
+                                            (d.from === 'ISR Qualified' && d.to === 'Partner Accepted');  
+                                    }); 
+                                    
+                                    
+                                    $scope.leadTransitionDataCalc.push( {
+                                        'from': 'ISR Qualified',
+                                        'to' : 'ISR Accepted2',
+                                        'value': combineValues(isrq_isa_2_items)
+                                    });                                                
+                                    
+                                    //  ISA2 to SR
+                                    var isa_2_sr_items = _.filter($scope.leadTransitionData, function (d) { 
+                                         //console.log(d);
+                                         return (d.to === 'Sales Rejected' && d.from === 'Sales Accepted - Passed to Partner') ||
+                                            (d.to === 'Sales Rejected' && d.from === 'Partner Accepted');  
+                                    }); 
+                                    
+                                    
+                                    $scope.leadTransitionDataCalc.push( {
+                                        'from': 'ISR Accepted2',
+                                        'to' : 'Sales Rejected',
+                                        'value': combineValues(isa_2_sr_items)
+                                    });  
+                                    
+                                    // ISA2  to conv
+                                    var isa_2_conv_items = _.filter($scope.leadTransitionData, function (d) { 
+                                         //console.log(d);
+                                         return ((d.to.indexOf('Converted') != -1) && d.from === 'Sales Accepted - Passed to Partner') ||
+                                            ((d.from.indexOf('Converted') != -1) && d.from === 'Partner Accepted');  
+                                    }); 
+                                    
+                                    
+                                    $scope.leadTransitionDataCalc.push( {
+                                        'from': 'ISR Accepted2',
+                                        'to' : 'Converted',
+                                        'value': combineValues(isa_2_conv_items)
+                                    });       
+                                    
+                                    
+                                     var newData = _.clone($scope.transitionProcessChartData)
+                                     newData.transitionData =  $scope.leadTransitionDataCalc; 
+                                     $scope.transitionProcessChartData= newData; 
+                            });
+                        };
+                        $scope.updateLeadTranstions = function() {
+                        
+                            if($scope.selectedCampaignType) {
+                                $scope.getLeadsForSelectedCampaignType();
+                                return;                            
+                            } 
+                            LeadRemoteService.getConvertedLeadItems().then(function(data){
+                              $scope.convertedLeadData = data;
+                              
+                              $scope.convertedStatusList = {};
+                              _.each(data.records, function(d) { 
+                                   $scope.convertedStatusList[d.Status] = d.Total
+                              });
+                              
+                            });
+                            LeadRemoteService.getHistogramData().then(function(data){
+                                var groupedData = {};
+                                _.each(_.keys(data.factMap), function(d) { 
+                                    
+                                    if(d.indexOf('T') >= 0) 
+                                        return;
+                                    
+                                    var keys = d.split('!');
+                                    
+                                    var fromKey = data.groupingsDown.groupings[keys[0]].value; 
+                                    var toGroupKey = data.groupingsAcross.groupings[keys[1]].value;
+                                    var aggGroupValue = data.factMap[d].aggregates[0].value;
+                                    if(groupedData [fromKey] === undefined)  
+                                        groupedData [fromKey] = {};
+                                    
+                                    groupedData[fromKey][toGroupKey] =  aggGroupValue;
+                                });
+                                $scope.histogramData = groupedData;
+                                var mergeValues = function(keys, leadObj) {
+                                    var temp = {}
+                                    _.each(keys, function(d) {
+                                        var obj = leadObj[d];
+                                        _.each(_.keys(obj) , function(k) {
+                                            if(!temp[k]) {
+                                              temp[k] = obj[k];     
+                                            } else {
+                                               temp[k] += obj[k];
+                                            }
+                                        });
+                                    });
+                                    return temp;
+                                };
+                                var isa_keys = _.filter(_.keys($scope.histogramData), function (d) {
+                                                         return d.indexOf('Sales Accepted - Contacting') != -1 ||
+                                                                d.indexOf('Sales Accepted - Qualifying') != -1 ||
+                                                                d.indexOf('Sales Accepted - Deferred') != -1;  
+                                            }); 
+                                $scope.histogramData['ISR Accepted'] = mergeValues(isa_keys, $scope.histogramData);
+                                
+                                var isa_2_keys = _.filter(_.keys($scope.histogramData), function (d) {
+                                                         return d.indexOf('Sales Accepted - Passed to Partner') != -1 ||
+                                                                d.indexOf('Partner Accepted') != -1; 
+                                            }); 
+                                $scope.histogramData['ISR Accepted2'] = mergeValues(isa_2_keys, $scope.histogramData);
+                                
+                                var converted_keys = _.filter(_.keys($scope.histogramData), function (d) {
+                                                         return d.indexOf('Converted into Existing Opportunity') != -1 ||
+                                                            d.indexOf('Converted to New Opportunity') != -1 ||
+                                                            d.indexOf('Converted to New Contact') != -1;  
+                                            });
+                                $scope.histogramData['Converted'] = mergeValues(converted_keys, $scope.histogramData);
+                                
+                                var newData = _.clone($scope.transitionProcessChartData)
+                                newData.histogramData =  $scope.histogramData; 
+                                $scope.transitionProcessChartData= newData;
+                            });
+                            
+                            $scope.getLeadTransitions();
+                            $scope.getTransitionsPerWeek();
+                           
+                            
+                        
+                        };
+                        $scope.updateLeadTranstions();
+                        
+                        
+                        $scope.getRecordsForStatus = function(status) {
+                            $scope.currentlyViewingStatus = status;
+                            LeadRemoteService.getResultsForQuery("SELECT Id, Name, Company, Owner.Name, DoNotCall, Do_Not_Tele_Qualify__c, Non_qualifying_Contact__c, Partner_Domain__c, Status, (SELECT NewValue, OldValue, CreatedDate, CreatedBy.Name FROM Histories where Field = 'Status') FROM Lead where Status = '" + $scope.currentlyViewingStatus + "' and RecordType.Name = 'Lead'").then(function(data){
+                                $scope.leadRecordsData = data;
+                                _.each($scope.leadRecordsData.records, function (item) {
+                                        if(item.Status === 'Marketing Nurturing') {
+                                            item.dontMQL = (item.DoNotCall === true || item.Do_Not_Tele_Qualify__c === true || item.Non_qualifying_Contact__c === true || item.Partner_Domain__c === true) ? 'Yes' : 'No';
+                                        } else {
+                                            item.dontMQL = 'N/A';
+                                        }
+                                        
+                                        if(item.Histories=== null) {
+                                            $scope.LastChange = []; 
+                                            return 
+                                        }; 
+                                        item.LastChange = _.max(item.Histories.records, function (d) { 
+                                            return moment(d.CreatedDate).unix(); 
+                                        }); 
+                                        item.ChangeIn45days = (moment().subtract(45, "days").unix() - moment(item.LastChange.CreatedDate).unix()) < 0 ? "Yes": "No";
+                                        
+                                        var diff = moment().unix() - moment(item.LastChange.CreatedDate).unix();                                       
+                                        if(diff < 172800) {
+                                            item.TimeAgo  = 'Less than 2 days';                                            
+                                        } else if (diff < 604800) {
+                                            item.TimeAgo  = 'Less than a week';
+                                        } else if (diff < 1814400) {
+                                            item.TimeAgo  = 'Less than 3 weeks';
+                                        } else if (diff < 3628800) {
+                                             item.TimeAgo  = 'Less than 6 weeks';
+                                        } else {
+                                            item.TimeAgo  = 'More than 6 week';
+                                        }
+                                        
+                                            
+                                });
+                                $scope.timeAgoGroups = _.toArray(_.countBy($scope.leadRecordsData.records, function (d) {return d.TimeAgo}));                            
+                            });    
+                        };
+                        $scope.getRecordsForStatus($scope.currentlyViewingStatus);
+                        
+                        
+                        $scope.getAllTransitionData = function() {
+                            LeadRemoteService.getAllItems().then(function(data){
+                                  $scope.origData = data;
+                                  
+                                  $scope.statusList = {};
+                                  _.each(data.records, function(d) { 
+                                       $scope.statusList[d.Status] = d.Total
+                                  });
+                                  
+                                  
+                                  $scope.summaryTables = [ 
+                                        {
+                                            'name' : 'Active',
+                                            'class' : 'span4 offset1',
+                                            
+                                            'rows' : [ 
+                                                
+                                                {
+                                                    'name' : 'Marketing Nurturing',
+                                                    'columns': [ {"value" : $scope.statusList['Marketing Nurturing']}],                                                                                        
+                                                    
+                                                    
+                                                },
+                                                
+                                                {
+                                                    'name' : 'Subtotal',
+                                                    'columns': [ {"value" : $scope.statusList['Marketing Nurturing']}  ],                                                                                                                                                                         
+                                                    'columnClass': "addTotalRow",
+                                                    'class' : 'text-right',
+                                                    
+                                                },
+                                                
+                                                {
+                                                    'name' : 'Marketing Qualified',
+                                                    'columns': [ {"value" : $scope.statusList['Marketing Qualified']}],                                                                            
+                                                },
+                                                {
+                                                    'name' : 'Subtotal',
+                                                    'columns': [{ "value" : 
+                                                                            $scope.statusList['Marketing Qualified'] 
+                                                     }],
+                                                     'class' : 'text-right',                                         
+                                                     'columnClass': "addTotalRow",                                    
+                                                    
+                                                },
+                                                {
+                                                    'name' : 'ISR Qualified',
+                                                    'columns': [{ "value" : $scope.statusList['ISR Qualified']}],                                         
+                                                },
+                                                {
+                                                    'name' : 'Subtotal',
+                                                    'columns': [{ "value" : $scope.statusList['ISR Qualified']
+                                                     }], 
+                                                     'class' : 'text-right',
+                                                     'columnClass': "addTotalRow",
+                                                },
+                                                {
+                                                    'name' : 'Sales Accepted - Contacting',
+                                                    'columns': [{ "value" : $scope.statusList['Sales Accepted - Contacting']}],                                         
+                                                },
+                                                {
+                                                    'name' : 'Sales Accepted - Deferred',
+                                                    'columns': [{ "value" : $scope.statusList['Sales Accepted - Deferred']}],                                         
+                                                },                                            
+                                                {
+                                                    'name' : 'Sales Accepted - Passed to Partner',
+                                                    'columns': [{ "value" : $scope.statusList['Sales Accepted - Passed to Partner']}],                                         
+                                                },
+                                                {
+                                                    'name' : 'Sales Accepted - Qualifying',
+                                                    'columns': [{ "value" : $scope.statusList['Sales Accepted - Qualifying']}],                                         
+                                                },
+                                                {
+                                                    'name' : 'Partner Accepted',
+                                                    'columns': [{ "value" : $scope.statusList['Partner Accepted']}],                                         
+                                                },
+                                                {
+                                                    'name' : 'RSM Accepted',
+                                                    'columns': [{ "value" : $scope.statusList['RSM Accepted'] || 0 }],                                         
+                                                },
+                                                {
+                                                    'name' : 'Subtotal',
+                                                    'columns': [{ "value" : $scope.statusList['Sales Accepted - Contacting'] +
+                                                                            $scope.statusList['Sales Accepted - Deferred'] +
+                                                                            $scope.statusList['Sales Accepted - Passed to Partner'] + 
+                                                                            $scope.statusList['Sales Accepted - Qualifying'] +
+                                                                            $scope.statusList['Partner Accepted'] +
+                                                                            ($scope.statusList['RSM Accepted'] || 0)
+                                                                             
+                                                     }], 
+                                                     'class' : 'text-right',
+                                                     'columnClass': "addTotalRow",
+                                                },
+                                                {
+                                                    'name' : 'Sales Rejected',
+                                                    'columns': [{ "value" : $scope.statusList['Sales Rejected']}],                                         
+                                                },
+                                                {
+                                                    'name' : 'Subtotal',
+                                                    'columns': [{ "value" : 
+                                                                            $scope.statusList['Sales Rejected']
+                                                     }], 
+                                                     'class' : 'text-right',
+                                                     'columnClass': "addTotalRow",
+                                                },
+                                                
+                                                {
+                                                    'name' : 'Total',
+                                                    'columns': [{ "value" : $scope.statusList['Marketing Nurturing'] +
+                                                                            $scope.statusList['Marketing Qualified'] + 
+                                                                            
+                                                                            $scope.statusList['ISR Qualified'] +
+                                                                            $scope.statusList['Sales Accepted - Contacting'] +
+                                                                            $scope.statusList['Sales Accepted - Deferred'] +
+                                                                            $scope.statusList['Sales Accepted - Passed to Partner'] + 
+                                                                            $scope.statusList['Sales Accepted - Qualifying'] +
+                                                                            $scope.statusList['Partner Accepted'] +
+                                                                            $scope.statusList['Sales Rejected'] 
+                                                                            
+                                                     }], 
+                                                     'class' : 'text-center',
+                                                     
+                                                },
+                                                
+                                            ]
+                                        }, 
+                                        
+                                   ];
+                                  var validList = [
+                                    'Marketing Nurturing',
+                                    'Marketing Qualified',
+                                    'ISR Qualified',
+                                    'Sales Accepted - Contacting',
+                                    'Sales Accepted - Qualifying',
+                                    'Sales Accepted - Passed to Partner',
+                                    'Partner Accepted',
+                                    'Sales Accepted - Deferred',
+                                    'Sales Converted',
+                                    'Sales Rejected',
+                                    'Re-qualifying',
+                                    'Marketing Ignore',
+                                    'Reseller',
+                                    'Converted into Existing Opportunity',
+                                    'Converted to New Contact',
+                                    'Converted to New Opportunity'
+                                 ];
+                                  var dispositionStatus = {
+                                      'Marketing Qualifying': 'Change to Marketing Nurturing',
+                                      'Tele-Qualified': 'Change to Marketing Nurturing',
+                                      'Competitive User': 'Change to Marketing Nurturing',
+                                      'Could not conact': 'Change to Marketing Nurturing',
+                                      'Could not contact': 'Change to Marketing Nurturing',
+                                      'Disqualified': 'Change to Marketing Nurturing',
+                                      'Meeting Set': 'Change to Marketing Nurturing',
+                                      'New': 'Change to Marketing Nurturing',
+                                      'No Contact': 'Change to Marketing Nurturing',
+                                      'Open': 'Change to Marketing Nurturing',
+                                      'Uninvited': 'Change to Marketing Nurturing',
+                                      'VXX Request Completed': 'Change to Marketing Nurturing',
+                                      'Return to Nurture': 'Change to Marketing Nurturing',
+                                      'Marketing Disqualified': 'Change to Marketing Nurturing',
+                                  };  
+                                    
+                                  $scope.invalidSummaryJSON = _.sortBy(_.filter(data.records, function(d) {
+                                                                  return validList.indexOf(d.Status) < 0;
+                                                              }), function(d) { return d.Status; }); 
+                                  _.each($scope.invalidSummaryJSON, function(d) {
+                                          
+                                  });  
+                                  var newData = _.clone($scope.transitionProcessChartData)
+                                  newData.activeStatus =  $scope.statusList; 
+                                  newData.convertedStatus =  $scope.convertedStatusList; 
+                                  newData.transitionData =  $scope.leadTransitionDataCalc; 
+                                    
+                                  $scope.transitionProcessChartData= newData; 
+                                                                                      
+                            },
+                            function(errorMessage){
+                                  $scope.error=errorMessage;
+                            });
+                            LeadRemoteService.getDontMQLItems().then(function(data) {
+                               var count = data.records[0].Total;
+                               $scope.statusList['Marketing Nurturing'] = $scope.statusList['Marketing Nurturing'] - count;
+                               $scope.statusList['DontMQL'] = count;
+                               var newData = _.clone($scope.transitionProcessChartData)
+                               newData.activeStatus =  $scope.statusList; 
+                           });
+                       }; 
+                       
+                       LeadRemoteService.getCampaignDescription().then(function(data) {
+                           $scope.campaignDescObj = data;
+                           $scope.pickListValues = _.filter($scope.campaignDescObj.fields, function(d) {return d.name === 'Type';})[0].picklistValues;
+                           //$scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'shortDate'];
+                           //$scope.format = $scope.formats[0]; 
+                       }); 
+                       
+                       $scope.getNextRecords = function() {
+                           if($scope.leadRecordsData.done)
+                               return;
+                           var nextURL = $scope.leadRecordsData.nextRecordsUrl;
+                           
+                           LeadRemoteService.getNextRecords(nextURL).then(function(data) {
+                               if($scope.selectedCampaignType ) {
+                                   var leadData = _.pluck(data.records , 'Lead')
+                                   $scope.leadRecordsData.records = $scope.leadRecordsData.records.concat(leadData);
+                               } else {
+                                   $scope.leadRecordsData.records = $scope.leadRecordsData.records.concat(data.records);
+                               }
+                               
+                               $scope.leadRecordsData.done = data.done;
+                               $scope.leadRecordsData.nextRecordsUrl = data.nextRecordsUrl;
+                               if($scope.selectedCampaignType  ) 
+                                   $scope.updateActiveStatusForLeads();
+                               //$scope.$apply(true);
+                           })
+                       };
+                       $scope.getAllTransitionData(); 
+                       
+                       
+                    });
+                    
+                    var client = new forcetk.Client();
+                    client.setSessionToken('{!$Api.Session_ID}');
+                    client.proxyUrl = null;
+                    client.instanceUrl = '';
+                    myapp.factory('LeadRemoteService', function($http, $rootScope, $q) {
+                        return {
+                         
+                        getResultsForQuery: function(q) {
+                            var deferred = $q.defer();                                
+                            console.log("Executing query: " + q);
+                            client.query(q, function(response){
+                                $rootScope.$apply(function() {
+                                    deferred.resolve(response);           
+                                });                                                                
+                            });                                
+                            //Returning the promise object
+                            return deferred.promise;
+                        }, 
+                        getNextRecords: function(nextUrl) {
+                            var deferred = $q.defer();                                
+                            console.log("Executing query for next set of records: " + nextUrl);
+                            client.queryMore(nextUrl, function(response) {
+                                console.log(response); 
+                                $rootScope.$apply(function() {
+                                    deferred.resolve(response);           
+                                }); 
+                               
+                            });                             
+                            //Returning the promise object
+                            return deferred.promise;
+                        },
+                        getCampaignDescription: function() {
+                            var deferred = $q.defer();                                
+                            
+                            client.describe('Campaign', function(response){
+                                $rootScope.$apply(function() {
+                                    deferred.resolve(response);           
+                                });                                                                
+                            });                                
+                            //Returning the promise object
+                            return deferred.promise;
+                        }, 
+                        getAllItems: function(){
+                            //Creating a deferred object
+                            var deferred = $q.defer();
+                            client.query("select Status, Count(Id) Total from Lead where RecordType.Name = 'Lead'  group by Status", function(response){
+                                //console.log(response);
+                                $rootScope.$apply(function() {
+                                    deferred.resolve(response);           
+                                });
+                                
+                                
+                            });
+                            
+                            
+                            //Returning the promise object
+                            return deferred.promise;
+                        },
+                        getDontMQLItems: function(){
+                            //Creating a deferred object
+                            var deferred = $q.defer();
+                            client.query("select Count(Id) Total from Lead where RecordType.Name = 'Lead'  and Status = 'Marketing Nurturing' and (DoNotCall = true or Do_Not_Tele_Qualify__c = true or Non_qualifying_Contact__c= true or Partner_Domain__c= true)", function(response){
+                                //console.log(response);
+                                $rootScope.$apply(function() {
+                                    deferred.resolve(response);           
+                                });
+                                
+                                
+                            });
+                            
+                            
+                            //Returning the promise object
+                            return deferred.promise;
+                        },
+                        getConvertedLeadItems: function(){
+                            //Creating a deferred object
+                            var deferred = $q.defer();
+                            client.query("select Status, Count(Id) Total from Lead where RecordType.Name = 'Lead' and IsConverted = true and Status like 'Converted%' group by Status", function(response){
+                                //console.log(response);
+                                $rootScope.$apply(function() {
+                                    deferred.resolve(response);           
+                                });
+                                
+                                
+                            });
+                            
+                            
+                            //Returning the promise object
+                            return deferred.promise;
+                        },
+                        getHistogramData: function(){
+                            //Creating a deferred object
+                            var deferred = $q.defer();
+                            // dev - 00OR0000000k6JM
+                            // production = 00O50000003bDkD
+                            client.ajax('/v29.0/analytics/reports/00O50000003bDkD', function(response){
+                                //console.log(response);
+                                $rootScope.$apply(function() {
+                                    deferred.resolve(response);           
+                                });                                
+                            });
+                            //Returning the promise object
+                            return deferred.promise;
+                        },
+                        
+                      }
+                    }); 
+         </script>  
+         <body ng-app="LeadsSummary">
+            <style>
+                h1 {
+                    font-size: 25px;
+                    line-height: 1;
+                    text-align: center;
+                   
+                }
+                .addTotalRow {
+                    border-top: 5px solid #252CE0 !important;
+                }
+                h4 {
+                    font-size: 17.5px;
+                    }
+               .h1Heading {
+                    margin: 10px 0px 10px 0px; 
+               }
+               .tablevalue {
+                    font-size: 20px;
+                    font-weight: bold;
+                    text-decoration: none;
+                    line-height: 1em;
+                    color: black;
+               } 
+               .tablevaluelink {
+                        font-size: 20px;
+                        font-weight: bold;
+                        text-decoration: none;
+                        line-height: 1
+                        
+                        
+                        
+                        
+                        ;
+                        color: deepskyblue;
+                    }
+                .tabledesclink {
+                    font-size: 15px;
+                    font-weight: bold;
+                    line-height: 1em;
+                    color: #26ac01;
+                }
+                a {
+                    cursor:pointer;
+                }
+                .link-tools  { 
+                    display: none 
+                }
+                #paper {
+                   position: relative;
+                  
+                   display: inline-block;
+                   background: transparent;
+                   overflow: hidden;
+                }
+                #paper svg {
+                   background: transparent;
+                }
+                #paper svg .link {
+                   z-index: 2;
+                  
+                }
+                .html-element {
+                   position: absolute;
+                   background: #A4D53A;
+                   /* Make sure events are propagated to the JointJS element so, e.g. dragging works.*/
+                   pointer-events: none;
+                   -webkit-user-select: none;
+                   border-radius: 4px;
+                   border: 2px solid #2980B9;
+                   box-shadow: inset 0 0 5px black, 2px 2px 1px gray;
+                   padding: 5px;
+                   box-sizing: border-box;
+                   z-index: 2;
+                }
+                .html-element select,
+                .html-element input,
+                .html-element button {
+                   /* Enable interacting with inputs only. */
+                   pointer-events: auto;   
+                }
+                .blah {
+                    margin-top:100px;
+                }
+                .blah, .weekTransitions {
+                   pointer-events: auto;   
+                }
+                
+                .html-element button.delete {
+                   color: white;
+                   border: none;
+                   background-color: #C0392B;
+                   border-radius: 20px;
+                   width: 15px;
+                   height: 15px;
+                   line-height: 15px;
+                   text-align: middle;
+                   position: absolute;
+                   top: -15px;
+                   left: -15px;
+                   padding: 0;
+                   margin: 0;
+                   font-weight: bold;
+                   cursor: pointer;
+                }
+                .html-element button.delete:hover {
+                   width: 20px;
+                   height: 20px;
+                   line-height: 20px;
+                }
+                .html-element select {
+                   position: absolute;
+                   right: 2px;
+                   bottom: 28px;
+                }
+                .html-element input {
+                   position: absolute;
+                   bottom: 0;
+                   left: 0;
+                   right: 0;
+                   border: none;
+                   color: #333;
+                   padding: 5px;
+                   height: 16px;
+                }
+                .html-element label {
+                   color: #333;
+                   text-shadow: 1px 0 0 lightgray;
+                   font-weight: bold;
+                }
+                .label {
+                
+                }
+                .html-element span {
+                   position: absolute;
+                   top: 2px;
+                   right: 9px;
+                   color: white;
+                   font-size: 10px;
+                }
+                #countLabel {
+                    font-size: 26px;
+                    
+                }
+                #loadingWidget {
+                    margin-top: 100px;
+                    display: none;
+                    width:200px;
+                    height: 75px;
+                    position: fixed;
+                    top: 50%;
+                    left: 50%;
+                    text-align:center;
+                    padding:10px;
+                    font:normal 16px Tahoma, Geneva, sans-serif;
+                    margin-left: -50px;
+                    margin-top: -50px;
+                    z-index:2;
+                    overflow: auto;
+                    background: #d4d4d4;
+                }
+                .campaignLabel {
+                    font-size: 13px;
+                    font-weight: bold;
+                    text-decoration: none;
+                    line-height: 1em;
+                    color: black;
+                    
+                }
+            </style>
+            <div ng-controller="LeadsSummaryController" class="row" ng-cloak='ng-cloak' >
+                <div id="loadingWidget" style="padding: 0 .7em;" loading-widget='loading-widget' class="row-fluid ui-corner-all">
+                  <div class="loadingContent">
+                    <p style="margin-top: 25px;"></p><img id = 'loadingImage' alt="Loading  Content" src="{!URLFOR($Resource.Account_Summary, 'app/images/ajax-loader.gif')}"/>Loading...
+                  </div>
+                </div>
+                 <div class="text-center" style="margin-top:25px;margin-bottom:25px;color:royalblue;">
+                    
+                        <h1>Lead Analysis</h1>
+                         
+                </div>
+                   
+                <div class = 'container-fluid' >
+                    <div class= "span6 offset2" style= "margin-right: 25px;" >
+                        <form class="form-horizontal" >
+                            <fieldset>                                        
+                                 
+                                <div class="btn-group span6 offset4" >
+                                    <button type="button" class="btn btn-small" ng-model="transitionTimeframe" btn-radio="'30'" ng-change='updateLeadTranstions()'>Last Month</button>                                       
+                                    <button type="button" class="btn btn-small" ng-model="transitionTimeframe" btn-radio="'90'" ng-change='updateLeadTranstions()'>Last 3 Months</button>
+                                    <button type="button" class="btn btn-small" ng-model="transitionTimeframe" btn-radio="'180'" ng-change='updateLeadTranstions()'>Last 6 Months</button>
+                                    <!--<button type="button" class="btn btn-small" ng-model="$parent.transitionTimeframe" btn-radio="'365'" ng-change='updateLeadTranstions()'>Last Year</button>-->
+                                </div>                 
+                            </fieldset>   
+                                            
+                        </form>
+                        <div class= "span6 offset4" ng-hide= 'leadRecordsData.done'>
+                        <button type="button" class="btn-primary" ng-click="getNextRecords()" >Fetch More Records &raquo;</button>
+                        <h6>(Showing records {{leadRecordsData.records.length}} of {{leadRecordsData.totalSize}})</h6>
+                         
+                    </div>
+                    </div>
+                   
+                </div>
+                
+                <div class = 'container' >
+                    <div class= "span6 offset2" ng-show = 'campaignInfo'>
+                       <div class ='text-center'>
+                           
+                       </div>
+                       <table class="table table-hover table-bordered table-condensed">
+                           <caption class="capStyle" style="text-decoration: underline;">
+                               <a href= '/{{campaignInfo.Id}}' ng-show = 'campaignInfo' target="_blank"><b>Campaign Details &raquo;</b></a>                       
+                               <a href= '/00O?scope=1&rt=5&scopeid={{campaignInfo.Name | encodeURIComponent}}' ng-show = 'campaignInfo' target="_blank" style="margin-left: 25px"><b>Campaign Members &raquo;</b></a>                                                  
+                               <a href= '/00O50000003bFfj' ng-show = 'campaignInfo' target="_blank" style="margin-left: 25px"><b>Event List Loads &raquo;</b></a>
+                           </caption>  
+                           
+                           <tbody> 
+                               <tr>
+                                   <td class='campaignLabel' width='40%'>Campaign Type</td>
+                                   <td>{{campaignInfo.Type}}</td>
+                               </tr>
+                               <tr>
+                                   <td class='campaignLabel'>Campaign Owner</td>
+                                   <td>{{campaignInfo.Owner.Name}}</td>
+                               </tr>
+                               <tr>
+                                   <td class='campaignLabel'>CSM</td>
+                                   <td>{{campaignInfo.CSM__c}}</td>
+                               </tr>
+                               <tr>
+                                   <td class='campaignLabel'>Promoted by Silver Peak</td>
+                                   <td>{{campaignInfo.Campaign_Not_Promoted__c | notPromoted}}</td>
+                               </tr>
+                               <tr>
+                                   <td class='campaignLabel'># of Leads</td>
+                                   <td>{{campaignInfo.NumberOfLeads}}</td>
+                               </tr>
+                               <tr>
+                                   <td class='campaignLabel'>Campaign Start Date/End Date</td>
+                                   <td>{{campaignInfo.StartDate | date:'mediumDate'}} - {{campaignInfo.EndDate | date:'mediumDate'}}</td>
+                               </tr>
+                               
+                           </tbody>
+                       </table>
+                       
+                   </div>
+                </div>
+                <div class = 'container offset2' >
+                     
+                </div>    
+                <div class = 'container offset2' transition-process = 'transition-process' ng-model='transitionProcessChartData' >
+                    <div id = "paper" >       
+                    </div>
+                </div>
+                <div class='text-center'>
+                    <button type="button" class="btn-primary" ng-model="showDetails" ng-click= "showDetails=!showDetails">{{ !showDetails ? 'View' : 'Hide' }} Transition Details</button> 
+                    
+                </div>
+                <div class="container-fluid" ng-hide = 'showDetails === false ' >
+                        
+                        <div class="{{table.class}}" ng-repeat="table in summaryTables">                                    
+                            <table class="table table-hover table-bordered statsTable table-condensed">
+                               <caption class="capStyle">
+                                   <h4>{{table.name}}</h4>
+                                   
+                                   </caption>                                        
+                               <tbody> 
+                                 
+                                 <tr ng-repeat="row in table.rows">
+                                     <td class="tabledesclink">
+                                         <div class ="{{row.class}}" tooltip="{{row.description}}">{{row.name}}</div>
+                                     </td>
+                                      <td class="{{row.columnClass}}" ng-repeat="col in row.columns">
+                                         <div class="text-right">                                             
+                                                                                         
+                                             <span class = "tablevalue" ng-show =' row.name === "Total" || row.name === "Subtotal"'> {{col.value}}</span>
+                                             <a ng-show=' row.name !== "Total" && row.name !== "Subtotal"' ng-click="getRecordsForStatus(row.name)">
+                                                 <span class="tablevaluelink"> {{col.value}}</span>                                                                                                  
+                                             </a> 
+                                         </div>
+                                     </td>
+                                     <td ng-show = 'table.name === "Active"'>
+                                         <div ng-show='row.name !== "Total" && row.name !== "Subtotal"' histo-property = '{{row.name}}' lead-sparkline= "lead-sparkline" ng-model="histogramData[row.name]"></div>
+                                     </td>
+                                 </tr>
+                             </tbody>
+                             </table>
+                             
+                        </div> 
+                        <!--<div class="span4">
+                            <chart value="cumulativeTimelineChart"  height="350"></chart>
+                        </div>
+                        -->
+                        <div class="span6">
+                           
+                          <table at-table='at-table' class="table table-striped table-bordered"  list="leadTransitionExceptions">
+                              <caption class="capStyle">
+                                   <h4>Transition Exceptions  (Total: {{leadTransitionExceptionsSum}})</h4>
+                                   <br></br>
+                                    
+                              </caption>    
+                              <thead></thead>
+                              <tbody>
+                                <tr>
+                                  <td sortable = 'sortable' at-implicit='at-implicit' attribute="from"></td>
+                                  <td sortable = 'sortable' at-implicit='at-implicit' attribute="to"></td>
+                                  <td sortable = 'sortable' at-implicit='at-implicit' initial-sorting="desc" title='Count' attribute="value" style= "text-align: center;" ></td>
+                                </tr>
+                                
+                              </tbody>
+                            </table>
+                           <!-- <at-pagination items-per-page="20" instance="wildPagination2" list="leadTransitionExceptions" ></at-pagination>   -->
+                          
+                        </div>
+                        <div class="span6">
+                           
+                          <table at-table='at-table' class="table table-striped table-bordered"  at-pagination="wildPagination" fill-last-page= "fill-last-page">
+                              <caption class="capStyle">
+                                   <h4>Transitions (Total: {{leadTransitionSum}})</h4>
+                                   <br></br>
+                                    
+                              </caption>    
+                              <thead></thead>
+                              <tbody>
+                                <tr>
+                                  <td sortable = 'sortable' at-implicit='at-implicit' attribute="from"></td>
+                                  <td sortable = 'sortable' at-implicit='at-implicit' attribute="to"></td>
+                                  <td sortable = 'sortable' at-implicit='at-implicit' initial-sorting="desc" title='Count' attribute="value" style= "text-align: center;" ></td>
+                                </tr>
+                                
+                              </tbody>
+                            </table>
+                            <at-pagination items-per-page="20" instance="wildPagination" list="leadTransitionData" ></at-pagination>   
+                          
+                        </div>
+                        
+                        <!--<div class="span4">
+                             <h4>Top 10 Transtions</h4>
+                            <p ng-hide = 'top10LeadTransitions.length > 0'>No transition data available</p>
+                            <div ng-repeat='item in top10LeadTransitions'>
+                                
+                                <div  transition-sparkline= 'transition-sparkline' ng-model= 'item'> </div>
+                                <p><strong>{{item.name}}</strong></p>
+                            </div>
+                        </div>
+                        -->
+                    </div>
+                       
+                    <div class="container-fluid">
+                         <h1>{{currentlyViewingStatus}} Records <h6>(Showing records {{leadRecordsData.records.length}} of {{leadRecordsData.totalSize}})</h6></h1>
+                         <button type="button" class="btn-primary" ng-click="getNextRecords()" ng-hide= 'leadRecordsData.done'>Fetch More Records &raquo;</button>
+                         <div class="gridStyle" ng-grid="leadRecordsGridOptions" style = "border: 1px solid rgb(212,212,212);height:600px;">
+                         </div>
+                     </div>
+                     
+            </div>
+            <script>
+              
+              setTimeout(function() {
+                   //console.log('Setting css');           
+                   $('#paper').hide();
+                   $('#paper').get(0).offsetHeight; // no need to store this anywhere, the reference is enough
+                   $('#paper').show();
+                   
+                  
+              }, 1000);
+              
+            </script>
+            <script type="text/javascript">
+                if (document.location.hostname.search("c.na3.visual.force.com") !== -1) {
+                
+                      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+                      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+                      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+                    
+                      ga('create', 'UA-45765411-2', 'salesforce.com');
+                      ga('send', 'pageview');
+                    
+                
+                }
+            </script>
+        </body>
+        
+     </html>
+</apex:page>

@@ -1,0 +1,132 @@
+<apex:page standardController="Opportunity" extensions="OpportunityController,CustomAction" showHeader="true" sidebar="true" id="page">
+    <apex:sectionHeader title="Opportunity" subtitle="{!Opportunity.Name}" />
+    <chatter:feedWithFollowers entityId="{!Opportunity.Id}" showHeader="true" />
+
+    <apex:outputPanel rendered="{!NOT(IsOverridable)}">
+        <apex:detail subject="{!Opportunity.Id}" inlineEdit="true" relatedList="true" relatedListHover="true" title="false" />
+    </apex:outputPanel>
+
+    <apex:outputPanel rendered="{!IsOverridable}">
+    <apex:includeScript value="{!URLFOR($Resource.DynamicPage, 'js/jquery.min.js')}" />
+    <apex:includeScript value="{!URLFOR($Resource.DynamicPage, 'js/DynamicPage.js')}" />
+    <apex:includeScript value="{!URLFOR($Resource.DynamicPage, 'js/SPDialog.js')}" />
+    <apex:stylesheet value="{!URLFOR($Resource.DynamicPage, 'css/DynamicPage.css')}" />
+    <script>
+        var spDynamicPage = null;
+        var spOppDependency = null;
+        jQuery(document).ready(function() {
+            spDynamicPage = new SPDynamicPage("{!Opportunity.Id}", {!ButtonDefinitions});
+            if({!IsEditable})spDynamicPage.initStageGroup();
+            
+            new SPDialogBox($("#stageDialog")[0]);
+            
+            var stageField = $("select[data-field-name='StageName']");
+            var probField = $("input[data-field-name='Probability']");
+            var forecastField = $("select[data-field-name='ForecastCategoryName']");
+            var deadReasonContainer = $("#deadReasonField");
+            spOppDependency = new SPOpportunityStageDependency(stageField, probField, forecastField, deadReasonContainer, {!Stage2Probability});
+        });
+    </script>
+    <apex:pageMessages id="errorMessages" escape="false"/>
+    <apex:form id="form">
+    <apex:pageBlock mode="maindetail" title="Opportunity Detail" rendered="{!DynamicPageLayout.Sections.size > 0}" id="block">
+        <apex:pageblockButtons >
+            <apex:repeat value="{!DynamicPageLayout.Buttons}" var="button">
+                <apex:outputPanel rendered="{!button.Label != 'Clone'}" layout="none"><input type="button" class="btn DetailButton" data-button-name="{!button.Name}" value="{!button.Label}" /></apex:outputPanel>
+                <apex:outputPanel rendered="{!button.Label = 'Clone'}" layout="none"><div class="menuButton DetailButton" style="position:relative"><div class="menuButtonButton" id="CloneButton"><span class="menuButtonLabel" id="CloneLabel" tabindex="0">Clone</span></div><div class="menuButtonMenu" id="CloneMenu"><a href="/{!Opportunity.Id}/e?clone=1&00N50000003L6D5=0&retURL=%2F{!Opportunity.Id}&amp;cloneli=1" class="menuButtonMenuLink firstMenuItem">Clone with Products</a><a href="/{!Opportunity.Id}/e?clone=1&00N50000003L6D5=0&retURL=%2F{!Opportunity.Id}" class="menuButtonMenuLink">Clone without Products</a></div></div></apex:outputPanel>
+            </apex:repeat>
+            <input type="button" class="btn" id="SaveBtn" value="Save" onclick="spDynamicPage.activateSavingButtons();setTimeout(saveRecord)" style="display:none"/>
+            <input type="button" class="btn" id="CancelBtn" value="Cancel" onclick="spDynamicPage.resetAllInlineEdit()" style="display:none"/>
+            <apex:actionFunction action="{!save}" name="saveRecord" rendered="{!IsEditable}"/>
+        </apex:pageblockButtons>
+        
+        <apex:repeat value="{!DynamicPageLayout.Sections}" var="section" id="sections">
+            <apex:pageBlockSection title="{!IF(section.Name='Description', '', section.Name)}" columns="{!section.Columns}" rendered="{!section.Name != 'Sales Team/Patch/Channel Information'}">
+                <apex:repeat value="{!$ObjectType.Opportunity.FieldSets[section.FieldSet]}" var="f" id="fields">
+                    <apex:outputField value="{!Opportunity[f]}" rendered="{!f != 'OwnerId' && f != 'StageName' && f != 'Probability' && f != 'ForecastCategoryName'}">
+                        <apex:inlineEditSupport event="ondblclick" resetFunction="spDynamicPage.resetInlineEdit()" rendered="{!IsEditable}" />
+                    </apex:outputField>
+                    <apex:pageblocksectionItem rendered="{!f == 'StageName' || f == 'Probability' || f == 'ForecastCategoryName'}">
+                        <apex:outputLabel value="{!f.Label}"/>
+                        <apex:outputPanel >
+                            <apex:outputField value="{!Opportunity[f]}" rendered="{!f != 'OwnerId'}" />
+                            <div data-field-name="{!f}" data-field-dialog="stageDialog"></div>
+                        </apex:outputPanel>
+                    </apex:pageblocksectionItem>
+                    <apex:pageblockSectionItem rendered="{!f='OwnerId'}">
+                        <apex:outputLabel value="Opportunity Owner" />
+                        <apex:outputPanel >
+                            <apex:outputField value="{!Opportunity.OwnerId}" />
+                            <apex:outputPanel layout="none"> [<a href="/{!Opportunity.Id}/a?retURL=%2F{!Opportunity.Id}">Change</a>]</apex:outputPanel>
+                        </apex:outputPanel>
+                    </apex:pageblockSectionItem>
+                </apex:repeat>
+            </apex:pageBlockSection>
+            <c:OpportunityChannelAndTeamList opportunity="{!Opportunity.Id}" rendered="{!section.Name = 'Sales Team/Patch/Channel Information'}"/>
+        </apex:repeat>
+
+        <div id="stageDialog" style="display:none">
+            <table border="0">
+                <tbody>
+                    <tr>
+                        <td class="labelCol">{!$ObjectType.Opportunity.Fields.StageName.Label}</td>
+                        <td><apex:inputField value="{!Opportunity.StageName}" html-data-field-name="StageName" /></td>
+                    </tr>
+                    <tr>
+                        <td class="labelCol">{!$ObjectType.Opportunity.fields.Probability.Label}</td>
+                        <td><apex:inputField value="{!Opportunity.Probability}" html-data-field-name="Probability" /></td>
+                    </tr>
+                    <tr>
+                        <td class="labelCol">{!$ObjectType.Opportunity.fields.ForecastCategoryName.Label}</td>
+                        <td><apex:inputField value="{!Opportunity.ForecastCategoryName}" html-data-field-name="ForecastCategoryName" /></td>
+                    </tr>
+                    <tr style="display:none" id="deadReasonField">
+                        <td class="labelCol">{!$ObjectType.Opportunity.Fields.Dead_Reason__c.Label}</td>
+                        <td><apex:inputField value="{!Opportunity.Dead_Reason__c}" html-data-field-name="Dead_Reason__c" /></td>
+                    </tr>
+                </tbody>
+            </table>          
+        </div>
+    </apex:pageBlock>
+    </apex:form>
+    <div class="relatedLists">
+    <apex:repeat value="{!DynamicPageLayout.RelatedLists}" var="relList">
+        <apex:form rendered="{!NOT(CONTAINS(PredefinedLists, relList.ObjectName))}">
+            <apex:pageBlock title="{!relList.ObjectLabel}" rendered="{!$ObjectType[relList.ObjectName].accessible}">
+                <apex:pageBlockButtons location="top">
+                    <apex:repeat value="{!relList.Buttons}" var="button">
+                        <input type="button" class="btn DetailButton" value="{!button.Label}" buttonName="{!button.Name}" />
+                    </apex:repeat>
+                </apex:pageBlockButtons>
+                <apex:pageBlockTable value="{!relList.Records}" var="record" rows="{!relList.LimitNumber}">
+                    <apex:column headerValue="Action" styleClass="actionColumn" rendered="{!$ObjectType[relList.ObjectName].updateable && $ObjectType[relList.ObjectName].deletable}">
+                        <apex:commandLink value="Edit" action="/{!record.Id}/e?retURL={!Opportunity.Id}" styleClass="actionLink" rendered="{!$ObjectType[relList.ObjectName].updateable}" /><apex:outputText rendered="{!$ObjectType[relList.ObjectName].updateable && $ObjectType[relList.ObjectName].deletable}">&nbsp;|&nbsp;</apex:outputText><apex:commandLink value="Del" action="{!deleteChildObject}" styleClass="actionLink" rendered="{!$ObjectType[relList.ObjectName].deletable}" onclick="if(!confirm('Are you sure?'))return false;"><apex:param name="delId" value="{!record.Id}" /></apex:commandLink>
+                    </apex:column>
+                    <apex:repeat value="{!relList.Fields}" var="f">
+                        <apex:column headerValue="{!$ObjectType[relList.ObjectName].Fields[f].Label}">
+                            <apex:outputField value="{!record[f]}" rendered="{!NOT($ObjectType[relList.ObjectName].Fields[f].nameField)}"/><apex:commandLink value="{!record[f]}" action="/{!record.Id}" rendered="{!$ObjectType[relList.ObjectName].Fields[f].nameField}" />
+                        </apex:column>
+                    </apex:repeat>
+                </apex:pageBlockTable>
+                <apex:outputPanel layout="none" rendered="{!relList.Records.size > relList.LimitNumber}">
+                    <div class="pShowMore"><a href="/apex/OpportunityRelatedList?rlno={!relList.LayoutNumber}&id={!Opportunity.Id}">Go to full list&nbsp;»</a></div>
+                </apex:outputPanel>
+            </apex:pageBlock>
+        </apex:form>
+        <apex:relatedList list="OpportunityLineItems" rendered="{!relList.ObjectName = 'OpportunityLineItem'}"/>
+        <apex:relatedList list="OpportunityHistories" rendered="{!relList.ObjectName = 'OpportunityHistory'}"/>
+        <apex:relatedList list="OpenActivities" rendered="{!relList.ObjectName = 'OpenActivity'}"/>
+        <apex:relatedList list="ActivityHistories" rendered="{!relList.ObjectName = 'ActivityHistory'}"/>
+        <apex:relatedList list="Requests__r" rendered="{!relList.ObjectName = 'Request__c'}"/>
+        <apex:relatedList list="Quotes__r" rendered="{!relList.ObjectName = 'Quote__c'}"/>
+        <apex:relatedList list="SBQQ__Quotes2__r" rendered="{!relList.ObjectName = 'SBQQ__Quote__c' && $ObjectType.SBQQ__Quote__c.accessible}"/>
+        <apex:relatedList list="CombinedAttachments" rendered="{!relList.ObjectName = 'NoteAndAttachment'}"/>
+        <apex:relatedList list="OpportunityContactRoles" rendered="{!relList.ObjectName = 'OpportunityContactRole'}"/>
+        <apex:relatedList list="OpportunityCompetitors" rendered="{!relList.ObjectName = 'OpportunityCompetitor'}"/>
+        <apex:relatedList list="Purchase_Orders__r" rendered="{!relList.ObjectName = 'Purchase_Order__c'}"/>
+        <c:HistoryRelatedList parentObjId="{!Opportunity.Id}" limitNumber="50" rendered="{!relList.ObjectName = 'OpportunityFieldHistory'}"/>
+        <apex:relatedList list="RelatedOpportunities__r" rendered="{!relList.ObjectName = 'Opportunity'}"/>
+    </apex:repeat>
+    </div>
+    </apex:outputPanel>
+</apex:page>

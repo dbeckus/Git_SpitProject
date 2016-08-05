@@ -1,0 +1,5 @@
+<apex:page standardcontroller="MDF_Request__c" showheader="false">
+    <div style="padding-left:50px;padding-right:50px;font-size: 14px;color: #0561BB;">
+    <apex:outputField value="{!MDF_Request__c.Partner_Instructions__c}" />
+    </div>
+</apex:page>

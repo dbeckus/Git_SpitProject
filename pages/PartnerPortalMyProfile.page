@@ -1,0 +1,280 @@
+<apex:page standardController="User" extensions="PartnerPortalMyProfileController" showHeader="false">
+    <apex:composition template="PartnerCommunityTemplate">
+        <apex:define name="body">
+            <script type="text/javascript">
+                (function() {
+                    var jq = jQuery;
+                
+                    jq("document").ready(function() {
+                        var domEmailAddress = jq("[id$='emailAddressInput']");
+                        var domDellSegment = jq("#dellSegment");
+                        var reg = /^([a-zA-Z0-9_\.\-])+\@dell.com$/i;
+                        if(reg.test(domEmailAddress.val())) {
+                            domDellSegment.show();
+                        } else {
+                            domDellSegment.hide();
+                        }
+                    });
+                 })();
+            </script>
+            <div id="main">
+                <apex:form >
+
+                    <article id="content_1col">
+                        <div class="txt">
+                            <div class="clear"></div>
+                            <table border="0" cellpadding="2" cellspacing="2">
+                                <tr>
+                                    <td>
+                                        <apex:outputPanel id="pageMessage1" layout="none">
+                                            <apex:pageMessages />
+                                        </apex:outputPanel>
+                                    </td>
+                                </tr>
+                            </table>
+                            <h2>Contact Information</h2>
+                            <table border="0" cellpadding="2" cellspacing="2">
+                                <tbody>
+                                    <tr>
+                                        <td valign="top" width="50%">
+                                            <table border="0" cellpadding="2" cellspacing="2">
+                                                <tbody>
+                                                    <tr>
+                                                        <td width="180">
+                                                            <span>First Name:</span> 
+                                                            <span class="required_field">*</span>
+                                                        </td>
+                                                        <td>
+                                                            <apex:inputField value="{!MyProfile.FirstName}" required="true" />
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td width="180">
+                                                            <span>Last Name:</span> 
+                                                            <span class="required_field">*</span>
+                                                        </td>
+                                                        <td>
+                                                            <apex:inputField value="{!MyProfile.LastName}" required="true" />
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td width="180">
+                                                            <span>Title:</span> 
+                                                            <span class="required_field">*</span>
+                                                        </td>
+                                                        <td>
+                                                            <apex:inputField value="{!MyProfile.Title}" required="true"/>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td width="180">
+                                                            <span>Email Address:</span> 
+                                                            <span class="required_field">*</span>
+                                                        </td>
+                                                        <td>
+                                                            <apex:inputField value="{!MyProfile.Email}" required="true" id="emailAddressInput" />
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td width="180">
+                                                            <span>Phone:</span> 
+                                                            <span class="required_field">*</span>
+                                                        </td>
+                                                        <td>
+                                                            <apex:inputField value="{!MyProfile.Phone}" required="true"/>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td width="180">
+                                                            <span>Fax:</span>
+                                                        </td>
+                                                        <td>
+                                                            <apex:inputField value="{!MyProfile.Fax}" />
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td width="180">
+                                                            <span>Mobile:</span> 
+                                                        </td>
+                                                        <td>
+                                                            <apex:inputField value="{!MyProfile.MobilePhone}" />
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </td>
+                                        <td valign="top" width="50%">
+                                            <table border="0" cellpadding="2" cellspacing="2">
+                                                <tbody>
+                                                    <tr>
+                                                        <td width="180">
+                                                            <span>Address:</span> 
+                                                            <span class="required_field">*</span>
+                                                        </td>
+                                                        <td >
+                                                            <apex:inputField value="{!MyProfile.Street}" required="true"/>
+                                                        </td>
+                                                    </tr>
+                                                    
+                                                    <tr>
+                                                        <td width="180">
+                                                            <span>City:</span> 
+                                                            <span class="required_field">*</span>
+                                                        </td>
+                                                        <td>
+                                                            <apex:inputField value="{!MyProfile.City}" required="true"/>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td width="180">
+                                                            <span>State:</span> 
+                                                            <span class="required_field">*</span>
+                                                        </td>
+                                                        <td>
+                                                            <apex:inputField value="{!MyProfile.State}" required="true"/>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td width="180">
+                                                            <span>Zip/Postal:</span> 
+                                                            <span class="required_field">*</span>
+                                                        </td>
+                                                        <td>
+                                                            <apex:inputField value="{!MyProfile.PostalCode}" required="true"/>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td width="180">
+                                                            <span>Country:</span> 
+                                                            <span class="required_field">*</span>
+                                                        </td>
+                                                        <td>
+                                                            <apex:inputField value="{!TemporaryAddress.Country__c}" required="true"/>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td width="180">
+                                                            <span style="display: none;">Email Opt-In:</span> 
+                                                            <span class="required_field" style="display: none;">*</span>
+                                                        </td>
+                                                        <td>
+                                                            <table style="display: none;">
+                                                                <tbody>
+                                                                    <tr>
+                                                                        <td>
+                                                                            <div class="chk-area chk-unchecked">
+                                                                                <span></span>
+                                                                            </div>
+                                                                            <input type="checkbox" value="609832" class="jcf-hidden"/>
+                                                                            <label>Opt-In</label>
+                                                                        </td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2">            
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            <h2>Additional Information</h2>
+                            <table border="0" cellpadding="2" cellspacing="2" style="margin: 0 0 20px 0;">
+                                <tbody>
+                                    <tr>
+                                        <td width="180">
+                                            <span>Job Function</span>
+                                        </td>
+                                        <td>
+                                            <apex:inputField value="{!MyProfileExtra.Job_Function__c}" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td width="180">
+                                            <span>Department:</span>
+                                        </td>
+                                        <td>
+                                            <apex:inputField value="{!MyProfile.Department}" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td width="180">
+                                            <span>Birth Date:</span>
+                                        </td>
+                                        <td>
+                                            <apex:inputField value="{!MyProfileExtra.Birth_Date__c}" style="width:200px" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td width="180">
+                                            <span>Reports To:</span>
+                                        </td>
+                                        <td>
+                                            <apex:inputField value="{!MyProfileExtra.Reports_To__c}" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td width="180">
+                                            <span>Industry Certifications Held:</span>
+                                        </td>
+                                        <td>
+                                            <apex:inputField value="{!MyProfileExtra.Industry_Certifications_Held__c}" />
+                                        </td>
+                                    </tr>
+                                    <tr id="dellSegment" style="display: none;">
+                                        <td width="180">
+                                            <span>Industry Segment:</span>
+                                        </td>
+                                        <td>
+                                            <apex:inputField value="{!MyProfileExtra.Dell_Segment__c}" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td width="180">
+                                            <span>Skype Name:</span>
+                                        </td>
+                                        <td>
+                                            <apex:inputField value="{!MyProfileExtra.Skype_Name__c}" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td width="180">
+                                            <span>IM Name:</span>
+                                        </td>
+                                        <td>
+                                            <apex:inputField value="{!MyProfileExtra.IM_Name__c}" />
+                                        </td>
+                                    </tr>
+                                
+                                    <tr>
+                                        <td colspan="2">
+                                            <apex:outputPanel id="pageMessage2" layout="none">
+                                                <apex:pageMessages />
+                                            </apex:outputPanel>
+                                            <apex:commandButton value="Submit" onclick="updateProfile(); return false;" styleClass="btn"/>
+                                            <!--<input type="button" class="btn" onclick="top.location='{!URLFOR($Page.PartnerPortalChangePassword)}'" value="Change Password" />-->
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </article>
+                    <div class="clear"></div>
+
+                    <apex:actionFunction name="updateProfile" action="{!updateProfile}" oncomplete="if({!UpdateProfileSucceeded}) { updateProfileExtra(); }" reRender="pageMessage1, pageMessage2"></apex:actionFunction>
+
+                    <apex:actionFunction name="updateProfileExtra" action="{!updateProfileExtra}"></apex:actionFunction>
+
+                    
+                </apex:form>
+            </div>
+        </apex:define>
+    </apex:composition>
+    <site:previewAsAdmin />
+</apex:page>

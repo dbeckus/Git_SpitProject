@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Role xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseAccessLevel>None</caseAccessLevel>
+    <contactAccessLevel>Edit</contactAccessLevel>
+    <description>Smith, Anderson, Blount, Dorsett, Mitchell &amp; Jernigan, L.L.P. Customer User</description>
+    <mayForecastManagerShare>false</mayForecastManagerShare>
+    <name>Smith, Anderson, Blount, Dorsett, Mitchell &amp; Jernigan, L.L.P. Customer User</name>
+    <opportunityAccessLevel>None</opportunityAccessLevel>
+    <parentRole>SalesManagerEastern</parentRole>
+</Role>

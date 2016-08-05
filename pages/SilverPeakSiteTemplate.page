@@ -1,0 +1,18 @@
+<apex:page showHeader="false" sidebar="false" standardStylesheets="false" id="siteTemplate">
+    <head>
+        <title>Silver Peak System</title>
+        <apex:stylesheet value="{!URLFOR($Resource.PurchaseRequest_NoBanner, 'css/main.css')}"/>
+    </head>
+    <body>
+        <div id="wrap">
+            <h1><a href="#">Silver Peak</a></h1>
+            <apex:insert name="banner" />
+            <apex:insert name="body" />
+            <div class="footer">
+                <div class="contact">2860 De La Cruz Blvd, Suite 100, Santa Clara, CA 95050 | 888-598-7325</div>
+                <div class="rights">© 2012 Silver Peak Systems, Inc.</div>
+                <div class="clearfix"></div>
+            </div>
+    </div>
+    </body>
+</apex:page>

@@ -1,0 +1,3 @@
+<apex:page standardController="Opportunity" extensions="EnableOppPartnerController" action="{!enablePartner}">
+waiting...
+</apex:page>

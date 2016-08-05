@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Purchase Order</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Purchase Orders</value>
+    </caseValues>
+    <fields>
+        <help><!-- Date that the conditions expire on the purchase order --></help>
+        <label><!-- CPO End Date --></label>
+        <name>CPO_End_Date__c</name>
+    </fields>
+    <fields>
+        <help><!-- PO is for a Conditional Purchase Order --></help>
+        <label><!-- CPO --></label>
+        <name>CPO__c</name>
+    </fields>
+    <fields>
+        <label><!-- CPO language is incorrect --></label>
+        <name>Conditional_language_on_CPO_is_incorr__c</name>
+    </fields>
+    <fields>
+        <label><!-- Email Contact --></label>
+        <name>Email_Contact__c</name>
+        <relationshipLabel><!-- Purchase Orders --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Missing End Customer PO --></label>
+        <name>Missing_End_Customer_PO__c</name>
+    </fields>
+    <fields>
+        <label><!-- Missing End User Contact Name/Email --></label>
+        <name>Missing_End_User_Contact_Name_Email__c</name>
+    </fields>
+    <fields>
+        <label><!-- Missing Export Compliance --></label>
+        <name>Missing_Export_Compliance__c</name>
+    </fields>
+    <fields>
+        <label><!-- Missing Freight Forwarder information --></label>
+        <name>Missing_Freight_Forwarder_information__c</name>
+    </fields>
+    <fields>
+        <label><!-- Missing Reseller’s Resale Certificate --></label>
+        <name>Missing_Reseller_s_Resale_Certificate__c</name>
+    </fields>
+    <fields>
+        <label><!-- Missing Ship To Contact Name/Phone --></label>
+        <name>Missing_Ship_To_Contact_Name_Phone__c</name>
+    </fields>
+    <fields>
+        <help><!-- set in code when the finance user signs the rev rec checklist --></help>
+        <label><!-- OppReleased --></label>
+        <name>OppReleased__c</name>
+    </fields>
+    <fields>
+        <label><!-- Opportunity --></label>
+        <name>Opportunity__c</name>
+        <relationshipLabel><!-- Purchase Orders --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- PO Date --></label>
+        <name>Order_Date__c</name>
+    </fields>
+    <fields>
+        <label><!-- Owner Email --></label>
+        <name>Owner_Email__c</name>
+    </fields>
+    <fields>
+        <help><!-- when this is set it sets status to partial shipped, when cleared is sets to shipped complete --></help>
+        <label><!-- Partial Ship --></label>
+        <name>Partial_Ship__c</name>
+    </fields>
+    <fields>
+        <label><!-- RevRecSigned --></label>
+        <name>RevRecSigned__c</name>
+    </fields>
+    <fields>
+        <label><!-- Ship Date --></label>
+        <name>Ship_Date__c</name>
+    </fields>
+    <fields>
+        <label><!-- Status --></label>
+        <name>Status__c</name>
+        <picklistValues>
+            <masterLabel>In Finance Review</masterLabel>
+            <translation><!-- In Finance Review --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Needs More Information</masterLabel>
+            <translation><!-- Needs More Information --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Order Accepted - To Be Scheduled For Shipment</masterLabel>
+            <translation><!-- Order Accepted - To Be Scheduled For Shipment --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Shipment Scheduled</masterLabel>
+            <translation><!-- Shipment Scheduled --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Shipped - Complete</masterLabel>
+            <translation><!-- Shipped - Complete --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Shipped - Partial</masterLabel>
+            <translation><!-- Shipped - Partial --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Technical Resposible Email --></label>
+        <name>Technical_Resposible_Email__c</name>
+    </fields>
+    <fields>
+        <label><!-- Tracking Information --></label>
+        <name>Tracking_Information__c</name>
+    </fields>
+    <fields>
+        <label><!-- Waiting for Prepayment --></label>
+        <name>Waiting_for_Prepayment__c</name>
+    </fields>
+    <layouts>
+        <layout>Purchase Order Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+        <sections>
+            <label><!-- Outstanding Items --></label>
+            <section>Outstanding Items</section>
+        </sections>
+    </layouts>
+    <startsWith>Consonant</startsWith>
+    <webLinks>
+        <label><!-- Mark_Shipped --></label>
+        <name>Mark_Shipped</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- New_Renewal_Shipment --></label>
+        <name>New_Renewal_Shipment</name>
+    </webLinks>
+</CustomObjectTranslation>

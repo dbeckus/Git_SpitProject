@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>AOContact</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>AOContacts</value>
+    </caseValues>
+    <fields>
+        <label><!-- AOEmail --></label>
+        <name>AOEmail__c</name>
+        <relationshipLabel><!-- AOContacts --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Contact --></label>
+        <name>Contact__c</name>
+    </fields>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

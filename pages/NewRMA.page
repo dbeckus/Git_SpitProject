@@ -1,0 +1,311 @@
+<apex:page controller="NewRMAController" tabStyle="RMA__c" id="page">
+    <apex:includeScript value="/soap/ajax/19.0/connection.js"/>
+    <apex:includeScript value="/soap/ajax/19.0/apex.js"/>
+    <style type="text/css">
+        .componentTable
+        {
+        display:none;
+        }
+    </style>
+    <script type="text/javascript">
+    function checkProduct(ck)
+    {
+        var reg = /\d/g;
+        var num = ck.id.match(reg);
+        var tableId = "page:form:block:componetSection:prdTable";
+        var table = document.getElementById(tableId);
+        var inputs = table.getElementsByTagName("input");
+        var checkboxs = new Array();
+        var n = 0;
+        for(var i = 0; i < inputs.length; i++ )
+        {
+            if(inputs[i].type == "checkbox")
+            {
+                checkboxs[n] = inputs[i];
+                n += 1;
+            }
+        }
+        
+        if(ck.checked)
+        {
+            for(var j = 0; j < checkboxs.length; j++)
+            {
+                checkboxs[j].checked = (checkboxs[j].id != ck.id) ? false : true;
+            }
+        }
+        resetCheckboxes();
+    }
+    
+    function resetCheckboxes()
+    {
+        var tableId = "page:form:block:componetSection:prdTable";
+        var table = document.getElementById(tableId);
+        var inputs = table.getElementsByTagName("input");
+        var checkboxs = new Array();
+        var n = 0;
+        for(var i = 0; i < inputs.length; i++)
+        {
+            if(inputs[i].type == "checkbox")
+            {
+                checkboxs[n] = inputs[i];
+                n += 1;
+            }
+        }
+        for(var j = 0; j < checkboxs.length; j++)
+        {
+            if(!checkboxs[j].checked && document.getElementById(tableId + ":" + j + ":prdQty") != null)
+            {
+                document.getElementById(tableId + ":" + j + ":prdQty").value = "";
+                document.getElementById(tableId + ":" + j + ":prdQty").readonly = true;
+            }
+            else if(checkboxs[j].checked && document.getElementById(tableId + ":" + j + ":prdQty") != null)
+            {
+                document.getElementById(tableId + ":" + j + ":prdQty").value = "1";
+                document.getElementById(tableId + ":" + j + ":prdQty").readonly = true;
+            }
+            if(!checkboxs[j].checked && document.getElementById(tableId + ":" + j + ":slot") != null)
+            {
+                document.getElementById(tableId + ":" + j + ":slot").value = "";
+                document.getElementById(tableId + ":" + j + ":slot").readonly = true;
+            }
+            else if(checkboxs[j].checked && document.getElementById(tableId + ":" + j + ":slot") != null)
+            {
+                document.getElementById(tableId + ":" + j + ":slot").readonly = false;
+                document.getElementById(tableId + ":" + j + ":slot").focus();
+            }
+        }
+    }
+    
+    //override the SF setFocusOnLoad   
+    function setFocusOnLoad() {}
+    
+    function loadContactAddress()
+    {
+        NewRMAController.loadContactFromCase("{!RMA.Case__c}", function(result, event) {
+            if(event.status == true)
+            {
+                document.getElementById("page:form:block:contactSection:firstname").value = (result.FirstName) ? result.FirstName : "";
+                document.getElementById("page:form:block:contactSection:lastname").value = (result.LastName) ? result.LastName : "";
+                document.getElementById("page:form:block:contactSection:email").value = (result.Email) ? result.Email : "";
+                document.getElementById("page:form:block:contactSection:phone").value = (result.Phone) ? result.Phone : "";
+                var country = (result.MailingCountry) ? result.MailingCountry : "";
+                if(country == 'USA' || country == 'US')
+                {
+                    country = 'United States';
+                }
+                document.getElementById("page:form:block:contactSection:countryItem:country").value = country;
+                var street = (result.MailingStreet) ? result.MailingStreet : "";
+                var streets = street.split(/(\r\n)|\r|\n/);
+                var length = streets.length;
+                for(var i = 0; i < length; i++)
+                {
+                    if(streets[i] == null || streets[i] == "")
+                    {
+                        streets[i] = streets[i + 1];
+                        streets[i + 1] = "";
+                    }
+                }
+                document.getElementById("page:form:block:contactSection:address1Item:address1").value = streets[0];
+                document.getElementById("page:form:block:contactSection:address2Item:address2").value = (streets.length > 1) ? streets[1] : "";
+                document.getElementById("page:form:block:contactSection:cityItem:city").value = (result.MailingCity) ? result.MailingCity : "";
+                document.getElementById("page:form:block:contactSection:zipItem:postalCode").value = (result.MailingPostalCode) ? result.MailingPostalCode : "";
+                document.getElementById("page:form:block:contactSection:stateItem:state").value = (result.MailingState) ? result.MailingState : "";
+                loadStates(country);
+            }
+        });
+    }
+    
+    function loadAssetAddress()
+    {
+        sforce.connection.sessionId = '{!$Api.Session_ID}';
+        var assetName = document.getElementById("page:form:block:infoSection:asset").value;
+        try
+        {
+            var addressResult = sforce.apex.execute("NewRMAController", "parseAssetAddress", {assetName:assetName});
+            var addressInfo = (addressResult + '').split(',');
+            document.getElementById("page:form:block:contactSection:address1Item:address1").value = addressInfo[0];
+            document.getElementById("page:form:block:contactSection:address2Item:address2").value = addressInfo[1];
+            document.getElementById("page:form:block:contactSection:cityItem:city").value = addressInfo[2];
+            document.getElementById("page:form:block:contactSection:stateItem:state").value = addressInfo[3];
+            document.getElementById("page:form:block:contactSection:zipItem:postalCode").value = addressInfo[4];
+            var country = addressInfo[5];
+            if(country == 'USA' || country == 'US')
+            {
+                country = 'United States';
+            }
+            document.getElementById("page:form:block:contactSection:countryItem:country").value = country;
+            if(country != null && country != '')
+            {
+                loadStates(country);
+            }
+        }
+        catch(ex)
+        {
+            alert("Error loading the address: " + ex);
+        }
+    }
+    
+    function loadStates(country)
+    {
+        NewRMAController.getStateList(country, function(result, event) 
+                                      {
+                                          if(event.status == true)
+                                          {
+                                              var list = document.getElementById("stateList");
+                                              list.options.length = 0;
+                                              list.options.add(new Option("", ""), 0);
+                                              list.value = "";
+                                              var foundState = false;
+                                              var originalState = document.getElementById("page:form:block:contactSection:stateItem:state").value;
+                                              document.getElementById("stateRequiredFlag").style.display = "none";
+                                              for(var i = 0; i < result.length; i++)
+                                              {
+                                                  var stateCode = result[i].StateCode__c;
+                                                  var stateName = result[i].StateName__c;
+                                                  list.options.add(new Option(stateName, stateCode));
+                                                  document.getElementById("stateRequiredFlag").style.display = "";
+                                                  if(stateCode.toUpperCase() == originalState.toUpperCase() || stateName.toUpperCase() == originalState.toUpperCase())
+                                                  {
+                                                      list.value = stateCode;
+                                                      foundState = true;
+                                                      fillStateCode(list.value);
+                                                  }
+                                              }
+                                              if(!foundState)
+                                              {
+                                                  fillStateCode("");
+                                              }
+                                          }
+                                      }, {escape:true});
+    }
+    
+    function fillStateCode(stateCode)
+    {
+        document.getElementById("page:form:block:contactSection:stateItem:state").value = stateCode;
+    }
+    function refreshStateList()
+    {
+        var originalStateValue = document.getElementById("page:form:block:contactSection:stateItem:state").value;
+        var countryValue = document.getElementById("page:form:block:contactSection:countryItem:country").value;
+        if(countryValue != null && countryValue != '')
+        {
+            loadStates(countryValue);
+            
+            document.getElementById("page:form:block:contactSection:stateItem:state").value = originalStateValue;
+            document.getElementById("stateList").value = originalStateValue;
+        }
+    }
+    </script>
+    <apex:form id="form">
+        <apex:sectionHeader title="RMA Edit" subtitle="New RMA" />
+        <apex:pageMessage detail="Please note, if you are opening an RMA for a complete system, the RMA will not be immediately dispatched and a case will be open as well. A Silver Peak Technical Support engineer will contact you for additional information to authorize the RMA's release." rendered="{!isPortalUser}" severity="INFO" strength="3" />
+        <apex:pageMessages />
+        <apex:pageBlock mode="edit" id="block">
+            <apex:pageBlockButtons >
+                <apex:commandButton value="Next" action="{!next}"/>
+                <apex:commandButton value="Cancel" action="{!cancel}" immediate="true"/>
+            </apex:pageBlockButtons>
+            <apex:pageBlockSection title="Return Authorization Information" columns="2" id="infoSection">
+                <apex:pageBlockSectionItem id="infoItem">
+                    <apex:outputLabel value="RMA Type"/>
+                    <apex:selectList size="1" required="true" value="{!RMA.Type__c}" id="select">
+                        <apex:selectOptions value="{!RMATypes}"/>
+                    </apex:selectList>
+                </apex:pageBlockSectionItem> 
+                <apex:outputField value="{!RMA.Case__c}" rendered="{!NOT(isPortalUser)}"/>
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Delivery Class"/>
+                    <apex:selectList size="1" required="true" value="{!RMAItem.Delivery_Class__c}">
+                        <apex:selectOptions value="{!DeliveryClasses}"/>
+                    </apex:selectList>
+                </apex:pageBlockSectionItem>
+                <apex:outputField value="{!RMA.Account__c}"/>
+                <apex:inputField value="{!RMAItem.Asset__c}" required="true" id="asset" rendered="{!NOT(isPortalUser)}" />
+                <apex:outputField value="{!RMAItem.Asset__c}" rendered="{!isPortalUser}" />
+            </apex:pageBlockSection>
+            <apex:pageBlockSection title="Component to be replaced NOTE: You must pick one item to continue" columns="2" id="componetSection">
+                <p>Look here if you are not sure what type of drive you need:</p><apex:inputHidden />
+                <apex:outputLink style="font-size:16px;" value="http://www.silver-peak.com/static/UserDocuments/FRU_R6-2_RevF/wwhelp/wwhimpl/js/html/wwhelp.htm" target="_blank">Field Replaceable Unit Guide</apex:outputLink><apex:inputHidden />
+                <apex:pageBlockTable value="{!Products}" var="prd" width="200px" id="prdTable" headerClass="componentTable" footerClass="componentTable">
+                    <apex:column width="100px" style="text-align:right; font-weight:bold; font-size:91%;">
+                        <apex:outputLabel value="{!prd.Name}" for="prdSelect"/>
+                    </apex:column>
+                    <apex:column >
+                        <apex:inputCheckbox value="{!prd.Selected}" onchange="checkProduct(this)" id="prdSelect"/>
+                    </apex:column>
+                    <apex:column width="40px">
+                        <apex:outputLabel value="Qty"  for="prdQty" style="font-weight:bold; font-size:91%; padding:0px 10px 0px 0px;" rendered="{!prd.Name == 'Power Supply'}" />
+                        <apex:outputLabel value="Slot #" style="font-weight:bold; font-size:91%; padding:0px 10px 0px 0px;" rendered="{!Or(prd.Name == 'HDD', prd.Name == 'SSD',prd.Name == 'NVME')}" />
+                    </apex:column>
+                    <apex:column >
+                        <apex:inputText html-readonly="true" value="{!prd.Qty}" style="width:60px" rendered="{!prd.Name == 'Power Supply'}" id="prdQty" title="{!prd.Name} Qty"/>
+                        <apex:inputText html-autofocus="autofocus" value="{!prd.Slot}" id="slot" style="width:60px" rendered="{!Or(prd.Name == 'HDD', prd.Name == 'SSD',prd.Name == 'NVME')}" title="{!prd.Name} Slot #"/>
+                    </apex:column>
+                </apex:pageBlockTable>
+            </apex:pageBlockSection>
+            <apex:pageBlockSection title="Contact Information NOTE: Please carefully complete the correct address information for shipping. Invalid or incorrect information will result in shipment delays" id="contactSection">
+                <apex:pageBlockSectionItem rendered="{!NOT(IsPortalUser)}">
+                    <input type="button" class="btn" value="Get Contact from Case" onclick="loadContactAddress()" style="margin:0px 0px 10px 37%"/>
+                </apex:pageBlockSectionItem>
+                <apex:outputText rendered="{!NOT(IsPortalUser)}"/>
+                <apex:inputField value="{!RMA.ContactFirstName__c}" required="true" id="firstname" />
+                <apex:inputField value="{!RMA.ContactLastName__c}" required="true" id="lastname" />
+                <apex:inputField value="{!RMAItem.Contact_Email__c}" required="true" id="email" />
+                <apex:inputField value="{!RMAItem.Contact_Phone__c}" required="true" id="phone" />
+                <apex:pageBlockSectionItem id="companyItem">
+                    <apex:outputLabel value="Ship To Company" for="company"/>
+                    <apex:inputField value="{!RMAItem.ShipToCompany__c}" required="true" id="company"/>
+                </apex:pageBlockSectionItem>
+                <apex:outputText />
+                <apex:pageBlockSectionItem id="countryItem">
+                    <apex:outputLabel value="Ship To Country" for="country"/>
+                    <apex:inputField value="{!RMAItem.ShipToCountry__c}" required="true" id="country" style="width:160px" onchange="loadStates(this.value)" />
+                </apex:pageBlockSectionItem>
+                <apex:outputText />
+                <apex:pageBlockSectionItem id="address1Item">
+                    <apex:outputLabel value="Ship To Address1" for="address1"/>
+                    <apex:inputField value="{!RMAItem.ShipToAddress__c}" required="true" id="address1"/>
+                </apex:pageBlockSectionItem>
+                <apex:outputText />
+                <apex:pageBlockSectionItem id="address2Item">
+                    <apex:outputLabel value="Ship To Address2" for="address2"/>
+                    <apex:inputField value="{!RMAItem.ShipToAddressAdditional__c}" id="address2"/>
+                </apex:pageBlockSectionItem>
+                <apex:outputText />
+                <apex:pageBlockSectionItem id="cityItem">
+                    <apex:outputLabel value="Ship To City" for="city"/>
+                    <apex:inputField value="{!RMAItem.ShipToCity__c}" required="true" id="city"/>
+                </apex:pageBlockSectionItem>
+                <apex:outputText />
+                <apex:pageBlockSectionItem id="stateItem">
+                    <apex:outputLabel value="Ship To State/Province" for="state"/>
+                    <apex:outputPanel layout="none">
+                        <apex:inputField value="{!RMAItem.ShipToStateOrProvince__c}" id="state" style="display:none;" />
+                        <div class="requiredInput" id="stateDiv">
+                            <div class="requiredBlock" id="stateRequiredFlag"></div>
+                            <select id="stateList" onchange="fillStateCode(this.value)" style="width:160px">
+                            </select>
+                        </div>
+                    </apex:outputPanel>
+                </apex:pageBlockSectionItem>
+                <apex:outputText />
+                <apex:pageBlockSectionItem id="zipItem">
+                    <apex:outputLabel value="Ship To Postal Code" for="postalCode"/>
+                    <apex:inputField value="{!RMAItem.ShipToPostalCode__c}" required="true" id="postalCode"/>
+                </apex:pageBlockSectionItem>
+            </apex:pageBlockSection>
+            <apex:pageBlockSection title="Problem Report - Utilize this section to communicate whether this is a unit dead on arrival issue, a brief problem description and whether you would like a failure analysis report." columns="1">
+                <apex:inputField value="{!RMA.DOA__c}"/>
+                <apex:inputField value="{!RMA.FA_Report_Needed__c}" rendered="{!!isPortalUser}"/>
+                <apex:inputField value="{!RMA.Problem_Description__c}" style="width:560px"/>
+                <apex:inputField value="{!RMA.Compromised_Breached__c}" />
+                <apex:inputField value="{!RMA.Reason_for_Compromise_Breach__c}"  style="width:560px"/>
+                
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+    </apex:form>
+    <script>
+    refreshStateList();
+    resetCheckboxes();
+    </script>
+</apex:page>

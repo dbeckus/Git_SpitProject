@@ -1,0 +1,330 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Follow</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>Used to track shipments of assets outbound. Will update OR create assets and update the needed information for them when a shipment is made</description>
+    <enableActivities>false</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>true</enableHistory>
+    <enableReports>true</enableReports>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <fields>
+        <fullName>AccountOwnerEmail__c</fullName>
+        <externalId>false</externalId>
+        <label>Account Owner Email</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Email</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Email__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>After saving, the shipment email will be send to the Account owner as well as this email field.</inlineHelpText>
+        <label>Email</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Email</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>IsVirtualShipment__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>IsVirtualShipment</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>POC_Request__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>POC Request</label>
+        <referenceTo>Request__c</referenceTo>
+        <relationshipLabel>Shipments</relationshipLabel>
+        <relationshipName>Shipments</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>PurchaseOrderNumber__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Free form input for purchase order numbers not linked to an opportunity</inlineHelpText>
+        <label>Purchase Order Number</label>
+        <length>100</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>PurchaseOrder__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <inlineHelpText>Link to Purchase Orders recorded against Opportunities</inlineHelpText>
+        <label>Purchase Order</label>
+        <referenceTo>Purchase_Order__c</referenceTo>
+        <relationshipLabel>Shipments</relationshipLabel>
+        <relationshipName>Shipments</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>SalesOrderNumber__c</fullName>
+        <externalId>false</externalId>
+        <label>Sales Order Number</label>
+        <length>100</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Secondary_Email__c</fullName>
+        <externalId>false</externalId>
+        <label>Secondary Email</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Email</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>SendTrackingInformation__c</fullName>
+        <defaultValue>true</defaultValue>
+        <externalId>false</externalId>
+        <inlineHelpText>If checked, an email will be sent out after saving.</inlineHelpText>
+        <label>Send Tracking Information</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Send_Email__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>This is set when the vx and vrx shipment emails are to be sent after one hr</description>
+        <externalId>false</externalId>
+        <label>Send Email</label>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Ship_Date__c</fullName>
+        <defaultValue>TODAY()</defaultValue>
+        <externalId>false</externalId>
+        <label>Ship Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Shipment_Account__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Shipment Account</label>
+        <referenceTo>Account</referenceTo>
+        <relationshipLabel>Shipments</relationshipLabel>
+        <relationshipName>Shipments</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Shipment_Contact__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <inlineHelpText>Set all assets to this contact</inlineHelpText>
+        <label>Shipment Contact</label>
+        <referenceTo>Contact</referenceTo>
+        <relationshipLabel>Shipments</relationshipLabel>
+        <relationshipName>Shipments</relationshipName>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Shipment_Contract__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <inlineHelpText>set all shipment line assets to this contract</inlineHelpText>
+        <label>Shipment Contract</label>
+        <referenceTo>Contract</referenceTo>
+        <relationshipLabel>Shipments</relationshipLabel>
+        <relationshipName>Shipments</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Third_Email__c</fullName>
+        <externalId>false</externalId>
+        <label>Third Email</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Email</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>To_Be_Swapped_Asset__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>To Be Swapped Asset</label>
+        <referenceTo>Asset</referenceTo>
+        <relationshipLabel>Shipments</relationshipLabel>
+        <relationshipName>Shipments</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Tracking_Information__c</fullName>
+        <externalId>false</externalId>
+        <label>Tracking Information</label>
+        <length>32000</length>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <label>Shipment</label>
+    <nameField>
+        <displayFormat>SHIP-{000}</displayFormat>
+        <label>ShipmentId</label>
+        <trackHistory>false</trackHistory>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>Shipments</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ReadWrite</sharingModel>
+    <webLinks>
+        <fullName>New_Renewal_Shipment</fullName>
+        <availability>online</availability>
+        <displayType>massActionButton</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>New Renewal Shipment</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <requireRowSelection>false</requireRowSelection>
+        <url>openPopup(&quot;/apex/POAssetsRenewal?Id={!Purchase_Order__c.Id}&quot;, &quot;VirtualPOFulfillment&quot;, 1100, 500, &quot;width=1100, height=500, toolbar=no, status=no, directories=no, menubar=no,resizable=no,scrollable=no&quot;, false);</url>
+    </webLinks>
+    <webLinks>
+        <fullName>New_Shipment</fullName>
+        <availability>online</availability>
+        <displayType>massActionButton</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>New Shipment</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <requireRowSelection>false</requireRowSelection>
+        <url>if(&quot;{!Request__c.Id}&quot; != &quot;&quot;)
+{
+  window.open(&quot;/apex/ShippingInputForm?pocId={!Request__c.Id}&quot;, &quot;_blank&quot;);
+}
+else
+{
+  if(&quot;{!Account.Id}&quot; != &quot;&quot;)
+  {
+    var accId = &quot;{!Account.Id}&quot;;
+    if(accId.substr(0, 15) == &quot;00130000007mEjX&quot;) {
+        window.open(&quot;/apex/ShippingInputFormInternal&quot;, &quot;_blank&quot;);
+    }
+    else {
+        window.open(&quot;/apex/ShippingInputForm?accountId={!Account.Id}&quot;, &quot;_blank&quot;);
+    }
+  }
+  else
+  {
+  	if(&quot;{!Purchase_Order__c.Id}&quot; != &quot;&quot;)
+  	{
+    	window.open(&quot;/apex/ShippingInputForm?poId={!Purchase_Order__c.Id}&quot;, &quot;_blank&quot;);
+   	}
+  }
+}</url>
+    </webLinks>
+    <webLinks>
+        <fullName>New_Virtual_Shipment</fullName>
+        <availability>online</availability>
+        <displayType>massActionButton</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>New Virtual Shipment</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <requireRowSelection>false</requireRowSelection>
+        <url>window.open(&quot;/apex/NewVirtualShipment?poId={!Purchase_Order__c.Id}&quot;, &quot;_blank&quot;);</url>
+    </webLinks>
+    <webLinks>
+        <fullName>Send_Fulfillment_Email</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>Send Fulfillment Email</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <url>if(confirm(&quot;Shipment Fulfilment Email will be sent to the shipping contact. Are you sure you want to proceed?&quot;))
+{
+top.location=&quot;/apex/SendShipmentFulfilmentEmail?id={!Shipment__c.Id}&quot;
+}</url>
+    </webLinks>
+</CustomObject>

@@ -1,0 +1,6 @@
+<apex:page standardController="Quote_Line__c" extensions="EditQuoteLinesRedirectController" showHeader="false" action="{!redirect}">
+	redirecting...
+	<apex:form >
+		<apex:inputHidden value="{!Quote_Line__c.Quote__c}" />
+	</apex:form>
+</apex:page>

@@ -1,0 +1,6 @@
+<apex:page standardController="Shipment__c" extensions="SendShipmentFulfilmentEmailController" action="{!send}">
+    <apex:sectionHeader title="Send Fulfilment Email" />
+    <apex:pageMessages />
+    <br/>
+    <a href="/{!Shipment__c.Id}">Back to {!Shipment__c.Name}</a>
+</apex:page>

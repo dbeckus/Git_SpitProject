@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Build</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Builds</value>
+    </caseValues>
+    <fields>
+        <label><!-- Build Details --></label>
+        <name>Build_Details__c</name>
+    </fields>
+    <fields>
+        <help><!-- format x.x.y.z_##### --></help>
+        <label><!-- Build Number --></label>
+        <name>Build_Number__c</name>
+    </fields>
+    <fields>
+        <help><!-- input date of ECO --></help>
+        <label><!-- ECO Date --></label>
+        <name>ECO_Date__c</name>
+    </fields>
+    <fields>
+        <label><!-- EULA Agreement --></label>
+        <name>EULA_Agreement__c</name>
+    </fields>
+    <fields>
+        <label><!-- ISO Model --></label>
+        <name>ISO_Model__c</name>
+        <picklistValues>
+            <masterLabel>All VX/VRX</masterLabel>
+            <translation><!-- All VX/VRX --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>EdgeConnect</masterLabel>
+            <translation><!-- EdgeConnect --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Orchestrator (GMS)</masterLabel>
+            <translation><!-- Orchestrator (GMS) --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <help><!-- Check this to remove visibility in the Support Center Portal --></help>
+        <label><!-- Inactive --></label>
+        <name>Inactive__c</name>
+    </fields>
+    <fields>
+        <label><!-- Silver Peak Recommended --></label>
+        <name>IsRecommended__c</name>
+    </fields>
+    <fields>
+        <label><!-- Release # --></label>
+        <name>ReleaseCode__c</name>
+    </fields>
+    <fields>
+        <label><!-- Release --></label>
+        <name>Release__c</name>
+        <relationshipLabel><!-- Builds --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Status --></label>
+        <name>Status__c</name>
+        <picklistValues>
+            <masterLabel>BETA</masterLabel>
+            <translation><!-- BETA --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>FCS</masterLabel>
+            <translation><!-- FCS --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>GA</masterLabel>
+            <translation><!-- GA --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>PATCH</masterLabel>
+            <translation><!-- PATCH --></translation>
+        </picklistValues>
+    </fields>
+    <layouts>
+        <layout>Builds Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+        <sections>
+            <label><!-- End User License Agreement --></label>
+            <section>End User License Agreement</section>
+        </sections>
+    </layouts>
+    <layouts>
+        <layout>SupportCenter</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+        <sections>
+            <label><!-- End User License Agreement --></label>
+            <section>End User License Agreement</section>
+        </sections>
+    </layouts>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

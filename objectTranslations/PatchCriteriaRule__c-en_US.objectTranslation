@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Patch Criteria Rule</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Patch Criteria Rules</value>
+    </caseValues>
+    <fields>
+        <label><!-- Match List Last Modified Date --></label>
+        <name>Match_List_Last_Modified_Date__c</name>
+    </fields>
+    <fields>
+        <label><!-- Operation --></label>
+        <name>Operation__c</name>
+        <picklistValues>
+            <masterLabel>contains</masterLabel>
+            <translation><!-- contains --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>ends with</masterLabel>
+            <translation><!-- ends with --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>equals</masterLabel>
+            <translation><!-- equals --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>in</masterLabel>
+            <translation><!-- in --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>in match list</masterLabel>
+            <translation><!-- in match list --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>in range</masterLabel>
+            <translation><!-- in range --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>starts with</masterLabel>
+            <translation><!-- starts with --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Patch --></label>
+        <name>Patch__c</name>
+        <relationshipLabel><!-- Patch Criteria Rules --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Processing Sequence --></label>
+        <name>ProcessingSequence__c</name>
+    </fields>
+    <fields>
+        <label><!-- Range High --></label>
+        <name>Range_High__c</name>
+    </fields>
+    <fields>
+        <label><!-- Range Low --></label>
+        <name>Range_Low__c</name>
+    </fields>
+    <fields>
+        <label><!-- Type --></label>
+        <name>Type__c</name>
+        <picklistValues>
+            <masterLabel>Company Name</masterLabel>
+            <translation><!-- Company Name --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Country</masterLabel>
+            <translation><!-- Country --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Email Domain</masterLabel>
+            <translation><!-- Email Domain --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Industry</masterLabel>
+            <translation><!-- Industry --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>State</masterLabel>
+            <translation><!-- State --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Zip Code</masterLabel>
+            <translation><!-- Zip Code --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Value --></label>
+        <name>Value__c</name>
+    </fields>
+    <layouts>
+        <layout>Patch Criteria Rule Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+    </layouts>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

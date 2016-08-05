@@ -1,0 +1,35 @@
+<apex:page standardController="Training_Events__c" extensions="MarkParticipantsTrainedController" showHeader="false" id="page">
+    <apex:sectionHeader title="Mark Participants as Trained"/>
+    <script type="text/javascript">
+        function unselectCheckboxes(obj)
+        {
+            document.getElementById("page:form:block:section:i1:spx").checked = false;
+            document.getElementById("page:form:block:section:i2:scsp").checked = false;
+            document.getElementById("page:form:block:section:i3:sctp").checked = false;
+            obj.checked = true;
+        }
+    </script>
+    <apex:form id="form">
+        <apex:pageMessages escape="false" />
+        <apex:pageBlock id="block">
+            <apex:pageBlockButtons location="bottom">
+                <apex:commandButton value="Save" action="{!save}" />
+                <input type="button" value="Close" onclick="top.close()" />
+            </apex:pageBlockButtons>
+            <apex:pageBlockSection columns="1" id="section">
+                <apex:pageBlockSectionItem id="i1">
+                    <apex:outputLabel value="Completed SPX Training" />
+                    <apex:inputCheckbox value="{!SpxTrained}" id="spx" onclick="unselectCheckboxes(this)" />
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem id="i2">
+                    <apex:outputLabel value="SCSP Completed" />
+                    <apex:inputCheckbox value="{!ScspCompleted}" id="scsp" onclick="unselectCheckboxes(this)" />
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem id="i3">
+                    <apex:outputLabel value="SCTP Completed" />
+                    <apex:inputCheckbox value="{!SctpCompleted}" id="sctp" onclick="unselectCheckboxes(this)" />
+                </apex:pageBlockSectionItem>
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

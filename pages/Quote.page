@@ -1,0 +1,127 @@
+<apex:page standardController="Quote__c" extensions="QuoteExtension" sidebar="true" showHeader="true">
+    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script> 
+    <script type="text/javascript">
+        (function() {
+            var jq = jQuery.noConflict();
+            var jqDom = {};
+            var opportunityId = '{!Quote__c.Opportunity__r.Id}';
+            var quoteId = '{!Quote__c.Id}';
+            var isPrimaryQuote = {!Quote__c.Primary__c};
+            var APPROVAL_INFO_MESSAGE = "Once you submit this record for approval, you might not be able to edit it or recall it from the approval process depending on your settings. Continue?"; 
+            var PRIMARY_QUOTE_CONFIRM_MESSAGE = "Would you like to set this quote as the primary quote?"; 
+            
+            function startLoadingStatus() {
+                if(jqDom.submitBtn) {
+                    jqDom.submitBtn.attr("disabled", "disabled")
+                                   .addClass("btnDisabled");
+                }
+                if(jqDom.submitListBtn) {
+                    jqDom.submitListBtn.attr("disabled", "disabled")
+                                       .addClass("btnDisabled");
+                }
+            }
+            
+            function endLoadingStatus() {
+                if(jqDom.submitBtn) {
+                    jqDom.submitBtn.removeAttr("disabled")
+                                   .removeClass("btnDisabled");
+                }
+                if(jqDom.submitListBtn) {
+                    jqDom.submitListBtn.removeAttr("disabled")
+                                       .removeClass("btnDisabled");
+                }
+            }
+            
+            function submitHandler() {
+                if(confirm(APPROVAL_INFO_MESSAGE)) {
+                    startLoadingStatus();
+                    if(isPrimaryQuote) {
+                        submitForApproval();
+                    } else {
+                        checkQuote();
+                    }
+                }
+            }
+        
+            function confirmSetPrimaryQuote() {
+                if(confirm(PRIMARY_QUOTE_CONFIRM_MESSAGE)) {
+                    setPrimaryQuoteAndSubmit();
+                } else {
+                    submitForApproval();
+                }
+            }
+            
+            //Remote actions
+            function checkQuote() { 
+                QuoteExtension.CheckQuote(quoteId, 
+                                          opportunityId, 
+                                          function(result, event) {
+                                              if(event.status) {
+                                                  if(result) {
+                                                      confirmSetPrimaryQuote();
+                                                  } else {
+                                                      setPrimaryQuoteAndSubmit();
+                                                  }
+                                             } else {
+                                                 alert(event.message);
+                                                 endLoadingStatus();
+                                             } 
+                                          });
+            }
+        
+        
+            function setPrimaryQuoteAndSubmit() {
+                QuoteExtension.SetPrimaryQuoteAndSubmit(quoteId, 
+                                                        opportunityId, 
+                                                        function(result, event) {
+                                                            if (event.status) {
+                                                                if(result == 'Succeeded') {
+                                                                    window.location = '/' + quoteId;
+                                                                } else {
+                                                                    alert(result);
+                                                                    endLoadingStatus();
+                                                                }
+                                                            } else {
+                                                                alert(event.message);
+                                                                endLoadingStatus();
+                                                            } 
+                                                        });
+            }
+        
+        
+            function submitForApproval() {
+                QuoteExtension.SubmitForApproval(quoteId, 
+                                                 function(result, event) {
+                                                     if (event.status) {
+                                                       if(result == 'Succeeded') {
+                                                           window.location = '/' + quoteId;
+                                                       } else {
+                                                           alert(result);
+                                                           endLoadingStatus();
+                                                       } 
+                                                     } else {
+                                                         alert(event.message);
+                                                         endLoadingStatus();
+                                                     } 
+                                                 });
+            }
+            
+            jq(document).ready(function() {
+                jqDom = {
+                    submitBtn: jq("input[type='button'][name='submit']"),
+                    submitListBtn: jq("input[type='button'][name='piSubmit']")
+                };
+                
+                if(jqDom.submitBtn) {
+                    jqDom.submitBtn.removeAttr("onclick").click(submitHandler);
+                }
+                
+                if(jqDom.submitListBtn) {
+                    jqDom.submitListBtn.removeAttr("onclick").click(submitHandler);
+                }
+            });
+        })();
+    </script>
+    
+    <apex:detail showChatter="true" relatedList="true" inlineEdit="true"  /> 
+</apex:page>
