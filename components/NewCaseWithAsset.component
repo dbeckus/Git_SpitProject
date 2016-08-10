@@ -1,0 +1,58 @@
+<apex:component controller="NewCaseWithAssetController" >
+    <style type="text/css">
+        .loading-assets-icon {
+            display: none;
+            margin-left: 5px;
+        }
+        /*.msg-red-bold .messageText {
+            font-weight: bold;
+            color: red;
+        }*/
+    </style>
+    <apex:pageBlock >
+        <div class="msg-red-bold">
+            <apex:pageMessage severity="INFO" strength="3" escape="false" summary="To open a case, input or find you Serial Number (SN is required to open a case)."></apex:pageMessage>
+        </div>
+        <apex:pageBlockSection title="Enter Serial Number and open case anyway" collapsible="false">
+            <apex:pageBlockSectionItem >
+                <apex:outputLabel value="Serial Number" />
+                <apex:outputPanel >
+                    <apex:inputText value="{!SerialNo}" />
+                    <apex:commandButton value=" Go! " action="{!searchAsset}" oncomplete="setCaseAssetId('{!assetId}'); return false;" />
+                </apex:outputPanel>
+            </apex:pageBlockSectionItem>
+        </apex:pageBlockSection>
+        <apex:pageBlockSection title="If you don't know your serial number, you can list them below and select the appropriate one for this case" collapsible="false" columns="1">
+            <apex:pageBlockSectionItem labelStyle="border: none;" dataStyle="border: none;">
+                <apex:outputLabel value="Show me my Serial Numbers" />
+                <apex:outputPanel layout="block">
+                    <apex:commandButton value=" Go! " action="{!showAssets}" reRender="assetsList" onclick="jQuery('.loading-assets-icon').show();"  oncomplete="if(jQuery) { jQuery('.loading-assets-icon').hide(); }" />
+                    <img src="/img/loading.gif" alt="Loading" class="loading-assets-icon" />
+                </apex:outputPanel>
+            </apex:pageBlockSectionItem>
+            <apex:outputPanel id="assetsList">
+                <apex:outputPanel rendered="{!showAssets}" style="float:right">
+                    <apex:commandLink value="Previous Page" action="{!previousPage}" reRender="assetsList" rendered="{!AssetsPageNo > 0}" />
+                    <apex:outputText value="Previous Page" rendered="{!AssetsPageNo <= 0}"/>
+                    &nbsp;|&nbsp;
+                    <apex:commandLink value="Next Page" action="{!nextPage}" reRender="assetsList"  rendered="{!AssetsPageNo < AssetsPageCount }" />
+                    <apex:outputText value="Next Page" rendered="{!AssetsPageNo >= AssetsPageCount}" />
+                </apex:outputPanel>
+                <apex:pageBlockTable id="assetsTable" value="{!MyAssets}" var="asset" rows="{!AssetsPageSize}" first="{!AssetsPageNo * AssetsPageSize}" rendered="{!ShowAssets}">
+                    <apex:column headerValue="Serial Number">
+                        <apex:commandLink value="{!asset.SerialNumber}" onclick="setCaseAssetId('{!asset.Id}'); return false;">
+                        </apex:commandLink>
+                    </apex:column>
+                    <apex:column value="{!asset.Model__c}" />
+                </apex:pageBlockTable>
+                <apex:outputPanel rendered="{!showAssets}" style="float:right">
+                    <apex:commandLink value="Previous Page" action="{!previousPage}" reRender="assetsList" rendered="{!AssetsPageNo > 0}" />
+                    <apex:outputText value="Previous Page" rendered="{!AssetsPageNo <= 0}"/>
+                    &nbsp;|&nbsp;
+                    <apex:commandLink value="Next Page" action="{!nextPage}" reRender="assetsList" rendered="{!AssetsPageNo < AssetsPageCount }" />
+                    <apex:outputText value="Next Page" rendered="{!AssetsPageNo >= AssetsPageCount}" />
+                </apex:outputPanel>
+            </apex:outputPanel>
+        </apex:pageBlockSection>
+    </apex:pageBlock>
+</apex:component>

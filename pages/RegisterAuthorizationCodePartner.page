@@ -1,0 +1,34 @@
+<apex:page sidebar="false" showHeader="false" cache="false" id="page" controller="RegisterPartnerController">
+    <apex:stylesheet value="{!URLFOR($Resource.RegistrationProcess, 'res/css/main.css')}"/>
+    <apex:includeScript value="{!URLFOR($Resource.RegistrationProcess, 'res/js/jquery-1_3_2.js')}"/>
+    <apex:includeScript value="{!URLFOR($Resource.RegistrationProcess, 'res/js/pageControl.js')}"/>
+    <script type="text/javascript">
+        function checkInput()
+        {
+            var authcode = document.getElementById("page:j_id4:form:authCode"); 
+            if(authcode == null || authcode.value == "")
+            {
+                alert("authorization code must have a value!");
+                return false;
+                lastname.focus();
+            }
+            return true;
+        }
+    </script>
+    <apex:composition template="{!$Site.Template}">
+        <apex:define name="body">
+            <apex:form id="form">
+                <h2 class="step4">Registration - Your Authorization Code</h2>           
+                <ul class="infoList code">
+                    <li>
+                        <div class="infoName">Authorization Code:</div>
+                        <div class="infoInput"><apex:inputText value="{!AuthCode}" id="authCode"/> </div>
+                        <div class="infoAdd"></div>
+                    </li>           
+                </ul><!--infoList-->            
+                <apex:commandLink styleClass="nextBtn" action="{!gotoStep3}" onclick="return checkInput();">next &gt;</apex:commandLink><apex:commandLink styleClass="preBtn" action="{!gotoStep1}">Back to previous step</apex:commandLink>
+                <div class="clearfix"></div>        
+            </apex:form>
+        </apex:define>
+    </apex:composition>
+</apex:page>

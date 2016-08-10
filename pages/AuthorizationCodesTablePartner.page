@@ -1,0 +1,30 @@
+<apex:page controller="AttachmentForAuthCodesController" sidebar="false" showHeader="false" standardStylesheets="false">
+    <table>
+        <tr>
+            <td><img src="{!URLFOR($Resource.RegistrationProcess,'res/pic/top_logo.gif')}" /></td>
+            <td>
+                <pre>
+                    Silver Peak Systems
+                    4500 Great America Parkway, Suite 100
+                    Santa Clara
+                    CA, 95054
+                    US
+                </pre>
+            </td>
+        </tr>
+    </table>
+    <p>Your Silver Peak Training authorization codes are listed below. You can redeem these codes by going to <a href="http://ww2.silverpeaksystems.com/UpcomingEventsPartner">http://ww2.silverpeaksystems.com/UpcomingEventsPartner</a> and registering for the desired course event. If you have any questions please feel free to contact your channel manager or request information via email from <a href="mailto:training@silver-peak.com">training@silver-peak.com</a>. </p>
+    <p>Sincerely, </p>
+    <p>Silver Peak Systems Training Team </p>
+    <br/>
+    <p>Authorization Codes are single use only. Please provide each of your attendees a unique code for their registration process. <apex:outputPanel layout="none" rendered="{!NOT(IsNull(ExpirationDate))}"> These codes will expire on {!ExpirationDate}.</apex:outputPanel></p>
+    <table border="1" cellspacing="0" cellpadding="5" width="90%">
+        <apex:repeat value="{!AuthCodes}" var="row">
+            <tr>
+                <apex:repeat value="{!row}" var="cell">
+                    <td width="25%">{!cell}</td>
+                </apex:repeat>
+            </tr>
+        </apex:repeat>
+    </table>
+</apex:page>

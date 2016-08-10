@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Dynamic Related List Element</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Dynamic Related List Element</value>
+    </caseValues>
+    <fields>
+        <label><!-- Button Label --></label>
+        <name>ButtonLabel__c</name>
+    </fields>
+    <fields>
+        <label><!-- Button Name --></label>
+        <name>ButtonName__c</name>
+    </fields>
+    <fields>
+        <label><!-- Descending Order --></label>
+        <name>DescendingOrder__c</name>
+    </fields>
+    <fields>
+        <label><!-- Field Name --></label>
+        <name>FieldName__c</name>
+    </fields>
+    <fields>
+        <label><!-- Layout Number --></label>
+        <name>LayoutNumber__c</name>
+    </fields>
+    <fields>
+        <label><!-- Sequence --></label>
+        <name>Sequence__c</name>
+    </fields>
+    <fields>
+        <help><!-- Button, Link, Field, OrderBy, Limit --></help>
+        <label><!-- Type --></label>
+        <name>Type__c</name>
+    </fields>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

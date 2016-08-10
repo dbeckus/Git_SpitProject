@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomPageWebLink xmlns="http://soap.sforce.com/2006/04/metadata">
+    <availability>online</availability>
+    <displayType>link</displayType>
+    <encodingKey>UTF-8</encodingKey>
+    <hasMenubar>false</hasMenubar>
+    <hasScrollbars>true</hasScrollbars>
+    <hasToolbar>false</hasToolbar>
+    <height>600</height>
+    <isResizable>true</isResizable>
+    <linkType>url</linkType>
+    <masterLabel>How Do I?</masterLabel>
+    <openType>newWindow</openType>
+    <position>none</position>
+    <protected>false</protected>
+    <showsLocation>false</showsLocation>
+    <showsStatus>false</showsStatus>
+    <url>https://na3.salesforce.com/sfc/#search?searchWorkspaceIds=%5B%22058500000004Fzu%22%5D&amp;shepherdToken=LZgCIIWF3bBOnUGMM5ii3qqAIwcW1z3D6lRTm0kUroRq0rUwe9r3G.5oSZyTAEUr413Jwtwo82Uys_CHmKr3X7XPzVdoR9f8LddbuT10lgNNfjNjhF5ZnmBm58O_s0k_7lSm7Q%3D%3D&amp;searchPageNum=0&amp;resultsListType=s&amp;masterWorkspaceId=058500000004Fzu</url>
+</CustomPageWebLink>

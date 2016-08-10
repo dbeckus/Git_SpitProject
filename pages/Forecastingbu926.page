@@ -1,0 +1,776 @@
+<apex:page controller="ForecastingController" id="page" tabStyle="SP_Forecasting__tab">
+    <apex:includeScript value="/soap/ajax/18.0/connection.js"/>
+    <apex:includeScript value="/soap/ajax/18.0/apex.js"/>
+    <apex:stylesheet value="{!URLFOR($Resource.Forecasting, 'FiscalQuarter.css')}" />
+    <script language="javascript">
+        function getDom(id)
+        {
+            return document.getElementById(id);
+        }
+        function closePop()
+        {
+            document.getElementById("InlinEditDialog").style.visibility = "hidden";
+            document.getElementById("background").style.display = "none";
+        }
+        function showPop(title, nfValue, mrValue)
+        {
+            getDom("InlinEditDialog").style.visibility = "visible";
+            getDom("background").style.display = "block";
+            getDom("popupTitle").innerHTML = title;
+            getDom("page:form:quotablock:popupType").value = title;
+            getDom("page:form:quotablock:popupNfValue").value = nfValue;
+            getDom("page:form:quotablock:popupMrValue").value = mrValue;
+        }
+
+        function validate()
+        {
+            var nfValue = getDom("page:form:quotablock:popupNfValue").value;
+            var mrValue = getDom("page:form:quotablock:popupMrValue").value; 
+            nfValue =  nfValue.replace(/,/g,"");
+            mrValue =  mrValue .replace(/,/g,"");
+            var re = /^\d+(\.\d*)?[KkMm]?/;
+            if(!re.test(nfValue))
+            {
+                alert("Invalid New & Follow value");
+                return false;
+            }
+            if(!re.test(mrValue))
+            {
+                alert("Invalid Maintenance Renewal value");
+                return false;
+            }
+            return true;
+        }
+       
+        function getDisplayFormat()
+        {
+            return getDom("displayUnits").value;
+        }
+        function commaFormatted(amount)
+        {
+            var delimiter = ","; // replace comma if desired
+            var a = amount.split('.',2)
+            var d = (a.length > 1)?a[1]:'';
+            var i = parseInt(a[0]);
+            if(isNaN(i)) { return ''; }
+            var minus = '';
+            if(i < 0) { minus = '-'; }
+            i = Math.abs(i);
+            var n = new String(i);
+            var a = [];
+            while(n.length > 3)
+            {
+                var nn = n.substr(n.length-3);
+                a.unshift(nn);
+                n = n.substr(0,n.length-3);
+            }
+            if(n.length > 0) { a.unshift(n); }
+            n = a.join(delimiter);
+            if(d.length < 1) { amount = n; }
+            else { amount = n + '.' + d; }
+            amount = minus + amount;
+            return amount;
+        }
+
+        function formatDecimal(value)
+        {
+            if(value == 0)
+            {
+                return 0;
+            }
+            var format = getDisplayFormat();
+            if(format == "E")
+            {    
+                //exact value, 2 decimals
+                return "$" + commaFormatted(value.toFixed(2));       
+            }
+            if(format == "W")
+            {
+                //whole values, 0 decimals
+                return "$" + commaFormatted(value.toFixed(0)); 
+            }
+            if(format == "K")
+            {
+                //thousand, with 2 decimals
+                return "$" + commaFormatted(((value)/1000).toFixed(2)) + "K";  
+            }
+            if(format == "M")
+            {
+                //million, with 2 decimals
+                return "$" + commaFormatted(((value)/1000/1000).toFixed(2)) + "M"; 
+            }               
+            return "";
+        }
+       
+        var allUsers = [], allRoles = [];
+        <apex:variable var="index" value="{!0}" />
+        <apex:repeat value="{!allForecastingUsers}" var="user">
+           allUsers[{!FLOOR(index)}] = {id:'{!user.Id}', roleId:'{!user.UserRoleId}'};
+           <apex:variable var="index" value="{!index + 1}" />
+        </apex:repeat>
+        <apex:variable var="index" value="{!0}" />
+        <apex:repeat value="{!allUserRoles}" var="role">
+           allRoles[{!FLOOR(index)}] = {id:'{!role.Id}', parentRoleId:'{!role.ParentRoleId}'};
+           <apex:variable var="index" value="{!index + 1}" />
+        </apex:repeat>
+        allUsers.getUser = function(userId)
+        {
+           for(var i = 0; i < this.length; i++)
+           {
+               if(this[i].id == userId)
+               {
+                   return this[i];
+               }
+           }
+           return null;
+        }
+
+        var roleHierarchy = buildRoleHierarchy('');
+        
+        roleHierarchy.getRole = function(roleId)
+        {
+           for(var i = 0;i < allRoles.length; i++)
+           {
+               if(allRoles[i].id == roleId)
+               {               
+                   return allRoles[i];
+               }
+           }
+           return null;
+        }
+
+        roleHierarchy.getSubRoles = function(roleId)
+        {
+           var result = [];
+           var role = roleHierarchy.getRole(roleId);
+           if(role.children.length > 0)
+           {
+               for(var i = 0; i < role.children.length; i++)
+               {
+                   result[result.length] = role.children[i];
+                   var subResult = roleHierarchy.getSubRoles(role.children[i].id);
+                   for(var j = 0; j < subResult.length; j++)
+                   {
+                       result[result.length] = subResult[j];
+                   }
+               }           
+           }
+           return result;
+        }
+        
+        buildUserHierarchy(roleHierarchy);
+        
+        function buildRoleHierarchy(parentRoleId)
+        {
+           var result = [];
+           for(var i = 0; i < allRoles.length; i++)
+           {
+               var role = allRoles[i];
+               if(role.parentRoleId == parentRoleId)
+               {
+                   result[result.length] = role;
+                   role.children = buildRoleHierarchy(role.id);
+               }
+           }
+           return result;
+        }
+       
+        function buildUserHierarchy(roleHierarchy)
+        {
+           for(var i = 0; i < allUsers.length; i++)
+           {
+               var user = allUsers[i];
+               var role = roleHierarchy.getRole(user.roleId);
+               //TODO: what if role == null
+               if(role != null)
+               {
+                   if(role.Users)
+                   {
+                       role.Users[role.Users.length] = user;
+                   }
+                   else
+                   {
+                       role.Users = [ user ];
+                   }
+                   user.Role = role;
+               }
+           }
+        }
+      
+        function refreshReport(userId)
+        {
+            var user = allUsers.getUser(userId);
+            if(user == null)
+            {
+                alert("Forecasting is not enabled for this user");
+                return;
+            }
+            var userRoleId = user.roleId;
+            var subRoles = roleHierarchy.getSubRoles(userRoleId);
+            
+            var subUsers = [];
+            for(var i = 0; i < subRoles.length; i++)
+            {
+                if(subRoles[i].Users)
+                {
+                    for(var j = 0; j < subRoles[i].Users.length; j++)
+                    {
+                        subUsers.push(subRoles[i].Users[j].id);
+                    }
+                }
+            }
+            sforce.apex.execute('ForecastingController', 'getReport', {fiscalQuarter:'{!currentFiscalQuarter}', currentUserId:userId, subUserIds:subUsers},{onSuccess:executeSucceded, onFailure:executeFailed});
+        }
+
+        var reportResult = [];
+        var currentUserReport;
+        var loadingRowIndex = 2;
+        var reportTotal = ["Team Totals",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+        function executeSucceded(result)
+        {
+            var report = 
+            {
+                userId: result [0],
+                userName: result[1],
+                amountQuota: parseFloat(result[2]),
+                mrAmountQuota: parseFloat(result[3]),
+                amountCommitment: parseFloat(result[4]),
+                mrAmountCommitment: parseFloat(result[5]),
+                amountCurrentForecast: parseFloat(result[6]),
+                mrAmountCurrentForecast: parseFloat(result[7]),
+                wonNewAmt: parseFloat(result[8]),
+                wonNewExpAmt: parseFloat(result[9]),
+                wonNewCount: parseFloat(result[32]),
+                wonMrAmt: parseFloat(result[16]),
+                wonMrExpAmt: parseFloat(result[17]),
+                wonMrCount: parseFloat(result[36]),
+                wonAmtTotal: parseFloat(result[24]),
+                wonExpAmtTotal: parseFloat(result[25]),
+                wonComNewAmount: parseFloat(result[10]),
+                wonComNewExpAmt: parseFloat(result[11]),
+                wonComBestNewAmount: parseFloat(result[12]),
+                wonComBestNewExpAmt: parseFloat(result[13]),
+                allPipelineNewAmount: parseFloat(result[14]),
+                allPipelineNewExpAmt: parseFloat(result[15]),
+                
+                wonComMRAmount: parseFloat(result[18]),
+                wonComMRExpAmt: parseFloat(result[19]),
+                wonComBestMRAmount: parseFloat(result[20]),
+                wonComBestMRExpAmt: parseFloat(result[21]),
+                allPipelineMRAmount: parseFloat(result[22]),
+                allPipelineMRExpAmt: parseFloat(result[23]),
+                
+                wonComAmountTotal: parseFloat(result[26]),
+                wonComExpAmtTotal: parseFloat(result[27]),
+                wonComBestAmountTotal: parseFloat(result[28]),
+                wonComBestExpAmtTotal: parseFloat(result[29]),
+                allPipelineAmountTotal: parseFloat(result[30]),
+                allPipelineExpAmtTotal: parseFloat(result[31]),
+                
+                wonComNewCount: parseFloat(result[33]),
+                allPipelineNewCount: parseFloat(result[35]),
+                wonComMRCount: parseFloat(result[37]),
+                wonComBestNewCount: parseFloat(result[34]),
+                wonComBestMRCount: parseFloat(result[38]),
+                allPipelineMRCount: parseFloat(result[39])
+            };
+            reportResult[reportResult.length] = report;
+            if(result.length > 0)
+            {
+                if(report.userId == '{!currentViewingUser.Id}')
+                {
+                    currentUserReport = result;
+                    loadCurrentUserReport(report);
+                }
+                else
+                {
+                    loadReportRow(report);
+                }
+            }
+        }
+        
+        function loadCurrentUserReport(report)
+        {
+            getDom("amountQuota").innerHTML = formatDecimal(report.amountQuota);
+            getDom("mrAmountQuota").innerHTML = formatDecimal(report.mrAmountQuota);
+            getDom("amountCommitment").innerHTML = formatDecimal(report.amountCommitment);
+            getDom("mrAmountCommitment").innerHTML = formatDecimal(report.mrAmountCommitment);
+            getDom("amountCurrentForecast").innerHTML = formatDecimal(report.amountCurrentForecast);
+            getDom("mrAmountCurrentForecast").innerHTML = formatDecimal(report.mrAmountCurrentForecast);
+            
+            getDom("wonNewAmt").innerHTML = formatDecimal(report.wonNewAmt);
+            getDom("wonNewExpAmt").innerHTML = formatDecimal(report.wonNewExpAmt);
+            getDom("wonNewCount").innerHTML = report.wonNewCount;
+            getDom("wonMrAmt").innerHTML = formatDecimal(report.wonMrAmt);
+            getDom("wonMrExpAmt").innerHTML = formatDecimal(report.wonMrExpAmt);
+            getDom("wonMrCount").innerHTML = report.wonMrCount;
+            getDom("wonAmtTotal").innerHTML = formatDecimal(report.wonAmtTotal);
+            getDom("wonExpAmtTotal").innerHTML = formatDecimal(report.wonExpAmtTotal);
+            if({!NOT($User.Id == currentViewingUser.Id)})
+            {
+                getDom("editQuota").innerHTML = "<a href=\"javaScript:showPop('Quota',"+report.amountQuota+","+report.mrAmountQuota+")\">Edit</a>";
+
+            }
+            getDom("editCommit").innerHTML = "<a href=\"javaScript:showPop('Commitment',"+report.amountCommitment+","+report.mrAmountCommitment+")\">Edit</a>";
+            getDom("editForecast").innerHTML = "<a href=\"javaScript:showPop('Forecast',"+report.amountCurrentForecast+","+report.mrAmountCurrentForecast+")\">Edit</a>";
+            
+            getDom("wonComNewAmount").innerHTML = formatDecimal(report.wonComNewAmount);
+            getDom("wonComNewExpAmt").innerHTML = formatDecimal(report.wonComNewExpAmt);
+            getDom("wonComBestNewAmount").innerHTML = formatDecimal(report.wonComBestNewAmount);
+            getDom("wonComBestNewExpAmt").innerHTML = formatDecimal(report.wonComBestNewExpAmt);
+            getDom("allPipelineNewAmount").innerHTML = formatDecimal(report.allPipelineNewAmount);
+            getDom("allPipelineNewExpAmt").innerHTML = formatDecimal(report.allPipelineNewExpAmt);
+            
+            getDom("wonComMRAmount").innerHTML = formatDecimal(report.wonComMRAmount);
+            getDom("wonComMRExpAmt").innerHTML = formatDecimal(report.wonComMRExpAmt);
+            getDom("wonComBestMRAmount").innerHTML = formatDecimal(report.wonComBestMRAmount);
+            getDom("wonComBestMRExpAmt").innerHTML = formatDecimal(report.wonComBestMRExpAmt);
+            getDom("allPipelineMRAmount").innerHTML = formatDecimal(report.allPipelineMRAmount);
+            getDom("allPipelineMRExpAmt").innerHTML = formatDecimal(report.allPipelineMRExpAmt);
+            
+            getDom("wonComAmountTotal").innerHTML = formatDecimal(report.wonComAmountTotal);
+            getDom("wonComExpAmtTotal").innerHTML = formatDecimal(report.wonComExpAmtTotal);
+            getDom("wonComBestAmountTotal").innerHTML = formatDecimal(report.wonComBestAmountTotal);
+            getDom("wonComBestExpAmtTotal").innerHTML = formatDecimal(report.wonComBestExpAmtTotal);
+            getDom("allPipelineAmountTotal").innerHTML = formatDecimal(report.allPipelineAmountTotal);
+            getDom("allPipelineExpAmtTotal").innerHTML = formatDecimal(report.allPipelineExpAmtTotal);
+            
+            getDom("wonComNewCount").innerHTML = report.wonComNewCount+report.wonNewCount;
+            getDom("allPipelineNewCount").innerHTML = report.allPipelineNewCount+report.wonComBestNewCount+report.wonComNewCount+report.wonNewCount;
+            getDom("wonComMRCount").innerHTML = report.wonComMRCount+report.wonMrCount;
+            getDom("wonComBestNewCount").innerHTML = report.wonComBestNewCount+report.wonComNewCount+report.wonNewCount;
+            getDom("wonComBestMRCount").innerHTML = report.wonComBestMRCount+report.wonComMRCount+report.wonMrCount;
+            getDom("allPipelineMRCount").innerHTML = report.allPipelineMRCount+report.wonComBestMRCount+report.wonComMRCount+report.wonMrCount;
+        }
+        
+       
+        function loadReportRow(report)
+        {       
+            var reportTable = getDom("DirectSubordinates");
+            var row = reportTable.rows[loadingRowIndex++];
+            row.cells[0].innerHTML = "<a href=\"/apex/Forecasting?quarter={!currentFiscalQuarter}&amp;path={!Path}" + report.userId + " \">" + report.userName + "</a>";
+            row.cells[1].innerHTML = formatDecimal(report.amountQuota);
+            row.cells[2].innerHTML = formatDecimal(report.mrAmountQuota);
+            row.cells[3].innerHTML = formatDecimal(report.mrAmountQuota + report.amountQuota);
+            row.cells[4].innerHTML = formatDecimal(report.amountCommitment);
+            row.cells[5].innerHTML = formatDecimal(report.mrAmountCommitment);
+            row.cells[6].innerHTML = formatDecimal(report.amountCommitment + report.mrAmountCommitment);
+            row.cells[7].innerHTML = formatDecimal(report.amountCurrentForecast);
+            row.cells[8].innerHTML = formatDecimal(report.mrAmountCurrentForecast);
+            row.cells[9].innerHTML = formatDecimal(report.amountCurrentForecast + report.mrAmountCurrentForecast);
+            row.cells[10].innerHTML = formatDecimal(report.wonNewAmt);
+            row.cells[11].innerHTML = formatDecimal(report.wonMrAmt);
+            row.cells[12].innerHTML = formatDecimal(report.wonMrAmt + report.wonNewAmt);
+            row.cells[13].innerHTML = formatDecimal(report.wonComAmountTotal);
+            row.cells[14].innerHTML = formatDecimal(report.wonComBestAmountTotal);
+            row.cells[15].innerHTML = formatDecimal(report.allPipelineAmountTotal);          
+            reportTotal[1] = reportTotal[1] + report.amountQuota; 
+            reportTotal[2] = reportTotal[2] + report.mrAmountQuota;
+            reportTotal[3] = reportTotal[3] + report.mrAmountQuota + report.amountQuota;
+            reportTotal[4] = reportTotal[4] + report.amountCommitment;
+            reportTotal[5] = reportTotal[5] + report.mrAmountCommitment;
+            reportTotal[6] = reportTotal[6] + report.amountCommitment + report.mrAmountCommitment;
+            reportTotal[7] = reportTotal[7] + report.amountCurrentForecast;
+            reportTotal[8] = reportTotal[8] + report.mrAmountCurrentForecast;
+            reportTotal[9] = reportTotal[9] + report.amountCurrentForecast + report.mrAmountCurrentForecast;
+            reportTotal[10] = reportTotal[10] + report.wonNewAmt;
+            reportTotal[11] = reportTotal[11] + report.wonMrAmt;
+            reportTotal[12] = reportTotal[12] + report.wonMrAmt + report.wonNewAmt;
+            reportTotal[13] = reportTotal[13] + report.wonComAmountTotal;
+            reportTotal[14] = reportTotal[14] + report.wonComBestAmountTotal;
+            reportTotal[15] = reportTotal[15] + report.allPipelineAmountTotal;
+            if((reportTable.rows.length -1) == loadingRowIndex)
+            {
+                loadReportRowTeamTotal();
+            }         
+        }
+        
+        function loadReportRowTeamTotal()
+        {
+            var reportTable = getDom("DirectSubordinates");
+            var row = reportTable.rows[loadingRowIndex++];
+            row.style.backgroundColor="#4863A0";
+            row.cells[0].innerHTML = "<font color=\"#FFFFFF\">" + reportTotal[0] +"</font>";
+            row.cells[1].innerHTML = "<font color=\"#FFFFFF\">" + formatDecimal(reportTotal[1]) +"</font>";
+            row.cells[2].innerHTML = "<font color=\"#FFFFFF\">" + formatDecimal(reportTotal[2]) +"</font>";
+            row.cells[3].innerHTML = "<font color=\"#FFFFFF\">" + formatDecimal(reportTotal[3]) +"</font>";
+            row.cells[4].innerHTML = "<font color=\"#FFFFFF\">" + formatDecimal(reportTotal[4]) +"</font>";
+            row.cells[5].innerHTML = "<font color=\"#FFFFFF\">" + formatDecimal(reportTotal[5]) +"</font>";
+            row.cells[6].innerHTML = "<font color=\"#FFFFFF\">" + formatDecimal(reportTotal[6]) +"</font>";
+            row.cells[7].innerHTML = "<font color=\"#FFFFFF\">" + formatDecimal(reportTotal[7]) +"</font>";
+            row.cells[8].innerHTML = "<font color=\"#FFFFFF\">" + formatDecimal(reportTotal[8]) +"</font>";
+            row.cells[9].innerHTML = "<font color=\"#FFFFFF\">" + formatDecimal(reportTotal[9]) +"</font>";
+            row.cells[10].innerHTML = "<font color=\"#FFFFFF\">" + formatDecimal(reportTotal[10]) +"</font>";
+            row.cells[11].innerHTML = "<font color=\"#FFFFFF\">" + formatDecimal(reportTotal[11]) +"</font>";
+            row.cells[12].innerHTML = "<font color=\"#FFFFFF\">" + formatDecimal(reportTotal[12]) +"</font>";
+            row.cells[13].innerHTML = "<font color=\"#FFFFFF\">" + formatDecimal(reportTotal[13]) +"</font>";
+            row.cells[14].innerHTML = "<font color=\"#FFFFFF\">" + formatDecimal(reportTotal[14]) +"</font>";
+            row.cells[15].innerHTML = "<font color=\"#FFFFFF\">" + formatDecimal(reportTotal[15]) +"</font>";
+            
+        }
+            
+        function changeReportFormat()
+        {
+            reportTotal = ["Team Totals",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+            loadingRowIndex = 2;
+            for(var i = 0; i < reportResult.length; i++)
+            {
+                if(reportResult[i].userId == '{!currentViewingUser.Id}')
+                {
+                    loadCurrentUserReport(reportResult[i]);
+                }
+                else
+                {
+                    loadReportRow(reportResult[i]);                
+                }
+            }
+        }
+        
+        function executeFailed(error)
+        {
+            var errorMessage = error + "";
+            if(errorMessage.indexOf("Remote invocation failed") >= 0)
+            {
+                //ignore this error message
+                return;
+            }
+            alert(error);
+        }
+        
+        function init()
+        {   
+            var result = refreshReport('{!currentViewingUser.Id}');
+            var currentUser = allUsers.getUser('{!currentViewingUser.Id}');
+            var currentRole = currentUser.Role;
+            var subRoles = currentRole.children;
+            var directSubordinates = [];
+            for(var i = 0; i < subRoles.length; i++)
+            {
+                if(subRoles[i].Users)
+                {
+                    for(var j = 0; j < subRoles[i].Users.length; j++)
+                    {
+                        directSubordinates[directSubordinates.length] = subRoles[i].Users[j];
+                    }
+                }
+            }
+            if(directSubordinates.length == 0)
+            {
+                getDom("page:form:subordinateBlock").style.display = "none";
+            }
+            else
+            {
+                for(var i = 0; i < directSubordinates.length; i++)
+                {
+                    addReportTableRow();
+                    var id = directSubordinates[i].id;
+                    setTimeout("refreshReport('" + id + "')", (i + 1) * 500);
+                }
+                addReportTableRow();
+            }
+        }
+        function addReportTableRow()
+        {
+            var reportTable = getDom("DirectSubordinates");
+            
+            var newRow = reportTable.insertRow(-1);
+            if(reportTable.rows.length % 2 == 0)
+            {   
+                newRow.className = "line2";
+            }
+            else
+            {
+                newRow.className = "line";
+            }
+            newRow.insertCell(-1);
+            for(var k = 0; k < 15; k++)
+            {
+                newRow.insertCell(-1).className = "number";
+            }
+            newRow.cells[0].innerHTML = "&nbsp; ";
+        }
+        
+        function submitForecast()
+        {
+          currentUserReport[40] = '{!currentFiscalQuarter}'; 
+          sforce.apex.execute('ForecastingController', 'insertSubmitForecast',{userReport:currentUserReport},{onSuccess: submitSuccess, onFailure: executeFailed});
+        }
+        
+        function submitSuccess(result)
+        {
+            alert("Your forecast was submitted successfully.");
+        }
+       
+     </script>
+ 
+    <apex:sectionHeader title="Forecasting" subTitle="{!currentFiscalQuarter}"/>
+            <div style="float:right">
+        <a href="https://na3.salesforce.com/00O500000020psW" target="_blank">My Pipeline</a>
+            &nbsp;
+        <a href="https://ensemblestorage.na3.visual.force.com/apex/DownloadFile?scontrolCaching=1&id=a0O50000003KCLJ" target="_blank">Opportunity Forecasting Guidelines</a>
+            </div>
+    <apex:form id="form">
+        <apex:PageMessages />
+        <div class="ptBreadcrumb">
+            <apex:variable var="p" value="" />
+            <apex:repeat value="{!userNavigate}" var="un">
+                <apex:variable var="p" value="{!p + '/' + un.Id}" />
+                <a href="/apex/Forecasting?path={!p}&quarter={!currentFiscalQuarter}">{!un.Name}</a> &gt;
+            </apex:repeat> 
+        </div>
+        <br/>
+        <!--<div class="calendarHeaderBG calendarHeader">
+            <span class="dateText">Fiscal Quarter: </span>
+            <span class="arrowIcons">
+                <a href="/apex/Forecasting?path={!$currentPage.parameters.path}&quarter={!previousFiscalQuarter}" class="prev" title="Previous Quarter"><img src="/s.gif" alt="Previous Quarter" class="prevCalArrow" title="Previous Quarter"/></a>
+            </span>
+            <span class="dateText" style="padding-left:0px">{!currentFiscalQuarter}</span>
+            <span class="arrowIcons">
+                <a href="/apex/Forecasting?path={!$currentPage.parameters.path}&quarter={!nextFiscalQuarter}" class="next" title="Next Quarter"><img src="/s.gif" alt="Next Quarter"  class="nextCalArrow" title="Next Quarter"/></a>
+            </span>
+            <span class="legend">User: {!currentViewingUser.Name}</span>
+        </div>
+        <div style="clear:both"></div>-->
+        <div id="wrap">
+            <div class="fqTitleCon">
+                <span class="fqTitle">Fiscal Quarter</span>
+                <span class="fqNum">{!currentFiscalQuarter}</span>
+        
+                <a class="fqBtn" href="/apex/Forecasting?path={!$currentPage.parameters.path}&quarter={!previousFiscalQuarter}" title="Previous quarter"><img src="{!URLFOR($Resource.Forecasting, 'images/fqBtnLeft.gif')}" /></a>
+                <a class="fqBtn" href="/apex/Forecasting?path={!$currentPage.parameters.path}&quarter={!nextFiscalQuarter}" title="Next quarter"><img src="{!URLFOR($Resource.Forecasting, 'images/fqBtnRight.gif')}" /></a>
+                <span class="userName">User: {!currentViewingUser.Name}</span>
+            </div>
+        </div>
+        
+        <apex:pageBlock id="mainBlock">
+            <table class="report" width="40%" style="float:left">
+                <tr class="header">
+                    <th rowspan="2">Forecast</th>
+                    <th>New &amp; Follow On Bookings</th>
+                    <th>Maintenance Renewal Bookings</th>
+                    <th rowspan="2">&nbsp;</th>
+                </tr>
+                <tr class="header">
+                    <td >Amount</td>
+                    <td>Amount</td>
+                </tr>               
+                <tr class="line">
+                    <td >Quota</td>
+                    <td class="number" id="amountQuota"></td>
+                    <td class="number" id="mrAmountQuota"></td>
+                    <td class="edit" id="editQuota"></td>
+                </tr>
+                <tr class="line2">
+                    <td>Commitment</td>
+                    <td class="number" id="amountCommitment"></td>
+                    <td class="number" id="mrAmountCommitment"></td>
+                    <td class="edit" id="editCommit"></td>
+                </tr>
+                <tr class="line">
+                    <td style="white-space: no-wrap">Current Forecast</td>
+                    <td class="number" id="amountCurrentForecast"></td>
+                    <td class="number" id="mrAmountCurrentForecast"></td>
+                    <td class="edit" id="editForecast"></td>
+                </tr>                   
+            </table>
+            <input type="button" class="btn" value="Submit Forecast"  onclick="if(!confirm('Are you sure you want submit?'))return false;submitForecast()"/>
+            <div style="float:right">Display Units:
+                <select id="displayUnits" onchange="changeReportFormat()">
+                    <option value="K">Thousands</option>
+                    <option value="M">Millions</option>
+                    <option value="W">Whole numbers</option>
+                    <option value="E">Exact Value</option>
+                    <!--<option value="P">% Quota" itemValue</option>-->
+                </select>
+            </div>
+            <table class="report" width="100%">
+                <tr class="header">
+                    <th rowspan="2">Opportunity Summary </th>
+                    <th colspan="3" >New &amp; Follow On Bookings</th>
+                    <th colspan="3" style="background-color:#FFF">Maintenance Renewal Bookings</th>
+                    <th colspan="2" >Total</th>
+                </tr>
+                <tr class="header">
+                    <td>Amount</td>
+                    <td>Expected Amt</td>
+                    <td>Count</td>
+                    <td style="background-color:#FFF">Amount</td>
+                    <td style="background-color:#FFF">Expected Amt</td>
+                    <td style="background-color:#FFF">Count</td>
+                    <td>Amount Total</td>
+                    <td>Expected Amt Total</td>
+                </tr>
+                <tr class="line">
+                    <td width="20%">Won</td>
+                    <td class="number" width="10%" id="wonNewAmt"></td>
+                    <td class="number" width="10%" id="wonNewExpAmt"></td>
+                    <td class="number" width="8%" id="wonNewCount"></td>
+                    <td class="number" width="10%" id="wonMrAmt"></td>
+                    <td class="number" width="10%" id="wonMrExpAmt"></td>
+                    <td class="number" width="8%" id="wonMrCount"></td>
+                    <td class="number" width="12%" id="wonAmtTotal"></td>
+                    <td class="number" width="12%" id="wonExpAmtTotal"></td>
+                </tr>
+                <tr class="line2">
+                    <td>Won + Forecast</td>
+                    <td class="number" id="wonComNewAmount"></td>
+                    <td class="number" id="wonComNewExpAmt"></td>
+                    <td class="number" id="wonComNewCount"></td>
+                    <td class="number" id="wonComMRAmount"></td>
+                    <td class="number" id="wonComMRExpAmt"></td>
+                    <td class="number" id="wonComMRCount"></td>
+                    <td class="number" id="wonComAmountTotal"></td>
+                    <td class="number" id="wonComExpAmtTotal"></td>
+                </tr>
+                <tr class="line">
+                    <td>Won + Forecast + Best Case</td>
+                    <td class="number" id="wonComBestNewAmount"></td>
+                    <td class="number" id="wonComBestNewExpAmt"> </td>
+                    <td class="number" id="wonComBestNewCount"></td>
+                    <td class="number" id="wonComBestMRAmount"></td>
+                    <td class="number" id="wonComBestMRExpAmt"></td>
+                    <td class="number" id="wonComBestMRCount"></td>
+                    <td class="number" id="wonComBestAmountTotal"></td>
+                    <td class="number" id="wonComBestExpAmtTotal"></td>
+                </tr>
+                <tr class="line2">
+                    <td>All + Pipeline</td>
+                    <td class="number" id="allPipelineNewAmount"></td>
+                    <td class="number" id="allPipelineNewExpAmt"></td>
+                    <td class="number" id="allPipelineNewCount"></td>
+                    <td class="number" id="allPipelineMRAmount"></td>
+                    <td class="number" id="allPipelineMRExpAmt"></td>
+                    <td class="number" id="allPipelineMRCount"></td>
+                    <td class="number" id="allPipelineAmountTotal"></td>
+                    <td class="number" id="allPipelineExpAmtTotal"></td>
+                </tr>
+            </table>
+
+        </apex:pageBlock>
+    
+        <!-- popup for edit -->
+        <div id="InlinEditDialog" class="overlayDialog inlineEditDialog" style="max-width: 300px; display:block;left:400px; top:110px;visibility:hidden;">           
+            <div class="topRight">
+                <div class="topLeft">
+                    <img id="InlineEditDialogX" onmouseover="this.className='dialogCloseOn'" onmouseout="this.className='dialogClose'" onclick="closePop()" class="dialogClose" src="/s.gif" />
+                    <h2 id="InlineEditDialogTitle">Enter Forecast Updates</h2>
+                </div>
+            </div>
+            <apex:outputPanel id="abc"></apex:outputPanel>
+            <div class="middle">
+                <div class="innerContent" id="InlineEditDialogContent">
+                    <div class="activeField">
+                        <div class="inlineEditCompoundDiv" style="text-align:left">
+                            <apex:pageBlock id="quotablock">
+                                <div id="function-list"><p id="popupTitle"></p><apex:inputHidden id="popupType" value="{!popupType}" /></div>
+                                <div id ="function-value1">New &amp; Follow:<apex:inputText maxlength="10" id="popupNfValue" value="{!popupNfValue}" /></div>
+                                <div id ="function-value2">Maintenance Renewal:<apex:inputText maxlength="10" id="popupMrValue" value="{!popupMrValue}" /></div>
+                                <p>Additional Comments:<apex:inputTextarea id="comment" cols="31" rows="5" value="{!popupComment}"/></p>
+                            </apex:pageBlock>
+                        </div>
+                    </div>
+                    <div></div>
+                    <div id="InlineEditDialog_buttons" class="buttons">
+                        <apex:commandButton value=" Save " action="{!saveForecast}" onclick="return validate();"/>
+                    </div>
+                </div>
+            </div>
+            <div class="bottomRight">
+                <div class="bottomLeft"></div>
+            </div>            
+        </div>
+        <div class="overlayBackground" id="background" style="width: 3289px; height: 1293px; display: none; position: fixed"></div>
+        <!-- end of popup -->
+        
+        <apex:pageBlock id="subordinateBlock">   
+            <table class="report" width="100%"  id="DirectSubordinates">
+                <tr class="header">
+                    <th rowspan="2">Name</th>
+                    <th colspan="3" style="background-color:#FFF">Quota</th>
+                    <th colspan="3">Commitment</th>
+                    <th colspan="3" style="background-color:#FFF">Current Forecast</th>
+                    <th colspan="3">Won</th>
+                    <th style="background-color:#FFF">Won + Forecast</th>
+                    <th>Won + Forecast + Best Case</th>
+                    <th style="background-color:#FFF">All + Pipeline</th>
+                </tr>
+                <tr class="header">
+                    <td style="background-color:#FFF">New&amp;FO</td>
+                    <td style="background-color:#FFF">MR</td>
+                    <td style="background-color:#FFF">Total</td>
+                    <td>New&amp;FO</td>
+                    <td>MR</td>
+                    <td>Total</td>
+                    <td style="background-color:#FFF">New&amp;FO</td>
+                    <td style="background-color:#FFF">MR</td>
+                    <td style="background-color:#FFF">Total</td>
+                    <td>New&amp;FO</td>
+                    <td>MR</td>
+                    <td>Total</td>
+                    <td style="background-color:#FFF">Total</td>
+                    <td>Total</td>
+                    <td style="background-color:#FFF">Total</td>
+                </tr>
+            </table>
+       </apex:pageBlock>
+   
+        <apex:pageBlock id="oppBlock" rendered="{!allOpportunities.size > 0}">
+            <apex:pageBlockSection title="Open opportunities for this forecasting period -  Page #{!pageNumber}" columns="1"  >
+                <apex:pageBlockTable value="{!allOpportunities}" var="ao" id="fh"> 
+                    <apex:column styleClass="{!IF(OR(ao.Amount < 1, ao.CloseDate < TODAY()),'redOpp','')}">
+                        <apex:facet name="header">Opportunity</apex:facet>
+                        <a href="/{!ao.Id}">{!ao.Name}</a>
+                    </apex:column>
+                    <apex:column styleClass="{!IF(OR(ao.Amount < 1, ao.CloseDate < TODAY()),'redOpp','')}" value="{!ao.Amount}" style="text-align:right" />
+                    <apex:column styleClass="{!IF(OR(ao.Amount < 1, ao.CloseDate < TODAY()),'redOpp','')}" value="{!ao.ExpectedRevenue}" style="text-align:right" />
+                    <apex:column styleClass="{!IF(OR(ao.Amount < 1, ao.CloseDate < TODAY()),'redOpp','')}" value="{!ao.Probability}" style="text-align:center" />
+                    <apex:column styleClass="{!IF(OR(ao.Amount < 1, ao.CloseDate < TODAY()),'redOpp','')}">
+                        <apex:facet name="header">Close Date</apex:facet>
+                        <apex:outputText value="{0, date, MM/dd/yyyy}"><apex:param value="{!ao.CloseDate}" /></apex:outputText>
+                    </apex:column>
+                    <apex:column styleClass="{!IF(OR(ao.Amount < 1, ao.CloseDate < TODAY()),'redOpp','')}" value="{!ao.ForecastCategory}" />
+                    <apex:column styleClass="{!IF(OR(ao.Amount < 1, ao.CloseDate < TODAY()),'redOpp','')}" value="{!ao.Type}" />
+                    <apex:column styleClass="{!IF(OR(ao.Amount < 1, ao.CloseDate < TODAY()),'redOpp','')}" value="{!ao.Primary_Partner__c}" />
+                    <apex:column styleClass="{!IF(OR(ao.Amount < 1, ao.CloseDate < TODAY()),'redOpp','')}" value="{!ao.Registered_Partner__c}" />
+                    <apex:column styleClass="{!IF(OR(ao.Amount < 1, ao.CloseDate < TODAY()),'redOpp','')}" value="{!ao.OwnerId}" />
+                    <apex:column styleClass="{!IF(OR(ao.Amount < 1, ao.CloseDate < TODAY()),'redOpp','')}" value="{!ao.Technical_Responsible__c}" />
+                </apex:pageBlockTable> 
+            </apex:pageBlockSection>      
+            <div  width="100%">
+                <apex:commandLink action="{!previous}" rendered="{!hasPrevious}" reRender="oppBlock">&lt;Previous Page</apex:commandlink>&nbsp;
+                <apex:commandLink action="{!next}" rendered="{!hasNext}" reRender="oppBlock">Next Page&gt;</apex:commandlink>
+            </div>
+        </apex:pageBlock>
+        <apex:pageBlock rendered="{!forecastingHistory.size > 0}">
+            <apex:pageBlockSection title="Forecast Table Changes" columns="1" id="block1" >
+                <apex:pageBlockTable value="{!ForecastingHistory}" var="fh" id="fh" rows="15"> 
+                    <apex:column > 
+                       <apex:facet name="header">Change Area</apex:facet>
+                       {!IF(contains(fh.Type__c,"MR"),SUBSTITUTE(fh.Type__c,"MR-",""),SUBSTITUTE(fh.Type__c,"New-",""))}
+            
+                    </apex:column>
+                    <apex:column >
+                            <apex:facet name="header">Change Date</apex:facet>
+                            <apex:outputText value="{0, date, MM/dd/yyyy}"><apex:param value="{!fh.LastModifiedDate}" /></apex:outputText>
+                    </apex:column>
+                    <apex:column >
+                        <apex:facet name="header">Type</apex:facet>
+                        {!IF(contains(fh.Type__c,"MR"),"MR","New")}
+                    </apex:column>
+                    <apex:column value="{!fh.Old_Value__c}" style="text-align:right" width="6%"/>
+                    <apex:column value="{!fh.Value__c}" style="text-align:right" width="6%"/>
+                    <apex:column value="{!fh.LastModifiedById}" width="10%"/>
+                    <apex:column value="{!fh.Comments__c}" width="50%"/> 
+                </apex:pageBlockTable>
+            </apex:pageBlockSection>
+            <apex:outputPanel id="thePanel" styleClass="pShowMore" rendered="{!ForecastingHistory.size > 15}">
+                <a href="/apex/ForecastingHistory?path={!$CurrentPage.parameters.path}&quarter={!currentFiscalQuarter}">Show all history</a>
+            </apex:outputPanel>
+       </apex:pageBlock>
+
+    </apex:form>
+    <script type="text/javascript">
+        sforce.connection.sessionId = '{!$Api.Session_ID}';
+        init();
+    </script>
+</apex:page>

@@ -1,0 +1,312 @@
+<apex:page controller="PatchAssignmentsController" tabstyle="Lead_Assignments__tab" id="page">
+    <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" />
+    <style>
+        .actionLink .sortDESC {
+            width: 11px;
+            height: 11px;
+            margin: 0 5px;
+            vertical-align: -2px;
+            display: inline;
+            background: transparent url(/img/alohaSkin/sortArrows_sprite.png) no-repeat 0 top;
+        }
+        .actionLink:hover .sortDESC {
+            background-position: 0 -32px;
+        }
+        .actionLink .sortASC {
+            width: 11px;
+            height: 11px;
+            margin: 0 5px;
+            vertical-align: -2px;
+            display: inline;
+            background: transparent url(/img/alohaSkin/sortArrows_sprite.png) no-repeat 0 top;
+            background-position: 0 -16px;
+        }
+        .actionLink:hover .sortASC {
+            background-position: 0 -48px;
+        }
+        input.rounded {
+            border: 1px solid #ccc;
+            -moz-border-radius: 10px;
+            -webkit-border-radius: 10px;
+            border-radius: 10px;
+            -moz-box-shadow: 2px 2px 3px #666;
+            -webkit-box-shadow: 2px 2px 3px #666;
+            box-shadow: 2px 2px 3px #666;
+            padding: 4px 7px;
+            outline: 0;
+            -webkit-appearance: none;
+        }
+        input.rounded:focus {
+            border-color: #E0B898;
+        }
+    </style>
+    <script>
+        function doSearch(obj)
+        {
+            if(obj.value.length == 1)
+            {
+                alert("You should input at least 2 characters.");
+            }
+            else
+            {
+                setUrlParam("keyword", obj.value, 'p', null);
+            }
+        }
+        function setOrderBy(value)
+        {
+            var orderby = "{!$CurrentPage.parameters.orderBy}";
+            if(orderby.indexOf(value) == 0)
+            {
+                if(orderby.indexOf('DESC') > 0)
+                {
+                    orderby = value + ' ASC';
+                }
+                else
+                {
+                    orderby = value + ' DESC';
+                }
+            }
+            else
+            {
+                orderby = value + ' ASC';
+            }
+            setUrlParam('orderby', orderby, 'p', null);
+        }
+        function setUrlParam(param, value, param2, value2)
+        {
+            var params = {};
+            if("{!$CurrentPage.parameters.uid}" != "")
+            {
+                params.uid = "{!$CurrentPage.parameters.uid}";
+            }
+            if("{!$CurrentPage.parameters.catchall}" != "")
+            {
+                params.catchall = "{!$CurrentPage.parameters.catchall}";
+            }
+            if("{!$CurrentPage.parameters.bucket}" != "")
+            {
+                params.bucket = "{!$CurrentPage.parameters.bucket}";
+            }
+            if("{!$CurrentPage.parameters.orderBy}" != "")
+            {
+                params.orderby = "{!$CurrentPage.parameters.orderBy}";
+            }
+            if("{!$CurrentPage.parameters.p}" != "")
+            {
+                params.p = "{!$CurrentPage.parameters.p}";
+            }
+            if("{!$CurrentPage.parameters.keyword}" != "")
+            {
+                params.keyword = "{!$CurrentPage.parameters.keyword}";
+            }
+            if(value == "null" || value == "" || value == null)
+            {
+                delete params[param];
+            }
+            else
+            {
+                params[param] = value;
+            }
+            if(param2)
+            {
+                if(value2 == "" || value2 == null)
+                {
+                    delete params[param2];
+                }
+                else
+                {
+                    params[param2] = value2;
+                }
+            }
+            var str = jQuery.param(params);
+            top.location = "/apex/PatchAssignments?" + str;
+        }
+        $(document).ready(function() {
+            var catchall = "{!$CurrentPage.parameters.catchall}";
+            if(catchall == "")
+            {
+                catchall = "null";
+            }
+            $("#catchallSel").val(catchall);
+            var bucket = "{!$CurrentPage.parameters.bucket}";
+            if(bucket == "")
+            {
+                bucket = "null";
+            }
+            $("#bucketSel").val(bucket);
+            $("#keywordIn").val("{!$CurrentPage.parameters.keyword}");
+            var orderby = "{!$CurrentPage.parameters.orderBy}";
+            if(orderby != "")
+            {
+                var orderbyParts = orderby.split(' ', 2);
+                var orderbyField = orderbyParts[0].toUpperCase();
+                var orderbyAsc = orderbyParts[1].toUpperCase();
+                $(".list .actionLink").each(function(link) {
+                    if($(this).attr("field").toUpperCase() == orderbyField)
+                    {
+                        if(orderbyAsc == "ASC")
+                        {
+                            $(this).prepend("<span class='fa fa-caret-up'>&nbsp;</span>");
+                        }
+                        else if(orderbyAsc == "DESC")
+                        {
+                            $(this).prepend("<span class='fa fa-caret-down'>&nbsp;</span>");
+                        }
+                    }
+                });
+            }
+        });
+    </script>
+    <apex:sectionHeader title="{!IF(UserId=$User.Id, 'Lead Assignments', Username)}" subtitle="{!IF(UserId=$User.Id, '', 'Lead Assignments')}" />
+    <apex:form id="form">
+        <apex:pageMessages />
+        <apex:pageBlock id="block">
+            <table style="width:100%;border-collapse: collapse">
+                <tr style="height: 30px;border-bottom: 1px solid #e0e3e5;">
+                    <td style="width: 150px">
+                        <select id="catchallSel" onchange="setUrlParam('catchall', this.value)">
+                            <optgroup label="Team Leads">
+                                <option value="null">Team Leads - All</option>
+                            </optgroup>
+                            <optgroup label="Unmatched Leads">
+                                <apex:repeat value="{!CatchallList}" var="c">
+                                    <option value="{!c.cid}">{!c.name}</option>
+                                </apex:repeat>
+                            </optgroup>
+                        </select>
+                    </td>
+                    <td style="width: 100px">
+                        <select id="bucketSel" onchange="setUrlParam('bucket', this.value)">
+                            <optgroup label="Sales">
+                                <option value="null">Sales - All</option>
+                                <option>Being Qualified</option>
+                                <option>Qualified - Untouched</option>
+                                <option>Qualified - In Progress</option>
+                                <option>Qualified - Overdue</option>
+                                <option>Deferred</option>
+                            </optgroup>
+                            <optgroup label="Marketing">
+                                <option value="Marketing">Marketing Nurturing</option>
+                            </optgroup>
+                        </select>
+                    </td>
+                    <td></td>
+                    <td style="text-align:right;width:300px;">
+                        <input type="text" class="rounded" id="keywordIn" style="width:150px" placeholder="Keyword to filter" onkeydown="if(event.keyCode == 13)doSearch(this);" />
+                        <input type="text" name="fake" value="to prevent browser auto-submit behavior" style="display:none;"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="3" style="text-align:right;padding-right:5px;padding-top:5px;">
+                        <apex:outputPanel rendered="{!PageNumberList.size == 8}" layout="inline" style="color:red">Use keyword to reduce result size. </apex:outputPanel>
+                    </td>
+                    <td style="text-align:right;padding-right:10px;padding-top:5px;">
+                        <apex:repeat value="{!PageNumberList}" var="p">
+                            <apex:outputPanel rendered="{!VALUE(p)-1 != PageIndex}" layout="none"><a href="javascript:void(0)" onclick="setUrlParam('p', '{!VALUE(p)-1}')" style="color: #015ba7">{!p}</a></apex:outputPanel>
+                            <apex:outputText rendered="{!VALUE(p)-1==PageIndex}">{!p}</apex:outputText>
+                            <apex:outputText rendered="{!p != TEXT(PageNumberList.size)}">&nbsp;|&nbsp;</apex:outputText>
+                        </apex:repeat>
+                    </td>
+                </tr>
+            </table>
+            <apex:pageBlockSection columns="1">
+            <apex:outputText rendered="{!LeadList.size == 0}">No records to display.</apex:outputText>
+            <apex:pageBlockTable value="{!LeadList}" var="l" rendered="{!LeadList.size > 0}">
+                    <apex:column >
+                        <apex:facet name="header">
+                            <a class="actionLink" href="javascript:void(0)" onclick="setOrderBy('Name')" field="Name">Name</a>
+                        </apex:facet>
+                        <a href="/{!l.LeadId}" target="_blank">{!l.Name}</a>
+                    </apex:column>
+                    <apex:column style="background-color: {!IF(OR(l.Status='Rejected', l.Status='Sales Rejected'), '#FF846C', '')}">
+                        <apex:facet name="header">
+                            <a class="actionLink" href="javascript:void(0)" onclick="setOrderBy('Status')" field="Status">Lead Status</a>
+                        </apex:facet>
+                        <div>{!l.Status}</div>
+                    </apex:column>
+                    <apex:column >
+                        <apex:facet name="header">
+                            <a class="actionLink" href="javascript:void(0)" onclick="setOrderBy('Company')" field="Company">Company</a>
+                        </apex:facet>
+                        {!l.Company}
+                    </apex:column>
+                    <apex:column >
+                        <apex:facet name="header">
+                            <a class="actionLink" href="javascript:void(0)" onclick="setOrderBy('Country')" field="Country">Country</a>
+                        </apex:facet>
+                        {!l.Country}
+                    </apex:column>
+                    <apex:column >
+                        <apex:facet name="header">
+                            <a class="actionLink" href="javascript:void(0)" onclick="setOrderBy('State')" field="State">State</a>
+                        </apex:facet>
+                        {!l.State}
+                    </apex:column>
+                    <apex:column >
+                        <apex:facet name="header">
+                            <a class="actionLink" href="javascript:void(0)" onclick="setOrderBy('Owner.Name')" field="Owner.Name">Owner</a>
+                        </apex:facet>
+                        <a href="/{!l.OwnerId}" target="_blank">{!l.OwnerName}</a>
+                    </apex:column>
+                    <apex:column >
+                        <apex:facet name="header">
+                            <a class="actionLink" href="javascript:void(0)" onclick="setOrderBy('Email')" field="Email">Email</a>
+                        </apex:facet>
+                        {!l.Email}
+                    </apex:column>
+                    <apex:column >
+                        <apex:facet name="header">
+                            <a class="actionLink" href="javascript:void(0)" onclick="setOrderBy('Phone')" field="Phone">Phone</a>
+                        </apex:facet>
+                        {!l.Phone}
+                    </apex:column>
+                    <apex:column >
+                        <apex:facet name="header">
+                            <a class="actionLink" href="javascript:void(0)" onclick="setOrderBy('Last_Campaign_Response_Date__c')" field="Last_Campaign_Response_Date__c">Last Campaign Response</a>
+                        </apex:facet>
+                        <apex:outputText value="{0, date, MM/dd/yyyy}"><apex:param value="{!l.LastCampaignResponse}"/></apex:outputText>
+                    </apex:column>
+                    <apex:column >
+                        <apex:facet name="header">
+                            <a class="actionLink" href="javascript:void(0)" onclick="setOrderBy('Last_Mkt_Campaign_Id__r.Name')" field="Last_Mkt_Campaign_Id__r.Name">Last Mkt Campaign</a>
+                        </apex:facet>
+                        <a href="/{!l.LastMktCampaignId}" target="_blank">{!l.LastMktCampaignName}</a>
+                    </apex:column>
+                    <apex:column >
+                        <apex:facet name="header">
+                            <a class="actionLink" href="javascript:void(0)" onclick="setOrderBy('Matched_Account__r.Name')" field="Matched_Account__r.Name">Matched Account</a>
+                        </apex:facet>
+                        <a href="/{!l.MatchedAccountId}" target="_blank">{!l.MatchedAccountName}</a>
+                    </apex:column>
+                    <apex:column >
+                        <apex:facet name="header">
+                            <a class="actionLink" href="javascript:void(0)" onclick="setOrderBy('Last_Status_Change__c')" field="Last_Status_Change__c">Last Status Change</a>
+                        </apex:facet>
+                        <apex:outputText value="{0, date, MM/dd/yyyy}"><apex:param value="{!l.LastStatusChange}"/></apex:outputText>
+                    </apex:column>
+                    <apex:column >
+                        <apex:facet name="header">
+                            <a class="actionLink" href="javascript:void(0)" onclick="setOrderBy('mkto2__Lead_Score__c')" field="mkto2__Lead_Score__c">Lead Score</a>
+                        </apex:facet>
+                        <apex:outputText value="{0, number, #####}"><apex:param value="{!l.LeadScore}"/></apex:outputText>
+                    </apex:column>
+                </apex:pageBlockTable>
+            </apex:pageBlockSection>
+            <table width="100%" style="border-collapse: collapse">
+                <tr>
+                    <td style="text-align:right;padding-right:5px;padding-top:5px;">
+                        <apex:outputPanel rendered="{!PageNumberList.size == 8}" layout="inline" style="color:red">Use keyword to reduce result size. </apex:outputPanel>
+                    </td>
+                    <td style="width:160px;text-align:right;padding-right:10px;padding-top:5px;">
+                        <apex:repeat value="{!PageNumberList}" var="p">
+                            <apex:outputPanel rendered="{!VALUE(p)-1 != PageIndex}" layout="none"><a href="javascript:void(0)" onclick="setUrlParam('p', '{!VALUE(p)-1}')" style="color: #015ba7">{!p}</a></apex:outputPanel>
+                            <apex:outputText rendered="{!VALUE(p)-1==PageIndex}">{!p}</apex:outputText>
+                            <apex:outputText rendered="{!p != TEXT(PageNumberList.size)}">&nbsp;|&nbsp;</apex:outputText>
+                        </apex:repeat>
+                    </td>
+                </tr>
+                </table>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

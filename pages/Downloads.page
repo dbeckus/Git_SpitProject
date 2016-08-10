@@ -1,0 +1,166 @@
+<apex:page controller="DownloadsController">
+    <apex:stylesheet value="{!URLFOR($Resource.Releases, 'css/tabShift.css')}"/>
+    <apex:stylesheet value="{!URLFOR($Resource.NewReleases, 'css/jquery-ui.css')}"/>
+    <script src="{!URLFOR($Resource.NewReleases, 'js/jquery-1.10.2.js')}"></script>
+    <script src="{!URLFOR($Resource.NewReleases, 'js/jquery-ui.js')}"></script>
+    
+    <style type="text/css">
+        .ui-accordion .ui-accordion-content {
+        padding-bottom: 10px;
+        }
+        .subBlockInfo {
+        font-family:Arial, Helvetica, sans-serif;
+        font-size: 13px;
+        
+        }
+        .ui-accordion-header a
+        {
+        color: #1975A3 !important;
+        }
+        
+        
+    </style>
+    <script type="text/javascript">
+    $j = jQuery.noConflict();
+    
+    $j(document).ready(function($)
+                       {
+                           $j("#SFDCSalesPanel").tooltip();
+                           $j("#SFDCSalesPanel").accordion({autoHeight: 'false', heightStyle: 'content', collapsible: true, active: 0});
+                           //$(".ui-accordion-header").css("background","green") ;
+                       });
+    
+    
+    </script>
+    <apex:form >
+        <ul class="nav subpageNavStyle">
+            <li class="{!IF(ActiveTab = 'VAP', 'hovered', '')}">
+                <apex:commandLink action="{!changeBuilds}" value="Initial Installation Packages" styleClass="{!IF(ActiveTab = 'VAP', 'active', '')}">
+                    <apex:param name="tab" value="VAP"/>
+                    <apex:param name="clear" value="true"/>
+                </apex:commandLink>
+                
+            </li>
+            <li class="{!IF(ActiveTab = 'VXOA Release', 'hovered', '')}">
+                <apex:commandLink action="{!changeBuilds}" value="Software Upgrades" styleClass="{!IF(ActiveTab = 'VXOA Release', 'active', '')}">
+                    <apex:param name="tab" value="VXOA Release"/>
+                    <apex:param name="clear" value="true"/>
+                </apex:commandLink>
+            </li>
+            
+        </ul>
+        
+        <apex:pageBlock rendered="{!AND(ActiveTab='VAP')}">
+            <div id="SFDCSalesPanel">
+                
+                <h3 ><a href="#" >VMware</a></h3>
+                <div >
+                    <apex:repeat value="{!VapReleases}" var="release">
+                        <li>
+                            <!--<apex:outputLink styleClass="subBlockInfo" value="/apex/NewReleases?relType=VMWare&relName={!release.Name}&reldtl={!release.Id}">{!release.Name}</apex:outputLink><br />-->
+                            <apex:commandLink value="{!release.Name}" action="{!changeBuilds}">
+                                <apex:param name="subtab" value="VMware" />
+                                <apex:param name="model" value="{!release.Name}"/>
+                                <apex:param name="releaseDtl" value="{!release.Id}"/>
+                            </apex:commandLink>
+                        </li>
+                    </apex:repeat>
+                </div>
+                <h3 ><a href="#" >Xen</a></h3>
+                <div>
+                    <apex:repeat value="{!ISOModels}" var="isoModel">
+                        <li>
+                            <!-- <apex:outputLink styleClass="subBlockInfo" value="/apex/NewReleases?relType=Xen&relName={!isoModel}">{!isoModel}</apex:outputLink><br />-->
+                            <apex:commandLink value="{!isoModel}" action="{!changeBuilds}">
+                                <apex:param name="subtab" value="Xen" />
+                                <apex:param name="model" value="{!isoModel}" />
+                            </apex:commandLink>
+                        </li>
+                    </apex:repeat>
+                    
+                    
+                </div>
+                <h3 ><a href="#" >Hyper-V</a></h3>
+                <div>
+                    <apex:repeat value="{!ISOModels}" var="isoModel">
+                        <li>
+                            <apex:commandLink value="{!isoModel}" action="{!changeBuilds}">
+                                <apex:param name="subtab" value="Hyper-V" />
+                                <apex:param name="model" value="{!isoModel}" />
+                            </apex:commandLink>
+                        </li>
+                    </apex:repeat>
+                </div>
+                <h3 ><a href="#">KVM</a></h3>
+                <div>
+                    <apex:repeat value="{!ISOModels}" var="isoModel">
+                        <li>
+                            <apex:commandLink value="{!isoModel}" action="{!changeBuilds}">
+                                <apex:param name="subtab" value="KVM" />
+                                <apex:param name="model" value="{!isoModel}" />
+                            </apex:commandLink>
+                        </li>
+                    </apex:repeat>
+                </div>
+            </div>
+            
+        </apex:pageBlock>
+        <apex:pageblock rendered="{!AND(ActiveTab='VXOA Release')}" >
+            <div>
+               <apex:commandLink value="VXOA Software Releases" action="{!changeBuilds}">
+                                <apex:param name="subtab" value="VXOA Release" />
+                                     <apex:param name="model" value="VXOA Release" />
+                </apex:commandLink><br/>
+                 <apex:commandLink value="Orchestrator (GMS)" action="{!changeBuilds}">
+                                <apex:param name="subtab" value="GMS" />
+                                <apex:param name="model" value="Orchestrator(GMS)" />
+                            </apex:commandLink><br/>
+                 <apex:commandLink value="EdgeConnect Releases" action="{!changeBuilds}">
+                                <apex:param name="subtab" value="EdgeConnect" />
+                        <apex:param name="model" value="EdgeConnect Releases" />
+                            </apex:commandLink><br/>
+          
+           
+              </div>
+            
+        </apex:pageblock>
+        
+        <!-- <apex:pageBlock rendered="{!IF(ActiveTab = 'VXOA Release',true,false)}">
+<apex:commandLink action="{!changeBuilds}" value="Click to see all the Software Upgrades" styleClass="{!IF(ActiveTab = 'VXOA Release', 'active', '')}">
+<apex:param name="tab" value="VXOA Release"/>
+<apex:param name="subtab" value="VXOA Release"/>
+<apex:param name="clear" value="true"/>
+</apex:commandLink>
+</apex:pageBlock>
+
+<apex:pageBlock rendered="{!NOT(ISNULL(RecommendedBuilds)) && RecommendedBuilds.size > 0}">
+<apex:pageBlockTable value="{!RecommendedBuilds}" var="build">
+<apex:column width="12%">
+<apex:outputText value="Recommended" style="color:red;" rendered="{!build.IsRecommended__c}"/>
+</apex:column>
+<apex:column width="12%" headerValue="Release Number">
+<apex:outputLink style="text-decoration:none; color:#015BA7;" value="/apex/BuildDetail?id={!build.Id}">{!build.ReleaseCode__c}</apex:outputLink>
+</apex:column>
+<apex:column width="12%" headerValue="Release Date" value="{!build.ECO_Date__c}"/>
+<apex:column width="64%" headerValue="Release Highlights">
+<apex:outputField value="{!build.Build_Details__c}"/>
+</apex:column>
+</apex:pageBlockTable>
+</apex:pageBlock>
+<apex:pageBlock rendered="{!NOT(ISNULL(OtherBuilds)) && OtherBuilds.size > 0}">
+<apex:pageBlockTable value="{!OtherBuilds}" var="buildb">
+<apex:column width="12%">
+<apex:outputText value="Archived" style="color:blue;" />
+</apex:column>
+<apex:column width="12%" headerValue="Release Number">
+<apex:outputLink style="text-decoration:none; color:#015BA7;" value="/apex/BuildDetail?id={!buildb.Id}">{!buildb.ReleaseCode__c}</apex:outputLink>
+</apex:column>
+<apex:column width="12%" headerValue="Release Date" value="{!buildb.ECO_Date__c}"/>
+<apex:column width="64%" headerValue="Release Highlights">
+<apex:outputField value="{!buildb.Build_Details__c}"/>
+</apex:column>
+</apex:pageBlockTable>
+</apex:pageBlock>-->
+        
+    </apex:form>
+</apex:page>

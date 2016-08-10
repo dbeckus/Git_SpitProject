@@ -1,0 +1,117 @@
+<apex:page showHeader="false" contentType="{!IF($CurrentPage.parameters.op == '0','text/javascript', 'text/html')}" controller="LicenseAgreementController" action="{!setLicenseAgreement}" >
+    function generateWindow() 
+    {
+        //generate html elements
+        var screenWidth = document.body.clientWidth;
+        var licenseLeftValue = screenWidth/2 - 250;
+        var body = document.getElementsByTagName("body")[0];
+            var maskDiv = document.createElement("div");
+                maskDiv.setAttribute("id","maskDiv");
+                maskDiv.style.position = "absolute";              
+                maskDiv.style.width = "10000px";
+                maskDiv.style.height = "10000px";            
+                maskDiv.style.top = "0px"; 
+                maskDiv.style.left = "0px"; 
+                maskDiv.style.backgroundImage = "url({!$Resource.MaskBkg})";
+                maskDiv.style.display = "none";            
+            var licenseDiv = document.createElement("div");
+                licenseDiv.style.position = "relative";
+                licenseDiv.style.width = "500px";
+                licenseDiv.style.height ="415px";
+                licenseDiv.style.top = "1%"; 
+                licenseDiv.style.left = licenseLeftValue + "px";             
+                licenseDiv.style.backgroundColor = "white";
+                licenseDiv.style.boxShadow = "0px 0px 10px black";
+                licenseDiv.style.textAlign = "center";
+            var headerDiv =document.createElement("div");
+                var headerText = document.createElement("span");
+                headerText.innerHTML = "Export/Import Representation";
+                headerDiv.appendChild(headerText);
+                headerDiv.style.textAlign = "right";
+                headerDiv.style.padding = "10px 0px 10px 10px";
+                headerDiv.style.fontSize = "20px";
+                headerDiv.style.backgroundColor = "rgb(238,240,241)";
+            var closeButton = document.createElement("span");
+                closeButton.innerHTML = "&nbsp;&nbsp;";
+                closeButton.style.cursor = "pointer";
+                closeButton.style.width = "20px";
+                closeButton.style.marginLeft = "100px";
+            headerDiv.appendChild(closeButton);   
+            var contentDiv = document.createElement("div");        
+                contentDiv.style.padding = "10px 0px 10px 10px";
+                contentDiv.style.borderBottomColor = "rgb(125,125,125)";  
+                var textarea = document.createElement("textarea");          
+                    textarea.style.maxWidth = "450px";
+                    textarea.style.maxHeight = "300px";
+                    textarea.style.width = "450px";
+                    textarea.style.height = "300px"; 
+                    textarea.disabled = true; 
+                    textarea.wrapp = "virtual";
+                    textarea.value = 'Silver Peak software and license keys are subject to United States export controls and may be subject to the export or import regulations of other countries. You agree to comply strictly with all applicable export and import laws and regulations. In particular, you: \n\n  (a) represent and warrant that you are not a party identified on any government export exclusion lists, including but not limited to the U.S. Denied Persons, Entity, and Specially Designated Nationals Lists; \n\n  (b) you are not located in or a national of a country subject to U.S. embargo or trade sanctions; \n\n  (c) agree not to use the Service for military, nuclear, missile, chemical or biological weaponry end uses in violation of U.S. export laws; and \n\n  (d) agree not to re-export or transfer Silver Peak software and/or license keys in violation of the U.S. export controls.';
+            contentDiv.appendChild(textarea);       
+            var buttonDiv = document.createElement("div");
+                buttonDiv.style.padding = "7px 0px 10px 30px";
+                buttonDiv.style.textAlign = "justify";
+                var licenseCheckbox = document.createElement("input");
+                    licenseCheckbox.setAttribute("id","licenseCheckbox");
+                    licenseCheckbox.style.marginLeft = "30px";
+                    licenseCheckbox.type = "checkbox";
+                var label = document.createElement("label");
+                    label.setAttribute("for","licenseCheckbox");
+                var labelText = document.createTextNode("I will comply with the above representations");
+                    label.appendChild(labelText);
+                var spanAgree = document.createElement("span");
+                    spanAgree.style.display = "inline-block";
+                    spanAgree.style.padding = "2px 10px 2px 10px";
+                    spanAgree.style.marginLeft = "100px";
+                    spanAgree.style.fontSize = "15px";
+                    spanAgree.style.border = "1px solid rgb(238,240,241)";
+                    spanAgree.style.color = "rgb(140,140,140)";
+                    spanAgree.style.marginRight = "10px";
+                    var spanAgreeText = document.createTextNode("Agree");
+                    spanAgree.appendChild(spanAgreeText);                  
+                    spanAgree.onmouseover = function(){spanAgree.style.backgroundColor = "rgb(238,240,241)";spanAgree.style.cursor = "pointer";}
+                    spanAgree.onmouseout = function(){ spanAgree.style.backgroundColor = "white";}
+            buttonDiv.appendChild(licenseCheckbox);
+            buttonDiv.appendChild(label);            
+            buttonDiv.appendChild(spanAgree);            
+            var iframeObj = document.createElement("iframe");
+                iframeObj.width = "10px";
+                iframeObj.height = "10px";
+                iframeObj.style.display = "none";   
+                iframeObj.style.padding = "0px";         
+                iframeObj.style.margin = "0px";                 
+        //add checkbox click event. 
+        licenseCheckbox.onclick = function(){
+            if(licenseCheckbox.checked == true)
+            {
+                spanAgree.style.color = "rgb(0,0,0)";
+                spanAgree.onclick = function(){ iframeObj.src = "/apex/LicenseAgreementInvoke?op=1"; iframeObj.onload = function(){ maskDiv.style.display="none";};iframeObj.attachEvent('onload',function(){ maskDiv.style.display = "none";});}                
+            }
+            else
+            {
+                spanAgree.onclick = function(){};
+                spanAgree.style.color = "rgb(140,140,140)";
+            }                
+        }
+        closeButton.onclick = function() {
+            body.removeChild(maskDiv);
+        }
+        //add all element nodes.                     
+        licenseDiv.appendChild(headerDiv); 
+        licenseDiv.appendChild(contentDiv);
+        licenseDiv.appendChild(buttonDiv);
+        licenseDiv.appendChild(iframeObj);        
+        maskDiv.appendChild(licenseDiv);
+        body.appendChild(maskDiv);
+        
+        var licenseAgreementChecked = {!IsAgree};
+        if(licenseAgreementChecked != true)
+        {
+            var maskDiv = document.getElementById("maskDiv");
+            maskDiv.style.display = "block";
+        }
+    }    
+    
+    generateWindow();
+</apex:page>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Opportunity Stage Transition</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Opportunity Stage Transition</value>
+    </caseValues>
+    <fields>
+        <label><!-- From Stage --></label>
+        <name>FromStage__c</name>
+    </fields>
+    <fields>
+        <label><!-- To Stage --></label>
+        <name>ToStage__c</name>
+    </fields>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

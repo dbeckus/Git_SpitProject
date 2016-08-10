@@ -1,0 +1,86 @@
+<apex:page sidebar="false" showHeader="false" cache="false" id="page" controller="UpcomingEventsPartnerController">
+    <apex:stylesheet value="{!URLFOR($Resource.RegistrationProcess, 'res/css/main.css')}"/>
+    <script type="text/javascript">
+        function toggle(blockID)
+        {
+          var block = document.getElementById(blockID);            
+          var locationBlock = document.getElementById(blockID + "location");            
+          var displayProperty = block.style.display;
+          var subDescriptionSpan = document.getElementById(blockID + "subDescription");            
+          var subLocation = document.getElementById(blockID + "subLocation");            
+          var text = document.getElementById(blockID + "Tog");
+            
+          if (displayProperty == 'none')
+          {
+            block.style.display = 'block';
+            locationBlock.style.display = "block";              
+            subDescriptionSpan.style.display = "none";
+            subLocation.style.display = "none";              
+            text.innerHTML = "[&ndash;] Hide Event Details";
+          }
+          else
+          {
+            block.style.display = 'none';
+            locationBlock.style.display = "none";              
+            subDescriptionSpan.style.display = "block";              
+            subLocation.style.display = "block";              
+            text.innerHTML = "[+] Expand Event Details";
+          }
+        }
+        
+        function toggle2(blockID)
+        {
+          var block = document.getElementById(blockID);
+          var displayProperty = block.style.display;
+          var text = document.getElementById(blockID + "Tog");
+          
+          if (displayProperty == 'none')
+          {
+            block.style.display = 'block';
+            text.innerHTML = "[&ndash;] Hide Event Details/Hide Dates";
+          }
+          else
+          {
+            block.style.display = 'none';
+            text.innerHTML = "[+] Expand Event Details/See More Dates";
+          }
+        }
+    </script>
+    <apex:composition template="{!$Site.Template}">
+        <apex:define name="body">
+            <h2 class="step4">Upcoming Events</h2>
+            <apex:outputPanel rendered="{!AllEvents.size == 0}">
+                <p>No upcoming events...</p>
+            </apex:outputPanel>              
+            <ul class="eventsList">
+                <apex:variable var="index" value="{!1}" />
+                <apex:repeat value="{!allEvents}" var="event" rendered="{!allEvents.size > 0}">
+                    <li> 
+                        <div class="eventsInfo">
+                        <h3 class="eventsTitle">{!event.CourseName} <span class="date">{!event.StartDate} - {!event.EndDate}</span></h3>    
+                        <div class="eventsIntro" style="font-size:12px; font-style:italic;" > 
+                            <p><span><b>Openings:</b> {!event.Openings}</span><span style="margin-left:100px"><b>Class Time:</b> {!event.SessionTime}</span></p>
+                            <div id="{!FLOOR(index)}subLocation"><b>Location: </b><apex:outputText value="{!event.SubLocation}" escape="false" /></div>
+                            <div id="{!FLOOR(index)}location" style="display:none; padding:8px 0;"> 
+                                <p><b>Location: </b><br/><apex:outputText value="{!event.Location}" escape="false" /></p>
+                            </div> 
+                            <!--<p>Maximum Attendees: {!event.MaximumAttendees}</p>
+                            <p>Registered Attendees: {!event.RegisteredAttendees}</p>
+                            <p>Confirmed Registrations: {!event.ConfirmedRegistrations}</p>-->
+                            <div id="{!FLOOR(index)}subDescription"><apex:outputText value="{!event.SubDescription}" escape="false" /></div>
+                            <div id="{!FLOOR(index)}" style="display:none; padding:8px 0;"> 
+                                <b>This interactive event includes coverage of the following:</b>
+                                <p><apex:outputText value="{!event.Description}" escape="false" /></p>
+                            </div>                            
+                            <a href="javascript:toggle('{!FLOOR(index)}');" id="{!FLOOR(index)}Tog" style="font-weight:bold;">[+] Expand Details</a>                    
+                        </div>                                          
+                        </div><!--eventsInfo-->
+                        <a class="eventsLink" href="{!$Page.RegisterInformationPartner}?event={!event.EventId}">register ></a>
+                        <div class="clearfix"></div>
+                    </li>
+                    <apex:variable var="index" value="{!index + 1}" />
+                </apex:repeat>                                  
+            </ul><!--eventsList-->   
+        </apex:define>
+    </apex:composition>
+</apex:page>

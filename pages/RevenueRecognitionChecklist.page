@@ -1,0 +1,422 @@
+<apex:page controller="RevenueRecognitionChecklistController" tabStyle="Opportunity" showHeader="false" id="page" >
+    <link href="{!URLFOR($Resource.HelpText, '/res/css/jquery.tooltip.css')}" rel="stylesheet" type="text/css"/>
+    <script src="{!URLFOR($Resource.HelpText, '/res/js/jquery-1.4.2.min.js')}" type="text/javascript"></script>
+    <script src="{!URLFOR($Resource.HelpText, '/res/js/jquery.tooltip.js')}" type="text/javascript"></script>
+    <script src="{!URLFOR($Resource.HelpText, '/res/js/BMRtooltip.js')}" type="text/javascript"></script>
+    <script src="{!URLFOR($Resource.HelpText, '/res/js/tableDisplayControl.js')}" type="text/javascript"></script>
+    <script type="text/javascript">
+        function enable(clicked, textareaId)
+        {
+            var id = clicked.id;
+            var selectValue = $(id).value; 
+            var checkedValue = ""; 
+            
+            if(clicked.type == "checkbox")
+            {
+                checkedValue = $(id).checked;
+            }
+            
+            if(selectValue.toLowerCase() == "yes" || checkedValue == true)
+            {
+                $(textareaId).disabled = false;
+            }
+            else
+            {
+                $(textareaId).value = "";
+                $(textareaId).disabled = true;
+            }          
+        }
+        
+        function printPage()
+        {
+            $("page:form:pageBlock").className = "displaynone";
+            $("printspan").className = "";
+        }
+        
+        function $(id)
+        {
+            return "string" == typeof id ? document.getElementById(id) : id;
+        }
+    
+        function selectGoingAbroad(sender)
+        {            
+            var foreignGovernorLabel = $('foreignGovernorLabel');
+            var foreignGovernorInput = $('page:form:pageBlock:section:foreignGovernorItem:foreignGovernorInput');
+            if(sender.value == "Yes")
+            {
+                foreignGovernorLabel.style.display = "";
+                foreignGovernorInput.style.display = "";
+            }
+            else
+            {
+                foreignGovernorLabel.style.display = "none";
+                foreignGovernorInput.style.display = "none"; 
+                foreignGovernorInput.value = "";
+            }
+        }    
+    </script>
+    <style type="text/css">
+        .printbtn
+        {
+            width:120px;
+            float:right;        
+        }
+        .ulbtn
+        {
+            padding:0px;
+            margin:0px;
+        }
+        .displaynone
+        {
+            display:none;
+        }
+
+    </style>
+    <style type="text/css" media="print">
+        .printbtn
+        {
+            display: none;       
+        }
+    </style>
+    <apex:form id="form">
+        <apex:outputPanel >
+            <apex:pageMessages escape="false" />    
+        </apex:outputPanel>
+        <apex:pageBlock rendered="{!NOT(isAccessible)}">
+            <center>
+                <h1>The Revenue Recognition checklist information can only be completed by the Opportunity Owner or the finance users.</h1><br/>
+                <input type="button" value="Close" class="btn" onclick="window.close()" />
+            </center>
+        </apex:pageBlock>
+        <apex:pageBlock title="Revenue Recognition Checklist" mode="edit" id="pageBlock" rendered="{!(isAccessible)&&Not(isSaved)}">
+            <apex:pageBlockButtons location="bottom" >
+                <apex:commandButton value="Save" action="{!save}" />
+                <input type="button" value="Cancel" class="btn" onclick="window.close()" />
+            </apex:pageBlockButtons>           
+            <div class="printbtn">
+                <a href="javascript:printPage();">Printable View</a>
+            </div>
+            <apex:pageBlockSection id="section">
+                <apex:pageBlockSectionItem >
+                    <span class="helpButton">Does the customer have right of return?</span>
+                    <a title="{!$ObjectType.RevenueRecognitionChecklist__c.Fields.RightOfReturn__c.inlineHelpText}" class="questionMark" href="#">
+                        <img src="{!URLFOR($Resource.HelpText,'/res/pic/questionMark.gif')}" alt="" /></a>      
+                    <apex:inputField value="{!rrChecklist.RightOfReturn__c}"/>
+                </apex:pageBlockSectionItem>
+                 
+                <apex:outputText />
+                      
+                <apex:pageBlockSectionItem >
+                    <span>Roadmap Information</span>
+                    <a title="{!$ObjectType.RevenueRecognitionChecklist__c.Fields.Roadmap_Information__c.inlineHelpText}" class="questionMark" href="#">
+                        <img src="{!URLFOR($Resource.HelpText,'/res/pic/questionMark.gif')}" alt="" /></a>      
+                    <apex:inputField value="{!rrChecklist.Roadmap_Information__c}"/>
+                </apex:pageBlockSectionItem>  
+                  
+                <apex:outputText />
+                
+                <apex:pageBlockSectionItem >
+                    <span>Are any of the units (including virtual) ultimately going outside of the United States?</span>
+                    <a title="{!$ObjectType.RevenueRecognitionChecklist__c.Fields.UnitsGoingAbroad__c.inlineHelpText}" class="questionMark" href="#">
+                        <img src="{!URLFOR($Resource.HelpText,'/res/pic/questionMark.gif')}" alt="" /></a>      
+                    <apex:inputField value="{!rrChecklist.UnitsGoingAbroad__c}" onchange="selectGoingAbroad(this)"/>
+                </apex:pageBlockSectionItem>
+                                      
+                <apex:pageBlockSectionItem id="foreignGovernorItem">
+                    <span id="foreignGovernorLabel" style="display:{!IF(rrChecklist.UnitsGoingAbroad__c == 'Yes', '', 'none')}"><span>Is the end user a foreign government entity?</span>
+                    <a title="{!$ObjectType.RevenueRecognitionChecklist__c.Fields.Is_Foreign_Governor_Entity__c.inlineHelpText}" class="questionMark" href="#">
+                        <img src="{!URLFOR($Resource.HelpText,'/res/pic/questionMark.gif')}" alt="" /></a>
+                    </span>                 
+                    <apex:inputField id="foreignGovernorInput" style="display:{!IF(rrChecklist.UnitsGoingAbroad__c == 'Yes', '', 'none')}" value="{!rrChecklist.Is_Foreign_Governor_Entity__c}" />
+                </apex:pageBlockSectionItem>
+                 
+                <apex:pageBlockSectionItem id="contingenciesItem">
+                    <span>Contingencies of Sale (If yes, describe them)</span>
+                    <a title="{!$ObjectType.RevenueRecognitionChecklist__c.Fields.Contingencies_of_Sale__c.inlineHelpText}" class="questionMark" href="#">
+                        <img src="{!URLFOR($Resource.HelpText,'/res/pic/questionMark.gif')}" alt="" /></a>      
+                    <apex:inputField value="{!rrChecklist.Contingencies_of_Sale__c}" id="contingencies" onchange="enable(this,'page:form:pageBlock:section:contingenciesDescItem:contingenciesDesc')" />
+                </apex:pageBlockSectionItem>  
+               <apex:pageBlockSectionItem id="contingenciesDescItem">
+                    <span>Describe Contingencies</span>
+                    <a title="{!$ObjectType.RevenueRecognitionChecklist__c.Fields.Describe_Contingencies__c.inlineHelpText}" class="questionMark" href="#">
+                        <img src="{!URLFOR($Resource.HelpText,'/res/pic/questionMark.gif')}" alt="" /></a>      
+                    <apex:inputTextarea value="{!rrChecklist.Describe_Contingencies__c}" id="contingenciesDesc" rows="3"  style="width:100%" />
+                </apex:pageBlockSectionItem>                 
+                <apex:pageBlockSectionItem id="ffExpectedItem" >
+                    <span>Future Features Expected (If yes, describe them)</span>
+                    <a title="{!$ObjectType.RevenueRecognitionChecklist__c.Fields.Future_Features_Expected__c.inlineHelpText}" class="questionMark" href="#">
+                        <img src="{!URLFOR($Resource.HelpText,'/res/pic/questionMark.gif')}" alt="" /></a>      
+                    <apex:inputField value="{!rrChecklist.Future_Features_Expected__c}" id="ffExpected" onchange="enable(this,'page:form:pageBlock:section:ffExpectedDescItem:ffExpectedDesc')"/>
+                </apex:pageBlockSectionItem>    
+                <apex:pageBlockSectionItem id="ffExpectedDescItem">
+                    <span>Future Features Expected Specifics</span>
+                    <a title="{!$ObjectType.RevenueRecognitionChecklist__c.Fields.Future_Features_Expected_Specifics__c.inlineHelpText}" class="questionMark" href="#">
+                        <img src="{!URLFOR($Resource.HelpText,'/res/pic/questionMark.gif')}" alt="" /></a>      
+                    <apex:inputTextarea value="{!rrChecklist.Future_Features_Expected_Specifics__c}" id="ffExpectedDesc"  rows="3"  style="width:100%" />
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem id="customerTraining" >
+                    <span>Does customer expect to receive Training or WAN Start at no charge?</span>
+                    <a title="{!$ObjectType.RevenueRecognitionChecklist__c.Fields.TrainingOrWANStartExpectations__c.inlineHelpText}" class="questionMark" href="#">
+                        <img src="{!URLFOR($Resource.HelpText,'/res/pic/questionMark.gif')}" alt="" /></a>      
+                    <apex:inputField value="{!rrChecklist.TrainingOrWANStartExpectations__c}" id="training" onchange="enable(this,'page:form:pageBlock:section:trainingDescItem:trainingDesc')"/>
+                </apex:pageBlockSectionItem>    
+                <apex:pageBlockSectionItem id="trainingDescItem">
+                    <span>Describe Customer Expectations</span>
+                    <a title="{!$ObjectType.RevenueRecognitionChecklist__c.Fields.DescribeExpectations__c.inlineHelpText}" class="questionMark" href="#">
+                        <img src="{!URLFOR($Resource.HelpText,'/res/pic/questionMark.gif')}" alt="" /></a>      
+                    <apex:inputTextarea value="{!rrChecklist.DescribeExpectations__c}" id="trainingDesc"  rows="3"  style="width:100%" />
+                </apex:pageBlockSectionItem>   
+                <apex:pageBlockSectionItem id="installationItem">
+                    <span>Does customer expect installation by SP</span>
+                    <a title="{!$ObjectType.RevenueRecognitionChecklist__c.Fields.InstallationExpectations__c.inlineHelpText}" class="questionMark" href="#">
+                        <img src="{!URLFOR($Resource.HelpText,'/res/pic/questionMark.gif')}" alt="" /></a>      
+                    <apex:inputField value="{!rrChecklist.InstallationExpectations__c}" id="installation" onchange="enable(this,'page:form:pageBlock:section:installationDescItem:installationDesc'),enable(this,'page:form:pageBlock:section:installationDateItem:installationDate')"/>
+                </apex:pageBlockSectionItem>    
+                <apex:pageBlockSectionItem id="installationDateItem">
+                    <span>Installation Date</span>
+                    <a title="{!$ObjectType.RevenueRecognitionChecklist__c.Fields.Installation_Date__c.inlineHelpText}" class="questionMark" href="#">
+                        <img src="{!URLFOR($Resource.HelpText,'/res/pic/questionMark.gif')}" alt="" /></a>      
+                    <apex:inputField value="{!rrChecklist.Installation_Date__c}" id="installationDate"/>
+                </apex:pageBlockSectionItem>    
+    
+                <apex:outputText />
+                              
+                <apex:pageBlockSectionItem id="installationDescItem">
+                    <span>Installation Notes</span>
+                    <a title="{!$ObjectType.RevenueRecognitionChecklist__c.Fields.Installation_Notes__c.inlineHelpText}" class="questionMark" href="#">
+                        <img src="{!URLFOR($Resource.HelpText,'/res/pic/questionMark.gif')}" alt="" /></a>      
+                    <apex:inputTextarea value="{!rrChecklist.Installation_Notes__c}" id="installationDesc" rows="3"  style="width:100%" />
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem id="otherProItem">
+                    <span>Other Promises Made (If yes, describe them)</span>
+                    <a title="{!$ObjectType.RevenueRecognitionChecklist__c.Fields.Other_Promises_Made__c.inlineHelpText}" class="questionMark" href="#">
+                        <img src="{!URLFOR($Resource.HelpText,'/res/pic/questionMark.gif')}" alt="" /></a>      
+                    <apex:inputField value="{!rrChecklist.Other_Promises_Made__c}" id="otherPro" onchange="enable(this,'page:form:pageBlock:section:otherProDescItem:otherProDesc')"/>
+                </apex:pageBlockSectionItem>               
+                <apex:pageBlockSectionItem id="otherProDescItem">
+                    <span>Other Promises Made Disclosure</span>
+                    <a title="{!$ObjectType.RevenueRecognitionChecklist__c.Fields.Other_Promises_Made_Disclosure__c.inlineHelpText}" class="questionMark" href="#">
+                        <img src="{!URLFOR($Resource.HelpText,'/res/pic/questionMark.gif')}" alt="" /></a>      
+                    <apex:inputTextarea value="{!rrChecklist.Other_Promises_Made_Disclosure__c}" id="otherProDesc" rows="3"  style="width:100%" />
+                </apex:pageBlockSectionItem>
+                    
+                <apex:outputField value="{!rrChecklist.Reminders__c}"/> 
+                <apex:outputField value="{!rrChecklist.Reminders__c}"/> 
+                
+                <apex:pageBlockSectionItem >
+                    <span>Signature of Opportunity Owner</span>
+                    <a title="{!$ObjectType.RevenueRecognitionChecklist__c.Fields.Signature_of_Opportunity_Owner__c.inlineHelpText}" class="questionMark" href="#">
+                        <img src="{!URLFOR($Resource.HelpText,'/res/pic/questionMark.gif')}" alt="" /></a>       
+                    <apex:inputField value="{!rrChecklist.Signature_of_Opportunity_Owner__c}"/>
+                </apex:pageBlockSectionItem>    
+                <apex:pageBlockSectionItem id="finRevItem">
+                    <span>Finance Reviewed</span>
+                    <a title="{!$ObjectType.RevenueRecognitionChecklist__c.Fields.Finance_Reviewed__c.inlineHelpText}" class="questionMark" href="#">
+                        <img src="{!URLFOR($Resource.HelpText,'/res/pic/questionMark.gif')}" alt="" /></a>                   
+                    <apex:inputField value="{!rrChecklist.Finance_Reviewed__c}" id="finRev" />
+                </apex:pageBlockSectionItem>                
+                <apex:pageBlockSectionItem >
+                    <span>Signed At</span>
+                    <a title="{!$ObjectType.RevenueRecognitionChecklist__c.Fields.Signed_At__c.inlineHelpText}" class="questionMark" href="#">
+                        <img src="{!URLFOR($Resource.HelpText,'/res/pic/questionMark.gif')}" alt="" /></a>      
+                    <apex:outputField value="{!rrChecklist.Signed_At__c}"/>
+                </apex:pageBlockSectionItem>                
+                <apex:pageBlockSectionItem >
+                    <span>Finance Released At</span>
+                    <a title="{!$ObjectType.RevenueRecognitionChecklist__c.Fields.Finance_Released_At__c.inlineHelpText}" class="questionMark" href="#">
+                        <img src="{!URLFOR($Resource.HelpText,'/res/pic/questionMark.gif')}" alt="" /></a>      
+                    <apex:outputField value="{!rrChecklist.Finance_Released_At__c}"/>
+                </apex:pageBlockSectionItem>  
+                <apex:pageBlockSectionItem >
+                    <span>Signed By</span>
+                    <a title="{!$ObjectType.RevenueRecognitionChecklist__c.Fields.Signed_By__c.inlineHelpText}" class="questionMark" href="#">
+                        <img src="{!URLFOR($Resource.HelpText,'/res/pic/questionMark.gif')}" alt="" /></a>      
+                    <apex:outputField value="{!rrChecklist.Signed_By__c}"/>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem id="finRevDescItem" >
+                    <span>Finance Review Notes </span>
+                    <a title="{!$ObjectType.RevenueRecognitionChecklist__c.Fields.Finance_Review_Notes__c.inlineHelpText}" class="questionMark" href="#">
+                        <img src="{!URLFOR($Resource.HelpText,'/res/pic/questionMark.gif')}" alt="" /></a>                  
+                    <apex:inputTextarea value="{!rrChecklist.Finance_Review_Notes__c}" id="finRevDesc" rows="3"  style="width:100%" />
+                </apex:pageBlockSectionItem>               
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+        
+        <span id="printspan" class="displaynone">
+            <apex:pageBlock title="Revenue Recognition Checklist" mode="maindetail" id="prtpageBlock">           
+                <div class="printbtn">
+                    <ul class="ulbtn">
+                        <li>
+                            <a href="javascript:window.close();">Close Window</a>
+                        </li>
+                        <li>
+                            <a href="javascript:window.print();">Print This Page</a>
+                        </li>
+                    </ul>
+                </div>           
+                <apex:pageBlockSection id="prtsection">
+                    <apex:pageBlockSectionItem >
+                        <span>Opportunity Name</span>
+                        <apex:outputField value="{!oppInfo.Name}"/>
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem >
+                        <span>Account Name</span>
+                        <apex:outputField value="{!oppInfo.AccountId}"/>
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem >
+                        <span>Opportunity Owner</span>
+                        <apex:outputField value="{!oppInfo.OwnerId}"/>
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem >
+                        <span>Finance Id</span>
+                        <apex:outputField value="{!oppInfo.Finance_Id__c}"/>
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem >
+                        <span>Does the customer have right of return?</span>
+                        <apex:outputField value="{!rrChecklist.RightOfReturn__c}"/>
+                    </apex:pageBlockSectionItem>
+                     
+                    <apex:outputText />    
+                          
+                    <apex:pageBlockSectionItem >
+                        <span>Roadmap Information</span>
+                        <apex:outputField value="{!rrChecklist.Roadmap_Information__c}"/>
+                    </apex:pageBlockSectionItem>  
+                      
+                    <apex:outputText />
+                    
+                    <apex:pageBlockSectionItem >
+                        <span>Are any of the units (including virtual) ultimately going outside of the United States?</span>
+                        <apex:outputField value="{!rrChecklist.UnitsGoingAbroad__c}"/>
+                    </apex:pageBlockSectionItem>
+                    
+                    <apex:pageBlockSectionItem id="foreignGovernorItem" rendered="{!IF(rrChecklist.UnitsGoingAbroad__c == 'Yes', 'true', 'false')}" >
+                        <span>Is Foreign Governor Entity</span>
+                        <apex:outputField value="{!rrChecklist.Is_Foreign_Governor_Entity__c}" id="foreignGovernor" />
+                    </apex:pageBlockSectionItem>
+                     
+                    <apex:pageBlockSectionItem id="prtcontingenciesItem">
+                        <span>Contingencies of Sale (If yes, describe them)</span>
+                        <apex:outputField value="{!rrChecklist.Contingencies_of_Sale__c}" id="contingencies" />
+                    </apex:pageBlockSectionItem>  
+                   <apex:pageBlockSectionItem id="prtcontingenciesDescItem">
+                        <span>Describe Contingencies</span>
+                        <apex:outputField value="{!rrChecklist.Describe_Contingencies__c}" id="prtcontingenciesDesc" />
+                    </apex:pageBlockSectionItem>                 
+                    <apex:pageBlockSectionItem id="prtffExpectedItem" >
+                        <span>Future Features Expected (If yes, describe them)</span>
+                        <apex:outputField value="{!rrChecklist.Future_Features_Expected__c}" id="ffExpected" />
+                    </apex:pageBlockSectionItem>    
+                    <apex:pageBlockSectionItem id="prtffExpectedDescItem">
+                        <span>Future Features Expected Specifics</span>
+                        <apex:outputField value="{!rrChecklist.Future_Features_Expected_Specifics__c}" id="prtffExpectedDesc" />
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem id="prtCustomerTraining" >
+                        <span>Does customer expect to receive Training or WAN Start at no charge?</span>
+                        <apex:outputField value="{!rrChecklist.TrainingOrWANStartExpectations__c}" id="ffExpected" />
+                    </apex:pageBlockSectionItem>    
+                    <apex:pageBlockSectionItem id="prtTrainingDescItem">
+                        <span>Describe Expectations</span>
+                        <apex:outputField value="{!rrChecklist.DescribeExpectations__c}" id="prtExpectedDesc" />
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem id="prtinstallationItem">
+                        <span>Does customer expect installation by SP</span>
+                        <apex:outputField value="{!rrChecklist.InstallationExpectations__c}" id="prtinstallation" />
+                    </apex:pageBlockSectionItem>    
+                    <apex:pageBlockSectionItem id="prtinstallationDateItem">
+                        <span>Installation Date</span>
+                        <apex:outputField value="{!rrChecklist.Installation_Date__c}" id="prtinstallationDate"/>
+                    </apex:pageBlockSectionItem>    
+        
+                    <apex:outputText />
+                                  
+                    <apex:pageBlockSectionItem id="prtinstallationDescItem">
+                        <span>Installation Notes</span>
+                        <apex:outputField value="{!rrChecklist.Installation_Notes__c}" id="prtinstallationDesc" />
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem id="prtotherProItem">
+                        <span>Other Promises Made (If yes, describe them)</span>
+                        <apex:outputField value="{!rrChecklist.Other_Promises_Made__c}" id="prtotherPro" />
+                    </apex:pageBlockSectionItem>               
+                    <apex:pageBlockSectionItem id="prtotherProDescItem">
+                        <span>Other Promises Made Disclosure</span>
+                        <apex:outputField value="{!rrChecklist.Other_Promises_Made_Disclosure__c}" id="prtotherProDesc" />
+                    </apex:pageBlockSectionItem>
+                        
+                    <apex:outputField value="{!rrChecklist.Reminders__c}"/> 
+                    <apex:outputField value="{!rrChecklist.Reminders__c}"/> 
+                    
+                    <apex:pageBlockSectionItem >
+                        <span>Signature of Opportunity Owner</span>
+                        <apex:outputField value="{!rrChecklist.Signature_of_Opportunity_Owner__c}"/>
+                    </apex:pageBlockSectionItem>    
+                    <apex:pageBlockSectionItem id="prtfinRevItem">
+                        <span>Finance Reviewed</span>
+                        <apex:outputField value="{!rrChecklist.Finance_Reviewed__c}" id="prtfinRev" />
+                    </apex:pageBlockSectionItem>                
+                    <apex:pageBlockSectionItem >
+                        <span>Signed At</span>
+                        <apex:outputField value="{!rrChecklist.Signed_At__c}"/>
+                    </apex:pageBlockSectionItem>                
+                    <apex:pageBlockSectionItem >
+                        <span>Finance Released At</span>
+                        <apex:outputField value="{!rrChecklist.Finance_Released_At__c}"/>
+                    </apex:pageBlockSectionItem>  
+                    <apex:pageBlockSectionItem >
+                        <span>Signed By</span>
+                        <apex:outputField value="{!rrChecklist.Signed_By__c}"/>
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem id="prtfinRevDescItem" >
+                        <span>Finance Review Notes </span>
+                        <apex:outputField value="{!rrChecklist.Finance_Review_Notes__c}" id="prtfinRevDesc" />
+                    </apex:pageBlockSectionItem>                    
+                </apex:pageBlockSection>
+                <br/>
+                <br/>
+            </apex:pageBlock>
+        </span>
+    </apex:form> 
+<script type="text/javascript">
+    window.onload = function ()
+    {
+        var clickedIds = new Array();
+        clickedIds[0] = "page:form:pageBlock:section:contingenciesItem:contingencies";
+        clickedIds[1] = "page:form:pageBlock:section:ffExpectedItem:ffExpected";
+        clickedIds[2] = "page:form:pageBlock:section:installationItem:installation";
+        clickedIds[3] = "page:form:pageBlock:section:otherProItem:otherPro";
+        clickedIds[4] = "page:form:pageBlock:section:customerTraining:training";
+        
+        var textareaIds = new Array();
+        textareaIds[0] = "page:form:pageBlock:section:contingenciesDescItem:contingenciesDesc";
+        textareaIds[1] = "page:form:pageBlock:section:ffExpectedDescItem:ffExpectedDesc";
+        textareaIds[2] = "page:form:pageBlock:section:installationDescItem:installationDesc";
+        textareaIds[3] = "page:form:pageBlock:section:otherProDescItem:otherProDesc";
+        textareaIds[4] = "page:form:pageBlock:section:trainingDescItem:trainingDesc";
+        
+        for(var i = 0;i < clickedIds.length;i++)
+        {
+            if($(clickedIds[i]).value.toLowerCase() == "yes" || $(clickedIds[i]).checked == true)
+            {
+                $(textareaIds[i]).disabled = false;
+            }
+            else
+            {
+                $(textareaIds[i]).disabled = true;
+            }
+        }
+        //for installation date label
+        if($("page:form:pageBlock:section:installationItem:installation").value.toLowerCase() == "yes")
+        {
+            $("page:form:pageBlock:section:installationDateItem:installationDate").disabled = false;
+        }
+        else
+        {
+            $("page:form:pageBlock:section:installationDateItem:installationDate").disabled = true;
+        }       
+    }
+    if("{!isAccessible}" == "false") 
+    {
+        window.resizeTo(640,320);
+    }
+</script>
+</apex:page>

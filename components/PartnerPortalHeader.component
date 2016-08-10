@@ -1,0 +1,280 @@
+<apex:component controller="PartnerPortalLoginController" allowDML="true">
+    <apex:attribute name="isAuthorized" type="Boolean" default="false" description="Whether the current user is logged in"/>
+    <apex:outputPanel layout="none" rendered="{!isAuthorized}">
+    <header id="header">
+    <nav class="top-menu">
+        <ul>
+            <li>Welcome, {!ContactName}</li>
+            <li><a href="{!URLFOR($Page.PartnerPortalAccountProfile)}">Account Profile</a></li>
+            <li><a href="{!URLFOR($Page.PartnerPortalMyProfile)}">My Profile</a></li>
+            <li><a href="files">Resource &amp; Support Center</a></li>
+        </ul>
+    </nav>
+     <div class="header-holder">
+      <div class="panel">
+       <a href="champions_home">
+        <img src="{!URLFOR($Resource.PartnerPortal, 'images/logo.png')}" id="GlobalBodyContent_logo" name="logo" width="260" height="35" usemap="#m_logo" alt="Silver Peak | Partner Portal" />
+       </a>
+       <map name="m_logo" id="m_logo">
+        <area shape="rect" coords="0,0,169,38" href="http://www.silver-peak.com/" target="_blank" alt="http://www.silver-peak.com/" />
+        <div class="btn-area">
+         <div class="btn-holder">
+          <a href="secur/logout.jsp" class="btn btn-logout logout-ie">Logout</a>
+         </div>
+        </div>
+       </map>
+      </div>
+      <nav id="nav">
+       <ul>
+        <!--<li class="itemone litem">
+         <span class="link-holder">
+          <a href="products_overview">Products &amp; Solutions</a>
+         </span>
+         <div class="drop-hldr">
+          <div class="drop">
+           <nav class="col">
+            <ul>
+             <li><a href="products">Products</a></li>
+             <li><a href="solutions">Solutions</a></li>
+             <li><a href="support">Support</a></li>
+            </ul>
+           </nav>
+          </div>
+         </div>
+        </li>
+        <li class="itemtwo litem">
+         <span class="link-holder">
+          <a href="sales_champion_overview">Sales Champion Program</a>
+         </span>
+         <div class="drop-hldr">
+          <div class="drop">
+           <nav class="col">
+            <ul>
+             <li>
+              <a href="corporate_overview">Silver Peak Corporate Overview</a>
+             </li>
+             <li>
+              <a href="channel_program">Silver Peak Channel Program</a>
+             </li>
+            </ul>
+           </nav>
+          </div>
+         </div>
+        </li>-->
+        <li class="itemone litem">
+         <span class="link-holder">
+          <a href="training_overview">Training &amp; Certification</a>
+         </span>
+         <div class="drop-hldr">
+          <div class="drop">
+           <nav class="col">
+            <ul>
+             <li>
+              <a href="sales_certification">Sales Training &amp; Certification</a>
+             </li>
+             <!--<li>
+              <a href="sales_training">Sales Training</a>
+             </li>-->
+             <li>
+              <a href="technical_certification">Technical Training &amp; Certification</a>
+             </li>
+             <!--<li>
+              <a href="technical_training">Technical Training</a>
+             </li>-->
+            </ul>
+           </nav>
+          </div>
+         </div>
+        </li>
+        <li class="itemtwo litem">
+         <span class="link-holder">
+          <a href="sales_tools_overview">Sales Tools</a>
+         </span>
+         <div class="drop-hldr">
+          <div class="drop">
+           <nav class="col">
+            <ul>
+             <li><a href="sales_resource">Resource Library</a></li>
+             <li><a href="define_the_target">Define the Target</a></li>
+             <li><a href="campaigns">Campaigns</a></li>
+             <li><a href="close"> Closing the Deal </a></li>
+            </ul>
+           </nav>
+          </div>
+         </div>
+        </li>
+        <li class="itemthree litem">
+         <span class="link-holder">
+          <a href="marketing_tools_overview">Marketing Tools</a>
+         </span>
+         <div class="drop-hldr">
+          <div class="drop">
+            <nav class="col">
+             <ul>
+              <li><a href="demand_generation">Demand Generation</a></li>
+              <li><a href="mdf_program_guide_and_slides">MDF Program</a></li>
+              <li><a href="branding_guidelines_and_logos">Branding Guidelines &amp; Logos</a></li>
+             </ul>
+            </nav>
+           </div>
+          </div>
+         </li>
+        <li class="itemfour litem">
+         <span class="link-holder">
+          <a href="deals_overview">Deal Reg &amp; Leads</a>
+         </span>
+         <div class="drop-hldr">
+          <div class="drop">
+           <nav class="col">
+            <ul>
+             <li><a href="{!URLFOR($Page.PartnerPortalDealReg)}">Register a Deal</a></li>
+             <li><a href="{!URLFOR($Page.PartnerPortalSearchLeads)}">Manage Leads</a></li>
+             <li><a href="{!URLFOR($Page.PartnerPortalSearchDeals)}">Search Opportunities</a></li>
+            </ul>
+           </nav>
+          </div>
+         </div>
+        </li>
+        <li class="itemsix litem">
+         <span class="link-holder">
+          <a href="news_overview">News &amp; Events</a>
+         </span>
+         <div class="drop-hldr">
+          <div class="drop">
+           <nav class="col">
+            <ul>
+             <li><a href="news_overview">Press Release</a></li>
+             <li><a href="http://www.silver-peak.com/news/in-the-news" target="_blank">In the News</a></li>
+             <li><a href="http://www.silver-peak.com/events" target="_blank">Events</a></li>
+             <li><a href="http://blog.silver-peak.com" target="_blank">Blog</a></li>
+            </ul>
+           </nav>
+          </div>
+         </div>
+        </li>
+       </ul>
+      </nav>
+     </div>
+     <div class="clear"></div>
+    </header>
+    </apex:outputPanel>
+    <apex:outputPanel layout="none" rendered="{!NOT(isAuthorized)}">
+        <header id="header">
+            <div class="header-holder">
+                <div class="panel">
+                    <a href="home">
+                    <img src="{!URLFOR($Resource.PartnerPortal, 'images/logo.png')}" id="GlobalBodyContent_logo" name="logo" width="260" height="35" usemap="#m_logo" alt="Silver Peak | Partner Portal" />
+                   </a>
+                    <map name="m_logo" id="m_logo" />
+                    <area shape="rect" coords="0,0,172,38" href="http://www.silver-peak.com/" target="_blank" alt="http://www.silver-peak.com/" />
+                        <div class="btn-area">
+                            <div class="btn-holder">
+                                <a href="#popup1" class="lightbox btn btn-login log-out">Partner Login</a>
+                                <a href="register" class="btn btn-partner">Apply for Partnership</a>
+                            </div>
+                            <div class="request">
+                                <span>Already a Partner?</span>
+                                <a href="contact">Request an Individual Login</a>
+                            </div>
+                        </div>
+                    </div>
+                    <nav id="nav">
+                        <ul>
+                            <li><a href="silver_peak_difference">The Silver Peak Difference</a></li>
+                            <li><a href="how_to_qualify">How to Qualify</a></li>
+                            <li><a href="register">Apply</a></li>
+                            <li><a href="partner_center"><!-- Access the  -->Partner Center</a></li>
+                            <li class="ritem"><a href="contact">Contact Us</a></li>
+                        </ul>                       
+                    </nav>
+                </div>
+            </header>
+            <div class="popup-holder">
+        <div id="popup1" class="lightbox">
+            <div class="partner-login">
+                <h1>Partner Center Access</h1>
+                <div class="login-holder">
+                    <strong class="title">Log in to the Silver Peak Partner Portal</strong>
+                    <!-- LOGIN BEGIN -->
+                    <apex:form forceSSL="true">
+                    <div>
+                        <div class="lightbox" style="padding:0px">
+                            <div id="pageErrors" style="display:none">
+                                <apex:messages />
+                            </div>
+                            <div >
+                                <div class="login">
+                                    <div class="row">
+                                        <div class="txt-field">
+                                            <apex:inputText maxlength="128" html-placeholder="Username" styleClass="required" style="width:220px" value="{!Username}" id="Username"/>
+                                        </div>
+                                        <div class="txt-field">
+                                            <apex:inputSecret maxlength="32" html-placeholder="Password" styleClass="required" style="width:220px" value="{!Password}" />
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="checkbox-list">
+                                            <input  type="checkbox" id="RememeberMe" /><label for="LoginControl_LoginRememberMe">Remember Me?</label>
+                                        </div>
+                                    </div>
+                                    <apex:commandButton styleClass="btn btn-partner" value="Submit" action="{!login}" onclick="rememeberMe()" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    </apex:form>
+                    <!-- LOGIN END -->
+                    <div class="request">
+                        <ul>
+                            <li>
+                                <span>Already a Partner?</span>
+                                <a href="contact">Request an Individual Login</a>
+                            </li>
+                            <li><a href="{!URLFOR($Page.PartnerPortalForgotPassword)}">Forget your password?</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <a href="#" class="close">Close</a>
+        </div>
+    </div>
+    <script>
+        $(document).ready(function() {
+            var username = getCookie("sp.pp.username");
+            if(username != "" && username != null) {
+                $("input[id$='Username']").val(username);
+                $("#RememeberMe").attr("checked", "checked")
+            }
+            if({!hasLoginError}) {
+                $("a.lightbox").trigger("click");
+                setTimeout(function() {alert($("#pageErrors").text().trim());});
+            }}
+        );
+        function rememeberMe() {
+            if($("#RememeberMe").attr("checked")) {
+                var username = $("input[id$='Username']").val();
+                setCookie("sp.pp.username", username, 60);
+            }
+            else {
+                setCookie("sp.pp.username", null, 0);
+            }
+        }
+        function setCookie(cname, cvalue, exdays) {
+            var d = new Date();
+            d.setTime(d.getTime() + (exdays*24*60*60*1000));
+            var expires = "expires="+d.toUTCString();
+            document.cookie = cname + "=" + cvalue + "; " + expires;
+        }
+        function getCookie(cname) {
+            var name = cname + "=";
+            var ca = document.cookie.split(';');
+            for(var i=0; i<ca.length; i++) {
+                var c = ca[i];
+                while (c.charAt(0)==' ') c = c.substring(1);
+                if (c.indexOf(name) != -1) return c.substring(name.length,c.length);
+            }
+            return "";
+        }
+    </script>
+    </apex:outputPanel>
+</apex:component>

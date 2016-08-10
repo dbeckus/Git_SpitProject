@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomTab xmlns="http://soap.sforce.com/2006/04/metadata">
+    <frameHeight>900</frameHeight>
+    <hasSidebar>true</hasSidebar>
+    <label>User Documentation</label>
+    <mobileReady>false</mobileReady>
+    <motif>Custom45: Ticket</motif>
+    <url>https://www.silver-peak.com/Support/user_docs.asp</url>
+    <urlEncodingKey>UTF-8</urlEncodingKey>
+</CustomTab>

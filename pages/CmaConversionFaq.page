@@ -1,0 +1,68 @@
+<apex:page showHeader="true" sidebar="true" title="Conversion FAQ">
+    <apex:stylesheet value="{!URLFOR($Resource.Bootstrap, 'bootstrap.css')}" />
+    <div class="container">
+        <h1>Conversion FAQ</h1>
+    </div>
+    <div class="container">
+        
+        <h4>Which NX models can be converted?</h4>
+        <p>The NX models that can converted are shown below.</p>
+        <table class="table table-bordered">
+            <tr>
+                <td>NX-1700</td>
+                <td>Converts to -></td>
+                <td>VX-1000</td>
+            </tr>
+            <tr>
+                <td>NX-2700</td>
+                <td>Converts to -></td>
+                <td>VX-2000</td>
+            </tr>
+            <tr>
+                <td>NX-3700</td>
+                <td>Converts to -></td>
+                <td>VX-3000</td>
+            </tr>
+            <tr>
+                <td>NX-5700</td>
+                <td>Converts to -></td>
+                <td>VX-5000</td>
+            </tr>
+            <tr>
+                <td>NX-7700</td>
+                <td>Converts to -></td>
+                <td>VX-7000</td>
+            </tr>
+            <tr>
+                <td>NX-8700</td>
+                <td>Converts to -></td>
+                <td>VX-8000</td>
+            </tr>
+            <tr>
+                <td>NX-9700</td>
+                <td>Converts to -></td>
+                <td>VX-9000</td>
+            </tr>
+        </table>
+        <h4>What type of VXOA license is provided for the VX?</h4>
+        <p>All entitled NX models are converted to the equivalent VX model with a perpetual VXOA license.</p>
+        <h4>What is required to be entitled to convert?</h4>
+        <p>The maintenance contract on your NX model must be in good standing.</p>
+        <h4>What happens to my existing NX maintenance contract?</h4>
+        <p>Upon conversion the maintenance contract associated with the NX-x700 appliance will be transferred to the converted VX appliance. The level (Gold, Platinum), term and expiration date of the contract will not change.</p>
+        <h4>Can I revert back to the NX in the future?</h4>
+        <p>No, the conversion is irreversible. No VX models can be converted to NX models.</p>
+        <h4>What happens to my NX?</h4>
+        <p>You will decommission your NX model. All decommissioned NX models shall be either recycled or returned to Silver Peak. Silver Peak will provide instructions when we process your conversion. If the NX is to be returned Silver Peak will cover the shipment costs. Once converted your NX model will not be listed as part of your inventory nor will it be entitled to support.</p>
+        <h4>Can I convert my NX to a VRX?</h4>
+        <p>You can and you should. You can trial any VX product at anytime on the <a href="http://marketplace.silver-peak.com/">Silver Peak Marketplace</a>.</p>
+        <h4>How do I request a conversion from an NX to a VX?</h4>
+        <p>Login to the support portal and view your inventory. Click on the “Convert to Virtual” button beside any NX appliances entitled to be converted and follow the instructions. The complete conversion process including receipt of your VX license key takes less than 10 minutes.</p>
+        <h4>When and how will I receive my VX?</h4>
+        <p>Upon submission of your conversion request from within the support portal you will receive an email containing the download link and the license key for your new VX.</p>
+        <h4>What happens when the converted maintenance contract expires?</h4>
+        <p>You can purchase a new maintenance contract for your VX appliance.</p>
+        <h4>Can I upgrade my new VX to a larger model?</h4>
+        <p>Yes, VX upgrade SKUs are available for purchase from Silver Peak.</p>
+    </div>
+</apex:page>

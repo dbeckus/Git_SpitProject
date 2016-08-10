@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Course</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Courses</value>
+    </caseValues>
+    <fields>
+        <label><!-- Course Code --></label>
+        <name>Course_Code__c</name>
+        <picklistValues>
+            <masterLabel>SCSP</masterLabel>
+            <translation><!-- SCSP --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>SCTP</masterLabel>
+            <translation><!-- SCTP --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>SPXR</masterLabel>
+            <translation><!-- SPXR --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>SPXS</masterLabel>
+            <translation><!-- SPXS --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>SPXT</masterLabel>
+            <translation><!-- SPXT --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Course Description --></label>
+        <name>Description__c</name>
+    </fields>
+    <layouts>
+        <layout>Course Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+    </layouts>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

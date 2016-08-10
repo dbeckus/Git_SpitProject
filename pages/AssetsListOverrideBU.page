@@ -1,0 +1,132 @@
+<apex:page standardController="Asset"  id="page">
+  <!--
+  recordSetVar="assets" tabStyle="Asset" extensions="Assets_List_Override"
+  <apex:includeScript value="{!$Resource.SFbn}"/>
+  <apex:includeScript value="{!$Resource.SFrsa}"/>
+  <apex:includeScript value="{!$Resource.SFSP}"/>
+  <script type="text/javascript">
+      function swapDate(adate) {
+          var el = adate.split("/");
+          if (el.length != 3) {
+              return "0";  
+          } else {
+              return el[2]+"/"+el[0]+"/"+el[1];
+          }
+      }
+      function generateLicense(product,licenseStartDate,licenseDuration,licenseEndDate,assetName,licenseKey) {
+          // alert("generateLicense");
+          var p=document.getElementById(product);
+          var license=p.options[p.selectedIndex].text.toUpperCase().replace(/-/,"") + "-" +
+          swapDate(document.getElementById(licenseStartDate).firstChild.data) + "-";
+          if (document.getElementById(licenseDuration).value==0) {
+              license+="0";
+          } else {
+              license+=swapDate(licenseEndDate);
+          }
+          license+="-1-" + assetName;
+          // alert(license);
+          document.getElementById(licenseKey).value=SPencrypt(license);
+          return true;
+      }; //generateLicense
+      function changeDuration(status, licenseDuration, licenseDurationString, licenseEndDate, licenseEndDateLabel) {
+          if (status.selectedIndex==2) {
+              document.getElementById(licenseDuration).value=0;
+              document.getElementById(licenseEndDate).parentNode.style.visibility="hidden";
+              document.getElementById(licenseEndDateLabel).parentNode.style.visibility="hidden";
+              document.getElementById(licenseDurationString).firstChild.data="perpetual";
+          } else {
+              document.getElementById(licenseDuration).value=90;
+              document.getElementById(licenseEndDate).parentNode.style.visibility="visible";
+              document.getElementById(licenseEndDateLabel).parentNode.style.visibility="visible";
+              document.getElementById(licenseDurationString).firstChild.data="90 days";
+          }
+      }; //changeDuration
+      
+  </script>
+  <apex:form id="form">
+        <apex:pageBlock title="Virtual Asset Edit" mode="edit" id="pageBlock">
+            <apex:pageBlockButtons >
+                <apex:commandButton action="{!nameRankSerial}" value="Save" reRender="step2,assetInformation" >
+                    <apex:param assignTo="{!saveAndNew}" value="false" />
+                </apex:commandButton>
+                <apex:commandButton action="{!nameRankSerial}" value="Save & New" reRender="step2,assetInformation" >
+                    <apex:param assignTo="{!saveAndNew}" value="true" />
+                </apex:commandButton>
+                <apex:commandButton action="{!cancel}" value="Cancel" /> 
+      </apex:pageBlockButtons>
+            <apex:pageBlockSection title="Asset Information" columns="2" id="assetInformation">
+                <apex:pageBlockSectionItem id="products">
+                    <apex:outputLabel value="Product" for="product" />
+                    <apex:outputPanel layout="block" styleClass="requiredInput">
+                        <apex:outputPanel layout="block" styleClass="requiredBlock" />
+                            <apex:selectList value="{!asset.Product2Id}" required="true" id="product" multiselect="false" size="1">
+                                <apex:selectOptions value="{!Products}" />
+                            </apex:selectList>
+                        </apex:outputPanel>
+                </apex:pageBlockSectionItem>
+                <apex:inputField value="{!asset.AccountId}" id="account" required="true"/>
+                <apex:pageBlockSectionItem id="statuses" >
+                    <apex:outputLabel value="Status" for="status" />
+                    <apex:outputPanel layout="block" styleClass="requiredInput">
+                        <apex:outputPanel layout="block" styleClass="requiredBlock" />
+                        <apex:selectList value="{!asset.Status}" required="true" id="status" multiselect="false" size="1" 
+                            onChange="changeDuration(this,
+                                '{!$Component.assetInformation.licenseDuration}',
+                                '{!$Component.assetInformation.ld.licenseDurationString}',
+                                '{!$Component.assetInformation.led.licenseEndDate}',
+                                '{!$Component.assetInformation.led.licenseEndDatelabel}'               
+                                );">
+                            <apex:selectOption itemLabel="Customer Evaluation" itemValue="Customer Evaluation" />
+                            <apex:selectOption itemLabel="Conditional PO" itemValue="Conditional PO" />
+                            <apex:selectOption itemLabel="Customer Owned" itemValue="Customer Owned" />
+                        </apex:selectList>
+                    </apex:outputPanel>
+                </apex:pageBlockSectionItem>
+                <apex:inputField value="{!asset.ContactId}" required="true" id="contactId" />
+                <apex:outputField value="{!license.Start_Date__c}" id="licenseStartDate" />
+                <apex:pageBlockSectionItem id="ld">
+                    <apex:outputLabel value="License Duration" for="licenseDurationString" />
+                    <apex:outputText id="licenseDurationString" value="{!IF(license.Duration__c==0, 'perpetual', TEXT(license.Duration__c)&' days')}" />
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem id="led" dataStyle="visibility: {!IF(license.Duration__c==0, 'hidden', 'visible')}" labelStyle="visibility: {!IF(license.Duration__c==0, 'hidden', 'visible')}">
+                    <apex:outputLabel value="License End Date" for="licenseEndDate" id="licenseEndDateLabel" />
+                    <apex:outputText id="licenseEndDate" value="{!licenseEndDate}" />
+                </apex:pageBlockSectionItem>
+                <apex:inputHidden value="{!license.Duration__c}" id="licenseDuration" />
+                <apex:inputHidden value="{!step}" id="step" />
+                <apex:inputHidden value="{!license.Key__c}" id="licenseKey" />
+                <apex:inputHidden value="{!asset.SerialNumber}" id="serialNumber" />
+                <apex:outputField value="{!asset.Name}" id="assetName" />
+                <apex:outputPanel id="step2">
+                    <apex:actionFunction name="save" action="{!save}" />
+                    <apex:outputPanel rendered="{!step = 2}">
+                        <script type="text/javascript">
+                            // alert("step 2");
+                            generateLicense(
+                                '{!$Component.assetInformation.products.product}',
+                                '{!$Component.assetInformation.licenseStartDate}',
+                                '{!$Component.assetInformation.licenseDuration}',
+                                '{!licenseEndDate}',
+                                '{!asset.Name}',
+                                '{!$Component.assetInformation.licenseKey}');
+                                // alert("step 2");
+                            save();
+                        </script>
+                    </apex:outputPanel>
+                </apex:outputPanel>
+                  
+            </apex:pageBlockSection>
+            <apex:pageBlockSection title="Warranty Information" columns="2" id="warrantyInformation">
+                <apex:inputField value="{!asset.Ship_Date__c}" id="ship_Date"/>
+                <apex:inputField value="{!asset.Contract_Number__c}" id="contract_Number"/>
+                <apex:inputField value="{!asset.Warranty_Start_Date__c}" id="warranty_Start_Date"/>
+                <apex:inputField value="{!asset.Evaluation_Start_Date__c}" id="evaluation_Start_Date"/>
+                <apex:inputField value="{!asset.Warranty_End_Date__c}" id="warranty_End_Date"/>
+                <apex:inputField value="{!asset.Evaluation_End_Date__c}" id="evaluation_End_Date"/>
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+        <apex:outputPanel >
+        </apex:outputPanel>
+    </apex:form>
+    -->
+</apex:page>

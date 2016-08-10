@@ -1,0 +1,1810 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Follow</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>This is used for partner portal to build a MDF request and display back to the users in the portal</description>
+    <enableActivities>true</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableFeeds>true</enableFeeds>
+    <enableHistory>true</enableHistory>
+    <enableReports>true</enableReports>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <fields>
+        <fullName>Account__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Account</label>
+        <referenceTo>Account</referenceTo>
+        <relationshipName>MDF_Requests</relationshipName>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Accounting_PoC_Email__c</fullName>
+        <externalId>false</externalId>
+        <label>Accounting PoC: Email</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Email</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Accounting_PoC_Name__c</fullName>
+        <externalId>false</externalId>
+        <label>Accounting PoC: Name</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Activity_Complete__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Activity Complete</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Activity_Date__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Use: xx/xx/xxxx date format or the date picker</inlineHelpText>
+        <label>Activity Date</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Actual_Partner_Cost__c</fullName>
+        <externalId>false</externalId>
+        <label>Actual Partner Cost</label>
+        <precision>14</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Actual_Program_Cost__c</fullName>
+        <externalId>false</externalId>
+        <label>Actual Program Cost</label>
+        <precision>14</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Additional_Vendor_Cost_1__c</fullName>
+        <externalId>false</externalId>
+        <label>Additional Vendor Cost 1</label>
+        <precision>14</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Additional_Vendor_Cost_2__c</fullName>
+        <externalId>false</externalId>
+        <label>Additional Vendor Cost 2</label>
+        <precision>14</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Addl_Vendor_1__c</fullName>
+        <externalId>false</externalId>
+        <label>Vendor 1</label>
+        <length>255</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Addl_Vendor_2__c</fullName>
+        <externalId>false</externalId>
+        <label>Vendor 2</label>
+        <length>255</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Addl_Vendor_3__c</fullName>
+        <externalId>false</externalId>
+        <label>Vendor 3</label>
+        <length>255</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Approval_Date__c</fullName>
+        <externalId>false</externalId>
+        <label>Approval Date</label>
+        <required>false</required>
+        <trackFeedHistory>true</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Approval_Status_Hidden__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Field for MDF Approval Process</inlineHelpText>
+        <label>Approval Status (Hidden)</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Pending</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Approval 1</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Approval 2</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Approval 3</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Approval 4</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Approval 5</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Approval 6</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Approved</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Denied</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Approval_Status__c</fullName>
+        <externalId>false</externalId>
+        <label>Approval Status</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Unsubmitted</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Pending</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Approved</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Denied</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>CSM__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>CAM</label>
+        <referenceTo>User</referenceTo>
+        <relationshipName>MDF_Requests</relationshipName>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Campaign__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Campaign</label>
+        <referenceTo>Campaign</referenceTo>
+        <relationshipName>MDF_Requests</relationshipName>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Co_Country__c</fullName>
+        <externalId>false</externalId>
+        <label>Country</label>
+        <length>100</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Comments__c</fullName>
+        <externalId>false</externalId>
+        <label>Comments</label>
+        <length>32768</length>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>5</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Company_Address__c</fullName>
+        <externalId>false</externalId>
+        <formula>Owner:User.Street  &amp; &quot;, &quot; &amp; Owner:User.City &amp; &quot;, &quot; &amp;  Owner:User.State &amp; &quot;, &quot; &amp;   Owner:User.PostalCode &amp; &quot;, &quot; &amp; Owner:User.Country</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Company Address</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Company_Billing_Address__c</fullName>
+        <description>Partner Account billing address</description>
+        <externalId>false</externalId>
+        <formula>Owner:User.Contact.Account.BillingStreet &amp; &quot;, &quot; &amp;  Owner:User.Contact.Account.BillingCity &amp; &quot;, &quot; &amp; 
+Owner:User.Contact.Account.BillingState &amp; &quot;, &quot; &amp; 
+Owner:User.Contact.Account.BillingPostalCode &amp; &quot;, &quot; &amp; 
+Owner:User.Contact.Account.BillingCountry</formula>
+        <label>Company Billing Address</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Est_Value_of_Expected_Opportunities__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Estimated Value of Expected Opportunities</inlineHelpText>
+        <label>Est Value of Expected Opportunities</label>
+        <precision>12</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Estimated_Other_Vendor_s_Amount__c</fullName>
+        <externalId>false</externalId>
+        <label>Estimated Other Vendor(s) Amount:</label>
+        <precision>12</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Estimated_Partner_Amount__c</fullName>
+        <externalId>false</externalId>
+        <label>Estimated Partner Amount</label>
+        <precision>12</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Estimated_Pipeline_Value__c</fullName>
+        <externalId>false</externalId>
+        <label>Estimated Pipeline Value</label>
+        <precision>12</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Estimated_Silver_Peak_Amount__c</fullName>
+        <externalId>false</externalId>
+        <label>Estimated Silver Peak Amount</label>
+        <precision>12</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Event_Campaign_Name__c</fullName>
+        <externalId>false</externalId>
+        <label>Event/Campaign Name</label>
+        <length>150</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Event_Location_City__c</fullName>
+        <externalId>false</externalId>
+        <label>Event Location (City)</label>
+        <length>100</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Event_Location_Country__c</fullName>
+        <externalId>false</externalId>
+        <label>Event Location (Country)</label>
+        <length>25</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Event_Location_State__c</fullName>
+        <externalId>false</externalId>
+        <label>Event Location (State)</label>
+        <length>100</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Event_Location_Zip__c</fullName>
+        <externalId>false</externalId>
+        <label>Event Location (Zip)</label>
+        <length>25</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Exception_Granted_Reason__c</fullName>
+        <externalId>false</externalId>
+        <label>Exception Granted Reason</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Expected_Audience_Size__c</fullName>
+        <externalId>false</externalId>
+        <label>Expected Audience Size</label>
+        <precision>6</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Expected_Number_of_Leads__c</fullName>
+        <externalId>false</externalId>
+        <label>Expected Number of Leads</label>
+        <precision>6</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Fast_Start_Marketing_Program__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <inlineHelpText>Fast Start Marketing Program?</inlineHelpText>
+        <label>Fast Start Marketing Program</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>GEO__c</fullName>
+        <externalId>false</externalId>
+        <label>GEO</label>
+        <length>100</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>GEO_of_Owner_Acct__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(
+INCLUDES(Owner:User.Contact.Account.GEO_Supported__c, &quot;EMEA&quot;), 
+&quot;EMEA&quot;,
+IF( 
+INCLUDES(Owner:User.Contact.Account.GEO_Supported__c, &quot;APAC&quot;), 
+&quot;APAC&quot;, &quot;NAM&quot;)
+
+
+
+
+)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>GEO of Owner Acct</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Industry_Vertical_Being_Targeted__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Industry/Vertical Being Targeted</inlineHelpText>
+        <label>Industry/Vertical Being Targeted</label>
+        <length>255</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Invoice_No__c</fullName>
+        <externalId>false</externalId>
+        <label>Invoice No.</label>
+        <length>100</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Is_Portal_Request__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Is Portal Request</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Location_of_Event__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Location of Event(City or Geography Targeted):</inlineHelpText>
+        <label>Location of Event</label>
+        <length>150</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>MDF_Status__c</fullName>
+        <externalId>false</externalId>
+        <label>MDF Status</label>
+        <picklist>
+            <picklistValues>
+                <fullName>In Progress</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Completed</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Cancelled</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Marketing_Activity_PoC_Email__c</fullName>
+        <externalId>false</externalId>
+        <label>Marketing Activity PoC: Email</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Email</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Marketing_Activity_Point_of_Contact_Nam__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Point of Contact for Marketing</inlineHelpText>
+        <label>Marketing Activity PoC: Name</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Owner_Role__c</fullName>
+        <externalId>false</externalId>
+        <formula>Owner:User.UserRole.Name</formula>
+        <label>Owner Role</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>PO_No__c</fullName>
+        <externalId>false</externalId>
+        <label>PO No.</label>
+        <length>100</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>PO_Received__c</fullName>
+        <externalId>false</externalId>
+        <label>PO Received</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Partner_Account__c</fullName>
+        <externalId>false</externalId>
+        <formula>Submitter__r.Account.Name</formula>
+        <label>Partner Account</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Partner_Instructions__c</fullName>
+        <externalId>false</externalId>
+        <formula>&quot;Required Documentation for MDF Processing &amp; Payment:&quot; &amp; BR() &amp; 
+BR() &amp; 
+&quot;Upon completion of event, please upload the 3 required documents listed below in order to approve payment.&quot; &amp; BR() &amp; 
+&quot; 1. Invoice(billed to Silver Peak)&quot; &amp; BR() &amp; 
+&quot; 2. Proof of Performance(photos, print, third party receipts proving cost of the event so you will be invoiced for the correct amount, email invites, collateral, etc&quot; &amp; BR() &amp; 
+&quot; 3. Attendance Lists–leads must be identified &amp; have contact information (contact info includes: first &amp; last name, company, title, email, phone number, country, state, postal code)&quot; &amp; BR() &amp; 
+BR() &amp; 
+&quot;To upload your documents, please follow the steps below:&quot; &amp; BR() &amp; 
+&quot;• Scroll down to the Notes &amp; Attachments section on this page.&quot; &amp; BR() &amp; 
+&quot;• Click &apos;Attach File&apos;.&quot; &amp; BR() &amp; 
+&quot;• Select the file you are uploading by clicking on &apos;Browse&apos; and than click &apos;Open&apos;.&quot; &amp; BR() &amp; 
+&quot;• Click on &apos;Attach File&apos;.&quot; &amp; BR() &amp; 
+&quot;• Repeat steps 1 &amp; 2 until all required documents have been uploaded.&quot; &amp; BR() &amp; 
+&quot;• Click on &apos;Done&apos; when you’ve uploaded all your documents. This will automatically send your documents. &quot; &amp; BR() &amp; 
+&quot;• No additional steps required.&quot; &amp; BR() &amp; 
+&quot;• To manage your documents, scroll back down to the Notes &amp; Attachments section and select action: Edit, View or Del. &quot;</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Partner Instructions</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Partner_at_Platinum_Level__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <inlineHelpText>Partner at Platinum Level?</inlineHelpText>
+        <label>Partner at Platinum Level</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Preferred_Phone__c</fullName>
+        <externalId>false</externalId>
+        <label>Preferred Phone</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Phone</type>
+    </fields>
+    <fields>
+        <fullName>Purchasing_Request_Line_Added__c</fullName>
+        <externalId>false</externalId>
+        <formula>Purchasing_Request__r.Purchasing_Request_Lines__c</formula>
+        <inlineHelpText>Number of Purchasing Request Lines on this MDF Request. Should be at least &apos;1&apos; to progress through the approval process. (Purchasing Req Line contains Gl Code, Dept/Proj Number)</inlineHelpText>
+        <label>Purchasing Request Line Added</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Purchasing_Request__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Purchasing Request</label>
+        <lookupFilter>
+            <active>true</active>
+            <filterItems>
+                <field>Purchasing_Request__c.RecordTypeId</field>
+                <operation>equals</operation>
+                <value>MDF Request</value>
+            </filterItems>
+            <isOptional>false</isOptional>
+        </lookupFilter>
+        <referenceTo>Purchasing_Request__c</referenceTo>
+        <relationshipName>MDF_Requests</relationshipName>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Quarterly_Marketing_Plan__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <inlineHelpText>Included In Joint Quarterly Marketing Plan?</inlineHelpText>
+        <label>Quarterly Marketing Plan</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>RSM__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>RSM</label>
+        <referenceTo>User</referenceTo>
+        <relationshipName>MDF_Requests1</relationshipName>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Reason_Rejected__c</fullName>
+        <externalId>false</externalId>
+        <label>Reason Denied</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Budget</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Date/Venue/Topic to Change</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Duplicate MDF</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Incorrect Info</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Missing Documentation</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Not Generally Accepted</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Event Cancelled</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Reference_field__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>used for the MDF reference to previous portal</inlineHelpText>
+        <label>Reference Id</label>
+        <precision>12</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Remit_Address_1__c</fullName>
+        <externalId>false</externalId>
+        <label>Address 1</label>
+        <length>100</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Remit_Address_2__c</fullName>
+        <externalId>false</externalId>
+        <label>Address 2</label>
+        <length>100</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Remit_City__c</fullName>
+        <externalId>false</externalId>
+        <label>City</label>
+        <length>100</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Remit_Country__c</fullName>
+        <externalId>false</externalId>
+        <label>Country</label>
+        <length>100</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Remit_State__c</fullName>
+        <externalId>false</externalId>
+        <label>State</label>
+        <length>100</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Remit_Zip_Postal_Code__c</fullName>
+        <externalId>false</externalId>
+        <label>Zip/Postal Code</label>
+        <length>25</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Remit_to_Address__c</fullName>
+        <externalId>false</externalId>
+        <formula>Remit_Address_1__c  &amp; &quot;,&quot; &amp; Remit_Address_2__c  &amp; &quot;,&quot; &amp; Remit_City__c &amp; &quot;,&quot; &amp; Remit_State__c  &amp; &quot;,&quot; &amp; Remit_Zip_Postal_Code__c  &amp;  &quot;,&quot; &amp; Remit_Country__c</formula>
+        <inlineHelpText>Only included if different than Company address.</inlineHelpText>
+        <label>Remit to Address</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Requested_Reimbursement_Amount__c</fullName>
+        <externalId>false</externalId>
+        <label>Requested Reimbursement Amount</label>
+        <precision>14</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Result_Detail__c</fullName>
+        <externalId>false</externalId>
+        <label>Result Detail</label>
+        <length>32768</length>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Submitted_For__c</fullName>
+        <externalId>false</externalId>
+        <label>Submitted For</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Submitted_to_AP__c</fullName>
+        <externalId>false</externalId>
+        <label>Submitted to AP</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Submitter__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <description>used to pull the submitters information onto the request form</description>
+        <externalId>false</externalId>
+        <label>Submitter</label>
+        <referenceTo>Contact</referenceTo>
+        <relationshipName>MDF_Requests</relationshipName>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Target_Audience_Profile__c</fullName>
+        <externalId>false</externalId>
+        <label>Target Audience Profile</label>
+        <length>255</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Total_Attendees__c</fullName>
+        <externalId>false</externalId>
+        <label>Total Attendees</label>
+        <precision>10</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Total_Estimated_Program_Costs__c</fullName>
+        <externalId>false</externalId>
+        <label>Total Estimated Program Costs</label>
+        <precision>12</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Total_Leads_Generated__c</fullName>
+        <externalId>false</externalId>
+        <label>Total Leads Generated</label>
+        <precision>10</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Total_Qualified_Leads__c</fullName>
+        <externalId>false</externalId>
+        <label>Total Qualified Leads</label>
+        <precision>10</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Type_of_Program__c</fullName>
+        <externalId>false</externalId>
+        <label>Type of Program</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Advertisement - 1/2 page</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Advertisement - 1/4 page</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Advertisement - Full page</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Broadcast (Television/Radio)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Collateral/Literature</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Direct Mail</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Email Blast</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>eNewletters</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Floor Day</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>List Acquisition</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Lunch and Learn</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Sales Conference</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Sales Incentives/Promotional Contest/Giveaways</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Seminars</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Telemarketing</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Trade Industry Shows</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Training Seminar</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Web Advertising</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Webinars</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>post_event_follow_up_plan__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>What is your post event follow up plan?</inlineHelpText>
+        <label>What is your post event follow up plan?</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <label>Funding Requests</label>
+    <listViews>
+        <fullName>APAC_MDF_Requests</fullName>
+        <columns>NAME</columns>
+        <columns>Type_of_Program__c</columns>
+        <columns>Event_Campaign_Name__c</columns>
+        <columns>Partner_Account__c</columns>
+        <columns>Activity_Date__c</columns>
+        <columns>Approval_Status__c</columns>
+        <columns>OWNER.FIRST_NAME</columns>
+        <columns>OWNER.LAST_NAME</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>GEO__c</field>
+            <operation>equals</operation>
+            <value>APAC</value>
+        </filters>
+        <label>APAC Funding Requests</label>
+        <sharedTo>
+            <group>Marketing</group>
+        </sharedTo>
+    </listViews>
+    <listViews>
+        <fullName>All_EMEA_MDF_Requests</fullName>
+        <columns>NAME</columns>
+        <columns>Reference_field__c</columns>
+        <columns>OWNER.ALIAS</columns>
+        <columns>Accounting_PoC_Email__c</columns>
+        <columns>Accounting_PoC_Name__c</columns>
+        <columns>Activity_Complete__c</columns>
+        <columns>Activity_Date__c</columns>
+        <columns>Actual_Partner_Cost__c</columns>
+        <columns>Actual_Program_Cost__c</columns>
+        <columns>Approval_Status__c</columns>
+        <columns>GEO__c</columns>
+        <columns>Requested_Reimbursement_Amount__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>GEO__c</field>
+            <operation>equals</operation>
+            <value>EMEA</value>
+        </filters>
+        <label>All EMEA Funding Requests</label>
+        <sharedTo>
+            <allInternalUsers></allInternalUsers>
+        </sharedTo>
+    </listViews>
+    <listViews>
+        <fullName>All_MDF_Requests_In_Progress</fullName>
+        <columns>NAME</columns>
+        <columns>Reference_field__c</columns>
+        <columns>Partner_Account__c</columns>
+        <columns>GEO__c</columns>
+        <columns>CREATED_DATE</columns>
+        <columns>Location_of_Event__c</columns>
+        <columns>Approval_Status__c</columns>
+        <columns>Submitter__c</columns>
+        <columns>OWNER.FIRST_NAME</columns>
+        <columns>OWNER.LAST_NAME</columns>
+        <columns>Accounting_PoC_Email__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Approval_Status__c</field>
+            <operation>notEqual</operation>
+            <value>Approved,Denied,Declined,Cancelled</value>
+        </filters>
+        <label>All Funding Requests In Progress</label>
+        <sharedTo>
+            <allInternalUsers></allInternalUsers>
+        </sharedTo>
+    </listViews>
+    <listViews>
+        <fullName>Approved_MDF_Requests</fullName>
+        <columns>NAME</columns>
+        <columns>Reference_field__c</columns>
+        <columns>Type_of_Program__c</columns>
+        <columns>Event_Campaign_Name__c</columns>
+        <columns>Activity_Date__c</columns>
+        <columns>Activity_Complete__c</columns>
+        <columns>Purchasing_Request__c</columns>
+        <columns>Partner_Account__c</columns>
+        <columns>OWNER.FIRST_NAME</columns>
+        <columns>OWNER.LAST_NAME</columns>
+        <columns>GEO__c</columns>
+        <columns>PO_No__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Approval_Status__c</field>
+            <operation>equals</operation>
+            <value>Approved</value>
+        </filters>
+        <label>Approved Funding Requests</label>
+        <sharedTo>
+            <group>EastSalesTeam</group>
+            <group>Marketing</group>
+            <group>NWSalesTeam</group>
+            <group>Quota_Carrying_Sales</group>
+            <group>SalesMgmt</group>
+            <group>SalesTeam</group>
+            <group>WestSalesTeam</group>
+        </sharedTo>
+    </listViews>
+    <listViews>
+        <fullName>Approved_MDF_Requests_Partners</fullName>
+        <columns>NAME</columns>
+        <columns>Reference_field__c</columns>
+        <columns>Approval_Status__c</columns>
+        <columns>Type_of_Program__c</columns>
+        <columns>Event_Campaign_Name__c</columns>
+        <columns>Activity_Date__c</columns>
+        <columns>Activity_Complete__c</columns>
+        <columns>Purchasing_Request__c</columns>
+        <columns>Partner_Account__c</columns>
+        <columns>OWNER.FIRST_NAME</columns>
+        <columns>OWNER.LAST_NAME</columns>
+        <columns>GEO__c</columns>
+        <columns>PO_No__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Approval_Status__c</field>
+            <operation>equals</operation>
+            <value>Approved</value>
+        </filters>
+        <label>3) Approved Funding Requests</label>
+    </listViews>
+    <listViews>
+        <fullName>Denied_MDF_Requests_Partner</fullName>
+        <columns>NAME</columns>
+        <columns>Approval_Status__c</columns>
+        <columns>Partner_Account__c</columns>
+        <columns>Type_of_Program__c</columns>
+        <columns>Event_Campaign_Name__c</columns>
+        <columns>Activity_Date__c</columns>
+        <columns>Activity_Complete__c</columns>
+        <columns>GEO__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Approval_Status__c</field>
+            <operation>equals</operation>
+            <value>Denied</value>
+        </filters>
+        <filters>
+            <field>Approval_Status_Hidden__c</field>
+            <operation>equals</operation>
+            <value>Denied</value>
+        </filters>
+        <filters>
+            <field>Reason_Rejected__c</field>
+            <operation>notEqual</operation>
+        </filters>
+        <label>4) Denied Funding Requests</label>
+    </listViews>
+    <listViews>
+        <fullName>Denied_MDF_Requests_Partner_Alerted</fullName>
+        <columns>NAME</columns>
+        <columns>Partner_Account__c</columns>
+        <columns>Type_of_Program__c</columns>
+        <columns>Event_Campaign_Name__c</columns>
+        <columns>Activity_Date__c</columns>
+        <columns>Activity_Complete__c</columns>
+        <columns>GEO__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Approval_Status__c</field>
+            <operation>equals</operation>
+            <value>Denied</value>
+        </filters>
+        <filters>
+            <field>Approval_Status_Hidden__c</field>
+            <operation>equals</operation>
+            <value>Denied</value>
+        </filters>
+        <filters>
+            <field>Reason_Rejected__c</field>
+            <operation>notEqual</operation>
+        </filters>
+        <label>Denied Funding Requests(Partner Alerted)</label>
+        <sharedTo>
+            <group>EastSalesTeam</group>
+            <group>Marketing</group>
+            <group>NWSalesTeam</group>
+            <group>Quota_Carrying_Sales</group>
+            <group>SalesMgmt</group>
+            <group>SalesTeam</group>
+            <group>WestSalesTeam</group>
+        </sharedTo>
+    </listViews>
+    <listViews>
+        <fullName>EMEA_MDF_Requests</fullName>
+        <columns>Event_Campaign_Name__c</columns>
+        <columns>NAME</columns>
+        <columns>Activity_Date__c</columns>
+        <columns>Approval_Date__c</columns>
+        <columns>Approval_Status__c</columns>
+        <columns>Submitter__c</columns>
+        <columns>Target_Audience_Profile__c</columns>
+        <columns>Requested_Reimbursement_Amount__c</columns>
+        <columns>Industry_Vertical_Being_Targeted__c</columns>
+        <columns>Location_of_Event__c</columns>
+        <columns>Estimated_Partner_Amount__c</columns>
+        <columns>Estimated_Silver_Peak_Amount__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>GEO__c</field>
+            <operation>equals</operation>
+            <value>EMEA</value>
+        </filters>
+        <label>EMEA Funding Requests</label>
+        <sharedTo>
+            <allInternalUsers></allInternalUsers>
+        </sharedTo>
+    </listViews>
+    <listViews>
+        <fullName>LAT_MDF_Requests</fullName>
+        <columns>NAME</columns>
+        <columns>Reference_field__c</columns>
+        <columns>Event_Campaign_Name__c</columns>
+        <columns>Type_of_Program__c</columns>
+        <columns>Activity_Date__c</columns>
+        <columns>Co_Country__c</columns>
+        <columns>Approval_Status__c</columns>
+        <columns>Purchasing_Request__c</columns>
+        <columns>GEO__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>GEO__c</field>
+            <operation>equals</operation>
+            <value>LAT</value>
+        </filters>
+        <label>LAT Funding Requests</label>
+        <sharedTo>
+            <group>Marketing</group>
+        </sharedTo>
+    </listViews>
+    <listViews>
+        <fullName>MDFs_Approved_Last_7_Days</fullName>
+        <columns>Partner_Account__c</columns>
+        <columns>NAME</columns>
+        <columns>Reference_field__c</columns>
+        <columns>Event_Campaign_Name__c</columns>
+        <columns>Estimated_Silver_Peak_Amount__c</columns>
+        <columns>PO_No__c</columns>
+        <columns>Activity_Date__c</columns>
+        <columns>GEO__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Approval_Status__c</field>
+            <operation>equals</operation>
+            <value>Approved</value>
+        </filters>
+        <filters>
+            <field>Approval_Date__c</field>
+            <operation>equals</operation>
+            <value>LAST_90_DAYS</value>
+        </filters>
+        <label>Funding Requests Approved - Last 90 Days</label>
+        <sharedTo>
+            <group>Marketing</group>
+        </sharedTo>
+    </listViews>
+    <listViews>
+        <fullName>MDFs_Uploaded_Today</fullName>
+        <columns>NAME</columns>
+        <columns>Reference_field__c</columns>
+        <columns>Type_of_Program__c</columns>
+        <columns>Event_Campaign_Name__c</columns>
+        <columns>Activity_Date__c</columns>
+        <columns>Approval_Status__c</columns>
+        <columns>Partner_Account__c</columns>
+        <columns>Actual_Program_Cost__c</columns>
+        <columns>OWNER.FIRST_NAME</columns>
+        <columns>OWNER.LAST_NAME</columns>
+        <columns>Submitter__c</columns>
+        <columns>Accounting_PoC_Email__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>CREATED_DATE</field>
+            <operation>equals</operation>
+            <value>12/24/2014 12:00 AM</value>
+        </filters>
+        <label>Funding Requests Uploaded Today</label>
+        <sharedTo>
+            <allInternalUsers></allInternalUsers>
+        </sharedTo>
+    </listViews>
+    <listViews>
+        <fullName>Pending_MDF_Requests_In_Progress</fullName>
+        <columns>NAME</columns>
+        <columns>Reference_field__c</columns>
+        <columns>Type_of_Program__c</columns>
+        <columns>Event_Campaign_Name__c</columns>
+        <columns>Activity_Date__c</columns>
+        <columns>Activity_Complete__c</columns>
+        <columns>Purchasing_Request__c</columns>
+        <columns>Partner_Account__c</columns>
+        <columns>OWNER.FIRST_NAME</columns>
+        <columns>OWNER.LAST_NAME</columns>
+        <columns>GEO__c</columns>
+        <columns>CREATED_DATE</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Approval_Status__c</field>
+            <operation>equals</operation>
+            <value>Pending</value>
+        </filters>
+        <label>Pending Funding Requests (In Progress)</label>
+        <sharedTo>
+            <group>EastSalesTeam</group>
+            <group>Marketing</group>
+            <group>NWSalesTeam</group>
+            <group>Quota_Carrying_Sales</group>
+            <group>SalesMgmt</group>
+            <group>SalesTeam</group>
+            <group>WestSalesTeam</group>
+        </sharedTo>
+    </listViews>
+    <listViews>
+        <fullName>Pending_MDF_Requests_In_Progress_Partners</fullName>
+        <columns>NAME</columns>
+        <columns>Approval_Status__c</columns>
+        <columns>Type_of_Program__c</columns>
+        <columns>Event_Campaign_Name__c</columns>
+        <columns>Activity_Date__c</columns>
+        <columns>Activity_Complete__c</columns>
+        <columns>Purchasing_Request__c</columns>
+        <columns>Partner_Account__c</columns>
+        <columns>OWNER.FIRST_NAME</columns>
+        <columns>OWNER.LAST_NAME</columns>
+        <columns>GEO__c</columns>
+        <columns>CSM__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Approval_Status__c</field>
+            <operation>equals</operation>
+            <value>Pending</value>
+        </filters>
+        <filters>
+            <field>Approval_Status_Hidden__c</field>
+            <operation>notEqual</operation>
+            <value>Approved,Denied</value>
+        </filters>
+        <filters>
+            <field>Reference_field__c</field>
+            <operation>equals</operation>
+        </filters>
+        <label>2) Pending Funding Requests(In Progress)</label>
+    </listViews>
+    <listViews>
+        <fullName>Requests_Requiring_GL_Code_Dept_Proj</fullName>
+        <columns>NAME</columns>
+        <columns>Reference_field__c</columns>
+        <columns>Type_of_Program__c</columns>
+        <columns>Event_Campaign_Name__c</columns>
+        <columns>Activity_Date__c</columns>
+        <columns>Approval_Status__c</columns>
+        <columns>Purchasing_Request__c</columns>
+        <columns>GEO__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Approval_Status__c</field>
+            <operation>notEqual</operation>
+            <value>Unsubmitted,Approved,Denied</value>
+        </filters>
+        <filters>
+            <field>Purchasing_Request_Line_Added__c</field>
+            <operation>equals</operation>
+            <value>0</value>
+        </filters>
+        <label>Requests Requiring GL Code, Dept/Proj #</label>
+        <sharedTo>
+            <allInternalUsers></allInternalUsers>
+        </sharedTo>
+    </listViews>
+    <listViews>
+        <fullName>Requests_Requiring_Reason_Denied</fullName>
+        <booleanFilter>1 AND 2 AND 3 AND 4</booleanFilter>
+        <columns>NAME</columns>
+        <columns>Reference_field__c</columns>
+        <columns>Type_of_Program__c</columns>
+        <columns>Event_Campaign_Name__c</columns>
+        <columns>Activity_Date__c</columns>
+        <columns>Approval_Status__c</columns>
+        <columns>Reason_Rejected__c</columns>
+        <columns>GEO__c</columns>
+        <columns>Purchasing_Request__c</columns>
+        <columns>Partner_Account__c</columns>
+        <columns>OWNER.FIRST_NAME</columns>
+        <columns>OWNER.LAST_NAME</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Approval_Status__c</field>
+            <operation>equals</operation>
+            <value>Pending</value>
+        </filters>
+        <filters>
+            <field>Reason_Rejected__c</field>
+            <operation>equals</operation>
+        </filters>
+        <filters>
+            <field>Approval_Status_Hidden__c</field>
+            <operation>notEqual</operation>
+            <value>,Pending,Approval 1,Approval 2,Approval 3,Approval 4,Approval 5</value>
+        </filters>
+        <filters>
+            <field>Approval_Status_Hidden__c</field>
+            <operation>notEqual</operation>
+            <value>Approval 6,Approved,Channel Approval,Sales Review</value>
+        </filters>
+        <label>Requests Requiring &apos;Reason Denied&apos;</label>
+        <sharedTo>
+            <allInternalUsers></allInternalUsers>
+        </sharedTo>
+    </listViews>
+    <listViews>
+        <fullName>Unsubmitted_Requests</fullName>
+        <columns>NAME</columns>
+        <columns>Approval_Status__c</columns>
+        <columns>Type_of_Program__c</columns>
+        <columns>Event_Campaign_Name__c</columns>
+        <columns>OWNER.ALIAS</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Approval_Status__c</field>
+            <operation>equals</operation>
+            <value>Unsubmitted</value>
+        </filters>
+        <label>1) Unsubmitted Requests</label>
+        <sharedTo>
+            <allInternalUsers></allInternalUsers>
+            <allPartnerUsers></allPartnerUsers>
+        </sharedTo>
+    </listViews>
+    <nameField>
+        <displayFormat>MFR-{0000}</displayFormat>
+        <label>Request Id</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>Funding Requests</pluralLabel>
+    <recordTypeTrackFeedHistory>false</recordTypeTrackFeedHistory>
+    <recordTypeTrackHistory>false</recordTypeTrackHistory>
+    <recordTypes>
+        <fullName>Approved_MDF</fullName>
+        <active>true</active>
+        <label>Approved MDF</label>
+        <picklistValues>
+            <picklist>Approval_Status_Hidden__c</picklist>
+            <values>
+                <fullName>Approval 1</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Approval 2</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Approval 3</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Approval 4</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Approval 5</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Approval 6</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Approved</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Denied</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Pending</fullName>
+                <default>true</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Approval_Status__c</picklist>
+            <values>
+                <fullName>Approved</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Denied</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Pending</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Unsubmitted</fullName>
+                <default>true</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>MDF_Status__c</picklist>
+            <values>
+                <fullName>Cancelled</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Completed</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>In Progress</fullName>
+                <default>true</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Reason_Rejected__c</picklist>
+            <values>
+                <fullName>Budget</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Date%2FVenue%2FTopic to Change</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Duplicate MDF</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Event Cancelled</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Incorrect Info</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Missing Documentation</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Not Generally Accepted</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Type_of_Program__c</picklist>
+            <values>
+                <fullName>Advertisement - 1%2F2 page</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Advertisement - 1%2F4 page</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Advertisement - Full page</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Broadcast %28Television%2FRadio%29</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Collateral%2FLiterature</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Direct Mail</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Email Blast</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Floor Day</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>List Acquisition</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Lunch and Learn</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Sales Conference</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Sales Incentives%2FPromotional Contest%2FGiveaways</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Seminars</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Telemarketing</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Trade Industry Shows</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Training Seminar</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Web Advertising</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Webinars</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>eNewletters</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <searchLayouts/>
+    <sharingModel>Private</sharingModel>
+    <validationRules>
+        <fullName>Leads_should_not_exceed_Attendees</fullName>
+        <active>false</active>
+        <errorConditionFormula>BLANKVALUE(Expected_Number_of_Leads__c, 0) &gt; BLANKVALUE(Expected_Audience_Size__c, 0) &amp;&amp; TEXT(Approval_Status__c) == &apos;Unsubmitted&apos;</errorConditionFormula>
+        <errorMessage>You cannot submit an MDF where the number of leads exceeds the number of attendees. Please fix the data and submit again.</errorMessage>
+    </validationRules>
+</CustomObject>

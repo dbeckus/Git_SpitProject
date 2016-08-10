@@ -1,0 +1,798 @@
+<apex:page controller="SubscriptionSummaryController"  sidebar="false" showHeader="true" standardStylesheets="false" tabStyle="SPIRE__tab">
+
+     <html xmlns:ng="http://angularjs.org"  lang="en">
+        <head>
+            <meta charset="utf-8" name="viewport" content="width=device-width initial-scale=1.0"/>
+
+            <apex:stylesheet value="{!URLFOR($Resource.Account_Summary, 'app/css/bootstrap-combined.min.css')}"/>
+            <apex:stylesheet value="{!URLFOR($Resource.Account_Summary, 'app/css/ng-grid/ng-grid.css')}"/>
+            <apex:stylesheet value="{!URLFOR($Resource.Account_Summary, 'app/css/daterangepicker-bs2.css')}"/>
+            <!--<link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet"></link>-->
+            
+            <script src="{!URLFOR($Resource.Account_Summary, 'app/js/lib/jquery.min.js')}"></script>
+            <script src="{!URLFOR($Resource.Account_Summary, 'app/js/lib/angular-all/angular.min.js')}"></script>
+            <script src="{!URLFOR($Resource.Account_Summary, 'app/js/lib/twitter-bootstrap/bootstrap.min.js')}"></script>      
+            
+            <script src="{!URLFOR($Resource.Account_Summary, 'app/js/lib/angular-ui/angular-ui.min.js')}"></script>            
+            <script src="{!URLFOR($Resource.Account_Summary, 'app/js/lib/ui-bootstrap-tpls-0.6.0.js')}"></script>                        
+            <script src="{!URLFOR($Resource.Account_Summary, 'app/js/lib/ng-grid/ng-grid.min.js')}"></script>
+            
+            
+            <script src="{!URLFOR($Resource.Account_Summary, 'app/js/lib/bootstrap-daterangepicker-master/moment.min.js')}"></script>
+            <script src="{!URLFOR($Resource.Account_Summary, 'app/js/lib/bootstrap-daterangepicker-master/daterangepicker.js')}"></script>            
+            <script src="{!URLFOR($Resource.Account_Summary, 'app/js/lib/jquery.knob.js')}"></script>
+            <script src="{!URLFOR($Resource.Account_Summary, 'app/js/lib/numeral.min.js')}"></script>           
+            <script src= "{!URLFOR($Resource.Account_Summary, 'app/js/lib/angular-table/angular-table.js')}"></script>
+             <!--
+             <script src="{!URLFOR($Resource.Account_Summary, 'app/js/lib/ngForce/safeApply.js')}"></script>
+            <script src="{!URLFOR($Resource.Account_Summary, 'app/js/lib/ngForce/ngForce.js')}"></script>
+            -->
+
+
+            <!-- Local Static Resource css and javascript, all part of Angular-Seed app. -->
+            <apex:stylesheet value="{!URLFOR($Resource.Account_Summary, 'app/css/app.css')}"/>
+            
+        </head>
+        <!--- Javascript -->
+        <script src="{!URLFOR($Resource.Account_Summary, 'app/js/lib/underscore/underscore.js')}"></script>
+        <script src="{!URLFOR($Resource.Account_Summary, 'app/js/lib/angular-all/angular-strap.js')}"></script>
+        <script type="text/javascript">
+            <!-- Name your application -->
+
+                
+                    var myapp = angular.module('SubscriptionSummary', ['ngGrid',  'ui.bootstrap', '$strap.directives', 'angular-table']);
+                    myapp.config(function ($routeProvider, $locationProvider, $httpProvider) {
+                        $locationProvider.html5Mode(true);
+                    });
+                    myapp.service('RemotingService', function($rootScope, $q) {
+                        this.get = function(inputString){
+                            var deferred = $q.defer();
+                    
+                                Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.SubscriptionSummaryController.getAccounts}', inputString,function(result, event){
+                                    if(event) {
+                                         $rootScope.$apply(function() {
+                                            deferred.resolve(result);
+                                        });
+                    
+                                    } else { 
+                                        deferred.reject(result);
+                                    }            
+                                }, { buffer: true, escape: true, timeout: 30000 });
+                                return deferred.promise;
+                    
+                        }
+
+                    });
+                    myapp.directive('spDatePicker', function () {
+                            return {
+                                restrict: 'A',
+                                link: function (scope, element, attr) {
+                                    $(element).daterangepicker({
+                                            ranges: {
+                                                
+                                                //'Last 30 Days': [moment().subtract('days', 29), moment()],
+                                                //'This Month': [moment().startOf('month'), moment().endOf('month')],
+                                                //'Last Month': [moment().subtract('month', 1).startOf('month'), moment().subtract('month', 1).endOf('month')],
+                                                'This Quarter': [moment().month((Math.floor((moment().month()-1)/3)*3)+1).startOf('month'), moment()],
+                                                //'Last Quarter': [moment().subtract({ months: (moment().month() % 3) + 1}).endOf('month').subtract({ months: 3 }).startOf('month'), moment().subtract({ months: (moment().month() % 3) + 1}).endOf('month')],                                                
+                                                'Last Quarter' : [moment().month(((Math.floor((moment().month()-1)/3)*3)+1) -3).startOf('month'), moment().month(((Math.floor((moment().month()-1)/3)*3)+1) -1).endOf('month')],
+                                                'This Year': [moment().startOf('year')],
+                                                'Last 6 months': [moment().subtract('month', 6).startOf('month'), moment().startOf('month')],
+                                                'Last Year': [moment().subtract('year', 1).startOf('year'), moment().startOf('year')],
+                                                'Last 2 Years': [moment().subtract('year', 2).startOf('year'), moment().startOf('year')],
+                                                'All': [moment(0), moment()]
+                                            },
+                                            startDate: moment().startOf('year'),
+                                            endDate: moment(),
+                                            minDate: '01/01/2009',
+                                            showDropdowns: true,
+                                        },function (startDate, endDate) {
+                                        scope.$eval(attr.spDatePicker, {$startDate: startDate, $endDate: endDate});
+                                    });
+                                }
+                            };
+                    });
+                    myapp.directive('wanOpReduction', function() {
+                
+                        return {
+                
+                            restrict: "C",
+                            scope: {
+                                value: "@"
+                            },
+                            compile: function(tElement,tAttrs,transclude){
+                                
+                                return function(scope, element, attrs){
+                
+                                    attrs.$observe("value", function(newValue){
+                                        //console.log("value: " + newValue);
+                                        //console.log(element);
+                                        var setVal = newValue;
+                                        if(newValue === "") {
+                                            setVal = 0;
+                                        }
+                
+                                        element.knob({
+                
+                                        });
+                                        element.val(setVal).change();
+                                        
+                                    });
+                                };
+                            }
+                
+                        };
+                
+                    });
+                    myapp.filter('humanReadableByteSize', function() {
+                        return function(string) {
+                            var bytes = string * 1000000;
+                            var sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
+                            if (isNaN(bytes) || bytes === 0) {
+                                return '0';
+                            }
+                            var i = parseInt(Math.floor(Math.log(bytes) / Math.log(1024)));
+                            return Math.round(bytes / Math.pow(1024, i), 2) + ' ' + sizes[i];//  + " - ( " + string + " )";
+                        };
+                    }); 
+                    myapp.filter('assetCount', function() {
+                        return function(licenses) {
+                            //console.log(licenses);
+                            return _.size(_.groupBy(licenses, 'SerialNumber__c'));
+                        };
+                    }); 
+                    
+                    
+                    <!-- Define Controller  -->
+                    var contrl=myapp.controller('SubscriptionSummaryController', function ($scope, $filter, $q, $location, $window, RemotingService) {
+                        
+                        $scope.selected = undefined;
+
+                        $scope.assetGridColumnDefs = [
+
+                                
+                                { field: 'SerialNumber__c', displayName: 'Serial',width: 150 , cellTemplate: '<div style="text-align:center;"><a href="/{{row.entity.Id}}" target="_blank">{{row.entity.SerialNumber__c}}</a>&nbsp;&nbsp;<a href="http://autosupport.silverpeaksystems.com/spire/tac/serial?id={{row.entity.SerialNumber__c}}" target="_blank"><img src="{!URLFOR($Resource.Account_Summary, 'app/images/aspire.png')}" width="16" alt="SPIRE"  title ="View in SPIRE"></a></div>'},
+                                { field: 'AssetId__r.Model__c', displayName: 'Model' ,width: 80},
+                                //{ field: 'AssetId__r.Status', displayName: 'Asset Status' ,width: 150}, 
+                                { field: 'Start_Date__c', displayName: 'Start/Ship Date', width: 125, width: 100, cellFilter : 'date:"MMM d, y"'},                                
+                                { field: 'License_Expiration__c', displayName: 'End Date', width: 100, cellFilter : 'date:"MMM d, y"'   }, 
+                                { field: 'Key__c', displayName: 'License', width: 75 },     
+                                { field: 'Duration__c', displayName: 'Duration', width: 100},                                                                                                                                                                                               
+                                { field: 'AssetId__r.Account.Name', displayName: 'Account', width: 150 }, 
+                                { field: 'AccountTrend', displayName: 'Business',width: 125 },      
+                                { field: 'Reduction_Total_15_days__c', displayName: 'Reduction - 15 days', width: 125,
+                                    cellTemplate: '<div style="text-align:center;"><input class="knob wanOpReduction" data-fgColor="#2f7ed8", data-thickness=".3" data-width="40" data-readOnly=true, value="{{row.entity.Reduction_Total_15_days__c}}"></div>' },
+                                { field: 'LAN_Total_15_days__c', displayName: 'LAN - 15 days', width: 120, cellFilter: 'humanReadableByteSize' },
+                                { field: 'WAN_Total_15_days__c', displayName: 'WAN - 15 days', width: 120, cellFilter: 'humanReadableByteSize' },                                                                                           
+                                { field: 'Last_Contact__c', displayName: 'Last Contact', width: 200, cellFilter : 'date:"MMM d, y h:mm a"' },
+                                { field: 'Release__c', displayName: 'Release' ,width: 125 },
+                                { field: 'Asset__r === undefined ? "No": "Yes"', displayName: 'Phoned Home',width: 100 },                                    
+                                { field: 'Platform__c', displayName: 'Platform',width: 125 },
+                                
+                                
+                            ];
+                            
+                            $scope.aggFC = function (row) {
+                                var res = [];
+                            
+                                var calculateChildren = function(cur) {
+                                  var remaining;
+                                  angular.forEach(cur.children, function(a) {
+                                    remaining = a.getProperty('SerialNumber__c');
+                                    if (remaining) { res.push( remaining); }
+                                  });
+                                  
+                                };
+                            
+                                var calculateAggChildren = function(cur) {
+                                  calculateChildren(cur);
+                                  angular.forEach(cur.aggChildren, function(a) {
+                                    calculateAggChildren(a);
+                                  });
+                                  
+                                };
+                                calculateAggChildren(row);
+                                return _.uniq(res).length;
+                              };
+                              
+                        $scope.searchAcct = null;
+                        $scope.getAccounts = function(query, callback) {
+                            //console.log($scope.searchAcct);
+                            var promise = RemotingService.get($scope.searchAcct);
+                                promise.then(
+                                function(accts){
+                                    //console.log(accts.length);
+                                    $scope.matchedAccts = accts;
+                                    var results = _.map(accts, function(acct) {
+                                       return acct.Name;
+                                    });
+                                    callback(results);
+                                },
+                                function(reason){
+                                    alert('Account Search failed: ' + reason);
+                                }
+                            );    
+                        }
+                        
+                        
+                        var assetjson = {!assetWithSummaryJSON};
+                        var phonehomejson = {!assetPhoneHomeSummary};
+                        var phonehomeObject = {}
+                        _.each(phonehomejson, function(d) {
+                            phonehomeObject[d.Asset__r.Name] = d;        
+                        });
+                        
+                        $scope.items = assetjson;
+                        _.each($scope.items, function(d) {
+                            _.extend(d, phonehomeObject[d.SerialNumber__c]);        
+                        });
+                        
+                        
+                        $scope.origItems =  $scope.items;   
+                        $scope.origItemsByAccount =  _.groupBy($scope.origItems, function(d) {
+                            return d.AssetId__r.Account.Name;
+                        });  
+                       
+                           
+                        
+                        $scope.assetGridOptions = { 
+                            data: 'items' ,
+                            columnDefs: $scope.assetGridColumnDefs,
+                            showGroupPanel: true,
+                            showFooter: true,
+                            showFilter: true,
+                            enableColumnResize: true,
+                            enableHighlighting: true,
+                            enablePaging: false,
+                            showColumnMenu: true,
+                            totalServerItems: 'items.size',
+                            sortInfo: {
+                                fields: ['Start_Date__c'],
+                                directions: ['asc']
+                            }, 
+                            groups: ['AssetId__r.Account.Name', 'SerialNumber__c'],
+                            rowHeight: 40, 
+                            groupsCollapsedByDefault: false,
+                            aggregateTemplate: '<div ng-click="row.toggleExpand()" ng-style="rowStyle(row)" class="ngAggregate"> <span class="ngAggregateText">{{row.label CUSTOM_FILTERS}} (Assets: {{aggFC(row)}}, {{AggItemsLabel}} Licenses: {{row.totalChildren()}})</span> <div class="{{row.aggClass()}}"></div> </div>'
+  
+                        };
+                        
+                        $scope.collapseAssetGrid = function (isExpanded) {
+
+                            _.each($scope.assetGridOptions.ngGrid.rowFactory.aggCache, function (r) {
+                                r.setExpand(isExpanded);
+                            });
+                
+                            if (!$scope.$$phase) {
+                                $scope.$apply();
+                            }
+                
+                        };
+                        
+                        $scope.availableAccounts = _.keys(_.groupBy($scope.origItems, function(d) {
+                            return d.AssetId__r.Account.Name;
+                        }));
+                        $scope.acctWithIds = {};
+                        _.each($scope.origItems, function(d) { 
+                            $scope.acctWithIds[d.AssetId__r.Account.Name] = d.AssetId__r.Account
+                        });
+                        
+                        $scope.accountValue = '';
+                        
+                        $scope.fromDate = $location.search().shipStartDate ? moment($location.search().shipStartDate) : moment().startOf('year');
+                        $scope.toDate = $location.search().shipEndDate ? moment($location.search().shipEndDate) : moment();
+                        $scope.rangeStartDate = $scope.fromDate.format("MMM D, YYYY");
+                        $scope.rangeEndDate = $scope.toDate.format("MMM D, YYYY");
+                        $scope.changeDate = function(fromDate, toDate) {
+                            $scope.fromDate = fromDate;
+                            $scope.toDate = toDate;
+                            $scope.rangeStartDate = fromDate.format("MMM D, YYYY");
+                            $scope.rangeEndDate = toDate.format("MMM D, YYYY");
+                            
+                            $scope.calculateActiveSubscriptions();
+                              
+                            $scope.applyPageFilters(null);
+                            if($scope.accountValue.length > 0) {
+                                $scope.accountValue = '';
+                                if($scope.viewAll) {
+                                    $scope.itemsPerPage= $scope.acctsWithActiveSubs.length;
+                                } else {
+                                    $scope.itemsPerPage= 20;
+                                };
+                            }
+                            //$scope.updateURL();
+                        };
+                        
+                        $scope.expiringIn60Days = _.groupBy(_.filter($scope.items, function (d) { 
+                                
+                            return (moment(d.License_Expiration__c).unix() - moment().unix()) > 0 &&
+                                    (moment(d.License_Expiration__c).unix() - moment().add('days', 60).unix()) < 0;
+
+                        }), function(d) {
+                            return d.SerialNumber__c;
+                        });
+                        $scope.setPageSize = function(pageSize) {
+                                $scope.itemsPerPage = pageSize;
+                            };
+                        $scope.setPageSize(20);
+                        $scope.expiringIn60DaysCount = _.size($scope.expiringIn60Days);
+                        $scope.calculateActiveSubscriptions = function () {
+                            
+                            // Summary Table
+                            
+
+                            
+                            $scope.beginningCount = _.groupBy(_.filter($scope.origItems, function (d) {                                                                                                             
+                                return moment($scope.fromDate).unix() - moment(d.Start_Date__c).unix() > 0 &&
+                                        moment(d.License_Expiration__c).unix() - moment($scope.fromDate).unix() > 0 ;
+                            }), function(d) {
+                                return d.AssetId__r.Account.Name;
+                            });
+                            
+                            $scope.endingCount = _.groupBy(_.filter($scope.origItems, function (d) {                                                                                                             
+                                return moment($scope.toDate).unix() - moment(d.Start_Date__c).unix() > 0 &&
+                                        moment(d.License_Expiration__c).unix() - moment($scope.toDate).unix() > 0  ;
+                            }), function(d) {
+                                return d.AssetId__r.Account.Name;
+                            });
+                            
+                            $scope.acctsWithActiveSubs = _.union(Object.keys($scope.beginningCount), Object.keys($scope.endingCount));
+                            
+                            // Calculate Active Subs
+                            var activeSub = [];
+                             _.each($scope.acctsWithActiveSubs, function(acct) {
+                                    var actSubObj = {};
+                                    actSubObj.account = acct;
+                                    actSubObj.accountId = $scope.acctWithIds[acct].Id;
+                                    actSubObj.startCount = $scope.beginningCount[acct]? $filter('assetCount')($scope.beginningCount[acct]): 0;
+                                    actSubObj.startItems = $scope.beginningCount[acct] ? $scope.beginningCount[acct] : []; 
+                                    actSubObj.endCount = $scope.endingCount[acct] ? $filter('assetCount') ($scope.endingCount[acct]): 0;
+                                    actSubObj.endItems = $scope.endingCount[acct] ? $scope.endingCount[acct] : [];
+                                    
+                                    actSubObj.delta = actSubObj.endCount - actSubObj.startCount;
+                                    
+                                    // TODO: Add Maintenance    
+                                    if(actSubObj.startCount === 0 && actSubObj.delta > 0) {
+                                        actSubObj.business = "New";
+                                    } else if(actSubObj.startCount > 0 && actSubObj.delta > 0) {
+                                        actSubObj.business = "Growing";
+                                    } else if(actSubObj.startCount > 0 && actSubObj.endCount === 0) {
+                                        actSubObj.business = "Lost";
+                                    } else if(actSubObj.endCount > 0 && actSubObj.delta < 0) {
+                                        actSubObj.business = "Declining";
+                                    }  else {
+                                        actSubObj.business = "No Change";
+                                    }
+                                    activeSub.push(actSubObj);
+                             });
+                             $scope.activeSubsriptionObj = _.sortBy(activeSub, function(d) {return d.account});
+                             $scope.origActiveSubscriptionObj = $scope.activeSubsriptionObj;
+                             
+                             $scope.activeSubsSummary = {};
+                             $scope.activeSubsSummary.sumStart = _.reduce(_.pluck($scope.origActiveSubscriptionObj, 'startCount'), function(memo, num){ return memo + num; }, 0);
+                             $scope.activeSubsSummary.sumEnd = _.reduce(_.pluck($scope.origActiveSubscriptionObj, 'endCount'), function(memo, num){ return memo + num; }, 0);
+                             $scope.activeSubsSummary.sumDelta = _.reduce(_.pluck($scope.origActiveSubscriptionObj, 'delta'), function(memo, num){ return memo + num; }, 0);
+                             $scope.activeSubsSummary.trendSummary = _.countBy(_.pluck($scope.origActiveSubscriptionObj, 'trend'));
+                             $scope.activeSubsSummary.businessSummary = _.countBy(_.pluck($scope.origActiveSubscriptionObj, 'business'));
+                        };     
+                        
+                        $scope.calculateActiveSubscriptions();     
+                        
+                        $scope.showItems = function (items) {
+                            
+                            $scope.showingItemsForAccount = items !== null; ;                                                                                    
+                            $scope.applyPageFilters(items);
+                                
+                           
+                            
+                        }
+                        $scope.showAssetsForAccount = function (acct, items) {
+                            
+                            $scope.showingAssetsForAccount = acct !== null;                                                        
+                            $scope.accountValue = acct !== null ? acct : '';
+                            if(acct !== null) {
+                                $scope.activeSubsriptionObj = _.filter($scope.origActiveSubscriptionObj, function(d) {
+                                        return d.account === acct;
+                                });
+                                $scope.subObjItems = items;
+                                $scope.showingItemsForAccount = true;
+                                $scope.itemsPerPage= 1;
+                            } else {
+                                $scope.activeSubsriptionObj = $scope.origActiveSubscriptionObj;
+                                $scope.showingItemsForAccount = false;
+                                if($scope.viewAll) {
+                                    $scope.itemsPerPage= $scope.acctsWithActiveSubs.length;
+                                } else {
+                                    $scope.itemsPerPage= 20;
+                                };
+                            }
+                           
+                            $scope.applyPageFilters();
+                            
+                        }
+                        
+                        $scope.applyPageFilters = function () {  
+                            //console.log('calling apply page filters');                          
+                            //TODO
+                           
+                           
+                           if($scope.accountValue  && $scope.accountValue.length > 0) { 
+                               if($scope.subObjItems) {
+                                   $scope.items = $scope.subObjItems;
+                               } else {
+                                   
+                                   $scope.items = _.filter($scope.origItems, function(d) {
+                                       return d.AssetId__r.Account.Name === $scope.accountValue;
+                                   });
+                               }
+                           } else {
+                               $scope.items  = $scope.origItems;
+                           };
+                           var acctsWithBusiness = {};
+                           _.each($scope.activeSubsriptionObj, function(d) {
+                               acctsWithBusiness[d.account] = d.business;
+                           });
+                           
+                           _.each($scope.items, function(d) {
+                               d.AccountTrend = acctsWithBusiness[d.AssetId__r.Account.Name];
+                           });
+                           
+                            $scope.groupedItemsBySerial = _.groupBy($scope.items, function(d) {
+                                return d.SerialNumber__c;
+                            });
+                            $scope.totalSerialNumbers = _.size($scope.groupedItemsBySerial);
+                            
+                            
+                           // Active subscription that started before the first day of selected time frame
+                            
+                            //$scope.beginningActiveAssets = _.groupBy(_.filter($scope.items, function (d) {                                                                                                             
+                            //    return moment($scope.fromDate).unix() - moment(d.Start_Date__c).unix() > 0 &&
+                            //            moment(d.License_Expiration__c).unix() - moment($scope.fromDate).unix() > 0 ;
+                            //}), function(d) {
+                            //    return d.SerialNumber__c;
+                            //});
+                            
+                            $scope.beginningActiveAssets = _.groupBy(_.filter($scope.items, function (d) {                                                                                                             
+                                return moment($scope.fromDate).unix() - moment(d.Start_Date__c).unix() > 0 &&
+                                        moment(d.License_Expiration__c).unix() - moment($scope.fromDate).unix() > 0 ;
+                            }), function(d) {
+                                return d.SerialNumber__c;
+                            });
+                            
+                            $scope.beginningActiveAssetsCount = _.size($scope.beginningActiveAssets);
+                            
+                            //Active subscription that expires after the last day of selected time frame
+                            $scope.endingActiveAssets = _.groupBy(_.filter($scope.items, function (d) {                                                                                                             
+                                return moment($scope.toDate).unix() - moment(d.Start_Date__c).unix() > 0 &&
+                                        moment(d.License_Expiration__c).unix() - moment($scope.toDate).unix() > 0  ;
+                            }), function(d) {
+                                return d.SerialNumber__c;
+                            });
+                            $scope.endingActiveAssetsCount = _.size($scope.endingActiveAssets);
+                            
+                            
+                            if (!$scope.$$phase) {
+                                $scope.$apply();
+                            }
+                
+                        };
+                                 
+                        $scope.applyPageFilters(null);
+                        
+                        
+                });
+            
+            
+        </script>
+        
+        <body ng-app="SubscriptionSummary">
+            <style>
+                h1 {
+                    font-size: 25px;
+                    line-height: 1;
+                    text-align: center;   
+                    color: #0088cc; 
+                                  
+                }
+                h4 {
+                    font-size: 17.5px;
+                    }
+               @media print {
+                  .visible-print  { display: inherit !important; }
+                  .hidden-print   { display: none !important; }
+                }     
+                .statsTable {
+                    border: 5px solid #c4e3f3;
+                    border-left-width: 5px;
+                    border-right-width: 5px;
+                    margin-left: 15px;
+                    border-radius: 10px;
+                }
+                .tabledesclink {
+                    font-size: 15px;
+                    font-weight: bold;
+                    line-height: 1em;
+                    color: #26ac01;
+                } 
+                .tablevaluelink {
+                        font-size: 20px;
+                        font-weight: bold;
+                        text-decoration: none;
+                        line-height: 1em;
+                        color: deepskyblue;
+                    }
+                caption {
+                    color: #35b4e9;
+                }
+                .goodBusiness {
+                    color: green;
+                    font-weight: bold;
+                    font-size: 12px;
+                } 
+                .badBusiness {
+                    color: red;
+                    font-weight: bold;
+                    font-size: 12px;
+                } 
+                .positive {
+                    color: green;
+                    font-size: 18px;
+                } 
+                .negative {
+                    color: red;
+                    font-size: 18px;
+                } 
+                thead th {
+                    background-color: inherit;
+                    color: inherit;
+                }  
+                .addTotalRow {
+                    border-top: 5px solid #252CE0 !important;
+                }
+                .subtractTotalRow {
+                    border-top: 5px solid #F10B1D !important;
+                }
+                a {
+                    cursor:pointer;
+                }
+                tr td
+                {
+               
+                    vertical-align:center;
+                }
+                .btn-danger {
+                    color: #ffffff !important;
+                    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25) !important;
+                    background-color: #da4f49 !important;
+                    background-image: -moz-linear-gradient(top, #ee5f5b, #bd362f)!important;
+                    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#ee5f5b), to(#bd362f)) !important;
+                    background-image: -webkit-linear-gradient(top, #ee5f5b, #bd362f) !important;
+                    background-image: -o-linear-gradient(top, #ee5f5b, #bd362f) !important;
+                    background-image: linear-gradient(to bottom, #ee5f5b, #bd362f) !important;
+                    background-repeat: repeat-x !important;
+                    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffee5f5b', endColorstr='#ffbd362f', GradientType=0) !important;
+                    border-color: #bd362f #bd362f #802420  !important;
+                    border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25) !important;
+                    filter: progid:DXImageTransform.Microsoft.gradient(enabled = false) !important;
+                }
+                table thead th {
+                    background-color: #006DCC;
+                    color: white;
+                }
+                .subsTable th {
+                 
+                
+                  text-align: center;
+                }
+                .arrow-up {
+                    width: 0; 
+                    height: 0; 
+                    border-left: 10px solid transparent;
+                    border-right: 10px solid transparent;
+                    vertical-align: middle;
+                    border-bottom: 10px solid green;
+                }
+                
+                .arrow-down {
+                    width: 0; 
+                    height: 0; 
+                    border-left: 10px solid transparent;
+                    border-right: 10px solid transparent;
+                    border-top: 10px solid #f00;
+                }
+            </style>
+            <div class="ng-cloak" ng-controller="SubscriptionSummaryController">                 
+                <div>
+                    <div class = "container-fluid">
+                        <div>
+                            <div class = "text-center" style="margin-top: 10px;">
+                                <h1>Subscription Dashboard</h1>                               
+                            </div>  
+                                                     
+                            <div class="container" >  
+                                <div class="span3 offset4">                                                    
+                                 <div id="reportrange" sp-date-picker="changeDate($startDate, $endDate)" class = "pull-right" >
+                                     <strong>Time: &nbsp;
+                                         <i class="icon-calendar icon-large"></i>
+                                         <span> {{rangeStartDate}} - {{rangeEndDate}}</span>
+                                         <b class="caret"></b>
+                                     </strong>
+                                 </div>
+                                 </div>
+                            </div>
+                            
+                        </div> 
+                        
+                        
+                        
+                    </div>
+                    
+                </div>
+                <div id = "statsTableRow" >
+                    <div class="container" ng-show = 'accountValue.length === 0'>
+                        <div class="row-fluid hidden-print" >
+                                  <div id="big_stats_container" class="row-fluid">
+                                    <div class="cf big_stats">
+                                      <div class="stat span2" >
+                                        <h4>Total Accounts</h4>
+                                        <br/><br/>
+                                        <span class="value">{{acctsWithActiveSubs.length}}</span>
+                                        
+                                      </div>
+                                      <div class="stat span4">
+                                        <h4>Account Trend</h4><br/>
+                                        
+                                        <div class="value">
+                                            
+                                            <span class = "positive">
+                                               {{activeSubsSummary.businessSummary['New'] || 0}} New,
+                                            </span>
+                                            <span class = "positive">
+                                               {{activeSubsSummary.businessSummary['Growing'] || 0}} Growing,
+                                            </span>
+                                            <span class = "positive">
+                                               {{activeSubsSummary.businessSummary['No Change'] || 0}} No Change
+                                            </span>
+                                        </div>                                             
+                                       <div class="value">     
+                                            <span class = "negative">
+                                               {{activeSubsSummary.businessSummary['Declining'] || 0}} Declining,
+                                            </span>
+                                            <span class = "negative">
+                                               {{activeSubsSummary.businessSummary['Lost'] || 0}} Lost
+                                            </span>
+                                             
+                                        </div> 
+                                        
+                                      </div>
+                                      <div class="stat span2" >
+                                        <h4>Assets at Start</h4>
+                                        <br/><br/>
+                                        <span class="value">{{activeSubsSummary.sumStart}}</span>
+
+                                        <br/><br/>
+                                        
+                                      </div>
+                                      
+                                      <div class="stat span2" >
+                                        <h4>Assets at End</h4>
+                                        <br/><br/>
+                                        <span class="value">{{activeSubsSummary.sumEnd}}</span>
+                                        
+                                      </div>
+                                      
+                                      <div class="stat span2">
+                                          <h4>Asset Delta</h4>
+                                          <br/><br/>
+                                          <span class="value">{{activeSubsSummary.sumDelta}}</span>
+                                      </div> 
+                                      
+                                      
+                                      
+                                      
+                                                                          
+                                      
+                                    </div>
+                                  </div>
+                            </div>
+                    </div>
+                    <div class="container">
+                        <div class="span8 offset2"> 
+                            <!--<input placeholder="Search..." type="text" ng-model="query" ng-change="queryChanged(query)"></input>-->
+                            <table class="table table-hover table-bordered table-condensed subsTable" >
+                                 <tbody>
+                                    <tr>
+                                    </tr>
+                                 </tbody>   
+                            </table>  
+                            <table class="table table-hover table-bordered table-condensed subsTable" at-table="at-table"  at-pagination="wildPagination" fill-last-page= "fill-last-page">
+                              <!-- the header will automatically be created according to the body definition. -->
+                              <thead></thead>
+                              <tbody>
+                                <tr ng-show="accountValue.length === 0 || (accountValue.length > 0 && item.account === accountValue)">
+                                   <td sortable = 'sortable'  title="Account" attribute="account" initial-sorting="asc">
+                                      
+                                       <div>  
+                                             <a href="/apex/AccountSummary?id={{item.accountId}}" target="_blank">
+                                                 <img src="{!URLFOR($Resource.Account_Summary, 'app/images/aspire.png')}" width="16" alt="SPIRE"  title ="View Account Summary"></img>
+                                             </a>                                         
+                                             <a ng-click="showAssetsForAccount(item.account)">
+                                                 <span > {{item.account}}</span>                                                                                                  
+                                             </a> 
+                                             
+                                              <button ng-show="accountValue.length > 0" ng-click="showAssetsForAccount(null, null);" class="btn add-on btn-mini btn-danger">
+                                                   <i class="icon-remove icon-white"></i>                                                
+                                              </button>                                             
+                                       </div>
+                                       
+                                   </td>
+                                   <td sortable = 'sortable'  title="Start"   style= "text-align: center;" attribute="startCount">
+                                       <div class="text-center">                                             
+                                             <a ng-show='item.startCount > 0' ng-click="showAssetsForAccount(item.account, item.startItems)">
+                                                 <span > {{item.startCount}}</span>                                                                                                  
+                                             </a>  
+                                             <span ng-show='item.startCount === 0'> {{item.startCount}}</span>                                                
+                                       </div>
+                                          
+                                   </td>
+                                   <td sortable = 'sortable'  title="End" style= "text-align: center;" attribute="endCount">
+                                       <div class="text-center">                                             
+                                             <a ng-show='item.endCount > 0' ng-click="showAssetsForAccount(item.account, item.endItems)">
+                                                 <span > {{item.endCount}}</span>                                                                                                  
+                                             </a>  
+                                             <span ng-show='item.endCount === 0'> {{item.endCount}}</span>                                          
+                                       </div>  
+                                   </td>
+                                   <td sortable = 'sortable' at-implicit='at-implicit' title="Delta" attribute="delta" style= "text-align: center;"></td>
+                                  
+                                   <td sortable = 'sortable'  title="Business" attribute="business" style= "text-align: center;">
+                                       <div class="text-center" ng-class= "{ 'badBusiness': item.business === 'Declining' || item.business === 'Lost', 'goodBusiness': item.business === 'Growing' || item.business === 'New'}">{{item.business}} </div>
+                                        
+                                   </td>
+                                   
+                                </tr>
+                              </tbody>
+                            </table>                                   
+                            <div ng-show='accountValue.length === 0' class="span8">
+                                <div class="row">
+                                <div class = "span2">
+                                    <button type="button" ng-show="viewAll" ng-click="viewAll = false;setPageSize(20);" class="btn btn-mini">View by Page</button>
+                                    <button type="button" ng-hide="viewAll" ng-click="viewAll = true;setPageSize(acctsWithActiveSubs.length)" class="btn btn-mini">View All</button> 
+                                 </div>
+                                <div class = "span6">
+                                    <at-pagination items-per-page="{{itemsPerPage}}" instance="wildPagination" list="activeSubsriptionObj" ></at-pagination>   
+                                </div>
+                                </div>
+                                
+                            </div>
+                        </div> 
+                    </div>
+                </div>                                    
+                
+                <div>
+                                        
+                    <div class="container-fluid">
+                        <div><h4> Total Assets: {{totalSerialNumbers}}</h4></div>
+                        <button type="button" ng-show="assetGridOptions.ngGrid.config.groups.length > 0" ng-click="collapseAssetGrid(false)" class="btn btn-mini">Expand &raquo; </button>
+                        <button type="button" ng-show="assetGridOptions.ngGrid.config.groups.length > 0" ng-click="collapseAssetGrid(true)" class="btn btn-mini">Collapse &raquo;</button>
+    
+                         <div class="gridStyle" ng-grid="assetGridOptions" style = "border: 1px solid rgb(212,212,212);height:600px;"></div>
+                     </div>
+                </div>            
+            </div>
+        </body>
+        <!--<script type="text/javascript">
+
+              var _gaq = _gaq || [];
+              _gaq.push(['_setAccount', 'UA-45765411-1']);
+              _gaq.push(['_trackPageview']);
+            
+              (function() {
+                var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+                ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+                var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+              })();
+            
+        </script>-->
+    </html>
+</apex:page>

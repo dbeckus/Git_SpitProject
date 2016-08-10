@@ -1,0 +1,199 @@
+<apex:page controller="PartnerPortalRequestMDFController" showHeader="false" standardStylesheets="true" >
+    <apex:composition template="PartnerPortalTemplate">
+        <apex:define name="body">
+            <script>
+                function doSearch(sortField) {
+                    if(sortField) {
+                        $("input[id$='sortField']").val(sortField);
+                    }
+                    searchRequests();
+                }
+            </script>
+            <apex:form >
+        <div id="main">
+
+        <div id="Auth_Breadcrumb">
+        <table class="BreadCrumb_CssClass" cellspacing="0" style="border-collapse:collapse;">
+            <tbody><tr>
+                <td><table border="0" cellpadding="0" cellspacing="0">
+                    <tbody><tr>
+                        <td><div class="BreadCrumb_RootNodeCssClass" style="display:inline;"><a href="home">Home</a></div></td><td>&nbsp;</td><td><div class="BreadCrumb_ParentNodeCssClass" style="display:inline;"><a href="marketing_tools_overview">Marketing Tools</a></div></td><td>&nbsp;</td><td><div class="BreadCrumb_ParentNodeCssClass" style="display:inline;"><a href="mdf_program_guide_and_slides">MDF Program</a></div></td><td>&nbsp;</td><td><div class="BreadCrumb_SelectedNodeCssClass" style="display:inline;"><a href="manage_mdf_requests">Manage MDF Requests</a></div></td>
+                    </tr>
+                </tbody></table></td>
+            </tr>
+        </tbody></table>
+        </div>
+    
+    <article id="content_1col">
+        <div class="txt">
+            <div class="img-holder">
+                <img src="{!URLFOR($Resource.PartnerPortal, 'images/img01.jpg')}" alt="Marketing Tools - Manage MDF Requests" style="height:181px;width:293px;"/>
+                <h1>Manage<br/>MDF Requests</h1>
+            </div>
+            
+
+<div class="clear"></div>
+<table border="0" cellspacing="0" cellpadding="0" width="100%">
+<tbody><tr>
+    <td>
+        <table border="0" cellspacing="0" cellpadding="0" width="100%" style="margin: 0 0 10px 0;">
+        <tbody><tr>
+            <td><h2>Manage MDF Requests</h2></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <apex:pageMessages />
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div>
+                    <div class="left"><apex:inputText value="{!keyword}" html-placeholder="Search" maxlength="40" /></div>
+                    <div class="left" style="margin: 1px 0 0 5px;"><img src="{!URLFOR($Resource.PartnerPortal, 'images/Btn_ArrowRight_Off.gif')}" alt="Go" onclick="doSearch()" style="cursor:pointer" /></div>
+                    <div class="left" style="margin: 2px 0 0 25px;"><!--<a href="javascript:alert('Not Implemented')">Export MDF Requests</a>--></div>
+                    <div class="left" style="margin: 2px 0 0 25px;"><a href="{!URLFOR($Page.PartnerPortalRequestMDF)}">Submit new MDF Request</a></div>
+                    <div class="clear"></div>
+                </div>
+            </td>
+            <td align="right">
+                <div class="right">
+                    <apex:actionFunction action="{!search}" name="searchRequests"></apex:actionFunction>
+                    <apex:inputHidden value="{!sortField}" id="sortField" />
+                    <div class="left">
+                        <apex:selectList size="1" value="{!filterField}" styleClass="searchList">
+                            <apex:selectOption itemLabel="Activity Date" itemValue="Activity_Date__c" />
+                            <apex:selectOption itemLabel="Date Created" itemValue="CreatedDate" />
+                            <apex:selectOption itemLabel="Last Updated" itemValue="LastModifiedDate" />
+                        </apex:selectList>
+                        <apex:selectList size="1" value="{!filterValue}" styleClass="searchList">
+                            <apex:selectOption itemLabel="Yesterday" itemValue="YESTERDAY" />
+                            <apex:selectOption itemLabel="Today" itemValue="TODAY" />
+                            <apex:selectOption itemLabel="Tomorrow" itemValue="TOMORROW" />
+                            <apex:selectOption itemLabel="Last Week" itemValue="LAST_WEEK" />
+                            <apex:selectOption itemLabel="This Week" itemValue="THIS_WEEK" />
+                            <apex:selectOption itemLabel="Next Week" itemValue="NEXT_WEEK" />
+                            <apex:selectOption itemLabel="Last Month" itemValue="LAST_MONTH" />
+                            <apex:selectOption itemLabel="This Month" itemValue="THIS_MONTH" />
+                            <apex:selectOption itemLabel="Next Month" itemValue="NEXT_MONTH" />
+                            <apex:selectOption itemLabel="Last 90 Days" itemValue="LAST_90_DAYS" />
+                            <apex:selectOption itemLabel="Next 90 Days" itemValue="NEXT_90_DAYS" />
+                            <apex:selectOption itemLabel="This Quarter" itemValue="THIS_QUARTER" />
+                            <apex:selectOption itemLabel="Last Quarter" itemValue="LAST_QUARTER" />
+                            <apex:selectOption itemLabel="Next Quarter" itemValue="NEXT_QUARTER" />
+                            <apex:selectOption itemLabel="This Year" itemValue="THIS_YEAR" />
+                            <apex:selectOption itemLabel="Last Year" itemValue="LAST_YEAR" />
+                            <apex:selectOption itemLabel="Next Year" itemValue="NEXT_YEAR" />
+                        </apex:selectList>
+                    </div>
+                    <div class="left" style="margin: 1px 0 0 5px;"><img src="{!URLFOR($Resource.PartnerPortal, 'images/Btn_ArrowRight_Off.gif')}" alt="Go" style="cursor:pointer" onclick="doSearch()" /></div>
+                    <div class="clear"></div>
+                </div>
+                <div class="clear"></div>
+            </td>
+        </tr>
+        </tbody></table>
+
+        <table border="0" cellspacing="0" cellpadding="0" width="100%" class="basic_table">
+        <tbody><tr>
+            <th class="basic_th">
+                <a href="javascript:doSearch('Name')">Activity Id</a>
+            </th>
+            <th class="basic_th">
+                <a href="javascript:doSearch('Type_of_Program__c')">Planned Activity</a>
+            </th>
+            <th class="basic_th">
+                <a href="javascript:doSearch('Event_Campaign_Name__c')">Event/Campaign Name</a>
+            </th>
+            <th class="basic_th">
+                <a href="javascript:doSearch('Activity_Complete__c')">Completed?</a>
+            </th>
+            <th class="basic_th">
+                <a href="javascript:doSearch('Approval_Status__c')">Status</a>
+            </th>
+            <th class="basic_th">
+                <a href="javascript:doSearch('Invoice_No__c')">Invoice No</a>
+            </th>
+            <th class="basic_th">
+                <a href="javascript:doSearch('PO_No__c')">PO Number</a>
+            </th>
+            <th class="basic_th">
+                <a href="javascript:doSearch('Estimated_Silver_Peak_Amount__c')">Est Silver Peak Amt</a>
+            </th>
+            <th class="basic_th">
+                <a href="javascript:doSearch('Activity_Date__c DESC')">Activity Date</a>
+            </th>
+        </tr>
+        <apex:repeat value="{!requests}" var="req">
+            <tr class="basic_tr_even">
+                <td class="basic_td">
+                    <a href="{!URLFOR($Page.PartnerPortalRequestMDF)}?id={!req.Name}">{!req.Name}</a>
+                </td>
+                <td class="basic_td">
+                    <a href="{!URLFOR($Page.PartnerPortalRequestMDF)}?id={!req.Name}">{!req.Type_of_Program__c}</a>
+                </td>
+                <td class="basic_td">
+                    <a href="{!URLFOR($Page.PartnerPortalRequestMDF)}?id={!req.Name}">{!req.Event_Campaign_Name__c}</a>
+                </td>
+                <td class="basic_td">
+                    <apex:image value="/img/checkbox_checked.gif" rendered="{!req.Activity_Complete__c}" /><apex:image value="/img/checkbox_unchecked.gif" rendered="{!NOT(req.Activity_Complete__c)}" />
+                </td>
+                <td class="basic_td">
+                    {!req.Approval_Status__c}
+                </td>
+                <td class="basic_td">
+                    {!req.Invoice_No__c}
+                </td>
+                <td class="basic_td">
+                    {!req.PO_No__c}
+                </td>
+                <td class="basic_td">
+                    ${!req.Estimated_Silver_Peak_Amount__c}
+                </td>
+                <td class="basic_td">
+                    <apex:outputText value="{0, date, MM/dd/YYYY}"><apex:param value="{!req.Activity_Date__c}"/></apex:outputText>
+                </td>
+            </tr>
+        </apex:repeat>
+        </tbody></table>
+
+        <!--<table border="0" cellspacing="0" cellpadding="0" width="100%">
+        <tbody><tr>
+            <td align="right">
+                <span class="content">Page Size:</span>
+                <select name="ctl00$ctl00$ctl00$GlobalBodyContent$InternalBodyContent$BodyContent$PageSize_MDF" id="GlobalBodyContent_InternalBodyContent_BodyContent_PageSize_MDF" class="searchList" onchange="__doPostBack('ctl00$ctl00$ctl00$GlobalBodyContent$InternalBodyContent$BodyContent$PageSizeBtn_MDF','')">
+                    <option value="10">10</option>
+                    <option value="25">25</option>
+                    <option selected="selected" value="50">50</option>
+                    <option value="100">100</option>
+                    <option value="200">200</option>
+                
+                </select>  
+            </td>
+        </tr>
+        </tbody></table>-->
+    </td>
+</tr>
+</tbody></table>
+        
+        </div>
+    </article>
+
+            <div class="clear"></div>
+            <div class="socialmedia">
+                <nav class="social">
+                    <ul>
+                        <li><a class="facebook" target="_blank" href="http://facebook.com/SilverPeakSystems">facebook</a></li>
+                        <li><a class="blog" target="_blank" href="http://blog.silver-peak.com/">blog</a></li>
+                        <li><a class="twitter" target="_blank" href="https://twitter.com/silverpeak">twitter</a></li>
+                        <li><a class="linkedin" target="_blank" href="http://www.linkedin.com/company/silver-peak-systems">linkedin</a></li>
+                        <li><a class="youtube" target="_blank" href="http://www.youtube.com/user/silverpeaksystems">youtube</a></li>
+                        <li><a class="rss" target="_blank" href="http://feeds.feedburner.com/WANspeak">rss</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+            </apex:form>
+        </apex:define>
+    </apex:composition>
+</apex:page>

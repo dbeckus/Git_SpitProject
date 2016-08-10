@@ -1,0 +1,20 @@
+<apex:page standardController="Account" extensions="OpenOpportunitiesRelatedList" >
+    <apex:form >
+        <apex:pageblock id="CustomList">
+            <apex:outputText value="There are no renewal opportunities." rendered="{!RenewalOppsList.size=0}"></apex:outputText>
+            <apex:pageBlockTable value="{!RenewalOppsList}" var="o" rendered="{!RenewalOppsList.size >0}" width="100%">
+                <apex:column headerValue="Opportunity Name">
+                    <apex:outputLink target="_top" value="{!URLFOR($Action.Opportunity.View,o.Id)}">{!o.Name}</apex:outputLink>
+                </apex:column>
+                <apex:column value="{!o.Owner.Name}" headerValue="Opportunity Owner"/>
+                <apex:column headerValue="Registered Partner">
+                    <apex:outputLink target="_top" value="{!URLFOR($Action.Account.View,o.Registering_Partner__c)}">{!o.Registering_Partner__r.Name}</apex:outputLink>
+                </apex:column>
+                <apex:column value="{!o.Registering_Partner_Sales_Rep__r.Name}" headerValue="Registered Partner Rep" />
+                <apex:column value="{!o.Amount}" headerValue="Amount"/>
+                <apex:column value="{!o.StageName}" headerValue="Stage"/>
+                <apex:column value="{!o.CloseDate}" headerValue="Close Date"/>
+            </apex:pageBlockTable>
+        </apex:pageblock>
+    </apex:form>
+</apex:page>

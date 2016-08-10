@@ -1,0 +1,65 @@
+<apex:page standardController="Asset" tabStyle="Asset" extensions="NewVirtualAssetController">
+    <apex:includeScript value="{!URLFOR($Resource.VirtualAsset, 'res/js/jquery-1.7.2.min.js')}"/>
+    <apex:includeScript value="{!URLFOR($Resource.VirtualAsset, 'res/js/NewVirtualAsset.js')}"/>
+    
+    <apex:sectionHeader title="Asset" subtitle="New Virtual Asset"/>
+    <apex:form >
+        <apex:pageMessages />
+        <apex:pageBlock title="Virtual Asset Edit" mode="edit">
+            <apex:pageBlockButtons >
+                <apex:commandButton action="{!save}" value=" Save " />
+                <apex:commandButton action="{!saveAndNew}" value="Save & New" />
+                <apex:commandButton action="{!cancel}" value="Cancel" immediate="true"/>
+            </apex:pageBlockButtons>
+            <apex:pageBlockSection title="Asset Information" columns="2">
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Product" for="product" id="productLabel" />
+                    <apex:outputPanel layout="block" styleClass="requiredInput">
+                        <div class="requiredBlock"></div>
+                        <apex:selectList value="{!Asset.Product2Id}" required="true" multiselect="false" size="1" id="product">
+                            <apex:selectOptions value="{!Products}" />
+                        </apex:selectList>
+                    </apex:outputPanel>
+                </apex:pageBlockSectionItem>
+                <apex:inputField value="{!Asset.AccountId}" required="true" id="accountId"/>
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Status" for="status" id="statusLabel" />
+                    <apex:outputPanel layout="block" styleClass="requiredInput">
+                        <div class="requiredBlock"></div>
+                        <apex:selectList value="{!Asset.Status}" required="true" size="1" id="status">
+                            <apex:selectOption itemLabel="Customer Evaluation" itemValue="Customer Evaluation" />
+                            <apex:selectOption itemLabel="Conditional PO" itemValue="Conditional PO" />
+                            <apex:selectOption itemLabel="Customer Owned" itemValue="Customer Owned" />
+                            <apex:selectOption itemLabel="Customer Subscription" itemValue="Customer Subscription" />
+                        </apex:selectList>
+                    </apex:outputPanel>
+                </apex:pageBlockSectionItem>
+                <apex:inputField value="{!Asset.ContactId}" required="true" id="contactId" />
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Hosted GMS" for="hostedGMS" id="hostedGMSLabel"/>
+                    <apex:inputField value="{!Asset.Hosted_GMS__c}" id="hostedGMS" />
+                </apex:pageBlockSectionItem>
+                <apex:inputField value="{!Asset.POCRequest__c}" id="requestId"/>
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="License Start Date" for="licenseStartDate" id="licenseStartDateLabel" />
+                    <apex:inputField value="{!Asset.Evaluation_Start_Date__c}" id="licenseStartDate" />
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="License Duration" for="licenseDuration" id="licenseDurationLabel"/>
+                    <apex:outputPanel >
+                        <select id="licenseDuration"></select>
+                    </apex:outputPanel>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="License End Date" for="licenseEndDate" id="licenseEndDateLabel" />
+                    <apex:outputPanel >
+                        <apex:outputPanel id="licenseEndDateIn">
+                            <apex:inputField value="{!Asset.Evaluation_End_Date__c}" id="licenseEndDate" />
+                        </apex:outputPanel>
+                        <span id="licenseEndDatePerpetual" style="display: none">Perpetual</span>
+                    </apex:outputPanel>
+                </apex:pageBlockSectionItem>
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

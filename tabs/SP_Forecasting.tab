@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomTab xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>This is a custom app for managing forecasting at Silver Peak</description>
+    <label>Silver Peak Pipeline</label>
+    <mobileReady>true</mobileReady>
+    <motif>Custom5: Leaf</motif>
+    <page>Forecasting</page>
+</CustomTab>

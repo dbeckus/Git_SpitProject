@@ -1,0 +1,2164 @@
+<apex:page controller="PartnerPortalRegistrationController"
+	showHeader="false" standardStylesheets="true" docType="html-5.0">
+	<head>
+<apex:includeScript value="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js" />
+<script type="text/javascript">
+            j$ = jQuery.noConflict();
+            j$(document).ready(function() {
+                j$('table[autotr]').each(function(index,val){
+                    var count = parseInt(j$(val).attr('autotr'));
+                    var cur = 0;
+                    var tr = j$('<tr></tr>');
+                    j$(val).find('td').each(function(i,v){
+                        j$(tr).append(v);
+                        cur++;
+                        if(cur == count){
+                            cur = 0;
+                            j$(val).append(j$(tr));
+                            tr = j$('<tr></tr>');
+                        }
+                    });
+                    if(cur < count){
+                        j$(val).append(j$(tr));
+                    }
+                });
+                j$('table[autorequired]').each(function(index,val){
+                    var required = j$(val).attr('autorequired').toLowerCase();
+                    if(required == 'required' || required == 'true')
+                    {
+                    	markTableInputsAutoRequired(val);
+                    	if(isTableUnchecked(val)){
+                			toggleRequired(val,true);
+                		}else{
+                			toggleRequired(val,false);
+                		}
+                    	
+                    }
+                });
+                j$('input[autoRequired]').change(function(){
+                	var table = findRequiredTable(this);
+                	if(j$(this).is(":checked")) {
+                		toggleRequired(table, false);
+                	}else if(isTableUnchecked(table)){
+                		toggleRequired(table,true);
+                	}
+                });
+            });
+            function markPrimaryContact(cls, checked){
+                if(checked){
+                    j$("."+cls+".First_Name__c").val("{!hq.First_Name__c}");
+                    j$("."+cls+".Last_Name__c").val("{!hq.Last_Name__c}");
+                    j$("."+cls+".Address_1__c").val("{!hq.Address_1__c}");
+                    j$("."+cls+".Address_2__c").val("{!hq.Address_2__c}");
+                    j$("."+cls+".City__c").val("{!hq.City__c}");
+                    j$("."+cls+".Region__c").val("{!hq.Region__c}");
+                    j$("."+cls+".Region__c").trigger("change");
+                    j$("."+cls+".Country__c").find("select").val("{!hq.Country__c}");
+                    j$("."+cls+".Country__c").find("select").trigger("change");
+                    j$("."+cls+".State__c").find("select").val("{!hq.State__c}");
+                    j$("."+cls+".Postal_Code__c").val("{!hq.Postal_Code__c}");
+                    j$("."+cls+".Email__c").val("{!hq.Email__c}");
+                    j$("."+cls+".Phone__c").val("{!hq.Phone__c}");
+                    j$("."+cls+".Fax__c").val("{!hq.Fax__c}");
+                    
+                }
+                else{
+                    j$("."+cls+".First_Name__c").val("");
+                    j$("."+cls+".Last_Name__c").val("");
+                    j$("."+cls+".Address_1__c").val("");
+                    j$("."+cls+".Address_2__c").val("");
+                    j$("."+cls+".City__c").val("");
+                    j$("."+cls+".Region__c").val("");
+                    j$("."+cls+".Country__c").val("");
+                    j$("."+cls+".State__c").val("");
+                    j$("."+cls+".Postal_Code__c").val("");
+                    j$("."+cls+".Email__c").val("");
+                    j$("."+cls+".Phone__c").val("");
+                }
+            }
+            
+            function toggleRequired(table, isRequired){
+            	if(isRequired){
+            		j$(table).find('input').each(function(i,v){
+            			 j$(v).attr('required','required');
+            		});            		
+            	}
+            	else{
+            		j$(table).find('input').each(function(i,v){
+            			j$(v).removeAttr('required');
+            		});
+            	}
+            }
+            
+            function markTableInputsAutoRequired(table){
+            	j$(table).find('input').each(function(i,v){
+            			 j$(v).attr('autoRequired','required');
+            		});
+            }
+            
+            function findRequiredTable(input){
+            	return j$(input).closest('table[autorequired]');
+            }
+            
+            function isTableUnchecked(table){
+            	var result = true;
+            	j$(table).find('input').each(function(i){
+            		if(j$(this).is(":checked")){
+            			result = false;
+            			return result;
+            		}
+            	});
+            	return result;  
+            }
+            </script>
+	</head>
+	<apex:composition template="{!$Site.Template}">
+		<apex:define name="body">
+			<apex:outputPanel rendered="{!page == 0}">
+				<div id="main">
+					<ul class="breadcrumbs">
+						<li class="active"><a href="./">Home</a></li>
+						<li>Registration</li>
+					</ul>
+					<div id="content">
+						<apex:form >
+							<div class="txt">
+								<div class="img-holder">
+									<img
+										src="{!URLFOR($Resource.PartnerPortal, 'images/img06.jpg')}"
+										alt="Registration" />
+									<h1>Registration</h1>
+								</div>
+								<h2>Apply</h2>
+								<p>
+									Before you get started be sure to have the following
+									information available to ensure a smooth process. In progress
+									applications can’t be saved. The ( <span class="required_field">*</span>
+									) indicates a required field.
+								</p>
+								<div class="no_wrap_padding">
+									<ul>
+										<li>Company&apos;s full legal name</li>
+										<li>Company headquarters address and branch office
+											locations</li>
+										<li>Tax ID/VAT</li>
+									</ul>
+								</div>
+								<div class="clear"></div>
+								<br />
+								<ul>
+									<li>Employee contact information for a primary application
+										contact, executive/managerial contact, sales contact,
+										marketing contact and technical contact</li>
+									<li>Company profile information including annual revenue,
+										years in business, number of employees and breakdown, vendor
+										relationships, vertical markets served, and product categories
+										sold and services offered</li>
+								</ul>
+								<table border="0" cellpadding="2" cellspacing="0" width="100%">
+									<tbody>
+										<tr>
+											<td width="180"><span>Email Address:</span> <span
+												class="required_field">*</span></td>
+											<td><apex:inputField value="{!con.Email}" label=""
+													required="true" /></td>
+										</tr>
+										<tr>
+											<td width="180"><span>Company:</span> <span
+												class="required_field">*</span></td>
+											<td><apex:inputField value="{!acc.name}" label=""
+													required="true" /></td>
+										</tr>
+										<tr>
+											<td width="180"><span>Region:</span> <span
+												class="required_field">*</span></td>
+											<td><apex:inputField value="{!hq.Region__c}" label=""
+													required="true" /></td>
+										</tr>
+										<tr>
+											<td width="180"><span>Country:</span> <span
+												class="required_field">*</span></td>
+											<td>
+												<div id="CountryOptions" style="">
+													<apex:inputField value="{!hq.Country__c}" label=""
+														required="true" />
+												</div>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+								<table border="0" cellpadding="0" cellspacing="2">
+									<tbody>
+										<tr>
+											<td colspan="2"><apex:commandButton action="{!savePage0}" value="Next" styleClass="btn" /></td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</apex:form>
+						<div class="socialmedia">
+							<nav class="social">
+								<ul>
+									<li><a class="facebook" target="_blank"
+										href="http://facebook.com/SilverPeakSystems">facebook</a></li>
+									<li><a class="blog" target="_blank"
+										href="http://blog.silver-peak.com/">blog</a></li>
+									<li><a class="twitter" target="_blank"
+										href="https://twitter.com/silverpeak">twitter</a></li>
+									<li><a class="linkedin" target="_blank"
+										href="http://www.linkedin.com/company/silver-peak-systems">linkedin</a></li>
+									<li><a class="youtube" target="_blank"
+										href="http://www.youtube.com/user/silverpeaksystems">youtube</a></li>
+									<li><a class="rss" target="_blank"
+										href="http://feeds.feedburner.com/WANspeak">rss</a></li>
+								</ul>
+							</nav>
+						</div>
+					</div>
+					<aside id="sidebar">
+						<div class="side-holder">
+							<div class="widget">
+								<h2>Not a Partner Yet?</h2>
+								<div class="list-scroll">
+									<strong class="title">Here&apos;s some more
+										information:</strong>
+									<ul>
+										<li><a href="/content_download?doc=D-1700">Champions
+												Channel <br /> Partner Program
+										</a></li>
+										<li><a href="/content_download?doc=D-1710">Silver
+												Peak Champions Channel <br /> Partner Program <br /> -
+												North America
+										</a></li>
+									</ul>
+									<span> Apply now to become a <br /> Silver Peak Partner
+									</span> <a href="register" class="btn btn-partner">Apply for
+										Partnership</a>
+								</div>
+							</div>
+						</div>
+					</aside>
+				</div>
+			</apex:outputPanel>
+			<apex:outputPanel rendered="{!page == 1}">
+				<div id="main">
+					<ul class="breadcrumbs">
+						<li class="active"><a href="./">Home</a></li>
+						<li>Registration Page 2</li>
+					</ul>
+					<div id="content">
+						<apex:form >
+							<div class="txt">
+								<div class="img-holder">
+									<img
+										src="{!URLFOR($Resource.PartnerPortal, 'images/img06.jpg')}"
+										alt="Registration" />
+									<h1>
+										Registration <br /> Page 2
+									</h1>
+								</div>
+								<h1>Terms and Conditions</h1>
+								<table border="0" cellpadding="2" cellspacing="0" width="100%">
+									<tbody>
+										<tr>
+											<td width="180"><span>Company Legal Name:</span> <span
+												class="required_field">*</span></td>
+											<td><apex:inputField value="{!pap.Company_Legal_Name__c}" label=""
+													required="true" /></td>
+										</tr>
+										<tr>
+											<td width="180"><span>First Name:</span> <span
+												class="required_field">*</span></td>
+											<td><apex:inputField value="{!con.FirstName}" label=""
+													required="true" /></td>
+										</tr>
+										<tr>
+											<td width="180"><span>Last Name:</span> <span
+												class="required_field">*</span></td>
+											<td><apex:inputField value="{!con.LastName}" label=""
+													required="true" /></td>
+										</tr>
+										<tr>
+											<td width="180"><span>Job Title:</span> <span
+												class="required_field">*</span></td>
+											<td><apex:inputField value="{!con.title}" label=""
+													required="true" /></td>
+										</tr>
+									</tbody>
+								</table>
+								<div id="TermsOfService">
+									<h2 align="center">Silver Peak Partner Resource Center</h2>
+									<h3 align="center">
+										<strong>Terms and Conditions</strong>
+									</h3>
+									<p>The following general terms and conditions govern the
+										use of the Silver Peak Partner Resource Center ("Partner
+										Site"). Additional terms and conditions may also be posted
+										within the Partner Site and, together with these general terms
+										and conditions, govern the use of the Partner Site
+										(collectively, the "Terms and Conditions"). By accessing the
+										Partner Site, you agree to be bound by the Terms and
+										Conditions. Silver Peak may amend the Terms and Conditions at
+										any time.</p>
+									<p>
+										<strong>Access to and use of this Partner Site is
+											restricted to Users who agree to be bound by these terms and
+											conditions.</strong>
+									</p>
+									<p>The Partner Site is available only to Silver Peak
+										resellers, distributors and invited guests ("Partners") to
+										which Silver Peak has granted access. The Partner is
+										responsible for ensuring that the use of the Partner Site by
+										its respective employees, agents, and representatives
+										("Partner Representatives") is in accordance with the Terms
+										and Conditions. Silver Peak reserves the right to suspend or
+										deny access to the Partner Site for any Partner or Partner
+										Representative at any time without notice. Unauthorized access
+										is strictly prohibited.</p>
+									<p>
+										<strong>Purpose and Use of Partner Site</strong>
+									</p>
+									<p>Silver Peak maintains the Partner Site for purposes of
+										(a) promoting Silver Peak products and services to Silver Peak
+										Resellers and Alliance Partners, (b) furnishing information
+										and other material related to the promotion and sale of such
+										products and services, and (c) facilitating management of
+										programs, training, certification, communication, reporting
+										and other services which enable Partners to more effectively
+										sell Silver Peak products and services.</p>
+									<p>Silver Peak may make available product images, logos,
+										collateral, and other resources via the Partner Site. Partners
+										are permitted to place links, banners, marketing collateral,
+										product images or other graphics provided on their customer
+										facing website, emails, or in other communications in
+										accordance with Silver Peak&apos;s published policies. Silver
+										Peak may change the design of the artwork at any time without
+										notice. Silver Peak reserves the right to request samples of
+										customized materials printed by Reseller and request changes,
+										if appropriate.</p>
+									<p>Except as expressly authorized by Silver Peak, neither
+										the Partner Site nor any of its contents may be reproduced,
+										duplicated, copied, sold, or otherwise used or exploited for
+										any commercial purpose.</p>
+									<p>
+										<strong>Partner and Partner Representative Consents</strong>
+									</p>
+									<p>Partners and Partner Representatives expressly consent
+										to the following:</p>
+									<ul>
+										<li>Personal data provided by the Partner or Partner
+											Representative may be stored in a country other than the
+											Partner or Partner Representative&apos;s country, and may be
+											transferred for purposes of data consolidation, storage and
+											information management. Silver Peak will take precautions to
+											protect such information from unauthorized use or access and
+											comply with relevant personal data privacy law.</li>
+										<li>Personal data provided by the Partner or Partner
+											Representative may be used by Silver Peak to facilitate the
+											operation of the Partner Site and in a manner consistent with
+											the stated purposes of the Partner Site.</li>
+										<li>Silver Peak may share any collected information with
+											its Partner affiliates.</li>
+										<li>Silver Peak may communicate with Partner and/or
+											Partner Representative, via email or other means, to support
+											the purposes of the Partner Site.</li>
+									</ul>
+									<p>
+										<strong>Password Access</strong>
+									</p>
+									<p>Access to non-public portions of the Partner Site
+										requires the use of a user id and password. Partners and
+										Partner Representatives agree to use the Partner Site only for
+										purposes authorized by Silver Peak. Partner Representatives
+										agree to cease use of the user id and password immediately
+										upon termination of their employment with the Partner. Each
+										time a Partner or Partner Representative accesses the Partner
+										Site, he or she agrees to the then-current Terms and
+										Conditions. All access id&apos;s are confidential, and must
+										not be shared by anyone except those Partner Representatives
+										authorized by the Partner.</p>
+									<p>Partner is responsible for all activities that occur
+										through the use of user ids and passwords provided to its
+										Partner Representatives, including unauthorized use. Partner
+										will notify Silver Peak of any unauthorized use of a user id
+										and password assigned to a Partner Representative, or any
+										other breach of security with respect to the Partner Site.
+										Partner will promptly notify Silver Peak when a Partner
+										Representative to whom a user id and password has been
+										assigned terminates employment with the Partner. Partner
+										agrees to indemnify, defend and hold Silver Peak harmless from
+										and against any and all claims, liabilities, losses, costs and
+										expenses (including reasonable attorneys&apos; fees) incurred
+										by Silver Peak as a result of use of the Partner Site by any
+										person using a password assigned to one of Partner's
+										Representatives, excluding any claims asserted against Silver
+										Peak based on the alleged infringement of any third party's
+										copyright or trademark rights as a result of the use
+										authorized by Silver Peak of content provided by Silver Peak
+										from the Partner Site. Silver Peak, for any reason and in its
+										sole and absolute discretion, may at any time terminate or
+										otherwise restrict access to and use of the Partner Site by
+										Partner or any Partner Representative.</p>
+									<p>
+										<strong>Silver Peak Intellectual Property</strong>
+									</p>
+									<p>The Partner Site and all of its content (including but
+										not limited to all text, images and software) are the property
+										of Silver Peak or its licensors and are protected by United
+										States and international copyright, trademark and/or other
+										laws. In addition, certain information available on the
+										Partner Site is Silver Peak trade secret or confidential
+										information designated as such and available only to select
+										persons for limited use. The authorization granted by this
+										Agreement to use the Partner Site and its content is a limited
+										license, not a transfer of title, and neither this Agreement
+										nor any use of the Partner Site or its contents shall transfer
+										any other right, title or interest in any material or
+										information available on the Partner Site. Silver Peak
+										reserves all intellectual property rights not expressly
+										granted to Partner under this Agreement. All authorized use of
+										content by Partners or Users is subject to Silver Peak&apos;s
+										Brand Advertising Guidelines and Trademark Usage Guidelines,
+										as published from time to time on Partner Site or as made
+										available to Partner or User by Silver Peak.</p>
+									<p>Except as expressly authorized by this Agreement,
+										Partner may not (a) copy, modify, distribute, display,
+										transmit, use or prepare derivative works based upon the
+										Partner Site or any of its contents; (b) use or disclose price
+										or other information which is identified on the Partner Site
+										as being confidential or otherwise restricted; (c) remove or
+										alter any copyright, trademark or other proprietary notice
+										from any portion of the Partner Site or any of its contents;
+										(d) sublicense, sell, rent, lease, lend, assign, share,
+										transfer or otherwise distribute to any third party any of the
+										contents of the Partner Site or permit access to the Partner
+										Site by any third party; or (e) except as expressly permitted
+										by local law, disassemble, de-compile or otherwise attempt to
+										"reverse engineer" any software contained in or accessible on
+										the Partner Site. "Mirroring" the Partner Site or any of its
+										contents is prohibited.</p>
+									<p>
+										<strong>DISCLAIMERS</strong>
+									</p>
+									<p>Silver Peak does not warrant that any material or
+										information on the Partner Site is accurate, complete or
+										current. Silver Peak may change any material or information on
+										the Partner Site at any time without prior notice, but Silver
+										Peak does not make any commitment to update material or
+										information on the Partner Site.</p>
+									<p>Silver Peak attempts to display as accurately as
+										possible the colors of the products shown on the Partner Site.
+										However because the colors you see will depend on your monitor
+										or printer, among other things, Silver Peak cannot guarantee
+										that your monitor&apos;s display or printer&apos;s
+										reproduction of any color will be accurate.</p>
+									<p>
+										<strong>LIMITATION OF LIABILITY</strong>
+									</p>
+									<p>
+										<strong>SILVER PEAK ASSUMES NO LIABILITY FOR LOSS OR
+											DAMAGE HOWSOEVER RESULTING FROM ANY USE OF OR RELIANCE UPON
+											THE PARTNER SITE OR ITS CONTENT. IN NO EVENT WILL SILVER PEAK
+											OR USER BE LIABLE FOR ANY LOST PROFITS, LOST SAVINGS, LOST
+											DATA, BUSINESS INTERRUPTION, OR ANY INDIRECT, SPECIAL,
+											CONSEQUENTIAL OR INCIDENTAL DAMAGES OR CLAIMS ARISING OUT OF
+											OR RELATING TO THE PARTNER SITE, ITS CONTENTS, OR THE USE
+											THEREOF.</strong>
+									</p>
+									<p>
+										<strong>Web Links</strong>
+									</p>
+									<p>Links to other Internet Sites operated by third parties,
+										including Vendors, Partners, Solution Partners, or Alliance
+										Partners do not constitute sponsorship, endorsement, or
+										approval by Silver Peak of the content, policies, or practices
+										of such linked Internet Sites.</p>
+									<p>Silver Peak is not responsible for the availability,
+										content, timeliness, security, policies, or practices of
+										linked Partner Sites, including, without limitation, the
+										accuracy of content on linked Partner Sites and practices of
+										linked Partner Sites. It is the Partner&apos;s responsibility
+										to verify any information contained within the links before
+										relying on it. Silver Peak provides links to the Partner only
+										as a convenience, and the inclusion of any link does not imply
+										endorsement, investigation, or verification by Silver Peak of
+										the linked Internet Site. The Partner&apos;s use of the linked
+										Internet Sites may be subject to terms and conditions
+										contained in these Internet Sites, which the Partner should
+										locate and review.</p>
+									<p>
+										<strong>Applicable Law and Dispute Resolution</strong>
+									</p>
+									<p>Use of the Partner Site and its contents, all
+										transactions arising from use of the Partner Site, and this
+										Agreement, shall in all respects be governed by and
+										interpreted, construed and enforced in accordance with the
+										laws of the State of California, and/or the United States of
+										America, without giving effect to any principles of conflict
+										of laws. Any dispute between Silver Peak and any User of the
+										Partner Site will have its venue in the State of California,
+										United States of America.</p>
+									<p>
+										<strong>General</strong>
+									</p>
+									<p>
+										Neither a Partner nor User may assign otherwise transfer this
+										Agreement without the prior written consent of Silver Peak. <strong>All
+											activities conducted by Partner through its use of the
+											Partner Site are subject to the terms and conditions of any
+											existing written agreement between Silver Peak and Partner as
+											supplemented by this Agreement</strong> .
+									</p>
+								</div>
+								<table border="0" cellpadding="0" cellspacing="2">
+									<tbody>
+										<tr>
+											<td colspan="2"><apex:commandButton action="{!savePage1}" value="Accept" styleClass="btn" /> <apex:commandButton action="{!resetPage}" value="Decline" styleClass="btn"
+													immediate="true" /></td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</apex:form>
+						<div class="socialmedia">
+							<nav class="social">
+								<ul>
+									<li><a class="facebook" target="_blank"
+										href="http://facebook.com/SilverPeakSystems">facebook</a></li>
+									<li><a class="blog" target="_blank"
+										href="http://blog.silver-peak.com/">blog</a></li>
+									<li><a class="twitter" target="_blank"
+										href="https://twitter.com/silverpeak">twitter</a></li>
+									<li><a class="linkedin" target="_blank"
+										href="http://www.linkedin.com/company/silver-peak-systems">linkedin</a></li>
+									<li><a class="youtube" target="_blank"
+										href="http://www.youtube.com/user/silverpeaksystems">youtube</a></li>
+									<li><a class="rss" target="_blank"
+										href="http://feeds.feedburner.com/WANspeak">rss</a></li>
+								</ul>
+							</nav>
+						</div>
+					</div>
+					<aside id="sidebar">
+						<div class="side-holder">
+							<div class="widget">
+								<h2>Not a Partner Yet?</h2>
+								<div class="list-scroll">
+									<strong class="title">Here&apos;s some more
+										information:</strong>
+									<ul>
+										<li><a href="/content_download?doc=D-1700">Champions
+												Channel <br /> Partner Program
+										</a></li>
+										<li><a href="/content_download?doc=D-1710">Silver
+												Peak Champions Channel <br /> Partner Program <br /> -
+												North America
+										</a></li>
+									</ul>
+									<span> Apply now to become a <br /> Silver Peak Partner
+									</span> <a href="register" class="btn btn-partner">Apply for
+										Partnership</a>
+								</div>
+							</div>
+						</div>
+					</aside>
+				</div>
+			</apex:outputPanel>
+			<apex:outputPanel rendered="{!page == 2}">
+				<div id="main">
+					<ul class="breadcrumbs">
+						<li class="active"><a href="./">Home</a></li>
+						<li>Registration Page 3</li>
+					</ul>
+					<div id="content">
+						<apex:form >
+							<div class="txt">
+								<div class="img-holder">
+									<img
+										src="{!URLFOR($Resource.PartnerPortal, 'images/img06.jpg')}"
+										alt="Registration" />
+									<h1>
+										Registration <br /> Page 3
+									</h1>
+								</div>
+								<h1>Headquarters Information</h1>
+								<table border="0" cellpadding="2" cellspacing="0" width="100%">
+									<tbody>
+										<tr>
+											<td width="180"><span>Company Legal Name:</span> <span
+												class="required_field">*</span></td>
+											<td><apex:inputField value="{!pap.Company_Legal_Name__c}" label=""
+													required="true" /></td>
+										</tr>
+										<tr>
+											<td width="180"><span>Doing Business As (DBA):</span> <span
+												class="required_field">*</span></td>
+											<td><apex:inputField value="{!pap.Doing_Business_As__c}"
+													label="" required="true" /></td>
+										</tr>
+										<tr>
+											<td width="180"><span>Company URL:</span> <span
+												class="required_field">*</span></td>
+											<td><apex:inputField value="{!acc.Website}" label=""
+													required="true" /></td>
+										</tr>
+										<tr>
+											<td width="180"><span>Tax ID Type:</span> <span
+												class="required_field">*</span></td>
+											<td><apex:inputField value="{!pap.Tax_ID_Type__c}"
+													label="" required="true" /></td>
+										</tr>
+										<tr>
+											<td><span>Tax ID Type Other</span></td>
+											<td><apex:inputField value="{!pap.Tax_ID_Type_Other__c}"
+													label="" /></td>
+										</tr>
+										<tr>
+											<td width="180"><span>Tax ID #:</span> <span
+												class="required_field">*</span></td>
+											<td><apex:inputField value="{!pap.Tax_ID_Number__c}"
+													label="" required="true" /></td>
+										</tr>
+									</tbody>
+								</table>
+								<h2>Headquarters Location</h2>
+								<table border="0" cellpadding="2" cellspacing="0" width="100%">
+									<tbody>
+										<tr>
+											<td width="180"><span>Address:</span> <span
+												class="required_field">*</span></td>
+											<td><apex:inputField value="{!hq.Address_1__c}" label=""
+													required="true" /></td>
+										</tr>
+										<tr>
+											<td width="180"><span>Address 2:</span></td>
+											<td><apex:inputField value="{!hq.Address_2__c}" label="" />
+											</td>
+										</tr>
+										<tr>
+											<td width="180"><span>City:</span> <span
+												class="required_field">*</span></td>
+											<td><apex:inputField value="{!hq.City__c}" label=""
+													required="true" /></td>
+										</tr>
+										<tr>
+											<td width="180"><span>Region</span><span
+												class="required_field">*</span></td>
+											<td><apex:inputField value="{!hq.Region__c}" label=""
+													required="true" /></td>
+										</tr>
+										<tr>
+											<td width="180"><span>Country</span><span
+												class="required_field">*</span></td>
+											<td><apex:inputField value="{!hq.Country__c}" label=""
+													required="true" /></td>
+										</tr>
+										<tr>
+											<td width="180"><span>State:</span> <span
+												class="required_field">*</span></td>
+											<td><apex:inputField value="{!hq.State__c}" label=""
+													required="true" /></td>
+										</tr>
+										<tr>
+											<td width="180"><span>Zip/Postal:</span> <span
+												class="required_field">*</span></td>
+											<td><apex:inputField value="{!hq.Postal_Code__c}"
+													label="" required="true" /></td>
+										</tr>
+										<tr>
+											<td width="180"><span>Phone:</span> <span
+												class="required_field">*</span></td>
+											<td><apex:inputField value="{!hq.Phone__c}" label=""
+													required="true" /></td>
+										</tr>
+										<tr>
+											<td width="180"><span>Fax:</span></td>
+											<td><apex:inputField value="{!hq.Fax__c}" label="" /></td>
+										</tr>
+									</tbody>
+								</table>
+								<table border="0" cellpadding="0" cellspacing="2">
+									<tbody>
+										<tr>
+											<td colspan="2"><apex:commandButton action="{!savePage2}" value="Next" styleClass="btn" /> <span
+												class="required_field">You can review and edit at the
+													end before submitting</span></td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</apex:form>
+						<div class="socialmedia">
+							<nav class="social">
+								<ul>
+									<li><a class="facebook" target="_blank"
+										href="http://facebook.com/SilverPeakSystems">facebook</a></li>
+									<li><a class="blog" target="_blank"
+										href="http://blog.silver-peak.com/">blog</a></li>
+									<li><a class="twitter" target="_blank"
+										href="https://twitter.com/silverpeak">twitter</a></li>
+									<li><a class="linkedin" target="_blank"
+										href="http://www.linkedin.com/company/silver-peak-systems">linkedin</a></li>
+									<li><a class="youtube" target="_blank"
+										href="http://www.youtube.com/user/silverpeaksystems">youtube</a></li>
+									<li><a class="rss" target="_blank"
+										href="http://feeds.feedburner.com/WANspeak">rss</a></li>
+								</ul>
+							</nav>
+						</div>
+					</div>
+					<aside id="sidebar">
+						<div class="side-holder">
+							<div class="widget">
+								<h2>Not a Partner Yet?</h2>
+								<div class="list-scroll">
+									<strong class="title">Here&apos;s some more
+										information:</strong>
+									<ul>
+										<li><a href="/content_download?doc=D-1700">Champions
+												Channel <br /> Partner Program
+										</a></li>
+										<li><a href="/content_download?doc=D-1710">Silver
+												Peak Champions Channel <br /> Partner Program <br /> -
+												North America
+										</a></li>
+									</ul>
+									<span> Apply now to become a <br /> Silver Peak Partner
+									</span> <a href="register" class="btn btn-partner">Apply for
+										Partnership</a>
+								</div>
+							</div>
+						</div>
+					</aside>
+				</div>
+			</apex:outputPanel>
+			<apex:outputPanel rendered="{!page == 3}">
+				<div id="main">
+					<ul class="breadcrumbs">
+						<li class="active"><a href="./">Home</a></li>
+						<li>Registration Page 4</li>
+					</ul>
+					<div id="content">
+						<apex:form >
+							<div class="txt">
+								<div class="img-holder">
+									<img
+										src="{!URLFOR($Resource.PartnerPortal, 'images/img06.jpg')}"
+										alt="Registration" />
+									<h1>
+										Registration <br /> Page 4
+									</h1>
+								</div>
+								<h1>Company Profile</h1>
+								<table border="0" cellpadding="2" cellspacing="0" width="100%">
+									<tbody>
+										<tr>
+											<td colspan="2"><strong> <span>How many
+														years have you been in business?</span>
+											</strong> <span class="required_field">*</span> <br /> <apex:inputField value="{!pap.Years_in_Business__c}" label=""
+													required="true" /></td>
+										</tr>
+										<tr>
+											<td colspan="2">&nbsp;</td>
+										</tr>
+										<tr>
+											<td colspan="2"><strong> <span>What is
+														your go-to-market sales model?</span>
+											</strong> <span class="required_field">*</span> <br /> <apex:selectCheckboxes value="{!goToMarketSalesModelItemSetGet}"
+													html-autoRequired="required" html-autoTR="4">
+													<apex:selectOptions value="{!goToMarketSalesModelItem}" />
+												</apex:selectCheckboxes> <br /></td>
+										</tr>
+										<tr>
+											<td colspan="2"><label>Other:</label> <apex:inputField value="{!pap.Go_To_Market_Sales_Model_Other__c}" label="" />
+											</td>
+										</tr>
+										<tr>
+											<td colspan="2">&nbsp;</td>
+										</tr>
+										<tr>
+											<td colspan="2"><strong>Please indicate your
+													number of employees:</strong></td>
+										</tr>
+										<tr>
+											<td colspan="2">
+												<table border="0">
+													<tbody>
+														<tr>
+															<td style="padding: 0 10px 0 0;"><strong> <em>
+																		<span>Total Employees :</span>
+																</em>
+															</strong> <span class="required_field">*</span> &nbsp;&nbsp; <apex:inputField value="{!pap.Number_of_Employees__c}" label=""
+																	required="true" style="width:140px" /></td>
+															<td style="padding: 0 10px 0 0;"><strong> <em>
+																		<span>Sales Representatives</span> :
+																</em>
+															</strong> <span class="required_field">*</span> &nbsp;&nbsp; <apex:inputField value="{!pap.Number_of_Sales_Representatives__c}"
+																	label="" required="true" /></td>
+															<td style="padding: 0 10px 0 0;"><strong> <em>
+																		<span>Sales Engineers</span> :
+																</em>
+															</strong> <span class="required_field">*</span> &nbsp;&nbsp; <apex:inputField value="{!pap.Number_of_Sales_Engineers__c}" label=""
+																	required="true" /></td>
+														</tr>
+													</tbody>
+												</table>
+											</td>
+										</tr>
+										<tr>
+											<td colspan="2">&nbsp;</td>
+										</tr>
+										<tr>
+											<td><strong> <span>Company Revenue</span> :
+											</strong> <span class="required_field">*</span></td>
+											<td><apex:inputField value="{!pap.Company_Revenue__c}"
+													label="" required="true" /></td>
+										</tr>
+										<tr>
+											<td colspan="2">&nbsp;</td>
+										</tr>
+										<tr>
+											<td colspan="2"><strong>What percentage of
+													above revenue was from these market segments?</strong></td>
+										</tr>
+										<tr>
+											<td><strong> <em> <span>WAN
+															Optimization</span>
+												</em>
+											</strong> <span class="required_field">*</span></td>
+											<td><apex:inputField value="{!pap.WAN_Optimization__c}"
+													label="" required="true" /></td>
+										</tr>
+										<tr>
+											<td><strong> <em> <span>Virtualization</span>
+												</em>
+											</strong> <span class="required_field">*</span></td>
+											<td><apex:inputField value="{!pap.Virtualization__c}"
+													label="" required="true" /></td>
+										</tr>
+										<tr>
+											<td><strong> <em> <span>Data Center
+															Solutions</span>
+												</em>
+											</strong> <span class="required_field">*</span></td>
+											<td><apex:inputField value="{!pap.Data_Center_Solutions__c}" label=""
+													required="true" /></td>
+										</tr>
+										<tr>
+											<td><strong> <em> <span>Security</span>
+												</em>
+											</strong> <span class="required_field">*</span></td>
+											<td><apex:inputField value="{!pap.Security__c}" label=""
+													required="true" /></td>
+										</tr>
+										<tr>
+											<td><strong> <em> <span>Storage</span>
+												</em>
+											</strong> <span class="required_field">*</span></td>
+											<td><apex:inputField value="{!pap.Storage__c}" label=""
+													required="true" /></td>
+										</tr>
+										<tr>
+											<td><strong> <em> <span>Unified
+															Communications/VOIP</span>
+												</em>
+											</strong> <span class="required_field">*</span></td>
+											<td><apex:inputField value="{!pap.Unified_Communications_VOIP__c}" label=""
+													required="true" /></td>
+										</tr>
+										<tr>
+											<td><strong> <em> <span>Wireless
+															WAN/LAN</span>
+												</em>
+											</strong> <span class="required_field">*</span></td>
+											<td><apex:inputField value="{!pap.Wireless_WAN_LAN__c}"
+													label="" required="true" /></td>
+										</tr>
+										<tr>
+											<td><strong> <em> <span>Other %</span>
+												</em>
+											</strong></td>
+											<td><apex:inputField value="{!pap.Other__c}" label="" />
+												<span>Other:</span> <apex:inputField value="{!pap.Revenue_Other__c}" label="" /></td>
+										</tr>
+										<tr>
+											<td colspan="2">&nbsp;</td>
+										</tr>
+										<tr>
+											<td colspan="2"><strong> <span>What top
+														3 market segments/verticals do you serve?</span>
+											</strong> <span class="required_field">*</span> <br /> <apex:selectCheckboxes value="{!marketingSegmentsServedSetGet}"
+													html-autoRequired="required" html-autoTR="4">
+													<apex:selectOptions value="{!marketingSegmentsServedItem}" />
+												</apex:selectCheckboxes></td>
+										</tr>
+										<tr>
+											<td colspan="2">&nbsp;</td>
+										</tr>
+										<tr>
+											<td colspan="2"><strong> <span>Which
+														product categories do you currently sell?</span>
+											</strong> <span class="required_field">*</span> <br /> <apex:selectCheckboxes value="{!productCategoriesSoldSetGet}" html-autoTR="4"
+													html-autoRequired="required">
+													<apex:selectOptions value="{!productCategoriesSoldItem}" />
+												</apex:selectCheckboxes></td>
+										</tr>
+										<tr>
+											<td colspan="2">&nbsp;</td>
+										</tr>
+										<tr>
+											<td colspan="2"><strong> <span>Which
+														Silver Peak products do you currently sell?</span>
+											</strong> <span class="required_field">*</span> <br /> <em>(check
+													all that apply)</em> <br /> <apex:selectCheckboxes value="{!silverPeakProductsSoldSetGet}"
+													html-autoRequired="required" html-autoTR="4">
+													<apex:selectOptions value="{!silverPeakProductsSoldItem}" />
+												</apex:selectCheckboxes></td>
+										</tr>
+										<tr>
+											<td colspan="2">&nbsp;</td>
+										</tr>
+										<tr>
+											<td colspan="2"><strong> <span>Applications:</span>
+											</strong> <span class="required_field">*</span> <br /> <em>(check
+													all that apply)</em> <br /> <apex:selectCheckboxes value="{!applicationsSetGet}" html-autoRequired="required"
+													html-autoTR="4">
+													<apex:selectOptions value="{!applicationsItem}" />
+												</apex:selectCheckboxes></td>
+										</tr>
+										<tr>
+											<td colspan="2">&nbsp;</td>
+										</tr>
+										<tr>
+											<td colspan="2"><strong> <span>What are
+														your business&apos;s Silver Peak Competencies?</span>
+											</strong> <span class="required_field">*</span> <br /> <em>(check
+													all that apply)</em></td>
+										</tr>
+										<tr>
+											<td colspan="2"><apex:selectCheckboxes value="{!silverPeakCompetenciesSetGet}"
+													html-autoRequired="required" html-autoTR="4">
+													<apex:selectOptions value="{!silverPeakCompetenciesItem}" />
+												</apex:selectCheckboxes></td>
+										</tr>
+										<tr>
+											<td colspan="2">&nbsp;</td>
+										</tr>
+										<tr>
+											<td colspan="2"><strong>Do you provide:</strong></td>
+										</tr>
+										<tr>
+											<td colspan="2">
+												<table border="0" cellpadding="2">
+													<tbody>
+														<tr>
+															<td style="padding: 0 10px 0 0;"><strong> <em>
+																		<span>Professional Services</span> :
+																</em>
+															</strong> <span class="required_field">*</span> &nbsp;&nbsp; <apex:inputField value="{!pap.Provide_Professional_Services__c}"
+																	label="" required="true">
+																</apex:inputField></td>
+															<td><strong> <em> <span>Managed
+																			Services</span> :
+																</em>
+															</strong> <span class="required_field">*</span> &nbsp;&nbsp; <apex:inputField value="{!pap.Provide_Managed_Services__c}" label=""
+																	required="true" /></td>
+														</tr>
+													</tbody>
+												</table>
+											</td>
+										</tr>
+										<tr>
+											<td colspan="2">&nbsp;</td>
+										</tr>
+										<tr>
+											<td colspan="2"><strong> <span>Which
+														Professional Services do you offer?</span>
+											</strong> <br /> <em>(check
+													all that apply)</em></td>
+										</tr>
+										<tr>
+											<td colspan="2"><apex:selectCheckboxes value="{!professionalServicesOfferedSetGet}"
+													html-autoTR="4">
+													<apex:selectOptions value="{!professionalServicesOfferedItem}" />
+												</apex:selectCheckboxes></td>
+										</tr>
+										<tr>
+											<td colspan="2">&nbsp;</td>
+										</tr>
+										<tr>
+											<td colspan="2"><strong> <span>Which of
+														these business partner/channel partner programs does your
+														organization participate in?</span>
+											</strong> <br /> <apex:selectCheckboxes value="{!channelProgramsParticipatedSetGet}"
+													html-autoTR="4">
+													<apex:selectOptions value="{!channelProgramsParticipatedItem}" />
+												</apex:selectCheckboxes></td>
+										</tr>
+										<tr>
+											<td colspan="2"><span>Other:</span> <apex:inputField value="{!pap.Channel_Programs_Participated_Other__c}"
+													label="" /></td>
+										</tr>
+										<tr>
+											<td colspan="2">&nbsp;</td>
+										</tr>
+										<tr>
+											<td colspan="2"><strong> <span>Email
+														Domains</span> <span class="required_field">*</span>
+											</strong> - We use email domains to validate users associated to your
+												partner account <br /> (ex @company.com, @companyinc.com,
+												@coinc.com) <br /> <apex:inputText value="{!pap.Email_Domains_Used__c}" required="true"
+													html-pattern="\s*@[^@\.,\s]+(\.[^@\.\s,]+)+\s*(\s*,\s*@[^@\.\s,]+(\.[^@\.\s,]+)+)*"
+													label="" /></td>
+										</tr>
+									</tbody>
+								</table>
+								<h2 style="margin-bottom: 0;">Company Contact Information</h2>
+								<table border="0" cellpadding="0" cellspacing="0" width="900">
+									<tbody>
+										<tr>
+											<td valign="top">
+												<table border="0" width="100%">
+													<tbody>
+														<tr>
+															<td colspan="2">
+																<h3>
+																	Primary HQ Contact<br />
+																</h3> <input type="checkbox" id="phqCkb"
+																onchange="markPrimaryContact('phq', this.checked)" /> <label
+																for="phqCkb">Make me the Primary HQ Contact</label> <br />
+																<table>
+																	<tbody>
+																		<tr>
+																			<td><span>First Name:</span> <span
+																				class="required_field">*</span></td>
+																			<td><apex:inputField value="{!phqc.First_Name__c}" label=""
+																					required="true" styleClass="phq First_Name__c" />
+																			</td>
+																		</tr>
+																		<tr>
+																			<td><span>Last Name:</span> <span
+																				class="required_field">*</span></td>
+																			<td><apex:inputField value="{!phqc.Last_Name__c}" label=""
+																					required="true" styleClass="phq Last_Name__c" /></td>
+																		</tr>
+																		<tr>
+																			<td><span>Address:</span> <span
+																				class="required_field">*</span></td>
+																			<td><apex:inputField value="{!phqc.Address_1__c}" label=""
+																					required="true" styleClass="phq Address_1__c" /></td>
+																		</tr>
+																		<tr>
+																			<td><span>Address 2:</span></td>
+																			<td><apex:inputField value="{!phqc.Address_2__c}" label=""
+																					styleClass="phq Address_2__c" /></td>
+																		</tr>
+																		<tr>
+																			<td><span>City:</span> <span
+																				class="required_field">*</span></td>
+																			<td><apex:inputField value="{!phqc.City__c}"
+																					label="" required="true" styleClass="phq City__c" />
+																			</td>
+																		</tr>
+																		<tr>
+																			<td><span>Region:</span> <span
+																				class="required_field">*</span></td>
+																			<td><apex:inputField value="{!phqc.Region__c}"
+																					label="" required="true" styleClass="phq Region__c" />
+																			</td>
+																		</tr>
+																		<tr>
+																			<td><span>Country:</span> <span
+																				class="required_field">*</span></td>
+																			<td class="phq Country__c"><apex:inputField value="{!phqc.Country__c}" label="" required="true" />
+																			</td>
+																		</tr>
+																		<tr>
+																			<td><span>State:</span> <span
+																				class="required_field">*</span></td>
+																			<td class="phq State__c"><apex:inputField value="{!phqc.State__c}" label="" required="true" />
+																			</td>
+																		</tr>
+																		<tr>
+																			<td><span>Postal Code:</span> <span
+																				class="required_field">*</span></td>
+																			<td><apex:inputField value="{!phqc.Postal_Code__c}" label=""
+																					required="true" styleClass="phq Postal_Code__c" />
+																			</td>
+																		</tr>
+																		<tr>
+																			<td><span>Email:</span> <span
+																				class="required_field">*</span></td>
+																			<td><apex:inputField value="{!phqc.Email__c}"
+																					label="" required="true" styleClass="phq Email__c" />
+																			</td>
+																		</tr>
+																		<tr>
+																			<td><span>Phone:</span> <span
+																				class="required_field">*</span></td>
+																			<td><apex:inputField value="{!phqc.Phone__c}"
+																					label="" required="true" styleClass="phq Phone__c" />
+																			</td>
+																		</tr>
+																	</tbody>
+																</table>
+															</td>
+														</tr>
+														<tr>
+															<td colspan="2">
+																<h3>
+																	Primary Marketing Contact<br />
+																</h3> <input type="checkbox" id="pmcCkb"
+																onchange="markPrimaryContact('pmc', this.checked)" /> <label
+																for="pmcCkb">Make me the Primary Marketing
+																	Contact</label> <br />
+																<table>
+																	<tbody>
+																		<tr>
+																			<td><span>First Name:</span> <span
+																				class="required_field">*</span></td>
+																			<td><apex:inputField value="{!pmc.First_Name__c}" label=""
+																					required="true" styleClass="pmc First_Name__c" />
+																			</td>
+																		</tr>
+																		<tr>
+																			<td><span>Last Name:</span> <span
+																				class="required_field">*</span></td>
+																			<td><apex:inputField value="{!pmc.Last_Name__c}"
+																					label="" required="true"
+																					styleClass="pmc Last_Name__c" /></td>
+																		</tr>
+																		<tr>
+																			<td><span>Address:</span> <span
+																				class="required_field">*</span></td>
+																			<td><apex:inputField value="{!pmc.Address_1__c}"
+																					label="" required="true"
+																					styleClass="pmc Address_1__c" /></td>
+																		</tr>
+																		<tr>
+																			<td><span>Address 2:</span></td>
+																			<td><apex:inputField value="{!pmc.Address_2__c}"
+																					label="" styleClass="pmc Address_2__c" /></td>
+																		</tr>
+																		<tr>
+																			<td><span>City:</span> <span
+																				class="required_field">*</span></td>
+																			<td><apex:inputField value="{!pmc.City__c}"
+																					label="" required="true" styleClass="pmc City__c" />
+																			</td>
+																		</tr>
+																		<tr>
+																			<td><span>Region:</span> <span
+																				class="required_field">*</span></td>
+																			<td><apex:inputField value="{!pmc.Region__c}"
+																					label="" required="true" styleClass="pmc Region__c" />
+																			</td>
+																		</tr>
+																		<tr>
+																			<td><span>Country:</span> <span
+																				class="required_field">*</span></td>
+																			<td class="pmc Country__c"><apex:inputField value="{!pmc.Country__c}" label="" required="true" />
+																			</td>
+																		</tr>
+																		<tr>
+																			<td><span>State:</span> <span
+																				class="required_field">*</span></td>
+																			<td class="pmc State__c"><apex:inputField value="{!pmc.State__c}" label="" required="true" />
+																			</td>
+																		</tr>
+																		<tr>
+																			<td><span>Postal Code:</span> <span
+																				class="required_field">*</span></td>
+																			<td><apex:inputField value="{!pmc.Postal_Code__c}" label=""
+																					required="true" styleClass="pmc Postal_Code__c" />
+																			</td>
+																		</tr>
+																		<tr>
+																			<td><span>Email:</span> <span
+																				class="required_field">*</span></td>
+																			<td><apex:inputField value="{!pmc.Email__c}"
+																					label="" required="true" styleClass="pmc Email__c" />
+																			</td>
+																		</tr>
+																		<tr>
+																			<td><span>Phone:</span> <span
+																				class="required_field">*</span></td>
+																			<td><apex:inputField value="{!pmc.Phone__c}"
+																					label="" required="true" styleClass="pmc Phone__c" />
+																			</td>
+																		</tr>
+																	</tbody>
+																</table>
+															</td>
+														</tr>
+														<tr>
+															<td colspan="2">
+																<h3>
+																	Primary Sales Contact<br />
+																</h3> <input type="checkbox" id="pscCkb"
+																onchange="markPrimaryContact('psc', this.checked)" /> <label
+																for="pscCkb">Make me the Primary Sales Contact</label> <br />
+																<table>
+																	<tbody>
+																		<tr>
+																			<td><span>First Name:</span> <span
+																				class="required_field">*</span></td>
+																			<td><apex:inputField value="{!psc.First_Name__c}" label=""
+																					required="true" styleClass="psc First_Name__c" />
+																			</td>
+																		</tr>
+																		<tr>
+																			<td><span>Last Name:</span> <span
+																				class="required_field">*</span></td>
+																			<td><apex:inputField value="{!psc.Last_Name__c}"
+																					label="" required="true"
+																					styleClass="psc Last_Name__c" /></td>
+																		</tr>
+																		<tr>
+																			<td><span>Address:</span> <span
+																				class="required_field">*</span></td>
+																			<td><apex:inputField value="{!psc.Address_1__c}"
+																					label="" required="true"
+																					styleClass="psc Address_1__c" /></td>
+																		</tr>
+																		<tr>
+																			<td><span>Address 2:</span></td>
+																			<td><apex:inputField value="{!psc.Address_2__c}"
+																					label="" styleClass="psc Address_2__c" /></td>
+																		</tr>
+																		<tr>
+																			<td><span>City:</span> <span
+																				class="required_field">*</span></td>
+																			<td><apex:inputField value="{!psc.City__c}"
+																					label="" required="true" styleClass="psc City__c" />
+																			</td>
+																		</tr>
+																		<tr>
+																			<td><span>Region:</span> <span
+																				class="required_field">*</span></td>
+																			<td><apex:inputField value="{!psc.Region__c}"
+																					label="" required="true" styleClass="psc Region__c" />
+																			</td>
+																		</tr>
+																		<tr>
+																			<td><span>Country:</span> <span
+																				class="required_field">*</span></td>
+																			<td class="psc Country__c"><apex:inputField value="{!psc.Country__c}" label="" required="true" />
+																			</td>
+																		</tr>
+																		<tr>
+																			<td><span>State:</span> <span
+																				class="required_field">*</span></td>
+																			<td class="psc State__c"><apex:inputField value="{!psc.State__c}" label="" required="true" />
+																			</td>
+																		</tr>
+																		<tr>
+																			<td><span>Postal Code:</span> <span
+																				class="required_field">*</span></td>
+																			<td><apex:inputField value="{!psc.Postal_Code__c}" label=""
+																					required="true" styleClass="psc Postal_Code__c" />
+																			</td>
+																		</tr>
+																		<tr>
+																			<td><span>Email:</span> <span
+																				class="required_field">*</span></td>
+																			<td><apex:inputField value="{!psc.Email__c}"
+																					label="" required="true" styleClass="psc Email__c" />
+																			</td>
+																		</tr>
+																		<tr>
+																			<td><span>Phone:</span> <span
+																				class="required_field">*</span></td>
+																			<td><apex:inputField value="{!psc.Phone__c}"
+																					label="" required="true" styleClass="psc Phone__c" />
+																			</td>
+																		</tr>
+																	</tbody>
+																</table>
+															</td>
+														</tr>
+													</tbody>
+												</table>
+											</td>
+											<td valign="top">
+												<table border="0" width="100%">
+													<tbody>
+														<tr>
+															<td colspan="2">
+																<h3>
+																	Primary Technical Contact<br />
+																</h3> <input type="checkbox" id="ptcCkb"
+																onchange="markPrimaryContact('ptc', this.checked)" /> <label
+																for="ptcCkb">Make me the Primary Technical
+																	Contact</label> <br />
+																<table>
+																	<tbody>
+																		<tr>
+																			<td><span>First Name:</span> <span
+																				class="required_field">*</span></td>
+																			<td><apex:inputField value="{!ptc.First_Name__c}" label=""
+																					required="true" styleClass="ptc First_Name__c" />
+																			</td>
+																		</tr>
+																		<tr>
+																			<td><span>Last Name:</span> <span
+																				class="required_field">*</span></td>
+																			<td><apex:inputField value="{!ptc.Last_Name__c}"
+																					label="" required="true"
+																					styleClass="ptc Last_Name__c" /></td>
+																		</tr>
+																		<tr>
+																			<td><span>Address:</span> <span
+																				class="required_field">*</span></td>
+																			<td><apex:inputField value="{!ptc.Address_1__c}"
+																					label="" required="true"
+																					styleClass="ptc Address_1__c" /></td>
+																		</tr>
+																		<tr>
+																			<td><span>Address 2:</span></td>
+																			<td><apex:inputField value="{!ptc.Address_2__c}"
+																					label="" styleClass="ptc Address_2__c" /></td>
+																		</tr>
+																		<tr>
+																			<td><span>City:</span> <span
+																				class="required_field">*</span></td>
+																			<td><apex:inputField value="{!ptc.City__c}"
+																					label="" required="true" styleClass="ptc City__c" />
+																			</td>
+																		</tr>
+																		<tr>
+																			<td><span>Region:</span> <span
+																				class="required_field">*</span></td>
+																			<td><apex:inputField value="{!ptc.Region__c}"
+																					label="" required="true" styleClass="ptc Region__c" />
+																			</td>
+																		</tr>
+																		<tr>
+																			<td><span>Country:</span> <span
+																				class="required_field">*</span></td>
+																			<td class="ptc Country__c"><apex:inputField value="{!ptc.Country__c}" label="" required="true" />
+																			</td>
+																		</tr>
+																		<tr>
+																			<td><span>State:</span> <span
+																				class="required_field">*</span></td>
+																			<td class="ptc State__c"><apex:inputField value="{!ptc.State__c}" label="" required="true" />
+																			</td>
+																		</tr>
+																		<tr>
+																			<td><span>Postal Code:</span> <span
+																				class="required_field">*</span></td>
+																			<td><apex:inputField value="{!ptc.Postal_Code__c}" label=""
+																					required="true" styleClass="ptc Postal_Code__c" />
+																			</td>
+																		</tr>
+																		<tr>
+																			<td><span>Email:</span> <span
+																				class="required_field">*</span></td>
+																			<td><apex:inputField value="{!ptc.Email__c}"
+																					label="" required="true" styleClass="ptc Email__c" />
+																			</td>
+																		</tr>
+																		<tr>
+																			<td><span>Phone:</span> <span
+																				class="required_field">*</span></td>
+																			<td><apex:inputField value="{!ptc.Phone__c}"
+																					label="" required="true" styleClass="ptc Phone__c" />
+																			</td>
+																		</tr>
+																	</tbody>
+																</table>
+															</td>
+														</tr>
+														<tr>
+															<td colspan="2">
+																<h3>
+																	CEO/General Manager<br />
+																</h3> <input id="pcgmcCkb" type="checkbox"
+																onchange="markPrimaryContact('pcgmc', this.checked)" />
+																<label for="pcgmcCkb">Make me the Primary
+																	CEO/General Manager Contact</label> <br />
+																<table>
+																	<tbody>
+																		<tr>
+																			<td><span>First Name:</span> <span
+																				class="required_field">*</span></td>
+																			<td><apex:inputField value="{!pcgmc.First_Name__c}" label=""
+																					required="true" styleClass="pcgmc First_Name__c" />
+																			</td>
+																		</tr>
+																		<tr>
+																			<td><span>Last Name:</span> <span
+																				class="required_field">*</span></td>
+																			<td><apex:inputField value="{!pcgmc.Last_Name__c}" label=""
+																					required="true" styleClass="pcgmc Last_Name__c" />
+																			</td>
+																		</tr>
+																		<tr>
+																			<td><span>Address:</span> <span
+																				class="required_field">*</span></td>
+																			<td><apex:inputField value="{!pcgmc.Address_1__c}" label=""
+																					required="true" styleClass="pcgmc Address_1__c" />
+																			</td>
+																		</tr>
+																		<tr>
+																			<td><span>Address 2:</span></td>
+																			<td><apex:inputField value="{!pcgmc.Address_2__c}" label=""
+																					styleClass="pcgmc Address_2__c" /></td>
+																		</tr>
+																		<tr>
+																			<td><span>City:</span> <span
+																				class="required_field">*</span></td>
+																			<td><apex:inputField value="{!pcgmc.City__c}"
+																					label="" required="true" styleClass="pcgmc City__c" />
+																			</td>
+																		</tr>
+																		<tr>
+																			<td><span>Region:</span> <span
+																				class="required_field">*</span></td>
+																			<td><apex:inputField value="{!pcgmc.Region__c}"
+																					label="" required="true"
+																					styleClass="pcgmc Region__c" /></td>
+																		</tr>
+																		<tr>
+																			<td><span>Country:</span> <span
+																				class="required_field">*</span></td>
+																			<td class="pcgmc Country__c"><apex:inputField value="{!pcgmc.Country__c}" label=""
+																					required="true" styleClass="pcgmc Country__c" /></td>
+																		</tr>
+																		<tr>
+																			<td><span>State:</span> <span
+																				class="required_field">*</span></td>
+																			<td class="pcgmc State__c"><apex:inputField value="{!pcgmc.State__c}" label="" required="true"
+																					styleClass="pcgmc State__c" /></td>
+																		</tr>
+																		<tr>
+																			<td><span>Postal Code:</span> <span
+																				class="required_field">*</span></td>
+																			<td><apex:inputField value="{!pcgmc.Postal_Code__c}" label=""
+																					required="true" styleClass="pcgmc Postal_Code__c" />
+																			</td>
+																		</tr>
+																		<tr>
+																			<td><span>Email:</span> <span
+																				class="required_field">*</span></td>
+																			<td><apex:inputField value="{!pcgmc.Email__c}"
+																					label="" required="true"
+																					styleClass="pcgmc Email__c" /></td>
+																		</tr>
+																		<tr>
+																			<td><span>Phone:</span> <span
+																				class="required_field">*</span></td>
+																			<td><apex:inputField value="{!pcgmc.Phone__c}"
+																					label="" required="true"
+																					styleClass="pcgmc Phone__c" /></td>
+																		</tr>
+																	</tbody>
+																</table>
+															</td>
+														</tr>
+													</tbody>
+												</table>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+								<table border="0" cellpadding="0" cellspacing="2">
+									<tbody>
+										<tr>
+											<td colspan="2"><apex:commandButton action="{!savePage3}" value="Next" styleClass="btn" /> <span
+												class="required_field">You can review and edit at the
+													end before submitting</span></td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</apex:form>
+						<div class="socialmedia">
+							<nav class="social">
+								<ul>
+									<li><a class="facebook" target="_blank"
+										href="http://facebook.com/SilverPeakSystems">facebook</a></li>
+									<li><a class="blog" target="_blank"
+										href="http://blog.silver-peak.com/">blog</a></li>
+									<li><a class="twitter" target="_blank"
+										href="https://twitter.com/silverpeak">twitter</a></li>
+									<li><a class="linkedin" target="_blank"
+										href="http://www.linkedin.com/company/silver-peak-systems">linkedin</a></li>
+									<li><a class="youtube" target="_blank"
+										href="http://www.youtube.com/user/silverpeaksystems">youtube</a></li>
+									<li><a class="rss" target="_blank"
+										href="http://feeds.feedburner.com/WANspeak">rss</a></li>
+								</ul>
+							</nav>
+						</div>
+					</div>
+					<aside id="sidebar">
+						<div class="side-holder">
+							<div class="widget">
+								<h2>Not a Partner Yet?</h2>
+								<div class="list-scroll">
+									<strong class="title">Here&apos;s some more
+										information:</strong>
+									<ul>
+										<li><a href="/content_download?doc=D-1700">Champions
+												Channel <br /> Partner Program
+										</a></li>
+										<li><a href="/content_download?doc=D-1710">Silver
+												Peak Champions Channel <br /> Partner Program <br /> -
+												North America
+										</a></li>
+									</ul>
+									<span> Apply now to become a <br /> Silver Peak Partner
+									</span> <a href="register" class="btn btn-partner">Apply for
+										Partnership</a>
+								</div>
+							</div>
+						</div>
+					</aside>
+				</div>
+			</apex:outputPanel>
+			<apex:outputPanel rendered="{!page == 4}">
+				<div id="main">
+					<ul class="breadcrumbs">
+						<li class="active"><a href="./">Home</a></li>
+						<li>Registration Page 5</li>
+					</ul>
+					<div id="content">
+						<apex:form >
+							<div class="txt">
+								<div class="img-holder">
+									<img
+										src="{!URLFOR($Resource.PartnerPortal, 'images/img06.jpg')}"
+										alt="Registration" />
+									<h1>
+										Registration <br /> Page 5
+									</h1>
+								</div>
+								<h1>Branch Office Information</h1>
+								<table border="0" cellpadding="2" cellspacing="0" width="100%">
+									<tbody>
+										<tr>
+											<td colspan="2"><strong> <span>Branch
+														Office Type</span>
+											</strong> <span class="required_field">*</span> (click all that apply)
+												<br /> <apex:selectCheckboxes value="{!branchOfficeTypeSetGet}" html-autoTR="4"
+													html-autoRequired="required">
+													<apex:selectOptions value="{!branchOfficeTypeItem}" />
+												</apex:selectCheckboxes></td>
+										</tr>
+										<tr>
+											<td colspan="2">&nbsp;</td>
+										</tr>
+										<tr>
+											<td colspan="2"><input type="checkbox" id="boiCkb"
+												onchange="markPrimaryContact('boi', this.checked)" /> <label
+												for="boiCkb">Use Headquarters Location Information</label></td>
+										</tr>
+										<tr>
+											<td width="180"><span>Address 1:</span> <span
+												class="required_field">*</span></td>
+											<td><apex:inputField value="{!boi.Address_1__c}"
+													label="" required="true" styleClass="boi Address_1__c" />
+											</td>
+										</tr>
+										<tr>
+											<td width="180"><span>Address 2:</span></td>
+											<td><apex:inputField value="{!boi.Address_2__c}"
+													label="" styleClass="boi Address_2__c" /></td>
+										</tr>
+										<tr>
+											<td width="180"><span>City:</span> <span
+												class="required_field">*</span></td>
+											<td><apex:inputField value="{!boi.City__c}" label=""
+													required="true" styleClass="boi City__c" /></td>
+										</tr>
+										<tr>
+											<td width="180"><span>Region:</span> <span
+												class="required_field">*</span></td>
+											<td><apex:inputField value="{!boi.Region__c}" label=""
+													required="true" styleClass="boi Region__c" /></td>
+										</tr>
+										<tr>
+											<td width="180"><span>Country:</span> <span
+												class="required_field">*</span></td>
+											<td class="boi Country__c"><apex:inputField value="{!boi.Country__c}" label="" required="true" /></td>
+										</tr>
+										<tr>
+											<td width="180"><span>State:</span> <span
+												class="required_field">*</span></td>
+											<td class="boi State__c"><apex:inputField value="{!boi.State__c}" label="" required="true" /></td>
+										</tr>
+										<tr>
+											<td width="180"><span>Zip/Postal:</span> <span
+												class="required_field">*</span></td>
+											<td><apex:inputField value="{!boi.Postal_Code__c}"
+													label="" required="true" styleClass="boi Postal_Code__c" />
+											</td>
+										</tr>
+										<tr>
+											<td><span>Phone</span> <span class="required_field">*</span>
+											</td>
+											<td><apex:inputField value="{!boi.Phone__c}" label=""
+													required="true" styleClass="boi Phone__c" /></td>
+										</tr>
+										<tr>
+											<td><span>Fax</span></td>
+											<td><apex:inputField value="{!boi.Fax__c}" label=""
+													styleClass="boi Fax__c" /></td>
+										</tr>
+									</tbody>
+								</table>
+								<h2>Primary Branch Contact</h2>
+								<p>Silver Peak uses this information to contact your
+									location regarding partner program benefits and opportunities.</p>
+								<table border="0" cellpadding="2" cellspacing="0" width="100%">
+									<tbody>
+										<tr>
+											<td width="180"><span>First Name:</span> <span
+												class="required_field">*</span></td>
+											<td><apex:inputField value="{!pbc.FirstName}" label=""
+													required="true" /></td>
+										</tr>
+										<tr>
+											<td width="180"><span>Last Name:</span> <span
+												class="required_field">*</span></td>
+											<td><apex:inputField value="{!pbc.LastName}" label=""
+													required="true" /></td>
+										</tr>
+										<tr>
+											<td width="180"><span>Job Title:</span> <span
+												class="required_field">*</span></td>
+											<td><apex:inputField value="{!pbc.Title}" label=""
+													required="true" /></td>
+										</tr>
+										<tr>
+											<td width="180"><span>Email Address:</span> <span
+												class="required_field">*</span></td>
+											<td><apex:inputField value="{!pbc.Email}" label=""
+													required="true" /></td>
+										</tr>
+										<tr>
+											<td><span>Job Function</span> <span
+												class="required_field">*</span></td>
+											<td><apex:inputField value="{!pcp.Job_Function__c}"
+													label="" required="true" /></td>
+										</tr>
+										<tr>
+											<td width="180"><span>Department:</span></td>
+											<td><apex:inputField value="{!pbc.Department}" label="" />
+											</td>
+										</tr>
+										<tr>
+											<td width="180"><span>Birth Date:</span></td>
+											<td><apex:inputField value="{!pbc.Birthdate}" label="" />
+											</td>
+										</tr>
+										<tr>
+											<td width="180"><span>Reports To:</span></td>
+											<td><apex:inputField value="{!pcp.Reports_To__c}"
+													label="" /></td>
+										</tr>
+										<tr>
+											<td width="180"><span>Industry Certifications
+													Held:</span></td>
+											<td><apex:inputField value="{!pcp.Industry_Certifications_Held__c}" label="" />
+											</td>
+										</tr>
+										<tr>
+											<td width="180"><span>Skype Name:</span></td>
+											<td><apex:inputField value="{!pcp.Skype_Name__c}"
+													label="" /></td>
+										</tr>
+										<tr>
+											<td width="180"><span>IM Name:</span></td>
+											<td><apex:inputField value="{!pcp.IM_Name__c}" label="" />
+											</td>
+										</tr>
+									</tbody>
+								</table>
+								<h2>Preferred Distributors</h2>
+								<p>This information is only required from Partners located
+									in EMEA and APAC. Completeing all of the Distributor fields
+									will expedite the ordering process.</p>
+								<table border="0" cellpadding="2" cellspacing="0" width="100%">
+									<tbody>
+										<tr>
+											<td><span>Distributor Name</span> <span
+												id="GlobalBodyContent_ExternalBodyContent_BodyContent_RequireDistributorName">
+													<span class="required_field">*</span>
+											</span></td>
+											<td><span>Distributor Account Number</span></td>
+										</tr>
+										<tr>
+											<td width="150"><apex:inputField value="{!pap.Preferred_Distribution_Partner_1__c}" label="" />
+											</td>
+											<td><apex:inputField value="{!pap.Preferred_Distribution_Partner_Acct_1__c}"
+													label="" /></td>
+										</tr>
+										<tr>
+											<td><apex:inputField value="{!pap.Preferred_Distribution_Partner_2__c}" label="" />
+											</td>
+											<td><apex:inputField value="{!pap.Preferred_Distribution_Partner_Acct_2__c}"
+													label="" /></td>
+										</tr>
+										<tr>
+											<td><apex:inputField value="{!pap.Preferred_Distribution_Partner_3__c}" label="" />
+											</td>
+											<td><apex:inputField value="{!pap.Preferred_Distribution_Partner_Acct_3__c}"
+													label="" /></td>
+										</tr>
+									</tbody>
+								</table>
+								<table border="0" cellpadding="0" cellspacing="2">
+									<tbody>
+										<tr>
+											<td colspan="2"><apex:commandButton action="{!savePage4}" value="Next" styleClass="btn" /> <span
+												class="required_field">You can review and edit at the
+													end before submitting</span></td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</apex:form>
+						<div class="socialmedia">
+							<nav class="social">
+								<ul>
+									<li><a class="facebook" target="_blank"
+										href="http://facebook.com/SilverPeakSystems">facebook</a></li>
+									<li><a class="blog" target="_blank"
+										href="http://blog.silver-peak.com/">blog</a></li>
+									<li><a class="twitter" target="_blank"
+										href="https://twitter.com/silverpeak">twitter</a></li>
+									<li><a class="linkedin" target="_blank"
+										href="http://www.linkedin.com/company/silver-peak-systems">linkedin</a></li>
+									<li><a class="youtube" target="_blank"
+										href="http://www.youtube.com/user/silverpeaksystems">youtube</a></li>
+									<li><a class="rss" target="_blank"
+										href="http://feeds.feedburner.com/WANspeak">rss</a></li>
+								</ul>
+							</nav>
+						</div>
+					</div>
+					<aside id="sidebar">
+						<div class="side-holder">
+							<div class="widget">
+								<h2>Not a Partner Yet?</h2>
+								<div class="list-scroll">
+									<strong class="title">Here&apos;s some more
+										information:</strong>
+									<ul>
+										<li><a href="/content_download?doc=D-1700"> Champions
+												Channel <br /> Partner Program
+										</a></li>
+										<li><a href="/content_download?doc=D-1700"> Silver
+												Peak Champions Channel <br /> Partner Program <br /> -
+												North America
+										</a></li>
+									</ul>
+									<span> Apply now to become a <br /> Silver Peak Partner
+									</span> <a href="register" class="btn btn-partner">Apply for
+										Partnership</a>
+								</div>
+							</div>
+						</div>
+					</aside>
+				</div>
+			</apex:outputPanel>
+			<apex:outputPanel rendered="{!page == 5}">
+				<div id="main">
+					<ul class="breadcrumbs">
+						<li class="active"><a href="./">Home</a></li>
+						<li>Registration Summary</li>
+					</ul>
+					<div id="content">
+						<apex:form >
+							<div class="txt">
+								<div class="img-holder">
+									<img
+										src="{!URLFOR($Resource.PartnerPortal, 'images/img06.jpg')}"
+										alt="Registration" />
+									<h1>
+										Registration <br /> Summary
+									</h1>
+								</div>
+								<div class="clear"></div>
+								<div id="RegSummary">
+									<h2>Registration Summary</h2>
+									<div id="RegSummaryPartnerInformation">
+										<h2>Your Information</h2>
+										<p>
+											<Strong>Name: </Strong>
+											<apex:outputText value="{!con.FirstName + ' ' + con.LastName}" />
+											<br /> <strong>Title: </strong>
+											<apex:outputText value="{!con.Title}" />
+											<br /> <strong>Email: </strong>
+											<apex:outputText value="{!con.Email}" />
+											<br /> <strong>Job Function: </strong>
+											<apex:outputText value="{!pcp.Job_Function__c}" />
+											<br /> <strong>Department: </strong>
+											<apex:outputText value="{!con.Department}" />
+											<br /> <strong>Birth Date: </strong>
+											<apex:outputText value="{!con.Birthdate}" />
+											<br /> <strong>Reports To: </strong>
+											<apex:outputText value="{!pcp.Reports_To__c}" />
+											<br /> <strong>Industry Certifications: </strong>
+											<apex:outputText value="{!pcp.Industry_Certifications_Held__c}" />
+											<br /> <br /> <br /> <strong>Skype: </strong>
+											<apex:outputText value="{!pcp.Skype_Name__c}" />
+											<br /> <strong>IM: </strong>
+											<apex:outputText value="{!pcp.IM_Name__c}" />
+											<br />
+											<apex:commandLink action="{!setPage4}" value="edit" />
+										</p>
+									</div>
+									<div class="clear"></div>
+									<div id="RegSummaryHQ">
+										<h2>Headquarters</h2>
+										<p>
+											<strong>Company Legal Name: </strong>
+											<apex:outputText value="{!pap.Company_Legal_Name__c}" />
+											<br /> <strong>Doing Business As: </strong>
+											<apex:outputText value="{!pap.Doing_Business_As__c}" />
+											<br /> <strong>Company Website: </strong>
+											<apex:outputText value="{!acc.Website}" />
+											<br /> <strong>Tax ID type: </strong>
+											<apex:outputText value="{!pap.Tax_ID_Type__c}" />
+											<br /> <strong>Tax ID #: </strong>
+											<apex:outputText value="{!pap.Tax_ID_Number__c}" />
+											<br />
+											<apex:commandLink action="{!setPage2}" value="edit" />
+											<br /> <strong>Location</strong> <br />
+											<apex:outputText value="{!hq.Address_1__c}" />
+											<br />
+											<apex:outputText value="{!hq.Address_2__c}" />
+											<br />
+											<apex:outputText value="{!hq.City__c + ', ' +  hq.State__c + ' ' + hq.Postal_Code__c}" />
+											<br />
+											<apex:outputText value="{!hq.Country__c}" />
+											<br /> <br /> <strong>Phone: </strong>
+											<apex:outputText value="{!hq.Phone__c}" />
+											<br /> <strong>Fax: </strong>
+											<apex:outputText value="{!hq.Fax__c}" />
+											<br />
+											<apex:commandLink action="{!setPage2}" value="edit" />
+										</p>
+									</div>
+									<div id="RegSummaryBranch">
+										<h2>Branch</h2>
+										<p>
+											<strong>Branch Type(s):</strong>
+											<apex:outputText value="{!pap.Branch_Office_Type__c}" />
+											<br />
+											<apex:commandLink action="{!setPage4}" value="edit" />
+											<br /> <br /> <strong>Location</strong> <br />
+											<apex:outputText value="{!boi.Address_1__c}" />
+											<br />
+											<apex:outputText value="{!boi.Address_2__c}" />
+											<br />
+											<apex:outputText value="{!boi.City__c + ', ' +  boi.State__c + ' ' + boi.Postal_Code__c}" />
+											<br />
+											<apex:outputText value="{!boi.Country__c}" />
+											<br /> <br /> <strong>Phone: </strong>
+											<apex:outputText value="{!boi.Phone__c}" />
+											<br /> <strong>Fax: </strong>
+											<apex:outputText value="{!boi.Fax__c}" />
+											<br />
+											<apex:commandLink action="{!setPage4}" value="edit" />
+										</p>
+									</div>
+									<div class="clear"></div>
+									<h2>Company Profile</h2>
+									<div id="RegSummaryCompanyProfile1">
+										<p>
+											<strong>WAN Optimization %:</strong>
+											<apex:outputText value="{!pap.WAN_Optimization__c}" />
+											<br /> <strong>Virtualization %:</strong>
+											<apex:outputText value="{!pap.Virtualization__c}" />
+											<br /> <strong>Data Center Solutions %:</strong>
+											<apex:outputText value="{!pap.Data_Center_Solutions__c}" />
+											<br /> <strong>Security %:</strong>
+											<apex:outputText value="{!pap.Security__c}" />
+											<br /> <strong>Storage %:</strong>
+											<apex:outputText value="{!pap.Storage__c}" />
+											<br /> <strong>Unified Communications/VOIP %:</strong>
+											<apex:outputText value="{!pap.Unified_Communications_VOIP__c}" />
+											<br /> <strong>Wireless WAN/LAN %:</strong>
+											<apex:outputText value="{!pap.Wireless_WAN_LAN__c}" />
+											<br /> <strong>Other %:</strong>
+											<apex:outputText value="{!pap.Other__c + ' ' + pap.Revenue_Other__c}" />
+										</p>
+									</div>
+									<div id="RegSummaryCompanyProfile2">
+										<p>
+											<strong>Years in Business:</strong>
+											<apex:outputText value="{!pap.Years_in_Business__c}" />
+											<br /> <strong>Go-To-Market Sales Model:</strong>
+											<apex:outputText value="{!pap.Go_To_Market_Sales_Model__c + ' ' + pap.Go_To_Market_Sales_Model_Other__c}" />
+											<br /> <strong>Total Employees:</strong>
+											<apex:outputText value="{!pap.Number_of_Employees__c}" />
+											<br /> <strong>Sales Representatives:</strong>
+											<apex:outputText value="{!pap.Number_of_Sales_Representatives__c}" />
+											<br /> <strong>Sales Engineers:</strong>
+											<apex:outputText value="{!pap.Number_of_Sales_Engineers__c}" />
+											<br /> <strong>Company Revenue:</strong>
+											<apex:outputText value="{!pap.Company_Revenue__c}" />
+										</p>
+									</div>
+									<div class="clear"></div>
+									<p>
+										<strong>Marketing Segments:</strong>
+										<apex:outputText value="{!pap.Marketing_Segments_Served__c}" />
+										<br /> <strong>Product Categories:</strong>
+										<apex:outputText value="{!pap.Product_Categories_Sold__c}" />
+										<br /> <strong>Silver Peak Products:</strong>
+										<apex:outputText value="{!pap.Silver_Peak_Products_Sold__c}" />
+										<br /> <strong>Applications:</strong>
+										<apex:outputText value="{!pap.Applications__c}" />
+										<br /> <strong>Silver Peak Competencies:</strong>
+										<apex:outputText value="{!pap.Silver_Peak_Competencies__c}" />
+										<br /> <strong>Provide Professional Services:</strong>
+										<apex:outputText value="{!pap.Provide_Professional_Services__c}" />
+										<br /> <strong>Professional Services Offered:</strong>
+										<apex:outputText value="{!pap.Professional_Services_Offered__c}" />
+										<br /> <strong>Provide Managed Services:</strong>
+										<apex:outputText value="{!pap.Provide_Managed_Services__c}" />
+										<br /> <strong>Channel Partner Programs:</strong>
+										<apex:outputText value="{!pap.Channel_Programs_Participated__c + ' ' + pap.Channel_Programs_Participated_Other__c}" />
+										<br />
+										<apex:commandLink action="{!setPage3}" value="edit" />
+									</p>
+									<h2>Preferred Distributors</h2>
+									<p>
+										<apex:outputText value="{!distributionPartners}"
+											escape="false" />
+										<apex:commandLink action="{!setPage4}" value="edit" />
+									</p>
+									<h2>Company Contact Information</h2>
+									<div id="RegSummaryContact1">
+										<strong>Headquarters Contact</strong> <br />
+										<apex:outputText value="{!hq.First_Name__c + ' ' + hq.Last_Name__c}" />
+										<br />
+										<apex:outputText value="{!hq.Address_1__c}" />
+										<br />
+										<apex:outputText value="{!hq.Address_2__c}" />
+										<br />
+										<apex:outputText value="{!hq.City__c + ', ' +  hq.State__c + ' ' + hq.Postal_Code__c}" />
+										<br />
+										<apex:outputText value="{!hq.Country__c}" />
+										<br /> <br /> <strong>Email:</strong>
+										<apex:outputText value="{!hq.Email__c}" />
+										<br /> <strong>Phone:</strong>
+										<apex:outputText value="{!hq.Phone__c}" />
+										<br /> <br />
+										<apex:commandLink action="{!setPage3}" value="edit" />
+										<br /> <br />
+									</div>
+									<div id="RegSummaryContact2">
+										<strong>Marketing Contact</strong> <br />
+										<apex:outputText value="{!pmc.First_Name__c + ' ' + pmc.Last_Name__c}" />
+										<br />
+										<apex:outputText value="{!pmc.Address_1__c}" />
+										<br />
+										<apex:outputText value="{!pmc.Address_2__c}" />
+										<br />
+										<apex:outputText value="{!pmc.City__c + ', ' +  pmc.State__c + ' ' + pmc.Postal_Code__c}" />
+										<br />
+										<apex:outputText value="{!pmc.Country__c}" />
+										<br /> <br /> <strong>Email:</strong>
+										<apex:outputText value="{!pmc.Email__c}" />
+										<br /> <strong>Phone:</strong>
+										<apex:outputText value="{!pmc.Phone__c}" />
+										<br /> <br />
+										<apex:commandLink action="{!setPage3}" value="edit" />
+										<br /> <br />
+									</div>
+									<div id="RegSummaryContact3">
+										<strong>Sales Contact</strong> <br />
+										<apex:outputText value="{!psc.First_Name__c + ' ' + psc.Last_Name__c}" />
+										<br />
+										<apex:outputText value="{!psc.Address_1__c}" />
+										<br />
+										<apex:outputText value="{!psc.Address_2__c}" />
+										<br />
+										<apex:outputText value="{!psc.City__c + ', ' +  psc.State__c + ' ' + psc.Postal_Code__c}" />
+										<br />
+										<apex:outputText value="{!psc.Country__c}" />
+										<br /> <br /> <strong>Email:</strong>
+										<apex:outputText value="{!psc.Email__c}" />
+										<br /> <strong>Phone:</strong>
+										<apex:outputText value="{!psc.Phone__c}" />
+										<br /> <br />
+										<apex:commandLink action="{!setPage3}" value="edit" />
+										<br /> <br />
+									</div>
+									<div class="clear"></div>
+									<div id="RegSummaryContact4">
+										<strong>Technical Contact</strong> <br />
+										<apex:outputText value="{!ptc.First_Name__c + ' ' + ptc.Last_Name__c}" />
+										<br />
+										<apex:outputText value="{!ptc.Address_1__c}" />
+										<br />
+										<apex:outputText value="{!ptc.Address_2__c}" />
+										<br />
+										<apex:outputText value="{!ptc.City__c + ', ' +  ptc.State__c + ' ' + ptc.Postal_Code__c}" />
+										<br />
+										<apex:outputText value="{!ptc.Country__c}" />
+										<br /> <br /> <strong>Email:</strong>
+										<apex:outputText value="{!ptc.Email__c}" />
+										<br /> <strong>Phone:</strong>
+										<apex:outputText value="{!ptc.Phone__c}" />
+										<br /> <br />
+										<apex:commandLink action="{!setPage3}" value="edit" />
+										<br /> <br />
+									</div>
+									<div id="RegSummaryContact5">
+										<strong>CEO/General Manager</strong> <br />
+										<apex:outputText value="{!pcgmc.First_Name__c + ' ' + pcgmc.Last_Name__c}" />
+										<br />
+										<apex:outputText value="{!pcgmc.Address_1__c}" />
+										<br />
+										<apex:outputText value="{!pcgmc.Address_2__c}" />
+										<br />
+										<apex:outputText value="{!pcgmc.City__c + ', ' +  pcgmc.State__c + ' ' + pcgmc.Postal_Code__c}" />
+										<br />
+										<apex:outputText value="{!pcgmc.Country__c}" />
+										<br /> <br /> <strong>Email:</strong>
+										<apex:outputText value="{!pcgmc.Email__c}" />
+										<br /> <strong>Phone:</strong>
+										<apex:outputText value="{!pcgmc.Phone__c}" />
+										<br /> <br />
+										<apex:commandLink action="{!setPage3}" value="edit" />
+										<br /> <br />
+									</div>
+									<div class="clear"></div>
+									<table border="0" cellpadding="0" cellspacing="2">
+										<tbody>
+											<tr>
+												<td colspan="2"><span
+													id="GlobalBodyContent_ExternalBodyContent_BodyContent_Question_1878_Prompt">Additional
+														Comments</span> <br /> <apex:inputField value="{!pap.Additional_Comments__c}" label="" /></td>
+											</tr>
+											<tr>
+												<td colspan="2"><apex:pageMessages /> <apex:commandButton action="{!savePage5}" value="Submit" styleClass="btn" />
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</apex:form>
+						<div class="socialmedia">
+							<nav class="social">
+								<ul>
+									<li><a class="facebook" target="_blank"
+										href="http://facebook.com/SilverPeakSystems">facebook</a></li>
+									<li><a class="blog" target="_blank"
+										href="http://blog.silver-peak.com/">blog</a></li>
+									<li><a class="twitter" target="_blank"
+										href="https://twitter.com/silverpeak">twitter</a></li>
+									<li><a class="linkedin" target="_blank"
+										href="http://www.linkedin.com/company/silver-peak-systems">linkedin</a></li>
+									<li><a class="youtube" target="_blank"
+										href="http://www.youtube.com/user/silverpeaksystems">youtube</a></li>
+									<li><a class="rss" target="_blank"
+										href="http://feeds.feedburner.com/WANspeak">rss</a></li>
+								</ul>
+							</nav>
+						</div>
+					</div>
+					<aside id="sidebar">
+						<div class="side-holder">
+							<div class="widget">
+								<h2>Not a Partner Yet?</h2>
+								<div class="list-scroll">
+									<strong class="title">Here&apos;s some more
+										information:</strong>
+									<ul>
+										<li><a href="/content_download?doc=D-1700">Champions
+												Channel <br /> Partner Program
+										</a></li>
+										<li><a href="/content_download?doc=D-1710">Silver
+												Peak Champions Channel <br /> Partner Program <br /> -
+												North America
+										</a></li>
+									</ul>
+									<span> Apply now to become a <br /> Silver Peak Partner
+									</span> <a href="{!URLFOR($Page.PartnerPortalRegistration)}"
+										class="btn btn-partner">Apply for Partnership</a>
+								</div>
+							</div>
+						</div>
+					</aside>
+				</div>
+			</apex:outputPanel>
+			<apex:outputPanel rendered="{!page == 6}">
+				<div id="main">
+					<ul class="breadcrumbs">
+						<li class="active"><a href="./">Home</a></li>
+						<li>Registration Summary</li>
+					</ul>
+					<div id="content">
+						<apex:form >
+							<div class="txt">
+								<div class="img-holder">
+									<img
+										src="{!URLFOR($Resource.PartnerPortal, 'images/img06.jpg')}"
+										alt="Registration" />
+									<h1>
+										Registration <br /> Success
+									</h1>
+								</div>
+								<div class="clear"></div>
+								<div>Thank you for applying to the Channel Partner
+									Program. You will be notified of your application status within
+									two business days.</div>
+							</div>
+						</apex:form>
+						<div class="socialmedia">
+							<nav class="social">
+								<ul>
+									<li><a class="facebook" target="_blank"
+										href="http://facebook.com/SilverPeakSystems">facebook</a></li>
+									<li><a class="blog" target="_blank"
+										href="http://blog.silver-peak.com/">blog</a></li>
+									<li><a class="twitter" target="_blank"
+										href="https://twitter.com/silverpeak">twitter</a></li>
+									<li><a class="linkedin" target="_blank"
+										href="http://www.linkedin.com/company/silver-peak-systems">linkedin</a></li>
+									<li><a class="youtube" target="_blank"
+										href="http://www.youtube.com/user/silverpeaksystems">youtube</a></li>
+									<li><a class="rss" target="_blank"
+										href="http://feeds.feedburner.com/WANspeak">rss</a></li>
+								</ul>
+							</nav>
+						</div>
+					</div>
+					<aside id="sidebar">
+						<div class="side-holder">
+							<div class="widget">
+								<h2>Not a Partner Yet?</h2>
+								<div class="list-scroll">
+									<strong class="title">Here&apos;s some more
+										information:</strong>
+									<ul>
+										<li><a href="/content_download?doc=D-1700">Champions
+												Channel <br /> Partner Program
+										</a></li>
+										<li><a href="/content_download?doc=D-1710">Silver
+												Peak Champions Channel <br /> Partner Program <br /> -
+												North America
+										</a></li>
+									</ul>
+									<span> Apply now to become a <br /> Silver Peak Partner
+									</span> <a href="{!URLFOR($Page.PartnerPortalRegistration)}"
+										class="btn btn-partner">Apply for Partnership</a>
+								</div>
+							</div>
+						</div>
+					</aside>
+				</div>
+			</apex:outputPanel>
+		</apex:define>
+	</apex:composition>
+</apex:page>

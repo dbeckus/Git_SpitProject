@@ -1,0 +1,24 @@
+<apex:page standardController="Account" extensions="EnterpriseOpportunityListController">
+    <apex:pageBlock >
+        <apex:outputLabel rendered="{!AllOpportunities.size == 0}">No opportunities found.</apex:outputLabel>
+        <apex:outputPanel rendered="{!AllOpportunities.size > 0}" layout="inline" style="line-height:24px">
+            <b>Enterprise Cumulative Bookings: </b>
+            <apex:outputText value="{0, number, $###,###,###.00}"><apex:param value="{!EnterpriseCumulativeBookings}"/></apex:outputText>
+        </apex:outputPanel>
+        <apex:pageBlockTable value="{!AllOpportunities}" var="opp" rendered="{!AllOpportunities.size > 0}">
+            <apex:column headerValue="Name">
+                <a href="/{!opp.Id}" target="_blank">{!opp.Name}</a>
+            </apex:column>
+            <apex:column value="{!opp.StageName}" />
+            <apex:column value="{!opp.Amount}"/>
+            <apex:column value="{!opp.Type}"/>
+            <apex:column value="{!opp.CloseDate}"/>
+            <apex:column headerValue="Account Name">
+                <a href="/{!opp.AccountId}" target="_blank">{!opp.Account.Name}</a>
+            </apex:column>
+            <apex:column headerValue="Owner">
+                <a href="/{!opp.OwnerId}" target="_blank">{!opp.Owner.Name}</a>
+            </apex:column>
+        </apex:pageBlockTable>
+    </apex:pageBlock>
+</apex:page>

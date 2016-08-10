@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Patch Match List</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Patch Match Lists</value>
+    </caseValues>
+    <fields>
+        <label><!-- Patch Criteria Rule --></label>
+        <name>Patch_Criteria_Rule__c</name>
+        <relationshipLabel><!-- Patch Match Lists --></relationshipLabel>
+    </fields>
+    <layouts>
+        <layout>Patch Match List Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+    </layouts>
+    <startsWith>Consonant</startsWith>
+    <webLinks>
+        <label><!-- Quick_Add_Match_List --></label>
+        <name>Quick_Add_Match_List</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- Quick_Delete --></label>
+        <name>Quick_Delete</name>
+    </webLinks>
+</CustomObjectTranslation>

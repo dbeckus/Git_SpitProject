@@ -1,0 +1,29 @@
+<apex:page standardController="Opportunity" extensions="PartnerListController" showHeader="false" standardStylesheets="true">
+    <style type="text/css">
+        .partnerTable
+        {
+            display:none;
+        }
+    </style>
+    <apex:pageBlock >
+        <apex:pageBlockSection columns="2">
+            <apex:outputText rendered="{!AND(LeftPartners.size = 0, RightPartners.size = 0)}">Channel not defined.</apex:outputText>
+            <apex:pageBlockTable value="{!LeftPartners}" var="partner" rendered="{!LeftPartners.size > 0}" headerClass="partnerTable" footerClass="partnerTable">
+                <apex:column >
+                    <b>{!partner.Role}</b>
+                </apex:column>
+                <apex:column >
+                    <a href="/{!partner.PartnerId}">{!partner.PartnerName}</a>
+                </apex:column>
+            </apex:pageBlockTable>
+            <apex:pageBlockTable value="{!RightPartners}" var="partner" rendered="{!RightPartners.size > 0}" headerClass="partnerTable" footerClass="partnerTable">
+                <apex:column >
+                    <b>{!partner.Role}</b>  
+                </apex:column>
+                <apex:column >
+                   <a href="/{!partner.PartnerId}">{!partner.PartnerName}</a>  
+                </apex:column>
+            </apex:pageBlockTable>
+        </apex:pageBlockSection>
+    </apex:pageBlock>
+</apex:page>

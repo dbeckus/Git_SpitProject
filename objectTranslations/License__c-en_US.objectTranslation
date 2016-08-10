@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>License</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Licenses</value>
+    </caseValues>
+    <fields>
+        <label><!-- Serial Number --></label>
+        <name>AssetId__c</name>
+        <relationshipLabel><!-- Licenses --></relationshipLabel>
+    </fields>
+    <fields>
+        <help><!-- Sends an email to this contact when new license keys are generated --></help>
+        <label><!-- Contact for Notification --></label>
+        <name>Contact_for_Notification__c</name>
+        <relationshipLabel><!-- Licenses --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- License Duration --></label>
+        <name>Duration__c</name>
+    </fields>
+    <fields>
+        <label><!-- Expire for Email --></label>
+        <name>Expire_for_Email__c</name>
+    </fields>
+    <fields>
+        <help><!-- Don&apos;t edit this field, or the key may not work! --></help>
+        <label><!-- Key --></label>
+        <name>Key__c</name>
+    </fields>
+    <fields>
+        <label><!-- License Expiration --></label>
+        <name>License_Expiration__c</name>
+    </fields>
+    <fields>
+        <label><!-- Logged --></label>
+        <name>Logged__c</name>
+    </fields>
+    <fields>
+        <label><!-- Model --></label>
+        <name>Model__c</name>
+    </fields>
+    <fields>
+        <label><!-- Quantity --></label>
+        <name>QuantityForDisplay__c</name>
+    </fields>
+    <fields>
+        <help><!-- Number of GMS licenses. Always 1 for VX applinaces --></help>
+        <label><!-- Quantity --></label>
+        <name>Quantity__c</name>
+    </fields>
+    <fields>
+        <label><!-- Renewal Key Generated --></label>
+        <name>RenewalKeyGenerated__c</name>
+    </fields>
+    <fields>
+        <label><!-- Serial Number --></label>
+        <name>SerialNumber__c</name>
+    </fields>
+    <fields>
+        <help><!-- When the license becomes active. --></help>
+        <label><!-- License Start Date --></label>
+        <name>Start_Date__c</name>
+    </fields>
+    <layouts>
+        <layout>license Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+        <sections>
+            <label><!-- License Key --></label>
+            <section>License Key</section>
+        </sections>
+    </layouts>
+    <startsWith>Consonant</startsWith>
+    <webLinks>
+        <label><!-- Generate_GMS_License --></label>
+        <name>Generate_GMS_License</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- RenewLicense --></label>
+        <name>RenewLicense</name>
+    </webLinks>
+</CustomObjectTranslation>

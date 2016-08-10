@@ -1,0 +1,32 @@
+<apex:page standardController="Opportunity" extensions="OpportunityController" showHeader="true" sidebar="true">
+    <apex:sectionHeader title="Opportunity" subtitle="{!Opportunity.Name}"></apex:sectionHeader>
+    <div class="bPageTitle">
+        <div class="ptBreadcrumb">
+            <a href="/{!Opportunity.Id}">Opportunity: {!Opportunity.Name}</a>
+        </div>
+    </div>
+    <apex:form >
+        <apex:pageBlock title="{!FullList.ObjectLabel}" rendered="{!AND($ObjectType[FullList.ObjectName].accessible, NOT(ISNULL(FullList)))}">
+            <apex:pageBlockButtons location="top">
+                <apex:repeat value="{!FullList.Buttons}" var="button">
+                    <input type="button" class="btn" value="{!button.Label}" />
+                </apex:repeat>
+            </apex:pageBlockButtons>
+            <apex:pageBlockTable value="{!FullList.Records}" var="record">
+                <apex:column headerValue="Action" styleClass="actionColumn">
+                    <apex:commandLink value="Edit" action="/{!record.Id}/e?retURL={!Opportunity.Id}" styleClass="actionLink" rendered="{!$ObjectType[FullList.ObjectName].updateable}" />
+
+                    <apex:outputText rendered="{!$ObjectType[FullList.ObjectName].updateable && $ObjectType[FullList.ObjectName].deletable}">&nbsp;|&nbsp;</apex:outputText>
+
+                    <apex:commandLink value="Del" styleClass="actionLink" rendered="{!$ObjectType[FullList.ObjectName].deletable}" />
+                </apex:column>
+
+                <apex:repeat value="{!FullList.Fields}" var="f">
+                    <apex:column headerValue="{!$ObjectType[FullList.ObjectName].Fields[f].Label}">
+                        <apex:outputField value="{!record[f]}" rendered="{!NOT($ObjectType[FullList.ObjectName].Fields[f].nameField)}"/><apex:commandLink value="{!record[f]}" action="/{!record.Id}" rendered="{!$ObjectType[FullList.ObjectName].Fields[f].nameField}" />
+                    </apex:column>
+                </apex:repeat>
+            </apex:pageBlockTable>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

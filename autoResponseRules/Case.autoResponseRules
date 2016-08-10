@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<AutoResponseRules xmlns="http://soap.sforce.com/2006/04/metadata">
+    <autoResponseRule>
+        <fullName>New Case Response</fullName>
+        <active>true</active>
+        <ruleEntry>
+            <criteriaItems>
+                <field>Case.RecordTypeId</field>
+                <operation>equals</operation>
+                <value>IT Help Requests</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Case.CreatedById</field>
+                <operation>notContain</operation>
+                <value>Ueno</value>
+            </criteriaItems>
+            <replyToEmail>ithelp@silver-peak.com</replyToEmail>
+            <senderEmail>noreply@salesforce.com</senderEmail>
+            <senderName>IT Help</senderName>
+            <template>Support/EmployeeITTicketCreation</template>
+        </ruleEntry>
+    </autoResponseRule>
+</AutoResponseRules>

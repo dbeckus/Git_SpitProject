@@ -1,0 +1,2 @@
+<apex:page controller="PartnerPortalDocumentDownloadController" showheader="false" action="{!redirect}">
+</apex:page>

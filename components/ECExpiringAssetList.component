@@ -1,0 +1,9 @@
+<apex:component controller="ExpiringAssetListController" access="global" layout="block">
+    <apex:attribute name="contact" description="Id of the Contact" type="Id" assignTo="{!ContactId}"></apex:attribute>
+    <apex:attribute name="account" description="Id of the Account" type="Id" assignTo="{!AccountId}"></apex:attribute>
+    <apex:attribute name="expDate" description="Expiration date" type="Date" assignTo="{!LicenseExpirationDate}"></apex:attribute>
+    <apex:attribute name="isEC" description="IsECProduct" type="Boolean" assignTo="{!IsECAsset}"></apex:attribute>
+    <apex:repeat value="{!Assets}" var="asset">
+        {!asset.Model__c}, S/N {!asset.SerialNumber} {!IF(ISNULL(asset.Licenses_Nodes__c),if(ISNULL(asset.Bandwidth_Nodes__c),'',', bandwidth: '),', license: ')}<apex:outputText value="{0, number,########0}"><apex:param value="{!IF(ISBLANK(asset.Licenses_Nodes__c),asset.Bandwidth_Nodes__c,asset.Licenses_Nodes__c)}" /></apex:outputText> <br />
+    </apex:repeat>
+</apex:component>

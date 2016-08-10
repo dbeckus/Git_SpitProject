@@ -1,0 +1,275 @@
+<apex:page controller="ShippingInputFormController" tabStyle="Account" id="page">
+    <apex:includeScript value="{!URLFOR($Resource.jQuery, 'jquery-1.4.3.min.js')}" />
+    <apex:includeScript value="{!URLFOR($Resource.jQuery, 'autoresize.jquery.js')}" />
+    <script>
+        function loadAssetsPN(productId, index)
+        {
+            ShippingInputFormController.getAssetPartNumber(productId, function(result, event) {
+                if(event.status == true)
+                {
+                    fillListOptions("PartNumberList" + index, result);
+                    setAssetPN(index, "")
+                }
+            }, {escape:true});
+        }
+        function fillListOptions(listId, options)
+        {
+            var list = document.getElementById(listId);
+            list.options.length = 0;
+            list.options.add(new Option("--None--", ""), 0);
+            list.disabled = (options.length == 0);
+            for(var i = 0; i < options.length; i++)
+            {
+                list.options.add(new Option(options[i], options[i]));
+            }
+        }
+        function setAssetPN(index, val)
+        {
+            document.getElementById("page:form:block:listSection:lineItemTable:" + index + ":PartNumber").value = val;
+        }
+    </script>
+    <apex:sectionHeader title="Shipment" />
+    <apex:form id="form">
+        <apex:pageMessages id="message"/>  
+        <apex:pageBlock rendered="{!NOT(IsError)}" mode="edit" id="block">
+            <table width="100%"  border="0" cellspacing="0" cellpadding="0">
+                <tr>
+                    <td align="right">                    
+                        <apex:pageBlockSection columns="1">  
+                            <apex:inputField value="{!Shipment.Ship_Date__c}"/>
+                            <apex:outputField value="{!Shipment.Shipment_Account__c}"/>
+                            <apex:pageBlockSectionItem >
+                                <apex:outputLabel value="Ship To Location" for="ShipToLocation"></apex:outputLabel>
+                                <apex:inputTextarea value="{!ShipToLocation}" id="ShipToLocation"/>
+                            </apex:pageBlockSectionItem>
+                            <apex:pageBlockSectionItem >
+                                <apex:outputLabel value="Comments" for="Comments"></apex:outputLabel>
+                                <apex:inputTextarea rows="5" cols="40" value="{!Comments}" id="Comments"/>
+                            </apex:pageBlockSectionItem>
+                            <apex:pageBlockSectionItem >
+                                <apex:outputLabel value="Tracking Information" for="TrackingInformation"></apex:outputLabel>
+                                <apex:inputTextarea rows="5" cols="40" value="{!Shipment.Tracking_Information__c}" id="TrackingInformation"/>
+                            </apex:pageBlockSectionItem>
+                            <!--<apex:pageBlockSectionItem >
+                                <apex:outputLabel value="Send Tracking Information" for="SendTrackingInformation"></apex:outputLabel>
+                                <apex:inputCheckbox value="{!Shipment.SendTrackingInformation__c}" id="SendTrackingInformation"/>
+                            </apex:pageBlockSectionItem>-->
+                        </apex:pageBlockSection>  
+                    </td>
+                    <td  valign="middle" align="left">
+                        <apex:pageBlockSection columns="1">
+                            <apex:pageBlockSectionItem labelStyle="width:300px">
+                                <apex:outputLabel value="Shipping Assets" for="SNSets"></apex:outputLabel>
+                                <apex:inputTextarea rows="5" cols="45" value="{!SNSets}" id="SNSets"/>
+                            </apex:pageBlockSectionItem>
+                            <apex:outputLabel />
+                            <apex:pageBlockSectionItem dataStyle="text-align:center">
+                                <apex:outputLabel />
+                                <apex:outputPanel >
+                                <apex:commandButton action="{!Process}" reRender="listSection, message, Save" status="status" value="Process" oncomplete="hideDateInput()"/>
+                                <apex:actionStatus id="status">
+                                    <apex:facet name="start">
+                                        <img src="/img/loading.gif" />
+                                    </apex:facet>
+                                </apex:actionStatus>
+                                </apex:outputPanel>
+                            </apex:pageBlockSectionItem>
+                        </apex:pageBlockSection>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" style="text-align:center;padding:5px">
+                        <!--<apex:commandButton action="{!Process}" reRender="listSection, message, Save" status="status" value="Process" oncomplete="hideDateInput()"/>
+                        <apex:actionStatus id="status">
+                            <apex:facet name="start">
+                                <img src="/img/loading.gif" />
+                            </apex:facet>
+                        </apex:actionStatus>-->
+                    </td>
+                </tr>
+                <tr>
+                    <td height="8">
+                    </td>
+                </tr>
+            </table>
+            <apex:pageBlockSection columns="1" id="listSection">
+                <apex:variable var="index" value="{!0}" />
+                <apex:pageBlockTable value="{!ShippedLineList}" var="ShipLine" id="lineItemTable" rendered="{!ShippedLineList.size>0}">
+                    <apex:column headerValue="Existing" style="text-align:center">
+                        <apex:image value="/img/checkbox_unchecked.gif" rendered="{!NOT(ShipLine.AssetIsExisted)}" alt="False" />
+                        <apex:image value="/img/checkbox_checked.gif" rendered="{!ShipLine.AssetIsExisted}" alt="False" />
+                    </apex:column>
+                    <apex:column headerValue="Serial Number" value="{!ShipLine.SerialNumber}" />
+                    <apex:column id="ShipDateCol">
+                        <apex:facet name="header">
+                            Ship Date <img src="/s.gif" alt="Expand" class="moreArrow" title="Expand" onclick="showDatePopup('SingleDate')" style="cursor:pointer"/>
+                        </apex:facet>
+                        <apex:inputField value="{!ShipLine.TempAsset.Ship_Date__c}" />
+                    </apex:column>
+                    <apex:column id="StatusCol">
+                        <apex:facet name="header">
+                            Status&nbsp;<img src="/s.gif" alt="Expand" class="moreArrow" title="Expand" onclick="showDatePopup('PostShip')" style="cursor:pointer"/>
+                        </apex:facet>
+                        Post Ship&nbsp;<apex:inputField value="{!ShipLine.TempAsset.Status}" id="PostShip"/><br/><br/>
+                        Prior&nbsp;<apex:inputText value="{!ShipLine.PriorStatus}" disabled="true" />
+                    </apex:column>
+                    <apex:column id="ProListCol" headerValue="Product Number">
+                         <apex:facet name="header">
+                            Product&nbsp;<img src="/s.gif" alt="Expand" class="moreArrow" title="Expand" onclick="showDatePopup('ProList')" style="cursor:pointer"/>
+                        </apex:facet>
+                        <apex:selectList id="ProList" size="1" value="{!ShipLine.SelectProductId}" rendered="{!NOT(ShipLine.AssetIsExisted)}" onchange="loadAssetsPN(this.value, {!FLOOR(index)})">
+                            <apex:selectOptions value="{!ProductList}"/>
+                        </apex:selectList>
+                        <apex:outputText value="{!ShipLine.ProductCode}" rendered="{!ShipLine.AssetIsExisted}"/>
+                    </apex:column>
+                    <apex:column id="PartNumberCol" headerValue="Part Number" >
+                       <!-- <apex:facet name="header">
+                            Part Number&nbsp;<img src="/s.gif" alt="Expand" class="moreArrow" title="Expand" onclick="showDatePopup('PartNumber')" style="cursor:pointer"/>
+                        </apex:facet>-->
+                        <!--<apex:selectList size="1" value="{!ShipLine.PartNumber}" id="PartNumber" rendered="{!NOT(ShipLine.AssetIsExisted)}">
+                            <apex:selectOptions value="{!PartNumberList}" />
+                        </apex:selectList>-->
+                        <select id="PartNumberList{!FLOOR(index)}" onchange="setAssetPN({!FLOOR(index)}, this.value)" style="display:{!IF(ShipLine.AssetIsExisted, 'none', '')}"></select>
+                        <apex:inputHidden value="{!ShipLine.PartNumber}" id="PartNumber"/>
+                        <apex:outputText rendered="{!ShipLine.AssetIsExisted}">{!ShipLine.PartNumber}</apex:outputText>
+                    </apex:column>
+                    <apex:column headerValue="GMS Node">
+                        <apex:inputField value="{!ShipLine.TempAsset.GMS_Nodes__c}" />
+                        <apex:variable var="index" value="{!index + 1}" />
+                    </apex:column>
+                </apex:pageBlockTable>
+            </apex:pageBlockSection> 
+             <apex:pageBlockButtons location="bottom">
+                <apex:commandButton action="{!Save}" value="Save" reRender="message" id="Save" disabled="{!ShippedLineList.size=0}" status="status2"/>
+                <apex:actionStatus id="status2">
+                    <apex:facet name="start">
+                        <img src="/img/loading.gif" />
+                    </apex:facet>
+                </apex:actionStatus>
+             </apex:pageBlockButtons>       
+        </apex:pageBlock>
+         <apex:pageBlock rendered="{!IsError}">
+             <a href="/001/o">Back to account list</a>
+         </apex:pageBlock>
+         <div class="overlayBackground" style="display: none; width: 1477px; height: 1817px; "></div>
+         <div id="InlineEditDialog" class="overlayDialog inlineEditDialog" style="max-width: 500px; display: none; visibility: visible; left: 480px; top: 294px; ">
+             <div class="topRight">
+                 <div class="topLeft">
+                     <img id="InlineEditDialogX" onmouseover="this.className = 'dialogCloseOn'" onmouseout="this.className = 'dialogClose'" onclick="closeDatePopup()" class="dialogClose" src="/s.gif"/>
+                     <h2 id="InlineEditDialogTitle">Set value to all rows</h2>
+                 </div>
+             </div>
+             <div class="middle">
+                 <div class="innerContent" id="InlineEditDialogContent">
+                     <div class="activeField">
+                         <div class="inlineEditCompoundDiv" style="width:300px;height:100px">
+                             <span id="popUpShipDate">Ship Date&nbsp;<apex:inputField value="{!TempAsset.Ship_Date__c}" /><br/><br/></span>
+                             <span id="popUpPostShip">Post Ship Status&nbsp;<apex:inputField value="{!TempAsset.Status}" /></span>
+                             <span id="popUpProduct">Product &nbsp; 
+                                  <apex:selectList size="1" id="prdsList" value="{!TempAsset.Product2Id}"  onchange="loadAssetsPNDropDown(this.value);">
+                            		<apex:selectOptions value="{!ProductList}"/>
+                                  </apex:selectList><br/> 
+                             </span>
+                             <span id="popUpPartNumber">Part Number&nbsp;<apex:inputField value="{!TempAsset.Part_Number__c}" /></span>
+                         </div>
+                     </div>
+                     <div></div>
+                     <div style="display: none; "></div>
+                     <div id="InlineEditDialog_buttons" class="buttons">
+                         <input class="btn" type="button" value="OK" onclick="setValueToAllRows();closeDatePopup()"/>
+                         <input class="btn" type="button" value="Cancel" onclick="closeDatePopup()"/>
+                     </div>
+                 </div>
+             </div>
+             <div class="bottomRight">
+                 <div class="bottomLeft"></div>
+             </div>
+         </div>
+    </apex:form>
+
+    <script type="text/javascript">
+        function hideDateInput()
+        {
+            $(".dateInput .dateFormat").hide();
+        }
+        function setFocusOnLoad() {}
+        var popUp = "";
+        function showDatePopup(popUpType)
+        {
+            popUp = popUpType;
+            $(".overlayBackground").show();
+            $("#InlineEditDialog").show();
+            $(".datePicker").css("z-index", 200);
+            if(popUpType == "SingleDate")
+            {
+                $("#popUpShipDate").show();
+                $("#popUpPostShip").hide();
+                 $("#popUpProduct").hide();
+                $("#popUpPartNumber").hide();
+                $("#datePicker").css("z-index", 50103);
+            }
+            else if(popUpType == "PostShip")
+            {
+                $("#popUpShipDate").hide();
+                $("#popUpPostShip").show();
+                 $("#popUpProduct").hide();
+                $("#popUpPartNumber").hide();
+            }
+            else if(popUpType == "PartNumber")
+            {
+                $("#popUpShipDate").hide();
+                $("#popUpPostShip").hide();
+                 $("#popUpProduct").hide();
+                $("#popUpPartNumber").show();
+            }
+            else if(popUp == "ProList")
+            {
+                 $("#popUpShipDate").hide();
+                $("#popUpPostShip").hide();
+                 $("#popUpPartNumber").hide();
+                $("#popUpProduct").show();
+            }
+        }
+        function closeDatePopup()
+        {
+            $(".overlayBackground").hide();
+            $("#InlineEditDialog").hide();
+        }
+        function setValueToAllRows()
+        {
+            if(popUp == "SingleDate")
+            {
+                $('td[id$="ShipDateCol"] input').val($("#popUpShipDate input").val());
+            }
+            else if(popUp =="PostShip")
+            {
+                $('td[id$="StatusCol"] select[id$="PostShip"]').val($("#popUpPostShip select").val());
+                
+            }
+            else if(popUp == "PartNumber")
+            {
+                $('td[id$="PartNumberCol"] select[id$="PartNumber"]').val($("#popUpPartNumber select").val());
+            }
+            else if(popUp == "ProList")
+            {
+                
+                $('td[id$="ProListCol"] select[id$="ProList"]').val($("#popUpProduct select").val());
+                $( 'td[id$="ProListCol"] select[id$="ProList"]').trigger( "change" );
+
+                
+            }
+        }
+        $(
+            function()
+            {
+                $("[id$='SNSets']").autoResize(
+                {
+                    animateDuration : 300,
+                    extraSpace : 20,
+                    limit : 300
+                }
+                );
+            }
+        );
+    </script>
+</apex:page>

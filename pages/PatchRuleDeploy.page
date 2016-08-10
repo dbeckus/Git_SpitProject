@@ -1,0 +1,37 @@
+<apex:page showHeader="false" controller="PatchRuleDeployController">
+    <apex:includeScript value="{!URLFOR($Resource.Patches, '/js/jszip.js')}"/>
+    <apex:includeScript value="{!URLFOR($Resource.Patches, '/js/jszip-load.js')}"/>
+    <apex:includeScript value="{!URLFOR($Resource.Patches, '/js/jszip-deflate.js')}"/>
+    <apex:includeScript value="{!URLFOR($Resource.Patches, '/js/jszip-inflate.js')}"/>
+    <body onload="generateZip()">
+    <apex:sectionHeader title="Patch Rule {!IF($CurrentPage.parameters.validate == '1', 'Validation', 'Deployment')}"/>
+    <apex:form id="form">
+        <apex:pageBlock >
+            <apex:actionPoller action="{!checkAsyncRequest}" interval="5" rerender="form" rendered="{!NOT(ISNULL(AsyncResult))}"/>
+            <apex:actionFunction name="deployZip" action="{!deployZip}" rendered="{!ISNULL(AsyncResult)}" rerender="form">
+                <apex:param name="data" assignTo="{!ZipData}" value=""/>
+            </apex:actionFunction>
+            <apex:pageblockButtons location="bottom" rendered="{!NOT(isValidate) && NOT(isConfirmed)}">
+                <apex:commandButton value="Deploy" action="{!startDeploy}"/>
+                <input type="button" class="btn" value="Cancel" onclick="window.close()" />
+            </apex:pageblockButtons>
+            <apex:outputPanel rendered="{!NOT(isValidate) && NOT(isConfirmed)}">
+                <table>
+                    <tr>
+                        <td>Realign patches after complete</td>
+                        <td><apex:inputCheckbox value="{!realign}" /></td>
+                    </tr>
+                </table>
+            </apex:outputPanel>
+            <c:Zip name="generateZip" oncomplete="deployZip(data);" rendered="{!isConfirmed && ISNULL(AsyncResult)}">
+                <script>
+                    zipFile.file('package.xml', '{!JSENCODE(PackageXml)}');
+                    zipFile.file('classes/PatchRuleEngine.cls-meta.xml', '{!JSENCODE(ClassMetadata)}');
+                    zipFile.file('classes/PatchRuleEngine.cls', '{!JSENCODE(ClassBody)}');
+                </script>
+            </c:Zip>
+            <apex:pageMessages id="message" />
+        </apex:pageBlock>
+    </apex:form>
+    </body>
+</apex:page>

@@ -1,0 +1,387 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Follow</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>used to track training registrations</description>
+    <enableActivities>false</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>true</enableHistory>
+    <enableReports>true</enableReports>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <fields>
+        <fullName>Attendee_Company__c</fullName>
+        <externalId>false</externalId>
+        <formula>Attendee__r.Account.Name</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Attendee Company</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Attendee_Email__c</fullName>
+        <externalId>false</externalId>
+        <formula>Attendee__r.Email</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Attendee Email</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Attendee_Phone__c</fullName>
+        <externalId>false</externalId>
+        <formula>Attendee__r.Phone</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Attendee Phone</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Attendee__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <description>contact linked</description>
+        <externalId>false</externalId>
+        <label>Attendee</label>
+        <referenceTo>Contact</referenceTo>
+        <relationshipLabel>Registrations</relationshipLabel>
+        <relationshipName>Registrations</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Authorization_Code__c</fullName>
+        <externalId>false</externalId>
+        <formula>Authorization__r.Authorization_Code__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Authorization Code</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Authorization__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Authorization Id</label>
+        <lookupFilter>
+            <active>true</active>
+            <filterItems>
+                <field>AuthCode__c.Valid__c</field>
+                <operation>equals</operation>
+                <value>True</value>
+            </filterItems>
+            <infoMessage>Use &quot;AC&quot; for the search criteria instead of the Auth Code</infoMessage>
+            <isOptional>true</isOptional>
+        </lookupFilter>
+        <referenceTo>AuthCode__c</referenceTo>
+        <relationshipLabel>Registrations</relationshipLabel>
+        <relationshipName>Registrations</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Comments__c</fullName>
+        <description>Special Requests, Topics of Interest, General Comments</description>
+        <externalId>false</externalId>
+        <label>Comments</label>
+        <length>32000</length>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>12</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Confirmed__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <inlineHelpText>Training Mgr and Instructor to manage this field</inlineHelpText>
+        <label>Confirmed</label>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Diet__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Special Dietary Considerations? We will contact you for more information if yes</inlineHelpText>
+        <label>Diet</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>true</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Event__c</fullName>
+        <externalId>false</externalId>
+        <label>Event</label>
+        <referenceTo>Training_Events__c</referenceTo>
+        <relationshipLabel>Registrations</relationshipLabel>
+        <relationshipName>Registrations</relationshipName>
+        <relationshipOrder>0</relationshipOrder>
+        <reparentableMasterDetail>false</reparentableMasterDetail>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>MasterDetail</type>
+        <writeRequiresMasterRead>false</writeRequiresMasterRead>
+    </fields>
+    <fields>
+        <fullName>Polo_Shirt_Size__c</fullName>
+        <externalId>false</externalId>
+        <label>Polo Shirt Size</label>
+        <picklist>
+            <picklistValues>
+                <fullName>XS</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>S</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>M</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>L</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>XL</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>XXL</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>XXXL</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Qty__c</fullName>
+        <defaultValue>1</defaultValue>
+        <externalId>false</externalId>
+        <label>Qty</label>
+        <precision>2</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Social__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Participate in a class dinner sponsored by Silver Peak?</inlineHelpText>
+        <label>Social</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Suppress_Confirmation_Email__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <inlineHelpText>Check this box if you do not want the registrant to receive an email confirming their registration.</inlineHelpText>
+        <label>Suppress Confirmation Email</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Survey_Sent__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Survey Sent</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <label>Registration</label>
+    <nameField>
+        <displayFormat>TR-{00000}</displayFormat>
+        <label>Registration Id</label>
+        <trackHistory>false</trackHistory>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>Registrations</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ControlledByParent</sharingModel>
+    <webLinks>
+        <fullName>Email_Survey</fullName>
+        <availability>online</availability>
+        <displayType>massActionButton</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>Email Survey</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <requireRowSelection>true</requireRowSelection>
+        <url>{!REQUIRESCRIPT(&quot;/soap/ajax/18.0/connection.js&quot;)}
+{!REQUIRESCRIPT(&quot;/soap/ajax/18.0/apex.js&quot;)} 
+
+var eventIds = {!GETRECORDIDS(  $ObjectType.Training_Registration__c  )};
+if(eventIds != &quot;&quot;)
+{
+  eventIds += &quot;&quot;; //convert to a string.
+  var registrationIds = eventIds.replace(/,/g, &quot;&apos;,&apos;&quot;);
+  var result = sforce.connection.query(&quot;select Id, Survey_Sent__c from Training_Registration__c where Id in (&apos;&quot; + registrationIds + &quot;&apos;)&quot;);
+  var registrations = result.getArray(&quot;records&quot;);
+  var sent = false;
+  for(var i = 0 ; i &lt; registrations.length; i++)
+  {
+    if(registrations[i].getBoolean(&quot;Survey_Sent__c&quot;) == true)
+    {
+      sent = true;
+      break;
+    }
+  }
+  var continueSend = true;
+  if(sent == true)
+  {
+    continueSend = confirm(&quot;Survey has been sent to some of the registrations, do you want to continue to send them again?&quot;);
+  }
+  else
+  {
+    continueSend = confirm(&quot;Are you sure to send survey emails to &quot; + registrations.length + &quot; registrations?&quot;);
+  }
+  if(continueSend)
+  {
+    var regArray = new Array();
+     for(var i = 0; i &lt; registrations.length; i++)
+    {
+      var reg = new sforce.SObject(&quot;Training_Registration__c&quot;);
+      reg.Id = registrations[i].Id;
+      reg.Survey_Sent__c = false;
+      regArray.push(reg);
+    }
+    try
+    {
+      sforce.connection.update(regArray);
+      for(var i = 0; i &lt; regArray.length; i++)
+      {
+        regArray[i].Survey_Sent__c = true;
+      }
+      var results = sforce.connection.update(regArray);
+      var successCount = 0;
+      var message = &quot;&quot;;
+      for(var i = 0; i &lt; results.length; i++)
+      {
+        if(results[i].getBoolean(&quot;success&quot;) == true)
+        {
+          successCount++;
+        }
+        else
+        {
+          message += results[i].errors.fields + &quot;: &quot; + results[i].errors.message + &quot;\r\n&quot;;
+        }
+      }
+      if(message != &quot;&quot;)
+      {
+        message = successCount + &quot; survey(s) has been sent out.\r\nSome were failed, the error message is:\r\n&quot; + message;
+      }
+      else{
+        message = successCount + &quot; survey(s) has been sent out.&quot;;
+      }
+      alert(message);
+      window.location = window.location;
+    }
+    catch(e)
+    {
+      alert(&quot;Error occured while sending emails.\r\n&quot; + e);
+    }
+  }
+}
+else
+{
+  alert(&quot;Please select at least one registration.&quot;);
+}</url>
+    </webLinks>
+</CustomObject>

@@ -1,0 +1,178 @@
+<apex:page controller="LeadLayoutSetupController" tabStyle="MiscellaneousSetup__tab" sidebar="false" action="{!init}">
+    <style>
+        .matrix {
+            width: 100%;
+            background-color: #fff;
+            border: 1px solid #e0e3e5;
+        }
+        .matrix th {
+            text-align: center;
+            background: #f2f3f3;
+            border-width: 0 0 1px 1px;
+            border-color: #e0e3e5;
+            color: #000;
+            font-size: .9em;
+            font-weight: bold;
+            padding: 5px 2px 4px 5px;
+            border: 1px solid #ededed;
+        }
+        .matrix th.alt {
+            background-color: rgb(201, 201, 201);
+        }
+        .matrix th:first-child {
+            border-left-width: 0;
+        }
+        .matrix .vheader {
+            padding-left: 3px;
+            white-space: nowrap;
+        }
+        .matrix .check {
+            text-align: center;
+        }
+        .matrix .bar {
+            font-size: 14px;
+            line-height: 24px;
+            background-color: rgb(3, 206, 245);
+            color: white;
+            padding-left: 3px;
+        }
+        .matrix .row:hover td {
+            background-color: #e3f3ff;
+        }
+    </style>
+    <apex:sectionHeader title="Lead Layout Setup"/>
+    <a href="/apex/MiscellaneousSetup">« Back to Miscellaneous Setup</a>
+    <apex:form >
+    <apex:pageMessages />
+    <apex:pageBlock >
+        <apex:pageBlockButtons location="bottom" >
+            <apex:commandButton value="Save" action="{!save}" />
+            <apex:commandButton value="Reset" action="{!init}" />
+            <apex:commandButton value="Preview" onclick="window.open('{!$Page.LeadLayoutPreview}', '_blank', 'width=700,height=500,location=no,resizable=yes,scrollbars=yes');return false;" />
+        </apex:pageBlockButtons>
+            <table class="matrix" cellspacing="0" cellpadding="0">
+                <tr>
+                    <th>Record Type</th>
+                    <th colspan="5">Lead</th>
+                    <th colspan="5" class="alt">Deal Registration</th>
+                    <th colspan="5">Tele-Lead</th>
+                    <th rowspan="2" class="alt">Converted</th>
+                    <th rowspan="2">Default</th>
+                </tr>
+                <tr>
+                    <th>Role Grouping</th>
+                    
+                    <th>Outside Sales</th>
+                    <th>Inside Sales</th>
+                    <th>Channel</th>
+                    <th>Marketing</th>
+                    <th>All/Read Only</th>
+
+                    <th class="alt">Outside Sales</th>
+                    <th class="alt">Inside Sales</th>
+                    <th class="alt">Channel</th>
+                    <th class="alt">Marketing</th>
+                    <th class="alt">All/Read Only</th>
+
+                    <th>Outside Sales</th>
+                    <th>Inside Sales</th>
+                    <th>Channel</th>
+                    <th>Marketing</th>
+                    <th>All/Read Only</th>
+                </tr>
+
+                <tr>
+                    <td colspan="57" class="bar">Section/Field Set Name</td>
+                </tr>
+                <apex:repeat value="{!Sections}" var="item">
+                    <tr class="row">
+                        <td class="vheader"><a href="/setup/FieldSetEditor.apexp?tableEnumOrId=Lead&setupid=LeadFieldSets&retURL=%2Fapex%2FLeadLayoutSetup&id={!item.FieldSetId}">{!item.Label}</a></td>
+
+                        <td class="check"><apex:inputCheckbox value="{!item.Lead.OutsideSales.IsChecked}"/></td>
+                        <td class="check"><apex:inputCheckbox value="{!item.Lead.InsideSales.IsChecked}"/></td>
+                        <td class="check"><apex:inputCheckbox value="{!item.Lead.Channel.IsChecked}"/></td>
+                        <td class="check"><apex:inputCheckbox value="{!item.Lead.Marketing.IsChecked}"/></td>
+                        <td class="check"><apex:inputCheckbox value="{!item.Lead.AllReadOnly.IsChecked}"/></td>
+
+                        <td class="check"><apex:inputCheckbox value="{!item.DealRegistration.OutsideSales.IsChecked}"/></td>
+                        <td class="check"><apex:inputCheckbox value="{!item.DealRegistration.InsideSales.IsChecked}"/></td>
+                        <td class="check"><apex:inputCheckbox value="{!item.DealRegistration.Channel.IsChecked}"/></td>
+                        <td class="check"><apex:inputCheckbox value="{!item.DealRegistration.Marketing.IsChecked}"/></td>
+                        <td class="check"><apex:inputCheckbox value="{!item.DealRegistration.AllReadOnly.IsChecked}"/></td>
+
+                        <td class="check"><apex:inputCheckbox value="{!item.TeleLead.OutsideSales.IsChecked}"/></td>
+                        <td class="check"><apex:inputCheckbox value="{!item.TeleLead.InsideSales.IsChecked}"/></td>
+                        <td class="check"><apex:inputCheckbox value="{!item.TeleLead.Channel.IsChecked}"/></td>
+                        <td class="check"><apex:inputCheckbox value="{!item.TeleLead.Marketing.IsChecked}"/></td>
+                        <td class="check"><apex:inputCheckbox value="{!item.TeleLead.AllReadOnly.IsChecked}"/></td>
+
+                        <td class="check"><apex:inputCheckbox value="{!item.Converted.DefaultRole.IsChecked}"/></td>
+                        
+                        <td class="check"><apex:inputCheckbox value="{!item.DefaultRecordType.DefaultRole.IsChecked}"/></td>
+                    </tr>
+                </apex:repeat>
+                <tr>
+                    <td colspan="57" class="bar">Buttons</td>
+                </tr>
+                <apex:repeat value="{!Buttons}" var="item">
+                    <tr class="row">
+                        <td class="vheader">{!item.Label}</td>
+
+                        <td class="check"><apex:inputCheckbox value="{!item.Lead.OutsideSales.IsChecked}"/></td>
+                        <td class="check"><apex:inputCheckbox value="{!item.Lead.InsideSales.IsChecked}"/></td>
+                        <td class="check"><apex:inputCheckbox value="{!item.Lead.Channel.IsChecked}"/></td>
+                        <td class="check"><apex:inputCheckbox value="{!item.Lead.Marketing.IsChecked}"/></td>
+                        <td class="check"><apex:inputCheckbox value="{!item.Lead.AllReadOnly.IsChecked}"/></td>
+
+                        <td class="check"><apex:inputCheckbox value="{!item.DealRegistration.OutsideSales.IsChecked}"/></td>
+                        <td class="check"><apex:inputCheckbox value="{!item.DealRegistration.InsideSales.IsChecked}"/></td>
+                        <td class="check"><apex:inputCheckbox value="{!item.DealRegistration.Channel.IsChecked}"/></td>
+                        <td class="check"><apex:inputCheckbox value="{!item.DealRegistration.Marketing.IsChecked}"/></td>
+                        <td class="check"><apex:inputCheckbox value="{!item.DealRegistration.AllReadOnly.IsChecked}"/></td>
+
+                        <td class="check"><apex:inputCheckbox value="{!item.TeleLead.OutsideSales.IsChecked}"/></td>
+                        <td class="check"><apex:inputCheckbox value="{!item.TeleLead.InsideSales.IsChecked}"/></td>
+                        <td class="check"><apex:inputCheckbox value="{!item.TeleLead.Channel.IsChecked}"/></td>
+                        <td class="check"><apex:inputCheckbox value="{!item.TeleLead.Marketing.IsChecked}"/></td>
+                        <td class="check"><apex:inputCheckbox value="{!item.TeleLead.AllReadOnly.IsChecked}"/></td>
+
+                        <td class="check"><apex:inputCheckbox value="{!item.Converted.DefaultRole.IsChecked}"/></td>
+                        
+                        <td class="check"><apex:inputCheckbox value="{!item.DefaultRecordType.DefaultRole.IsChecked}"/></td>
+                    </tr>
+                </apex:repeat>
+
+                <tr>
+                    <td colspan="57" class="bar">Related Lists</td>
+                </tr>
+                <apex:repeat value="{!RelatedLists}" var="item">
+                    <tr class="row">
+                        <td class="vheader">{!item.Label}</td>
+
+                        <td class="check"><apex:inputCheckbox value="{!item.Lead.OutsideSales.IsChecked}"/></td>
+                        <td class="check"><apex:inputCheckbox value="{!item.Lead.InsideSales.IsChecked}"/></td>
+                        <td class="check"><apex:inputCheckbox value="{!item.Lead.Channel.IsChecked}"/></td>
+                        <td class="check"><apex:inputCheckbox value="{!item.Lead.Marketing.IsChecked}"/></td>
+                        <td class="check"><apex:inputCheckbox value="{!item.Lead.AllReadOnly.IsChecked}"/></td>
+
+                        <td class="check"><apex:inputCheckbox value="{!item.DealRegistration.OutsideSales.IsChecked}"/></td>
+                        <td class="check"><apex:inputCheckbox value="{!item.DealRegistration.InsideSales.IsChecked}"/></td>
+                        <td class="check"><apex:inputCheckbox value="{!item.DealRegistration.Channel.IsChecked}"/></td>
+                        <td class="check"><apex:inputCheckbox value="{!item.DealRegistration.Marketing.IsChecked}"/></td>
+                        <td class="check"><apex:inputCheckbox value="{!item.DealRegistration.AllReadOnly.IsChecked}"/></td>
+
+                        <td class="check"><apex:inputCheckbox value="{!item.TeleLead.OutsideSales.IsChecked}"/></td>
+                        <td class="check"><apex:inputCheckbox value="{!item.TeleLead.InsideSales.IsChecked}"/></td>
+                        <td class="check"><apex:inputCheckbox value="{!item.TeleLead.Channel.IsChecked}"/></td>
+                        <td class="check"><apex:inputCheckbox value="{!item.TeleLead.Marketing.IsChecked}"/></td>
+                        <td class="check"><apex:inputCheckbox value="{!item.TeleLead.AllReadOnly.IsChecked}"/></td>
+
+                        <td class="check"><apex:inputCheckbox value="{!item.Converted.DefaultRole.IsChecked}"/></td>
+                        
+                        <td class="check"><apex:inputCheckbox value="{!item.DefaultRecordType.DefaultRole.IsChecked}"/></td>
+                    </tr>
+                </apex:repeat>
+            </table>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

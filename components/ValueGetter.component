@@ -1,0 +1,7 @@
+<apex:component controller="ValueGetterController" access="global">
+<apex:attribute assignTo="{!ObjectName}" name="object" type="String" description="Name of sobject"/>
+<apex:attribute assignTo="{!FieldName}" name="field" type="String" description="Field of sobject"/>
+<apex:attribute assignTo="{!FilterField}" name="filter" type="String" description="name of filter field"/>
+<apex:attribute assignTo="{!FilterValue}" name="equalTo" type="String" description="value of filter field"/>
+{!Value}
+</apex:component>

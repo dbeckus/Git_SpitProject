@@ -1,0 +1,8 @@
+<apex:component controller="AssetListComponentController" access="global" layout="none">
+    <apex:attribute name="RequestId" description="Id of the POC request" type="Id" assignTo="{!RequestId}" />
+    <apex:attribute name="RmaId" description="Id of the RMA" type="Id" assignTo="{!RmaId}" />
+    <apex:attribute name="ShipmentId" description="Id of Shipment" type="Id" assignTo="{!ShipmentId}" />
+    <apex:repeat value="{!assets}" var="asset">
+        {!asset.Model__c}, S/N {!asset.SerialNumber}
+    </apex:repeat>
+</apex:component>

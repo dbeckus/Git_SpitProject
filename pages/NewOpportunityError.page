@@ -1,0 +1,19 @@
+<apex:page standardController="Opportunity" >
+    <p>
+        <apex:outputText >
+           
+                <font color="red">
+                    Opportunities can only be created from a lead conversion or a contact record. If you are trying to create a new opportunity, contact your BDR or click 'New Opportunity' from a contact record.
+<br/><br/>
+                </font>
+              
+           
+            
+        </apex:outputText>
+    </p>
+    
+    
+    
+    
+    
+</apex:page>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Purchase Request Matrix</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Purchase Request Matrix</value>
+    </caseValues>
+    <fields>
+        <label><!-- Gold Maintenance Part Number --></label>
+        <name>GoldMaintenancePartNumber__c</name>
+    </fields>
+    <fields>
+        <label><!-- Gold Maintenance Price --></label>
+        <name>GoldMaintenancePrice__c</name>
+    </fields>
+    <fields>
+        <label><!-- Part Number --></label>
+        <name>PartNumber__c</name>
+    </fields>
+    <fields>
+        <label><!-- Platinum Maintenance Part Number --></label>
+        <name>PlatinumMaintenancePartNumber__c</name>
+    </fields>
+    <fields>
+        <label><!-- Platinum Maintenance Price --></label>
+        <name>PlatinumMaintenancePrice__c</name>
+    </fields>
+    <fields>
+        <label><!-- Price --></label>
+        <name>Price__c</name>
+    </fields>
+    <fields>
+        <label><!-- Subscription Part Number --></label>
+        <name>SubscriptionPartNumber__c</name>
+    </fields>
+    <fields>
+        <label><!-- Subscription Price --></label>
+        <name>SubscriptionPrice__c</name>
+    </fields>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

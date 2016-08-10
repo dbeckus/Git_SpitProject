@@ -1,0 +1,151 @@
+<apex:page controller="PartnerPortalIndividualRegController" showHeader="false" docType="html-5.0" >
+    <apex:composition template="PartnerCommunityTemplate">
+        <apex:define name="body">
+          <script type="text/javascript">
+            (function() {
+                var jq = jQuery;
+
+                jq("document").ready(function() {
+                    var domEmailAddress = jq("[id$='emailAddressInput']");
+                    var domDellSegment = jq("#dellSegment");
+                    domEmailAddress.keyup(function() {
+                      var reg = /^([a-zA-Z0-9_\.\-])+\@dell.com$/i;
+                      if(reg.test(jq(this).val())) {
+                        domDellSegment.show();
+                        domDellSegment.find("select").attr("required", "required");
+                      } else {
+                        domDellSegment.hide();
+                        domDellSegment.find("select").removeAttr("required");
+                      }
+                    });
+                    domEmailAddress.trigger("keyup");
+                });
+             })();
+          </script>
+            <apex:form >
+            <div id="main">  
+              <div id="content">
+               <div class="txt">
+                
+             <div class="clear"></div>
+             <h2>Request Portal Access</h2>
+
+             <table border="0" cellpadding="2" cellspacing="0" width="100%">
+             <tbody>
+             <tr>
+                 <td colspan="2"><apex:pageMessages /></td>
+             </tr>
+             <tr>
+              <td width="150" height="34">First Name: *</td>
+              <td><apex:inputText value="{!FirstName}" required="true" /></td>
+             </tr>
+             <tr>
+              <td height="34">Last Name: *</td>
+              <td><apex:inputText value="{!LastName}" required="true" /></td>
+             </tr>
+             <tr>
+              <td height="34">Contact Title: *</td>
+              <td><apex:inputText value="{!Title}" required="true" /></td>
+             </tr>
+             <apex:outputPanel rendered="{!MultipleAccounts.size == 0}">
+             <tr>
+              <td height="34" >Company Name: *</td>
+              <td><apex:inputText value="{!CompanyName}" required="true" /></td>
+             </tr>
+             </apex:outputPanel>
+             <apex:outputPanel rendered="{!MultipleAccounts.size > 0}">
+             <tr>
+              <td height="34">Company Name: *</td>
+              <td>
+                  <apex:selectList size="1" value="{!SelectedAccountId}"><apex:selectOptions value="{!MultipleAccounts}"/></apex:selectList>
+              </td>
+             </tr>
+             </apex:outputPanel>
+             <tr>
+              <td height="34">E-mail Address: *</td>
+              <td><apex:input value="{!Email}" type="email" html-placeholder="Please input your work email" required="true" style="width: 280px" id="emailAddressInput" /></td>
+             </tr>
+             <tr>
+              <td height="34">Phone: *</td>
+              <td><apex:inputText value="{!Phone}" required="true" /></td>
+             </tr>
+              <tr>
+              <td height="34">Country: *</td>
+              <td><apex:inputField value="{!TemporaryAddress.Country__c}" required="true" /> </td>
+             </tr>
+             <tr>
+              <td height="34">State: *</td>
+              <td>
+                 <apex:inputText value="{!State}" required="true" /> 
+                </td>
+             </tr>
+             <tr>
+              <td height="34">City: *</td>
+              <td><apex:inputText value="{!City}" required="true" /></td>
+             </tr>
+             <tr>
+              <td height="34">Zip Code: *</td>
+              <td><apex:inputText value="{!ZipCode}" required="true" /></td>
+             </tr>
+              <tr>
+              <td height="34">Email Opt-In:</td>
+              <td>
+               <div class="chk-area chk-unchecked"><span></span></div><apex:inputCheckbox value="{!NewUserProfile.Email_Opt_In__c}"/>&nbsp;<!--<label for="ques_32562">Opt-In</label>-->
+              </td>
+             </tr>
+             <!-- removing field as requested by SP
+             <tr>
+              <td height="34">Please contact me: *</td>
+              <td><apex:inputField value="{!NewUserProfile.Contact_Me_For__c}" required="true" /></td>
+             </tr>-->
+             <tr id="dellSegment">
+              <td height="34">Dell Segment: *</td>
+              <td><apex:inputField value="{!NewUserProfile.Dell_Segment__c}" /></td>
+             </tr>
+             </tbody></table>
+             <!--Adding table row for Terms and Conditions scrollable Block AG-->
+             <br/>
+             <td height="100">
+             <style>
+              div.scroll {
+              width: 450px;
+              height: 100px;
+              border: 2px solid gray;
+              padding: 5px;
+              overflow: scroll;
+              }
+             </style>
+             <!--<div class="scroll">{!$Label.PartnerPortalTermsandConditions}{!$Label.PartnerPortalTermsandConditions2}</div>-->
+             <div class="scroll">
+             <b>Partner Portal Access Request and Terms of Conditions of Use</b>
+             <br/><br/>By requesting a Silver Peak Partner Portal user name and accessing information, data and materials contained in the Silver Peak Partner Portal, you hereby agree to accept the following terms and conditions: It is the responsibility of the partner who requested the login name to inform Silver Peak Systems. Users of Silver Peak Partner Portal agree to discontinue use of their account immediately upon termination from their employer and to notify Silver Peak Systems in writing to close the account at such time.
+             <br/><br/>Security of usernames and passwords is the responsibility of the partner. Passwords should be changed regularly and chosen in a suitable manner as to prevent unauthorized access to the Partner Portal account. Partners are urged to change temporary passwords immediately on receipt. Passwords should not contain personal information which is easily guessed by others such as birth dates, anniversary dates and phone numbers. Sharing of IDs is not recommended as individual accounts can be provided.
+             <br/><br/>Silver Peak Systems shall not be held liable for improper or incorrect use of the information, data or materials described and/or contained in Silver Peak Partner Portal.  The partner understands that while Silver Peak Systems does try to ensure that the Partner Portal is available 24 hours a day, 365 days of the year however from time to time the service may not be available due to scheduled or unexpected network outages, maintenance and updates. The user hereby recognizes that the information, data and materials are constantly changing and may change over time without notice.
+             <br/><br/>Silver Peak Systems reserves the right to terminate a user account without notice if there is any evidence of misuse.
+             <br/><br/>I acknowledge to abide by the terms and conditions as provided. I understand that any violation of the aforesaid terms and conditions may result in the revocation of my access privileges.
+             </div>
+             </td>
+             <tr>
+             <td><apex:inputCheckbox value="{!PortalTC}" required="true" /></td>
+             <td height="34" >* By clicking here, I agree to the above terms and conditions.</td>
+             <tr>
+             </tr>
+             </tr>
+             <br/>
+             <!--End table row for Terms and Conditions scrollable Block-->
+             <br/>
+             <tr>
+              <td colspan="2" style="padding-top: 20px;">
+              <apex:commandButton styleClass="btn" value="Submit" action="{!save}" rendered="{!NOT(finished)}" />
+              </td>
+             </tr>
+             
+            
+               </div>
+               
+              </div>
+             </div>
+             </apex:form>
+        </apex:define>
+    </apex:composition>
+</apex:page>

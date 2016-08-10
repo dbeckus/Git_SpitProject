@@ -1,0 +1,357 @@
+<apex:page controller="ForecastingController" extensions="ForecastingDealFlowController,ForecastingStatsService"  id="page" tabStyle="Opportunity" showHeader="false" standardStylesheets="true">
+    <apex:includeScript value="/soap/ajax/21.0/connection.js"/>
+    <apex:includeScript value="/soap/ajax/21.0/apex.js"/>
+    <apex:includeScript value="{!URLFOR($Resource.jQuery, 'jquery-1.4.3.min.js')}"/>
+    <apex:stylesheet value="{!URLFOR($Resource.Forecasting, 'FiscalQuarter.css')}" />
+    <apex:stylesheet value="{!URLFOR($Resource.Forecasting, 'btns.css')}" />
+    <apex:outputPanel rendered="{!isAccessible}">
+    <script language="javascript"> 
+        $j = jQuery.noConflict();  
+        
+        var regions = [ 
+        <apex:repeat value="{!GeoRegions}" var="reg">
+            { 'name' : '{!reg}', 'users' : [
+                <apex:repeat value="{!SubordinatesAndMyself}" var="user">
+                    <apex:outputPanel layout="none" rendered="{!IF(reg = user.GEO_Region__c, true, false)}">
+                        { 'userId' : '{!user.Id}' },
+                    </apex:outputPanel> 
+                </apex:repeat>
+                {}
+            ] },
+        </apex:repeat>
+        {}
+        ];  
+        
+        function getQueryStringRegExp(name)
+        {
+            var reg = new RegExp("(^|\\?|&)"+ name +"=([^&]*)(\\s|&|$)", "i");
+            if (reg.test(location.href))
+            {
+                return unescape(RegExp.$2.replace(/\+/g, " "));
+            } 
+            return "";
+        }
+        
+        function commaFormatted(amount)
+        {
+            var delimiter = ","; // replace comma if desired
+            var a = amount.split('.',2);
+            var d = (a.length > 1)?a[1]:'';
+            var i = parseInt(a[0]);
+            if(isNaN(i)) { return ''; }
+            var minus = '';
+            if(i < 0) { minus = '-'; }
+            i = Math.abs(i);
+            var n = new String(i);
+            var a = [];
+            while(n.length > 3)
+            {
+                var nn = n.substr(n.length-3);
+                a.unshift(nn);
+                n = n.substr(0,n.length-3);
+            }
+            if(n.length > 0) { a.unshift(n); }
+            n = a.join(delimiter);
+            if(d.length < 1) { amount = n; }
+            else { amount = n + '.' + d; }
+            amount = minus + amount;
+            return amount;
+        }
+        
+        function formatDecimal(value)
+        {
+            if(value == 0) { return 0; }
+            //thousand, with 2 decimals
+            return "$" + commaFormatted(((value)/1000).toFixed(2)) + "K";  
+        }
+        
+        function createTd(content)
+        {
+            var tds = '<td>' + content + '</td><td class="number"></td><td class="number amount"></td>' +
+                            '<td class="number"></td><td class="number amount"></td><td class="number"></td><td class="number amount"></td><td class="number avg"></td><td class="number"></td><td class="number amount"></td><td class="number"></td><td class="number amount">' + 
+                            '</td><td class="number"></td><td class="number amount"></td><td class="number avg"></td>';
+            return tds;
+        }
+        
+        function createDataRow(userId, index)
+        {
+            var dataRow = '<tr class="line" id=' + userId + '>' + createTd('&nbsp') + '</tr>';
+            if(index % 2 == 0)
+            {
+                dataRow =  '<tr class="line2" id=' + userId + '>' + createTd('&nbsp') + '</tr>';
+            }
+            $j('#DirectSubordinates').append(dataRow);
+        }
+        
+        function createSubTotalRow(regionName)
+        {
+            var subRow = '<tr class="subTotalTr" id=' + regionName + '>' + createTd('Sub Total') + '</tr>';
+            $j('#DirectSubordinates').append(subRow);
+        }
+        
+        function createRegionRow(regionName)
+        {
+            var regRow = '<tr class="regionTr"><td>' + regionName + '</td><td colspan="14"></td></tr>';
+            $j('#DirectSubordinates').append(regRow);
+        }
+        
+        function createGrandTotal()
+        {
+            var grandRow = '<tr class="grandTr" id="grandTotal" >' + createTd('Grand Total') + '</tr>';
+            $j('#DirectSubordinates').append(grandRow);
+        }
+        
+        var returnedResults = new Array();  //two-dimensional array
+        var regionUserCount = new Array(); //store number of users of the current region 
+        
+        function fillTotalRow(regionName)
+        {
+            var result = new Array();
+            var oneRegionUserCount = 0;
+            var allRegionsUserCount =  $j(returnedResults).length;
+            $j(regions).each(function()
+            {
+                if(regionName == this.name)
+                {
+                    oneRegionUserCount = this.users.length -1;
+                }
+            });
+            $j(returnedResults[0]).each(function(j)  //adds each column data
+            {
+                var columnData = 0;
+                $j(returnedResults).each(function(i)
+                {
+                    if(returnedResults[i][1] == regionName || regionName == 'grandTotal')
+                    {
+                        if(j == 9 || j == 16) //avg age data
+                        {
+                            if(result[j - 2] != 0)
+                            {
+                                columnData +=  parseFloat(returnedResults[i][j]) * (parseInt(returnedResults[i][j - 2])/result[j - 2]);
+                            }
+                        }
+                        else if(parseFloat(returnedResults[i][j]) == returnedResults[i][j]) //if data is number type, add value to total
+                        {
+                            columnData += parseFloat(returnedResults[i][j]);
+                        }
+                        else  //if date is string type, keep the value
+                        {
+                            columnData = returnedResults[i][j];
+                        }
+                    }
+                });
+                result.push(columnData);
+            });
+            var subTr = $j('#' + regionName);
+            $j(result).each(function(i)
+            {
+                var td =  $j(subTr).find("td").eq(i+1);
+                //only fills number data to current row
+                if(td.hasClass('amount')) 
+                {
+                    td.html(formatDecimal(result[i+3])); 
+                }
+                else if(td.hasClass('avg'))
+                {
+                    td.html((result[i+3]).toFixed(1));
+                }
+                else
+                {
+                    td.html(result[i+3]); 
+                }
+            });
+        }
+        
+        var curentUserId = getQueryStringRegExp('id');
+        
+        function executeSucceded(result)
+        {
+            var tr = $j('#' + result[0]);
+            var blankSubTotal = 0;
+            returnedResults.push(result);
+            //fills each user row
+            $j(result).each(function(i)
+            {
+                var td = $j(tr).find("td").eq(i);
+                if(i == 0 && result[result.length - 1] != 0 && curentUserId != result[0])
+                {
+                    td.html('<a href="/apex/ForecastingDealflow?id=' + result[i] + ' ">' + result[i+2] + '</a>');
+                }
+                else if(td.hasClass('amount'))
+                {
+                   td.html(formatDecimal(result[i+2])); //fills data to column of currnet row other than UserId(result[0]) and GEO region(result[1]);
+                }
+                else
+                {
+                    td.html(result[i+2]); 
+                }
+                
+                if(i == 0 && curentUserId == result[0])
+                {
+                   td.addClass('fontbold');
+                }
+            });
+            //fills subtotal row when all webservies of one region have been executed 
+            $j(regionUserCount).each(function(i)
+            {
+                if(this.regionName == result[1])
+                {
+                    regionUserCount.splice(i, 1, {regionName : this.regionName, count : (parseInt(this.count)-1)});
+                    if( parseInt(regionUserCount[i].count) == 0)
+                    {
+                        fillTotalRow(this.regionName); 
+                    }
+                }
+                blankSubTotal += parseInt(regionUserCount[i].count);
+            });
+            //fills grand total when all webservies have been executed
+            if(blankSubTotal == 0)
+            {
+                fillTotalRow('grandTotal');
+            }
+        }
+        
+        function executeFailed(error)
+        {
+            var errorMessage = error + "";
+            if(errorMessage.indexOf("Remote invocation failed") >= 0)
+            {
+                //ignore this error message
+                return;
+            }
+            alert(error);
+        }
+        
+        function refreshReport(userId)
+        {
+            sforce.apex.execute('ForecastingStatsService', 'getDealFlowReport', {userId:userId}, {onSuccess:executeSucceded, onFailure:executeFailed});
+        } 
+        
+        var i = 0;
+        $j(document).ready(function()
+        {
+                sforce.connection.sessionId = '{!$Api.Session_ID}';
+                //creates a blank talbe
+                $j(regions).each(function() 
+                {
+                        if(this.users != null) 
+                        {
+                            createRegionRow(this.name);
+                            $j(this.users).each(function(i)
+                            {
+                                if(this.userId != null)
+                                {
+                                    createDataRow(this.userId, i + 1);
+                                }
+                            }); 
+                            regionUserCount.push({regionName : this.name, count : this.users.length - 1}); 
+                            createSubTotalRow(this.name); 
+                        }
+                });
+                createGrandTotal();
+                //fills data to talbe
+                $j(regions).each(function() 
+                {
+                    if(this.users != null) 
+                    {
+                        $j(this.users).each(function()
+                        {
+                            if(this.userId != null)
+                            {
+                                setTimeout("refreshReport('" + this.userId + "')", (++i) * 100);
+                            }
+                        }); 
+                    }
+                });
+        });
+            
+     </script>
+     </apex:outputPanel>
+     
+    <style type="text/css">
+        .regionTr 
+        {   
+            background:#759bd9; 
+        }       
+        .subTotalTr 
+        {   
+            color:#d45001;  
+        }
+        .fontbold
+        {
+            font-weight:bold;
+        }
+        .report .grandTr
+        {
+            background-color: rgb(72, 99, 160);
+        }
+        .report .grandTr td
+        {
+            color: #FFF;
+        }
+    </style>
+    <style type="text/css" media="print">
+        .printbTable
+        {
+            border-collapse:collapse;
+        }
+        .printbTable th, .printbTable td
+        {
+            border:1px solid #333;
+            border-spacing: 0px;
+        }
+        .report .grandTr
+        {
+            background-color: rgb(72, 99, 160);
+        }
+        .report .grandTr td
+        {
+            color: #000;
+        }
+    </style>
+    <apex:PageMessages escape="true" id="pagemessage"/>
+    <apex:form id="form">
+        <apex:pageBlock rendered="{!!isAccessible}" title="You don't have access to this page" />
+        <apex:pageBlock id="dealFlowBlock" title="" rendered="{!isAccessible}"> 
+            <table width="100%">  
+                <tr>
+                    <td>
+                        <table class="report printbTable" width="100%"  id="DirectSubordinates">
+                        <tr class="header">
+                            <th colspan="15" style="font-size:24px; text-align:center; background-color:#FFF">Opportunity Deal Flow, prior 90 days</th>
+                        </tr>
+                        <tr class="header">
+                            <th rowspan="3" >Users</th>
+                            <th rowspan="2" colspan="2" style="background-color:#FFF">New Opportunities Created<br/> (New &amp; Follow On)</th>
+                            <th colspan="9">Closed Opportunities (New &amp; Follow On)</th>
+                            <th rowspan="2" colspan="3" style="background-color:#FFF">All Currently Open Opps</th>        
+                        </tr>
+                        <tr class="header">
+                            <td colspan="2" >Total Closed</td>
+                            <td colspan="3"  style="background-color:#EEE">Closed-Won</td>
+                            <td colspan="2"  style="background-color:#EEE">Closed-Dead</td>
+                            <td colspan="2"  style="background-color:#EEE">Closed-Lost</td>       
+                        </tr>
+                        <tr class="header">
+                            <td style="background-color:#FFF">Count</td>
+                            <td style="background-color:#FFF">Amount</td>
+                            <td>Count</td>
+                            <td>Amount</td>
+                            <td style="background-color:#EEE">Count</td>
+                            <td style="background-color:#EEE">Amount</td>
+                            <td style="background-color:#EEE">Avg Age</td> 
+                            <td style="background-color:#EEE">Count</td>
+                            <td style="background-color:#EEE">Amount</td>
+                            <td style="background-color:#EEE">Count</td>
+                            <td style="background-color:#EEE">Amount</td>
+                            <td style="background-color:#FFF">Count</td>
+                            <td style="background-color:#FFF">Amount</td>
+                            <td style="background-color:#FFF">Avg Age</td>      
+                        </tr>
+                    </table>
+                    </td>
+                </tr>   
+            </table>
+        </apex:pageBlock>
+       </apex:form>
+</apex:page>

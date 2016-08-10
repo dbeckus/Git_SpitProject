@@ -1,0 +1,32 @@
+<apex:page standardController="Contact" extensions="ContactConvertToOpportunityController" tabStyle="Opportunity">
+    <apex:sectionHeader title="New Opportunity" subtitle="{!Contact.Name}" />
+    <apex:pageMessages />
+    <apex:form >
+        <apex:pageBlock mode="edit">
+            <apex:pageBlockButtons >
+                <apex:commandButton value=" Save " action="{!ConvertToNewOpportunity}" />
+                <apex:commandButton value=" Cancel " action="{!Cancel}" />
+            </apex:pageBlockButtons>
+
+            <apex:pageBlockSection title="Opportunity" columns="1">
+                <!--<apex:pageBlockSectionItem>
+                    <apex:outputLabel value="Send Email to the Owner" for="emailOpt" />
+                    <apex:inputCheckbox value="{!IsSendNotificationEmail}" id="emailOpt" />
+                </apex:pageBlockSectionItem>-->
+                <apex:outputField value="{!Opportunity.AccountId}" />
+                <apex:inputField value="{!Opportunity.Name}" />
+                <apex:selectList value="{!Opportunity.Type}" size="1" multiselect="false">
+                    <apex:selectOption itemLabel="New Business" itemValue="New Business" />
+                    <apex:selectOption itemLabel="Follow on Business" itemValue="Follow on Business" />
+                    <apex:selectOption itemLabel="Reseller Demo/NFR" itemValue="Reseller Demo/NFR" />
+                </apex:selectList>
+                <apex:inputField value="{!Opportunity.Deal_Type__c}" required="true" />
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Contact Role" for="contactRole" />
+                    <apex:inputField value="{!OCR.Role}" id="contactRole" required="true"/>
+                </apex:pageBlockSectionItem>
+                
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

@@ -1,0 +1,125 @@
+<apex:page controller="POStatusController" showHeader="false" sidebar="false" standardStylesheets="false" id="page">
+   <apex:composition template="SilverPeakSiteTemplate">
+        <apex:define name="banner">
+            <h2 class="title step5">Purchase Order Status</h2>
+        </apex:define>
+        <apex:define name="body">
+            <apex:form id="form">
+                <div class="searchArea">
+                    <div class="contentArea">
+                        <div class="inputArea">Please input the PO Number:&nbsp;<apex:inputText value="{!PONumber}" /></div>
+                        <apex:actionStatus id="btnStatus" startStyleClass="loadingImg">
+                            <apex:facet name="start">
+                                <img src="/img/loading.gif" alt="searching" title="searching"/>
+                                <span>Searching...</span>
+                            </apex:facet>
+                            <apex:facet name="stop">
+                                <apex:commandLink value="Submit" action="{!search}" reRender="result" status="btnStatus" styleClass="pospagebutton" id="submitBtn" />
+                            </apex:facet>
+                        </apex:actionStatus>
+                        
+                        <div class="clearfix" />
+                        
+                    </div>
+                </div>
+            </apex:form>
+            <p style="font-family:arial;color:red;font-size:12px; text-align:center;"> NOTE: If any information is indicated as missing, please send the needed information to <a href="mailto:orderprocessing@silver-peak.com">orderprocessing@silver-peak.com</a> </p>
+            <apex:outputPanel id="result">
+                <apex:pageMessages id="pageMsg" />
+                <apex:outputPanel rendered="{!HasNoResult}" styleClass="noResult">
+                    The order does not exist in the system.
+                </apex:outputPanel>
+                <apex:form >
+                    <apex:outputPanel rendered="{!AND(PurchaseOrders.size > 1, ISNULL(PurchaseOrder))}">
+                        <span class="resultInfo">Result: {!PurchaseOrders.size} records were found.</span>
+                        <table class="resultTable">
+                            <thead>
+                                <tr>
+                                    <th class="purFirstTh" scope="col">PO Number</th>
+                                    <th class="purLastTh" scope="col">Current Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <apex:variable value="{!0}" var="i"/>
+                                <apex:repeat value="{!PurchaseOrders}" var="PO">
+                                    <tr class="evenTr">
+                                        <td>
+                                            <apex:commandLink action="{!selectPO}" reRender="result" value="{!PO.Name}">
+                                                <apex:param name="index" value="{!i}"/>
+                                            </apex:commandLink>
+                                        </td>
+                                        <td><apex:outputField value="{!PO.Status__c}" /></td>
+                                    </tr>
+                                    <apex:variable value="{!i+1}" var="i"/>
+                                </apex:repeat>
+                            </tbody>
+                        </table>
+                    </apex:outputPanel>
+                </apex:form>
+                <apex:outputPanel rendered="{!NOT(ISNULL(PurchaseOrder))}">
+                    <table class="POSTable" width="57%">
+                        <tbody>
+                            <tr>
+                                <td width="50%">PO Number:</td>
+                                <td><apex:outputField value="{!PurchaseOrder.Name}" /></td>
+                            </tr>
+                            <tr>
+                                <td>PO Date:</td>
+                                <td><apex:outputField value="{!PurchaseOrder.Order_Date__c}" /></td>
+                            </tr>
+                            <tr>
+                                <td>Current Status:</td>
+                                <td><apex:outputField value="{!PurchaseOrder.Status__c}" /></td>
+                            </tr>
+                            <tr style="display: {!IF(PurchaseOrder.Conditional_language_on_CPO_is_incorr__c, '\"\"', 'none')};">
+                                <td>Conditional Purchase Order Language is Incorrect:</td>
+                                <td><apex:outputField value="{!PurchaseOrder.Conditional_language_on_CPO_is_incorr__c}" /></td>
+                            </tr>
+                            <tr style="display: {!IF(PurchaseOrder.Missing_End_Customer_PO__c, '\"\"', 'none')};">
+                                <td>Missing End Customer PO:</td>
+                                <td><apex:outputField value="{!PurchaseOrder.Missing_End_Customer_PO__c}" /></td>
+                            </tr>
+                            <tr style="display: {!IF(PurchaseOrder.Missing_Export_Compliance__c, '\"\"', 'none')};">
+                                <td>Missing Export Compliance Information:</td>
+                                <td><apex:outputField value="{!PurchaseOrder.Missing_Export_Compliance__c}" /><br />
+                                    <span>•An export compliance form is required if any units will ultimately be deployed outside the USA. You can find the form </span><a href="http://www.silver-peak.com/assets/download/pdf/export_compliance_questionnaire.pdf" target="_blank">here</a>.
+                                </td>
+                            </tr>
+                            <tr style="display: {!IF(PurchaseOrder.Missing_Freight_Forwarder_information__c, '\"\"', 'none')};">
+                                <td>Missing Freight Forwarder Information:</td>
+                                <td><apex:outputField value="{!PurchaseOrder.Missing_Freight_Forwarder_information__c}" /><br />
+                                    <span>•Orders shipped outside the USA are shipped EXWORKS. A freight forwarder name (e.g. FedEx, UPS, Expeditors) and account number are required. Freight, duties, and taxes will be charged to this account.</span>
+                                </td>
+                            </tr>
+                            <tr style="display: {!IF(PurchaseOrder.Missing_Reseller_s_Resale_Certificate__c, '\"\"', 'none')};">
+                                <td>Missing Resellers Resale Certificate:</td>
+                                <td><apex:outputField value="{!PurchaseOrder.Missing_Reseller_s_Resale_Certificate__c}" /></td>
+                            </tr>
+                            <tr style="display: {!IF(PurchaseOrder.Missing_Ship_To_Contact_Name_Phone__c, '\"\"', 'none')};">
+                                <td>Missing Ship To Contact Name or Phone:</td>
+                                <td><apex:outputField value="{!PurchaseOrder.Missing_Ship_To_Contact_Name_Phone__c}" /></td>
+                            </tr>
+                            <tr style="display: {!IF(ISNULL(PurchaseOrder.Ship_Date__c), 'none', '\"\"')};">
+                                <td>Estimated Ship Date:</td>
+                                <td><apex:outputField value="{!PurchaseOrder.Ship_Date__c}" /></td>
+                            </tr>
+                            <tr style="display: {!IF(ISNULL(PurchaseOrder.Tracking_Information__c), 'none', '\"\"')};">
+                                <td>Tracking Information:</td>
+                                <td><apex:outputField value="{!PurchaseOrder.Tracking_Information__c}" /></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </apex:outputPanel>
+            </apex:outputPanel>
+        </apex:define>
+    </apex:composition>
+    <script type="text/javascript">
+        document.onkeydown = function(e) {
+            var event = e || window.event;
+            if(event.keyCode == 13) {
+                document.getElementById('page:siteTemplate:form:submitBtn').onclick();
+                return false;
+            }
+        }   
+    </script>
+</apex:page>

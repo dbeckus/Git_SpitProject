@@ -1,0 +1,7 @@
+<apex:page showHeader="true"> <!-- tabstyle="Lead"> -->
+  <!-- Begin Default Content REMOVE THIS -->
+
+ <apex:ListViews type="Partner_Documentation__c" />
+
+  <!-- End Default Content REMOVE THIS -->
+</apex:page>

@@ -1,0 +1,177 @@
+<apex:page standardController="Request__c" extensions="VirtualPOCFulfillmentController" showHeader="false" sidebar="false" id="thePage">
+    <style type="text/css">
+        .pocLoading {
+            vertical-align: middle;
+        }
+        .pocLoadingText {
+            font-size: 95%;
+            font-weight: bold;
+            color: #666;
+            padding-left: 10px;
+        } 
+    </style>
+    <script type="text/javascript">
+        function renderForGXV(index)
+        {
+            var productSelect = getObj('thePage:assetsForm:assetsBlock:assetsSection:assetsTable:' + index + ':productSelect');
+            var gmsNodesInput = getObj('thePage:assetsForm:assetsBlock:assetsSection:assetsTable:' + index + ':gmsNodes');
+            var hostedGMSCheckbox = getObj('thePage:assetsForm:assetsBlock:assetsSection:assetsTable:' + index + ':hostedGMS');
+            var selectedText = getObjInnerText(productSelect.options[productSelect.selectedIndex]);
+            var licenseNodes = getObj('thePage:assetsForm:assetsBlock:assetsSection:assetsTable:' + index + ':licenseNodes');
+            var bandwidthNodes = getObj('thePage:assetsForm:assetsBlock:assetsSection:assetsTable:' + index + ':bandwidthNodes');
+            var qty = getObj('thePage:assetsForm:assetsBlock:assetsSection:assetsTable:' + index + ':qty');
+            
+           licenseNodes.disabled=true;
+            bandwidthNodes.disabled=true; 
+            if(selectedText.indexOf('GMS') >= 0)
+            {
+                gmsNodesInput.style.display = '';
+                hostedGMSCheckbox.style.display = '';
+            }
+            else
+            {
+                gmsNodesInput.style.display = 'none';
+                hostedGMSCheckbox.style.display = 'none';
+                gmsNodesInput.value = '';
+                hostedGMSCheckbox.checked = false;
+                
+            }
+            if(selectedText.indexOf('EC-BASE') >= 0 || selectedText.indexOf('EC-PLUS') >= 0)
+            {
+              
+               licenseNodes.disabled=false;
+               bandwidthNodes.disabled=true; 
+               qty.disabled=true;
+            }
+            if(selectedText.indexOf('EC-BOOST') >= 0 )
+            {
+              
+               licenseNodes.disabled=true;
+               bandwidthNodes.disabled=false; 
+               qty.disabled=true;
+            }
+            if(selectedText.indexOf('EC-SP') >= 0 )
+            {
+               qty.disabled=true;
+            }
+          
+        }
+     	function loadData()
+        {
+           alert("Hello World");
+        }
+        function updateExpirationDate(days)
+        {
+            var exDate = new Date();
+            exDate.setDate(exDate.getDate() + parseInt(days, 10));
+            getObj('expirationDate').innerHTML = (exDate.getMonth() + 1) + '/' + exDate.getDate() + '/' + exDate.getFullYear();
+        }
+        function getObj(objId)
+        {
+            return document.getElementById(objId);
+        }
+        function getObjInnerText(obj)
+        {
+            return (obj.innerText) ? obj.innerText //IE 
+            : (obj.textContent) ? obj.textContent  //Firefox 
+            : "";
+        }
+    </script>
+    <apex:sectionHeader title="Virtual POC Fulfillment"/>
+    <apex:form id="assetsForm">
+        <apex:pageMessages id="pageMsg" escape="false" />
+        <apex:pageBlock id="assetsBlock">
+            <apex:pageBlockButtons location="top">
+                <apex:actionStatus id="btnStatus">
+                    <apex:facet name="start">
+                        <apex:outputPanel >
+                            <img src="/img/loading.gif" alt="Processing..." title="Processing..." width="16" height="16" class="pocLoading"/>
+                            <span class="pocLoading pocLoadingText">Processing...</span>
+                        </apex:outputPanel>
+                    </apex:facet>
+                    <apex:facet name="stop">
+                        <apex:outputPanel >
+                            <apex:commandButton value="Add Virtual Asset" action="{!addAsset}" reRender="pageMsg, assetsSection" status="btnStatus" />
+                            <apex:commandButton value="Save" action="{!save}" reRender="pageMsg, encryptForm" status="btnStatus"/>
+                            <input type="button" value="Cancel" class="btn" onclick="top.close();" />
+                        </apex:outputPanel>
+                    </apex:facet>
+                </apex:actionStatus>
+            </apex:pageBlockButtons>
+            <apex:pageBlockSection >
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="License Duration" for="licenseDuration" />
+                    <apex:selectList value="{!LicenseDurationDays}" multiselect="false" size="1" id="licenseDuration" onchange="updateExpirationDate(this.value);">
+                        <apex:selectOption itemLabel="30 Days" itemValue="30" />
+                        <apex:selectOption itemLabel="45 Days" itemValue="45" />
+                        <apex:selectOption itemLabel="60 Days" itemValue="60" />
+                        <apex:selectOption itemLabel="90 Days" itemValue="90" />
+                    </apex:selectList>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="License Expriation Date" for="expriationDate" />
+                    <span id="expirationDate"></span>
+                </apex:pageBlockSectionItem>
+            </apex:pageBlockSection>
+            <apex:pageBlockSection id="assetsSection" columns="1">
+                <apex:pageBlockTable value="{!VirtualAssets}" var="va" id="assetsTable">
+                    <apex:column headerValue="Action" styleClass="actionColumn">
+                        <apex:actionStatus id="rmBtnStatus">
+                            <apex:facet name="start">
+                                <img src="/img/loading.gif" alt="Processing..." title="Processing..." width="16" height="16" style="padding-left: 10px;"/>
+                            </apex:facet>
+                            <apex:facet name="stop">
+                                <apex:commandLink value="Del" action="{!removeAsset}" reRender="pageMsg, assetsSection" status="rmBtnStatus" styleClass="actionLink">
+                                    <apex:param name="rmIndex" value="{!va.Index}" />
+                                </apex:commandLink>
+                            </apex:facet>
+                        </apex:actionStatus>
+                    </apex:column>
+                    <apex:column headerValue="Product" id="productCol">
+                        <apex:selectList value="{!va.ProductId}" multiselect="false" size="1" id="productSelect" onchange="renderForGXV({!va.Index})">
+                            <apex:selectOptions value="{!ProductOptions}" />
+                        </apex:selectList>
+                    </apex:column>
+                    <apex:column headerValue="Quantity">
+                        <apex:inputText value="{!va.Quantity}" id="qty" />
+                    </apex:column>
+                     <apex:column headerValue="Licenses">
+                        <apex:inputText value="{!va.LicensesNodes}" id="licenseNodes" style="width:70%"/>
+                    </apex:column>
+                     <apex:column headerValue="Bandwidth">
+                        <apex:inputText value="{!va.BandwidthNodes}" id="bandwidthNodes" style="width:70%" />
+                    </apex:column>
+                    <apex:column headerValue="GMS Nodes">
+                        <!--<apex:inputText value="{!va.GMSNodes}" id="gmsNodes"/>-->
+                        <apex:selectList size="1" value="{!va.GMSNodes}" id="gmsNodes">
+                            <apex:selectOption itemLabel="10" itemValue="10" />
+                            <apex:selectOption itemLabel="25" itemValue="25" />
+                            <apex:selectOption itemLabel="50" itemValue="50" />
+                            <apex:selectOption itemLabel="100" itemValue="100" />
+                            <apex:selectOption itemLabel="200" itemValue="200" />
+                            <apex:selectOption itemLabel="500" itemValue="500" />
+                        </apex:selectList>
+                    </apex:column>
+                    <apex:column headerValue="Hosted GMS">
+                        <apex:inputCheckbox value="{!va.HostedGMS}" id="hostedGMS"/>
+                    </apex:column>
+                </apex:pageBlockTable>
+                <script type="text/javascript">
+                    //<![CDATA[
+                        (function() {
+                            for(var i = 0; i < {!VirtualAssets.size}; i++)
+                            {
+                                renderForGXV(i);
+                            }
+                        }())
+                        //]]>
+                </script>
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+    </apex:form>
+    <script type="text/javascript">
+        //<![CDATA[
+            updateExpirationDate({!LicenseDurationDays});
+            //]]>
+    </script>
+</apex:page>

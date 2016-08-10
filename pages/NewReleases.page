@@ -1,0 +1,268 @@
+<apex:page controller="NewReleaseController"> 
+    <apex:stylesheet value="{!URLFOR($Resource.NewReleases, 'css/jquery-ui.css')}"/>
+    <apex:stylesheet value="{!URLFOR($Resource.NewReleases, 'css/style.css')}"/>
+    <script src="{!URLFOR($Resource.NewReleases, 'js/jquery-1.10.2.js')}"></script>
+    <script src="{!URLFOR($Resource.NewReleases, 'js/jquery-ui.js')}"></script>
+    <script src="{!URLFOR($Resource.NewReleases, 'js/jquery.tablesorter.min.js')}"></script>
+    
+    <style type="text/css">
+        
+        .ui-accordion .ui-accordion-content {
+            padding-bottom: 10px;
+        }
+    .subBlock {
+        font-family:Arial, Helvetica, sans-serif;
+        font-size: 13px;
+        
+    }
+    .ui-accordion-header a
+    {
+        
+        color: #1975A3 !important;
+    }
+    table.tablesorter {
+        
+        cursor: pointer !important;
+    }
+    
+    </style>
+    
+    <script type="text/javascript">
+        $j = jQuery.noConflict();
+    
+    $j(document).ready(function(){
+        $j("#SFDCSalesPanel").tooltip();
+        $j("#SFDCSalesPanel").accordion({autoHeight: 'false', heightStyle: 'content', collapsible: true, active: false});
+        $j("[id$=GARecommendBuild]").tablesorter();
+        $j("[id$=GAOtherBuild]").tablesorter();
+        $j("[id$=FCSRecommendBuild]").tablesorter();
+        $j("[id$=FCSOtherBuild]").tablesorter();
+        $j("[id$=PatchRecommendBuild]").tablesorter();
+        $j("[id$=PatchOtherBuild]").tablesorter();
+        $j("[id$=BetaRecommendBuild]").tablesorter();
+        $j("[id$=BetaOtherBuild]").tablesorter();
+    });
+    
+    
+    </script>
+    <apex:form >  
+        <div style="margin-left: 10px; margin-bottom:10px;">
+            « 
+            <a href="/apex/downloads" style="color: #015BA7; text-decoration: none;">Back to list: Releases</a>
+        </div>
+        <table width="100%">
+            <tr>
+                <td>
+                    Environment Name: <apex:outputText style="font-weight:bold"  value="{!ReleaseType}"/> 
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Release Name: <apex:outputText style="font-weight:bold"  value="{!ReleaseName}"/> 
+                </td>
+            </tr>
+            
+            <tr>
+                <td>
+                    Please see the releases mentioned below:
+                </td>
+            </tr>
+            <tr>
+                <td>    
+                    <div id="SFDCSalesPanel" >
+                        <h3 ><a title="General Availability" href="#">GA</a></h3>
+                        <div>
+                            <apex:outputText rendered="{!AND(GARecommendedBuilds.size = 0, GAOtherBuilds.size = 0)}" value="No records were found." />
+                            
+                            <apex:pageBlock rendered="{!NOT(ISNULL(GARecommendedBuilds)) && GARecommendedBuilds.size > 0}">
+                                <apex:pageBlockTable id="GARecommendBuild" value="{!GARecommendedBuilds}" var="build">
+                                    <apex:column width="12%">
+                                        <apex:outputText value="Recommended"   style="color:green;" rendered="{!build.IsRecommended__c}"/>
+                                    </apex:column>
+                                    <apex:column width="12%">
+                                        <apex:facet name="header">
+                                            <apex:outputText >Release Number▼▲</apex:outputText>
+                                        </apex:facet>
+                                        <apex:outputLink style="text-decoration:none; color:#015BA7;" value="/apex/NewBuildDetail?id={!build.Id}&relName={!ReleaseType}">{!build.ReleaseCode__c}</apex:outputLink>
+                                    </apex:column>
+                                    <apex:column width="12%">
+                                        <apex:facet name="header" >
+                                            <apex:outputText >Release Date▼▲</apex:outputText>
+                                        </apex:facet>
+                                        <apex:outputText value="{0, date, MM/dd/yyyy}">
+                                            <apex:param value="{!build.ECO_Date__c}" />
+                                        </apex:outputText>
+                                    </apex:column>
+                                </apex:pageBlockTable>
+                            </apex:pageBlock>
+                            <apex:pageBlock rendered="{!NOT(ISNULL(GAOtherBuilds)) && GAOtherBuilds.size > 0}">
+                                <apex:pageBlockTable id="GAOtherBuild" value="{!GAOtherBuilds}" var="buildb">
+                                    <apex:column width="12%">
+                                        <apex:outputText value="Archived"  style="color:blue;" />
+                                    </apex:column>
+                                    <apex:column width="12%">
+                                         <apex:facet name="header">
+                                            <apex:outputText >Release Number▼▲</apex:outputText>
+                                        </apex:facet>
+                                        <apex:outputLink style="text-decoration:none; color:#015BA7;" value="/apex/NewBuildDetail?id={!buildb.Id}&relName={!ReleaseType}">{!buildb.ReleaseCode__c}</apex:outputLink>
+                                    </apex:column>
+                                    <apex:column width="12%">
+                                        <apex:facet name="header" >
+                                            <apex:outputText >Release Date▼▲</apex:outputText>
+                                        </apex:facet>
+                                        <apex:outputText value="{0, date, MM/dd/yyyy}">
+                                            <apex:param value="{!buildb.ECO_Date__c}" />
+                                        </apex:outputText>
+                                    </apex:column>
+                                    
+                                </apex:pageBlockTable>
+                            </apex:pageBlock>
+                        </div>
+                        <h3 ><a title="First Customer Ship" href="#">FCS</a></h3>
+                        <div> 
+                            
+                            <apex:outputText rendered="{!AND(FCSRecommendedBuilds.size = 0, FCSOtherBuilds.size = 0)}" value="No records were found." />
+                            <apex:pageBlock rendered="{!NOT(ISNULL(FCSRecommendedBuilds)) && FCSRecommendedBuilds.size > 0}">
+                                <apex:pageBlockTable id="FCSRecommendBuild" value="{!FCSRecommendedBuilds}" var="build">
+                                    <apex:column width="12%">
+                                        <apex:outputText value="Recommended" style="color:green;" rendered="{!build.IsRecommended__c}"/>
+                                    </apex:column>
+                                    <apex:column width="12%">
+                                           <apex:facet name="header">
+                                            <apex:outputText >Release Number▼▲</apex:outputText>
+                                        </apex:facet>
+                                        <apex:outputLink style="text-decoration:none; color:#015BA7;" value="/apex/NewBuildDetail?id={!build.Id}&relName={!ReleaseType}">{!build.ReleaseCode__c}</apex:outputLink>
+                                    </apex:column>
+                                    <apex:column width="12%">
+                                        <apex:facet name="header" >
+                                            <apex:outputText >Release Date▼▲</apex:outputText>
+                                        </apex:facet>
+                                        <apex:outputText value="{0, date, MM/dd/yyyy}">
+                                            <apex:param value="{!build.ECO_Date__c}" />
+                                        </apex:outputText>
+                                    </apex:column>
+                                </apex:pageBlockTable>
+                            </apex:pageBlock>
+                            <apex:pageBlock rendered="{!NOT(ISNULL(FCSOtherBuilds)) && FCSOtherBuilds.size > 0}">
+                                <apex:pageBlockTable id="FCSOtherBuild" value="{!FCSOtherBuilds}" var="buildb">
+                                    <apex:column width="12%">
+                                        <apex:outputText value="Archived" style="color:blue;" />
+                                    </apex:column>
+                                    <apex:column width="12%">
+                                           <apex:facet name="header">
+                                            <apex:outputText >Release Number▼▲</apex:outputText>
+                                        </apex:facet>
+                                        <apex:outputLink style="text-decoration:none; color:#015BA7;" value="/apex/NewBuildDetail?id={!buildb.Id}&relName={!ReleaseType}">{!buildb.ReleaseCode__c}</apex:outputLink>
+                                    </apex:column>
+                                    <apex:column width="12%">
+                                        <apex:facet name="header" >
+                                            <apex:outputText >Release Date▼▲</apex:outputText>
+                                        </apex:facet>
+                                        <apex:outputText value="{0, date, MM/dd/yyyy}">
+                                            <apex:param value="{!buildb.ECO_Date__c}" />
+                                        </apex:outputText>
+                                    </apex:column>
+                                </apex:pageBlockTable>
+                            </apex:pageBlock></div>
+                        <h3 ><a title="Software Patch" href="#">PATCH </a></h3>
+                        <div> 
+                            <apex:outputText rendered="{!AND(PatchRecommendedBuilds.size = 0, PatchOtherBuilds.size = 0)}" value="No records were found." />
+                            <apex:pageBlock rendered="{!NOT(ISNULL(PatchRecommendedBuilds)) && PatchRecommendedBuilds.size > 0}">
+                                <apex:pageBlockTable id="PatchRecommendBuild" value="{!PatchRecommendedBuilds}" var="build">
+                                    <apex:column width="12%">
+                                        <apex:outputText value="Recommended" style="color:green;" rendered="{!build.IsRecommended__c}"/>
+                                    </apex:column>
+                                    <apex:column width="12%">
+                                           <apex:facet name="header">
+                                            <apex:outputText >Release Number▼▲</apex:outputText>
+                                        </apex:facet>
+                                        <apex:outputLink style="text-decoration:none; color:#015BA7;" value="/apex/NewBuildDetail?id={!build.Id}&relName={!ReleaseType}">{!build.ReleaseCode__c}</apex:outputLink>
+                                    </apex:column>
+                                    <apex:column width="12%">
+                                        <apex:facet name="header" >
+                                            <apex:outputText >Release Date▼▲</apex:outputText>
+                                        </apex:facet>
+                                        <apex:outputText value="{0, date, MM/dd/yyyy}">
+                                            <apex:param value="{!build.ECO_Date__c}" />
+                                        </apex:outputText>
+                                    </apex:column>
+                                    
+                                </apex:pageBlockTable>
+                            </apex:pageBlock>
+                            <apex:pageBlock rendered="{!NOT(ISNULL(PatchOtherBuilds)) && PatchOtherBuilds.size > 0}">
+                                <apex:pageBlockTable id="PatchOtherBuild" value="{!PatchOtherBuilds}" var="buildb">
+                                    <apex:column width="12%" >
+                                        <apex:outputText value="Archived" style="color:blue;" />
+                                    </apex:column>
+                                    <apex:column width="12%">
+                                           <apex:facet name="header">
+                                            <apex:outputText >Release Number▼▲</apex:outputText>
+                                        </apex:facet>
+                                        <apex:outputLink style="text-decoration:none; color:#015BA7;" value="/apex/NewBuildDetail?id={!buildb.Id}&relName={!ReleaseType}">{!buildb.ReleaseCode__c}</apex:outputLink>
+                                    </apex:column>
+                                    <apex:column width="12%">
+                                        <apex:facet name="header" >
+                                            <apex:outputText >Release Date▼▲</apex:outputText>
+                                        </apex:facet>
+                                        <apex:outputText value="{0, date, MM/dd/yyyy}">
+                                            <apex:param value="{!buildb.ECO_Date__c}" />
+                                        </apex:outputText>
+                                    </apex:column>
+                                    
+                                </apex:pageBlockTable>
+                            </apex:pageBlock>
+                        </div>
+                        <h3 ><a title="BETA Releases" href="#">BETA</a></h3>
+                        <div>
+                            <apex:outputText rendered="{!AND(BetaRecommendedBuilds.size = 0, BetaOtherBuilds.size = 0)}" value="No records were found." />
+                            <apex:pageBlock rendered="{!NOT(ISNULL(BetaRecommendedBuilds)) && BetaRecommendedBuilds.size > 0}">
+                                <apex:pageBlockTable id="BetaRecommendBuild" value="{!BetaRecommendedBuilds}" var="build">
+                                    <apex:column width="12%">
+                                        <apex:outputText value="Recommended" style="color:green;" rendered="{!build.IsRecommended__c}"/>
+                                    </apex:column>
+                                    <apex:column width="12%" >
+                                           <apex:facet name="header">
+                                            <apex:outputText >Release Number▼▲</apex:outputText>
+                                        </apex:facet>
+                                        <apex:outputLink style="text-decoration:none; color:#015BA7;" value="/apex/NewBuildDetail?id={!build.Id}&relName={!ReleaseType}">{!build.ReleaseCode__c}</apex:outputLink>
+                                    </apex:column>
+                                    <apex:column width="12%">
+                                        <apex:facet name="header" >
+                                            <apex:outputText >Release Date▼▲</apex:outputText>
+                                        </apex:facet>
+                                        <apex:outputText value="{0, date, MM/dd/yyyy}">
+                                            <apex:param value="{!build.ECO_Date__c}" />
+                                        </apex:outputText>
+                                    </apex:column>
+                                </apex:pageBlockTable>
+                            </apex:pageBlock>
+                            <apex:pageBlock rendered="{!NOT(ISNULL(BetaOtherBuilds)) && BetaOtherBuilds.size > 0}">
+                                <apex:pageBlockTable id="BetaOtherBuild" value="{!BetaOtherBuilds}" var="buildb">
+                                    <apex:column width="12%">
+                                        <apex:outputText value="Archived" style="color:blue;" />
+                                    </apex:column>
+                                    <apex:column width="12%">
+                                           <apex:facet name="header">
+                                            <apex:outputText >Release Number▼▲</apex:outputText>
+                                        </apex:facet>
+                                        <apex:outputLink style="text-decoration:none; color:#015BA7;" value="/apex/NewBuildDetail?id={!buildb.Id}&relName={!ReleaseType}">{!buildb.ReleaseCode__c}</apex:outputLink>
+                                    </apex:column>
+                                    <apex:column width="12%">
+                                        <apex:facet name="header" >
+                                            <apex:outputText >Release Date▼▲</apex:outputText>
+                                        </apex:facet>
+                                        <apex:outputText value="{0, date, MM/dd/yyyy}">
+                                            <apex:param value="{!buildb.ECO_Date__c}" />
+                                        </apex:outputText>
+                                    </apex:column>
+                                </apex:pageBlockTable>
+                            </apex:pageBlock></div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+        
+        
+    </apex:form>
+    
+</apex:page>

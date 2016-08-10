@@ -1,0 +1,3 @@
+<apex:page standardController="Case" tabStyle="My_Cases__tab">
+    <apex:listViews type="Case"/>
+</apex:page>

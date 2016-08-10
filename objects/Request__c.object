@@ -1,0 +1,3129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Follow</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <enableActivities>false</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>true</enableHistory>
+    <enableReports>true</enableReports>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <fields>
+        <fullName>AccountName__c</fullName>
+        <externalId>false</externalId>
+        <formula>Opportunity__r.Account.Name</formula>
+        <label>Account Name</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Account_Manager_Email_1__c</fullName>
+        <externalId>false</externalId>
+        <label>Account Manager Email 1</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Email</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Account_Manager_Email_2__c</fullName>
+        <externalId>false</externalId>
+        <label>Account Manager Email 2</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Email</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>ActiveForNotices__c</fullName>
+        <externalId>false</externalId>
+        <formula>If(
+OR(
+ ISPICKVAL( Status__c ,&apos;Shipped&apos; ),
+ ISPICKVAL( Status__c ,&apos;Shipped - Extended&apos; )
+),1,0)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>ActiveForNotices</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Actual_Ship_Date__c</fullName>
+        <externalId>false</externalId>
+        <label>Actual Ship Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Allow_Fulfillment__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Allow Fulfillment</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Auto_Fulfill__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <inlineHelpText>set by trigger creation of the POC</inlineHelpText>
+        <label>Auto Fulfill</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Bandwidth__c</fullName>
+        <externalId>false</externalId>
+        <label>Bandwidth</label>
+        <picklist>
+            <picklistValues>
+                <fullName>&gt;30Mb</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>&gt;10Mb</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>&gt;2Mb</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>&lt;2Mb</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Days_Remaining_to_Expire__c</fullName>
+        <externalId>false</externalId>
+        <formula>If(Target_End_Date__c &lt; TODAY(), -1,
+Target_End_Date__c- Today()
+
+)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Days Remaining to Expire</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>EdgeConnect_POC__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>EdgeConnect POC</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>EndCustomerName1__c</fullName>
+        <externalId>false</externalId>
+        <label>End Customer Name 1</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>EndCustomerName2__c</fullName>
+        <externalId>false</externalId>
+        <label>End Customer Name 2</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>EndCustomerName3__c</fullName>
+        <externalId>false</externalId>
+        <label>End Customer Name 3</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>EndCustomerName4__c</fullName>
+        <externalId>false</externalId>
+        <label>End Customer Name 4</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>EndCustomerName5__c</fullName>
+        <externalId>false</externalId>
+        <label>End Customer Name 5</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Estimated_Ship_Date__c</fullName>
+        <externalId>false</externalId>
+        <label>Estimated Ship Date</label>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Eval_Network__c</fullName>
+        <externalId>false</externalId>
+        <label>Eval Network</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Production</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Simulated</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>EvaluationProductHypervisor__c</fullName>
+        <externalId>false</externalId>
+        <label>Evaluation Product Hypervisor</label>
+        <picklist>
+            <picklistValues>
+                <fullName>VMWare</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Microsoft Hyper V</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Citrix Xen</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>KVM</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Evaluation_Product_1__c</fullName>
+        <externalId>false</externalId>
+        <label>Evaluation Product 1</label>
+        <picklist>
+            <picklistValues>
+                <fullName>VX 500</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>VX 1000</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>VX 2000</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>VX 3000</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>VX 5000</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>VX 6000</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>VX 7000</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>VX 8000</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>VX 9000</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>VRX-2</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>VRX-4</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>VRX-8</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>GMS-10 on GX-V</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>NX 1700</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>NX 2700</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>NX 3700</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>NX 5700</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>NX 7700</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>NX 8700</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>NX 9700</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>VRX-6</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Evaluation_Product_2__c</fullName>
+        <externalId>false</externalId>
+        <label>Evaluation Product 2</label>
+        <picklist>
+            <picklistValues>
+                <fullName>VX 500</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>VX 1000</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>VX 2000</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>VX 3000</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>VX 5000</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>VX 6000</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>VX 7000</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>VX 8000</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>VX 9000</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>VRX-2</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>VRX-4</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>VRX-8</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>GMS-10 on GX-V</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>NX 1700</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>NX 2700</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>NX 3700</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>NX 5700</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>NX 7700</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>NX 8700</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>NX 9700</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>VRX-6</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Expedited_Shipping__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Will you need expedited shipping for hardware?</inlineHelpText>
+        <label>Expedited Shipping?</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <restrictedPicklist>true</restrictedPicklist>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Extension_Justification__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Input your justification and resubmit for approval</inlineHelpText>
+        <label>Why is an extension needed?</label>
+        <length>32768</length>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>5</visibleLines>
+    </fields>
+    <fields>
+        <fullName>First_Extension_Granted__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>First Extension Granted</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>GMS_Needed__c</fullName>
+        <externalId>false</externalId>
+        <label>GMS Ship To</label>
+        <picklist>
+            <picklistValues>
+                <fullName>None Req&apos;d</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Virtual</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Hosted</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Site1</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Site2</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Has_Phone__c</fullName>
+        <description>used to manage submissions for approval check to ensure it has a phone number</description>
+        <externalId>false</externalId>
+        <formula>if( ISBLANK( Shipping_Contact_Phone__c ),0,1)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Has Phone</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>International_Shipping__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Hardware Shipping Outside US Required?</inlineHelpText>
+        <label>International Shipping?</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <restrictedPicklist>true</restrictedPicklist>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>IsAllVirtual__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF( 
+
+OR( 
+LEFT(TEXT( Evaluation_Product_1__c ) ,1) = &apos;N&apos;,
+LEFT(TEXT( Evaluation_Product_2__c ) ,1) = &apos;N&apos;, 
+CONTAINS(TEXT( Evaluation_Product_1__c ) ,&apos;GX-1000&apos;), 
+CONTAINS(TEXT( Evaluation_Product_2__c ) ,&apos;GX-1000&apos;),
+NOT(ISBLANK(TEXT( PhysicalProduct1__c )))
+
+), 0,1)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>IsAllVirtual</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>IsClosed__c</fullName>
+        <externalId>false</externalId>
+        <formula>CONTAINS(TEXT(Status__c), &apos;Closed&apos;)</formula>
+        <label>Is Closed</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Latency__c</fullName>
+        <externalId>false</externalId>
+        <label>Latency (msecs)</label>
+        <precision>10</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Loss__c</fullName>
+        <externalId>false</externalId>
+        <label>Loss %</label>
+        <length>12</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Marketplace_Sourced_Opp__c</fullName>
+        <externalId>false</externalId>
+        <formula>if(ispickval( Opportunity__r.Type ,&quot;Marketplace&quot;), 1,0)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Marketplace Sourced Opp</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Need_Additional_Approval_For__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>These notes go to Chris Helfer to get additional feedback from him before shipping</inlineHelpText>
+        <label>Need Additional Approval For</label>
+        <length>32768</length>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Html</type>
+        <visibleLines>12</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Number_of_Appliances__c</fullName>
+        <externalId>false</externalId>
+        <formula>PhysicalQuantity1__c + PhysicalQuantity2__c +PhysicalQuantity3__c +PhysicalQuantity4__c +PhysicalQuantity5__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Number of Appliances</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>OppStage__c</fullName>
+        <externalId>false</externalId>
+        <formula>text( Opportunity__r.StageName )</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>OppStage</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Opportunity_Owner__c</fullName>
+        <description>The owner of the opportunity</description>
+        <externalId>false</externalId>
+        <label>Opportunity Owner</label>
+        <length>35</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Opportunity__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Opportunity</label>
+        <referenceTo>Opportunity</referenceTo>
+        <relationshipLabel>POC Requests</relationshipLabel>
+        <relationshipName>Requests</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Oppty_Amount__c</fullName>
+        <externalId>false</externalId>
+        <formula>Opportunity__r.Amount</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Oppty Amount</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Original_POC_End_Date__c</fullName>
+        <externalId>false</externalId>
+        <label>Original POC End Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>POC_Contact__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <inlineHelpText>link to contact record for POC communications</inlineHelpText>
+        <label>POC Contact</label>
+        <referenceTo>Contact</referenceTo>
+        <relationshipName>Requests</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>POC_Type__c</fullName>
+        <externalId>false</externalId>
+        <label>POC Type</label>
+        <picklist>
+            <picklistValues>
+                <fullName>WAN Op</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>EdgeConnect</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Service Provider</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Partial_Ship__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <inlineHelpText>check if this is only partially shipped</inlineHelpText>
+        <label>Partial Ship</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>PhysicalLocation1__c</fullName>
+        <externalId>false</externalId>
+        <label>Physical Location1</label>
+        <length>32000</length>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>5</visibleLines>
+    </fields>
+    <fields>
+        <fullName>PhysicalLocation2__c</fullName>
+        <externalId>false</externalId>
+        <label>Physical Location2</label>
+        <length>32768</length>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>PhysicalLocation3__c</fullName>
+        <externalId>false</externalId>
+        <label>Physical Location3</label>
+        <length>32768</length>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>PhysicalLocation4__c</fullName>
+        <externalId>false</externalId>
+        <label>Physical Location4</label>
+        <length>32768</length>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>PhysicalLocation5__c</fullName>
+        <externalId>false</externalId>
+        <label>Physical Location5</label>
+        <length>32768</length>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>PhysicalProduct1__c</fullName>
+        <externalId>false</externalId>
+        <label>Physical Product1</label>
+        <picklist>
+            <picklistValues>
+                <fullName>NX700</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>NX 1700</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>NX 2700</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>NX 3700</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>NX 5700</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>NX 6700</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>NX 7700</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>NX 8700</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>NX 9700</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>NX 10700</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>PhysicalProduct2__c</fullName>
+        <externalId>false</externalId>
+        <label>Physical Product2</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>PhysicalProduct3__c</fullName>
+        <externalId>false</externalId>
+        <label>Physical Product3</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>PhysicalProduct4__c</fullName>
+        <externalId>false</externalId>
+        <label>Physical Product4</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>PhysicalProduct5__c</fullName>
+        <externalId>false</externalId>
+        <label>Physical Product5</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>PhysicalQuantity1__c</fullName>
+        <externalId>false</externalId>
+        <label>Physical Quantity1</label>
+        <precision>3</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>PhysicalQuantity2__c</fullName>
+        <externalId>false</externalId>
+        <label>Physical Quantity2</label>
+        <precision>3</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>PhysicalQuantity3__c</fullName>
+        <externalId>false</externalId>
+        <label>Physical Quantity3</label>
+        <precision>3</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>PhysicalQuantity4__c</fullName>
+        <externalId>false</externalId>
+        <label>Physical Quantity4</label>
+        <precision>3</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>PhysicalQuantity5__c</fullName>
+        <externalId>false</externalId>
+        <label>Physical Quantity5</label>
+        <precision>3</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Portal_Access_Contact__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Enter the contact name for the person to be granted Portal Access duing the POC</inlineHelpText>
+        <label>Portal Access Contact</label>
+        <length>150</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Portal_Contact_Email__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Email address for portal contact requested for POC. Must be correct as this is where the username and password will be sent once activated</inlineHelpText>
+        <label>Portal Contact Email</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Email</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Priority__c</fullName>
+        <externalId>false</externalId>
+        <label>Priority</label>
+        <picklist>
+            <picklistValues>
+                <fullName>P1 - Urgent</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>P2 - High</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>P3 - Medium</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>P4 - Low</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Problem_Criteria__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>What problem is the customer trying to solve?</inlineHelpText>
+        <label>Define Problem?</label>
+        <length>1000</length>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Project_Budget__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Is there budget for this project?</inlineHelpText>
+        <label>Project Budget?</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <restrictedPicklist>true</restrictedPicklist>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Quantity_Location_1__c</fullName>
+        <externalId>false</externalId>
+        <label>Quantity - Location 1</label>
+        <precision>2</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Quantity_Location_2__c</fullName>
+        <externalId>false</externalId>
+        <label>Quantity - Location 2</label>
+        <precision>2</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>RSM_Approved__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>RSM Approved</label>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>RSM_Manager__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>RSM Sales Director</label>
+        <referenceTo>User</referenceTo>
+        <relationshipName>POC_Requests_RSMM</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>RSM_VP_Sales__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>RSM VP Sales</label>
+        <referenceTo>User</referenceTo>
+        <relationshipName>POC_Requests_VP</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>RSM__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>RSM</label>
+        <referenceTo>User</referenceTo>
+        <relationshipName>POC_Requests_RSM</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Requested_Delivery_Date__c</fullName>
+        <externalId>false</externalId>
+        <label>Requested Delivery Date</label>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Requested_End_Date__c</fullName>
+        <externalId>false</externalId>
+        <label>Extend to Date</label>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Return_Date__c</fullName>
+        <description>Date the units was pulled from evaluation</description>
+        <externalId>false</externalId>
+        <label>Return Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>SE_Director__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>SE Director</label>
+        <referenceTo>User</referenceTo>
+        <relationshipName>POC_Requests_SED</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>SE_Email_Address__c</fullName>
+        <externalId>false</externalId>
+        <label>SE Email Address</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Email</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>SE_Manager__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>SE Manager</label>
+        <referenceTo>User</referenceTo>
+        <relationshipName>POC_Requests_SEM</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>SE__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>SE</label>
+        <referenceTo>User</referenceTo>
+        <relationshipName>POC_Requests_SE</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Second_Extension_Granted__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Second Extension Granted</label>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Send_Email__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Send Email</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Sending_Reminder_Email__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Sending Reminder Email</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Ship_To_Contact__c</fullName>
+        <externalId>false</externalId>
+        <label>Ship To Contact (if different than POC)</label>
+        <length>32768</length>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>4</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Ship_To_Location_1__c</fullName>
+        <externalId>false</externalId>
+        <label>Ship To - Location 1</label>
+        <length>32000</length>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>5</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Ship_To_Location_2__c</fullName>
+        <externalId>false</externalId>
+        <label>Ship To - Location 2</label>
+        <length>32000</length>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>5</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Shipping_Contact_Phone__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Enter the phone number for the shipping contact here. We can&apos;t ship without a phone number!!!</inlineHelpText>
+        <label>Shipping Contact Phone</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Phone</type>
+    </fields>
+    <fields>
+        <fullName>Status__c</fullName>
+        <externalId>false</externalId>
+        <label>Status</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Open</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Approved to Ship</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Shipped</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Shipped - Extended</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Pending Return</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Pending Return - Invoiced</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Closed - Won</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Closed - Denied</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Closed - Returned</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Pending Approvals</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Submission_Condition_Satisfied__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>This checkbox is checked by the embedded page when all required fields are filled on saving.</description>
+        <externalId>false</externalId>
+        <label>Submission Condition Satisfied</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Submission_Requirements__c</fullName>
+        <externalId>false</externalId>
+        <formula>&quot;In order to submit a POC for extension approval, you must complete the extension justification and the status must be Shipped or Shipped - Extended. If the POC request is already expired then you must contact Operations to request an extension because an RMA will already have been issued. If it is a virtual POC, then you will need to submit a new POC request because the licenses will be expired.&quot;</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Submission Requirements</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Success_Criteria__c</fullName>
+        <description>Enter the defined win criteria agreed upon with the prospect</description>
+        <externalId>false</externalId>
+        <inlineHelpText>What is the success criteria?</inlineHelpText>
+        <label>Success Criteria?</label>
+        <length>32000</length>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>System_Engineer_Email_1__c</fullName>
+        <externalId>false</externalId>
+        <label>System Engineer Email 1</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Email</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>System_Engineer_Email_2__c</fullName>
+        <externalId>false</externalId>
+        <label>System Engineer Email 2</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Email</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>TRLinkEmail__c</fullName>
+        <externalId>false</externalId>
+        <formula>Opportunity__r.Technical_Responsible__r.Email</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>TRLinkEmail</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>TR_Approved__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>SE Approved</label>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>TR_Email__c</fullName>
+        <externalId>false</externalId>
+        <formula>Opportunity__r.Technical_Responsible__r.Email</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>SE Email</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Target_End_Date_Duration__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(ISPICKVAL(POC_Type__c,&quot;Service Provider&quot;),90,10)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Target End Date Duration</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Target_End_Date__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>This is the date the POC request is approved to run to</inlineHelpText>
+        <label>Target End Date</label>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Tech_Responsible_Email__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Set by automation</inlineHelpText>
+        <label>Tech Responsible Email</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Email</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Testing_Criteria__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>What is going to be tested as part of the evaluation?</inlineHelpText>
+        <label>Testing Criteria?</label>
+        <length>32768</length>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Trigger_POC_Approvers__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Trigger POC Approvers</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Trigger_POC_Email__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Trigger POC Email</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Type__c</fullName>
+        <externalId>false</externalId>
+        <label>Type</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Evaluation</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Discount</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Wan Emulator</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>VirtualProduct1__c</fullName>
+        <externalId>false</externalId>
+        <label>Virtual Product1</label>
+        <picklist>
+            <picklistValues>
+                <fullName>VX 500</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>VX 1000</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>VX 2000</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>VX 3000</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>VX 5000</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>VX 6000</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>VX 7000</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>VX 8000</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>VX 9000</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>VRX-2</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>VRX-4</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>VRX-6</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>VRX-8</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>GMS-10</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Unity Cloud Intelligence</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>VirtualProduct2__c</fullName>
+        <externalId>false</externalId>
+        <label>Virtual Product2</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>VirtualProduct3__c</fullName>
+        <externalId>false</externalId>
+        <label>Virtual Product3</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>VirtualProduct4__c</fullName>
+        <externalId>false</externalId>
+        <label>Virtual Product4</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>VirtualProduct5__c</fullName>
+        <externalId>false</externalId>
+        <label>Virtual Product5</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>VirtualQuantity1__c</fullName>
+        <defaultValue>1</defaultValue>
+        <externalId>false</externalId>
+        <label>Virtual Quantity1</label>
+        <precision>3</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>VirtualQuantity2__c</fullName>
+        <externalId>false</externalId>
+        <label>Virtual Quantity2</label>
+        <precision>3</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>VirtualQuantity3__c</fullName>
+        <externalId>false</externalId>
+        <label>Virtual Quantity3</label>
+        <precision>3</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>VirtualQuantity4__c</fullName>
+        <externalId>false</externalId>
+        <label>Virtual Quantity4</label>
+        <precision>3</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>VirtualQuantity5__c</fullName>
+        <externalId>false</externalId>
+        <label>Virtual Quantity5</label>
+        <precision>3</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Virtual_Eval_License_Duration__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Duration for the eval license key to be generated for</inlineHelpText>
+        <label>Virtual Eval License Duration</label>
+        <picklist>
+            <picklistValues>
+                <fullName>60 Days</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>30 Days</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>eval_length__c</fullName>
+        <description>Number of days that product was in eval</description>
+        <externalId>false</externalId>
+        <formula>IF( Return_Date__c  &gt; ( TODAY() -1500), Return_Date__c  -  Estimated_Ship_Date__c,   TODAY()  - Estimated_Ship_Date__c )</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>eval_length</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <label>POC Request</label>
+    <listViews>
+        <fullName>All</fullName>
+        <columns>NAME</columns>
+        <columns>Opportunity__c</columns>
+        <columns>Requested_Delivery_Date__c</columns>
+        <columns>Estimated_Ship_Date__c</columns>
+        <columns>Status__c</columns>
+        <columns>Priority__c</columns>
+        <columns>CREATEDBY_USER</columns>
+        <columns>eval_length__c</columns>
+        <columns>OWNER.ALIAS</columns>
+        <columns>OWNER.LAST_NAME</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>OWNER.ALIAS</field>
+            <operation>equals</operation>
+            <value>CustSrvc</value>
+        </filters>
+        <label>All</label>
+    </listViews>
+    <listViews>
+        <fullName>Approved_Partial_Shipped_POC_Requests</fullName>
+        <booleanFilter>1 OR 2</booleanFilter>
+        <columns>NAME</columns>
+        <columns>Opportunity__c</columns>
+        <columns>Status__c</columns>
+        <columns>CREATEDBY_USER</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Status__c</field>
+            <operation>equals</operation>
+            <value>Approved to Ship</value>
+        </filters>
+        <filters>
+            <field>Partial_Ship__c</field>
+            <operation>equals</operation>
+            <value>1</value>
+        </filters>
+        <label>Approved / Partial Shipped POC Requests</label>
+        <sharedTo>
+            <group>Operations</group>
+        </sharedTo>
+    </listViews>
+    <listViews>
+        <fullName>EvalShipQueue</fullName>
+        <columns>NAME</columns>
+        <columns>Opportunity__c</columns>
+        <columns>Requested_Delivery_Date__c</columns>
+        <columns>Evaluation_Product_1__c</columns>
+        <columns>Evaluation_Product_2__c</columns>
+        <columns>Estimated_Ship_Date__c</columns>
+        <columns>Type__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Status__c</field>
+            <operation>equals</operation>
+            <value>Approved,Scheduled</value>
+        </filters>
+        <label>POC Ship Queue</label>
+    </listViews>
+    <listViews>
+        <fullName>MyOpenEvalRequests</fullName>
+        <columns>NAME</columns>
+        <columns>Opportunity__c</columns>
+        <columns>Requested_Delivery_Date__c</columns>
+        <columns>Estimated_Ship_Date__c</columns>
+        <columns>Status__c</columns>
+        <columns>Priority__c</columns>
+        <columns>CREATEDBY_USER</columns>
+        <columns>OWNER.ALIAS</columns>
+        <columns>OWNER.LAST_NAME</columns>
+        <columns>AccountName__c</columns>
+        <filterScope>Mine</filterScope>
+        <filters>
+            <field>Status__c</field>
+            <operation>equals</operation>
+            <value>Open,Approved,Approved to Ship,Scheduled</value>
+        </filters>
+        <filters>
+            <field>Type__c</field>
+            <operation>equals</operation>
+            <value>Evaluation</value>
+        </filters>
+        <label>My Open POC Requests</label>
+    </listViews>
+    <listViews>
+        <fullName>OpenDiscountRequests</fullName>
+        <columns>NAME</columns>
+        <columns>CREATEDBY_USER</columns>
+        <columns>Opportunity__c</columns>
+        <columns>Priority__c</columns>
+        <columns>Status__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Status__c</field>
+            <operation>equals</operation>
+            <value>Open</value>
+        </filters>
+        <filters>
+            <field>Type__c</field>
+            <operation>equals</operation>
+            <value>Discount</value>
+        </filters>
+        <label>Open Discount Requests</label>
+    </listViews>
+    <listViews>
+        <fullName>OpenEvalRequests</fullName>
+        <columns>NAME</columns>
+        <columns>Opportunity__c</columns>
+        <columns>Requested_Delivery_Date__c</columns>
+        <columns>Estimated_Ship_Date__c</columns>
+        <columns>Status__c</columns>
+        <columns>Priority__c</columns>
+        <columns>CREATEDBY_USER</columns>
+        <columns>OWNER.ALIAS</columns>
+        <columns>OWNER.LAST_NAME</columns>
+        <columns>AccountName__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Status__c</field>
+            <operation>equals</operation>
+            <value>Open,Approved,Approved to Ship,Scheduled</value>
+        </filters>
+        <filters>
+            <field>Type__c</field>
+            <operation>equals</operation>
+            <value>Evaluation</value>
+        </filters>
+        <label>Open POC Requests</label>
+    </listViews>
+    <listViews>
+        <fullName>OpenRequests</fullName>
+        <columns>NAME</columns>
+        <columns>Opportunity__c</columns>
+        <columns>Requested_Delivery_Date__c</columns>
+        <columns>Estimated_Ship_Date__c</columns>
+        <columns>Status__c</columns>
+        <columns>Priority__c</columns>
+        <columns>Type__c</columns>
+        <columns>CREATEDBY_USER</columns>
+        <columns>OWNER.ALIAS</columns>
+        <columns>OWNER.LAST_NAME</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Status__c</field>
+            <operation>equals</operation>
+            <value>Open,Approved,Approved to Ship,Scheduled</value>
+        </filters>
+        <label>Open Requests</label>
+    </listViews>
+    <listViews>
+        <fullName>ScheduledEvalShipments</fullName>
+        <columns>NAME</columns>
+        <columns>Opportunity__c</columns>
+        <columns>Requested_Delivery_Date__c</columns>
+        <columns>Estimated_Ship_Date__c</columns>
+        <columns>Status__c</columns>
+        <columns>Priority__c</columns>
+        <columns>CREATEDBY_USER</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Status__c</field>
+            <operation>equals</operation>
+            <value>Scheduled</value>
+        </filters>
+        <label>Scheduled POC Shipments</label>
+    </listViews>
+    <nameField>
+        <displayFormat>{0000000}</displayFormat>
+        <label>Request ID</label>
+        <trackHistory>false</trackHistory>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>POC Requests</pluralLabel>
+    <recordTypeTrackHistory>false</recordTypeTrackHistory>
+    <recordTypes>
+        <fullName>Existing</fullName>
+        <active>true</active>
+        <label>Existing</label>
+        <picklistValues>
+            <picklist>Bandwidth__c</picklist>
+            <values>
+                <fullName>%3C2Mb</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>%3E10Mb</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>%3E2Mb</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>%3E30Mb</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Eval_Network__c</picklist>
+            <values>
+                <fullName>Production</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Simulated</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>EvaluationProductHypervisor__c</picklist>
+            <values>
+                <fullName>Citrix Xen</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>KVM</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Microsoft Hyper V</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>VMWare</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Evaluation_Product_1__c</picklist>
+            <values>
+                <fullName>GMS-10 on GX-V</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>NX 1700</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>NX 2700</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>NX 3700</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>NX 5700</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>NX 7700</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>NX 8700</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>NX 9700</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>VRX-2</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>VRX-4</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>VRX-6</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>VRX-8</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>VX 1000</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>VX 2000</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>VX 3000</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>VX 500</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>VX 5000</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>VX 6000</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>VX 7000</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>VX 8000</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>VX 9000</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Evaluation_Product_2__c</picklist>
+            <values>
+                <fullName>GMS-10 on GX-V</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>NX 1700</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>NX 2700</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>NX 3700</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>NX 5700</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>NX 7700</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>NX 8700</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>NX 9700</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>VRX-2</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>VRX-4</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>VRX-6</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>VRX-8</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>VX 1000</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>VX 2000</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>VX 3000</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>VX 500</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>VX 5000</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>VX 6000</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>VX 7000</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>VX 8000</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>VX 9000</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Expedited_Shipping__c</picklist>
+            <values>
+                <fullName>No</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>GMS_Needed__c</picklist>
+            <values>
+                <fullName>Hosted</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>None Req%27d</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Site1</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Site2</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Virtual</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>International_Shipping__c</picklist>
+            <values>
+                <fullName>No</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>POC_Type__c</picklist>
+            <values>
+                <fullName>EdgeConnect</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Service Provider</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>WAN Op</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>PhysicalProduct1__c</picklist>
+            <values>
+                <fullName>NX 10700</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>NX 1700</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>NX 2700</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>NX 3700</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>NX 5700</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>NX 6700</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>NX 7700</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>NX 8700</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>NX 9700</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>NX700</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Priority__c</picklist>
+            <values>
+                <fullName>P1 - Urgent</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>P2 - High</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>P3 - Medium</fullName>
+                <default>true</default>
+            </values>
+            <values>
+                <fullName>P4 - Low</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Project_Budget__c</picklist>
+            <values>
+                <fullName>No</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Status__c</picklist>
+            <values>
+                <fullName>Approved to Ship</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Closed - Denied</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Closed - Returned</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Closed - Won</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Open</fullName>
+                <default>true</default>
+            </values>
+            <values>
+                <fullName>Pending Approvals</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Pending Return</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Pending Return - Invoiced</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Shipped</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Shipped - Extended</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Type__c</picklist>
+            <values>
+                <fullName>Discount</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Evaluation</fullName>
+                <default>true</default>
+            </values>
+            <values>
+                <fullName>Wan Emulator</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>VirtualProduct1__c</picklist>
+            <values>
+                <fullName>GMS-10</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Unity Cloud Intelligence</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>VRX-2</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>VRX-4</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>VRX-6</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>VRX-8</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>VX 1000</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>VX 2000</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>VX 3000</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>VX 500</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>VX 5000</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>VX 6000</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>VX 7000</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>VX 8000</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>VX 9000</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Virtual_Eval_License_Duration__c</picklist>
+            <values>
+                <fullName>30 Days</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>60 Days</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <recordTypes>
+        <fullName>New</fullName>
+        <active>true</active>
+        <label>New</label>
+        <picklistValues>
+            <picklist>Bandwidth__c</picklist>
+            <values>
+                <fullName>%3C2Mb</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>%3E10Mb</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>%3E2Mb</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>%3E30Mb</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Eval_Network__c</picklist>
+            <values>
+                <fullName>Production</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Simulated</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>EvaluationProductHypervisor__c</picklist>
+            <values>
+                <fullName>Citrix Xen</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>KVM</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Microsoft Hyper V</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>VMWare</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Evaluation_Product_1__c</picklist>
+            <values>
+                <fullName>GMS-10 on GX-V</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>NX 1700</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>NX 2700</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>NX 3700</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>NX 5700</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>NX 7700</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>NX 8700</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>NX 9700</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>VRX-2</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>VRX-4</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>VRX-6</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>VRX-8</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>VX 1000</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>VX 2000</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>VX 3000</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>VX 500</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>VX 5000</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>VX 6000</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>VX 7000</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>VX 8000</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>VX 9000</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Evaluation_Product_2__c</picklist>
+            <values>
+                <fullName>GMS-10 on GX-V</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>NX 1700</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>NX 2700</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>NX 3700</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>NX 5700</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>NX 7700</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>NX 8700</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>NX 9700</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>VRX-2</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>VRX-4</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>VRX-6</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>VRX-8</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>VX 1000</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>VX 2000</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>VX 3000</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>VX 500</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>VX 5000</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>VX 6000</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>VX 7000</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>VX 8000</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>VX 9000</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Expedited_Shipping__c</picklist>
+            <values>
+                <fullName>No</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>GMS_Needed__c</picklist>
+            <values>
+                <fullName>Hosted</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>None Req%27d</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Site1</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Site2</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Virtual</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>International_Shipping__c</picklist>
+            <values>
+                <fullName>No</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>POC_Type__c</picklist>
+            <values>
+                <fullName>EdgeConnect</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Service Provider</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>WAN Op</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>PhysicalProduct1__c</picklist>
+            <values>
+                <fullName>NX 10700</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>NX 1700</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>NX 2700</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>NX 3700</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>NX 5700</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>NX 6700</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>NX 7700</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>NX 8700</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>NX 9700</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>NX700</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Priority__c</picklist>
+            <values>
+                <fullName>P1 - Urgent</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>P2 - High</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>P3 - Medium</fullName>
+                <default>true</default>
+            </values>
+            <values>
+                <fullName>P4 - Low</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Project_Budget__c</picklist>
+            <values>
+                <fullName>No</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Status__c</picklist>
+            <values>
+                <fullName>Approved to Ship</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Closed - Denied</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Closed - Returned</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Closed - Won</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Open</fullName>
+                <default>true</default>
+            </values>
+            <values>
+                <fullName>Pending Approvals</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Pending Return</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Pending Return - Invoiced</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Shipped</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Shipped - Extended</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Type__c</picklist>
+            <values>
+                <fullName>Discount</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Evaluation</fullName>
+                <default>true</default>
+            </values>
+            <values>
+                <fullName>Wan Emulator</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>VirtualProduct1__c</picklist>
+            <values>
+                <fullName>GMS-10</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Unity Cloud Intelligence</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>VRX-2</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>VRX-4</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>VRX-6</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>VRX-8</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>VX 1000</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>VX 2000</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>VX 3000</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>VX 500</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>VX 5000</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>VX 6000</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>VX 7000</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>VX 8000</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>VX 9000</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Virtual_Eval_License_Duration__c</picklist>
+            <values>
+                <fullName>30 Days</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>60 Days</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <searchLayouts>
+        <customTabListAdditionalFields>Type__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Priority__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Status__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>AccountName__c</customTabListAdditionalFields>
+        <searchResultsAdditionalFields>Priority__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Status__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Type__c</searchResultsAdditionalFields>
+    </searchLayouts>
+    <sharingModel>ReadWrite</sharingModel>
+    <validationRules>
+        <fullName>Cant_submit_until_approved</fullName>
+        <active>false</active>
+        <description>Ensure that a request can&apos;t be moved out of Draft unless both approval flags are set</description>
+        <errorConditionFormula>and( ISCHANGED(Status__c) , OR(not(RSM_Approved__c) , not(TR_Approved__c)),   ISPICKVAL( PRIORVALUE( Status__c), &quot;Draft&quot; ))</errorConditionFormula>
+        <errorMessage>Both the RSM and Technically Responsible must review and approve this request before it can be submited for approvals</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>ECSP_Poc_cant_be_created_for_non_servPr</fullName>
+        <active>true</active>
+        <errorConditionFormula>OR(
+AND
+(
+ISPICKVAL(Opportunity__r.Account.Partner_Type__c,&quot;Service Provider&quot;),
+Opportunity__r.Account.ECSP__c ,
+NOT(ISPICKVAL(POC_Type__c,&quot;Service Provider&quot; ))
+),
+AND
+(
+ISPICKVAL(Opportunity__r.Account.Partner_Type__c,&quot;Service Provider&quot;),
+!Opportunity__r.Account.ECSP__c ,
+ISPICKVAL(POC_Type__c,&quot;Service Provider&quot; )
+),
+AND(
+NOT(ISPICKVAL(Opportunity__r.Account.Partner_Type__c,&quot;Service Provider&quot;)),
+ISPICKVAL( POC_Type__c,&quot;Service Provider&quot; )
+)
+)</errorConditionFormula>
+        <errorDisplayField>POC_Type__c</errorDisplayField>
+        <errorMessage>The selected POC Type is not valid for this account. Service Provider is valid for ECSP Enabled Service Provider accounts . Edge Connect and Wan OP is valid for non-Service Provider accounts.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Must_Open_as_Draft</fullName>
+        <active>true</active>
+        <description>doesn&apos;t allow status to be changed from default of draft</description>
+        <errorConditionFormula>AND(  ISNEW() , not(ISPICKVAL( PRIORVALUE( Status__c), &quot;Open&quot; )),  Marketplace_Sourced_Opp__c =0,  IsAllVirtual__c =0)</errorConditionFormula>
+        <errorMessage>Request can only be opened in stage &quot;Open&quot;. After RSM and TR approvals are made it can be submitted for approval</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>POC_cant_be_created_without_prim_quotes</fullName>
+        <active>false</active>
+        <description>A POC cannot be created if there is no primary quote.</description>
+        <errorConditionFormula>AND( 
+IsNew(),
+NOT(ISBLANK(Opportunity__c)),
+NOT(ISPICKVAL(Opportunity__r.Type ,&quot;Marketplace&quot;)), 
+ISPICKVAL(Opportunity__r.Product_Type__c,&quot;&quot;))</errorConditionFormula>
+        <errorMessage>POC cannot be created for the selected opportunity as there is no primary quote defined.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>RSM_of_Oppty_Approves</fullName>
+        <active>true</active>
+        <description>Ensure that only the oppty owner can approve</description>
+        <errorConditionFormula>and($User.Id &lt;&gt; Opportunity__r.OwnerId , ISCHANGED( RSM_Approved__c ), RSM_Approved__c =True)</errorConditionFormula>
+        <errorMessage>Only the oportunity owner can approve this request</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Req_End_Date_after_Target_End_Date</fullName>
+        <active>true</active>
+        <description>The Request End Date must always be after the Target End Date.</description>
+        <errorConditionFormula>IF (AND($Profile.Name &lt;&gt; &apos;9-Operations Manager&apos;), 
+AND( 
+OR ( 
+ISNEW(), 
+ISCHANGED( Requested_End_Date__c )), 
+Requested_End_Date__c &lt; Target_End_Date__c || Requested_End_Date__c = Target_End_Date__c 
+) 
+, 
+false)</errorConditionFormula>
+        <errorMessage>Your Requested End Date must be after the Target End Date of the POC.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Req_End_Date_notreq_OnInsert</fullName>
+        <active>true</active>
+        <description>The Request End Date is not required when the POC is created for the first time</description>
+        <errorConditionFormula>IF (AND($Profile.Name &lt;&gt; &apos;9-Operations Manager&apos;), 
+AND( ISNEW(),!ISNULL(Requested_End_Date__c )) 
+, 
+false)</errorConditionFormula>
+        <errorMessage>Your Requested End Date can be entered for POC extensions only.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Requested_End_Date_cannot_exceed_30_days</fullName>
+        <active>true</active>
+        <errorConditionFormula>OR( 
+ISPICKVAL( POC_Type__c ,&quot;WAN Op&quot;), 
+ISPICKVAL( POC_Type__c ,&quot;EdgeConnect&quot;) 
+)&amp;&amp; 
+NOT(ISBLANK( Requested_End_Date__c )) &amp;&amp; 
+NOT(ISBLANK( Target_End_Date__c )) &amp;&amp; 
+ISCHANGED(Requested_End_Date__c) &amp;&amp; 
+Requested_End_Date__c - Target_End_Date__c &gt; 30</errorConditionFormula>
+        <errorMessage>Requested End Date cannot be more than 30 days.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Requested_End_Date_cannot_exceed_90_days</fullName>
+        <active>true</active>
+        <errorConditionFormula>ISPICKVAL( POC_Type__c ,&quot;Service Provider&quot;)&amp;&amp; 
+NOT(ISBLANK( Requested_End_Date__c )) &amp;&amp; 
+NOT(ISBLANK( Target_End_Date__c )) &amp;&amp; 
+ISCHANGED(Requested_End_Date__c) &amp;&amp; 
+Requested_End_Date__c - Target_End_Date__c &gt; 90</errorConditionFormula>
+        <errorMessage>Requested End Date cannot be more than 90 days.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>TR_Approval_Check</fullName>
+        <active>true</active>
+        <description>Validate that only the TR can check the approval box</description>
+        <errorConditionFormula>and($User.Id &lt;&gt;  Opportunity__r.Technical_Responsible__r.Id , ISCHANGED( TR_Approved__c ), TR_Approved__c =true)</errorConditionFormula>
+        <errorMessage>Only the person selected as Technical Responsibility can approve this request</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>enforce_approval_process_to_advance</fullName>
+        <active>true</active>
+        <description>Enforce new approval submission instead of changing status</description>
+        <errorConditionFormula>and( ISCHANGED(Status__c) ,  
+OR(ISPICKVAL(Status__c, &quot;Open&quot; ),
+ISPICKVAL(Status__c, &quot;Approved&quot; ),
+ISPICKVAL(Status__c, &quot;Approved to Ship&quot; ),
+ISPICKVAL(Status__c, &quot;Shipped&quot; ),
+ISPICKVAL(Status__c, &quot;Shipped - Extended&quot; ),
+ISPICKVAL(Status__c, &quot;Pending Return - Invoiced&quot; ),
+ISPICKVAL(Status__c, &quot;Closed - Won&quot; ),
+ISPICKVAL(Status__c, &quot;Closed - Denied&quot; ),
+ISPICKVAL(Status__c, &quot;Closed - Returned&quot; ),
+ISPICKVAL(Status__c, &quot;Scheduled&quot; )),
+OR($User.Id = Opportunity__r.OwnerId, $User.Id = Opportunity__r.Technical_Responsible__r.Id),  Marketplace_Sourced_Opp__c =0
+)</errorConditionFormula>
+        <errorMessage>Use the Submit for Approval button instead of changing the status to request approval</errorMessage>
+    </validationRules>
+    <webLinks>
+        <fullName>Refresh_POC_Approvers</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>Refresh POC Approvers</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <url>{!REQUIRESCRIPT(&quot;/soap/ajax/37.0/connection.js&quot;)} 
+{!REQUIRESCRIPT(&quot;/soap/ajax/37.0/apex.js&quot;)} 
+
+var reqObj= new sforce.SObject(&quot;Request__c&quot;); 
+reqObj.Id = &apos;{!Request__c.Id}&apos;; 
+reqObj.Trigger_POC_Approvers__c  = true; 
+var result = sforce.connection.update([reqObj]);
+alert(&apos;POC Approvers are refreshed.&apos;);
+window.location.reload();</url>
+    </webLinks>
+    <webLinks>
+        <fullName>Renew_Virtual_Assets</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>Renew Virtual Assets</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <url>openPopup(&quot;/apex/POCAssetsRenewal?Id={!Request__c.Id}&quot;, &quot;VirtualPOCFulfillment&quot;, 800, 600, &quot;width=800, height=600, toolbar=no, status=no, directories=no, menubar=no,resizable=yes,scrollable=yes&quot;, false);</url>
+    </webLinks>
+    <webLinks>
+        <fullName>Submit_for_Approval_Custom</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>Submit for Approval</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <url>{!REQUIRESCRIPT(&quot;/soap/ajax/32.0/connection.js&quot;)} 
+{!REQUIRESCRIPT(&quot;/soap/ajax/32.0/apex.js&quot;)} 
+
+
+if(confirm(&quot;Once you submit this record for approval, you might not be able to edit it or recall it from the approval process depending on your settings. Continue?&quot;)) 
+{ 
+
+if(&apos;{!Request__c.RSM__c}&apos;== &quot;&quot; || &apos;{!Request__c.RSM_Manager__c}&apos;== &quot;&quot; || &apos;{!Request__c.RSM_VP_Sales__c}&apos;== &quot;&quot; || &apos;{!Request__c.SE__c}&apos;== &quot;&quot; || &apos;{!Request__c.SE_Manager__c}&apos;== &quot;&quot;|| &apos;{!Request__c.SE_Director__c}&apos;== &quot;&quot;)
+{
+alert(&quot;POC Approvers are blank. Check whether the opportunity is patched correctly or the managers are set properly on RSM and SE.&quot;);
+}
+else
+{
+var primaryQuote= sforce.connection.query(&quot;select Product_Type__c,Type from Opportunity where Id=&apos;{!Request__c.OpportunityId__c}&apos;&quot;); 
+var queueNameQueryResult = primaryQuote.getArray(&quot;records&quot;); 
+
+var accountInfo=sforce.connection.query(&quot;select AccountId from Opportunity where Id=&apos;{!Request__c.OpportunityId__c}&apos;&quot;); 
+var accountInfoQueryResult = accountInfo.getArray(&quot;records&quot;); 
+var accId=accountInfoQueryResult[0].AccountId; 
+
+var reqType= &apos;{!Request__c.POC_Type__c}&apos;; 
+var assetInfo=null; 
+
+if(reqType==&quot;WAN Op&quot;) 
+{ 
+var queryData=&quot;select Id from Asset where (NOT Product2.Name like &apos;EC%&apos;) and Status in(&apos;Customer Subscription&apos;,&apos;Customer Subscription Expired&apos;) and Product2.Family=&apos;Virtual Image&apos; and AccountId=&apos;&quot;+ accId+&quot;&apos;&quot;; 
+assetInfo=sforce.connection.query(queryData); 
+
+} 
+
+var quoteInfo= sforce.connection.query(&quot;Select Id from Quote__C where Primary__c=true and Opportunity__c =&apos;{!Request__c.OpportunityId__c}&apos; and Id in (Select Quote__c from Quote_Line__c)&quot;); 
+var quoteInfoQueryResult = quoteInfo.getArray(&quot;records&quot;); 
+
+if(reqType!=&quot;Service Provider&quot; &amp;&amp; queueNameQueryResult!=null &amp;&amp; queueNameQueryResult[0].Type!=&quot;Marketplace&quot; &amp;&amp; (quoteInfoQueryResult== null ||quoteInfoQueryResult==&apos;&apos;)) 
+{ 
+alert(&quot;POC cannot be submitted for an approval as there is no primary quote defined for this opportunity or there are no quote lines added to the quote.&quot;); 
+} 
+else if(assetInfo!=null &amp;&amp; assetInfo.size&gt;0 &amp;&amp; &apos;{!Request__c.Allow_Fulfillment__c}&apos;== false) 
+{ 
+alert(&quot;You cannot fulfill this POC as the customer has existing assets. Please contact operations.&quot;); 
+} 
+else if((&apos;{!Request__c.Status__c}&apos;==&quot;Shipped&quot; ||&apos;{!Request__c.Status__c}&apos;==&quot;Shipped - Extended&quot;) &amp;&amp;&apos;{!JSENCODE(Request__c.Extension_Justification__c)}&apos;==&quot;&quot; ) 
+{ 
+alert(&quot;Extension Justification is required.&quot;); 
+} 
+else 
+{ 
+var approval = new sforce.ProcessSubmitRequest(); 
+approval.objectId = &quot;{!Request__c.Id}&quot;; 
+var processRes = sforce.connection.process([approval]); 
+window.location=(&quot;/{!Request__c.Id}&quot;); 
+} 
+}
+}</url>
+    </webLinks>
+    <webLinks>
+        <fullName>Virtual_POC_Fulfillment</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>Virtual POC Fulfillment</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <url>openPopup(&quot;/apex/VirtualPOCFulfillment?id={!Request__c.Id}&quot;, &quot;VirtualPOCFulfillment&quot;, 800, 600, &quot;width=800, height=600, toolbar=no, status=no, directories=no, menubar=no,resizable=yes,scrollable=yes&quot;, false);</url>
+    </webLinks>
+</CustomObject>

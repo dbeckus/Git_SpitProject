@@ -1,0 +1,97 @@
+<apex:page standardController="Contract" extensions="MassAssignAssetsController" showHeader="false" sidebar="false" id="massAssignPage">
+    <apex:form id="massAssignForm">
+        <apex:pageBlock title="Assets to assign" id="pb">
+            <apex:pageBlockButtons location="top" id="pbBtns">
+                <apex:commandButton value="Assign Assets" action="{!assignAssets}" rendered="{!assets.size > 0}" id="assignBtn"/>
+            </apex:pageBlockButtons>
+            <apex:pageMessages id="pageMsg"></apex:pageMessages>
+            <apex:pageBlockTable value="{!assets}" var="asset" rendered="{!assets.size > 0}">
+                <apex:column >
+                    <apex:inputCheckbox value="{!asset.IsSelected}" />
+                    <apex:facet name="header">
+                        <input type="checkbox" id="checkallBox" />
+                    </apex:facet>
+                </apex:column>
+                <apex:column headerValue="Asset Name">
+                    <a href="/{!asset.Asset.Id}">{!asset.Asset.Name}</a>
+                </apex:column>
+                <apex:column headerValue="Product Code">
+                    <a href="/{!asset.Asset.Product2Id}">{!asset.Asset.Product2.ProductCode}</a>
+                </apex:column>
+                <apex:column headerValue="Product Name">
+                    <a href="/{!asset.Asset.Product2Id}">{!asset.Asset.Product2.Name}</a>
+                </apex:column>
+                <apex:column value="{!asset.Asset.Ship_Date__c}" />
+                <apex:column value="{!asset.Asset.Status}" />
+                <apex:column value="{!asset.Asset.Warranty_Start_Date__c}" />
+                <apex:column value="{!asset.Asset.Warranty_End_Date__c}" />
+                <apex:column value="{!asset.Asset.Evaluation_Start_Date__c}" />
+                <apex:column value="{!asset.Asset.Evaluation_End_Date__c}" />
+            </apex:pageBlockTable>
+            <apex:outputText value="No records were found." rendered="{!assets.size = 0}" />
+        </apex:pageBlock>
+        <apex:actionFunction name="assignAssets" action="{!assignAssets}" reRender="pbBtns, pageMsg, scriptPanel" status="loading"/>
+        <apex:outputText value="{!contract.AccountId}" rendered="false"/>
+    </apex:form>
+    <apex:outputPanel id="scriptPanel">
+        <script type="text/javascript">
+            if({!Succeeded}) {
+                parent.location = '/{!Contract.Id}';
+            }
+        </script>
+    </apex:outputPanel>
+    <script type="text/javascript">
+        (function() {
+            var boxes = document.getElementById('massAssignPage:massAssignForm:pb').getElementsByTagName('input');
+            var checkallBox = document.getElementById('checkallBox');
+            if(checkallBox) {
+                for(var i = 0, box; box = boxes[i]; i++) {
+                    if(box == checkallBox) {
+                        box.onclick = function() {
+                            for(var j = 0, boxObj; boxObj = boxes[j]; j++) {
+                                boxObj.checked = this.checked;
+                            }
+                        }
+                    }
+                    else {
+                        box.onclick = function() {
+                            for(var j = 0, boxObj; boxObj = boxes[j]; j++) {
+                                if(boxObj == checkallBox) {
+                                    checkallBox.checked = true;
+                                } else {
+                                    if(boxObj.checked) {
+                                        continue;
+                                    } else {
+                                        checkallBox.checked = false;
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                document.getElementById('massAssignPage:massAssignForm:pb:pbBtns:assignBtn').onclick = function() {
+                    var selectedOne;
+                    for(var i = 0, box; box = boxes[i]; i++) {
+                        if(!box.checked) {
+                            continue;
+                        } else {
+                            selectedOne = true;
+                            break;
+                        }
+                    }
+                    if(!selectedOne) {
+                        alert('Please select one asset at least to assign.');
+                    }
+                    else {
+                        this.value = 'Processing...';
+                        this.style.color = '#999';
+                        this.disabled = true;
+                        assignAssets();
+                    }
+                    return false;
+                }
+            }
+        })();
+    </script>
+</apex:page>

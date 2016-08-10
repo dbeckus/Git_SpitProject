@@ -1,0 +1,2933 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>POC Summary</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>POCSummaries</value>
+    </caseValues>
+    <fields>
+        <label><!-- Contact 1 Role --></label>
+        <name>Contact_1_Role__c</name>
+        <picklistValues>
+            <masterLabel>Decision Maker</masterLabel>
+            <translation><!-- Decision Maker --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Influencer</masterLabel>
+            <translation><!-- Influencer --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Prospect</masterLabel>
+            <translation><!-- Prospect --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Technical</masterLabel>
+            <translation><!-- Technical --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>VAR-Engineer</masterLabel>
+            <translation><!-- VAR-Engineer --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>VAR-Sales</masterLabel>
+            <translation><!-- VAR-Sales --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Contact 2 Role --></label>
+        <name>Contact_2_Role__c</name>
+        <picklistValues>
+            <masterLabel>Decision Maker</masterLabel>
+            <translation><!-- Decision Maker --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Influencer</masterLabel>
+            <translation><!-- Influencer --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Prospect</masterLabel>
+            <translation><!-- Prospect --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Technical</masterLabel>
+            <translation><!-- Technical --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>VAR-Engineer</masterLabel>
+            <translation><!-- VAR-Engineer --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>VAR-Sales</masterLabel>
+            <translation><!-- VAR-Sales --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Contact 3 Role --></label>
+        <name>Contact_3_Role__c</name>
+        <picklistValues>
+            <masterLabel>Decision Maker</masterLabel>
+            <translation><!-- Decision Maker --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Influencer</masterLabel>
+            <translation><!-- Influencer --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Prospect</masterLabel>
+            <translation><!-- Prospect --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Technical</masterLabel>
+            <translation><!-- Technical --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>VAR-Engineer</masterLabel>
+            <translation><!-- VAR-Engineer --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>VAR-Sales</masterLabel>
+            <translation><!-- VAR-Sales --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <help><!-- Check and save this to trigger the outbound email to Tek Talk --></help>
+        <label><!-- Email Report --></label>
+        <name>Email_Report__c</name>
+    </fields>
+    <fields>
+        <label><!-- Email Sending --></label>
+        <name>Email_Sending__c</name>
+    </fields>
+    <fields>
+        <help><!-- Check if there is a GMS in use for this POC --></help>
+        <label><!-- GMS Deployed --></label>
+        <name>GMS_Deployed__c</name>
+    </fields>
+    <fields>
+        <label><!-- GMS SW Version --></label>
+        <name>GMS_SW_Version__c</name>
+    </fields>
+    <fields>
+        <label><!-- GMS Site --></label>
+        <name>GMS_Site__c</name>
+        <picklistValues>
+            <masterLabel>Site 1</masterLabel>
+            <translation><!-- Site 1 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Site 2</masterLabel>
+            <translation><!-- Site 2 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Site 3</masterLabel>
+            <translation><!-- Site 3 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Site 4</masterLabel>
+            <translation><!-- Site 4 --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <help><!-- How will test be run --></help>
+        <label><!-- How Tested --></label>
+        <name>How_Tested_Obj1__c</name>
+    </fields>
+    <fields>
+        <help><!-- How will the test be run --></help>
+        <label><!-- How Tested --></label>
+        <name>How_Tested_Obj2__c</name>
+    </fields>
+    <fields>
+        <help><!-- How will the test be run --></help>
+        <label><!-- How Tested --></label>
+        <name>How_Tested_Obj3__c</name>
+    </fields>
+    <fields>
+        <help><!-- How will the test be run --></help>
+        <label><!-- How Tested --></label>
+        <name>How_Tested_Obj5__c</name>
+    </fields>
+    <fields>
+        <help><!-- How will the test be run --></help>
+        <label><!-- How Tested --></label>
+        <name>How_Tested_obj4__c</name>
+    </fields>
+    <fields>
+        <label><!-- Installed In --></label>
+        <name>Installed_In_site1__c</name>
+        <picklistValues>
+            <masterLabel>Lab</masterLabel>
+            <translation><!-- Lab --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Production</masterLabel>
+            <translation><!-- Production --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Installed In --></label>
+        <name>Installed_In_site2__c</name>
+        <picklistValues>
+            <masterLabel>Lab</masterLabel>
+            <translation><!-- Lab --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Production</masterLabel>
+            <translation><!-- Production --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Installed In --></label>
+        <name>Installed_In_site3__c</name>
+        <picklistValues>
+            <masterLabel>Lab</masterLabel>
+            <translation><!-- Lab --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Production</masterLabel>
+            <translation><!-- Production --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Installed In --></label>
+        <name>Installed_In_site4__c</name>
+        <picklistValues>
+            <masterLabel>Lab</masterLabel>
+            <translation><!-- Lab --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Production</masterLabel>
+            <translation><!-- Production --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <help><!-- Did we use a kwanem for the WAN simulation --></help>
+        <label><!-- Kwanem Used --></label>
+        <name>Kwanem_Used__c</name>
+    </fields>
+    <fields>
+        <help><!-- Link Name is free-form but should follow format Site1Name-Site2Name --></help>
+        <label><!-- Link 1 Name --></label>
+        <name>Link_1_Name__c</name>
+    </fields>
+    <fields>
+        <help><!-- Link Name is free-form but should follow format Site1Name-Site2Name --></help>
+        <label><!-- Link 2 Name --></label>
+        <name>Link_2_Name__c</name>
+    </fields>
+    <fields>
+        <help><!-- Link Name is free-form but should follow format Site1Name-Site2Name --></help>
+        <label><!-- Link 3 Name --></label>
+        <name>Link_3_Name__c</name>
+    </fields>
+    <fields>
+        <help><!-- Link Name is free-form but should follow format Site1Name-Site2Name --></help>
+        <label><!-- Link 4 Name --></label>
+        <name>Link_4_Name__c</name>
+    </fields>
+    <fields>
+        <help><!-- Link Name is free-form but should follow format Site1Name-Site2Name --></help>
+        <label><!-- Link 5 Name --></label>
+        <name>Link_5_Name__c</name>
+    </fields>
+    <fields>
+        <help><!-- Link Name is free-form but should follow format Site1Name-Site2Name --></help>
+        <label><!-- Link 6 Name --></label>
+        <name>Link_6_Name__c</name>
+    </fields>
+    <fields>
+        <label><!-- NX Count --></label>
+        <name>NX_Count_Site1__c</name>
+        <picklistValues>
+            <masterLabel>1</masterLabel>
+            <translation><!-- 1 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>2</masterLabel>
+            <translation><!-- 2 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>3</masterLabel>
+            <translation><!-- 3 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>4</masterLabel>
+            <translation><!-- 4 --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- NX Count --></label>
+        <name>NX_Count_Site2__c</name>
+        <picklistValues>
+            <masterLabel>1</masterLabel>
+            <translation><!-- 1 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>2</masterLabel>
+            <translation><!-- 2 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>3</masterLabel>
+            <translation><!-- 3 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>4</masterLabel>
+            <translation><!-- 4 --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- NX Count --></label>
+        <name>NX_Count_Site3__c</name>
+        <picklistValues>
+            <masterLabel>1</masterLabel>
+            <translation><!-- 1 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>2</masterLabel>
+            <translation><!-- 2 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>3</masterLabel>
+            <translation><!-- 3 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>4</masterLabel>
+            <translation><!-- 4 --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- NX Count --></label>
+        <name>NX_Count_Site4__c</name>
+        <picklistValues>
+            <masterLabel>1</masterLabel>
+            <translation><!-- 1 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>2</masterLabel>
+            <translation><!-- 2 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>3</masterLabel>
+            <translation><!-- 3 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>4</masterLabel>
+            <translation><!-- 4 --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- NX SW Version --></label>
+        <name>NX_SW_Version_Site1__c</name>
+    </fields>
+    <fields>
+        <label><!-- NX SW Version --></label>
+        <name>NX_SW_Version_Site2__c</name>
+    </fields>
+    <fields>
+        <label><!-- NX SW Version --></label>
+        <name>NX_SW_Version_Site3__c</name>
+    </fields>
+    <fields>
+        <label><!-- NX SW Version --></label>
+        <name>NX_SW_Version_Site4__c</name>
+    </fields>
+    <fields>
+        <label><!-- Objective 1 --></label>
+        <name>Objective_1__c</name>
+    </fields>
+    <fields>
+        <label><!-- Objective 2 --></label>
+        <name>Objective_2__c</name>
+    </fields>
+    <fields>
+        <label><!-- Objective 3 --></label>
+        <name>Objective_3__c</name>
+    </fields>
+    <fields>
+        <label><!-- Objective 4 --></label>
+        <name>Objective_4__c</name>
+    </fields>
+    <fields>
+        <label><!-- Objective 5 --></label>
+        <name>Objective_5__c</name>
+    </fields>
+    <fields>
+        <label><!-- Opportunity Owner --></label>
+        <name>OppOwner__c</name>
+        <relationshipLabel><!-- POCSummaries --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Opportunity Competition --></label>
+        <name>Opportunity_Competition__c</name>
+    </fields>
+    <fields>
+        <label><!-- POC Account --></label>
+        <name>POC_Account__c</name>
+    </fields>
+    <fields>
+        <label><!-- POC Contact1 --></label>
+        <name>POC_Contact1__c</name>
+        <relationshipLabel><!-- POCSummaries --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- POC Contact2 --></label>
+        <name>POC_Contact2__c</name>
+        <relationshipLabel><!-- POCSummaries (POC Contact2) --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- POC Contact3 --></label>
+        <name>POC_Contact3__c</name>
+        <relationshipLabel><!-- POCSummaries (POC Contact3) --></relationshipLabel>
+    </fields>
+    <fields>
+        <help><!-- To link to this, go to files tab and upload you POC network diagram and then you can browse and link it here. --></help>
+        <label><!-- POC Diagram --></label>
+        <name>POC_Diagram__c</name>
+        <relationshipLabel><!-- POCSummaries --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- POC Duration --></label>
+        <name>POC_Duration__c</name>
+    </fields>
+    <fields>
+        <help><!-- Date POC equipment shipped back to SP --></help>
+        <label><!-- POC End Date --></label>
+        <name>POC_End_Date__c</name>
+    </fields>
+    <fields>
+        <help><!-- which opportunity this is related to --></help>
+        <label><!-- POC For: --></label>
+        <name>POC_For__c</name>
+        <relationshipLabel><!-- POCSummary --></relationshipLabel>
+    </fields>
+    <fields>
+        <help><!-- Date POC equipment shipped --></help>
+        <label><!-- POC Start Date --></label>
+        <name>POC_Start_Date__c</name>
+    </fields>
+    <fields>
+        <label><!-- POC Status --></label>
+        <name>POC_Status__c</name>
+    </fields>
+    <fields>
+        <label><!-- POC Summary --></label>
+        <name>POC_Summary__c</name>
+    </fields>
+    <fields>
+        <label><!-- RSM Contact --></label>
+        <name>RSM_Contact__c</name>
+    </fields>
+    <fields>
+        <label><!-- SE Contact --></label>
+        <name>SE_Contact__c</name>
+    </fields>
+    <fields>
+        <label><!-- Appliances --></label>
+        <name>Site1_Appliances__c</name>
+        <picklistValues>
+            <masterLabel>NX1700</masterLabel>
+            <translation><!-- NX1700 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>NX2600</masterLabel>
+            <translation><!-- NX2600 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>NX2610</masterLabel>
+            <translation><!-- NX2610 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>NX2700</masterLabel>
+            <translation><!-- NX2700 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>NX3600</masterLabel>
+            <translation><!-- NX3600 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>NX3700</masterLabel>
+            <translation><!-- NX3700 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>NX5600</masterLabel>
+            <translation><!-- NX5600 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>NX5700</masterLabel>
+            <translation><!-- NX5700 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>NX7600</masterLabel>
+            <translation><!-- NX7600 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>NX7700</masterLabel>
+            <translation><!-- NX7700 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>NX8600</masterLabel>
+            <translation><!-- NX8600 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>NX8700</masterLabel>
+            <translation><!-- NX8700 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>NX9610</masterLabel>
+            <translation><!-- NX9610 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>NX9700</masterLabel>
+            <translation><!-- NX9700 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>VRX-8</masterLabel>
+            <translation><!-- VRX-8 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>VX1000</masterLabel>
+            <translation><!-- VX1000 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>VX2000</masterLabel>
+            <translation><!-- VX2000 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>VX3000</masterLabel>
+            <translation><!-- VX3000 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>VX5000</masterLabel>
+            <translation><!-- VX5000 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>VXX</masterLabel>
+            <translation><!-- VXX --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <help><!-- Site1_Connection_Speed --></help>
+        <label><!-- Connection Speed --></label>
+        <name>Site1_Connection_Speed__c</name>
+        <picklistValues>
+            <masterLabel>10Mb</masterLabel>
+            <translation><!-- 10Mb --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>15Mb</masterLabel>
+            <translation><!-- 15Mb --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>30Mb</masterLabel>
+            <translation><!-- 30Mb --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>3Mb</masterLabel>
+            <translation><!-- 3Mb --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>4.5Mb</masterLabel>
+            <translation><!-- 4.5Mb --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>6Mb</masterLabel>
+            <translation><!-- 6Mb --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>DS-3</masterLabel>
+            <translation><!-- DS-3 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Gigabit</masterLabel>
+            <translation><!-- Gigabit --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>OC-12</masterLabel>
+            <translation><!-- OC-12 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>OC-3</masterLabel>
+            <translation><!-- OC-3 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>OC-48</masterLabel>
+            <translation><!-- OC-48 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>T-1</masterLabel>
+            <translation><!-- T-1 --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Connection Type --></label>
+        <name>Site1_Connection_Type__c</name>
+        <picklistValues>
+            <masterLabel>IP VPN</masterLabel>
+            <translation><!-- IP VPN --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>MPLS</masterLabel>
+            <translation><!-- MPLS --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Metro Ethernet</masterLabel>
+            <translation><!-- Metro Ethernet --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Private</masterLabel>
+            <translation><!-- Private --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Satellite</masterLabel>
+            <translation><!-- Satellite --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Deployment Mode --></label>
+        <name>Site1_Deployment_Mode__c</name>
+        <picklistValues>
+            <masterLabel>Bridge-2 Port</masterLabel>
+            <translation><!-- Bridge-2 Port --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Bridge-4 Port Flat</masterLabel>
+            <translation><!-- Bridge-4 Port Flat --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Bridge-4 Port Std</masterLabel>
+            <translation><!-- Bridge-4 Port Std --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Bridge-Parallel Inline</masterLabel>
+            <translation><!-- Bridge-Parallel Inline --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Bridge-Serial Inline</masterLabel>
+            <translation><!-- Bridge-Serial Inline --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>DHR-PBR</masterLabel>
+            <translation><!-- DHR-PBR --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>DHR-WCCP</masterLabel>
+            <translation><!-- DHR-WCCP --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Router-PBR</masterLabel>
+            <translation><!-- Router-PBR --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Router-PBR VRP</masterLabel>
+            <translation><!-- Router-PBR VRP --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Router-VRRP</masterLabel>
+            <translation><!-- Router-VRRP --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Router-WCCP</masterLabel>
+            <translation><!-- Router-WCCP --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Router-WCCP LB</masterLabel>
+            <translation><!-- Router-WCCP LB --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Appliances --></label>
+        <name>Site2_Appliances__c</name>
+        <picklistValues>
+            <masterLabel>NX1700</masterLabel>
+            <translation><!-- NX1700 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>NX2600</masterLabel>
+            <translation><!-- NX2600 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>NX2610</masterLabel>
+            <translation><!-- NX2610 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>NX2700</masterLabel>
+            <translation><!-- NX2700 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>NX3600</masterLabel>
+            <translation><!-- NX3600 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>NX3700</masterLabel>
+            <translation><!-- NX3700 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>NX5600</masterLabel>
+            <translation><!-- NX5600 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>NX5700</masterLabel>
+            <translation><!-- NX5700 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>NX7600</masterLabel>
+            <translation><!-- NX7600 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>NX7700</masterLabel>
+            <translation><!-- NX7700 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>NX8600</masterLabel>
+            <translation><!-- NX8600 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>NX8700</masterLabel>
+            <translation><!-- NX8700 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>NX9610</masterLabel>
+            <translation><!-- NX9610 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>NX9700</masterLabel>
+            <translation><!-- NX9700 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>VRX-8</masterLabel>
+            <translation><!-- VRX-8 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>VX1000</masterLabel>
+            <translation><!-- VX1000 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>VX2000</masterLabel>
+            <translation><!-- VX2000 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>VX3000</masterLabel>
+            <translation><!-- VX3000 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>VX5000</masterLabel>
+            <translation><!-- VX5000 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>VXX</masterLabel>
+            <translation><!-- VXX --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Connection Speed --></label>
+        <name>Site2_Connection_Speed__c</name>
+        <picklistValues>
+            <masterLabel>10Mb</masterLabel>
+            <translation><!-- 10Mb --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>15Mb</masterLabel>
+            <translation><!-- 15Mb --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>30Mb</masterLabel>
+            <translation><!-- 30Mb --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>3Mb</masterLabel>
+            <translation><!-- 3Mb --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>4.5Mb</masterLabel>
+            <translation><!-- 4.5Mb --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>6Mb</masterLabel>
+            <translation><!-- 6Mb --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>DS-3</masterLabel>
+            <translation><!-- DS-3 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Gigabit</masterLabel>
+            <translation><!-- Gigabit --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>OC-12</masterLabel>
+            <translation><!-- OC-12 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>OC-3</masterLabel>
+            <translation><!-- OC-3 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>OC-48</masterLabel>
+            <translation><!-- OC-48 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>T-1</masterLabel>
+            <translation><!-- T-1 --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Connection Type --></label>
+        <name>Site2_Connection_Type__c</name>
+        <picklistValues>
+            <masterLabel>IP VPN</masterLabel>
+            <translation><!-- IP VPN --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>MPLS</masterLabel>
+            <translation><!-- MPLS --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Metro Ethernet</masterLabel>
+            <translation><!-- Metro Ethernet --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Private</masterLabel>
+            <translation><!-- Private --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Satellite</masterLabel>
+            <translation><!-- Satellite --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Deployment Mode --></label>
+        <name>Site2_Deployment_Mode__c</name>
+        <picklistValues>
+            <masterLabel>Bridge-2 Port</masterLabel>
+            <translation><!-- Bridge-2 Port --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Bridge-4 Port Flat</masterLabel>
+            <translation><!-- Bridge-4 Port Flat --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Bridge-4 Port Std</masterLabel>
+            <translation><!-- Bridge-4 Port Std --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Bridge-Parallel Inline</masterLabel>
+            <translation><!-- Bridge-Parallel Inline --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Bridge-Serial Inline</masterLabel>
+            <translation><!-- Bridge-Serial Inline --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>DHR-PBR</masterLabel>
+            <translation><!-- DHR-PBR --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>DHR-WCCP</masterLabel>
+            <translation><!-- DHR-WCCP --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Router-PBR</masterLabel>
+            <translation><!-- Router-PBR --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Router-PBR VRP</masterLabel>
+            <translation><!-- Router-PBR VRP --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Router-VRRP</masterLabel>
+            <translation><!-- Router-VRRP --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Router-WCCP</masterLabel>
+            <translation><!-- Router-WCCP --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Router-WCCP LB</masterLabel>
+            <translation><!-- Router-WCCP LB --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Appliances --></label>
+        <name>Site3_Appliances__c</name>
+        <picklistValues>
+            <masterLabel>NX1700</masterLabel>
+            <translation><!-- NX1700 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>NX2600</masterLabel>
+            <translation><!-- NX2600 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>NX2610</masterLabel>
+            <translation><!-- NX2610 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>NX2700</masterLabel>
+            <translation><!-- NX2700 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>NX3600</masterLabel>
+            <translation><!-- NX3600 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>NX3700</masterLabel>
+            <translation><!-- NX3700 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>NX5600</masterLabel>
+            <translation><!-- NX5600 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>NX5700</masterLabel>
+            <translation><!-- NX5700 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>NX7600</masterLabel>
+            <translation><!-- NX7600 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>NX7700</masterLabel>
+            <translation><!-- NX7700 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>NX8600</masterLabel>
+            <translation><!-- NX8600 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>NX8700</masterLabel>
+            <translation><!-- NX8700 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>NX9610</masterLabel>
+            <translation><!-- NX9610 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>NX9700</masterLabel>
+            <translation><!-- NX9700 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>VRX-8</masterLabel>
+            <translation><!-- VRX-8 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>VX1000</masterLabel>
+            <translation><!-- VX1000 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>VX2000</masterLabel>
+            <translation><!-- VX2000 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>VX3000</masterLabel>
+            <translation><!-- VX3000 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>VX5000</masterLabel>
+            <translation><!-- VX5000 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>VXX</masterLabel>
+            <translation><!-- VXX --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Connection Speed --></label>
+        <name>Site3_Connection_Speed__c</name>
+        <picklistValues>
+            <masterLabel>10Mb</masterLabel>
+            <translation><!-- 10Mb --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>15Mb</masterLabel>
+            <translation><!-- 15Mb --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>30Mb</masterLabel>
+            <translation><!-- 30Mb --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>3Mb</masterLabel>
+            <translation><!-- 3Mb --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>4.5Mb</masterLabel>
+            <translation><!-- 4.5Mb --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>6Mb</masterLabel>
+            <translation><!-- 6Mb --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>DS-3</masterLabel>
+            <translation><!-- DS-3 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Gigabit</masterLabel>
+            <translation><!-- Gigabit --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>OC-12</masterLabel>
+            <translation><!-- OC-12 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>OC-3</masterLabel>
+            <translation><!-- OC-3 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>OC-48</masterLabel>
+            <translation><!-- OC-48 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>T-1</masterLabel>
+            <translation><!-- T-1 --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Connection Type --></label>
+        <name>Site3_Connection_Type__c</name>
+        <picklistValues>
+            <masterLabel>IP VPN</masterLabel>
+            <translation><!-- IP VPN --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>MPLS</masterLabel>
+            <translation><!-- MPLS --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Metro Ethernet</masterLabel>
+            <translation><!-- Metro Ethernet --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Private</masterLabel>
+            <translation><!-- Private --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Satellite</masterLabel>
+            <translation><!-- Satellite --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Deployment Mode --></label>
+        <name>Site3_Deployment_Mode__c</name>
+        <picklistValues>
+            <masterLabel>Bridge-2 Port</masterLabel>
+            <translation><!-- Bridge-2 Port --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Bridge-4 Port Flat</masterLabel>
+            <translation><!-- Bridge-4 Port Flat --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Bridge-4 Port Std</masterLabel>
+            <translation><!-- Bridge-4 Port Std --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Bridge-Parallel Inline</masterLabel>
+            <translation><!-- Bridge-Parallel Inline --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Bridge-Serial Inline</masterLabel>
+            <translation><!-- Bridge-Serial Inline --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>DHR-PBR</masterLabel>
+            <translation><!-- DHR-PBR --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>DHR-WCCP</masterLabel>
+            <translation><!-- DHR-WCCP --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Router-PBR</masterLabel>
+            <translation><!-- Router-PBR --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Router-PBR VRP</masterLabel>
+            <translation><!-- Router-PBR VRP --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Router-VRRP</masterLabel>
+            <translation><!-- Router-VRRP --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Router-WCCP</masterLabel>
+            <translation><!-- Router-WCCP --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Router-WCCP LB</masterLabel>
+            <translation><!-- Router-WCCP LB --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Appliances --></label>
+        <name>Site4_Appliances__c</name>
+        <picklistValues>
+            <masterLabel>NX1700</masterLabel>
+            <translation><!-- NX1700 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>NX2600</masterLabel>
+            <translation><!-- NX2600 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>NX2610</masterLabel>
+            <translation><!-- NX2610 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>NX2700</masterLabel>
+            <translation><!-- NX2700 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>NX3600</masterLabel>
+            <translation><!-- NX3600 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>NX3700</masterLabel>
+            <translation><!-- NX3700 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>NX5600</masterLabel>
+            <translation><!-- NX5600 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>NX5700</masterLabel>
+            <translation><!-- NX5700 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>NX7600</masterLabel>
+            <translation><!-- NX7600 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>NX7700</masterLabel>
+            <translation><!-- NX7700 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>NX8600</masterLabel>
+            <translation><!-- NX8600 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>NX8700</masterLabel>
+            <translation><!-- NX8700 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>NX9610</masterLabel>
+            <translation><!-- NX9610 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>NX9700</masterLabel>
+            <translation><!-- NX9700 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>VRX-8</masterLabel>
+            <translation><!-- VRX-8 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>VX1000</masterLabel>
+            <translation><!-- VX1000 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>VX2000</masterLabel>
+            <translation><!-- VX2000 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>VX3000</masterLabel>
+            <translation><!-- VX3000 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>VX5000</masterLabel>
+            <translation><!-- VX5000 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>VXX</masterLabel>
+            <translation><!-- VXX --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Connection Speed --></label>
+        <name>Site4_Connection_Speed__c</name>
+        <picklistValues>
+            <masterLabel>10Mb</masterLabel>
+            <translation><!-- 10Mb --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>15Mb</masterLabel>
+            <translation><!-- 15Mb --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>30Mb</masterLabel>
+            <translation><!-- 30Mb --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>3Mb</masterLabel>
+            <translation><!-- 3Mb --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>4.5Mb</masterLabel>
+            <translation><!-- 4.5Mb --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>6Mb</masterLabel>
+            <translation><!-- 6Mb --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>DS-3</masterLabel>
+            <translation><!-- DS-3 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Gigabit</masterLabel>
+            <translation><!-- Gigabit --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>OC-12</masterLabel>
+            <translation><!-- OC-12 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>OC-3</masterLabel>
+            <translation><!-- OC-3 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>OC-48</masterLabel>
+            <translation><!-- OC-48 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>T-1</masterLabel>
+            <translation><!-- T-1 --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Connection Type --></label>
+        <name>Site4_Connection_Type__c</name>
+        <picklistValues>
+            <masterLabel>IP VPN</masterLabel>
+            <translation><!-- IP VPN --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>MPLS</masterLabel>
+            <translation><!-- MPLS --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Metro Ethernet</masterLabel>
+            <translation><!-- Metro Ethernet --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Private</masterLabel>
+            <translation><!-- Private --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Satellite</masterLabel>
+            <translation><!-- Satellite --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Deployment Mode --></label>
+        <name>Site4_Deployment_Mode__c</name>
+        <picklistValues>
+            <masterLabel>Bridge-2 Port</masterLabel>
+            <translation><!-- Bridge-2 Port --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Bridge-4 Port Flat</masterLabel>
+            <translation><!-- Bridge-4 Port Flat --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Bridge-4 Port Std</masterLabel>
+            <translation><!-- Bridge-4 Port Std --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Bridge-Parallel Inline</masterLabel>
+            <translation><!-- Bridge-Parallel Inline --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Bridge-Serial Inline</masterLabel>
+            <translation><!-- Bridge-Serial Inline --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>DHR-PBR</masterLabel>
+            <translation><!-- DHR-PBR --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>DHR-WCCP</masterLabel>
+            <translation><!-- DHR-WCCP --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Router-PBR</masterLabel>
+            <translation><!-- Router-PBR --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Router-PBR VRP</masterLabel>
+            <translation><!-- Router-PBR VRP --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Router-VRRP</masterLabel>
+            <translation><!-- Router-VRRP --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Router-WCCP</masterLabel>
+            <translation><!-- Router-WCCP --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Router-WCCP LB</masterLabel>
+            <translation><!-- Router-WCCP LB --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Address --></label>
+        <name>Site_1_Address__c</name>
+    </fields>
+    <fields>
+        <label><!-- Contact --></label>
+        <name>Site_1_Contact__c</name>
+        <relationshipLabel><!-- POCSummaries (Site 1 Contact) --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- HW Vendors --></label>
+        <name>Site_1_HW_Vendors__c</name>
+        <picklistValues>
+            <masterLabel>Brocade</masterLabel>
+            <translation><!-- Brocade --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Cisco</masterLabel>
+            <translation><!-- Cisco --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Commvault</masterLabel>
+            <translation><!-- Commvault --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Compellent</masterLabel>
+            <translation><!-- Compellent --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Dell</masterLabel>
+            <translation><!-- Dell --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>DoubleTake</masterLabel>
+            <translation><!-- DoubleTake --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>EMC</masterLabel>
+            <translation><!-- EMC --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>EqualLogic</masterLabel>
+            <translation><!-- EqualLogic --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Extreme</masterLabel>
+            <translation><!-- Extreme --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>F5</masterLabel>
+            <translation><!-- F5 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Foundry</masterLabel>
+            <translation><!-- Foundry --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>HDS</masterLabel>
+            <translation><!-- HDS --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Juniper</masterLabel>
+            <translation><!-- Juniper --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>NetApp</masterLabel>
+            <translation><!-- NetApp --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Other HW Vendor</masterLabel>
+            <translation><!-- Other HW Vendor --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Tivoli</masterLabel>
+            <translation><!-- Tivoli --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>VMWare</masterLabel>
+            <translation><!-- VMWare --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- HW --></label>
+        <name>Site_1_HW__c</name>
+        <picklistValues>
+            <masterLabel>ASA FW</masterLabel>
+            <translation><!-- ASA FW --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Blade - FX8</masterLabel>
+            <translation><!-- Blade - FX8 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>CLARiiON</masterLabel>
+            <translation><!-- CLARiiON --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>CNT - 3000</masterLabel>
+            <translation><!-- CNT - 3000 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Celerra</masterLabel>
+            <translation><!-- Celerra --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Centera</masterLabel>
+            <translation><!-- Centera --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>DMX-2</masterLabel>
+            <translation><!-- DMX-2 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>DMX-3</masterLabel>
+            <translation><!-- DMX-3 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>DMX-4</masterLabel>
+            <translation><!-- DMX-4 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>DataDomain</masterLabel>
+            <translation><!-- DataDomain --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>ESX Server</masterLabel>
+            <translation><!-- ESX Server --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>FCIP – 7500</masterLabel>
+            <translation><!-- FCIP – 7500 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>FCIP – 7800</masterLabel>
+            <translation><!-- FCIP – 7800 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>FCIP – MDS 9000</masterLabel>
+            <translation><!-- FCIP – MDS 9000 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Load Balancer – F5</masterLabel>
+            <translation><!-- Load Balancer – F5 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Load Balancer – Foundry</masterLabel>
+            <translation><!-- Load Balancer – Foundry --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>NetApp</masterLabel>
+            <translation><!-- NetApp --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Nexus – 5000</masterLabel>
+            <translation><!-- Nexus – 5000 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Nexus – 7000</masterLabel>
+            <translation><!-- Nexus – 7000 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>PIX</masterLabel>
+            <translation><!-- PIX --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Router – 1000 ASR</masterLabel>
+            <translation><!-- Router – 1000 ASR --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Router – 12000</masterLabel>
+            <translation><!-- Router – 12000 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Router – 2600</masterLabel>
+            <translation><!-- Router – 2600 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Router – 2900 ISR</masterLabel>
+            <translation><!-- Router – 2900 ISR --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Router – 3900 ISR</masterLabel>
+            <translation><!-- Router – 3900 ISR --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Router – 7200</masterLabel>
+            <translation><!-- Router – 7200 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Router – 7600</masterLabel>
+            <translation><!-- Router – 7600 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Router – 9000 ASR</masterLabel>
+            <translation><!-- Router – 9000 ASR --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Router – ESeries</masterLabel>
+            <translation><!-- Router – ESeries --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Router – J2300</masterLabel>
+            <translation><!-- Router – J2300 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Router – J4300</masterLabel>
+            <translation><!-- Router – J4300 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Router – J6300</masterLabel>
+            <translation><!-- Router – J6300 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Router – MSeries</masterLabel>
+            <translation><!-- Router – MSeries --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Router – MXSeries</masterLabel>
+            <translation><!-- Router – MXSeries --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Router – Other</masterLabel>
+            <translation><!-- Router – Other --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Router – TSeries</masterLabel>
+            <translation><!-- Router – TSeries --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>SAN Switch</masterLabel>
+            <translation><!-- SAN Switch --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Server – Other</masterLabel>
+            <translation><!-- Server – Other --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Switch – 2960</masterLabel>
+            <translation><!-- Switch – 2960 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Switch – 3560</masterLabel>
+            <translation><!-- Switch – 3560 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Switch – 3750</masterLabel>
+            <translation><!-- Switch – 3750 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Switch – 4500</masterLabel>
+            <translation><!-- Switch – 4500 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Switch – 4900</masterLabel>
+            <translation><!-- Switch – 4900 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Switch – 6500</masterLabel>
+            <translation><!-- Switch – 6500 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Switch – Alpine</masterLabel>
+            <translation><!-- Switch – Alpine --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Switch – BlackDiamond</masterLabel>
+            <translation><!-- Switch – BlackDiamond --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Switch – EX Series</masterLabel>
+            <translation><!-- Switch – EX Series --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Switch – Other</masterLabel>
+            <translation><!-- Switch – Other --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Switch – PowerConnect 3000</masterLabel>
+            <translation><!-- Switch – PowerConnect 3000 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Switch – PowerConnect 5000</masterLabel>
+            <translation><!-- Switch – PowerConnect 5000 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Switch – PowerConnect 6000</masterLabel>
+            <translation><!-- Switch – PowerConnect 6000 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Switch – PowerConnect 8000</masterLabel>
+            <translation><!-- Switch – PowerConnect 8000 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Switch – ServerIron</masterLabel>
+            <translation><!-- Switch – ServerIron --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Switch – Summit</masterLabel>
+            <translation><!-- Switch – Summit --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>V-Max</masterLabel>
+            <translation><!-- V-Max --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Site 1 Name --></label>
+        <name>Site_1_Name__c</name>
+    </fields>
+    <fields>
+        <label><!-- OS Versions --></label>
+        <name>Site_1_OS_Versions__c</name>
+    </fields>
+    <fields>
+        <label><!-- Address --></label>
+        <name>Site_2_Address__c</name>
+    </fields>
+    <fields>
+        <label><!-- Contact --></label>
+        <name>Site_2_Contact__c</name>
+        <relationshipLabel><!-- POCSummaries (Site 2 Contact) --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- HW Vendors --></label>
+        <name>Site_2_HW_Vendors__c</name>
+        <picklistValues>
+            <masterLabel>Brocade</masterLabel>
+            <translation><!-- Brocade --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Cisco</masterLabel>
+            <translation><!-- Cisco --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Commvault</masterLabel>
+            <translation><!-- Commvault --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Compellent</masterLabel>
+            <translation><!-- Compellent --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Dell</masterLabel>
+            <translation><!-- Dell --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>DoubleTake</masterLabel>
+            <translation><!-- DoubleTake --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>EMC</masterLabel>
+            <translation><!-- EMC --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>EqualLogic</masterLabel>
+            <translation><!-- EqualLogic --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Extreme</masterLabel>
+            <translation><!-- Extreme --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>F5</masterLabel>
+            <translation><!-- F5 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Foundry</masterLabel>
+            <translation><!-- Foundry --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>HDS</masterLabel>
+            <translation><!-- HDS --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Juniper</masterLabel>
+            <translation><!-- Juniper --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>NetApp</masterLabel>
+            <translation><!-- NetApp --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Other HW Vendor</masterLabel>
+            <translation><!-- Other HW Vendor --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Tivoli</masterLabel>
+            <translation><!-- Tivoli --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>VMWare</masterLabel>
+            <translation><!-- VMWare --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- HW --></label>
+        <name>Site_2_HW__c</name>
+        <picklistValues>
+            <masterLabel>ASA FW</masterLabel>
+            <translation><!-- ASA FW --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Blade - FX8</masterLabel>
+            <translation><!-- Blade - FX8 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>CLARiiON</masterLabel>
+            <translation><!-- CLARiiON --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>CNT - 3000</masterLabel>
+            <translation><!-- CNT - 3000 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Celerra</masterLabel>
+            <translation><!-- Celerra --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Centera</masterLabel>
+            <translation><!-- Centera --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>DMX-2</masterLabel>
+            <translation><!-- DMX-2 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>DMX-3</masterLabel>
+            <translation><!-- DMX-3 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>DMX-4</masterLabel>
+            <translation><!-- DMX-4 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>DataDomain</masterLabel>
+            <translation><!-- DataDomain --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>ESX Server</masterLabel>
+            <translation><!-- ESX Server --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>FCIP – 7500</masterLabel>
+            <translation><!-- FCIP – 7500 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>FCIP – 7800</masterLabel>
+            <translation><!-- FCIP – 7800 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>FCIP – MDS 9000</masterLabel>
+            <translation><!-- FCIP – MDS 9000 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Load Balancer – F5</masterLabel>
+            <translation><!-- Load Balancer – F5 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Load Balancer – Foundry</masterLabel>
+            <translation><!-- Load Balancer – Foundry --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>NetApp</masterLabel>
+            <translation><!-- NetApp --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Nexus – 5000</masterLabel>
+            <translation><!-- Nexus – 5000 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Nexus – 7000</masterLabel>
+            <translation><!-- Nexus – 7000 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>PIX</masterLabel>
+            <translation><!-- PIX --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Router – 1000 ASR</masterLabel>
+            <translation><!-- Router – 1000 ASR --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Router – 12000</masterLabel>
+            <translation><!-- Router – 12000 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Router – 2600</masterLabel>
+            <translation><!-- Router – 2600 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Router – 2900 ISR</masterLabel>
+            <translation><!-- Router – 2900 ISR --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Router – 3900 ISR</masterLabel>
+            <translation><!-- Router – 3900 ISR --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Router – 7200</masterLabel>
+            <translation><!-- Router – 7200 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Router – 7600</masterLabel>
+            <translation><!-- Router – 7600 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Router – 9000 ASR</masterLabel>
+            <translation><!-- Router – 9000 ASR --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Router – ESeries</masterLabel>
+            <translation><!-- Router – ESeries --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Router – J2300</masterLabel>
+            <translation><!-- Router – J2300 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Router – J4300</masterLabel>
+            <translation><!-- Router – J4300 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Router – J6300</masterLabel>
+            <translation><!-- Router – J6300 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Router – MSeries</masterLabel>
+            <translation><!-- Router – MSeries --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Router – MXSeries</masterLabel>
+            <translation><!-- Router – MXSeries --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Router – Other</masterLabel>
+            <translation><!-- Router – Other --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Router – TSeries</masterLabel>
+            <translation><!-- Router – TSeries --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>SAN Switch</masterLabel>
+            <translation><!-- SAN Switch --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Server – Other</masterLabel>
+            <translation><!-- Server – Other --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Switch – 2960</masterLabel>
+            <translation><!-- Switch – 2960 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Switch – 3560</masterLabel>
+            <translation><!-- Switch – 3560 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Switch – 3750</masterLabel>
+            <translation><!-- Switch – 3750 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Switch – 4500</masterLabel>
+            <translation><!-- Switch – 4500 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Switch – 4900</masterLabel>
+            <translation><!-- Switch – 4900 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Switch – 6500</masterLabel>
+            <translation><!-- Switch – 6500 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Switch – Alpine</masterLabel>
+            <translation><!-- Switch – Alpine --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Switch – BlackDiamond</masterLabel>
+            <translation><!-- Switch – BlackDiamond --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Switch – EX Series</masterLabel>
+            <translation><!-- Switch – EX Series --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Switch – Other</masterLabel>
+            <translation><!-- Switch – Other --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Switch – PowerConnect 3000</masterLabel>
+            <translation><!-- Switch – PowerConnect 3000 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Switch – PowerConnect 5000</masterLabel>
+            <translation><!-- Switch – PowerConnect 5000 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Switch – PowerConnect 6000</masterLabel>
+            <translation><!-- Switch – PowerConnect 6000 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Switch – PowerConnect 8000</masterLabel>
+            <translation><!-- Switch – PowerConnect 8000 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Switch – ServerIron</masterLabel>
+            <translation><!-- Switch – ServerIron --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Switch – Summit</masterLabel>
+            <translation><!-- Switch – Summit --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>V-Max</masterLabel>
+            <translation><!-- V-Max --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Site 2 Name --></label>
+        <name>Site_2_Name__c</name>
+    </fields>
+    <fields>
+        <label><!-- OS Versions --></label>
+        <name>Site_2_OS_Versions__c</name>
+    </fields>
+    <fields>
+        <label><!-- Address --></label>
+        <name>Site_3_Address__c</name>
+    </fields>
+    <fields>
+        <label><!-- Contact --></label>
+        <name>Site_3_Contact__c</name>
+        <relationshipLabel><!-- POCSummaries (Site 3 Contact) --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- HW Vendors --></label>
+        <name>Site_3_HW_Vendors__c</name>
+        <picklistValues>
+            <masterLabel>Brocade</masterLabel>
+            <translation><!-- Brocade --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Cisco</masterLabel>
+            <translation><!-- Cisco --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Commvault</masterLabel>
+            <translation><!-- Commvault --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Compellent</masterLabel>
+            <translation><!-- Compellent --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Dell</masterLabel>
+            <translation><!-- Dell --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>DoubleTake</masterLabel>
+            <translation><!-- DoubleTake --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>EMC</masterLabel>
+            <translation><!-- EMC --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>EqualLogic</masterLabel>
+            <translation><!-- EqualLogic --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Extreme</masterLabel>
+            <translation><!-- Extreme --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>F5</masterLabel>
+            <translation><!-- F5 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Foundry</masterLabel>
+            <translation><!-- Foundry --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>HDS</masterLabel>
+            <translation><!-- HDS --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Juniper</masterLabel>
+            <translation><!-- Juniper --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>NetApp</masterLabel>
+            <translation><!-- NetApp --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Other HW Vendor</masterLabel>
+            <translation><!-- Other HW Vendor --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Tivoli</masterLabel>
+            <translation><!-- Tivoli --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>VMWare</masterLabel>
+            <translation><!-- VMWare --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- HW --></label>
+        <name>Site_3_HW__c</name>
+        <picklistValues>
+            <masterLabel>ASA FW</masterLabel>
+            <translation><!-- ASA FW --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Blade - FX8</masterLabel>
+            <translation><!-- Blade - FX8 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>CLARiiON</masterLabel>
+            <translation><!-- CLARiiON --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>CNT - 3000</masterLabel>
+            <translation><!-- CNT - 3000 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Celerra</masterLabel>
+            <translation><!-- Celerra --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Centera</masterLabel>
+            <translation><!-- Centera --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>DMX-2</masterLabel>
+            <translation><!-- DMX-2 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>DMX-3</masterLabel>
+            <translation><!-- DMX-3 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>DMX-4</masterLabel>
+            <translation><!-- DMX-4 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>DataDomain</masterLabel>
+            <translation><!-- DataDomain --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>ESX Server</masterLabel>
+            <translation><!-- ESX Server --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>FCIP – 7500</masterLabel>
+            <translation><!-- FCIP – 7500 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>FCIP – 7800</masterLabel>
+            <translation><!-- FCIP – 7800 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>FCIP – MDS 9000</masterLabel>
+            <translation><!-- FCIP – MDS 9000 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Load Balancer – F5</masterLabel>
+            <translation><!-- Load Balancer – F5 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Load Balancer – Foundry</masterLabel>
+            <translation><!-- Load Balancer – Foundry --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>NetApp</masterLabel>
+            <translation><!-- NetApp --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Nexus – 5000</masterLabel>
+            <translation><!-- Nexus – 5000 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Nexus – 7000</masterLabel>
+            <translation><!-- Nexus – 7000 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>PIX</masterLabel>
+            <translation><!-- PIX --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Router – 1000 ASR</masterLabel>
+            <translation><!-- Router – 1000 ASR --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Router – 12000</masterLabel>
+            <translation><!-- Router – 12000 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Router – 2600</masterLabel>
+            <translation><!-- Router – 2600 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Router – 2900 ISR</masterLabel>
+            <translation><!-- Router – 2900 ISR --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Router – 3900 ISR</masterLabel>
+            <translation><!-- Router – 3900 ISR --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Router – 7200</masterLabel>
+            <translation><!-- Router – 7200 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Router – 7600</masterLabel>
+            <translation><!-- Router – 7600 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Router – 9000 ASR</masterLabel>
+            <translation><!-- Router – 9000 ASR --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Router – ESeries</masterLabel>
+            <translation><!-- Router – ESeries --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Router – J2300</masterLabel>
+            <translation><!-- Router – J2300 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Router – J4300</masterLabel>
+            <translation><!-- Router – J4300 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Router – J6300</masterLabel>
+            <translation><!-- Router – J6300 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Router – MSeries</masterLabel>
+            <translation><!-- Router – MSeries --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Router – MXSeries</masterLabel>
+            <translation><!-- Router – MXSeries --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Router – Other</masterLabel>
+            <translation><!-- Router – Other --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Router – TSeries</masterLabel>
+            <translation><!-- Router – TSeries --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>SAN Switch</masterLabel>
+            <translation><!-- SAN Switch --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Server – Other</masterLabel>
+            <translation><!-- Server – Other --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Switch – 2960</masterLabel>
+            <translation><!-- Switch – 2960 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Switch – 3560</masterLabel>
+            <translation><!-- Switch – 3560 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Switch – 3750</masterLabel>
+            <translation><!-- Switch – 3750 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Switch – 4500</masterLabel>
+            <translation><!-- Switch – 4500 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Switch – 4900</masterLabel>
+            <translation><!-- Switch – 4900 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Switch – 6500</masterLabel>
+            <translation><!-- Switch – 6500 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Switch – Alpine</masterLabel>
+            <translation><!-- Switch – Alpine --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Switch – BlackDiamond</masterLabel>
+            <translation><!-- Switch – BlackDiamond --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Switch – EX Series</masterLabel>
+            <translation><!-- Switch – EX Series --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Switch – Other</masterLabel>
+            <translation><!-- Switch – Other --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Switch – PowerConnect 3000</masterLabel>
+            <translation><!-- Switch – PowerConnect 3000 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Switch – PowerConnect 5000</masterLabel>
+            <translation><!-- Switch – PowerConnect 5000 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Switch – PowerConnect 6000</masterLabel>
+            <translation><!-- Switch – PowerConnect 6000 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Switch – PowerConnect 8000</masterLabel>
+            <translation><!-- Switch – PowerConnect 8000 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Switch – ServerIron</masterLabel>
+            <translation><!-- Switch – ServerIron --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Switch – Summit</masterLabel>
+            <translation><!-- Switch – Summit --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>V-Max</masterLabel>
+            <translation><!-- V-Max --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Site 3 Name --></label>
+        <name>Site_3_Name__c</name>
+    </fields>
+    <fields>
+        <label><!-- OS Versions --></label>
+        <name>Site_3_OS_Versions__c</name>
+    </fields>
+    <fields>
+        <label><!-- Address --></label>
+        <name>Site_4_Address__c</name>
+    </fields>
+    <fields>
+        <label><!-- Contact --></label>
+        <name>Site_4_Contact__c</name>
+        <relationshipLabel><!-- POCSummaries (Site 4 Contact) --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- HW Vendors --></label>
+        <name>Site_4_HW_Vendors__c</name>
+        <picklistValues>
+            <masterLabel>Brocade</masterLabel>
+            <translation><!-- Brocade --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Cisco</masterLabel>
+            <translation><!-- Cisco --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Commvault</masterLabel>
+            <translation><!-- Commvault --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Compellent</masterLabel>
+            <translation><!-- Compellent --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Dell</masterLabel>
+            <translation><!-- Dell --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>DoubleTake</masterLabel>
+            <translation><!-- DoubleTake --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>EMC</masterLabel>
+            <translation><!-- EMC --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>EqualLogic</masterLabel>
+            <translation><!-- EqualLogic --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Extreme</masterLabel>
+            <translation><!-- Extreme --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>F5</masterLabel>
+            <translation><!-- F5 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Foundry</masterLabel>
+            <translation><!-- Foundry --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>HDS</masterLabel>
+            <translation><!-- HDS --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Juniper</masterLabel>
+            <translation><!-- Juniper --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>NetApp</masterLabel>
+            <translation><!-- NetApp --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Other HW Vendor</masterLabel>
+            <translation><!-- Other HW Vendor --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Tivoli</masterLabel>
+            <translation><!-- Tivoli --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>VMWare</masterLabel>
+            <translation><!-- VMWare --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- HW --></label>
+        <name>Site_4_HW__c</name>
+        <picklistValues>
+            <masterLabel>ASA FW</masterLabel>
+            <translation><!-- ASA FW --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Blade - FX8</masterLabel>
+            <translation><!-- Blade - FX8 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>CLARiiON</masterLabel>
+            <translation><!-- CLARiiON --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>CNT - 3000</masterLabel>
+            <translation><!-- CNT - 3000 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Celerra</masterLabel>
+            <translation><!-- Celerra --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Centera</masterLabel>
+            <translation><!-- Centera --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>DMX-2</masterLabel>
+            <translation><!-- DMX-2 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>DMX-3</masterLabel>
+            <translation><!-- DMX-3 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>DMX-4</masterLabel>
+            <translation><!-- DMX-4 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>DataDomain</masterLabel>
+            <translation><!-- DataDomain --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>ESX Server</masterLabel>
+            <translation><!-- ESX Server --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>FCIP – 7500</masterLabel>
+            <translation><!-- FCIP – 7500 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>FCIP – 7800</masterLabel>
+            <translation><!-- FCIP – 7800 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>FCIP – MDS 9000</masterLabel>
+            <translation><!-- FCIP – MDS 9000 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Load Balancer – F5</masterLabel>
+            <translation><!-- Load Balancer – F5 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Load Balancer – Foundry</masterLabel>
+            <translation><!-- Load Balancer – Foundry --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>NetApp</masterLabel>
+            <translation><!-- NetApp --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Nexus – 5000</masterLabel>
+            <translation><!-- Nexus – 5000 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Nexus – 7000</masterLabel>
+            <translation><!-- Nexus – 7000 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>PIX</masterLabel>
+            <translation><!-- PIX --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Router – 1000 ASR</masterLabel>
+            <translation><!-- Router – 1000 ASR --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Router – 12000</masterLabel>
+            <translation><!-- Router – 12000 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Router – 2600</masterLabel>
+            <translation><!-- Router – 2600 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Router – 2900 ISR</masterLabel>
+            <translation><!-- Router – 2900 ISR --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Router – 3900 ISR</masterLabel>
+            <translation><!-- Router – 3900 ISR --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Router – 7200</masterLabel>
+            <translation><!-- Router – 7200 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Router – 7600</masterLabel>
+            <translation><!-- Router – 7600 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Router – 9000 ASR</masterLabel>
+            <translation><!-- Router – 9000 ASR --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Router – ESeries</masterLabel>
+            <translation><!-- Router – ESeries --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Router – J2300</masterLabel>
+            <translation><!-- Router – J2300 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Router – J4300</masterLabel>
+            <translation><!-- Router – J4300 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Router – J6300</masterLabel>
+            <translation><!-- Router – J6300 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Router – MSeries</masterLabel>
+            <translation><!-- Router – MSeries --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Router – MXSeries</masterLabel>
+            <translation><!-- Router – MXSeries --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Router – Other</masterLabel>
+            <translation><!-- Router – Other --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Router – TSeries</masterLabel>
+            <translation><!-- Router – TSeries --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>SAN Switch</masterLabel>
+            <translation><!-- SAN Switch --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Server – Other</masterLabel>
+            <translation><!-- Server – Other --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Switch – 2960</masterLabel>
+            <translation><!-- Switch – 2960 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Switch – 3560</masterLabel>
+            <translation><!-- Switch – 3560 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Switch – 3750</masterLabel>
+            <translation><!-- Switch – 3750 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Switch – 4500</masterLabel>
+            <translation><!-- Switch – 4500 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Switch – 4900</masterLabel>
+            <translation><!-- Switch – 4900 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Switch – 6500</masterLabel>
+            <translation><!-- Switch – 6500 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Switch – Alpine</masterLabel>
+            <translation><!-- Switch – Alpine --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Switch – BlackDiamond</masterLabel>
+            <translation><!-- Switch – BlackDiamond --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Switch – EX Series</masterLabel>
+            <translation><!-- Switch – EX Series --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Switch – Other</masterLabel>
+            <translation><!-- Switch – Other --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Switch – PowerConnect 3000</masterLabel>
+            <translation><!-- Switch – PowerConnect 3000 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Switch – PowerConnect 5000</masterLabel>
+            <translation><!-- Switch – PowerConnect 5000 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Switch – PowerConnect 6000</masterLabel>
+            <translation><!-- Switch – PowerConnect 6000 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Switch – PowerConnect 8000</masterLabel>
+            <translation><!-- Switch – PowerConnect 8000 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Switch – ServerIron</masterLabel>
+            <translation><!-- Switch – ServerIron --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Switch – Summit</masterLabel>
+            <translation><!-- Switch – Summit --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>V-Max</masterLabel>
+            <translation><!-- V-Max --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Site 4 Name --></label>
+        <name>Site_4_Name__c</name>
+    </fields>
+    <fields>
+        <label><!-- OS Versions --></label>
+        <name>Site_4_OS_Versions__c</name>
+    </fields>
+    <fields>
+        <label><!-- Status --></label>
+        <name>Status__c</name>
+    </fields>
+    <fields>
+        <label><!-- Success Criteria --></label>
+        <name>Success_Criteria_Obj1__c</name>
+    </fields>
+    <fields>
+        <label><!-- Success Criteria --></label>
+        <name>Success_Criteria_Obj2__c</name>
+    </fields>
+    <fields>
+        <label><!-- Success Criteria --></label>
+        <name>Success_Criteria_Obj3__c</name>
+    </fields>
+    <fields>
+        <label><!-- Success Criteria --></label>
+        <name>Success_Criteria_Obj4__c</name>
+    </fields>
+    <fields>
+        <label><!-- Success Criteria --></label>
+        <name>Success_Criteria_Obj5__c</name>
+    </fields>
+    <fields>
+        <help><!-- When choosing Other in the what will be tested list, please elaborate on it here --></help>
+        <label><!-- Testing Notes --></label>
+        <name>Testing_Notes__c</name>
+    </fields>
+    <fields>
+        <label><!-- Verified BW (Mbps) --></label>
+        <name>Verified_BW_Mbps_Link1__c</name>
+    </fields>
+    <fields>
+        <label><!-- Verified BW (Mbps) --></label>
+        <name>Verified_BW_Mbps_Link2__c</name>
+    </fields>
+    <fields>
+        <label><!-- Verified BW (Mbps) --></label>
+        <name>Verified_BW_Mbps_Link3__c</name>
+    </fields>
+    <fields>
+        <label><!-- Verified BW (Mbps) --></label>
+        <name>Verified_BW_Mbps_Link4__c</name>
+    </fields>
+    <fields>
+        <label><!-- Verified BW (Mbps) --></label>
+        <name>Verified_BW_Mbps_Link5__c</name>
+    </fields>
+    <fields>
+        <label><!-- Verified BW (Mbps) --></label>
+        <name>Verified_BW_Mbps_Link6__c</name>
+    </fields>
+    <fields>
+        <label><!-- Verified Loss (%) --></label>
+        <name>Verified_Loss_Link1__c</name>
+    </fields>
+    <fields>
+        <label><!-- Verified Loss (%) --></label>
+        <name>Verified_Loss_Link2__c</name>
+    </fields>
+    <fields>
+        <label><!-- Verified Loss (%) --></label>
+        <name>Verified_Loss_Link3__c</name>
+    </fields>
+    <fields>
+        <label><!-- Verified Loss (%) --></label>
+        <name>Verified_Loss_Link4__c</name>
+    </fields>
+    <fields>
+        <label><!-- Verified Loss (%) --></label>
+        <name>Verified_Loss_Link5__c</name>
+    </fields>
+    <fields>
+        <label><!-- Verified Loss (%) --></label>
+        <name>Verified_Loss_Link6__c</name>
+    </fields>
+    <fields>
+        <label><!-- Verified RTT (ms) --></label>
+        <name>Verified_RTT_ms_Link1__c</name>
+    </fields>
+    <fields>
+        <label><!-- Verified RTT (ms) --></label>
+        <name>Verified_RTT_ms_Link2__c</name>
+    </fields>
+    <fields>
+        <label><!-- Verified RTT (ms) --></label>
+        <name>Verified_RTT_ms_Link3__c</name>
+    </fields>
+    <fields>
+        <label><!-- Verified RTT (ms) --></label>
+        <name>Verified_RTT_ms_Link4__c</name>
+    </fields>
+    <fields>
+        <label><!-- Verified RTT (ms) --></label>
+        <name>Verified_RTT_ms_Link5__c</name>
+    </fields>
+    <fields>
+        <label><!-- Verified RTT (ms) --></label>
+        <name>Verified_RTT_ms_Link6__c</name>
+    </fields>
+    <fields>
+        <label><!-- What wll be tested --></label>
+        <name>What_wll_be_tested__c</name>
+        <picklistValues>
+            <masterLabel>3Par</masterLabel>
+            <translation><!-- 3Par --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Aspera</masterLabel>
+            <translation><!-- Aspera --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Avamar</masterLabel>
+            <translation><!-- Avamar --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Brocade 7500 FCIP</masterLabel>
+            <translation><!-- Brocade 7500 FCIP --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Brocade Protocol 61</masterLabel>
+            <translation><!-- Brocade Protocol 61 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>CIFS – SMB</masterLabel>
+            <translation><!-- CIFS – SMB --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>CIFS – SMB2</masterLabel>
+            <translation><!-- CIFS – SMB2 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>CVS</masterLabel>
+            <translation><!-- CVS --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Celerra Replicator</masterLabel>
+            <translation><!-- Celerra Replicator --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Centera</masterLabel>
+            <translation><!-- Centera --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Citrix VDI</masterLabel>
+            <translation><!-- Citrix VDI --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Citrix XenApp</masterLabel>
+            <translation><!-- Citrix XenApp --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Clearcase</masterLabel>
+            <translation><!-- Clearcase --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Commvault</masterLabel>
+            <translation><!-- Commvault --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Compellent</masterLabel>
+            <translation><!-- Compellent --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>DL3D</masterLabel>
+            <translation><!-- DL3D --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>DataDomain</masterLabel>
+            <translation><!-- DataDomain --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Documentum</masterLabel>
+            <translation><!-- Documentum --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>DoubleTake</masterLabel>
+            <translation><!-- DoubleTake --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Equallogic</masterLabel>
+            <translation><!-- Equallogic --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Evault</masterLabel>
+            <translation><!-- Evault --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>FTP</masterLabel>
+            <translation><!-- FTP --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>HDS Universal Replicator</masterLabel>
+            <translation><!-- HDS Universal Replicator --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>HTTP</masterLabel>
+            <translation><!-- HTTP --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>IBM - Other</masterLabel>
+            <translation><!-- IBM - Other --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>IBM DB2</masterLabel>
+            <translation><!-- IBM DB2 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Interwoven</masterLabel>
+            <translation><!-- Interwoven --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>LDAP</masterLabel>
+            <translation><!-- LDAP --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Lotus Notes</masterLabel>
+            <translation><!-- Lotus Notes --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>MAPI</masterLabel>
+            <translation><!-- MAPI --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>MS-SQL</masterLabel>
+            <translation><!-- MS-SQL --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>MirrorView</masterLabel>
+            <translation><!-- MirrorView --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>NFS – TCP</masterLabel>
+            <translation><!-- NFS – TCP --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>NFS – UDP</masterLabel>
+            <translation><!-- NFS – UDP --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Oracle Dataguard</masterLabel>
+            <translation><!-- Oracle Dataguard --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Oracle – Other</masterLabel>
+            <translation><!-- Oracle – Other --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Other Application</masterLabel>
+            <translation><!-- Other Application --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Other CRM</masterLabel>
+            <translation><!-- Other CRM --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Other ERP</masterLabel>
+            <translation><!-- Other ERP --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Other File Transfer</masterLabel>
+            <translation><!-- Other File Transfer --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Other Replication</masterLabel>
+            <translation><!-- Other Replication --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Other SQL</masterLabel>
+            <translation><!-- Other SQL --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>RDP</masterLabel>
+            <translation><!-- RDP --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>RecoverPoint</masterLabel>
+            <translation><!-- RecoverPoint --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Revit</masterLabel>
+            <translation><!-- Revit --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>SANCopy</masterLabel>
+            <translation><!-- SANCopy --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>SAP ECC</masterLabel>
+            <translation><!-- SAP ECC --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>SRDF – Adaptive Copy</masterLabel>
+            <translation><!-- SRDF – Adaptive Copy --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>SRDF/A</masterLabel>
+            <translation><!-- SRDF/A --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>SRDF/DM</masterLabel>
+            <translation><!-- SRDF/DM --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>SSL/HTTPS</masterLabel>
+            <translation><!-- SSL/HTTPS --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>SharePoint</masterLabel>
+            <translation><!-- SharePoint --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>SnapMirror</masterLabel>
+            <translation><!-- SnapMirror --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>SnapVault</masterLabel>
+            <translation><!-- SnapVault --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Symantec Vol. Replication</masterLabel>
+            <translation><!-- Symantec Vol. Replication --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Symitar</masterLabel>
+            <translation><!-- Symitar --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Syslog</masterLabel>
+            <translation><!-- Syslog --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>VDL</masterLabel>
+            <translation><!-- VDL --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Veritas Volume Replicator</masterLabel>
+            <translation><!-- Veritas Volume Replicator --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Video Conferencing</masterLabel>
+            <translation><!-- Video Conferencing --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Video Streaming</masterLabel>
+            <translation><!-- Video Streaming --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>VoIP</masterLabel>
+            <translation><!-- VoIP --></translation>
+        </picklistValues>
+    </fields>
+    <layouts>
+        <layout>POC Summary Layout</layout>
+        <sections>
+            <label><!-- Add&apos;l Links --></label>
+            <section>Add&apos;l Links</section>
+        </sections>
+        <sections>
+            <label><!-- Add&apos;l Sites --></label>
+            <section>Add&apos;l Sites</section>
+        </sections>
+        <sections>
+            <label><!-- Contacts --></label>
+            <section>Contacts</section>
+        </sections>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+        <sections>
+            <label><!-- GMS Information --></label>
+            <section>GMS Information</section>
+        </sections>
+        <sections>
+            <label><!-- Link Information --></label>
+            <section>Link Information</section>
+        </sections>
+        <sections>
+            <label><!-- Objectives --></label>
+            <section>Objectives</section>
+        </sections>
+        <sections>
+            <label><!-- Opportunity Information --></label>
+            <section>Opportunity Information</section>
+        </sections>
+        <sections>
+            <label><!-- POC Timeline --></label>
+            <section>POC Timeline</section>
+        </sections>
+        <sections>
+            <label><!-- Site Information --></label>
+            <section>Site Information</section>
+        </sections>
+        <sections>
+            <label><!-- Testing Information --></label>
+            <section>Testing Information</section>
+        </sections>
+    </layouts>
+    <startsWith>Consonant</startsWith>
+    <webLinks>
+        <label><!-- Send_Email --></label>
+        <name>Send_Email</name>
+    </webLinks>
+</CustomObjectTranslation>

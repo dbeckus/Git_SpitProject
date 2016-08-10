@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomTab xmlns="http://soap.sforce.com/2006/04/metadata">
+    <frameHeight>8000</frameHeight>
+    <hasSidebar>false</hasSidebar>
+    <label>Clicktools</label>
+    <mobileReady>false</mobileReady>
+    <motif>Custom6: Triangle</motif>
+    <url>https://www.clicktools.com/dashboard/salesforce.jsp?email={!User.Email}&amp;sfsid={!User.Session_ID}&amp;serverurl={!API.Partner_Server_URL_120}</url>
+    <urlEncodingKey>UTF-8</urlEncodingKey>
+</CustomTab>

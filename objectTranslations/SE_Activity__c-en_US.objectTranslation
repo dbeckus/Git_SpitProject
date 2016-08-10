@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>SE Activity</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>SE Activities</value>
+    </caseValues>
+    <fields>
+        <help><!-- Used to record the date of the activity --></help>
+        <label><!-- Activity Date --></label>
+        <name>Activity_Date__c</name>
+    </fields>
+    <fields>
+        <help><!-- Bugzillia number --></help>
+        <label><!-- Bug Id --></label>
+        <name>Bug_Id__c</name>
+    </fields>
+    <fields>
+        <label><!-- Comments --></label>
+        <name>Comments__c</name>
+    </fields>
+    <fields>
+        <label><!-- GMS In POC --></label>
+        <name>GMS_In_POC__c</name>
+        <picklistValues>
+            <masterLabel>GMS Deployed</masterLabel>
+            <translation><!-- GMS Deployed --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>GMS Deployed - Reports forwarded to Evalsupport</masterLabel>
+            <translation><!-- GMS Deployed - Reports forwarded to Evalsupport --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>None</masterLabel>
+            <translation><!-- None --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <help><!-- Enter the release information for the GMS used in this POC --></help>
+        <label><!-- GMS Release --></label>
+        <name>GMS_Release__c</name>
+    </fields>
+    <fields>
+        <help><!-- set flag for latest status update --></help>
+        <label><!-- Latest Health Update --></label>
+        <name>Latest_Update__c</name>
+    </fields>
+    <fields>
+        <help><!-- use this if the activity is realted to a lead --></help>
+        <label><!-- Lead --></label>
+        <name>Lead__c</name>
+        <relationshipLabel><!-- SE Activities --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Opportunity --></label>
+        <name>Opportunity__c</name>
+        <relationshipLabel><!-- SE Activities --></relationshipLabel>
+    </fields>
+    <fields>
+        <help><!-- Display Status of POC for Status Update type entries. Black = Awaiting Start, Orange = Stale --></help>
+        <label><!-- POC Health --></label>
+        <name>POC_Health__c</name>
+        <picklistValues>
+            <masterLabel>Black</masterLabel>
+            <translation><!-- Black --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Green</masterLabel>
+            <translation><!-- Green --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Orange</masterLabel>
+            <translation><!-- Orange --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Red</masterLabel>
+            <translation><!-- Red --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Yellow</masterLabel>
+            <translation><!-- Yellow --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <help><!-- for issue entries that have a case related to them --></help>
+        <label><!-- Related Case --></label>
+        <name>Related_Case__c</name>
+        <relationshipLabel><!-- SE Activities --></relationshipLabel>
+    </fields>
+    <fields>
+        <help><!-- issue you type that has an RMA realted to them --></help>
+        <label><!-- Related RMA --></label>
+        <name>Related_RMA__c</name>
+        <relationshipLabel><!-- SE Activities --></relationshipLabel>
+    </fields>
+    <fields>
+        <help><!-- Identifiy which release is relevant to this status update --></help>
+        <label><!-- Release --></label>
+        <name>Release__c</name>
+    </fields>
+    <fields>
+        <help><!-- Use this to categorize the activity --></help>
+        <label><!-- Type --></label>
+        <name>Type__c</name>
+        <picklistValues>
+            <masterLabel>BUG</masterLabel>
+            <translation><!-- BUG --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Document Published</masterLabel>
+            <translation><!-- Document Published --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Environmental Issue</masterLabel>
+            <translation><!-- Environmental Issue --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Health Update</masterLabel>
+            <translation><!-- Health Update --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Marketing Event</masterLabel>
+            <translation><!-- Marketing Event --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Missing Feature</masterLabel>
+            <translation><!-- Missing Feature --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>New Customer Meeting</masterLabel>
+            <translation><!-- New Customer Meeting --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>POC Closed</masterLabel>
+            <translation><!-- POC Closed --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>POC Started</masterLabel>
+            <translation><!-- POC Started --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>POC Update</masterLabel>
+            <translation><!-- POC Update --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Partner Support</masterLabel>
+            <translation><!-- Partner Support --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Post Sale</masterLabel>
+            <translation><!-- Post Sale --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>RMA</masterLabel>
+            <translation><!-- RMA --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Technical Disapproval</masterLabel>
+            <translation><!-- Technical Disapproval --></translation>
+        </picklistValues>
+    </fields>
+    <layouts>
+        <layout>SE Activity Layout</layout>
+        <sections>
+            <label><!-- Comments --></label>
+            <section>Comments</section>
+        </sections>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+        <sections>
+            <label><!-- Report Information --></label>
+            <section>Report Information</section>
+        </sections>
+    </layouts>
+    <startsWith>Consonant</startsWith>
+    <validationRules>
+        <errorMessage><!-- POC Health must be set upon health updates --></errorMessage>
+        <name>POC_Health_Check</name>
+    </validationRules>
+</CustomObjectTranslation>

@@ -1,0 +1,49 @@
+<apex:page controller="ForecastingPipelineChangesController" tabStyle="SP_Forecasting__tab">
+    <apex:stylesheet value="{!URLFOR($Resource.Forecasting, 'FiscalQuarter.css')}" />
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" />
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular.min.js"></script>
+    <script>
+        var fiscalQtr = "{!$CurrentPage.parameters.quarter}";
+        var currentUser = "{!$CurrentPage.parameters.uid}";
+        var listType = "{!$CurrentPage.parameters.type}";
+    </script>
+    <script src="{!URLFOR($Resource.Forecasting, 'forecastTrendingChange.js')}" type="text/javascript"></script>
+    <apex:sectionHeader subtitle="{!subTitle}" title="{!fiscalQuarter + ' - ' + Username}" />
+    <div ng-app="spForecastingApp" ng-controller="spForecastingTrendingChangeCtrl">
+    <apex:form >
+        <apex:pageBlock >
+            <apex:pageBlockSection columns="1">
+                <img src="/img/loading.gif" alt="Loading..." ng-show="loading"/>
+                <table class="report borderReport" width="100%">
+                    <tr class="header">
+                        <th><a class="actionLink" ng-click="sortOppList('oppName')"><span ng-class="{'fa':true, 'fa-caret-up': !sortReverse, 'fa-caret-down':sortReverse}" ng-show="sortBy=='oppName'">&nbsp;</span>Opportunity Name</a></th>
+                        <th><a class="actionLink" ng-click="sortOppList('amount')"><span ng-class="{'fa':true, 'fa-caret-up': !sortReverse, 'fa-caret-down':sortReverse}" ng-show="sortBy=='amount'">&nbsp;</span>Amount</a></th>
+                        <th><a class="actionLink" ng-click="sortOppList('expectedRevenue')"><span ng-class="{'fa':true, 'fa-caret-up': !sortReverse, 'fa-caret-down':sortReverse}" ng-show="sortBy=='expectedRevenue'">&nbsp;</span>Expected Revenue</a></th>
+                        <th><a class="actionLink" ng-click="sortOppList('probability')"><span ng-class="{'fa':true, 'fa-caret-up': !sortReverse, 'fa-caret-down':sortReverse}" ng-show="sortBy=='probability'">&nbsp;</span>Probability (%)</a></th>
+                        <th><a class="actionLink" ng-click="sortOppList('closeDate')"><span ng-class="{'fa':true, 'fa-caret-up': !sortReverse, 'fa-caret-down':sortReverse}" ng-show="sortBy=='closeDate'">&nbsp;</span>Close Date</a></th>
+                        <th><a class="actionLink" ng-click="sortOppList('forecastCategory')"><span ng-class="{'fa':true, 'fa-caret-up': !sortReverse, 'fa-caret-down':sortReverse}" ng-show="sortBy=='forecastCategory'">&nbsp;</span>Forecast Category</a></th>
+                        <th><a class="actionLink" ng-click="sortOppList('type')"><span ng-class="{'fa':true, 'fa-caret-up': !sortReverse, 'fa-caret-down':sortReverse}" ng-show="sortBy=='type'">&nbsp;</span>Type</a></th>
+                        <th><a class="actionLink" ng-click="sortOppList('primaryPartnerName')"><span ng-class="{'fa':true, 'fa-caret-up': !sortReverse, 'fa-caret-down':sortReverse}" ng-show="sortBy=='primaryPartnerName'">&nbsp;</span>Primary Partner</a></th>
+                        <th><a class="actionLink" ng-click="sortOppList('registeredPartnerName')"><span ng-class="{'fa':true, 'fa-caret-up': !sortReverse, 'fa-caret-down':sortReverse}" ng-show="sortBy=='registeredPartnerName'">&nbsp;</span>Registered Partner</a></th>
+                        <th><a class="actionLink" ng-click="sortOppList('ownerName')"><span ng-class="{'fa':true, 'fa-caret-up': !sortReverse, 'fa-caret-down':sortReverse}" ng-show="sortBy=='ownerName'">&nbsp;</span>Owner</a></th>
+                        <th><a class="actionLink" ng-click="sortOppList('technicalResponsibleName')"><span ng-class="{'fa':true, 'fa-caret-up': !sortReverse, 'fa-caret-down':sortReverse}" ng-show="sortBy=='technicalResponsibleName'">&nbsp;</span>Technical Responsible</a></th>
+                    </tr>
+                    <tr ng-class="{'line': !($index % 2), 'line2': !!($index % 2) }" ng-repeat="opp in opportunities | orderBy:sortBy:sortReverse">
+                        <td><a class="link" href="/{{opp.oppId}}" target="_blank">{{opp.oppName}}</a></td>
+                        <td ng-class="{'em': opp.amount<=0, 'number': true}">{{formatDecimal(opp.amount, 'K')}}</td>
+                        <td ng-class="{'em': opp.amount<=0, 'number': true}">{{formatDecimal(opp.expectedRevenue, 'K')}}</td>
+                        <td class="center">{{opp.probability}}%</td>
+                        <td ng-class="{'em': dateInThePast(opp.closeDate)}">{{opp.closeDate | date: 'MM/dd/yyyy'}}</td>
+                        <td>{{opp.forecastCategory}}</td>
+                        <td>{{opp.type}}</td>
+                        <td><a class="link" href="/{{opp.primaryPartnerId}}" target="_blank">{{opp.primaryPartnerName}}</a></td>
+                        <td><a class="link" href="/{{opp.registeredPartnerId}}" target="_blank">{{opp.registeredPartnerName}}</a></td>
+                        <td><a class="link" href="/{{opp.ownerId}}" target="_blank">{{opp.ownerName}}</a></td>
+                        <td><a class="link" href="/{{opp.technicalResponsibleId}}" target="_blank">{{opp.technicalResponsibleName}}</a></td>
+                    </tr>
+                </table>
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+    </apex:form>
+    </div>
+</apex:page>

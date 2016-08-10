@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<HomePageComponent xmlns="http://soap.sforce.com/2006/04/metadata">
+    <links>NX_Appliance_HW_SW_Compatibility_Matrix</links>
+    <links>End_of_Life</links>
+    <links>Silver_Peak_Security_Ad</links>
+    <pageComponentType>links</pageComponentType>
+</HomePageComponent>

@@ -1,0 +1,2443 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<AssignmentRules xmlns="http://soap.sforce.com/2006/04/metadata">
+    <assignmentRule>
+        <fullName>RSM Territory Distribution</fullName>
+        <active>false</active>
+        <ruleEntry>
+            <booleanFilter>(1 Or 2 OR 3 OR 4 OR 5 OR 6 OR 7 OR 8 OR 11) AND ( 9 OR 10)</booleanFilter>
+            <criteriaItems>
+                <field>Lead.Company</field>
+                <operation>contains</operation>
+                <value>Apple,Samsung,Cisco,Oracle,American Express</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.Company</field>
+                <operation>contains</operation>
+                <value>T-Mobile,Motorola,Applied Materials,Yahoo</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.Company</field>
+                <operation>contains</operation>
+                <value>SunGard,VMWare,VmWare,vmware,Adobe,Equinix</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.Company</field>
+                <operation>contains</operation>
+                <value>Rackspace,Linkedin,Hitachi,Wells Fargo,Agilent</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.Company</field>
+                <operation>contains</operation>
+                <value>Symantec,Sanmina,Schwab,Verifone</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.Company</field>
+                <operation>contains</operation>
+                <value>Synopsys,Savvis,Drobbox,DropBox,Drop Box</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.Company</field>
+                <operation>contains</operation>
+                <value>Box.net,Boxnet,BoxNet,Twitter</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.Company</field>
+                <operation>contains</operation>
+                <value>Flextronics,Electronic Arts</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.Ownership_Routing__c</field>
+                <operation>equals</operation>
+                <value>Route to RSM</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.Ownership_Routing__c</field>
+                <operation>equals</operation>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.Company</field>
+                <operation>equals</operation>
+                <value>HP,IBM,AMEX</value>
+            </criteriaItems>
+        </ruleEntry>
+        <ruleEntry>
+            <booleanFilter>(1 OR 2 OR 3 OR 4 OR 5) AND ( 6 OR 7)</booleanFilter>
+            <criteriaItems>
+                <field>Lead.Company</field>
+                <operation>equals</operation>
+                <value>AT&amp;T,At&amp;t,Dell,Intuit,Google,Intel,Wind River,McAfee,Mcafee</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.Company</field>
+                <operation>equals</operation>
+                <value>Autodesk,Buzzsaw,eBay,ebay,PayPal,Pay Pal,Paypal,BillMeLater,Bill Me Later</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.Company</field>
+                <operation>equals</operation>
+                <value>Workday,Intermedia,Facebook,Juniper,Chevron</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.Company</field>
+                <operation>equals</operation>
+                <value>KLA-Tencor,KLA Tencor,Kaiser</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.Company</field>
+                <operation>equals</operation>
+                <value>Polycom,Visa</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.Ownership_Routing__c</field>
+                <operation>equals</operation>
+                <value>Route to RSM</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.Ownership_Routing__c</field>
+                <operation>equals</operation>
+            </criteriaItems>
+        </ruleEntry>
+        <ruleEntry>
+            <formula>AND(OR(
+Contains(Country, &apos;Belgium&apos; ),
+Contains(Country, &apos;Israel&apos; ),
+Contains(Country, &apos;Luxemburg&apos; ),
+Contains(Country, &apos;Luxembourg&apos; ),
+Contains(Country, &apos;France&apos; ),
+Contains(Country, &apos;Spain&apos; ),
+Contains(Country, &apos;Greece&apos; ),
+Contains(Country, &apos;Italy&apos; ),
+Contains(Country, &apos;Portugal&apos; ),
+Contains(Country, &apos;Iberia&apos; )),
+OR( ISPICKVAL(Ownership_Routing__c,&apos;&apos;), ISPICKVAL(Ownership_Routing__c,&apos;Route to RSM&apos;)))</formula>
+        </ruleEntry>
+        <ruleEntry>
+            <booleanFilter>1 AND (2 OR 3)</booleanFilter>
+            <criteriaItems>
+                <field>Lead.Country</field>
+                <operation>equals</operation>
+                <value>AT</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.Ownership_Routing__c</field>
+                <operation>equals</operation>
+                <value>Route to RSM</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.Ownership_Routing__c</field>
+                <operation>equals</operation>
+            </criteriaItems>
+        </ruleEntry>
+        <ruleEntry>
+            <booleanFilter>1 AND (2 OR 3)</booleanFilter>
+            <criteriaItems>
+                <field>Lead.Assignment_Region__c</field>
+                <operation>startsWith</operation>
+                <value>LAT</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.Ownership_Routing__c</field>
+                <operation>equals</operation>
+                <value>Route to RSM</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.Ownership_Routing__c</field>
+                <operation>equals</operation>
+            </criteriaItems>
+        </ruleEntry>
+        <ruleEntry>
+            <formula>AND(OR(Contains(Country, &apos;BOLIVIA&apos; ),
+Contains(Country, &apos;Brazil&apos; ),
+Contains(Country, &apos;Brasil&apos; ),
+Contains(Country, &apos;Argentina&apos; ),
+Contains(Country, &apos;Colombia&apos; ),
+Contains(Country, &apos;Venezuela&apos; ), 
+Contains(Country, &apos;Chile&apos; ), 
+Contains(Country, &apos;Uraguay&apos; ), 
+Contains(Country, &apos;Argentina&apos; ), 
+Contains(Country, &apos;Peru&apos; ),
+Contains(Country, &apos;Ecuador&apos; ),
+Contains(Country, &apos;Paraguay&apos; ), Country= &apos;BR&apos;), 
+OR( ISPICKVAL(Ownership_Routing__c,&apos;&apos;), ISPICKVAL(Ownership_Routing__c,&apos;Route to RSM&apos;)))</formula>
+        </ruleEntry>
+        <ruleEntry>
+            <formula>AND(OR(Contains(Country, &apos;South Africa&apos; ),
+Contains(Country, &apos;Turkey&apos; ),
+Contains(Country, &apos;Egypt&apos; ),
+Contains(Country, &apos;Libya&apos; ),
+Contains(Country, &apos;Zambia&apos; ),
+Contains(Country, &apos;Saudi Arabia&apos; ),
+Contains(Country, &apos;Tanzania&apos; ),
+Contains(Country, &apos;Egypt&apos; ),
+Contains(Country, &apos;Kenya&apos; ),
+Contains(Country, &apos;Saudi Arabia&apos; ),
+Contains(Country, &apos;South Africa&apos; ),
+Contains(Country, &apos;United Arab Emirates&apos; )), 
+OR( ISPICKVAL(Ownership_Routing__c,&apos;&apos;), ISPICKVAL(Ownership_Routing__c,&apos;Route to RSM&apos;)))</formula>
+        </ruleEntry>
+        <ruleEntry>
+            <formula>AND(OR(
+Contains(Country, &apos;Mexico&apos; ), 
+
+Contains(Country, &apos;MEXICO&apos; )), 
+OR( ISPICKVAL(Ownership_Routing__c,&apos;&apos;), ISPICKVAL(Ownership_Routing__c,&apos;Route to RSM&apos;)))</formula>
+        </ruleEntry>
+        <ruleEntry>
+            <booleanFilter>(1 OR 2) AND (3 OR 4)</booleanFilter>
+            <criteriaItems>
+                <field>Lead.Country</field>
+                <operation>equals</operation>
+                <value>UK</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.Country</field>
+                <operation>equals</operation>
+                <value>BE</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.Ownership_Routing__c</field>
+                <operation>equals</operation>
+                <value>Route to RSM</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.Ownership_Routing__c</field>
+                <operation>equals</operation>
+            </criteriaItems>
+        </ruleEntry>
+        <ruleEntry>
+            <booleanFilter>(1 OR 2 OR 3 OR 4) AND (5 OR 6)</booleanFilter>
+            <criteriaItems>
+                <field>Lead.Country</field>
+                <operation>equals</operation>
+                <value>UK</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.Country</field>
+                <operation>equals</operation>
+                <value>United Kingdom</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.Country</field>
+                <operation>equals</operation>
+                <value>England</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.Country</field>
+                <operation>equals</operation>
+                <value>GB</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.Ownership_Routing__c</field>
+                <operation>equals</operation>
+                <value>Route to RSM</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.Ownership_Routing__c</field>
+                <operation>equals</operation>
+            </criteriaItems>
+        </ruleEntry>
+        <ruleEntry>
+            <formula>AND(OR(
+
+Contains(Country, &apos;Netherlands&apos; ),
+Contains(Country, &apos;Sweden&apos; ),
+Contains(Country, &apos;Norway&apos; ),
+Contains(Country, &apos;Denmark&apos; ),
+Contains(Country, &apos;United Kingdom&apos; ),
+Contains(Country, &apos;Great Britain&apos; ),
+Contains(Country, &apos;Gbr&apos; ),
+Contains(Country, &apos;Gb&apos; ),
+Contains(Country, &apos;Ireland&apos; ),
+Contains(Country, &apos;Northern Ireland&apos; ),
+Contains(Country, &apos;Finland&apos; ),
+Contains(Country, &apos;Estonia&apos; ),
+Contains(Country, &apos;Lithuania&apos; ),
+Contains(Country, &apos;Latvia&apos; ),
+Contains(Country, &apos;Iceland&apos; ),
+Contains(Country, &apos;Finland&apos; )), 
+OR( ISPICKVAL(Ownership_Routing__c,&apos;&apos;), ISPICKVAL(Ownership_Routing__c,&apos;Route to RSM&apos;)))</formula>
+        </ruleEntry>
+        <ruleEntry>
+            <formula>AND(OR( 
+Contains(Country, &apos;Tajikistan&apos; ), 
+Contains(Country, &apos;Kyrgyzstan&apos; ), 
+Contains(Country, &apos;Turkmenistan&apos; ), 
+Contains(Country, &apos;Uzbekistan&apos; ), 
+Contains(Country, &apos;Kazakhstan&apos; ), 
+Contains(Country, &apos;Azerbaijan&apos; ), 
+Contains(Country, &apos;Armenia&apos; ), 
+Contains(Country, &apos;Belarus&apos; ), 
+Contains(Country, &apos;Moldova&apos; ), 
+Contains(Country, &apos;Ukraine&apos; ), 
+Contains(Country, &apos;Ukrain&apos; ), 
+Contains(Country, &apos;Slovenia&apos; )), 
+OR( ISPICKVAL(Ownership_Routing__c,&apos;&apos;), ISPICKVAL(Ownership_Routing__c,&apos;Route to RSM&apos;)))</formula>
+        </ruleEntry>
+        <ruleEntry>
+            <booleanFilter>(1 OR 2 OR 3 OR 4) AND (5 OR 6)</booleanFilter>
+            <criteriaItems>
+                <field>Lead.Country</field>
+                <operation>contains</operation>
+                <value>Australia</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.Country</field>
+                <operation>contains</operation>
+                <value>New Zealand</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.Country</field>
+                <operation>equals</operation>
+                <value>AU</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.Country</field>
+                <operation>equals</operation>
+                <value>NZ</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.Ownership_Routing__c</field>
+                <operation>equals</operation>
+                <value>Route to RSM</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.Ownership_Routing__c</field>
+                <operation>equals</operation>
+            </criteriaItems>
+        </ruleEntry>
+        <ruleEntry>
+            <formula>AND(OR(Contains(Country, &apos;Cuba&apos; ),
+Contains(Country, &apos;Mexico&apos; ),
+Contains(Country, &apos;Puerto Rico&apos; ),
+Contains(Country, &apos;BARBADOS&apos; ),
+Contains(Country, &apos;CAYMAN ISLANDS&apos; ),
+Contains(Country, &apos;Costa Rica&apos; ),
+Contains(Country, &apos;Dominican Republic&apos; ),
+Contains(Country, &apos;MEXICO&apos; ),
+Contains(Country, &apos;Panama&apos; ),
+Contains(Country, &apos;JAMAICA&apos; ),
+Contains(Country, &apos;Netherland Antilles&apos; )), 
+OR( ISPICKVAL(Ownership_Routing__c,&apos;&apos;), ISPICKVAL(Ownership_Routing__c,&apos;Route to RSM&apos;)))</formula>
+        </ruleEntry>
+        <ruleEntry>
+            <formula>AND(OR(
+Contains(Country, &apos;Germany&apos; ),
+Contains(Country, &apos;Russia&apos; ),
+Contains(Country, &apos;Russian Federation&apos; ),
+Contains(Country, &apos;Poland&apos; ),
+Contains(Country, &apos;Ukraine&apos; ),
+Contains(Country, &apos;Romania&apos; ),
+Contains(Country, &apos;Slovakia&apos; ),
+Contains(Country, &apos;Hungary&apos; ),
+Contains(Country, &apos;Serbia&apos; ),
+Contains(Country, &apos;Bulgaria&apos; ),
+Contains(Country, &apos;Austria&apos; ),
+Contains(Country, &apos;Aus&apos; ),
+Contains(Country, &apos;Switzerland&apos; ),
+Contains(Country, &apos;Czech Republic&apos; )), 
+OR( ISPICKVAL(Ownership_Routing__c,&apos;&apos;), ISPICKVAL(Ownership_Routing__c,&apos;Route to RSM&apos;)))</formula>
+        </ruleEntry>
+        <ruleEntry>
+            <booleanFilter>1 AND (2 OR 3)</booleanFilter>
+            <criteriaItems>
+                <field>Lead.Assignment_Region__c</field>
+                <operation>equals</operation>
+                <value>EMEA-UK+MEA</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.Ownership_Routing__c</field>
+                <operation>equals</operation>
+                <value>Route to RSM</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.Ownership_Routing__c</field>
+                <operation>equals</operation>
+            </criteriaItems>
+        </ruleEntry>
+        <ruleEntry>
+            <criteriaItems>
+                <field>Lead.Assignment_Region__c</field>
+                <operation>startsWith</operation>
+                <value>EMEA</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.Ownership_Routing__c</field>
+                <operation>equals</operation>
+                <value>Route to RSM</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.Ownership_Routing__c</field>
+                <operation>equals</operation>
+            </criteriaItems>
+        </ruleEntry>
+        <ruleEntry>
+            <formula>AND(OR(Contains(Country, &apos;Korea, Republic Of&apos; ),
+Contains(Country, &apos;Malaysia&apos; ),
+Contains(Country, &apos;Singapore&apos; ),
+Contains(Country, &apos;Indonesia&apos; ),
+Contains(Country, &apos;Vietnam&apos; ),
+Contains(Country, &apos;Thailand&apos; ),
+Contains(Country, &apos;Burma&apos; ),
+Contains(Country, &apos;Philippines&apos; ),
+Contains(Country, &apos;Phillippines&apos; ),
+Contains(Country, &apos;SINGAPORE&apos; )), 
+OR( ISPICKVAL(Ownership_Routing__c,&apos;&apos;), ISPICKVAL(Ownership_Routing__c,&apos;Route to RSM&apos;)))</formula>
+        </ruleEntry>
+        <ruleEntry>
+            <formula>AND(OR(Contains(Country, &apos;India&apos; ),
+Contains(Country, &apos;Brunei&apos; ),
+Contains(Country, &apos;INDIA&apos; ),
+Contains(Country, &apos;INDONESIA&apos; ),
+Contains(Country, &apos;Sri Lanka&apos; ),
+Contains(Country, &apos;PHILIPPINES&apos; )), 
+OR( ISPICKVAL(Ownership_Routing__c,&apos;&apos;), ISPICKVAL(Ownership_Routing__c,&apos;Route to RSM&apos;)))</formula>
+        </ruleEntry>
+        <ruleEntry>
+            <criteriaItems>
+                <field>Lead.Country</field>
+                <operation>equals</operation>
+                <value>IN</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.Ownership_Routing__c</field>
+                <operation>equals</operation>
+                <value>Route to RSM</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.Ownership_Routing__c</field>
+                <operation>equals</operation>
+            </criteriaItems>
+        </ruleEntry>
+        <ruleEntry>
+            <formula>AND(OR(Contains(Country, &apos;China, Republic of&apos; ),
+Contains(Country, &apos;China, People Republic of&apos; ),
+Contains(Country, &apos;China&apos; ),
+Contains(Country, &apos;Korea&apos; ),
+Contains(Country, &apos;Hong Kong&apos; ),
+Contains(Country, &apos;Taiwan&apos; ),
+Contains(Country, &apos;Mongolia&apos; )), 
+OR( ISPICKVAL(Ownership_Routing__c,&apos;&apos;), ISPICKVAL(Ownership_Routing__c,&apos;Route to RSM&apos;)))</formula>
+        </ruleEntry>
+        <ruleEntry>
+            <formula>AND(OR(Contains(Country, &apos;Japan&apos; ),
+Contains(Country, &apos;Jpn&apos; ),
+Contains(Country, &apos;JAPAN&apos; ),
+Contains(Country, &apos;JPN&apos; ),
+Contains(Country, &apos;japan&apos; ),
+Contains(Country, &apos;jpn&apos; )), 
+OR( ISPICKVAL(Ownership_Routing__c,&apos;&apos;), ISPICKVAL(Ownership_Routing__c,&apos;Route to RSM&apos;)))</formula>
+        </ruleEntry>
+        <ruleEntry>
+            <booleanFilter>1 AND (2 OR 3)</booleanFilter>
+            <criteriaItems>
+                <field>Lead.Assignment_Region__c</field>
+                <operation>equals</operation>
+                <value>APAC-JAPAN</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.Ownership_Routing__c</field>
+                <operation>equals</operation>
+                <value>Route to RSM</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.Ownership_Routing__c</field>
+                <operation>equals</operation>
+            </criteriaItems>
+        </ruleEntry>
+        <ruleEntry>
+            <criteriaItems>
+                <field>Lead.Assignment_Region__c</field>
+                <operation>startsWith</operation>
+                <value>APAC</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.Ownership_Routing__c</field>
+                <operation>equals</operation>
+                <value>Route to RSM</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.Ownership_Routing__c</field>
+                <operation>equals</operation>
+            </criteriaItems>
+        </ruleEntry>
+        <ruleEntry>
+            <criteriaItems>
+                <field>Lead.Country</field>
+                <operation>equals</operation>
+                <value>CA,Canada</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.Ownership_Routing__c</field>
+                <operation>equals</operation>
+                <value>Route to RSM</value>
+            </criteriaItems>
+        </ruleEntry>
+        <ruleEntry>
+            <booleanFilter>(1 OR 2) AND 3 AND 4</booleanFilter>
+            <criteriaItems>
+                <field>Lead.State</field>
+                <operation>equals</operation>
+                <value>ON</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.State</field>
+                <operation>equals</operation>
+                <value>Ontario</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.PhoneAreaCode__c</field>
+                <operation>contains</operation>
+                <value>613</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.Ownership_Routing__c</field>
+                <operation>equals</operation>
+                <value>Route to RSM</value>
+            </criteriaItems>
+        </ruleEntry>
+        <ruleEntry>
+            <booleanFilter>(1 OR 2 OR 3 OR 4 OR 5 OR 6) AND 7</booleanFilter>
+            <criteriaItems>
+                <field>Lead.State</field>
+                <operation>equals</operation>
+                <value>MB</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.State</field>
+                <operation>equals</operation>
+                <value>ON</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.State</field>
+                <operation>equals</operation>
+                <value>Manitoba</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.State</field>
+                <operation>equals</operation>
+                <value>Ontario</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.State</field>
+                <operation>equals</operation>
+                <value>NU</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.State</field>
+                <operation>equals</operation>
+                <value>Nuvarut</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.Ownership_Routing__c</field>
+                <operation>equals</operation>
+                <value>Route to RSM</value>
+            </criteriaItems>
+        </ruleEntry>
+        <ruleEntry>
+            <booleanFilter>(1 OR 2 OR 3 OR 4 OR 5 OR 6 Or 7 OR 8 OR 9 OR 10) AND 11</booleanFilter>
+            <criteriaItems>
+                <field>Lead.State</field>
+                <operation>equals</operation>
+                <value>QC</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.State</field>
+                <operation>equals</operation>
+                <value>Quebec</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.State</field>
+                <operation>equals</operation>
+                <value>NB</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.State</field>
+                <operation>equals</operation>
+                <value>New Brunswick</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.State</field>
+                <operation>equals</operation>
+                <value>NL</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.State</field>
+                <operation>equals</operation>
+                <value>Newfoundland</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.State</field>
+                <operation>equals</operation>
+                <value>NS</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.State</field>
+                <operation>equals</operation>
+                <value>Nova Scotia</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.State</field>
+                <operation>equals</operation>
+                <value>PE</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.State</field>
+                <operation>equals</operation>
+                <value>Prince Edward Island</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.Ownership_Routing__c</field>
+                <operation>equals</operation>
+                <value>Route to RSM</value>
+            </criteriaItems>
+        </ruleEntry>
+        <ruleEntry>
+            <booleanFilter>(1 OR 2 OR 3 OR 4 OR 5 OR 6 Or 7 OR 8 OR 9 OR 10) AND 11</booleanFilter>
+            <criteriaItems>
+                <field>Lead.State</field>
+                <operation>equals</operation>
+                <value>AB</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.State</field>
+                <operation>equals</operation>
+                <value>BC</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.State</field>
+                <operation>equals</operation>
+                <value>Alberta</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.State</field>
+                <operation>equals</operation>
+                <value>British Columbia</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.State</field>
+                <operation>equals</operation>
+                <value>SK</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.State</field>
+                <operation>equals</operation>
+                <value>Saskatchewan</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.State</field>
+                <operation>equals</operation>
+                <value>NT</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.State</field>
+                <operation>equals</operation>
+                <value>Northwest Territory</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.State</field>
+                <operation>equals</operation>
+                <value>YT</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.State</field>
+                <operation>equals</operation>
+                <value>Yukon Territory</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.Ownership_Routing__c</field>
+                <operation>equals</operation>
+                <value>Route to RSM</value>
+            </criteriaItems>
+        </ruleEntry>
+        <ruleEntry>
+            <booleanFilter>(1 OR 2 OR 3) AND 4</booleanFilter>
+            <criteriaItems>
+                <field>Lead.State</field>
+                <operation>equals</operation>
+                <value>DC</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.State</field>
+                <operation>equals</operation>
+                <value>Washington DC</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.State</field>
+                <operation>equals</operation>
+                <value>Wash DC</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.Ownership_Routing__c</field>
+                <operation>equals</operation>
+                <value>Route to RSM</value>
+            </criteriaItems>
+        </ruleEntry>
+        <ruleEntry>
+            <booleanFilter>(1 OR 2) AND 3</booleanFilter>
+            <criteriaItems>
+                <field>Lead.State</field>
+                <operation>equals</operation>
+                <value>MD</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.State</field>
+                <operation>equals</operation>
+                <value>Maryland</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.Ownership_Routing__c</field>
+                <operation>equals</operation>
+                <value>Route to RSM</value>
+            </criteriaItems>
+        </ruleEntry>
+        <ruleEntry>
+            <booleanFilter>(1 OR 2) AND 3</booleanFilter>
+            <criteriaItems>
+                <field>Lead.State</field>
+                <operation>equals</operation>
+                <value>MA</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.State</field>
+                <operation>equals</operation>
+                <value>Massachusetts</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.Ownership_Routing__c</field>
+                <operation>equals</operation>
+                <value>Route to RSM</value>
+            </criteriaItems>
+        </ruleEntry>
+        <ruleEntry>
+            <booleanFilter>(1 OR 2) AND 3</booleanFilter>
+            <criteriaItems>
+                <field>Lead.State</field>
+                <operation>equals</operation>
+                <value>MI</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.State</field>
+                <operation>equals</operation>
+                <value>Michigan</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.Ownership_Routing__c</field>
+                <operation>equals</operation>
+                <value>Route to RSM</value>
+            </criteriaItems>
+        </ruleEntry>
+        <ruleEntry>
+            <booleanFilter>(1 OR 2) AND 3</booleanFilter>
+            <criteriaItems>
+                <field>Lead.State</field>
+                <operation>equals</operation>
+                <value>MN</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.State</field>
+                <operation>equals</operation>
+                <value>Minnesota</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.Ownership_Routing__c</field>
+                <operation>equals</operation>
+                <value>Route to RSM</value>
+            </criteriaItems>
+        </ruleEntry>
+        <ruleEntry>
+            <booleanFilter>(1 OR 2) AND 3</booleanFilter>
+            <criteriaItems>
+                <field>Lead.State</field>
+                <operation>equals</operation>
+                <value>MS</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.State</field>
+                <operation>equals</operation>
+                <value>Mississippi</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.Ownership_Routing__c</field>
+                <operation>equals</operation>
+                <value>Route to RSM</value>
+            </criteriaItems>
+        </ruleEntry>
+        <ruleEntry>
+            <booleanFilter>(1 OR 2) AND 3</booleanFilter>
+            <criteriaItems>
+                <field>Lead.State</field>
+                <operation>equals</operation>
+                <value>MO</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.State</field>
+                <operation>equals</operation>
+                <value>Missouri</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.Ownership_Routing__c</field>
+                <operation>equals</operation>
+                <value>Route to RSM</value>
+            </criteriaItems>
+        </ruleEntry>
+        <ruleEntry>
+            <booleanFilter>(1 OR 2) AND 3</booleanFilter>
+            <criteriaItems>
+                <field>Lead.State</field>
+                <operation>equals</operation>
+                <value>MT</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.State</field>
+                <operation>equals</operation>
+                <value>Montana</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.Ownership_Routing__c</field>
+                <operation>equals</operation>
+                <value>Route to RSM</value>
+            </criteriaItems>
+        </ruleEntry>
+        <ruleEntry>
+            <booleanFilter>(1 OR 2) AND 3</booleanFilter>
+            <criteriaItems>
+                <field>Lead.State</field>
+                <operation>equals</operation>
+                <value>NE</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.State</field>
+                <operation>equals</operation>
+                <value>Nebraska</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.Ownership_Routing__c</field>
+                <operation>equals</operation>
+                <value>Route to RSM</value>
+            </criteriaItems>
+        </ruleEntry>
+        <ruleEntry>
+            <booleanFilter>(1 OR 2) AND 3</booleanFilter>
+            <criteriaItems>
+                <field>Lead.State</field>
+                <operation>equals</operation>
+                <value>NH</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.State</field>
+                <operation>equals</operation>
+                <value>New Hampshire</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.Ownership_Routing__c</field>
+                <operation>equals</operation>
+                <value>Route to RSM</value>
+            </criteriaItems>
+        </ruleEntry>
+        <ruleEntry>
+            <booleanFilter>(1 OR 2) AND 3</booleanFilter>
+            <criteriaItems>
+                <field>Lead.State</field>
+                <operation>equals</operation>
+                <value>NJ</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.State</field>
+                <operation>equals</operation>
+                <value>New Jersey</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.Ownership_Routing__c</field>
+                <operation>equals</operation>
+                <value>Route to RSM</value>
+            </criteriaItems>
+        </ruleEntry>
+        <ruleEntry>
+            <booleanFilter>(1 OR 2) AND 3</booleanFilter>
+            <criteriaItems>
+                <field>Lead.State</field>
+                <operation>equals</operation>
+                <value>NM</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.State</field>
+                <operation>equals</operation>
+                <value>New Mexico</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.Ownership_Routing__c</field>
+                <operation>equals</operation>
+                <value>Route to RSM</value>
+            </criteriaItems>
+        </ruleEntry>
+        <ruleEntry>
+            <booleanFilter>(1 OR 2) AND 3</booleanFilter>
+            <criteriaItems>
+                <field>Lead.State</field>
+                <operation>equals</operation>
+                <value>NC</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.State</field>
+                <operation>equals</operation>
+                <value>North Carolina</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.Ownership_Routing__c</field>
+                <operation>equals</operation>
+                <value>Route to RSM</value>
+            </criteriaItems>
+        </ruleEntry>
+        <ruleEntry>
+            <booleanFilter>(1 OR 2) AND 3</booleanFilter>
+            <criteriaItems>
+                <field>Lead.State</field>
+                <operation>equals</operation>
+                <value>ND</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.State</field>
+                <operation>equals</operation>
+                <value>North Dakota</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.Ownership_Routing__c</field>
+                <operation>equals</operation>
+                <value>Route to RSM</value>
+            </criteriaItems>
+        </ruleEntry>
+        <ruleEntry>
+            <booleanFilter>(1 OR 2) AND 3</booleanFilter>
+            <criteriaItems>
+                <field>Lead.State</field>
+                <operation>equals</operation>
+                <value>OK</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.State</field>
+                <operation>equals</operation>
+                <value>Oklahoma</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.Ownership_Routing__c</field>
+                <operation>equals</operation>
+                <value>Route to RSM</value>
+            </criteriaItems>
+        </ruleEntry>
+        <ruleEntry>
+            <booleanFilter>(1 OR 2) AND 3</booleanFilter>
+            <criteriaItems>
+                <field>Lead.State</field>
+                <operation>equals</operation>
+                <value>OR</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.State</field>
+                <operation>equals</operation>
+                <value>Oregon</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.Ownership_Routing__c</field>
+                <operation>equals</operation>
+                <value>Route to RSM</value>
+            </criteriaItems>
+        </ruleEntry>
+        <ruleEntry>
+            <booleanFilter>(1 OR 2) AND (3 OR 4 OR 5 OR 6 OR 7) AND 8</booleanFilter>
+            <criteriaItems>
+                <field>Lead.State</field>
+                <operation>equals</operation>
+                <value>PA</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.State</field>
+                <operation>equals</operation>
+                <value>Pennsylvania</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.PhoneAreaCode__c</field>
+                <operation>contains</operation>
+                <value>267</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.PhoneAreaCode__c</field>
+                <operation>contains</operation>
+                <value>215</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.PhoneAreaCode__c</field>
+                <operation>contains</operation>
+                <value>610</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.PhoneAreaCode__c</field>
+                <operation>contains</operation>
+                <value>484</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.PhoneAreaCode__c</field>
+                <operation>contains</operation>
+                <value>570</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.Ownership_Routing__c</field>
+                <operation>equals</operation>
+                <value>Route to RSM</value>
+            </criteriaItems>
+        </ruleEntry>
+        <ruleEntry>
+            <booleanFilter>(1 OR 2) AND 3</booleanFilter>
+            <criteriaItems>
+                <field>Lead.State</field>
+                <operation>equals</operation>
+                <value>PA</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.State</field>
+                <operation>equals</operation>
+                <value>Pennsylvania</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.Ownership_Routing__c</field>
+                <operation>equals</operation>
+                <value>Route to RSM</value>
+            </criteriaItems>
+        </ruleEntry>
+        <ruleEntry>
+            <booleanFilter>(1 OR 2) AND 3</booleanFilter>
+            <criteriaItems>
+                <field>Lead.State</field>
+                <operation>equals</operation>
+                <value>RI</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.State</field>
+                <operation>equals</operation>
+                <value>Rhode Island</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.Ownership_Routing__c</field>
+                <operation>equals</operation>
+                <value>Route to RSM</value>
+            </criteriaItems>
+        </ruleEntry>
+        <ruleEntry>
+            <booleanFilter>(1 OR 2) AND 3</booleanFilter>
+            <criteriaItems>
+                <field>Lead.State</field>
+                <operation>equals</operation>
+                <value>SC</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.State</field>
+                <operation>equals</operation>
+                <value>South Carolina</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.Ownership_Routing__c</field>
+                <operation>equals</operation>
+                <value>Route to RSM</value>
+            </criteriaItems>
+        </ruleEntry>
+        <ruleEntry>
+            <booleanFilter>(1 OR 2) AND 3</booleanFilter>
+            <criteriaItems>
+                <field>Lead.State</field>
+                <operation>equals</operation>
+                <value>SD</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.State</field>
+                <operation>equals</operation>
+                <value>South Dakota</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.Ownership_Routing__c</field>
+                <operation>equals</operation>
+                <value>Route to RSM</value>
+            </criteriaItems>
+        </ruleEntry>
+        <ruleEntry>
+            <booleanFilter>(1 OR 2) AND 3</booleanFilter>
+            <criteriaItems>
+                <field>Lead.State</field>
+                <operation>equals</operation>
+                <value>TN</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.State</field>
+                <operation>equals</operation>
+                <value>Tennessee</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.Ownership_Routing__c</field>
+                <operation>equals</operation>
+                <value>Route to RSM</value>
+            </criteriaItems>
+        </ruleEntry>
+        <ruleEntry>
+            <booleanFilter>(1 OR 2) AND 3</booleanFilter>
+            <criteriaItems>
+                <field>Lead.State</field>
+                <operation>equals</operation>
+                <value>UT</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.State</field>
+                <operation>equals</operation>
+                <value>Utah</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.Ownership_Routing__c</field>
+                <operation>equals</operation>
+                <value>Route to RSM</value>
+            </criteriaItems>
+        </ruleEntry>
+        <ruleEntry>
+            <booleanFilter>(1 OR 2) AND 3</booleanFilter>
+            <criteriaItems>
+                <field>Lead.State</field>
+                <operation>equals</operation>
+                <value>VT</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.State</field>
+                <operation>equals</operation>
+                <value>Vermont</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.Ownership_Routing__c</field>
+                <operation>equals</operation>
+                <value>Route to RSM</value>
+            </criteriaItems>
+        </ruleEntry>
+        <ruleEntry>
+            <booleanFilter>(1 OR 2) AND 3</booleanFilter>
+            <criteriaItems>
+                <field>Lead.State</field>
+                <operation>equals</operation>
+                <value>VA</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.State</field>
+                <operation>equals</operation>
+                <value>Virginia</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.Ownership_Routing__c</field>
+                <operation>equals</operation>
+                <value>Route to RSM</value>
+            </criteriaItems>
+        </ruleEntry>
+        <ruleEntry>
+            <booleanFilter>(1 OR 2) AND 3</booleanFilter>
+            <criteriaItems>
+                <field>Lead.State</field>
+                <operation>equals</operation>
+                <value>WA</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.State</field>
+                <operation>equals</operation>
+                <value>Washington</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.Ownership_Routing__c</field>
+                <operation>equals</operation>
+                <value>Route to RSM</value>
+            </criteriaItems>
+        </ruleEntry>
+        <ruleEntry>
+            <booleanFilter>(1 OR 2) AND 3</booleanFilter>
+            <criteriaItems>
+                <field>Lead.State</field>
+                <operation>equals</operation>
+                <value>WV</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.State</field>
+                <operation>equals</operation>
+                <value>West Virginia</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.Ownership_Routing__c</field>
+                <operation>equals</operation>
+                <value>Route to RSM</value>
+            </criteriaItems>
+        </ruleEntry>
+        <ruleEntry>
+            <booleanFilter>(1 OR 2) AND 3</booleanFilter>
+            <criteriaItems>
+                <field>Lead.State</field>
+                <operation>equals</operation>
+                <value>WI</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.State</field>
+                <operation>equals</operation>
+                <value>Wisconsin</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.Ownership_Routing__c</field>
+                <operation>equals</operation>
+                <value>Route to RSM</value>
+            </criteriaItems>
+        </ruleEntry>
+        <ruleEntry>
+            <booleanFilter>(1 OR 2) AND 3</booleanFilter>
+            <criteriaItems>
+                <field>Lead.State</field>
+                <operation>equals</operation>
+                <value>WY</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.State</field>
+                <operation>equals</operation>
+                <value>Wyoming</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.Ownership_Routing__c</field>
+                <operation>equals</operation>
+                <value>Route to RSM</value>
+            </criteriaItems>
+        </ruleEntry>
+        <ruleEntry>
+            <booleanFilter>(1 OR 2) AND 3 AND 4</booleanFilter>
+            <criteriaItems>
+                <field>Lead.State</field>
+                <operation>equals</operation>
+                <value>CT</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.State</field>
+                <operation>equals</operation>
+                <value>Connecticut</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.PhoneAreaCode__c</field>
+                <operation>contains</operation>
+                <value>860</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.Ownership_Routing__c</field>
+                <operation>equals</operation>
+                <value>Route to RSM</value>
+            </criteriaItems>
+        </ruleEntry>
+        <ruleEntry>
+            <booleanFilter>(1 OR 2) AND 3</booleanFilter>
+            <criteriaItems>
+                <field>Lead.State</field>
+                <operation>equals</operation>
+                <value>CT</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.State</field>
+                <operation>equals</operation>
+                <value>Connecticut</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.Ownership_Routing__c</field>
+                <operation>equals</operation>
+                <value>Route to RSM</value>
+            </criteriaItems>
+        </ruleEntry>
+        <ruleEntry>
+            <booleanFilter>(1 OR 2) AND 3 AND 4</booleanFilter>
+            <criteriaItems>
+                <field>Lead.State</field>
+                <operation>equals</operation>
+                <value>NV</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.State</field>
+                <operation>equals</operation>
+                <value>Nevada</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.PhoneAreaCode__c</field>
+                <operation>contains</operation>
+                <value>702</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.Ownership_Routing__c</field>
+                <operation>equals</operation>
+                <value>Route to RSM</value>
+            </criteriaItems>
+        </ruleEntry>
+        <ruleEntry>
+            <booleanFilter>(1 OR 2) AND 3</booleanFilter>
+            <criteriaItems>
+                <field>Lead.State</field>
+                <operation>equals</operation>
+                <value>NV</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.State</field>
+                <operation>equals</operation>
+                <value>Nevada</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.Ownership_Routing__c</field>
+                <operation>equals</operation>
+                <value>Route to RSM</value>
+            </criteriaItems>
+        </ruleEntry>
+        <ruleEntry>
+            <booleanFilter>(1 OR 2) AND (3 OR 4 OR 5 OR 6) AND 7</booleanFilter>
+            <criteriaItems>
+                <field>Lead.State</field>
+                <operation>equals</operation>
+                <value>OH</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.State</field>
+                <operation>equals</operation>
+                <value>Ohio</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.PhoneAreaCode__c</field>
+                <operation>contains</operation>
+                <value>513</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.PhoneAreaCode__c</field>
+                <operation>contains</operation>
+                <value>937</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.PhoneAreaCode__c</field>
+                <operation>contains</operation>
+                <value>614</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.PhoneAreaCode__c</field>
+                <operation>contains</operation>
+                <value>740</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.Ownership_Routing__c</field>
+                <operation>equals</operation>
+                <value>Route to RSM</value>
+            </criteriaItems>
+        </ruleEntry>
+        <ruleEntry>
+            <booleanFilter>(1 OR 2) AND 3</booleanFilter>
+            <criteriaItems>
+                <field>Lead.State</field>
+                <operation>equals</operation>
+                <value>OH</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.State</field>
+                <operation>equals</operation>
+                <value>Ohio</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.Ownership_Routing__c</field>
+                <operation>equals</operation>
+                <value>Route to RSM</value>
+            </criteriaItems>
+        </ruleEntry>
+        <ruleEntry>
+            <booleanFilter>(1 OR 2) AND (3 OR 4 OR 5 OR 6 OR 7 OR 8 ) AND 9</booleanFilter>
+            <criteriaItems>
+                <field>Lead.State</field>
+                <operation>equals</operation>
+                <value>CA</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.State</field>
+                <operation>equals</operation>
+                <value>California</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.PhoneAreaCode__c</field>
+                <operation>contains</operation>
+                <value>559</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.PhoneAreaCode__c</field>
+                <operation>contains</operation>
+                <value>707</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.PhoneAreaCode__c</field>
+                <operation>contains</operation>
+                <value>925</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.PhoneAreaCode__c</field>
+                <operation>contains</operation>
+                <value>530</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.PhoneAreaCode__c</field>
+                <operation>contains</operation>
+                <value>916</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.PhoneAreaCode__c</field>
+                <operation>contains</operation>
+                <value>209</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.Ownership_Routing__c</field>
+                <operation>equals</operation>
+                <value>Route to RSM</value>
+            </criteriaItems>
+        </ruleEntry>
+        <ruleEntry>
+            <booleanFilter>(1 OR 2) AND (3 OR 4 OR 5) ANd 6</booleanFilter>
+            <criteriaItems>
+                <field>Lead.State</field>
+                <operation>equals</operation>
+                <value>CA</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.State</field>
+                <operation>equals</operation>
+                <value>California</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.PhoneAreaCode__c</field>
+                <operation>contains</operation>
+                <value>831</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.PhoneAreaCode__c</field>
+                <operation>contains</operation>
+                <value>650</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.PhoneAreaCode__c</field>
+                <operation>contains</operation>
+                <value>415</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.Ownership_Routing__c</field>
+                <operation>equals</operation>
+                <value>Route to RSM</value>
+            </criteriaItems>
+        </ruleEntry>
+        <ruleEntry>
+            <booleanFilter>(1 OR 2) AND (3 OR 4 OR 5) AND 6</booleanFilter>
+            <criteriaItems>
+                <field>Lead.State</field>
+                <operation>equals</operation>
+                <value>CA</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.State</field>
+                <operation>equals</operation>
+                <value>California</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.PhoneAreaCode__c</field>
+                <operation>contains</operation>
+                <value>408</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.PhoneAreaCode__c</field>
+                <operation>contains</operation>
+                <value>510</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.PhoneAreaCode__c</field>
+                <operation>contains</operation>
+                <value>775</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.Ownership_Routing__c</field>
+                <operation>equals</operation>
+                <value>Route to RSM</value>
+            </criteriaItems>
+        </ruleEntry>
+        <ruleEntry>
+            <booleanFilter>(1 OR 2) AND (3 OR 4 OR 5 OR 6 OR 7 OR 8 OR 9 OR 10 OR 11 OR 12) AND 13</booleanFilter>
+            <criteriaItems>
+                <field>Lead.State</field>
+                <operation>equals</operation>
+                <value>CA</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.State</field>
+                <operation>equals</operation>
+                <value>California</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.PhoneAreaCode__c</field>
+                <operation>contains</operation>
+                <value>562</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.PhoneAreaCode__c</field>
+                <operation>contains</operation>
+                <value>909</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.PhoneAreaCode__c</field>
+                <operation>contains</operation>
+                <value>619</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.PhoneAreaCode__c</field>
+                <operation>contains</operation>
+                <value>714</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.PhoneAreaCode__c</field>
+                <operation>contains</operation>
+                <value>657</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.PhoneAreaCode__c</field>
+                <operation>contains</operation>
+                <value>760</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.PhoneAreaCode__c</field>
+                <operation>contains</operation>
+                <value>442</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.PhoneAreaCode__c</field>
+                <operation>contains</operation>
+                <value>858</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.PhoneAreaCode__c</field>
+                <operation>contains</operation>
+                <value>949</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.PhoneAreaCode__c</field>
+                <operation>contains</operation>
+                <value>951</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.Ownership_Routing__c</field>
+                <operation>equals</operation>
+                <value>Route to RSM</value>
+            </criteriaItems>
+        </ruleEntry>
+        <ruleEntry>
+            <booleanFilter>(1 OR 2) AND (3 OR 4 OR 5 OR 6 OR 7 OR 8 OR 9) AND 10</booleanFilter>
+            <criteriaItems>
+                <field>Lead.State</field>
+                <operation>equals</operation>
+                <value>CA</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.State</field>
+                <operation>equals</operation>
+                <value>California</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.PhoneAreaCode__c</field>
+                <operation>contains</operation>
+                <value>213</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.PhoneAreaCode__c</field>
+                <operation>contains</operation>
+                <value>323</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.PhoneAreaCode__c</field>
+                <operation>contains</operation>
+                <value>626</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.PhoneAreaCode__c</field>
+                <operation>contains</operation>
+                <value>661</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.PhoneAreaCode__c</field>
+                <operation>contains</operation>
+                <value>747</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.PhoneAreaCode__c</field>
+                <operation>contains</operation>
+                <value>805</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.PhoneAreaCode__c</field>
+                <operation>contains</operation>
+                <value>818</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.Ownership_Routing__c</field>
+                <operation>equals</operation>
+                <value>Route to RSM</value>
+            </criteriaItems>
+        </ruleEntry>
+        <ruleEntry>
+            <booleanFilter>(1 OR 2) AND 3</booleanFilter>
+            <criteriaItems>
+                <field>Lead.State</field>
+                <operation>equals</operation>
+                <value>CA</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.State</field>
+                <operation>equals</operation>
+                <value>California</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.Ownership_Routing__c</field>
+                <operation>equals</operation>
+                <value>Route to RSM</value>
+            </criteriaItems>
+        </ruleEntry>
+        <ruleEntry>
+            <booleanFilter>(1 OR 2) AND (3 OR 4 OR 5 OR 6 Or 7) AND 8</booleanFilter>
+            <criteriaItems>
+                <field>Lead.State</field>
+                <operation>equals</operation>
+                <value>NY</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.State</field>
+                <operation>equals</operation>
+                <value>New York</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.PhoneAreaCode__c</field>
+                <operation>contains</operation>
+                <value>315</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.PhoneAreaCode__c</field>
+                <operation>contains</operation>
+                <value>607</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.PhoneAreaCode__c</field>
+                <operation>contains</operation>
+                <value>585</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.PhoneAreaCode__c</field>
+                <operation>contains</operation>
+                <value>716</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.PhoneAreaCode__c</field>
+                <operation>contains</operation>
+                <value>607</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.Ownership_Routing__c</field>
+                <operation>equals</operation>
+                <value>Route to RSM</value>
+            </criteriaItems>
+        </ruleEntry>
+        <ruleEntry>
+            <booleanFilter>(1 OR 2) AND 3 AND 4</booleanFilter>
+            <criteriaItems>
+                <field>Lead.State</field>
+                <operation>equals</operation>
+                <value>NY</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.State</field>
+                <operation>equals</operation>
+                <value>New York</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.PhoneAreaCode__c</field>
+                <operation>contains</operation>
+                <value>518</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.Ownership_Routing__c</field>
+                <operation>equals</operation>
+                <value>Route to RSM</value>
+            </criteriaItems>
+        </ruleEntry>
+        <ruleEntry>
+            <booleanFilter>(1 OR 2) AND 3</booleanFilter>
+            <criteriaItems>
+                <field>Lead.State</field>
+                <operation>equals</operation>
+                <value>NY</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.State</field>
+                <operation>equals</operation>
+                <value>New York</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.Ownership_Routing__c</field>
+                <operation>equals</operation>
+                <value>Route to RSM</value>
+            </criteriaItems>
+        </ruleEntry>
+        <ruleEntry>
+            <booleanFilter>(1 OR 2) AND (3 OR 4 OR 5 OR 6 OR 7 OR 8 Or 9 Or 10 Or 11 or 12 or 13 or 14 or 15) AND 16</booleanFilter>
+            <criteriaItems>
+                <field>Lead.State</field>
+                <operation>equals</operation>
+                <value>TX</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.State</field>
+                <operation>equals</operation>
+                <value>Texas</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.PhoneAreaCode__c</field>
+                <operation>contains</operation>
+                <value>830</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.PhoneAreaCode__c</field>
+                <operation>contains</operation>
+                <value>979</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.PhoneAreaCode__c</field>
+                <operation>contains</operation>
+                <value>361</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.PhoneAreaCode__c</field>
+                <operation>contains</operation>
+                <value>956</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.PhoneAreaCode__c</field>
+                <operation>contains</operation>
+                <value>409</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.PhoneAreaCode__c</field>
+                <operation>contains</operation>
+                <value>936</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.PhoneAreaCode__c</field>
+                <operation>contains</operation>
+                <value>832</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.PhoneAreaCode__c</field>
+                <operation>contains</operation>
+                <value>713</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.PhoneAreaCode__c</field>
+                <operation>contains</operation>
+                <value>281</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.PhoneAreaCode__c</field>
+                <operation>contains</operation>
+                <value>210</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.PhoneAreaCode__c</field>
+                <operation>contains</operation>
+                <value>915</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.PhoneAreaCode__c</field>
+                <operation>contains</operation>
+                <value>432</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.PhoneAreaCode__c</field>
+                <operation>contains</operation>
+                <value>325</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.Ownership_Routing__c</field>
+                <operation>equals</operation>
+                <value>Route to RSM</value>
+            </criteriaItems>
+        </ruleEntry>
+        <ruleEntry>
+            <booleanFilter>(1 OR 2) AND 3</booleanFilter>
+            <criteriaItems>
+                <field>Lead.State</field>
+                <operation>equals</operation>
+                <value>TX</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.State</field>
+                <operation>equals</operation>
+                <value>Texas</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.Ownership_Routing__c</field>
+                <operation>equals</operation>
+                <value>Route to RSM</value>
+            </criteriaItems>
+        </ruleEntry>
+        <ruleEntry>
+            <booleanFilter>(1 OR 2) AND 3</booleanFilter>
+            <criteriaItems>
+                <field>Lead.State</field>
+                <operation>equals</operation>
+                <value>AL</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.State</field>
+                <operation>equals</operation>
+                <value>Alabama</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.Ownership_Routing__c</field>
+                <operation>equals</operation>
+                <value>Route to RSM</value>
+            </criteriaItems>
+        </ruleEntry>
+        <ruleEntry>
+            <booleanFilter>(1 OR 2) AND 3</booleanFilter>
+            <criteriaItems>
+                <field>Lead.State</field>
+                <operation>equals</operation>
+                <value>AK</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.State</field>
+                <operation>equals</operation>
+                <value>Alaska</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.Ownership_Routing__c</field>
+                <operation>equals</operation>
+                <value>Route to RSM</value>
+            </criteriaItems>
+        </ruleEntry>
+        <ruleEntry>
+            <booleanFilter>(1 OR 2) AND 3</booleanFilter>
+            <criteriaItems>
+                <field>Lead.State</field>
+                <operation>equals</operation>
+                <value>AZ</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.State</field>
+                <operation>equals</operation>
+                <value>Arizona</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.Ownership_Routing__c</field>
+                <operation>equals</operation>
+                <value>Route to RSM</value>
+            </criteriaItems>
+        </ruleEntry>
+        <ruleEntry>
+            <booleanFilter>(1 OR 2) AND 3</booleanFilter>
+            <criteriaItems>
+                <field>Lead.State</field>
+                <operation>equals</operation>
+                <value>AR</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.State</field>
+                <operation>equals</operation>
+                <value>Arkansas</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.Ownership_Routing__c</field>
+                <operation>equals</operation>
+                <value>Route to RSM</value>
+            </criteriaItems>
+        </ruleEntry>
+        <ruleEntry>
+            <booleanFilter>(1 OR 2) AND 3</booleanFilter>
+            <criteriaItems>
+                <field>Lead.State</field>
+                <operation>equals</operation>
+                <value>CO</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.State</field>
+                <operation>equals</operation>
+                <value>Colorado</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.Ownership_Routing__c</field>
+                <operation>equals</operation>
+                <value>Route to RSM</value>
+            </criteriaItems>
+        </ruleEntry>
+        <ruleEntry>
+            <booleanFilter>(1 OR 2) AND 3</booleanFilter>
+            <criteriaItems>
+                <field>Lead.State</field>
+                <operation>equals</operation>
+                <value>DE</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.State</field>
+                <operation>equals</operation>
+                <value>Delaware</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.Ownership_Routing__c</field>
+                <operation>equals</operation>
+                <value>Route to RSM</value>
+            </criteriaItems>
+        </ruleEntry>
+        <ruleEntry>
+            <booleanFilter>(1 OR 2) AND 3</booleanFilter>
+            <criteriaItems>
+                <field>Lead.State</field>
+                <operation>equals</operation>
+                <value>FL</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.State</field>
+                <operation>equals</operation>
+                <value>Florida</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.Ownership_Routing__c</field>
+                <operation>equals</operation>
+                <value>Route to RSM</value>
+            </criteriaItems>
+        </ruleEntry>
+        <ruleEntry>
+            <booleanFilter>(1 OR 2) AND 3</booleanFilter>
+            <criteriaItems>
+                <field>Lead.State</field>
+                <operation>equals</operation>
+                <value>GA</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.State</field>
+                <operation>equals</operation>
+                <value>Georgia</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.Ownership_Routing__c</field>
+                <operation>equals</operation>
+                <value>Route to RSM</value>
+            </criteriaItems>
+        </ruleEntry>
+        <ruleEntry>
+            <booleanFilter>(1 OR 2) AND 3</booleanFilter>
+            <criteriaItems>
+                <field>Lead.State</field>
+                <operation>equals</operation>
+                <value>ID</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.State</field>
+                <operation>equals</operation>
+                <value>Idaho</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.Ownership_Routing__c</field>
+                <operation>equals</operation>
+                <value>Route to RSM</value>
+            </criteriaItems>
+        </ruleEntry>
+        <ruleEntry>
+            <booleanFilter>(1 OR 2) AND 3</booleanFilter>
+            <criteriaItems>
+                <field>Lead.State</field>
+                <operation>equals</operation>
+                <value>HI</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.State</field>
+                <operation>equals</operation>
+                <value>Hawaii</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.Ownership_Routing__c</field>
+                <operation>equals</operation>
+                <value>Route to RSM</value>
+            </criteriaItems>
+        </ruleEntry>
+        <ruleEntry>
+            <booleanFilter>(1 OR 2) AND 3</booleanFilter>
+            <criteriaItems>
+                <field>Lead.State</field>
+                <operation>equals</operation>
+                <value>IL</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.State</field>
+                <operation>equals</operation>
+                <value>Illinois</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.Ownership_Routing__c</field>
+                <operation>equals</operation>
+                <value>Route to RSM</value>
+            </criteriaItems>
+        </ruleEntry>
+        <ruleEntry>
+            <booleanFilter>(1 OR 2) AND 3</booleanFilter>
+            <criteriaItems>
+                <field>Lead.State</field>
+                <operation>equals</operation>
+                <value>IN</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.State</field>
+                <operation>equals</operation>
+                <value>Indiana</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.Ownership_Routing__c</field>
+                <operation>equals</operation>
+                <value>Route to RSM</value>
+            </criteriaItems>
+        </ruleEntry>
+        <ruleEntry>
+            <booleanFilter>(1 OR 2) AND 3</booleanFilter>
+            <criteriaItems>
+                <field>Lead.State</field>
+                <operation>equals</operation>
+                <value>KS</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.State</field>
+                <operation>equals</operation>
+                <value>Kansas</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.Ownership_Routing__c</field>
+                <operation>equals</operation>
+                <value>Route to RSM</value>
+            </criteriaItems>
+        </ruleEntry>
+        <ruleEntry>
+            <booleanFilter>(1 OR 2) AND 3</booleanFilter>
+            <criteriaItems>
+                <field>Lead.State</field>
+                <operation>equals</operation>
+                <value>IA</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.State</field>
+                <operation>equals</operation>
+                <value>Iowa</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.Ownership_Routing__c</field>
+                <operation>equals</operation>
+                <value>Route to RSM</value>
+            </criteriaItems>
+        </ruleEntry>
+        <ruleEntry>
+            <booleanFilter>(1 OR 2) AND 3</booleanFilter>
+            <criteriaItems>
+                <field>Lead.State</field>
+                <operation>equals</operation>
+                <value>KY</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.State</field>
+                <operation>equals</operation>
+                <value>Kentucky</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.Ownership_Routing__c</field>
+                <operation>equals</operation>
+                <value>Route to RSM</value>
+            </criteriaItems>
+        </ruleEntry>
+        <ruleEntry>
+            <booleanFilter>(1 OR 2) AND 3</booleanFilter>
+            <criteriaItems>
+                <field>Lead.State</field>
+                <operation>equals</operation>
+                <value>LA</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.State</field>
+                <operation>equals</operation>
+                <value>Louisiana</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.Ownership_Routing__c</field>
+                <operation>equals</operation>
+                <value>Route to RSM</value>
+            </criteriaItems>
+        </ruleEntry>
+        <ruleEntry>
+            <booleanFilter>(1 OR 2) AND 3</booleanFilter>
+            <criteriaItems>
+                <field>Lead.State</field>
+                <operation>equals</operation>
+                <value>ME</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.State</field>
+                <operation>equals</operation>
+                <value>Maine</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.Ownership_Routing__c</field>
+                <operation>equals</operation>
+                <value>Route to RSM</value>
+            </criteriaItems>
+        </ruleEntry>
+        <ruleEntry>
+            <booleanFilter>(2 OR 3 Or 4 OR 5 Or 6 Or 7 Or 8 Or 9 Or 10 Or 11 Or 12 Or 13 Or 1)</booleanFilter>
+            <criteriaItems>
+                <field>Lead.State</field>
+                <operation>equals</operation>
+                <value>FL,Florida</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.State</field>
+                <operation>equals</operation>
+                <value>NE,Nebraska</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.State</field>
+                <operation>equals</operation>
+                <value>KS,Kansas</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.State</field>
+                <operation>equals</operation>
+                <value>OK,Oklahoma</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.State</field>
+                <operation>equals</operation>
+                <value>TX,Texas</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.State</field>
+                <operation>equals</operation>
+                <value>LA,Louisiana</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.State</field>
+                <operation>equals</operation>
+                <value>AR,Arkansas</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.State</field>
+                <operation>equals</operation>
+                <value>MO,Missouri</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.State</field>
+                <operation>equals</operation>
+                <value>MS,Mississippi</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.State</field>
+                <operation>equals</operation>
+                <value>TN,Tennessee</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.State</field>
+                <operation>equals</operation>
+                <value>AL,Alabama</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.State</field>
+                <operation>equals</operation>
+                <value>GA,Georgia</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.State</field>
+                <operation>equals</operation>
+                <value>SC,South Carolina</value>
+            </criteriaItems>
+        </ruleEntry>
+        <ruleEntry>
+            <booleanFilter>(2 OR 3 OR 4 OR 5 OR 6 OR 7 OR (8 AND 9) OR (10 AND 1))</booleanFilter>
+            <criteriaItems>
+                <field>Lead.PhoneAreaCode__c</field>
+                <operation>equals</operation>
+                <value>315,607,716,585,607,518,212</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.State</field>
+                <operation>equals</operation>
+                <value>NJ,New Jersey</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.State</field>
+                <operation>equals</operation>
+                <value>DE,Delaware</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.State</field>
+                <operation>equals</operation>
+                <value>DC,District of Columbia</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.State</field>
+                <operation>equals</operation>
+                <value>MD,Maryland</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.State</field>
+                <operation>equals</operation>
+                <value>VA,Virginia</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.State</field>
+                <operation>equals</operation>
+                <value>NC,North Carolina</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.State</field>
+                <operation>equals</operation>
+                <value>PA,Pennslyvania</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.PhoneAreaCode__c</field>
+                <operation>contains</operation>
+                <value>267,215,610,484,570</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.State</field>
+                <operation>equals</operation>
+                <value>NY,New York</value>
+            </criteriaItems>
+        </ruleEntry>
+        <ruleEntry>
+            <booleanFilter>( 2 OR 3 Or 4 OR 5 OR 6 OR 7 OR 8 OR 9 OR 10 OR 11 OR 12 OR 13 OR 14 OR 15 OR 16 OR 17 OR 18 OR 19 OR 1)</booleanFilter>
+            <criteriaItems>
+                <field>Lead.State</field>
+                <operation>equals</operation>
+                <value>MA,Massachusetts</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.State</field>
+                <operation>equals</operation>
+                <value>ND,North Dakota</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.State</field>
+                <operation>equals</operation>
+                <value>SD,South Dakota</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.State</field>
+                <operation>equals</operation>
+                <value>MN,Minnesota</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.State</field>
+                <operation>equals</operation>
+                <value>IA,Iowa</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.State</field>
+                <operation>equals</operation>
+                <value>WI,Wisconsin</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.State</field>
+                <operation>equals</operation>
+                <value>MI,Michigan</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.State</field>
+                <operation>equals</operation>
+                <value>IL,Illinois</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.State</field>
+                <operation>equals</operation>
+                <value>IN,Indiana</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.State</field>
+                <operation>equals</operation>
+                <value>KY,Kentucky</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.State</field>
+                <operation>equals</operation>
+                <value>OH,Ohio</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.State</field>
+                <operation>equals</operation>
+                <value>PA,Pennsylvania</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.State</field>
+                <operation>equals</operation>
+                <value>WV,West Virginia</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.State</field>
+                <operation>equals</operation>
+                <value>NY,New York</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.State</field>
+                <operation>equals</operation>
+                <value>VT,Vermont</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.State</field>
+                <operation>equals</operation>
+                <value>NH,New Hampshire</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.State</field>
+                <operation>equals</operation>
+                <value>ME,Maine</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.State</field>
+                <operation>equals</operation>
+                <value>RI,Rhode Island</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.State</field>
+                <operation>equals</operation>
+                <value>CT,Connecticut</value>
+            </criteriaItems>
+        </ruleEntry>
+        <ruleEntry>
+            <booleanFilter>((2 AND 3) OR 4 OR 5 OR 6 OR 7 OR 8 OR 9 OR 1)</booleanFilter>
+            <criteriaItems>
+                <field>Lead.State</field>
+                <operation>equals</operation>
+                <value>NM,New Mexico</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.PhoneAreaCode__c</field>
+                <operation>contains</operation>
+                <value>562,909,619,714,657,760,442,858,949,951,213,323,626,661,747,805,818,310,424</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.State</field>
+                <operation>equals</operation>
+                <value>CA,California</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.State</field>
+                <operation>equals</operation>
+                <value>ID,Idaho</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.State</field>
+                <operation>equals</operation>
+                <value>MT,Montana</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.State</field>
+                <operation>equals</operation>
+                <value>WY,Wyoming</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.State</field>
+                <operation>equals</operation>
+                <value>UT,Utah</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.State</field>
+                <operation>equals</operation>
+                <value>CO,Colorado</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.State</field>
+                <operation>equals</operation>
+                <value>AZ,Arizona</value>
+            </criteriaItems>
+        </ruleEntry>
+        <ruleEntry>
+            <booleanFilter>(2 OR 3 OR 4 OR 5 OR 6 OR 1)</booleanFilter>
+            <criteriaItems>
+                <field>Lead.State</field>
+                <operation>equals</operation>
+                <value>AK,Alaska</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.State</field>
+                <operation>equals</operation>
+                <value>CA,California</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.State</field>
+                <operation>equals</operation>
+                <value>WA,Washington</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.State</field>
+                <operation>equals</operation>
+                <value>OR,Oregon</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.State</field>
+                <operation>equals</operation>
+                <value>NV,Nevada</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.State</field>
+                <operation>equals</operation>
+                <value>HI,Hawaii</value>
+            </criteriaItems>
+        </ruleEntry>
+        <ruleEntry>
+            <criteriaItems>
+                <field>Lead.Country</field>
+                <operation>equals</operation>
+                <value>CA,Canada</value>
+            </criteriaItems>
+        </ruleEntry>
+        <ruleEntry>
+            <booleanFilter>1 OR 2</booleanFilter>
+            <criteriaItems>
+                <field>Lead.VelocityDeal__c</field>
+                <operation>equals</operation>
+                <value>True</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Lead.Ownership_Routing__c</field>
+                <operation>equals</operation>
+                <value>Route to ISR</value>
+            </criteriaItems>
+        </ruleEntry>
+        <ruleEntry>
+            <criteriaItems>
+                <field>Lead.BAOSalesPerson__c</field>
+                <operation>equals</operation>
+                <value>Tim Sattler</value>
+            </criteriaItems>
+        </ruleEntry>
+        <ruleEntry>
+            <criteriaItems>
+                <field>Lead.BAOSalesPerson__c</field>
+                <operation>equals</operation>
+                <value>John Saltmarsh</value>
+            </criteriaItems>
+        </ruleEntry>
+        <ruleEntry>
+            <criteriaItems>
+                <field>Lead.BAOSalesPerson__c</field>
+                <operation>equals</operation>
+                <value>Brian Arnold</value>
+            </criteriaItems>
+        </ruleEntry>
+        <ruleEntry>
+            <criteriaItems>
+                <field>Lead.BAOSalesPerson__c</field>
+                <operation>equals</operation>
+                <value>Ed Lau</value>
+            </criteriaItems>
+        </ruleEntry>
+        <ruleEntry>
+            <assignedTo>marketo@silver-peak.com</assignedTo>
+            <assignedToType>User</assignedToType>
+        </ruleEntry>
+    </assignmentRule>
+    <assignmentRule>
+        <fullName>Sales Representative Assignment</fullName>
+        <active>false</active>
+    </assignmentRule>
+</AssignmentRules>

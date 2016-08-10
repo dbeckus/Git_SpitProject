@@ -1,0 +1,59 @@
+<apex:page standardController="Opportunity" extensions="OpportunityController,CustomAction" action="{!checkOverrideability}" showHeader="true" sidebar="true">
+    <apex:includeScript value="{!URLFOR($Resource.DynamicPage, 'js/jquery.min.js')}" />
+    <apex:includeScript value="{!URLFOR($Resource.DynamicPage, 'js/DynamicPage.js')}" />
+    <apex:includeScript value="{!URLFOR($Resource.DynamicPage, 'js/SPDialog.js')}" />
+    <apex:stylesheet value="{!URLFOR($Resource.DynamicPage, 'css/DynamicPage.css')}" />
+    <script type="text/javascript">
+        var spDynamicPage = null;
+        jQuery(document).ready(function() {
+            spDynamicPage = new SPDynamicPage("{!Opportunity.Id}");
+        });
+        function beforeSave()
+        {
+            if("{!CurrentStage}" != 'Closed Dead' && spOppDependency.currentStage() == 'Closed Dead')
+            {
+                SPDialogBox.open("deadReasonDialog");
+                return false;
+            }
+            return true;
+        }
+    </script>
+    <apex:sectionHeader title="Opportunity Edit" subtitle="{!Opportunity.Name}" />
+    <apex:pagemessages />
+    <apex:form >
+    <apex:pageBlock mode="edit">
+        <apex:pageBlockButtons >
+            <apex:commandButton value="Save" action="{!save}" onclick="return beforeSave()"/>
+            <apex:commandButton value="Cancel" action="{!cancel}"/>
+            <apex:actionFunction action="{!save}" name="saveEdit" />
+        </apex:pageBlockButtons>
+        <apex:repeat value="{!DynamicPageLayout.Sections}" var="section">
+            <apex:pageBlockSection title="{!IF(section.Name='Description', '', section.Name)}" columns="{!section.Columns}" rendered="{!section.Name != 'Sales Team/Patch/Channel Information'}">
+                <apex:repeat value="{!$ObjectType.Opportunity.FieldSets[section.FieldSet]}" var="f">
+                    <apex:inputField value="{!Opportunity[f]}" required="{!OR(f.required, f.dbrequired)}" rendered="{!NOT(CONTAINS(PredefinedReadOnlyFields, f + ','))}" html-data-field-name="{!f}" />
+                    <apex:outputField value="{!Opportunity[f]}" rendered="{!CONTAINS(PredefinedReadOnlyFields, f + ',')}"/>
+                </apex:repeat>
+            </apex:pageBlockSection>
+        </apex:repeat>
+        <script>
+            var stageField = $("select[data-field-name='StageName']");
+            var probField = $("input[data-field-name='Probability']");
+            var forecastField = $("select[data-field-name='ForecastCategoryName']");
+            var spOppDependency = new SPOpportunityStageDependency(stageField, probField, forecastField, null, {!Stage2Probability});
+        </script>
+        <!-- popup for dead reason -->
+        
+        <div id="deadReasonDialog">
+            <apex:pageblockSection columns="1">
+                <apex:inputfield value="{!Opportunity.Dead_Reason__c}" />
+            </apex:pageblockSection>
+        </div>
+        <script>
+            new SPDialogBox($("#deadReasonDialog")[0], "OK", "Cancel");
+            SPDialogBox.dialogs.deadReasonDialog.afterSave = function() { saveEdit(); };
+        </script>
+        <!-- end of popup -->
+    </apex:pageBlock>
+    
+    </apex:form>
+</apex:page>

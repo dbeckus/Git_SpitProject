@@ -1,0 +1,3 @@
+<apex:page standardController="RMA__c" tabStyle="Return_Authorizations__tab">
+    <apex:listViews type="RMA__c"/>
+</apex:page>

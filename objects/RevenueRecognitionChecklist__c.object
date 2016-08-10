@@ -1,0 +1,367 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Follow</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>Opportunity Revenue Recognition Checklist</description>
+    <enableActivities>false</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableEnhancedLookup>false</enableEnhancedLookup>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>false</enableReports>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <fields>
+        <fullName>Contingencies_of_Sale__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Are there any reseller or end customer contingencies or conditions for this sale?</inlineHelpText>
+        <label>Contingencies of Sale</label>
+        <picklist>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>DescribeExpectations__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Please describe the expectations set with the customer</inlineHelpText>
+        <label>Describe Expectations</label>
+        <length>32000</length>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Describe_Contingencies__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Complete if contingencies of sale is Yes</inlineHelpText>
+        <label>Describe Contingencies</label>
+        <length>32000</length>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Finance_Released_At__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Time Stamp when Finance Review was checked</inlineHelpText>
+        <label>Finance Released At</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>Finance_Review_Notes__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Notes for finance regarding the revenue recognition checklist review</inlineHelpText>
+        <label>Finance Review Notes</label>
+        <length>32000</length>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Finance_Reviewed__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Finance has completed their revenue recognition review</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Finance has completed their revenue recognition review</inlineHelpText>
+        <label>Finance Reviewed</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Future_Features_Expected_Specifics__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Please describe Future Features Expected</inlineHelpText>
+        <label>Future Features Expected Specifics</label>
+        <length>32000</length>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Future_Features_Expected__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Does the customer expect any specific feature(s) or functionality that is coming in a future release? If yes, Please disclose the specifics?</inlineHelpText>
+        <label>Future Features Expected</label>
+        <picklist>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>InstallationExpectations__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Does the customer expect that Silver Peak will be providing installation as part of the sale? If yes, when is installation scheduled for? If yes, How was it communicated?</inlineHelpText>
+        <label>Does customer expect installation by SP</label>
+        <picklist>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Installation_Date__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Please complete if customer expects installation</inlineHelpText>
+        <label>Installation Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Installation_Notes__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Please describe how installation was communicated to the customer and what expectations were set as a condition of sale</inlineHelpText>
+        <label>Installation Notes</label>
+        <length>32000</length>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Is_Foreign_Governor_Entity__c</fullName>
+        <externalId>false</externalId>
+        <label>Is Foreign Governor Entity</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Other_Promises_Made_Disclosure__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Complete if Other Promises Made is yes</inlineHelpText>
+        <label>Other Promises Made Disclosure</label>
+        <length>32000</length>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Other_Promises_Made__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Have we made any other promises to the reseller or end customer? If yes, disclose in comments</inlineHelpText>
+        <label>Other Promises Made</label>
+        <picklist>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Reminders__c</fullName>
+        <externalId>false</externalId>
+        <label>Reminders</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>RightOfReturn__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Does the customer have right of return (Either written or verbal)?</inlineHelpText>
+        <label>Does the customer have right of return</label>
+        <picklist>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Roadmap_Information__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Was there any product roadmap information provided to the customer (other than the standard roadmap provided by Damon)?</inlineHelpText>
+        <label>Roadmap Information</label>
+        <picklist>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Signature_of_Opportunity_Owner__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <inlineHelpText>Checking this box signifies that the information included in the revenue recognition checklist section of this opportunity was completed by me and is true and accurate to the best of my knowledge.</inlineHelpText>
+        <label>Signature of Opportunity Owner</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Signed_At__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Timestamp of Opportunity Owner signature on revenue recognition checklist</inlineHelpText>
+        <label>Signed At</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>Signed_By__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Signed By</label>
+        <referenceTo>User</referenceTo>
+        <relationshipName>OpportunitiesOwnerSignature_Rrc</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>TrainingOrWANStartExpectations__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Does customer expect to receive Training or WAN Start at no charge?If yes, Please describe the expectations set with the customer.</inlineHelpText>
+        <label>Does customer expect to receive Training</label>
+        <picklist>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>UnitsGoingAbroad__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Are any of the units (including virtual) ultimately going outside of the United States? (If yes, a completed export compliance form is required for physical units.)</inlineHelpText>
+        <label>Units Going Abroad</label>
+        <picklist>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <label>Revenue Recognition Checklist</label>
+    <listViews>
+        <fullName>All</fullName>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+    </listViews>
+    <nameField>
+        <displayFormat>{000000}</displayFormat>
+        <label>Number</label>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>Revenue Recognition Checklists</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ReadWrite</sharingModel>
+</CustomObject>

@@ -1,0 +1,21 @@
+<apex:page sidebar="false">
+    <style>
+        .menu {
+            list-style-type: none;
+        }
+        .menu li {
+            float: left;
+            text-align: center;
+            margin-right: 50px;
+            margin-top: 20px;
+        }
+    </style>
+    <apex:sectionHeader title="Miscellaneous Setup"/>
+    
+    <ul class="menu">
+        <li><a href="/apex/OpportunityLayoutSetup"><img src="{!URLFOR($Resource.MiscellaneousSetup, 'img/layout.png')}" width="80" alt="Layout" /><div>Opportunity Layout</div></a></li>
+        <li><a href="/apex/OpportunityStageSetup"><img src="{!URLFOR($Resource.MiscellaneousSetup, 'img/stage.png')}" width="80" alt="Layout" /><div>Opportunity Stage Transition</div></a></li>
+        <!--<li><a href="/apex/LeadLayoutSetup"><img src="{!URLFOR($Resource.MiscellaneousSetup, 'img/layout2.png')}" width="80" alt="Layout" /><div>Lead Layout</div></a></li>-->
+    </ul>
+    
+</apex:page>

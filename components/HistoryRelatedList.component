@@ -1,0 +1,17 @@
+<apex:component controller="GenericHistoryComponentController">
+    <!-- Attribute Definition -->
+    <apex:attribute name="parentObjId" description="Object we wish to view the history of" type="Id" required="true" assignTo="{!parentId}" />
+    <apex:attribute name="limitNumber" description="Number of lines of history to display" type="Integer" required="false" assignTo="{!recordLimit}" />
+    
+    <!-- Object History Related List -->
+    <apex:pageBlock title="{!objectLabel} History" >
+        <apex:pageBlockTable value="{!ObjectHistory}" var="History" rendered="{!ObjectHistory.size > 0}">
+            <apex:column headerValue="Date"  value="{!History.thedate}"/>
+            <apex:column headerValue="User">
+                <apex:outputLink value="/{!History.userId}"> {!History.who} </apex:outputLink>
+            </apex:column>
+            <apex:column headerValue="Action"><apex:outputText escape="false" value="{!History.action}"/></apex:column>
+        </apex:pageBlockTable>
+        <apex:outputPanel rendered="{!ObjectHistory.size = 0}">No records to display</apex:outputPanel>
+    </apex:pageBlock>
+</apex:component>

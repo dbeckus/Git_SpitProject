@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Forecasting</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Forecasting</value>
+    </caseValues>
+    <fields>
+        <label><!-- New Rev Physical Amount --></label>
+        <name>Amount__c</name>
+    </fields>
+    <fields>
+        <label><!-- Fiscal Period --></label>
+        <name>Fiscal_Period__c</name>
+        <picklistValues>
+            <masterLabel>2010Q4</masterLabel>
+            <translation><!-- 2010Q4 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>2011Q1</masterLabel>
+            <translation><!-- 2011Q1 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>2011Q2</masterLabel>
+            <translation><!-- 2011Q2 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>2011Q3</masterLabel>
+            <translation><!-- 2011Q3 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>2011Q4</masterLabel>
+            <translation><!-- 2011Q4 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>2012Q1</masterLabel>
+            <translation><!-- 2012Q1 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>2012Q2</masterLabel>
+            <translation><!-- 2012Q2 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>2012Q3</masterLabel>
+            <translation><!-- 2012Q3 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>2012Q4</masterLabel>
+            <translation><!-- 2012Q4 --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Follow On Amount --></label>
+        <name>FollowOnAmount__c</name>
+    </fields>
+    <fields>
+        <label><!-- Renewal Amount --></label>
+        <name>MRAmount__c</name>
+    </fields>
+    <fields>
+        <label><!-- New Rev Amount --></label>
+        <name>NewAmount__c</name>
+    </fields>
+    <fields>
+        <label><!-- New Rev Virtual Amount --></label>
+        <name>NewVirtualAmount__c</name>
+    </fields>
+    <fields>
+        <label><!-- Type --></label>
+        <name>Type__c</name>
+        <picklistValues>
+            <masterLabel>Commitment</masterLabel>
+            <translation><!-- Commitment --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Forecast</masterLabel>
+            <translation><!-- Forecast --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Quota</masterLabel>
+            <translation><!-- Quota --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- User --></label>
+        <name>User__c</name>
+        <relationshipLabel><!-- Forecasting --></relationshipLabel>
+    </fields>
+    <layouts>
+        <layout>Forecasting Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+    </layouts>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

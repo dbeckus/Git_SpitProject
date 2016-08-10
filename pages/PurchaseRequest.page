@@ -1,0 +1,305 @@
+<apex:page standardController="Purchasing_Request__c"  extensions="PurchaseRequestController" showHeader="false" id="page" action="{!init}" cache="false">
+    <html xmlns="http://www.w3.org/1999/xhtml">
+        <head>
+            <title>Purchase Requisition</title>
+            <link rel="stylesheet" rev="stylesheet" href="{!URLFOR($Resource.PurchaseRequest_NoBanner, 'css/main.css')}" type="text/css" />
+            <script src="{!URLFOR($Resource.PurchaseRequest, 'js/jquery-1_3_2.js')}" type="text/javascript"></script>
+            <script src="{!URLFOR($Resource.PurchaseRequest, 'js/purPageControl.js')}" type="text/javascript"></script>
+        </head>
+        <apex:form id="form">
+        <body onload="refreshLineAfterOperation();">
+            <div id="wrap">
+            <h1 style="display:block"><a href="">Silver Peak</a></h1>
+            <h2 class="step4">Purchase Requisition</h2>
+            
+            <div class="purchaseOptCon">
+            <ul class="purOptLeftCon">
+            <li>
+            <div class="purOptLeftInfoName">Approved Vendor:</div>
+            <apex:selectList size="1" value="{!Purchasing_Request__c.Approved_Vendor_List__c}"><apex:selectOptions value="{!VendorList}"/></apex:selectList>
+            <div class="clearfix"></div>
+            </li>
+
+            <li>
+            <div class="purOptLeftInfoName">New Vendor Name:</div>
+            <apex:inputField value="{!Purchasing_Request__c.Vendor_Name__c}" />
+            <div class="clearfix"></div>
+            </li>
+            
+            <li>
+            <div class="purOptLeftInfoName">New Vendor Contact (Name/Phone/Fax):</div>
+            <apex:inputField value="{!Purchasing_Request__c.Vendor_Contact__c}" />
+            <div class="clearfix"></div>
+            </li>
+
+            <li>
+            <div class="purOptLeftInfoName">Vendor Contact Email:</div>
+            <apex:inputField value="{!Purchasing_Request__c.Vendor_Email__c}" />
+            <div class="clearfix"></div>
+            </li>
+            
+            <li>
+            <div class="purOptLeftInfoName">New Vendor Address (City, State/Province, Postal Code, Country):</div>
+            <apex:inputField value="{!Purchasing_Request__c.Vendor_Address__c}" />
+            <div class="clearfix"></div>
+            </li>
+            
+            <li>
+            <div class="purOptLeftInfoName">Ship To Location:</div>
+            <apex:inputField value="{!Purchasing_Request__c.Ship_To__c}" />
+            <div class="clearfix"></div>
+            </li>
+        <li>
+            <div class="purOptLeftInfoName">Instructions for Purchasing Agent:</div>
+            <apex:inputField value="{!Purchasing_Request__c.Purchasing_Instructions__c}" />
+            <div class="clearfix"></div>
+            </li>
+            </ul>
+            
+            <ul class="purOptLeftCon rightBtmOptCon">
+            <li>
+            <div class="purOptLeftInfoName">Date:</div>
+            <apex:inputField value="{!Purchasing_Request__c.Requested_Date__c}" style="width:240px" html-autocomplete="off" />
+            <div class="clearfix"></div>
+            </li>
+        <li>
+            <div class="purOptLeftInfoName">Submitted By:</div>
+            <apex:inputField value="{!Purchasing_Request__c.Requested_By__c}" />
+            <div class="clearfix"></div>
+            </li>
+
+            <li>
+            <div class="purOptLeftInfoName">Submitter Email:</div>
+            <apex:inputField value="{!Purchasing_Request__c.Email__c}" />
+            <div class="clearfix"></div>
+            </li>
+            
+             <li>
+            <div class="purOptLeftInfoName">Submitted For:</div>
+            <apex:inputField value="{!Purchasing_Request__c.Requested_For__c}" />
+            <div class="clearfix"></div>
+            </li>
+           
+            <li>
+            <div class="purOptLeftInfoName">Date Needed By:</div>
+            <apex:inputField value="{!Purchasing_Request__c.Needed_By_Date__c}" style="width:240px" html-autocomplete="off" />
+            <div class="clearfix"></div>
+            </li>
+
+            <li>
+            <div class="purOptLeftInfoName">Budget Owner:</div>
+            <apex:selectList size="1" value="{!Purchasing_Request__c.First_Approver__c}"><apex:selectOptions value="{!approvers}"/></apex:selectList>
+            <div class="clearfix"></div>
+            </li>
+        <li>
+            <div class="purOptLeftInfoName">Purchasing Justification:</div>
+            <apex:inputField value="{!Purchasing_Request__c.Purchasing_Justification__c}" />
+            <div class="clearfix"></div>
+            </li>
+            </ul>
+            <div class="purOptRightCon" >
+            <a class="grayBtn printBtn" href="#" onclick="window.print();">Print</a>
+            <!--<a class="grayBtn clearAllBtn" href="#" onclick="alert($('#{!$Component.page.form}'))">Clear All</a>-->
+            <apex:commandLink styleClass="grayBtn clearAllBtn" value="Clear All " action="{!formReset}" immediate="true"  />
+            <div class="clearfix"></div>
+            <div class="radioOptBox">
+            
+            <div class="radioName">Paying on Credit Card?</div>
+            <div class="checkCon"><apex:inputcheckbox id="payCredit" value="{!Purchasing_Request__c.PayOnCreditCard__c}"/></div>
+            <div class="clearfix"></div>
+            
+            <div class="radioName">Send PO to vendor?</div>
+            <div class="checkCon"><apex:inputcheckbox id="sendPO" value="{!sendToVendor}" /><!--<apex:selectRadio enabledClass="radioCon" value="{!Purchasing_Request__c.Send_PO_to_Vendor__c}"  styleClass="radioCon"><apex:selectOption itemLabel="Yes" itemValue="Yes" /><apex:selectOption itemLabel="No" itemValue="No" /></apex:selectRadio>--></div>
+            <div class="clearfix"></div>
+            
+            <div class="radioName">Partner Mktg Program?</div>
+            <div class="checkCon"><apex:inputcheckbox id="Channel_Mkt_Program__c" value="{!Purchasing_Request__c.Channel_Mkt_Program__c}"/></div>
+            <div class="clearfix"></div>
+            </div>
+            </div><div class="clearfix"></div>
+            </div><!--purchaseOptCon-->
+            <br/>      
+            <div class="purchaseOptCon">
+            <table class="purInfoTable">
+              <tr>
+                <th class="purFirstTh" scope="col">Qty</th>
+                <th scope="col" width="325px">Description</th>
+                <th scope="col" width="95px">Unit Price</th>
+                <th scope="col" width="65px">Total</th>
+                <th scope="col">G/L Acct*</th>
+                <th scope="col"><apex:outputLabel >Cap* </apex:outputLabel></th>
+                <th scope="col"><apex:outputLabel >Exp* </apex:outputLabel></th>
+                <th class="col">Dept* (*if known)</th>
+                <th class="purLastTh">Project*</th>
+                <th width="22px" class="deleteTh" scope="col"></th>
+              </tr>
+             <apex:variable var="index" id="index" value="{!0}" />
+             <apex:repeat value="{!lines}" var="line" id="repeat">
+              <tr style="height:30px">
+                <td><apex:inputField id="qty" value="{!line.Qty__c}" onblur="refreshTotalByQty(this)" style="width:30px"/></td>
+                <td><apex:inputText value="{!line.Description__c}" maxLength="255" style="width:300px" /></td>
+                <td><apex:inputField id="price" value="{!line.Unit_Price__c}" onblur="refreshTotalByPrice(this)" style="width:50px"/></td>
+                 <td>$<apex:outputText value="{!'0.00'}" id="lineTotal"/></td>
+                <td><apex:inputField value="{!line.GL_Account__c}"  style="width:100px"/></td>
+                <td style="text-align:center"><input id="capital{!index}" name="capitalOrExpense{!index}" style="margin:0 auto;" type="radio" onClick="isCap(this,{!index})" /></td>
+                <td style="text-align:center"><input id="expense{!index}" name="capitalOrExpense{!index}" style="margin:0 auto;" type="radio" onClick="isExp(this,{!index})" /><apex:inputHidden value="{!line.Capital_or_Expenses__c}" id="CapitalOrExpense"/></td>
+                <td><apex:inputField value="{!line.Department__c}" style="width:160px"/></td>
+                <td><apex:inputField value="{!line.Project__c}" style="width:65px"/></td>
+                <td class="deleteTd"><apex:commandLink title="delete this line" styleClass="deleteRow" action="{!removeLine}"><apex:param name="index" value="{!index}"/></apex:commandLink></td>
+              </tr>
+              <apex:variable var="index" value="{!index + 1}" />
+        </apex:repeat>
+            </table>
+            <apex:commandLink styleClass="addRowBtn" value="Add A Row" action="{!addLine}"/>
+            <div class="purTotalNumber" id="TotalNumber">$0.00</div>
+            <div class="purTotalName">Total:</div>
+            <div class="clearfix"></div> 
+            </div>
+            <!--purchaseOptCon-->
+            <div class="purchaseOptCon">
+            <ul class="purOptLeftCon">
+            <li>
+            <div class="purOptLeftInfoName">Upload Files:</div>
+                <table>
+                    <tr>
+                        <td>
+                            <apex:inputFile id="f" value="{!attach.body}" filename="{!attach.name}" size="35"/>
+                            <apex:commandLink styleClass="grayBtn uploadBtn" action="{!saveFile}" value="Upload"/>
+                        </td>
+                    </tr>
+                </table>
+            <div class="clearfix"></div>
+            </li>
+            </ul>
+            <div class="clearfix"></div>
+            <div class="uploadedFiles">&nbsp;
+                <apex:repeat value="{!FileNames}" var="fileName">
+                     <div>{!fileName}</div>
+                </apex:repeat>
+            </div>
+            </div><!--purchaseOptCon-->
+            
+            <div class="purSubmitBtnCon">
+            <apex:pageMessages />
+            <apex:commandLink styleClass="purSubmitPRbtn" value="Submit PR" onclick="return confirm('Are you sure you want to submit?');"  action="{!save}"/>
+            </div><!--purSubmitBtnCon-->
+            
+            <div class="footer">
+            <div class="contact">2860 De La Cruz Blvd, Suite 100, Santa Clara, CA 95050 | 888-598-7325</div>
+            <div class="rights">© 2010 Silver Peak Systems, Inc.</div>
+            <div class="clearfix"></div>
+            </div><!--footer-->
+            </div><!--wrap-->
+        </body>
+        </apex:form>
+    </html>
+    <script>
+        function getDecimal(value)
+        {
+            if(value && value != null)
+            {
+                value = value.replace(',', '');
+                return parseFloat(value);
+            }
+            return 0;
+        }
+        function refreshTotalByQty(qtyObj)
+        {
+            var priceId = qtyObj.id.replace("qty", "price");
+            var priceObj = document.getElementById(priceId);       
+            refreshTotal(qtyObj, priceObj);
+        }
+        function refreshTotalByPrice(priceObj)
+        {
+            var qtyId = priceObj.id.replace("price", "qty");
+            var qtyObj= document.getElementById(qtyId);
+            refreshTotal(qtyObj, priceObj);
+        }
+        function refreshTotal(qtyObj, priceObj)
+        {
+            var lineTotalObjId= qtyObj.id.replace("qty", "lineTotal");
+            var lineTotalObj = document.getElementById(lineTotalObjId);
+            if(parseFloat(qtyObj.value) * getDecimal(priceObj.value) > 0)
+            {
+                lineTotalObj.innerHTML= (getDecimal(qtyObj.value) * getDecimal(priceObj.value)).toFixed(2);;
+            }
+            else
+            {
+                lineTotalObj.innerHTML= '0.00';
+            }
+            refreshTotalByLine();
+        }
+        function refreshTotalByLine()
+        {
+            var total = 0;
+            for(var i = 0;; i++)
+            {
+                var lineTotalObj = document.getElementById("page:form:repeat:" + i + ":lineTotal");
+                if(lineTotalObj != null )
+                {
+                    var lineValue = getDecimal(lineTotalObj.innerHTML);
+                    if(isNaN(lineValue))   
+                        {
+                            break;
+                        }
+                    total += lineValue;
+                }
+                else
+                {
+                    break;
+                }
+            }
+            document.getElementById("TotalNumber").innerHTML = "$" + total.toFixed(2);;
+        }
+        function refreshLineAfterOperation()
+        {
+            var total = 0;
+            for(var i = 0;; i++)
+            {
+                var qtyObj = document.getElementById("page:form:repeat:" + i + ":qty");
+                var priceObj = document.getElementById("page:form:repeat:" + i + ":price");
+                if( qtyObj != null && priceObj.value != null )
+                {
+                    var qtyvalue = qtyObj.value;
+                    var pricevalue = priceObj.value;
+                    if(qtyvalue == null)
+                    {
+                        qtyvalue = 0;
+                    }
+                    if(pricevalue == null)
+                    {
+                        pricevalue = 0;
+                    }
+                    
+                    if(!isNaN(parseFloat(qtyvalue)*parseFloat(pricevalue)))
+                    {
+                        document.getElementById("page:form:repeat:" + i + ":lineTotal").innerHTML =  (parseFloat(qtyvalue)*parseFloat(pricevalue)).toFixed(2);
+                        total +=  parseFloat(qtyvalue)*parseFloat(pricevalue);
+                        document.getElementById("TotalNumber").innerHTML = total.toFixed(2);
+                    }
+                }
+                else
+                {
+                    //document.getElementById("page:form:repeat:" + i + ":lineTotal").innerHTML = "";
+                    break;
+                }
+            }
+        }
+        function isCap(capobj,num)
+        {
+            var capOrExp = document.getElementById("page:form:repeat:" + num + ":CapitalOrExpense");
+            if(capobj.value == 'on')
+            {
+                capOrExp.value = 'Capital';
+            }
+        } 
+        function isExp(expobj,num)
+        {
+            var capOrExp = document.getElementById("page:form:repeat:" + num + ":CapitalOrExpense");
+            if(expobj.value == 'on')
+            {
+                capOrExp.value = 'Expense';
+            }
+        } 
+    </script>
+</apex:page>

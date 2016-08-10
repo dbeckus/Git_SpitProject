@@ -1,0 +1,2 @@
+<apex:page standardStylesheets="false" showHeader="false" action="{!IF(TEXT($User.UserType)='Guest', '/s/PartnerLogin', '/s/Home') + IF(ISBLANK($CurrentPage.parameters.retURL), '', '?retURL=' + $CurrentPage.parameters.retURL)}">
+</apex:page>

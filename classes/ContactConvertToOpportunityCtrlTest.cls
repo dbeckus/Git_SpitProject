@@ -1,0 +1,40 @@
+/**
+ * The test class of ContactConvertToOpportunityController class.
+ *
+ * @author  SnapBI
+ * @version 1.0
+ *
+ * @changelog
+ * 5/15/2015 Matt Yuan - Created.
+ */
+
+@isTest
+private class ContactConvertToOpportunityCtrlTest
+{
+    @isTest static void testConvertToNew()
+    {
+        Account acc = new Account(name='acme');
+        insert acc;
+        Contact ct = new Contact(LastName='acme', AccountId=acc.Id);
+        insert ct;
+        Test.startTest();
+        ContactConvertToOpportunityController ctrl = new ContactConvertToOpportunityController(new ApexPages.StandardController(ct));
+        ctrl.ConvertToNewOpportunity();
+         Test.stopTest();
+        System.assert(ctrl.OpportunityId != null);
+    }
+    
+    @isTest static void testConvertToExisting()
+    {
+        Account acc = new Account(name='acme');
+        insert acc;
+        Contact ct = new Contact(LastName='acme', AccountId=acc.Id);
+        insert ct;
+        Opportunity opp = new Opportunity(AccountId=acc.Id, StageName='Discovery', Name='acme', CloseDate=Date.today());
+        insert opp;
+        
+        ContactConvertToOpportunityController ctrl = new ContactConvertToOpportunityController(new ApexPages.StandardController(ct));
+        System.assertEquals(1, ctrl.OpportunityOptions.size());
+        ctrl.ConvertToExistingOpportunity();
+    }
+}

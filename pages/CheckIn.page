@@ -1,0 +1,83 @@
+<apex:page controller="CheckInController" showHeader="false" sidebar="false" standardStylesheets="false" cache="false">
+    <apex:stylesheet value="{!URLFOR($Resource.PurchaseRequest_NoBanner, 'css/main.css')}"/>
+    <style>
+        .registerLink
+        {
+            color:#015BA7;
+            font-size:12px;
+            line-height:25px;
+            margin-left:3px;
+            margin-right:3px;
+        }
+        .registerLink:hover
+        {
+            text-decoration: underline;
+        }
+    </style>
+    <apex:form >
+    <div id="wrap">
+        <h1><a href="#">Silver Peak</a></h1>
+        <h2 class="step4">Checking-In</h2>
+        <apex:pageMessages />
+
+        <ul class="listInfo">
+            <li class="listTitle"><apex:outputText value="{!campaignName}"/></li>
+        </ul>
+        <div>
+            <apex:commandLink style="float:left" value="Checkin" action="{!save}" styleClass="saveButton"/>
+            <a href="/RegisterWalkIn?id={!$CurrentPage.Parameters.Id}" class="registerLink">Register Walk In</a>
+            <apex:commandLink style="float:right" value="Update" action="{!savefu}" styleClass="saveButton"/>
+            <apex:outputPanel rendered="{!PageIndex<PageCount}" layout="none"><a href="?id={!$CurrentPage.Parameters.Id}&page={!PageIndex+1}" style="float:right" class="registerLink">Next Page</a></apex:outputPanel>
+            <apex:outputPanel rendered="{!PageIndex>1}" layout="none"><a href="?id={!$CurrentPage.Parameters.Id}&page={!PageIndex-1}" style="float:right" class="registerLink">Previous Page</a></apex:outputPanel>
+        </div>  
+        <table class="purInfoTable mb10">
+            <tr>
+                <th class="purFirstTh" scope="col">Attend</th>
+                <th scope="col">Name</th>
+                <th scope="col">Title</th>
+                <th scope="col">Company</th>
+                <th scope="col" style="line-height:14px;font-size:11px;">Send to RSM</th>
+                <th scope="col" >Notes</th>
+                <th class="purLastTh" scope="col" style="line-height:14px;font-size:11px;">Do Not Contact</th>
+            </tr>
+            <apex:variable value="{!1}" var="m"/>
+            <apex:repeat value="{!Attendees}" var="leadInfo">
+                <apex:variable value="{!m + 1}" var="m"/>
+                <tr class="{!IF(MOD(m,2) == 0, 'evenTr', '')}">
+                    <td class="center">
+                        <apex:inputCheckbox value="{!leadInfo.isLCRAA}" rendered="{!NOT(leadInfo.isLCRAA)}"/>
+                        <apex:image value="/img/checkbox_checked.gif" rendered="{!leadInfo.isLCRAA}" />
+                    </td>
+                    <td>{!leadInfo.Name}</td>
+                    <td>{!leadInfo.Title}</td>
+                    <td>{!leadInfo.Company}</td>
+                    <td class="center">
+                        <apex:inputCheckbox value="{!leadInfo.SendToRSM}" rendered="{!NOT(leadInfo.SendToRSM)}"/>
+                        <apex:image value="/img/checkbox_checked.gif" rendered="{!leadInfo.OriginalSendToRSM}" />
+                    </td>
+                    <td>
+                        <apex:inputText value="{!leadInfo.surveyNote}" maxlength="75" rendered="{!NOT(leadInfo.OriginalSendToRSM)}"/>
+                    </td>
+                    <td class="center">
+                        <apex:inputCheckbox value="{!leadInfo.DoNotCall}" rendered="{!NOT(leadInfo.DoNotCall)}"/>
+                        <apex:image value="/img/checkbox_checked.gif" rendered="{!leadInfo.DoNotCall}" />
+                    </td>
+                </tr>
+            </apex:repeat>
+        </table>
+        <div>
+            <apex:commandLink style="float:left" value="Checkin" action="{!save}" styleClass="saveButton"/>    
+            <a href="/RegisterWalkIn?id={!$CurrentPage.Parameters.Id}" class="registerLink">Register Walk In</a>
+            <apex:commandLink style="float:right" value="Update" action="{!savefu}" styleClass="saveButton"/>     
+            <apex:outputPanel rendered="{!PageIndex<PageCount}" layout="none"><a href="?id={!$CurrentPage.Parameters.Id}&page={!PageIndex+1}" style="float:right" class="registerLink">Next Page</a></apex:outputPanel>
+            <apex:outputPanel rendered="{!PageIndex>1}" layout="none"><a href="?id={!$CurrentPage.Parameters.Id}&page={!PageIndex-1}" style="float:right" class="registerLink">Previous Page</a></apex:outputPanel>
+        </div>
+        <div class="clearfix"></div>
+        <div class="footer">
+            <div class="contact">2860 De La Cruz Blvd, Suite 100, Santa Clara, CA 95050</div>
+            <div class="rights">© 2010 Silver Peak Systems, Inc.</div>
+            <div class="clearfix"></div>
+        </div><!--footer-->
+    </div><!--wrap-->
+    </apex:form>
+</apex:page>

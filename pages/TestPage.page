@@ -1,0 +1,5 @@
+<apex:page controller="TestController" >
+    <apex:form >
+    <apex:commandButton id="btnSave" action="{!Save}" value="Save"></apex:commandButton>
+         </apex:form>
+</apex:page>

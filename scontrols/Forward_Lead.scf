@@ -1,0 +1,512 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd"> 
+<html> 
+<title>Forward Opportunity</title> 
+<HEAD> 
+<style type="text/css" media="screen">div.visible { display: visible; } div.hidden { display: none; }</style> 
+<link href="/dCSS/Theme2/default/common.css", type="text/css" rel="stylesheet"> 
+<link href="/dCSS/Theme2/default/custom.css", type="text/css" rel="stylesheet"> 
+<link href="/css/assistive.css", type="text/css" rel="stylesheet"> 
+<script src="/js/functions.js" type="text/javascript"></script> 
+<script src="https://www.salesforce.com/services/lib/ajax/beta3.3/sforceclient.js" type="text/javascript"></script> 
+<script type="text/javascript"> 
+
+//Window error handling 
+window.onerror = function ( strErr, strURL, strLineNumber ) { 
+	clearMessage(); 
+	if(strURL=="") 
+		strURL=document.location.href; 
+	strMess = "Some parts of this page may be displayed incorrectly \nError Description\n"; 
+	strMess += "URL: " + strURL; 
+	if(strLineNumber!=0) 
+		strMess += "\nline number: " + strLineNumber; 
+	strMess += "\nError Message: " + strErr; 
+	strMess += "\n\nContact your system administrator for assistance"; 
+	displayMessage(strMess); 
+	document.body.style.cursor = "default"; 
+	displayProcessing(false); 
+} 
+
+//Function to show processing bar 
+function displayProcessing(show, val) { 
+	if(show) { 
+		document.getElementById("processingBar").className = 'visible'; 
+		document.getElementById("processingmessage").innerHTML = checkForNull(val); 
+	} else { 
+		document.getElementById("processingBar").className = 'hidden'; 
+	} 
+} 
+
+//Displays a message in the message area 
+function displayMessage(val,clearArea){ 
+	if(clearArea) 
+		document.getElementById("messageArea").innerHTML = checkForNull(val); 
+	else 
+		document.getElementById("messageArea").innerHTML += checkForNull(val); 
+	document.getElementById("messageArea").className = 'visible'; 
+} 
+
+//Clears the message area 
+function clearMessage(){ 
+	document.getElementById("messageArea").className = "hidden"; 
+	document.getElementById("messageArea").innerHTML = ""; 
+} 
+
+//starting function 
+function startup() { 
+	//showDebug(); 
+	
+	// get session id and initialize the sforceClient object 
+	sforceClient.init("{!API.Session_ID}", "{!API.Partner_Server_URL_80}"); 
+	//check everything is ok 
+	if (sforceClient.getSessionId().indexOf("!API_Session_ID") != -1) { 
+		alert("You are not logged in"); 
+	} else { 
+		//Uncomment to have a debug window display with comments/ errors etc 
+		//showDebug(); 
+		retrieveContactList(); 
+		populateRecordTypeList();
+		document.getElementById("progressBar").className = 'hidden'; 
+		document.getElementById("formx").className = 'visible'; 
+	} 
+} 
+
+function disableFowardButton() {
+	document.getElementById("Forward").disabled = true; 
+	document.getElementById("Forward").className = "btnDisabled"; 
+}
+
+//Show a list of contacts for the given opportunity account 
+function retrieveContactList(){ 
+	//Display the hour glass 
+	document.body.style.cursor = "wait"; 
+	displayProcessing(true, "retrieving contact list") 
+	
+	var process = true; 
+	var availableContactChoices = 0; 
+	if(!document.getElementById("selectContact")) { 
+		//The list has not yet been created. Create it. 
+		availableContactChoices = populateContactList("{!Opportunity.AccountId}"); 
+	} else { 
+		availableContactChoices = document.getElementById("selectContact").options.length; 
+	} 
+	
+	if(availableContactChoices >0) { 
+		if(document.getElementById("selectContact").options.length > 1) 
+		contactID = document.getElementById("selectContact").options[document.getElementById("selectContact").selectedIndex].value; 
+	} else { 
+		displayMessage("This opportunity cannot be forwarded as there are no contacts for the opportunity account <b>{!Opportunity.Account}</b>"); 
+		disableFowardButton();
+	} 
+
+	//revert the cursor to default 
+	document.body.style.cursor = "default"; 
+	displayProcessing(false); 
+} 
+
+//Validates the form before forwarding the lead 
+function validateFormEntries() { 
+	var retVal = true; 
+	
+	var s =""; 
+	//Validate that a contact is selected 
+	var cont_select = document.getElementById("selectContact"); 
+	var cont_id = cont_select.options[cont_select.selectedIndex].value; 
+	if (cont_id == null || cont_id == "" || cont_id == 000000000000000) 
+		s = "* Select a contact from the list.\n"; 
+	
+	//Validate that a user or queue has been selected 
+	var ownerId = document.getElementById("newOwn_lkid").value; 
+	if (ownerId == null || ownerId == "" || ownerId == "000000000000000") 
+		s += "* Select a lead owner.\n"; 
+
+	//Validate that a record type is selected 
+	var recType = document.getElementById("selectContact"); 
+	var recType_id = recType.options[recType.selectedIndex].value; 
+	if (recType_id == null || recType_id == "" || recType_id == 000000000000000) 
+		s += "* Select a record type from the list.\n"; 
+
+	if (s!='') { 
+		alert('The required information is incomplete or contains errors:\t\t\t\t\t\n\n'+s) 
+		retVal = false; 
+	} 
+	return retVal; 
+} 
+
+//Forwards the deal to a lead 
+function forwardDeal(){ 
+	//Validate the form selections
+	if(validateFormEntries()) { 
+		//Display the hour glass 
+		document.body.style.cursor = "wait"; 
+		
+		//Create the lead
+		var newLeadID = createLead();
+		if(newLeadID != null) {
+			//Opportunity changes
+
+			//First set the deal forward field to false in case it was already true and then 
+			//(so that when set to true later, the workflow rule will run)
+			var opptrec = new Sforce.Dynabean("opportunity"); 
+			opptrec.set("id", "{!Opportunity.Id}");
+			opptrec.set("Deal_Forward__c", false);
+			var or = sforceClient.Update(opptrec); 
+			if (or.className == "Fault") { 
+				var str = "Error updating opportunity"; 
+				str += "<br>Fault Code: " + or.faultcode; 
+				str += "<br>Fault String: " + or.faultstring; 
+				displayMessage(or); 
+			} else { 
+				//Update the opportunity with the new lead information
+				opptrec = new Sforce.Dynabean("opportunity"); 
+				opptrec.set("id", "{!Opportunity.Id}");
+				opptrec.set("Deal_Forward__c", true);
+				opptrec.set("Forwarded_Lead_ID__c", newLeadID); 
+				var or = sforceClient.Update(opptrec); 
+				if (or.className == "Fault") { 
+					var str = "Error updating opportunity"; 
+					str += "<br>Fault Code: " + or.faultcode; 
+					str += "<br>Fault String: " + or.faultstring; 
+					displayMessage(or); 
+				}
+			}
+		} 
+		
+		if(newLeadID != null)
+			parent.location.href = "/" + newLeadID;
+
+		//revert the cursor to default 
+		document.body.style.cursor = "default"; 
+		displayProcessing(false); 
+	} 
+} 
+
+function createLead() { 
+	var retVal;
+	
+	//Get the selected contact id and retrieve the contact data, which is needed to create the lead 
+	var selectContactList = document.getElementById("selectContact"); 
+	var cont_id = selectContactList.options[selectContactList.selectedIndex].value; 
+	var contactFields = new Array(); 
+	contactFields.push("FirstName"); 
+	contactFields.push("LastName"); 
+	contactFields.push("Phone"); 
+	contactFields.push("Title"); 
+	contactFields.push("Email"); 
+	var contactqr = sforceClient.Retrieve(contactFields,"Contact",cont_id); 
+	if (contactqr.className == "Fault") { 
+		var str = "Error retrieving contact information"; 
+		str += "<br>Fault Code: " + contactqr.faultcode; 
+		str += "<br>Fault String: " + contactqr.faultstring; 
+		displayMessage(str); 
+	} else { 
+		//Create the lead with the contact information
+		//Create a lead via the API 
+		//NOTE: The record type and custom field values need to be changed when copied to a new org 
+		var leadrec = new Sforce.Dynabean("lead"); 
+		var activeRecordType = document.getElementById("selectRecordType"); 
+		if(activeRecordType != null) 
+			leadrec.set("RecordTypeID", activeRecordType.options[activeRecordType.selectedIndex].value); 
+		leadrec.set("FirstName", contactqr[0].get("FirstName"));
+		leadrec.set("LastName", checkForNull(contactqr[0].get("LastName"),true));
+		leadrec.set("Phone", contactqr[0].get("Phone"));
+		leadrec.set("Title", contactqr[0].get("Title"));
+		leadrec.set("Email", contactqr[0].get("Email"));
+		leadrec.set("Company", checkForNull("{!Opportunity.Account}",true)); 
+		leadrec.set("Project_Name__c", "{!Opportunity.Project_Name__c}");
+		leadrec.set("Project_Description__c", "{!Opportunity.Project_Description__c}");
+		leadrec.set("Deal_Forward__c", true);
+		leadrec.set("Ownerid", document.getElementById("newOwn_lkid").value); 
+		var sendMailToOwner = document.getElementById("sendMail");
+		if(sendMailToOwner.checked == true)
+			leadrec.set("Email_New_Owner__c", true); 
+		var lr = leadrec.save(); 
+		if (lr.success == false) { 
+			displayMessage("<br>Lead Create failed: " + lr.errors[0].message); 
+		} else { 
+			//Set the parent URL to new lead 
+			retVal = lr.id; 
+		} 
+	}
+	displayProcessing(false);
+	return retVal;
+} 
+
+function gotoPage() { 
+	parent.location.href = "/{!Opportunity.Id}"; 
+} 
+
+function viewContact() { 
+	var cont_select = document.getElementById("selectContact"); 
+	var cont_id = cont_select.options[cont_select.selectedIndex].value; 
+	if (cont_id == null || cont_id == "" || cont_id == 000000000000000) { 
+		alert("You can only view existing contacts."); 
+	} else { 
+		printWin('/'+cont_id+'/p'); 
+	} 
+} 
+
+function checkForNull(value, notprovidedText) { 
+	if(value != null) {
+		return value; 
+	} else if(notprovidedText) {
+		return "[not provided]";
+	} else {
+		return "";
+	}
+} 
+
+// Populates a list box of contact names to choose from 
+function populateContactList(accountID) { 
+	var retValue = 0; 
+	var contactName; 
+	
+	//Get a list of contacts from the given company id 
+	var sql = "select id, firstname, lastname from contact where accountid = '{!Opportunity.AccountId}'"; 
+	var qr=sforceClient.Query(sql); 
+	if(qr != null && qr.size>0) { 
+		//There are potential matching accounts 
+		retValue = qr.size; 
+	
+		//Add the first entry as - None- 
+		var linkHTML = "<select id='selectContact'><option value='000000000000000'>--None--</option>"; 
+		
+		//Add any matches to the list 
+		if(qr.size>0) { 
+			for (var i=0;i<qr.size;i++) 
+				linkHTML += "<option value='" + qr.records[i].get("Id") + "'>" + qr.records[i].get("LastName") + ", " + qr.records[i].get("FirstName") + "</option>"; 
+		} 
+		linkHTML += "</select>" 
+		//write the HTML to the account Div 
+		document.getElementById("contactListSelection").innerHTML = linkHTML; 
+		document.getElementById("convertContactRow").className = "visible"; 
+	} 
+	return retValue; 
+} 
+
+// Populates a list box of record types to choose from 
+function populateRecordTypeList() { 
+	var retValue = 0; 
+	
+	var sql = "Select Id, Name from RecordType where sobjecttype = 'lead'"; 
+	var qr=sforceClient.Query(sql); 
+	if(qr != null && qr.size>0) { 
+		retValue = qr.size; 
+	
+		//Add the first entry as - None- 
+		var linkHTML = "<select id='selectRecordType'>"; 
+		
+		//Add any matches to the list 
+		if(qr.size>0) { 
+			for (var i=0;i<qr.size;i++) 
+				linkHTML += "<option value='" + qr.records[i].get("Id") + "'>" + qr.records[i].get("Name") + "</option>"; 
+		} 
+		linkHTML += "</select>" 
+		//write the HTML to the record type Div 
+		document.getElementById("recordTypeSelection").innerHTML = linkHTML; 
+		document.getElementById("recordTypeRow").className = "visible"; 
+	} 
+	return retValue; 
+} 
+
+// Show the debug window 
+function showDebug() { 
+	window.top.debugWindow = 
+	window.open("", 
+	"Debug", 
+	"left=0,top=0,width=300,height=700,scrollbars=yes," 
+	+"status=yes,resizable=yes"); 
+	window.top.debugWindow.opener = self; 
+	// open the document for writing 
+	window.top.debugWindow.document.open(); 
+	window.top.debugWindow.document.write( 
+	"<HTML><HEAD><TITLE>Debug Window</TITLE></HEAD><BODY><PRE>\n"); 
+} 
+
+// If the debug window exists, then write to it 
+function debug(val) { 
+	if (window.top.debugWindow && ! window.top.debugWindow.closed) 
+		window.top.debugWindow.document.write(val+"\n"); 
+} 
+--> 
+</script> 
+</head> 
+
+<body class="opportunity overviewPage" onload="startup()"> 
+<div id="progressBar" class="visible"> 
+<br><table width="100%"><tr><td align=center><span class="moduleTitle">Retrieving Contacts...Please Wait</span></td></tr> 
+<tr><td>&nbsp;</td></tr><tr><td align=center><img src="/img/waiting_dots.gif" border="0" width=156 height=34></td></tr> 
+</table> 
+</div> 
+<form id="formx" class="hidden"> 
+<div id="contextSection" class="visible"> 
+<input type=hidden name="resellerUserID" id="resellerUserID" value=""> 
+<DIV class=bPageTitle> 
+<DIV class="ptBody secondaryPalette"> 
+<DIV class=content> 
+<IMG class=pageTitleIcon alt=Opportunity src="/s.gif"> 
+<H1 class=pageType>Forward This Deal<SPAN class=titleSeparatingColon>:</SPAN></H1> 
+<H2 class=pageDescription><div id="scriptName">{!Opportunity.Name}</div></H2> 
+<DIV class=blank>&nbsp;</DIV> 
+</DIV> 
+</DIV> 
+<DIV class=links></DIV> 
+</DIV> 
+<DIV class=ptBreadcrumb></DIV> 
+</div> 
+
+<table border="0" cellpadding="0" cellspacing="2"> 
+<tbody><tr> 
+<td colspan="4">Select a contact within account <b>{!Opportunity.Account}</b> and forward <b>{!Opportunity.Name}</b> deal info to a partner.<br><br></td> 
+</tr></tbody> 
+</table> 
+<div class="bPageBlock bEditBlock secondaryPalette" id="ep"> 
+<div class="pbHeader"> 
+<table border="0" cellpadding="0" cellspacing="0"> 
+<tbody> 
+<tr> 
+<td class="pbTitle"> 
+<img src="leadconvert_files/s.htm" alt="" title="" class="minWidth" height="1" width="1"> 
+<h2 class="mainTitle"></h2> 
+</td> 
+<td class="pbButton"> 
+<input value="Forward" class="btn" title="Forward" name="Forward" id="Forward" size="6" onClick="javascript:forwardDeal()"> 
+<input value="Cancel" class="btn" title="Cancel" name="cancel" id="cancel" size="6" onClick="javascript:gotoPage()"> 
+</td> 
+</tr> 
+</tbody> 
+</table> 
+</div> 
+<div class="pbBody"> 
+<div class="pbSubheader first tertiaryPalette" id="head_1_ep"> 
+<h3>Select Customer Contact Below 
+<span class="titleSeparatingColon">:</span> 
+</h3> 
+</div> 
+
+<!-- Contact Selection Area --> 
+<table border="0" cellpadding="0" cellspacing="0"> 
+<tbody> 
+<TR> 
+<td> 
+<div id="convertContactRow" class="hidden"> 
+<table border="0"> 
+<tr> 
+<td width="30%" class="labelCol">Contact:</td> 
+<td> 
+<div id="contactListSelection"></div> 
+</td> 
+<td> 
+<a href="javascript:viewContact();" title="View (New Window)">View</a> 
+</td> 
+</tr> 
+</table> 
+</div> 
+</td> 
+</TR> 
+</tbody> 
+</table> 
+<!-- Contact Selection Area End --> 
+<br> 
+</div> 
+
+	<div class="pbBody">
+		<div class="pbSubheader first tertiaryPalette" id="head_1_ep"> 
+			<h3>Select New Owner
+				<span class="titleSeparatingColon">:</span> 
+			</h3> 
+		</div>
+		<div class="pbSubsection">
+			<table  class="detailList" border="0" cellpadding="0" cellspacing="0">
+				<tr>
+					<td class="labelCol">Forward This Opportunity</td>
+					<td class="data2Col" colspan="3">{!Opportunity.Name}</td>
+				</tr>
+				<tr>
+					<td class="labelCol requiredInput">
+						<label>Select New Owner</label>
+					</td>
+					<td class="data2Col" colspan="3">
+						<div class="requiredInput">
+							<div class="requiredBlock"></div>
+							<div  style="white-space: nowrap">
+								<select  id="newOwn_mlktp" name="newOwn_mlktp" onchange="document.getElementById('newOwn_lktp').value=document.getElementById('newOwn_mlktp').options[document.getElementById('newOwn_mlktp').selectedIndex].value;document.getElementById('newOwn_lkid').value='';document.getElementById('newOwn_mod').value='1';" title="Object Type">
+									<option value="005" selected>User</option>
+									<option value="lead_queue">Queue</option>
+									<option value="PartnerUserLookup">Partner User</option>
+								</select>
+								<input type="hidden" name="newOwn_lkid" id="newOwn_lkid" value="000000000000000" />
+								<input type="hidden" name="newOwn_lkold" id="newOwn_lkold" value="null" />
+								<input type="hidden" name="newOwn_lktp" id="newOwn_lktp" value="005" />
+								<input type="hidden" name="newOwn_lspf" id="newOwn_lspf" value="0" />
+								<input type="hidden" name="newOwn_mod" id="newOwn_mod" value="0" />
+								<span class="lookupInput">
+									<input  id="newOwn" maxlength="80" name="newOwn" onchange="document.getElementById('newOwn_lkid').value='';document.getElementById('newOwn_mod').value='1';" size="20" title="Select New Owner" type="text" /><a href="JavaScript: openLookup('/_ui/common/data/LookupPage?lknm=newOwn&lkfm=editPage&lktp=' + document.getElementById('newOwn_lktp').value,670,document.getElementById('newOwn_mod').value,'&lksrch=' + escapeUTF(document.getElementById('newOwn').value),'maxw')" id="newOwn_lkwgt" onclick="setLastMousePosition(event)" title="Select New Owner Lookup (New Window)"><img src="/s.gif" alt="Select New Owner Lookup (New Window)"  class="lookupPopup" title="Select New Owner Lookup (New Window)"></a>
+								</span>
+							</div>
+						</div>
+					</td>
+				</tr>
+				<div id="recordTypeRow" class="hidden"> 
+				<tr>
+					<td class="labelCol requiredInput">
+						<label>Lead Record Type</label>
+					</td>
+					<td class="data2Col" colspan="3">
+						<div class="requiredInput">
+							<div class="requiredBlock"></div>
+							<div  style="white-space: nowrap">
+								<div id="recordTypeSelection"></div>
+							</div>
+						</div>	
+					</td>
+				</tr>
+				</div>
+				<tr  class="detailRow last">
+					<td colspan='4'>
+						<input  id="sendMail" name="sendMail" type="checkbox" value="1" />
+						<label for="sendMail">Send Notification Email</label>
+					</td>
+				</tr>
+			</table>
+		</div>
+	</div>
+	<div class="pbBottomButtons">
+		<table  border="0" cellpadding="0" cellspacing="0">
+			<tr>
+				<td class="pbTitle">
+					<img src="/s.gif" alt="" width="1" height="1" class="minWidth" title="" />&nbsp;
+				</td>
+				<td class="pbButtonb">
+					<input value="Forward" class="btn" title="Forward" name="Forward" id="Forward" size="6" onClick="javascript:forwardDeal()"> 
+					<input value="Cancel" class="btn" title="Cancel" name="cancel" id="cancel" size="6" onClick="javascript:gotoPage()"> 
+				</td>
+			</tr>
+		</table>
+	</div>
+	<div class="pbFooter secondaryPalette">
+		<div class="bg"></div>
+	</div>
+<div class="pbFooter secondaryPalette"> 
+<div class="bg"></div> 
+</div> 
+</div> 
+<!-- Context End --> 
+
+<!-- Message Area --> 
+<TR width="75%"> 
+<td> 
+<DIV id="messageArea" style="color:#FF0000;padding:4px;border:1px solid #ddd;" class="hidden" value=""></DIV> 
+</td> 
+</tr> 
+<!-- Message Area End --> 
+
+<div id="processingBar" class="hidden"> 
+<br><table width="100%"><tr><td align=center><span class="moduleTitle" id="processingmessage">Processing...Please Wait</span></td></tr> 
+<tr><td>&nbsp;</td></tr><tr><td align=center><img src="/img/waiting_dots.gif" border="0" width=156 height=34></td></tr> 
+</table> 
+</div> 
+
+</table> 
+</div> 
+</body> 
+</html>

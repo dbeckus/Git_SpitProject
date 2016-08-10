@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EscalationRules xmlns="http://soap.sforce.com/2006/04/metadata">
+    <escalationRule>
+        <fullName>Tier1</fullName>
+        <active>true</active>
+        <ruleEntry>
+            <booleanFilter>(1 OR 4) AND 2 AND 3</booleanFilter>
+            <businessHoursSource>None</businessHoursSource>
+            <criteriaItems>
+                <field>Case.OwnerId</field>
+                <operation>equals</operation>
+                <value>Tier1</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Case.Status</field>
+                <operation>equals</operation>
+                <value>Qualifying</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Case.IsClosed</field>
+                <operation>equals</operation>
+                <value>False</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Case.OwnerId</field>
+                <operation>equals</operation>
+                <value>Csr Answer1</value>
+            </criteriaItems>
+            <escalationAction>
+                <assignedTo>Tier1</assignedTo>
+                <assignedToTemplate>Support/CaseOverdueNotice</assignedToTemplate>
+                <assignedToType>Queue</assignedToType>
+                <minutesToEscalation>60</minutesToEscalation>
+                <notifyCaseOwner>true</notifyCaseOwner>
+                <notifyEmail>curtisc@silver-peak.com</notifyEmail>
+                <notifyTo>ssheikh@silver-peak.com</notifyTo>
+                <notifyToTemplate>Support/CaseOverdueNotice</notifyToTemplate>
+            </escalationAction>
+            <escalationAction>
+                <assignedTo>Tier1</assignedTo>
+                <assignedToTemplate>Support/CaseOverdueNotice</assignedToTemplate>
+                <assignedToType>Queue</assignedToType>
+                <minutesToEscalation>120</minutesToEscalation>
+                <notifyCaseOwner>true</notifyCaseOwner>
+                <notifyEmail>curtisc@silver-peak.com</notifyEmail>
+                <notifyTo>dennis@silver-peak.com</notifyTo>
+                <notifyToTemplate>Support/CaseOverdueNotice</notifyToTemplate>
+            </escalationAction>
+            <escalationStartTime>CaseCreation</escalationStartTime>
+        </ruleEntry>
+    </escalationRule>
+</EscalationRules>

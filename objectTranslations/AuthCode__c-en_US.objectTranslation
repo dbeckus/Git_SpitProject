@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Authorization Code</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Authorization Codes</value>
+    </caseValues>
+    <fields>
+        <label><!-- Account --></label>
+        <name>Account__c</name>
+        <relationshipLabel><!-- Training Authorization Codes --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Authorization Code --></label>
+        <name>Authorization_Code__c</name>
+    </fields>
+    <fields>
+        <label><!-- Course Code --></label>
+        <name>Course_Code__c</name>
+    </fields>
+    <fields>
+        <label><!-- Expiration Date --></label>
+        <name>Expiration_Date__c</name>
+    </fields>
+    <fields>
+        <label><!-- Valid --></label>
+        <name>Valid__c</name>
+    </fields>
+    <layouts>
+        <layout>Authorization Code Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+    </layouts>
+    <startsWith>Consonant</startsWith>
+    <webLinks>
+        <label><!-- NewAuthorizationCode --></label>
+        <name>NewAuthorizationCode</name>
+    </webLinks>
+</CustomObjectTranslation>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>CMA Product Mapping</value>
+    </caseValues>
+    <fields>
+        <label><!-- NX --></label>
+        <name>NX__c</name>
+    </fields>
+    <fields>
+        <label><!-- VX --></label>
+        <name>VX__c</name>
+    </fields>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

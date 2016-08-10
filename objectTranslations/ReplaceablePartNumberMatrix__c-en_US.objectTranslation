@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Replaceable Part Number Matrix</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Replaceable Part Number Matrix</value>
+    </caseValues>
+    <fields>
+        <label><!-- Asset PN --></label>
+        <name>Asset_PN__c</name>
+    </fields>
+    <fields>
+        <label><!-- HDD PN --></label>
+        <name>HDD_PN__c</name>
+    </fields>
+    <fields>
+        <label><!-- NVME PN --></label>
+        <name>NVME_PN__c</name>
+    </fields>
+    <fields>
+        <label><!-- PS PN --></label>
+        <name>PS_PN__c</name>
+    </fields>
+    <fields>
+        <label><!-- Product PN --></label>
+        <name>Product_PN__c</name>
+    </fields>
+    <fields>
+        <label><!-- SSD PN --></label>
+        <name>SSD_PN__c</name>
+    </fields>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

@@ -1,0 +1,44 @@
+<apex:page standardController="Asset" extensions="CustomPortalEditAssetController" sidebar="false" showheader="false">
+    <apex:sectionHeader title="Edit Asset" subtitle="{!Asset.Name}"/>
+    <apex:form >
+        <apex:pageMessages escape="false" id="pageMsg"/>
+        <apex:pageBlock mode="edit" id="pageBlock">
+            <apex:pageBlockButtons location="bottom">
+                <input type="button" value="Save" class="btn" id="saveBtn" onclick="save();"/>
+                <input type="button" value="Cancel" class="btn" id="cancelBtn" onclick="top.close();"/>
+            </apex:pageBlockButtons>
+            <apex:pageBlockSection >
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Customer Notes" for="customerNotes" />
+                    <apex:inputTextarea value="{!CustomerNotes}" id="customerNotes" style="width: 200px; height: 100px;"/>
+                </apex:pageBlockSectionItem>
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+        <apex:outputText value="{!Asset.Customer_Notes__c}" rendered="false" />
+        <apex:actionFunction name="saveRecord" action="{!saveRecord}" reRender="pageMsg, pageBlock, scriptPanel"/>
+    </apex:form>
+    <apex:outputPanel id="scriptPanel">
+        <apex:outputPanel rendered="{!isSucceeded}">
+            <script type="text/javascript">
+                (function () {
+                    window.setTimeout("top.opener.location = '/{!Asset.Id}'; top.close()", 2000);
+                    
+                }());
+            </script>
+        </apex:outputPanel>
+    </apex:outputPanel>
+    
+    <script type="text/javascript">
+        function save() {
+            var saveBtn = document.getElementById("saveBtn");
+            var cancelBtn = document.getElementById("cancelBtn");
+            saveBtn.value = "Saving...";
+            saveBtn.disabled = true;
+            saveBtn.style.color = "#666";
+            cancelBtn.value = "Saving...";
+            cancelBtn.disabled = true;
+            cancelBtn.style.color = "#666";
+            saveRecord();
+        }
+    </script>
+</apex:page>

@@ -1,0 +1,5 @@
+@IsTest
+public class TestCalculateFirstCustomerDateOnAccount {
+    
+    
+}

@@ -1,0 +1,226 @@
+<apex:page controller="ForecastingController" extensions="ForecastingStatsService" showHeader="false">
+ <apex:stylesheet value="{!URLFOR($Resource.Forecasting, 'FiscalQuarter.css')}" />
+ <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+ <script type="text/javascript">
+       google.load("visualization", "1", {packages:["corechart"]});  
+       google.setOnLoadCallback(drawChart);
+       google.setOnLoadCallback(drawChart2);
+       google.setOnLoadCallback(drawChart3);
+       google.setOnLoadCallback(drawChart4); 
+       
+       //chart at bottom left
+       function drawChart()
+       {
+            var lineCount = 0;
+            var data = new google.visualization.DataTable();
+            data.addColumn('string', 'Day');
+            data.addColumn('number', 'Won Opps');
+            data.addColumn('number', 'Total Opps');
+            data.addColumn('number', 'New Opps'); 
+            data.addColumn('number', 'Closed Dead Opps');      
+            data.addRows({!OfOpportunitiesShowNumber});
+            <apex:variable var="xAxis" value="{!0}" /> 
+            <apex:repeat value="{!getOfOpportunities}" var="fr">        
+                    data.setValue({!FLOOR(xAxis)}, 0, '<apex:outputText value="{0, date, MM/dd}"><apex:param value="{!fr.createDate}" /></apex:outputText>');
+                    data.setValue({!FLOOR(xAxis)}, 1, {!FLOOR(fr.wonOpps)});
+                    data.setValue({!FLOOR(xAxis)}, 2, {!FLOOR(fr.totalOpps)});
+                    data.setValue({!FLOOR(xAxis)}, 3, {!FLOOR(fr.newOpps)});
+                    data.setValue({!FLOOR(xAxis)}, 4, {!FLOOR(fr.closedDeadOppCount)});
+                    lineCount++;
+                <apex:variable var="xAxis" value="{!xAxis + 1}" />
+            </apex:repeat>
+            if(lineCount > 0)
+            {
+                var chart = new google.visualization.LineChart(document.getElementById('chart_div'));           
+                chart.draw(data, {
+                colors:['#8FC9FF','#E0E0E0','#33CC99','#6464D8'],
+                width: 600,
+                height: 240,
+                showAxisLines:true,
+                hAxis: {slantedTextAngle:60,slantedText:false}, 
+                title: '# of Opportunities in Pipeline',
+                legend:'bottom',
+                pointSize:3
+                   });
+            }
+            else
+            {
+                document.getElementById("chart_result").innerHTML += "Chart of Opportunities is not available.<br/>";
+            }
+       }
+       
+       //chart at bottom right
+       function drawChart2()
+       {
+           var lineCount = 0;
+            var data = new google.visualization.DataTable();
+            data.addColumn('string', 'Day');
+            data.addColumn('number', 'Won + Commit');
+            data.addColumn('number', 'Won Amt');
+            data.addColumn('number', 'Commitment');         
+            data.addRows({!PerformanceShowNumber});
+            var lastDate = "";
+            var xAxis = -1;
+            <apex:repeat value="{!getPerformanceAgainst}" var="forecastreport">
+                if(lastDate != '<apex:outputText value="{0, date, MM/dd}"><apex:param value="{!forecastreport.Date__c}" /></apex:outputText>')
+                {
+                    lastDate = '<apex:outputText value="{0, date, MM/dd}"><apex:param value="{!forecastreport.Date__c}" /></apex:outputText>';
+                    data.setValue(++xAxis, 0, lastDate);
+                }
+                <apex:variable var="line" value="{!CASE(forecastreport.Type__c, 'New-Commit', 1, 'New-Won', 2, 'New-Physical-Commitment', 3, 'New-Virtual-Commitment', 3, 'New-Commitment', 3, 0)}" />
+                existingValue = data.getValue(xAxis, {!FLOOR(line)}); //{!forecastreport.Type__c}
+                existingValue = (existingValue == null) ? 0 : existingValue;
+                data.setValue(xAxis, {!FLOOR(line)}, existingValue + {!CASE(line, 3, forecastreport.Value__c, 1,forecastreport.OppAmount__c, 2,forecastreport.OppAmount__c, 0)});
+                lineCount++;
+            </apex:repeat>
+            
+            if(lineCount > 0)
+            {
+                var chart = new google.visualization.LineChart(document.getElementById('chart_div2'));
+                var formatter = new google.visualization.NumberFormat(
+                {prefix: "$"});
+                formatter.format(data,1);
+                formatter.format(data,2);
+                formatter.format(data,3);
+                formatter.format(data,0);
+                chart.draw(data, {
+                colors:['#B82E00','#B88A00','#6464D8'],
+                width: 600,
+                height: 240,
+                showAxisLines:true,
+                hAxis: {slantedTextAngle:60,slantedText:false}, 
+                title: 'Performance against Commitment',
+                legend:'bottom',
+                pointSize:1
+                   });
+            }
+            else
+            {
+                document.getElementById("chart_result").innerHTML += "Chart of Performance against Commitment is not available.<br/>";
+            }
+       }
+       
+       //chart at top right
+       function drawChart3()
+       {
+           var lineCount = 0;
+            var data = new google.visualization.DataTable();
+            data.addColumn('string', 'Day');
+            data.addColumn('number', 'Total Pipeline');
+            data.addColumn('number', 'Best Case Amt');
+            data.addColumn('number', 'Won + Commit');  
+            data.addColumn('number', 'Won Amt');        
+            data.addRows({!PipelineTrendShowNumber});
+            <apex:variable var="xAxis" value="{!0}" />
+            <apex:variable var="step" value="{!0}" />
+            <apex:repeat value="{!getPipelineTrend}" var="forecastreport">
+                <apex:variable var="line" value="{!CASE(forecastreport.Type__c, 'Total-Pipeline', 1, 'New-Best Case', 2, 'New-Commit', 3, 'New-Won', 4, 0)}" />
+                data.setValue({!FLOOR(xAxis)}, {!FLOOR(line)}, {!forecastreport.OppAmount__c });
+                <apex:variable var="step" value="{!step + 1}" />
+                lineCount++;
+                <apex:outputText rendered="{!step == 4}">
+                    data.setValue({!FLOOR(xAxis)}, 0, '<apex:outputText value="{0, date, MM/dd}"><apex:param value="{!forecastreport.Date__c}" /></apex:outputText>');
+                    <apex:variable var="xAxis" value="{!xAxis + 1}" />
+                    <apex:variable var="step" value="{!0}" />
+                </apex:outputText>
+            </apex:repeat>
+            
+            if(lineCount > 0)
+            {
+                var chart = new google.visualization.LineChart(document.getElementById('chart_div3'));
+                var formatter = new google.visualization.NumberFormat({prefix: "$"});
+                formatter.format(data,1);
+                formatter.format(data,2);
+                formatter.format(data,3);
+                formatter.format(data,4);
+                formatter.format(data,0);
+                chart.draw(data, {
+                colors:['#7A3DB8','#3D7AB8','#DBB894','#B8B83D'],
+                width: 600,
+                height: 240,
+                showAxisLines:true,
+                hAxis: {slantedTextAngle:60,slantedText:false}, 
+                title: 'Pipeline Trend',
+                legend:'right',
+                pointSize:1
+                   });
+            }
+            else
+            {
+                document.getElementById("chart_result").innerHTML += "Chart of PipelineTrend is not available.<br/>";
+            }
+       }
+       
+       //chart at top left
+       function drawChart4()
+       {
+           var lineCount = 0;
+            var data = new google.visualization.DataTable();
+            data.addColumn('string', 'Day');
+            //data.addColumn('number', 'Quota');
+            //data.addColumn('number', 'Commitment');
+            data.addColumn('number', 'Forecast');  
+            data.addColumn('number', 'Won Amt');
+            data.addColumn('number', 'Won + Commit');           
+            data.addRows({!ForecastAccuracyShowNumber});
+            var lastDate = "";
+            var xAxis = -1;
+            <apex:repeat value="{!getForecastAccuracy}" var="forecastreport">
+                if(lastDate != '<apex:outputText value="{0, date, MM/dd}"><apex:param value="{!forecastreport.Date__c}" /></apex:outputText>')
+                {
+                    lastDate = '<apex:outputText value="{0, date, MM/dd}"><apex:param value="{!forecastreport.Date__c}" /></apex:outputText>';
+                    data.setValue(++xAxis, 0, lastDate);
+                }
+                <apex:variable var="line" value="{!CASE(forecastreport.Type__c, 'New-Physical-Quota', -1, 'New-Virtual-Quota', -1, 'New-Quota', -1, 'FollowOn-Quota', -1, 'New-Physical-Commitment', -2, 'New-Virtual-Commitment', -2, 'New-Commitment', -2, 'FollowOn-Commitment', -2, 'New-Physical-Forecast', 1, 'New-Virtual-Forecast', 1, 'New-Forecast', 1, 'FollowOn-Forecast', 1, 'NewFollowOn-Forecast', 1, 'New-Won', 2, 'New-Commit', 3, -1)}" />
+                if({!line} >= 0)
+                {
+                    existingValue = data.getValue(xAxis, {!FLOOR(line)});
+                    existingValue = (existingValue == null) ? 0 : existingValue;
+                    data.setValue(xAxis, {!FLOOR(line)}, existingValue + {!CASE(line, 1, forecastreport.Value__c, 2, forecastreport.OppAmount__c, 3, forecastreport.OppAmount__c, 0)});
+                    lineCount++;
+                }
+            </apex:repeat>
+            
+            if(lineCount > 0)
+            {
+                var chart = new google.visualization.LineChart(document.getElementById('chart_div4'));
+                var formatter = new google.visualization.NumberFormat({prefix: "$"});
+                //formatter.format(data,5);
+                formatter.format(data,1);
+                formatter.format(data,2);
+                formatter.format(data,3);
+                //formatter.format(data,4);
+                formatter.format(data,0);
+                chart.draw(data, {
+                    colors:['#6666CC','#CCCCC6','#DBB894','#B8B83D','#3DB87A'],
+                    width:600,
+                    height: 240,
+                    showAxisLines:true,
+                    hAxis: {slantedTextAngle:60,slantedText:false}, 
+                    title: 'Forecast Accuracy',
+                    legend:'right',
+                    pointSize:1
+                });
+            }
+            else
+            {
+                document.getElementById("chart_result").innerHTML += "Chart of Forecast Accuracy is not available.<br/>";
+            }
+       }
+      function viewForecastHistory()
+       {
+            drawChart();  
+            drawChart2();  
+            drawChart3(); 
+            drawChart4();       
+       }  
+ </script>
+  <apex:form >  
+    <div id='chart_div4' style="margin:0;float:left;"></div> 
+    <div id='chart_div3' style="margin:0;float:left;"></div>
+    <div id="chart_div" style="margin:0;float:left;"></div>
+    <div id='chart_div2' style="margin:0;float:left;"></div>
+    <div id='chart_result' style="margin:0;clear:both;"></div>
+    <div style="clear:both;"></div>     
+  </apex:form>
+</apex:page>

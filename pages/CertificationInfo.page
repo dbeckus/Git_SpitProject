@@ -1,0 +1,82 @@
+<apex:page standardController="Contact"  showheader="false" sidebar="false">
+    <apex:stylesheet value="{!URLFOR($Resource.ContactsCertification, '/ContactsCertification.css')}"/>
+    <table id="certinfo">
+        <thead>
+            <tr>
+                <th>SCTP</th>
+                <th>SPIE</th>
+                <th>SPX</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    <table class="certinfo-table">
+                        <tbody>
+                            <tr>
+                                <td class="certinfo-labelCol">SCTP Certified</td>
+                                <td class="certinfo-dataCol"><apex:outputField value="{!Contact.SCTP_Certified__c}"></apex:outputField></td>
+                            </tr>
+                            <tr>
+                                <td class="certinfo-labelCol">SCTP Cert #</td>
+                                <td class="certinfo-dataCol"><apex:outputField value="{!Contact.SCTP_Cert__c}"></apex:outputField></td>
+                            </tr>
+                            <tr>
+                                <td class="certinfo-labelCol">SCTP Score</td>
+                                <td class="certinfo-dataCol"><apex:outputField value="{!Contact.SCTP_Score__c}"></apex:outputField></td>
+                            </tr>
+                            <tr>
+                                <td class="certinfo-labelCol">SCTP Expire Date</td>
+                                <td class="certinfo-dataCol"><apex:outputField value="{!Contact.SCTP_Expire_Date__c}"></apex:outputField></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </td>
+                <td>
+                    <table class="certinfo-table">
+                        <tbody>
+                            <tr>
+                                <td class="certinfo-labelCol">SPIE Certified</td>
+                                <td class="certinfo-dataCol"><apex:outputField value="{!Contact.SPIE_Certified__c}"></apex:outputField></td>
+                            </tr>
+                            <tr>
+                                <td class="certinfo-labelCol">SPIE Cert #</td>
+                                <td class="certinfo-dataCol"><apex:outputField value="{!Contact.SPIE_Cert__c}"></apex:outputField></td>
+                            </tr>
+                            <tr>
+                                <td class="certinfo-labelCol">SPIE Score</td>
+                                <td class="certinfo-dataCol"><apex:outputField value="{!Contact.SPIE_Score__c}"></apex:outputField></td>
+                            </tr>
+                            <tr>
+                                <td class="certinfo-labelCol">SPIE Expire Date</td>
+                                <td class="certinfo-dataCol"><apex:outputField value="{!Contact.SPIE_Expire_Date__c}"></apex:outputField></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </td>
+                <td>
+                    <table class="certinfo-table">
+                        <tbody>
+                            <tr>
+                                <td class="certinfo-labelCol">SPX Certified</td>
+                                <td class="certinfo-dataCol"><apex:outputField value="{!Contact.SPX_Certified__c}"></apex:outputField></td>
+                            </tr>
+                            <tr>
+                                <td class="certinfo-labelCol">SPX Cert #</td>
+                                <td class="certinfo-dataCol"><apex:outputField value="{!Contact.SPX_Cert__c}"></apex:outputField></td>
+                            </tr>
+                            <tr>
+                                <td class="certinfo-labelCol">SPX Score</td>
+                                <td class="certinfo-dataCol"><apex:outputField value="{!Contact.SPX_Score__c}"></apex:outputField></td>
+                            </tr>
+                            <tr>
+                                <td class="certinfo-labelCol">SPX Expire Date</td>
+                                <td class="certinfo-dataCol"><apex:outputField value="{!Contact.SPX_Expire_Date__c}"></apex:outputField></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</apex:page>

@@ -1,0 +1,713 @@
+<apex:page controller="SubscriptionAdminController"  sidebar="false" showHeader="true" standardStylesheets="false" tabStyle="SPIRE__tab">
+
+     <html xmlns:ng="http://angularjs.org"  lang="en">
+        <head>
+            <meta charset="utf-8" name="viewport" content="width=device-width initial-scale=1.0"/>
+
+            <apex:stylesheet value="{!URLFOR($Resource.Account_Summary, 'app/css/bootstrap-combined.min.css')}"/>
+            <apex:stylesheet value="{!URLFOR($Resource.Account_Summary, 'app/css/ng-grid/ng-grid.css')}"/>
+            <apex:stylesheet value="{!URLFOR($Resource.Account_Summary, 'app/css/daterangepicker-bs2.css')}"/>
+            <!--<link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet"></link>-->
+            
+            <script src="{!URLFOR($Resource.Account_Summary, 'app/js/lib/jquery.min.js')}"></script>
+            <script src="{!URLFOR($Resource.Account_Summary, 'app/js/lib/angular-all/angular.min.js')}"></script>
+            <script src="{!URLFOR($Resource.Account_Summary, 'app/js/lib/twitter-bootstrap/bootstrap.min.js')}"></script>      
+            
+            <script src="{!URLFOR($Resource.Account_Summary, 'app/js/lib/angular-ui/angular-ui.min.js')}"></script>            
+            <script src="{!URLFOR($Resource.Account_Summary, 'app/js/lib/ui-bootstrap-tpls-0.6.0.js')}"></script>                        
+            <script src="{!URLFOR($Resource.Account_Summary, 'app/js/lib/ng-grid/ng-grid.min.js')}"></script>
+            
+            
+            <script src="{!URLFOR($Resource.Account_Summary, 'app/js/lib/bootstrap-daterangepicker-master/moment.min.js')}"></script>
+            <script src="{!URLFOR($Resource.Account_Summary, 'app/js/lib/bootstrap-daterangepicker-master/daterangepicker.js')}"></script>            
+            <script src="{!URLFOR($Resource.Account_Summary, 'app/js/lib/jquery.knob.js')}"></script>
+            <script src="{!URLFOR($Resource.Account_Summary, 'app/js/lib/numeral.min.js')}"></script>           
+            
+             <!--
+             <script src="{!URLFOR($Resource.Account_Summary, 'app/js/lib/ngForce/safeApply.js')}"></script>
+            <script src="{!URLFOR($Resource.Account_Summary, 'app/js/lib/ngForce/ngForce.js')}"></script>
+            -->
+
+
+            <!-- Local Static Resource css and javascript, all part of Angular-Seed app. -->
+            <apex:stylesheet value="{!URLFOR($Resource.Account_Summary, 'app/css/app.css')}"/>
+            
+        </head>
+        <!--- Javascript -->
+        <script src="{!URLFOR($Resource.Account_Summary, 'app/js/lib/underscore/underscore.js')}"></script>
+        <script src="{!URLFOR($Resource.Account_Summary, 'app/js/lib/angular-all/angular-strap.js')}"></script>
+        <script type="text/javascript">
+            <!-- Name your application -->
+
+                
+                    var myapp = angular.module('SubscriptionSummary', ['ngGrid',  'ui.bootstrap', '$strap.directives']);
+                    myapp.config(function ($routeProvider, $locationProvider, $httpProvider) {
+                        $locationProvider.html5Mode(true);
+                    });
+                    myapp.service('RemotingService', function($rootScope, $q) {
+                        this.get = function(inputString){
+                            var deferred = $q.defer();
+                    
+                                Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.SubscriptionAdminController.getAccounts}', inputString,function(result, event){
+                                    if(event) {
+                                         $rootScope.$apply(function() {
+                                            deferred.resolve(result);
+                                        });
+                    
+                                    } else { 
+                                        deferred.reject(result);
+                                    }            
+                                }, { buffer: true, escape: true, timeout: 30000 });
+                                return deferred.promise;
+                    
+                        }
+
+                    });
+                    myapp.directive('spDatePicker', function () {
+                            return {
+                                restrict: 'A',
+                                link: function (scope, element, attr) {
+                                    $(element).daterangepicker({
+                                            ranges: {
+                                                
+                                                //'Last 30 Days': [moment().subtract('days', 29), moment()],
+                                                //'This Month': [moment().startOf('month'), moment().endOf('month')],
+                                                //'Last Month': [moment().subtract('month', 1).startOf('month'), moment().subtract('month', 1).endOf('month')],
+                                                'This Quarter': [moment().month((Math.floor((moment().month()-1)/3)*3)+1).startOf('month'), moment()],
+                                                'Last Quarter': [moment().subtract({ months: (moment().month() % 3) + 1}).endOf('month').subtract({ months: 3 }).startOf('month'), moment().subtract({ months: (moment().month() % 3) + 1}).endOf('month')],                                                
+                                                'This Year': [moment().startOf('year')],
+                                                'Last Year': [moment().subtract('year', 1).startOf('year'), moment().startOf('year')],
+                                                'Last 2 Years': [moment().subtract('year', 2).startOf('year'), moment().startOf('year')],
+                                                'All': [moment(0), moment()]
+                                            },
+                                            startDate: moment().startOf('year'),
+                                            endDate: moment(),
+                                            minDate: '01/01/2009',
+                                            showDropdowns: true,
+                                        },function (startDate, endDate) {
+                                        scope.$eval(attr.spDatePicker, {$startDate: startDate, $endDate: endDate});
+                                    });
+                                }
+                            };
+                    });
+                    myapp.directive('wanOpReduction', function() {
+                
+                        return {
+                
+                            restrict: "C",
+                            scope: {
+                                value: "@"
+                            },
+                            compile: function(tElement,tAttrs,transclude){
+                                
+                                return function(scope, element, attrs){
+                
+                                    attrs.$observe("value", function(newValue){
+                                        //console.log("value: " + newValue);
+                                        //console.log(element);
+                                        var setVal = newValue;
+                                        if(newValue === "") {
+                                            setVal = 0;
+                                        }
+                
+                                        element.knob({
+                
+                                        });
+                                        element.val(setVal).change();
+                                        
+                                    });
+                                };
+                            }
+                
+                        };
+                
+                    });
+                    myapp.filter('humanReadableByteSize', function() {
+                        return function(string) {
+                            var bytes = string * 1000000;
+                            var sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
+                            if (isNaN(bytes) || bytes === 0) {
+                                return '0';
+                            }
+                            var i = parseInt(Math.floor(Math.log(bytes) / Math.log(1024)));
+                            return Math.round(bytes / Math.pow(1024, i), 2) + ' ' + sizes[i];//  + " - ( " + string + " )";
+                        };
+                    }); 
+                     
+                    
+                    
+                    <!-- Define Controller  -->
+                    var contrl=myapp.controller('SubscriptionSummaryController', function ($scope, $filter, $q, $location, $window, RemotingService) {
+                        
+                        $scope.selected = undefined;
+
+                        $scope.assetGridColumnDefs = [
+
+                                
+                                { field: 'SerialNumber__c', displayName: 'Serial',width: 150 , cellTemplate: '<div style="text-align:center;"><a href="/{{row.entity.Id}}" target="_blank">{{row.entity.SerialNumber__c}}</a>&nbsp;&nbsp;<a href="http://autosupport.silverpeaksystems.com/spire/tac/serial?id={{row.entity.SerialNumber__c}}" target="_blank"><img src="{!URLFOR($Resource.Account_Summary, 'app/images/aspire.png')}" width="16" alt="SPIRE"  title ="View in SPIRE"></a></div>'},
+                                { field: 'AssetId__r.Model__c', displayName: 'Model' ,width: 80},
+                                //{ field: 'AssetId__r.Status', displayName: 'Asset Status' ,width: 150}, 
+                                { field: 'Start_Date__c', displayName: 'Start/Ship Date', width: 125, width: 100, cellFilter : 'date:"MMM d, y"'},                                
+                                { field: 'License_Expiration__c', displayName: 'End Date', width: 100, cellFilter : 'date:"MMM d, y"'   }, 
+                                { field: 'Key__c', displayName: 'License', width: 75 },     
+                                { field: 'Duration__c', displayName: 'Duration', width: 100},                                                                                                                                                                                               
+                                { field: 'AssetId__r.Account.Name', displayName: 'Account', width: 150 },       
+                                { field: 'Reduction_Total_15_days__c', displayName: 'Reduction - 15 days', width: 125,
+                                    cellTemplate: '<div style="text-align:center;"><input class="knob wanOpReduction" data-fgColor="#2f7ed8", data-thickness=".3" data-width="40" data-readOnly=true, value="{{row.entity.Reduction_Total_15_days__c}}"></div>' },
+                                { field: 'LAN_Total_15_days__c', displayName: 'LAN - 15 days', width: 120, cellFilter: 'humanReadableByteSize' },
+                                { field: 'WAN_Total_15_days__c', displayName: 'WAN - 15 days', width: 120, cellFilter: 'humanReadableByteSize' },                                                                                           
+                                { field: 'Last_Contact__c', displayName: 'Last Contact', width: 200, cellFilter : 'date:"MMM d, y h:mm a"' },
+                                { field: 'Release__c', displayName: 'Release' ,width: 125 },
+                                { field: 'Asset__r === undefined ? "No": "Yes"', displayName: 'Phoned Home',width: 100 },                                    
+                                { field: 'Platform__c', displayName: 'Platform',width: 125 },
+                                
+                            ];
+                        $scope.searchAcct = null;
+                        $scope.getAccounts = function(query, callback) {
+                            //console.log($scope.searchAcct);
+                            var promise = RemotingService.get($scope.searchAcct);
+                                promise.then(
+                                function(accts){
+                                    //console.log(accts.length);
+                                    $scope.matchedAccts = accts;
+                                    var results = _.map(accts, function(acct) {
+                                       return acct.Name;
+                                    });
+                                    callback(results);
+                                },
+                                function(reason){
+                                    alert('Account Search failed: ' + reason);
+                                }
+                            );    
+                        }
+                        
+                        
+                        var assetjson = {!assetWithSummaryJSON};
+                        var phonehomejson = {!assetPhoneHomeSummary};
+                        var phonehomeObject = {}
+                        _.each(phonehomejson, function(d) {
+                            phonehomeObject[d.Asset__r.Name] = d;        
+                        });
+                        
+                        $scope.items = assetjson;
+                        _.each($scope.items, function(d) {
+                            _.extend(d, phonehomeObject[d.SerialNumber__c]);        
+                        });
+                        
+                        
+                        $scope.origItems =  $scope.items;   
+                        $scope.origItemsByAccount =  _.groupBy($scope.origItems, function(d) {
+                            return d.AssetId__r.Account.Name;
+                        });  
+                       
+                           
+                        
+                        $scope.assetGridOptions = { 
+                            data: 'items' ,
+                            columnDefs: $scope.assetGridColumnDefs,
+                            showGroupPanel: true,
+                            showFooter: true,
+                            showFilter: true,
+                            enableColumnResize: true,
+                            enableHighlighting: true,
+                            enablePaging: false,
+                            showColumnMenu: true,
+                            totalServerItems: 'items.size',
+                            sortInfo: {
+                                fields: ['Start_Date__c'],
+                                directions: ['asc']
+                            }, 
+                            groups: ['AssetId__r.Account.Name', 'SerialNumber__c'],
+                            rowHeight: 40, 
+                            groupsCollapsedByDefault: false
+                        };
+                        
+                        $scope.collapseAssetGrid = function (isExpanded) {
+
+                            _.each($scope.assetGridOptions.ngGrid.rowFactory.aggCache, function (r) {
+                                r.setExpand(isExpanded);
+                            });
+                
+                            if (!$scope.$$phase) {
+                                $scope.$apply();
+                            }
+                
+                        };
+                        
+                        $scope.availableAccounts = _.keys(_.groupBy($scope.origItems, function(d) {
+                            return d.AssetId__r.Account.Name;
+                        }));
+                       
+                        $scope.fromDate = $location.search().shipStartDate ? moment($location.search().shipStartDate) : moment().startOf('year');
+                        $scope.toDate = $location.search().shipEndDate ? moment($location.search().shipEndDate) : moment();
+                        $scope.rangeStartDate = $scope.fromDate.format("MMM D, YYYY");
+                        $scope.rangeEndDate = $scope.toDate.format("MMM D, YYYY");
+                        $scope.changeDate = function(fromDate, toDate) {
+                            $scope.fromDate = fromDate;
+                            $scope.toDate = toDate;
+                            $scope.rangeStartDate = fromDate.format("MMM D, YYYY");
+                            $scope.rangeEndDate = toDate.format("MMM D, YYYY");
+                            $scope.applyPageFilters();
+                            //$scope.updateURL();
+                        };
+                        
+                        $scope.expiringIn60Days = _.groupBy(_.filter($scope.items, function (d) { 
+                                
+                            return (moment(d.License_Expiration__c).unix() - moment().unix()) > 0 &&
+                                    (moment(d.License_Expiration__c).unix() - moment().add('days', 60).unix()) < 0;
+
+                        }), function(d) {
+                            return d.SerialNumber__c;
+                        });
+                        $scope.expiringIn60DaysCount = _.size($scope.expiringIn60Days);
+                        $scope.showItems = function (items) {
+                            
+                            if(items) {
+                                $scope.showingFilteredActiveSubs = true;
+                                $scope.items = _.flatten(items);
+                                $scope.totalSerialNumbers = _.size(_.groupBy($scope.items, function(d) {
+                                return d.SerialNumber__c;
+                            }));
+                            } else {
+                                $scope.showingFilteredActiveSubs = false;
+                                $scope.applyPageFilters();
+                                
+
+                            }
+                           
+                            
+                        }
+                        
+                        $scope.applyPageFilters = function () {  
+                            //console.log('calling apply page filters');                          
+                            //TODO
+                           
+                           if($scope.accountValue  && $scope.accountValue.length > 0) { 
+                               $scope.items = _.filter($scope.origItems, function(d) {
+                                   return d.AssetId__r.Account.Name === $scope.accountValue;
+                               });
+                               
+                           } else {
+                               $scope.items  = $scope.origItems;
+                           };
+                           
+                            $scope.groupedItemsBySerial = _.groupBy($scope.items, function(d) {
+                                return d.SerialNumber__c;
+                            });
+                            $scope.totalSerialNumbers = _.size($scope.groupedItemsBySerial);
+                            
+                           // Active subscription that started before the first day of selected time frame
+                            
+                            $scope.beginningActiveAssets = _.groupBy(_.filter($scope.items, function (d) {                                                                                                             
+                                return moment($scope.fromDate).unix() - moment(d.Start_Date__c).unix() > 0 &&
+                                        moment(d.License_Expiration__c).unix() - moment($scope.fromDate).unix() > 0 ;
+                            }), function(d) {
+                                return d.SerialNumber__c;
+                            });
+                            
+                            $scope.beginningActiveAssetsCount = _.size($scope.beginningActiveAssets);
+                            
+                            //Active subscription that expires after the last day of selected time frame
+                            $scope.endingActiveAssets = _.groupBy(_.filter($scope.items, function (d) {                                                                                                             
+                                return moment($scope.toDate).unix() - moment(d.Start_Date__c).unix() > 0 &&
+                                        moment(d.License_Expiration__c).unix() - moment($scope.toDate).unix() > 0  ;
+                            }), function(d) {
+                                return d.SerialNumber__c;
+                            });
+                            $scope.endingActiveAssetsCount = _.size($scope.endingActiveAssets);
+                            
+                            // Transitions:
+                            // Calculate New, NewBusiness and Follow-on Business, Expired and No Transition Assets
+                            $scope.followOnAssets = [];
+                           
+                            // New:  Asset’s first license has a start date in the selected time frame, inclusive
+                            
+                            $scope.assetFirstLicense = {};
+                            $scope.newAssetsGrouped = _.filter($scope.groupedItemsBySerial, function (d) {  
+                                var firstAsset =  _.min(d, function(it) { 
+                                            return moment(it.Start_Date__c).unix();
+                                    });   
+                                                                
+                                var newAss =  moment(firstAsset.Start_Date__c).unix() - moment($scope.fromDate).unix() > 0 &&
+                                             moment($scope.toDate).unix() - moment(firstAsset.Start_Date__c).unix() > 0;                                    
+                                return newAss;
+                            });
+                            $scope.newAssets = _.flatten($scope.newAssetsGrouped);
+                            $scope.newAssetsCount = Object.keys(_.groupBy($scope.newAssets, function(d) {
+                                return d.SerialNumber__c;
+                            })).length;
+                            
+                            //  Assets that qualify as “New” in the selected time frame AND account has no previous subscription purchases
+                            $scope.newBusinessAssetsCount = 0;                            
+                            var assetsWithFirstLicense = {};
+                            var groupedItems = _.groupBy($scope.items, function(d) {
+                                                            return d.AssetId__r.Account.Name;
+                                                        });
+                                                        
+                            _.each(groupedItems,function(d) {
+                                    var firstAsset =  _.min(d, function(it) { 
+                                            return moment(it.Start_Date__c).unix();
+                                    }); 
+                                    //console.log(firstAsset);
+                                    assetsWithFirstLicense[firstAsset.AssetId__r.Account.Name] = firstAsset.Start_Date__c; 
+                            });
+                            
+                            $scope.newBusinessAssets = _.filter($scope.newAssetsGrouped, function(d) { 
+                                
+                                var assetFirstLicenseDate = moment(d[0].AssetId__r.Ship_Date__c);
+                                var accountFirstLicenseDate = moment(assetsWithFirstLicense[d[0].AssetId__r.Account.Name]);
+                                //console.log(d[0].SerialNumber__c + "," +assetFirstLicenseDate.format() + ", Account 1st Lic:" + accountFirstLicenseDate.format());
+                                return assetFirstLicenseDate.unix() - accountFirstLicenseDate.unix() === 0
+                            });
+                            
+                            $scope.newBusinessAssetsCount = _.size($scope.newBusinessAssets);
+                            
+                            // Assets that qualify as “New”  in the selected time frame AND account has previous subscription purchases
+                            $scope.followOnAssets = _.difference($scope.newAssets, _.flatten($scope.newBusinessAssets));
+                            $scope.followOnAssetsCount = $scope.newAssetsCount - $scope.newBusinessAssetsCount ;
+                            
+                            $scope.expiredAssets = [];
+                            $scope.expiredAssetsCount = 0; 
+                            
+                            var groupedItemsBySN = _.groupBy($scope.items, function(d) {
+                                return d.SerialNumber__c;
+                            });
+                            _.each(groupedItemsBySN, function(acct) {
+                                    var lastAsset =  _.max(acct, function(d) { 
+                                            return moment(d.License_Expiration__c).unix();
+                                    });
+                                    var expired = moment(lastAsset.License_Expiration__c).unix() - moment($scope.fromDate).unix() > 0 &&
+                                                    moment($scope.toDate).unix() - moment(lastAsset.License_Expiration__c).unix() > 0;
+                                    if(expired) {
+                                        //console.log("Expired: " + lastAsset.AssetId__r.Account.Name + "," + lastAsset.SerialNumber__c+ ", " + lastAsset.License_Expiration__c + ", to date: " + moment($scope.toDate).format());
+                                        $scope.expiredAssets.push(acct);
+                                        $scope.expiredAssetsCount +=1;
+                                    }                                                                                                          
+                                                                 
+                            });
+                            
+                            
+                           
+                           // Calculate renewed assets
+                           $scope.renewedAssets = 0;
+                           $scope.renewedAssetsList = [];
+                            
+                            _.each(_.filter(_.groupBy($scope.items, function (item) {
+                                return item.SerialNumber__c
+                            }), function(grItem) {
+                                return grItem.length > 1;
+                            }), function(d) {
+                                var restoflicenses = d.slice(0,1);
+                                _.each(restoflicenses, function(lic) {
+                                    //console.log("Start: " + lic.Start_Date__c + ", From: " + moment($scope.fromDate).format()+ ", To: " + moment($scope.toDate).format() );
+                                    if(moment(lic.Start_Date__c).unix() - moment($scope.fromDate).unix() > 0 && 
+                                        moment($scope.toDate).unix() - moment(lic.Start_Date__c).unix() > 0) {
+                                        $scope.renewedAssets ++; 
+                                        $scope.renewedAssetsList.push(lic);  
+                                    }
+                                });
+                            });
+                            
+                            
+                            
+                            
+                            // Metrics Calculation
+                            
+                            // Unique Customers
+                            $scope.uniqueCustomers = _.size(_.groupBy($scope.items, function (d) {
+                                                                return d.AssetId__r.Account.Name
+                                                            })
+                                                        );
+                                
+                            $scope.renewalRate =  Math.round($scope.renewedAssets / ($scope.expiredAssetsCount + $scope.renewedAssets) * 100);
+                            
+                            $scope.summaryTables = [ 
+                            {
+                                'name' : 'Active Subscriptions',
+                                'class' : 'span4 offset2 ',
+                                
+                                'rows' : [ 
+                                    
+                                    {
+                                        'name' : 'New Business',
+                                        'columns': [ {"value" : $scope.newBusinessAssetsCount}],                                        
+                                        'description' : 'Assets that qualify as “New” in the selected time frame AND account has no previous subscription purchase',
+                                        'class' : 'text-right',
+                                        'items' : $scope.newBusinessAssets
+                                    },
+                                    {
+                                        'name' : 'Follow On Business',
+                                        'columns': [ {"value" : $scope.followOnAssetsCount}],                                                                                                                       
+                                        'description' : 'Assets that qualify as “New”  in the selected time frame AND account has previous subscription purchases',
+                                        'class' : 'text-right',
+                                        'items' : $scope.followOnAssets
+                                    },
+                                    {
+                                        'name' : 'New (Subtotal)',
+                                        'columns': [ {"value" : $scope.newAssetsCount}  ],                                                                                                                         
+                                        'description' : 'Asset’s first license has a start date in the selected time frame, inclusive',
+                                        'columnClass': "addTotalRow",
+                                        'items' : $scope.newAssets
+                                    },
+                                    
+                                    {
+                                        'name' : 'Expired',
+                                        'columns': [ {"value" : "("+  $scope.expiredAssetsCount + ")"}],                                                                            
+                                        'description' : 'Asset’s last license has an end date in the selected time frame, inclusive',
+                                        'items' : $scope.expiredAssets
+                                    },
+                                    {
+                                        'name' : 'Delta',
+                                        'columns': [{ "value" : $scope.endingActiveAssetsCount - $scope.beginningActiveAssetsCount}],                                         
+                                        'value' : $scope.endingActiveAssetsCount - $scope.beginningActiveAssetsCount,                                        
+                                        'description' : 'Ending Active minus Beginning Active',
+                                        'columnClass': "subtractTotalRow"
+                                    },
+                                    {
+                                        'name' : 'Beginning Active',
+                                        'columns': [{ "value" : $scope.beginningActiveAssetsCount}],                                         
+                                        'description' : 'Active subscription that started before the first day of selected time frame',
+                                        'items' : $scope.beginningActiveAssets
+                                    },
+                                    {
+                                        'name' : 'Ending  Active',
+                                        'columns': [{ "value" : $scope.endingActiveAssetsCount}],                                                                               
+                                        'description' : 'Active subscription that expires after the last day of selected time frame',
+                                        'columnClass': "addTotalRow",
+                                        'items' : $scope.endingActiveAssets
+                                    },
+                                    
+                                    
+                                    
+                                ]
+                            },  
+                            {
+                                'name' : 'Metrics',
+                                'class' : 'span3',
+                                'rows' : [ 
+                                    
+                                   
+                                    {
+                                        'name' : 'Unique Customers',
+                                        'columns': [{ "value" : $scope.uniqueCustomers}],  
+                                                                            
+                                        
+                                    },
+                                    {
+                                        'name' : 'Renewed',
+                                        'columns': [{ "value" : $scope.renewedAssets}],                                                                               
+                                        'description' : 'Asset has a non-first license with a start date in the selected time frame, inclusive',
+                                        'items': $scope.renewedAssetsList
+                                    },
+                                   
+                                    
+                                    //{
+                                    //    'name' : 'Renewal Rate',
+                                    //    'description' : 'Renewed / (Renewed + Expired)',
+                                    //    'columns': [ {"value" : isNaN($scope.renewalRate) ? "N/A" : ($scope.renewalRate + "%")}] 
+                                    //    
+                                    //},
+                                ]
+                            }
+                       ];
+                            if (!$scope.$$phase) {
+                                $scope.$apply();
+                            }
+                
+                        };
+                        
+                       
+                         
+                                          
+                         
+                        
+                                 
+                        $scope.applyPageFilters();
+                        
+                        
+                });
+            
+            
+        </script>
+        
+        <body ng-app="SubscriptionSummary">
+            <style>
+                h1 {
+                    font-size: 25px;
+                    line-height: 1;
+                    text-align: center;   
+                    color: #0088cc; 
+                                  
+                }
+                h4 {
+                    font-size: 17.5px;
+                    }
+               @media print {
+                  .visible-print  { display: inherit !important; }
+                  .hidden-print   { display: none !important; }
+                }     
+                .statsTable {
+                    border: 5px solid #c4e3f3;
+                    border-left-width: 5px;
+                    border-right-width: 5px;
+                    margin-left: 15px;
+                    border-radius: 10px;
+                }
+                .tabledesclink {
+                    font-size: 15px;
+                    font-weight: bold;
+                    line-height: 1em;
+                    color: #26ac01;
+                } 
+                .tablevaluelink {
+                        font-size: 20px;
+                        font-weight: bold;
+                        text-decoration: none;
+                        line-height: 1em;
+                        color: deepskyblue;
+                    }
+                caption {
+                    color: #35b4e9;
+                } 
+                thead th {
+                    background-color: inherit;
+                    color: inherit;
+                }  
+                .addTotalRow {
+                    border-top: 5px solid #252CE0 !important;
+                }
+                .subtractTotalRow {
+                    border-top: 5px solid #F10B1D !important;
+                }
+                a {
+                    cursor:pointer;
+                }
+                .btn-danger {
+                    color: #ffffff !important;
+                    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25) !important;
+                    background-color: #da4f49 !important;
+                    background-image: -moz-linear-gradient(top, #ee5f5b, #bd362f)!important;
+                    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#ee5f5b), to(#bd362f)) !important;
+                    background-image: -webkit-linear-gradient(top, #ee5f5b, #bd362f) !important;
+                    background-image: -o-linear-gradient(top, #ee5f5b, #bd362f) !important;
+                    background-image: linear-gradient(to bottom, #ee5f5b, #bd362f) !important;
+                    background-repeat: repeat-x !important;
+                    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffee5f5b', endColorstr='#ffbd362f', GradientType=0) !important;
+                    border-color: #bd362f #bd362f #802420  !important;
+                    border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25) !important;
+                    filter: progid:DXImageTransform.Microsoft.gradient(enabled = false) !important;
+                }
+            </style>
+            <div ng-controller="SubscriptionSummaryController">                 
+                <div>
+                    <div class = "container-fluid">
+                        <div>
+                            <div class = "text-center" style="margin-top: 10px;">
+                                <h1>Subscription Dashboard</h1>                               
+                            </div>  
+                                                     
+                            <div class="container-fluid" >                                                      
+                                 <div id="reportrange" sp-date-picker="changeDate($startDate, $endDate)" class="pull-right">
+                                     <strong>Time: &nbsp;
+                                         <i class="icon-calendar icon-large"></i>
+                                         <span> {{rangeStartDate}} - {{rangeEndDate}}</span>
+                                         <b class="caret"></b>
+                                     </strong>
+                                 </div>
+                                 <div class= "pull-right" style="margin-right: 10px;">
+                                     <form >                              
+                                        <div class="input-append" >                                    
+                                            <button ng-show="accountValue.length > 0" ng-click="accountValue='';applyPageFilters();" class="btn add-on">
+                                                <i class="icon-remove"></i>
+                                            </button>           
+                                            <input type="text" ng-model="accountValue" typeahead="acct for acct in availableAccounts | filter:$viewValue | limitTo:20" placeholder="Filter by Account" typeahead-on-select="applyPageFilters()" ></input>                                                                       
+                                                                 
+                                        </div>
+                                    </form> 
+                                </div>
+                            </div>
+                            
+                        </div> 
+                        
+                        
+                        
+                    </div>
+                    
+                </div>
+                <div id = "statsTableRow" >
+                    
+                    <div class="container">
+                        
+                        <div class="{{table.class}}" ng-repeat="table in summaryTables">                                    
+                            <table class="table table-hover table-bordered statsTable table-condensed">
+                               <caption class="capStyle">
+                                   <h4>{{table.name}}</h4>
+                                   
+                                   </caption>                                        
+                               <tbody> 
+                                 
+                                 <tr ng-repeat="row in table.rows">
+                                     <td class="tabledesclink">
+                                         <div class ="{{row.class}}" tooltip="{{row.description}}">{{row.name}}</div>
+                                     </td>
+                                      <td class="tablevaluelink {{row.columnClass}}" ng-repeat="col in row.columns">
+                                         <div class="text-center">                                             
+                                             <a ng-show='row.items !== undefined' ng-click="row.filtered = true;showItems(row.items)">
+                                                 <span class="tablevaluelink"> {{col.value}}</span>                                                                                                  
+                                             </a>                                             
+                                             <span ng-show='row.items === undefined'> {{col.value}}</span>
+                                             <span>
+                                                 <button type="button" ng-show="showingFilteredActiveSubs === true && row.filtered===true" ng-click="row.filtered=false; showItems(null)" class="btn add-on btn-mini btn-danger">
+                                                         <i class="icon-white icon-remove-sign"></i>                                                          
+                                                   </button>
+                                             </span>
+                                         </div>
+                                     </td>
+                                 </tr>
+                             </tbody>
+                             </table>
+                        </div> 
+                        
+                    </div>
+                </div>
+                <div class = 'text-center'>
+                    
+                     <a ng-click="filtered60DaysCount=true;showItems(expiringIn60Days)">
+                         <span class="tablevaluelink"> {{expiringIn60DaysCount}} Subscriptions Expiring in next 60 days</span>                                                                                                  
+                     </a>                                             
+                     
+                     <span>
+                        <button type="button" ng-show="showingFilteredActiveSubs === true && filtered60DaysCount===true" ng-click="filtered60DaysCount=false; showItems(null)" class="btn add-on btn-mini btn-danger">
+                             <i class="icon-white icon-remove-sign"></i>                                                          
+                        </button>
+                     </span>
+                </div>  
+                <hr/>
+                                                    
+                <div >
+                                        
+                    <div class="container-fluid">
+                        <div><h4> Total Assets: {{totalSerialNumbers}}</h4></div>
+                        <button type="button" ng-show="assetGridOptions.ngGrid.config.groups.length > 0" ng-click="collapseAssetGrid(false)" class="btn btn-mini">Expand &raquo; </button>
+                        <button type="button" ng-show="assetGridOptions.ngGrid.config.groups.length > 0" ng-click="collapseAssetGrid(true)" class="btn btn-mini">Collapse &raquo;</button>
+    
+                         <div class="gridStyle" ng-grid="assetGridOptions" style = "border: 1px solid rgb(212,212,212);height:600px;"></div>
+                     </div>
+                </div>            
+            </div>
+        </body>
+        <script type="text/javascript">
+
+              var _gaq = _gaq || [];
+              _gaq.push(['_setAccount', 'UA-45765411-1']);
+              _gaq.push(['_trackPageview']);
+            
+              (function() {
+                var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+                ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+                var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+              })();
+            
+        </script>
+    </html>
+</apex:page>

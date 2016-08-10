@@ -1,0 +1,326 @@
+<apex:page standardController="Account" extensions="RegisterAccountController" showheader="false" id="thePage" standardStylesheets="false">
+    <div class = "message"></div>
+    <apex:includeScript value="{!URLFOR($Resource.jQuery, 'jquery-1.4.3.min.js')}"/>
+    <apex:includeScript value="{!URLFOR($Resource.NewCommunity,'/js/jquery-ui.js')}"/>
+    <apex:stylesheet value="{!URLFOR($Resource.NewCommunity,'/css/jquery-ui.css')}"/>
+    
+    <script type = "text/javascript">
+        $(document).ready(function(){
+            $("img.vendorInput").parent().click(function(){
+                setTimeout("removeAll()",10);
+                setTimeout("addDataToVendor()",20);
+            });
+            $("select.allVendors").dblclick(function(){
+                setTimeout("removeAll()",0);
+                setTimeout("addDataToVendor()",0);
+            });
+            $("img.allVendors").parent().click(function(){
+                setTimeout("removeAll()",10);
+                setTimeout("addDataToVendor()",20);
+            });
+            $("select.vendorInput:").dblclick(function(){
+                setTimeout("removeAll()",0);
+                setTimeout("addDataToVendor()",0);
+            });
+            $("#ck1").change(function(){
+                if($("#ck1").is(':checked')) {
+                    $('input.input11').attr("value",$('input.input1').val());
+                    $('[id$=\'lastName1\']').attr("value",$('[id$=\'lastName\']').val());
+                    $('input.scEmail').attr("value",$('input.pcEmail').val());
+                    $('input.input14').attr("value",$('input.input4').val());
+                    $('input.input15').attr("value",$('input.input5').val());
+                    $('select.input16').attr("value",$('select.input6').val());
+                    $("select").trigger("change");
+                    $('[id$=\'jobRole1\']').attr("value",$('[id$=\'jobRole\']').val());
+                }
+            });
+            if({!succeeded}){
+                top.location = "/s/BecomePartnerSuccess";
+            }
+        $("select.vendorPicklist").change(function(){
+            toggleVendorSelect();
+        });
+            toggleVendorSelect();
+        $(".error").each(function(){
+            var input = $(this);
+            var err;
+            if(input.next().text() != null && input.next().text() != ""){
+                err = input.next().text();
+            }else{
+                err = input.closest(".multiSelectPicklistTable").prev().text();
+            }
+            if (!!window.ActiveXObject || "ActiveXObject" in window){
+                input.attr("title", err);
+            }else{
+                input.attr("title", err);
+                input.tooltip();
+            }
+        });
+            loadErrorMessage();
+            try { 
+                aotuAdjustHeight();
+            } catch (err) {
+                console.error(err.description);
+            }
+            setTimeout(function(){
+                $("input.error, select.error:visible, textarea.error").first().focus();
+            },10);  
+        });
+    function checkSubmit(){
+        //validate hereby certify
+        if(! $("#ck2").is(':checked')){
+            $("#errorMessage2").empty();
+            $("#errorMessage2").append("<span style = 'color:red;'>Please select the Silver Peak Partner Agreement before you submit your application.</span>");
+            $("#ck2").focus();
+            return false;
+        }
+        else{
+            return true;
+        }
+    }
+    function toggleVendorSelect() {
+        if($("select.vendorPicklist").val() == "Yes"){
+            removeAll();
+            addDataToVendor();
+            $(".vendorPanel").slideDown("fast");
+        }
+        else if($("select.vendorPicklist").val() == "No" || $("select.vendorPicklist").val() == ""){
+            $(".vendorPanel").slideUp("fast");
+        }
+    }
+    function aotuAdjustHeight(){
+        //$("#myIframe").css("height") = document.body.clientHeight + "px";
+        top.document.getElementById("myIframe").style.height = (document.body.clientHeight + 300)+ "px";
+    }
+    function removeAll(){
+        $("select.vendorInput:eq(1)").empty();
+        $("select.vendorInput:eq(1)").append("<optgroup style='text-decoration:none;' label='Available'></optgroup>");
+    }
+    function addDataToVendor(){
+        var selectedVendor = $("select.allVendors:eq(2) option").map(function(){
+            return $(this).val() +";" +$(this).text();}).get().join(",");
+        var selectedInput = $("select.vendorInput:eq(2) option").map(function(){
+            return $(this).val() +";" + $(this).text();}).get().join(",");
+        if(selectedVendor.length > 0){
+            var arr = selectedVendor.split(",");
+            if(selectedInput.length == 0){
+                for(var i = 0; i < arr.length; i++){
+                    $("select.vendorInput:eq(1)").append("<option value=" + arr[i].split(";")[0] + ">"+ arr[i].split(";")[1] +"</option>");
+                }
+            }else if(selectedInput.length > 0){
+                var arr1 = selectedInput.split(",");
+                for(var i = 0; i < arr.length; i++){
+                    var isAppended = true;
+                    for(var k = 0; k < arr1.length; k++){
+                        if(arr1[k] == arr[i]){
+                            isAppended = false;
+                            break;
+                        }
+                    }
+                    if(isAppended){
+                        $("select.vendorInput:eq(1)").append("<option value=" + arr[i].split(";")[0] + ">"+ arr[i].split(";")[1] +"</option>");
+                    }
+                }
+            }
+        }
+    }
+    function loadErrorMessage(){
+        var errorMessage = "{!errorMessage}";
+        if(errorMessage.length > 0){
+            if (errorMessage.substr(0,1)==';'){ 
+                errorMessage=errorMessage.substr(1);
+                }
+            $("div.message").append("<ul class='errorM3' title='Error:'></ul>");
+            var emArray = errorMessage.split(";");
+            var lastNameError = "";
+            for(var em in emArray){
+                var field = emArray[em].split(":")[0];
+                var message = emArray[em].split(":")[1];
+                if(field.length > 0){
+                    var input = $("input."+ field);
+                    input.addClass("error");
+                    if (!!window.ActiveXObject || "ActiveXObject" in window){
+                        input.attr("title","Error: " + message);
+                    }else{
+                        input.attr("title","Error: " + message);
+                        input.tooltip();
+                    }
+                }
+                if(message.length > 0){
+                    $("ul.errorM3").append("<li>" + message + "</li>");
+                }
+            }
+        }
+    }
+    </script>
+    <style>
+        input[type='text'], textarea, select {
+            width: 62%
+        }
+        textarea{
+            height:90px
+        }
+        .multiSelectPicklistTable select {
+            width: auto
+        }
+        .multiSelectPicklistTable img {
+            margin-left: 10px;
+            margin-right: 10px;
+        }
+        div{
+            font-size:12px;
+            font-weight:bold;
+            margin-top:10px;
+            margin-bottom:10px;
+        }
+        div.errorMsg{
+            color: red;
+            display: none
+        }
+        ul.errorM3{
+            width: 60%;
+            border: 1px solid red;
+            background-color:#FFFFBB;
+        }
+        .error {
+            border: 1px solid red;
+        }
+        div.vendorPanel{
+            left:10;
+            display:none;
+        }
+        div.scroll {
+            width: 700px;
+            height: 100px;
+            border: 2px solid gray;
+            padding: 5px;
+            overflow: scroll;
+        }
+    </style>
+  <body id = "iframeBody">
+  <apex:form style="font-family:Lucida Grande,Tahoma,Arial,sans-serif;" id="theForm" onsubmit="return checkSubmit()" rendered="{!NOT(succeeded)}" >
+      <div><font size = "4">Company Information:</font></div>
+      <div>Company Name: <font color = "red">*</font></div>
+      <div id = "errorMessage1"></div>
+      <div class = "input"><apex:inputText value="{!accountName}" styleClass="accountName"/></div>
+      <div>Street Address: <font color = "red">*</font></div>
+      <div class = "input"><apex:inputField value="{!Account.BillingStreet}" style="height:13px;"/></div>
+      <div>City: <font color = "red">*</font></div>
+      <div class = "input"><apex:inputField value="{!Account.BillingCity}"/></div>
+      <div>State/Province: <font color = "red">*</font></div>
+      <div class = "input"><apex:inputField value="{!Account.BillingState}"/></div>
+      <div>Zip/Postal Code: <font color = "red">*</font></div>
+      <div class = "input"><apex:inputField value="{!Account.BillingPostalCode}"/></div>
+      <div>Region: <font color = "red">*</font></div>
+      <div class = "input"><apex:inputField value="{!ppapa.Region__c}"/></div>
+      <div>Country: <font color = "red">*</font></div>
+      <div class = "input"><apex:inputField value="{!ppapa.Country__c}"/></div>
+      <div>Website: <font color = "red">*</font></div>
+      <div class = "input"><apex:inputField value="{!Account.Website}"/></div>
+      <div>Email Domains Used (domains associated to the partner account, ex: @company.com) <font color = "red">*</font></div>
+      <div><apex:inputField value="{!Account.Email_Domain_Used__c}" styleClass="domainName"/></div>
+      <div>Company Phone: <font color = "red">*</font></div>
+      <div class = "input"><apex:inputField value="{!Account.Phone}" id="companyPhone" /></div>
+      <div>Years in Business: <font color = "red">*</font></div>
+      <div class = "input"><apex:inputField value="{!Account.Years_in_Business__c}" html-placeholder="Enter 1-999"/></div>
+      
+      <div><font size = "4"><b>Primary Partner Contact </b></font></div>
+      <div>First Name: <font color = "red">*</font></div>
+      <div><apex:inputField value="{!primaryContact.FirstName}" styleClass="input1"/></div>
+      <div>Last Name: <font color = "red">*</font></div>
+      <div><apex:inputText value="{!pcLastName}" styleClass="pcLastName" id="lastName"/></div>
+      <div>Business Email Address: <font color = "red">*</font></div>
+      <div><apex:inputText value="{!dataBinding['pcEmail']}" styleClass="pcEmail" html-placeholder="Corporate email only"/></div>
+      <div>Job Title: <font color = "red">*</font></div>
+      <div><apex:inputField value="{!primaryContact.Title}" styleClass="input4"/></div>
+      <div>Contact Telephone: <font color = "red">*</font></div>
+      <div><apex:inputField value="{!primaryContact.Phone}" styleClass="input5"/></div>
+      <div>Business Function: <font color = "red">*</font></div>
+      <div><apex:inputField value="{!primaryContact.Business_Function__c}" styleClass="input6"/></div>
+      <div>Job Role: <font color = "red">*</font></div>
+      <div><apex:inputField value="{!primaryContact.Job_Role__c}" id="jobRole"/></div>
+      
+      <div><font size = "4"><b>Partner Signatory Contact</b></font></div>
+      <div>The same as above</div>
+      <div><input type = "checkbox" id = "ck1" /></div>
+      <div>First Name: <font color = "red">*</font></div>
+      <div><apex:inputField value="{!signatoryContact.FirstName}" styleClass="input11"/></div>
+      <div>Last Name: <font color = "red">*</font></div>
+      <div><apex:inputText value="{!scLastName}" styleClass="scLastName" id="lastName1"/></div>
+      <div>Business Email Address: <font color = "red">*</font></div>
+      <div><apex:inputText value="{!dataBinding['scEmail']}" styleClass="scEmail" html-placeholder="Corporate email only"/></div>
+      <div>Job Title: <font color = "red">*</font></div>
+      <div><apex:inputField value="{!signatoryContact.Title}" styleClass="input14"/></div>
+      <div>Contact Telephone: <font color = "red">*</font></div>
+      <div><apex:inputField value="{!signatoryContact.Phone}" styleClass="input15"/></div>
+      <div>Business Function: <font color = "red">*</font></div>
+      <div><apex:inputField value="{!signatoryContact.Business_Function__c}" styleClass="input16"/></div>
+      <div>Job Role: <font color = "red">*</font></div>
+      <div><apex:inputField value="{!signatoryContact.Job_Role__c}" id="jobRole1"/></div>
+      
+      <div><font size = "4"><b>Partner Marketing Contact</b></font></div>
+      <div>First Name: <font color = "red">*</font></div>
+      <div><apex:inputField value="{!marketingContact.FirstName}"/></div>
+      <div>Last Name: <font color = "red">*</font></div>
+      <div><apex:inputText value="{!mcLastName}" styleClass="mcLastName"/></div>
+      <div>Business Email Address: <font color = "red">*</font></div>
+      <div><apex:inputText value="{!dataBinding['mcEmail']}" styleClass="mcEmail" html-placeholder="Corporate email only"/></div>
+      <div>Job Title: <font color = "red">*</font></div>
+      <div><apex:inputField value="{!marketingContact.Title}"/></div>
+      <div>Contact Telephone: <font color = "red">*</font></div>
+      <div><apex:inputField value="{!marketingContact.Phone}"/></div>
+      <div>Business Function: <font color = "red">*</font></div>
+      <div><apex:inputField value="{!marketingContact.Business_Function__c}"/></div>
+      <div>Job Role: <font color = "red">*</font></div>
+      <div><apex:inputField value="{!marketingContact.Job_Role__c}"/></div><br/><br/><br/>
+      <div>Do you have a Silver Peak opportunity pending? <font color = "red">*</font></div>
+      <div><apex:inputField value="{!Account.Silver_Peak_oppo_pend__c}"/></div>
+      <div>What were your total annual sales revenues last year?<font color = "red">*</font></div>
+      <div><apex:inputField value="{!Account.total_annual_sales_revenues_last_year__c}"/></div>
+      <div>Please indicate the number of employees in your organization:<font color = "red">*</font></div>
+      <div><apex:inputField value="{!Account.Number_of_employees_in_your_organization__c}"/></div><br/>
+      <div>Please indicate the number of sales personnel in your organization: <font color = "red">*</font></div>
+      <div>- Outside Sales: <font color = "red">*</font></div>
+      <div><apex:inputText value="{!dataBinding['outside']}" styleClass="outside"/></div>
+      <div>- Inside Sales: <font color = "red">*</font></div>
+      <div><apex:inputText value="{!dataBinding['inside']}" styleClass="inside"/></div>
+      <div>- Sales Engineers (application/hardware): <font color = "red">*</font></div>
+      <div><apex:inputText value="{!dataBinding['engineers']}" styleClass="engineers"/></div>
+      <div>Please specify the TOP 3 industries you are re selling into: <font color = "red">*</font></div>
+      <div><apex:inputField value="{!Account.TOP_3_industries__c}"/></div>
+      <div>Please specify what percentage of your business is: (total should be 100%) </div>
+      <div>- Product Sales: <font color = "red">*</font></div>
+      <div><apex:inputText value="{!dataBinding['product']}" styleClass="product"/></div>
+      <div>- Services Sales: <font color = "red">*</font></div>
+      <div><apex:inputText value="{!dataBinding['services']}" styleClass="services"/></div>
+      <div>- Consulting Sales: <font color = "red">*</font></div>
+      <div><apex:inputText value="{!dataBinding['consulting']}" styleClass="consulting"/></div>
+      <div>Do you provide your own brand of professional services? <font color = "red">*</font></div>
+      <div><apex:inputField value="{!Account.Own_brand_of_professional_services__c}"/></div>
+      <div>Do you provide technical support? (choose all that apply) <font color = "red">*</font></div>
+      <div><apex:inputField value="{!Account.Provide_technical_support__c}"/></div>
+      <div>What is your primary target market size? <font color = "red">*</font></div>
+      <div><apex:inputField value="{!Account.Primary_target_market_size__c}"/></div>
+      <div>Please indicate your marketing offerings availability: (choose all that apply) <font color = "red">*</font></div>
+      <div><apex:inputField value="{!Account.Marketting_Oferrings__c}"/></div>
+      <div>Please indicate if you are an authorized partner of one of the following: (choose all that apply) <font color = "red">*</font></div>
+      <div><apex:inputField value="{!Account.Are_you_an_authorized_partner_of__c}" styleClass="allVendors"/></div>
+      <div>Do you integrate cloud solutions with any of the vendors listed above?  <font color = "red">*</font></div>
+      <div ><apex:inputField value="{!Account.Integrate_cloudsolutions_with_vendors__c}" styleClass="vendorPicklist"/></div>
+      <div class = "vendorPanel">Of the vendors selected above, which do you integrate cloud solutions with? <font color = "red">*</font><br/>
+      <div><apex:inputField value="{!Account.Please_Name_the_Vendors__c}" styleClass="vendorInput"/></div></div>
+      <div>Distributor of Choice: <font color = "red">*</font></div>
+      <div><apex:inputField value="{!Account.Distributor_of_Choice__c}"/></div>
+      <div>Tax ID Number: <font color = "red">*</font></div>
+      <div><apex:inputField value="{!Account.Tax_ID_Number__c}"/></div>
+      <div>By submitting this application, the applicant is requesting Silver Peak's approval to procure Silver Peak products from a local Silver Peak authorized distributor.  The applicant acknowledges that Silver Peak may grant or withhold this approval in its sole discretion and, once granted, may terminate its approval for any reason upon thirty (30) days advance written notice.  Upon termination of Silver Peak's approval, the applicant will no longer be authorized to procure Silver Peak products and will immediately cease use of all Silver Peak material, including but not limited to Silver Peak products, marketing material and Silver Peak trademarks.</div>
+      <div><div style="float:left;margin-top: 0;margin-bottom: 20px;margin-right: 5px;">
+          <input id="ck2" type="checkbox"/></div>
+          <label style="width: 568px;text-align:justify;" for = "ck2">I acknowledge that I have read and agree with the above statement.</label>
+          <!--<label style="width: 568px;text-align:justify;" for = "ck2">I hereby certify that I am authorized by my organization to submit the information above and that I have provided the correct company and signatory contact details of my organization who will be accepting </label><a href="javascript:void(0)" onclick="window.open('/SilverPeakPartnerAgreement', 'Popup', 'height=150, width=650, top=0, left=0, alwaysRaised=yes, scrollbars=yes')">Silver Peak Partner Agreement</a>-->
+      </div>
+      <div id = "errorMessage2"></div>
+      <div><apex:commandButton value="Submit" action="{!insertAccount}"   styleClass="submitButton" id="submit"/></div>
+  </apex:form>
+  </body>
+</apex:page>

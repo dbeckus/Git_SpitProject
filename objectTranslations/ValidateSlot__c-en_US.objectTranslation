@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Valid Slot</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Valid Slot</value>
+    </caseValues>
+    <fields>
+        <label><!-- Asset PN --></label>
+        <name>AssetPN__c</name>
+    </fields>
+    <fields>
+        <label><!-- End # --></label>
+        <name>End__c</name>
+    </fields>
+    <fields>
+        <label><!-- Model --></label>
+        <name>Model__c</name>
+    </fields>
+    <fields>
+        <label><!-- Start # --></label>
+        <name>Start__c</name>
+    </fields>
+    <fields>
+        <label><!-- Type --></label>
+        <name>Type__c</name>
+    </fields>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

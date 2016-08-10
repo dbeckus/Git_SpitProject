@@ -1,0 +1,907 @@
+<apex:page Controller="PartnerPortalRequestMDFController" showHeader="false" standardStylesheets="true" action="{!authorize}">
+    <apex:composition template="PartnerPortalTemplate">
+        <apex:define name="body">
+            <script>
+            $(document).ready(function() {
+                $("#submitForAnotherChk").change(function() {
+                    if($(this).attr("checked")) {
+                       $("input[id$='submitForAnother']").removeAttr("readonly"); 
+                       $("input[id$='submitForAnother']").removeClass("readonly"); 
+                    }
+                    else {
+                        $("input[id$='submitForAnother']").val("");
+                        $("input[id$='submitForAnother']").attr("readonly", "readonly");
+                        $("input[id$='submitForAnother']").addClass("readonly");
+                    }
+                });
+                $("#additionalVendorsChk").change(function() {
+                    if($(this).attr("checked")) {
+                        $("input[id$='AddlVendors']").removeAttr("readonly");
+                        $("input[id$='AddlVendors']").removeClass("readonly");
+                    }
+                    else {
+                        $("input[id$='AddlVendors']").val("");
+                        $("input[id$='AddlVendors']").attr("readonly", "readonly");
+                        $("input[id$='AddlVendors']").addClass("readonly");
+                    }
+                });
+                if($("input[id$='submitForAnother']").val() != "") {
+                    $("#submitForAnotherChk").attr("checked", "checked");
+                }
+                if($("input[id$='AddlVendors']").val() != "") {
+                    $("#additionalVendorsChk").attr("checked", "checked");
+                }
+                $("#submitForAnotherChk").trigger("change");
+                $("#additionalVendorsChk").trigger("change");
+                
+                if({!isSubmitted || isApproved}) {
+                    $("#initialSection input[type='text'], #initialSection input[type='checkbox'], #initialSection select, #initialSection textarea").attr("disabled", "disabled");
+                    $("#initialSection .dateFormat").hide();
+                }
+            });
+            function onSave() {
+                $("#spinGif").css("display", "");
+            }
+        </script>
+            <div id="main">
+                <apex:form >
+                    <div id="Auth_Breadcrumb">
+                        <table id="GlobalBodyContent_InternalBodyContent_ctl00_BreadCrumb" class="BreadCrumb_CssClass" cellspacing="0" style="border-collapse:collapse;">
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <table border="0" cellpadding="0" cellspacing="0">
+                                            <tbody>
+                                                <tr>
+                                                    <td>
+                                                        <div class="BreadCrumb_RootNodeCssClass" style="display:inline;">
+                                                            <a href="champions_home">Home</a>
+                                                        </div>
+                                                    </td>
+                                                    <td>&nbsp;</td>
+                                                    <td>
+                                                        <div class="BreadCrumb_ParentNodeCssClass" style="display:inline;">
+                                                            <a href="marketing_tools_overview">Marketing Tools</a>
+                                                        </div>
+                                                    </td>
+                                                    <td>&nbsp;</td>
+                                                    <td>
+                                                        <div class="BreadCrumb_ParentNodeCssClass" style="display:inline;">
+                                                            <a href="mdf_program_guide_and_slides">MDF Program</a>
+                                                        </div>
+                                                    </td>
+                                                    <td>&nbsp;</td>
+                                                    <td>
+                                                        <div class="BreadCrumb_SelectedNodeCssClass" style="display:inline;">
+                                                            <a href="request_mdf">Request MDF</a>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <article id="content_1col">
+                        <div class="txt">
+                            <div class="img-holder">
+                                <img src="{!URLFOR($Resource.PartnerPortal, 'images/img01.jpg')}" alt="Marketing Tools - Request MDF" style="height:181px;width:293px;"/>
+                                <h1>Request MDF</h1>
+                            </div>
+                            Fields with an asterisk (
+                            <span class="required_field">*</span>
+                            ) are required, but more information is appreciated, if available. Thank you for your participation!&nbsp;
+
+                            <apex:variable var="readonly" value="{!OR(isSubmitted, isApproved)}"/>
+                            <table border="0" cellpadding="2" cellspacing="0" width="100%" id="initialSection">
+                                <tbody>
+                                    <!--<tr>
+                                    <td colspan="4">
+                                        <h2>Contact Information</h2>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td width="300">
+                                        <span>Company Name:</span>
+                                    </td>
+                                    <td width="200">
+                                        <apex:inputText disabled="true" value="{!currentContact.Account.Name}"/>
+                                    </td>
+                                    <td width="300"></td>
+                                    <td width="200"></td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <span>Submitters Name:</span>
+                                    </td>
+                                    <td>
+                                        <apex:inputText disabled="true" value="{!currentContact.Name}"/>
+                                    </td>
+                                    <td>
+                                        <span>Submitters Email:</span>
+                                    </td>
+                                    <td>
+                                        <apex:inputText disabled="true" value="{!currentContact.Email}"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <span>Preferred Phone Number:</span>
+                                        <span class="required_field">*</span>
+                                    </td>
+                                    <td>
+                                        <apex:inputText value="{!request.Preferred_Phone__c}" required="true" />
+                                    </td>
+                                    <td>
+                                        <span>Submitters Phone:</span>
+                                    </td>
+                                    <td>
+                                        <apex:inputText disabled="true" value="{!currentContact.Phone}"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>&nbsp;</td>
+                                </tr>
+                                -->
+                                <tr>
+                                    <td colspan="4">
+                                        <apex:pageMessages />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="4">
+                                        <h2>Program Details and Description</h2>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <!-- Planned Activity -->
+                                    <td>
+                                        <span>Type of Program:</span>
+                                        <span class="required_field">*</span>
+                                    </td>
+                                    <td colspan="3">
+                                        <apex:inputField value="{!request.Type_of_Program__c}" required="true" rendered="{!NOT(readonly)}" />
+                                        <apex:outputField value="{!request.Type_of_Program__c}" rendered="{!readonly}" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <!-- Event/Campaign Name -->
+                                    <td>
+                                        <span>Event/Campaign Name:</span>
+                                        <span class="required_field">*</span>
+                                    </td>
+                                    <td colspan="3">
+                                        <apex:inputField value="{!request.Event_Campaign_Name__c}" required="true" rendered="{!NOT(readonly)}" />
+                                        <apex:outputField value="{!request.Event_Campaign_Name__c}" rendered="{!readonly}" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <!-- Location of Event -->
+                                    <td>
+                                        <span>Location of Event(City or Geography Targeted):</span>
+                                        <span class="required_field">*</span>
+                                    </td>
+                                    <td colspan="3">
+                                        <apex:inputField value="{!request.Location_of_Event__c}" required="true" rendered="{!NOT(readonly)}" />
+                                        <apex:outputField value="{!request.Location_of_Event__c}" rendered="{!readonly}" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <!-- Activity Date (standard) -->
+                                    <td>
+                                        <span>Activity Date</span>
+                                        <span class="required_field">*</span>
+                                    </td>
+                                    <td colspan="3">
+                                        <apex:inputField value="{!request.Activity_Date__c}" style="width:210px" required="true" rendered="{!NOT(readonly)}" />
+                                        <apex:outputField value="{!request.Activity_Date__c}" rendered="{!readonly}" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td width="30%">
+                                        <span>Target Audience Profile:</span>
+                                    </td>
+                                    <td width="20%">
+                                        <apex:inputText value="{!request.Target_Audience_Profile__c}" maxlength="255" rendered="{!NOT(readonly)}" />
+                                        <apex:outputField value="{!request.Target_Audience_Profile__c}" rendered="{!readonly}" />
+                                    </td>
+                                    <td width="30%">
+                                        <span>Industry/Vertical Being Targeted:</span>
+                                    </td>
+                                    <td>
+                                        <apex:inputText value="{!request.Industry_Vertical_Being_Targeted__c}" maxlength="255" rendered="{!NOT(readonly)}" />
+                                        <apex:outputField value="{!request.Industry_Vertical_Being_Targeted__c}" rendered="{!readonly}" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <span>Expected Audience Size:</span>
+                                        <span class="required_field">*</span>
+                                    </td>
+                                    <td>
+                                        <apex:inputField value="{!request.Expected_Audience_Size__c}" style="text-align:right;" required="true" rendered="{!NOT(readonly)}"/>
+                                        <apex:outputField value="{!request.Expected_Audience_Size__c}" rendered="{!readonly}" />
+                                    </td>
+                                    <td>
+                                        <span>Expected Number of Leads:</span>
+                                        <span class="required_field">*</span>
+                                    </td>
+                                    <td>
+                                        <apex:inputField value="{!request.Expected_Number_of_Leads__c}" style="text-align:right;" required="true" rendered="{!NOT(readonly)}"/>
+                                        <apex:outputField value="{!request.Expected_Number_of_Leads__c}" rendered="{!readonly}" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <span>Estimated Value of Expected Opportunities:</span>
+                                        <span class="required_field">*</span>
+                                    </td>
+                                    <td colspan="3">
+                                        <apex:inputField value="{!request.Est_Value_of_Expected_Opportunities__c}" style="text-align:right;" required="true" rendered="{!NOT(readonly)}"/>
+                                        <apex:outputField value="{!request.Est_Value_of_Expected_Opportunities__c}" rendered="{!readonly}" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="4">
+                                        <input type="checkbox" class="jcf-hidden" id="additionalVendorsChk" />
+                                        <label for="additionalVendorsChk">Are additional vendor(s) participating? (Yes/No)</label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="4">
+                                        <span >If yes, enter Vendor name(s):</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <span>Vendor 1:</span>
+                                    </td>
+                                    <td colspan="3">
+                                        <apex:inputText value="{!request.Addl_Vendor_1__c}" id="firstAddlVendors" maxlength="255" rendered="{!NOT(readonly)}" />
+                                        <apex:outputField value="{!request.Addl_Vendor_1__c}" rendered="{!readonly}" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <span>Vendor 2:</span>
+                                    </td>
+                                    <td colspan="3">
+                                        <apex:inputText value="{!request.Addl_Vendor_2__c}" id="secondAddlVendors" maxlength="255" rendered="{!NOT(readonly)}" />
+                                        <apex:outputField value="{!request.Addl_Vendor_2__c}" rendered="{!readonly}" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <span>Vendor 3:</span>
+                                    </td>
+                                    <td colspan="3">
+                                        <apex:inputText value="{!request.Addl_Vendor_3__c}" id="thirdAddlVendors" maxlength="255" rendered="{!NOT(readonly)}" />
+                                        <apex:outputField value="{!request.Addl_Vendor_3__c}" rendered="{!readonly}" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <!-- Planned Cost (standard) -->
+                                    <td>
+                                        <span>Total Estimated Program Costs:</span>
+                                        <span class="required_field">*</span>
+                                    </td>
+                                    <td>
+                                        <apex:inputField value="{!request.Total_Estimated_Program_Costs__c}" style="text-align:right;" required="true" rendered="{!NOT(readonly)}" />
+                                        <apex:outputField value="{!request.Total_Estimated_Program_Costs__c}" style="text-align:right;" rendered="{!readonly}" />
+                                    </td>
+                                    <td>
+                                        <span>Estimated Partner Amount:</span>
+                                    </td>
+                                    <td>
+                                        <apex:inputField value="{!request.Estimated_Partner_Amount__c}" style="text-align:right;" rendered="{!NOT(readonly)}" />
+                                        <apex:outputField value="{!request.Estimated_Partner_Amount__c}" style="text-align:right;" rendered="{!readonly}" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <span>Estimated Silver Peak Amount:</span>
+                                        <span class="required_field">*</span>
+                                    </td>
+                                    <td>
+                                        <apex:inputField value="{!request.Estimated_Silver_Peak_Amount__c}" style="text-align:right;" required="true" rendered="{!NOT(readonly)}" />
+                                        <apex:outputField value="{!request.Estimated_Silver_Peak_Amount__c}" style="text-align:right;" rendered="{!readonly}" />
+                                    </td>
+                                    <!-- Actual Cost (standard) -->
+                                    <td>
+                                        <span>Estimated Other Vendor(s) Amount:</span>
+                                    </td>
+                                    <td>
+                                        <apex:inputField value="{!request.Estimated_Other_Vendor_s_Amount__c}" id="estimationAddlVendors" style="text-align:right;" rendered="{!NOT(readonly)}" />
+                                        <apex:outputField value="{!request.Estimated_Other_Vendor_s_Amount__c}" style="text-align:right;" rendered="{!readonly}" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <span>What is your post event follow up plan?</span>
+                                        <span class="required_field">*</span>
+                                    </td>
+                                    <td colspan="3">
+                                        <apex:inputTextarea value="{!request.post_event_follow_up_plan__c}" rows="3" cols="53" required="true" rendered="{!NOT(readonly)}"  />
+                                        <apex:outputField value="{!request.post_event_follow_up_plan__c}" style="text-align:right;" rendered="{!readonly}" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="4">&nbsp;</td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <span>Comments:</span>
+                                    </td>
+                                    <td colspan="3">
+                                        <apex:inputTextarea value="{!request.Comments__c}" rows="3" cols="53"  rendered="{!NOT(readonly)}"  />
+                                        <apex:outputField value="{!request.Comments__c}" style="text-align:right;" rendered="{!readonly}" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="4">&nbsp;</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="4">
+                                        <h2>Required Documentation for MDF Processing and Payment</h2>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="4">
+                                        <i>Upon completion of event, please upload the three required documents listed below in order to approve payment.</i>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">
+                                        <label> <b>Invoice</b>
+                                            (billed to Silver Peak)
+                                        </label>
+                                    </td>
+                                    <td colspan="2">
+                                        <apex:outputPanel rendered="{!invoiceAttachment.Id!=null}">
+                                            <a href="/servlet/servlet.FileDownload?file={!invoiceAttachment.Id}">View</a>
+                                            |&nbsp;
+                                            <apex:commandLink action="{!deleteAttachment}" value="Remove">
+                                                <apex:param name="file" value="{!invoiceAttachment.Id}"/>
+                                            </apex:commandLink>
+                                        </apex:outputPanel>
+                                        <apex:outputPanel rendered="{!invoiceAttachment.Id=null}">
+                                            <apex:inputFile value="{!invoiceAttachment.Body}" fileName="Invoice and Receipt" contentType="{!invoiceAttachment.ContentType}" />
+                                        </apex:outputPanel>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">
+                                        <label> <b>Proof of Performance</b>
+                                            (photos, print, third party receipts proving the cost of the event so you will be invoiced for the correct amount, email invites, collateral, etc.)
+                                        </label>
+                                    </td>
+                                    <td colspan="2">
+                                        <apex:outputPanel rendered="{!proofAttachment.Id!=null}">
+                                            <a href="/servlet/servlet.FileDownload?file={!proofAttachment.Id}">View</a>
+                                            |&nbsp;
+                                            <apex:commandLink action="{!deleteAttachment}" value="Remove">
+                                                <apex:param name="file" value="{!proofAttachment.Id}"/>
+                                            </apex:commandLink>
+                                        </apex:outputPanel>
+                                        <apex:outputPanel rendered="{!proofAttachment.Id=null}">
+                                            <apex:inputFile value="{!proofAttachment.Body}" fileName="Proof of Performance" contentType="{!proofAttachment.ContentType}" />
+                                        </apex:outputPanel>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">
+                                        <label for="GlobalBodyContent_InternalBodyContent_BodyContent_AttendanceListsEnclosedwithLeadsIdentified">
+                                            <b>Attendance Lists</b>
+                                            – leads must be identified and have contact information (contact information includes: first name, last name, company, job title, email address, phone number, country, state, postal code)
+                                        </label>
+                                    </td>
+                                    <td colspan="2">
+                                        <apex:outputPanel rendered="{!attlistAttachment.Id!=null}">
+                                            <a href="/servlet/servlet.FileDownload?file={!attlistAttachment.Id}">View</a>
+                                            |&nbsp;
+                                            <apex:commandLink action="{!deleteAttachment}" value="Remove">
+                                                <apex:param name="file" value="{!attlistAttachment.Id}"/>
+                                            </apex:commandLink>
+                                        </apex:outputPanel>
+                                        <apex:outputPanel rendered="{!attlistAttachment.Id=null}">
+                                            <apex:inputFile value="{!attlistAttachment.Body}" fileName="Attendance List" contentType="{!attlistAttachment.ContentType}" />
+                                        </apex:outputPanel>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="4">
+                                        <h2>Additional Optional Documentation</h2>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">
+                                        <label>
+                                            <b>Samples Advertisement</b>
+                                            (print, mail or POP display images enclosed; pre-print proofs not eligible for processing)
+                                        </label>
+                                    </td>
+                                    <td colspan="2">
+                                        <apex:outputPanel rendered="{!sampleAtachment.Id!=null}">
+                                            <a href="/servlet/servlet.FileDownload?file={!sampleAtachment.Id}">View</a>
+                                            |&nbsp;
+                                            <apex:commandLink action="{!deleteAttachment}" value="Remove">
+                                                <apex:param name="file" value="{!sampleAtachment.Id}"/>
+                                            </apex:commandLink>
+                                        </apex:outputPanel>
+                                        <apex:outputPanel rendered="{!sampleAtachment.Id=null}">
+                                            <apex:inputFile value="{!sampleAtachment.Body}" fileName="Sample Ad" contentType="{!sampleAtachment.ContentType}" />
+                                        </apex:outputPanel>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">
+                                        <label>
+                                            <b>Event Photos</b>
+                                        </label>
+                                    </td>
+                                    <td colspan="2">
+                                        <apex:outputPanel rendered="{!eventAttachment.Id!=null}">
+                                            <a href="/servlet/servlet.FileDownload?file={!eventAttachment.Id}">View</a>
+                                            |&nbsp;
+                                            <apex:commandLink action="{!deleteAttachment}" value="Remove">
+                                                <apex:param name="file" value="{!eventAttachment.Id}"/>
+                                            </apex:commandLink>
+                                        </apex:outputPanel>
+                                        <apex:outputPanel rendered="{!eventAttachment.Id=null}">
+                                            <apex:inputFile value="{!eventAttachment.Body}" fileName="Event Photos" contentType="{!eventAttachment.ContentType}" />
+                                        </apex:outputPanel>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">
+                                        <apex:outputPanel rendered="{!addlAttachment1.Id!=null}">{!addlAttachment1.Name}</apex:outputPanel>
+                                        <apex:outputPanel rendered="{!addlAttachment1.Id=null}">
+                                            <apex:inputFile value="{!addlAttachment1.Body}" fileName="{!addlAttachment1.Name}" contentType="{!addlAttachment1.ContentType}" />
+                                        </apex:outputPanel>
+                                    </td>
+                                    <td colspan="2">
+                                        <apex:outputPanel rendered="{!addlAttachment1.Id!=null}">
+                                            <a href="/servlet/servlet.FileDownload?file={!addlAttachment1.Id}">View</a>
+                                            |&nbsp;
+                                            <apex:commandLink action="{!deleteAttachment}" value="Remove">
+                                                <apex:param name="file" value="{!addlAttachment1.Id}"/>
+                                            </apex:commandLink>
+                                        </apex:outputPanel>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">
+                                        <apex:outputPanel rendered="{!addlAttachment2.Id!=null}">{!addlAttachment2.Name}</apex:outputPanel>
+                                        <apex:outputPanel rendered="{!addlAttachment2.Id=null}">
+                                            <apex:inputFile value="{!addlAttachment2.Body}" fileName="{!addlAttachment2.Name}" contentType="{!addlAttachment2.ContentType}" />
+                                        </apex:outputPanel>
+                                    </td>
+                                    <td colspan="2">
+                                        <apex:outputPanel rendered="{!addlAttachment2.Id!=null}">
+                                            <a href="/servlet/servlet.FileDownload?file={!addlAttachment2.Id}">View</a>
+                                            |&nbsp;
+                                            <apex:commandLink action="{!deleteAttachment}" value="Remove">
+                                                <apex:param name="file" value="{!addlAttachment2.Id}"/>
+                                            </apex:commandLink>
+                                        </apex:outputPanel>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">
+                                        <apex:outputPanel rendered="{!addlAttachment3.Id!=null}">{!addlAttachment3.Name}</apex:outputPanel>
+                                        <apex:outputPanel rendered="{!addlAttachment3.Id=null}">
+                                            <apex:inputFile value="{!addlAttachment3.Body}" fileName="{!addlAttachment3.Name}" contentType="{!addlAttachment3.ContentType}" />
+                                        </apex:outputPanel>
+                                    </td>
+                                    <td colspan="2">
+                                        <apex:outputPanel rendered="{!addlAttachment3.Id!=null}">
+                                            <a href="/servlet/servlet.FileDownload?file={!addlAttachment3.Id}">View</a>
+                                            |&nbsp;
+                                            <apex:commandLink action="{!deleteAttachment}" value="Remove">
+                                                <apex:param name="file" value="{!addlAttachment3.Id}"/>
+                                            </apex:commandLink>
+                                        </apex:outputPanel>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="4">&nbsp;</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="4">
+                                        <input type="checkbox" class="jcf-hidden" id="submitForAnotherChk" />
+                                        <label for="submitForAnotherChk">
+                                            Is this MDF request being submitted for another individual in your organization
+                                        </label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <span>If yes, for whom?</span>
+                                    </td>
+                                    <td colspan="3">
+                                        <apex:inputText value="{!request.Submitted_For__c}" id="submitForAnother" maxlength="255" rendered="{!NOT(readonly)}" />
+                                        <apex:outputField value="{!request.Submitted_For__c}" rendered="{!readonly}" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="4">
+                                        <h3>Marketing Activity Point of Contact</h3>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <span>Name:</span>
+                                        <span class="required_field">*</span>
+                                    </td>
+                                    <td>
+                                        <apex:inputText value="{!request.Marketing_Activity_Point_of_Contact_Nam__c}" required="true" maxlength="200" rendered="{!NOT(readonly)}" />
+                                        <apex:outputField value="{!request.Marketing_Activity_Point_of_Contact_Nam__c}" rendered="{!readonly}" />
+                                    </td>
+                                    <td>
+                                        <span>Email:</span>
+                                        <span class="required_field">*</span>
+                                    </td>
+                                    <td>
+                                        <apex:inputText value="{!request.Marketing_Activity_PoC_Email__c}" required="true" maxlength="200" rendered="{!NOT(readonly)}" />
+                                        <apex:outputField value="{!request.Marketing_Activity_PoC_Email__c}" rendered="{!readonly}" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="4">
+                                        <h3>Accounting Point of Contact</h3>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <span>Name:</span>
+                                        <span class="required_field">*</span>
+                                    </td>
+                                    <td>
+                                        <apex:inputText value="{!request.Accounting_PoC_Name__c}" maxlength="255" rendered="{!NOT(readonly)}" />
+                                        <apex:outputField value="{!request.Accounting_PoC_Name__c}" rendered="{!readonly}" />
+                                    </td>
+                                    <td>
+                                        <span>Email:</span>
+                                        <span class="required_field">*</span>
+                                    </td>
+                                    <td>
+                                        <apex:inputText value="{!request.Accounting_PoC_Email__c}" maxlength="255" rendered="{!NOT(readonly)}" />
+                                        <apex:outputField value="{!request.Accounting_PoC_Email__c}" rendered="{!readonly}" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="4">
+                                        <h3>Company Address</h3>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <span>Address:</span>
+                                    </td>
+                                    <td>{!currentContact.Account.ShippingStreet}</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <span>City:</span>
+                                    </td>
+                                    <td>{!currentContact.Account.ShippingCity}</td>
+                                    <td>
+                                        <span>State:</span>
+                                    </td>
+                                    <td>{!currentContact.Account.ShippingState}</td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <span>Zip/Postal Code:</span>
+                                    </td>
+                                    <td>{!currentContact.Account.ShippingPostalCode}</td>
+                                    <td>
+                                        <span>Country:</span>
+                                    </td>
+                                    <td>{!currentContact.Account.ShippingCountry}</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="4">
+                                        <h3>Remit to Address, if different than above</h3>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <span>Address 1:</span>
+                                    </td>
+                                    <td>
+                                        <apex:inputText value="{!request.Remit_Address_1__c}" maxlength="255" rendered="{!NOT(readonly)}" />
+                                        <apex:outputField value="{!request.Remit_Address_1__c}" rendered="{!readonly}" />
+                                    </td>
+                                    <td>
+                                        <span>Address 2:</span>
+                                    </td>
+                                    <td>
+                                        <apex:inputText value="{!request.Remit_Address_2__c}" maxlength="255" rendered="{!NOT(readonly)}" />
+                                        <apex:outputField value="{!request.Remit_Address_2__c}" rendered="{!readonly}" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <span>City:</span>
+                                    </td>
+                                    <td>
+                                        <apex:inputText value="{!request.Remit_City__c}" maxlength="255" rendered="{!NOT(readonly)}" />
+                                        <apex:outputField value="{!request.Remit_City__c}" rendered="{!readonly}" />
+                                    </td>
+                                    <td>
+                                        <span>State:</span>
+                                    </td>
+                                    <td>
+                                        <apex:inputText value="{!request.Remit_State__c}" maxlength="255" rendered="{!NOT(readonly)}" />
+                                        <apex:outputField value="{!request.Remit_State__c}" rendered="{!readonly}" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <span>Zip/Postal Code:</span>
+                                    </td>
+                                    <td>
+                                        <apex:inputText value="{!request.Remit_Zip_Postal_Code__c}" maxlength="255" rendered="{!NOT(readonly)}" />
+                                        <apex:outputField value="{!request.Remit_Zip_Postal_Code__c}" rendered="{!readonly}" />
+                                    </td>
+                                    <td>
+                                        <span>Country:</span>
+                                    </td>
+                                    <td>
+                                        <apex:inputText value="{!request.Remit_Country__c}" maxlength="255" rendered="{!NOT(readonly)}" />
+                                        <apex:outputField value="{!request.Remit_Country__c}" rendered="{!readonly}" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="4">&nbsp;</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <apex:outputPanel rendered="{!NOT(isInitial)}" layout="none">
+                            <table border="0" cellpadding="2" cellspacing="0" width="100%">
+                                <tbody>
+                                    <tr>
+                                        <td colspan="4">
+                                            <h2>Approvals</h2>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td width="30%">
+                                            <span>Date Created:</span>
+                                        </td>
+                                        <td width="20%">
+                                            {!MONTH(DATEVALUE(request.CreatedDate))} / {!DAY(DATEVALUE(request.CreatedDate))} / {!YEAR(DATEVALUE(request.CreatedDate))}
+                                        </td>
+                                        <!-- Approval PO (standard) -->
+                                        <td width="30%">
+                                            <span>Date Approved:</span>
+                                        </td>
+                                        <td>
+                                            {!MONTH(request.Approval_Date__c)} / {!DAY(request.Approval_Date__c)} / {!YEAR(request.Approval_Date__c)}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <!-- Approval Status (standard/read-only) -->
+                                        <td>
+                                            <span>Approval Status:</span>
+                                        </td>
+                                        <td>{!request.Approval_Status__c}</td>
+                                        <!-- Invoice No (standard) -->
+                                        <td>
+                                            <span>Invoice No</span>
+                                        </td>
+                                        <td>{!request.Invoice_No__c}</td>
+                                    </tr>
+                                    <tr>
+                                        <!-- Approval PO (standard) -->
+                                        <td>
+                                            <span>Approval PO:</span>
+                                        </td>
+                                        <td>{!request.PO_No__c}</td>
+                                        <!-- MDF Status -->
+                                        <td>
+                                            <span>MDF Processing Status</span>
+                                        </td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="4">
+                                            <apex:image value="/img/checkbox_checked.gif" alt="check" rendered="{!request.Quarterly_Marketing_Plan__c}" />
+                                            <apex:image value="/img/checkbox_unchecked.gif" alt="uncheck" rendered="{!NOT(request.Quarterly_Marketing_Plan__c)}" />
+                                            <label>Included In Joint Quarterly Marketing Plan? (Yes/No)</label>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="4">
+                                            <apex:image value="/img/checkbox_checked.gif" alt="check" rendered="{!request.Fast_Start_Marketing_Program__c}" />
+                                            <apex:image value="/img/checkbox_unchecked.gif" alt="uncheck" rendered="{!NOT(request.Fast_Start_Marketing_Program__c)}" />
+                                            <label>Fast Start Marketing Program? (Yes/No)</label>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="4">
+                                            <apex:image value="/img/checkbox_checked.gif" alt="check" rendered="{!request.Partner_at_Platinum_Level__c}" />
+                                            <apex:image value="/img/checkbox_unchecked.gif" alt="uncheck" rendered="{!NOT(request.Partner_at_Platinum_Level__c)}" />
+                                            <label>Partner at Platinum Level? (Yes/No)</label>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <span>Reasons MDF Exception Granted:</span>
+                                        </td>
+                                        <td colspan="3">{!request.Exception_Granted_Reason__c}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <span>Reasons Rejected:</span>
+                                        </td>
+                                        <td colspan="3">{!request.Reason_Rejected__c}</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="4">&nbsp;</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </apex:outputPanel>
+                        <apex:outputPanel rendered="{!isApproved}" layout="none">
+                            <table border="0" cellpadding="2" cellspacing="0" width="100%" id="resultSection">
+                                <tbody>
+                                    <tr>
+                                        <td colspan="4">
+                                            <h2>Event Results</h2>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <!-- Activity Completed (standard) -->
+                                        <td>
+                                            <span>Activity Complete?</span>
+                                        </td>
+                                        <td colspan="3">
+                                            <apex:inputCheckbox value="{!request.Activity_Complete__c}"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <!-- Activity Date (standard) -->
+                                        <td>
+                                            <span>Activity Date</span>
+                                            <span class="required_field">*</span>
+                                        </td>
+                                        <td colspan="3">
+                                            <apex:inputField value="{!request.Activity_Date__c}" style="width:210px" required="true" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <span>Describe results in detail and list post follow up:</span>
+                                        </td>
+                                        <td colspan="3">
+                                            <apex:inputtextarea rows="2" cols="35" value="{!request.Result_Detail__c}" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td width="30%">
+                                            <span style="text-align:right;">Total Attendees/Responses:</span>
+                                        </td>
+                                        <td width="20%">
+                                            <apex:inputField value="{!request.Total_Attendees__c}" style="text-align:right;"/>
+                                        </td>
+                                        <td width="30%">
+                                            <span>How Many Leads Were Generated?:</span>
+                                        </td>
+                                        <td>
+                                            <apex:inputField value="{!request.Total_Leads_Generated__c}" style="text-align:right;"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <span>Number of Qualified Leads:</span>
+                                        </td>
+                                        <td>
+                                            <apex:inputField value="{!request.Total_Qualified_Leads__c}" style="text-align:right;"/>
+                                        </td>
+                                        <td>
+                                            <span>Estimated Pipeline Value $:</span>
+                                        </td>
+                                        <td>
+                                            <apex:inputField value="{!request.Estimated_Pipeline_Value__c}" style="text-align:right;" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <!-- Actual Cost (standard) -->
+                                        <td>
+                                            <span>Actual Program Cost:</span>
+                                        </td>
+                                        <td>
+                                            <apex:inputField value="{!request.Actual_Program_Cost__c}" style="text-align:right;"/>
+                                        </td>
+                                        <td colspan="2">&nbsp;</td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <span>Actual Partner Cost:</span>
+                                        </td>
+                                        <td>
+                                            <apex:inputField value="{!request.Actual_Partner_Cost__c}" style="text-align:right;"/>
+                                        </td>
+                                        <td>
+                                            <span>Requested Silver Peak Reimbursement Amount:</span>
+                                        </td>
+                                        <td>
+                                            <apex:inputField value="{!request.Requested_Reimbursement_Amount__c}" style="text-align:right;"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <span>Additional Vendor Cost 1:</span>
+                                        </td>
+                                        <td>
+                                            <apex:inputField value="{!request.Additional_Vendor_Cost_1__c}" style="text-align:right;"/>
+                                        </td>
+                                        <td colspan="2">&nbsp;</td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <span>Additional Vendor Cost 2:</span>
+                                        </td>
+                                        <td>
+                                            <apex:inputField value="{!request.Additional_Vendor_Cost_2__c}" style="text-align:right;"/>
+                                        </td>
+                                        <td colspan="2">&nbsp;</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="4">&nbsp;</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </apex:outputPanel>
+                        <table border="0" cellpadding="2" cellspacing="0" width="100%">
+                            <tbody>
+                                <tr>
+                                    <td colspan="4">
+                                        <apex:pageMessages />
+                                        <apex:commandButton value="Save" styleClass="btn" action="{!save}" rendered="{!NOT(OR(isSubmitted, isApproved))}" style="pointer:cursor" onclick="onSave()"/>
+                                        <apex:commandButton value="Submit" styleClass="btn" action="{!save}" rendered="{!isApproved}" style="pointer:cursor" onclick="onSave()"/>
+                                        <apex:commandButton value="Submit" styleClass="btn" action="{!submit}" style="pointer:cursor" rendered="{!OR(isInitial, isDenied)}" onclick="onSave()" />
+                                        <img src="img/loading.gif" alt="Loading..." style="display:none" id="spinGif" />
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+                </article>
+                <div class="clear"></div>
+                <div class="socialmedia">
+                    <nav class="social">
+                        <ul>
+                            <li>
+                                <a class="facebook" target="_blank" href="http://facebook.com/SilverPeakSystems">facebook</a>
+                            </li>
+                            <li>
+                                <a class="blog" target="_blank" href="http://blog.silver-peak.com/">blog</a>
+                            </li>
+                            <li>
+                                <a class="twitter" target="_blank" href="https://twitter.com/silverpeak">twitter</a>
+                            </li>
+                            <li>
+                                <a class="linkedin" target="_blank" href="http://www.linkedin.com/company/silver-peak-systems">linkedin</a>
+                            </li>
+                            <li>
+                                <a class="youtube" target="_blank" href="http://www.youtube.com/user/silverpeaksystems">youtube</a>
+                            </li>
+                            <li>
+                                <a class="rss" target="_blank" href="http://feeds.feedburner.com/WANspeak">rss</a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </apex:form>
+        </div>
+    </apex:define>
+</apex:composition>
+</apex:page>

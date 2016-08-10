@@ -1,0 +1,64 @@
+<apex:page standardController="Opportunity" recordSetVar="unused" sidebar="false">
+    <apex:includeScript value="{!$Resource.UtilJS}" />
+    <apex:includeScript value="https://code.jquery.com/jquery-1.11.2.min.js" />
+    <script>
+        function validateFields()
+        {
+            var valid = true;
+            $("select[id$='stage']").each(function() {
+                if($(this).val() == "Closed Dead") {
+                    var reasonId = $(this).attr("id").replace("stage", "deadreason_selected");
+                    if(document.getElementById(reasonId).options.length == 0) {
+                        alert("Dead reason is required for Closed Dead opportunities.");
+                        valid = false;
+                    }
+                }
+            });
+            return valid;
+        }
+    </script>
+    <apex:form >
+        <apex:pageBlock >
+            <apex:pageMessages />
+            <apex:pageBlock >
+                Note: All modifications made on the page will be lost if Return button is clicked without clicking the Save button first. 
+            </apex:pageBlock>
+            <apex:pageBlockButtons >
+                <apex:commandButton value="Save" action="{!save}" onclick="return validateFields()" />
+                <apex:commandButton value="Return" action="{!cancel}"/>
+            </apex:pageBlockButtons>
+            <apex:pageBlockTable value="{!selected}" var="opp" id="table">
+                <apex:column headerValue="Name">
+                <apex:inputField value="{!opp.name}"/>
+                </apex:column>
+                <apex:column headerValue="Amount">
+                <apex:inputField required="false" value="{!opp.amount}"/>
+                </apex:column>
+                <apex:column headerValue="Stage">
+                <apex:inputField value="{!opp.stageName}" id="stage"/>
+                </apex:column>
+                <apex:column headerValue="Dead Reason">
+                <apex:inputField value="{!opp.Dead_Reason__c}" id="deadreason"/>
+                </apex:column>
+                <apex:column headerValue="Close Date">
+                <apex:inputField value="{!opp.closeDate}"/>
+                </apex:column>
+                <apex:column headerValue="Next Step">
+                <apex:inputField value="{!opp.nextStep}"/>
+                </apex:column>
+                <apex:column headerValue="Type">
+                <apex:inputField value="{!opp.type}"/>
+                </apex:column>
+                <apex:column headerValue="Initial Solution Interest">
+                <apex:inputField value="{!opp.Deal_Type__c}" required="false"/>
+                </apex:column>
+                <apex:column headerValue="Solution Type">
+                <apex:inputField value="{!opp.Solution_Type__c}" required="false"/>
+                </apex:column>
+                <apex:column headerValue="Forecast Category">
+                <apex:inputField value="{!opp.ForecastCategoryName}"/>
+                </apex:column>
+            </apex:pageBlockTable>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

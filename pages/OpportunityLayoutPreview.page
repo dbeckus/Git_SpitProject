@@ -1,0 +1,68 @@
+<apex:page standardController="Opportunity" extensions="OpportunityLayoutPreviewController" showHeader="false" id="page" title="Opportunity Layout Preview">
+    <apex:form id="form">
+    <apex:pageBlock mode="inlineEdit">
+        <div>
+            Select a sales process: <apex:selectList size="1" value="{!SalesProcessToDisplay}"><apex:selectOptions value="{!allSalesProcesses}" /><apex:actionSupport action="{!refresh}" event="onchange"/></apex:selectList>
+            Select a stage grouping: <apex:selectList size="1" value="{!StageToDisplay}"><apex:selectOptions value="{!allStageGroupings}" /><apex:actionSupport action="{!refresh}" event="onchange"/></apex:selectList>
+        </div>
+        <div>Note that profile permissions can alter which fields or buttons are visible for users with certain profiles. Permissions-based changes are not shown in this preview.</div>
+    </apex:pageBlock>
+    <apex:pageBlock mode="maindetail" title="Opportunity Detail" rendered="{!DynamicPageLayout.Sections.size > 0}" id="block">
+        
+        <apex:pageblockButtons >
+            <apex:repeat value="{!DynamicPageLayout.Buttons}" var="button">
+                <apex:outputPanel rendered="{!button.Label != 'Clone'}" layout="none"><input type="button" class="btn DetailButton" value="{!button.Label}" /></apex:outputPanel>
+                <apex:outputPanel rendered="{!button.Label = 'Clone'}" layout="none"><div class="menuButton DetailButton" style="position:relative"><div class="menuButtonButton" id="CloneButton"><span class="menuButtonLabel" id="CloneLabel" tabindex="0">Clone</span></div></div></apex:outputPanel>
+            </apex:repeat>
+        </apex:pageblockButtons>
+        
+        <apex:repeat value="{!DynamicPageLayout.Sections}" var="section" id="sections">
+            <apex:pageBlockSection title="{!IF(section.Name='Description', '', section.Name)}" columns="{!section.Columns}" rendered="{!section.Name != 'Sales Team/Patch/Channel Information'}">
+                <apex:repeat value="{!$ObjectType.Opportunity.FieldSets[section.FieldSet]}" var="f" id="fields">
+                    <apex:outputField value="{!Opportunity[f]}">
+                    </apex:outputField>
+                </apex:repeat>
+            </apex:pageBlockSection>
+            <c:OpportunityChannelAndTeamList opportunity="{!Opportunity.Id}" rendered="{!section.Name = 'Sales Team/Patch/Channel Information'}"/>
+        </apex:repeat>
+
+    </apex:pageBlock>
+    </apex:form>
+    <div class="relatedLists">
+    <apex:repeat value="{!DynamicPageLayout.RelatedLists}" var="relList">
+        <apex:pageBlock title="Products" rendered="{!relList.ObjectName = 'OpportunityLineItem'}">
+            No records to display
+        </apex:pageBlock>
+        <apex:pageBlock title="Stage History" rendered="{!relList.ObjectName = 'OpportunityHistory'}">
+            No records to display
+        </apex:pageBlock>
+        <apex:pageBlock title="Open Activities" rendered="{!relList.ObjectName = 'OpenActivity'}">
+            No records to display
+        </apex:pageBlock>
+        <apex:pageBlock title="Activity History" rendered="{!relList.ObjectName = 'ActivityHistory'}">
+            No records to display
+        </apex:pageBlock>
+        <apex:pageBlock title="POC Requests" rendered="{!relList.ObjectName = 'Request__c'}">
+            No records to display
+        </apex:pageBlock>
+        <apex:pageBlock title="Silver Peak Quotes" rendered="{!relList.ObjectName = 'Quote__c'}">
+            No records to display
+        </apex:pageBlock>
+        <apex:pageBlock title="Notes & Attachments" rendered="{!relList.ObjectName = 'NoteAndAttachment'}">
+            No records to display
+        </apex:pageBlock>
+        <apex:pageBlock title="Contact Roles" rendered="{!relList.ObjectName = 'OpportunityContactRole'}">
+            No records to display
+        </apex:pageBlock>
+        <apex:pageBlock title="Competitors" rendered="{!relList.ObjectName = 'OpportunityCompetitor'}">
+            No records to display
+        </apex:pageBlock>
+        <apex:pageBlock title="Purchase Orders" rendered="{!relList.ObjectName = 'Purchase_Order__c'}">
+            No records to display
+        </apex:pageBlock>
+        <apex:pageBlock title="Opportunity Field History" rendered="{!relList.ObjectName = 'OpportunityFieldHistory'}">
+            No records to display
+        </apex:pageBlock>
+    </apex:repeat>
+    </div>
+</apex:page>

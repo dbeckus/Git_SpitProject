@@ -1,0 +1,106 @@
+<apex:page standardController="Asset" extensions="RenewalLicenseController" tabStyle="Asset" showHeader="false">
+    <script>
+        var counter = 0;
+        var licenses = {!LicenseIdJSON};
+        function startTimer()
+        {
+            setInterval(function() {
+                RenewalLicenseController.hasLicenseGenerated(licenses, function(result, event) {
+                    counter++;
+                    document.getElementById("pageMessage").style.display = "";
+                    if(result == false)
+                    {
+                        if(counter < 10)
+                        {
+                            document.getElementById("pageMessageWaiting").style.display = "";
+                            document.getElementById("pageMessageWaitingLong").style.display = "none";
+                        }
+                        else
+                        {
+                            document.getElementById("pageMessageWaiting").style.display = "none";
+                            document.getElementById("pageMessageWaitingLong").style.display = "";
+                        }
+                        document.getElementById("pageMessageSuccess").style.display = "none";
+                    }
+                    else if(result == true)
+                    {
+                        document.getElementById("pageMessageWaiting").style.display = "none";
+                        document.getElementById("pageMessageWaitingLong").style.display = "none";
+                        document.getElementById("pageMessageSuccess").style.display = "";
+                        opener.location = "/{!Asset.Id}";
+                        setTimeout(function() { window.close(); }, 2000);
+                    }
+                });
+            }, 2000);
+        }
+        if({!InProgress})
+        {
+            startTimer();
+        }
+    </script>
+    
+    <apex:includeScript value="{!URLFOR($Resource.VirtualAsset, 'res/js/jquery-1.7.2.min.js')}" />
+    <apex:includeScript value="{!URLFOR($Resource.VirtualAsset, 'res/js/RenewalLicense.js')}" />
+    
+    <apex:sectionHeader title="Renewal License" subtitle="{!Asset.Name}" />
+    <apex:pageMessages />
+    <span >
+        <span id="pageMessage" style="display:none">
+            <div class="message infoM3" role="alert">
+                <table border="0" cellpadding="0" cellspacing="0" class="messageTable" style="padding:0px;margin:0px;">
+                    <tbody><tr valign="top">
+                        <td></td>
+                        <td class="messageCell">
+                            <div id="pageMessageWaiting">Please wait...<img alt="Loading" src="/img/loading.gif" /></div>
+                            <div id="pageMessageWaitingLong" style="display:none">It takes longer time than usual. Please pay attention...<img alt="Loading" src="/img/loading.gif" /></div>
+                            <div id="pageMessageSuccess" style="display:none">Generation succeeded.</div>
+                        </td>
+                    </tr>
+                </tbody></table>
+            </div>
+        </span>
+    </span>
+    <apex:form >
+        <apex:pageBlock mode="edit">
+            <apex:pageblockButtons location="bottom" rendered="{!NOT(InProgress)}">
+                <apex:commandButton action="{!renewLicense}" value="Renew" />
+                <input type="button" class="btn" value="Cancel" id="cancelBtn" />
+            </apex:pageblockButtons>
+            <apex:pageBlockSection >
+                <apex:outputField value="{!License.Start_Date__c}" id="licenseStartDate" />
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="License Duration" for="licenseDuration" />
+                    <select id="licenseDuration">
+                        <option value="auto">Calculate based on Target End Date</option>
+                        <option value="30d">30 Days</option>
+                        <option value="60d">60 Days</option>
+                        <option value="1y">1 Year</option>
+                        <option value="2y">2 Years</option>
+                    </select>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="License End Date" for="licenseEndDate" />
+                    <apex:inputField value="{!License.License_Expiration__c}" required="true" id="licenseEndDate" />
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem rendered="{!Asset.Product2.Product_Category__c != 'GMS'}" ></apex:pageBlockSectionItem>
+                <apex:selectList size="1" value="{!License.Quantity__c}" rendered="{!OR(Asset.Product2.Product_Category__c = 'GMS', Asset.Product2.Model__c = 'GX-V')}">
+                    <apex:selectOption itemLabel="10" itemValue="10"/>
+                    <apex:selectOption itemLabel="25" itemValue="25"/>
+                    <apex:selectOption itemLabel="50" itemValue="50"/>
+                    <apex:selectOption itemLabel="100" itemValue="100"/>
+                    <apex:selectOption itemLabel="200" itemValue="200"/>
+                    <apex:selectOption itemLabel="500" itemValue="500"/>
+                    <apex:selectOption itemLabel="1000" itemValue="1000"/>
+                    <apex:selectOption itemLabel="100000" itemValue="100000"/>
+                </apex:selectList>
+                <apex:outputField value="{!Asset.SerialNumber}" />
+                <apex:outputText value="{0, Date, MM/dd/yyyy}" id="lastEndDate" style="display:none"><apex:param value="{!LastEndDate}" /></apex:outputText>
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+    </apex:form>
+    <div style="display:none"><apex:outputText value="{0, Date, MM/dd/yyyy}" id="requestedEndDate"><apex:param value="{!Asset.POCRequest__r.Target_End_Date__c}"/></apex:outputText></div>
+    <apex:outputField value="{!Asset.License_End_Date__c}" rendered="false"/>
+    <apex:outputField value="{!Asset.ContactId}" rendered="false"/>
+    <apex:outputField value="{!Asset.Product2.NumberOfLicenses__c}" rendered="false"/>
+    <apex:outputField value="{!Asset.Product2.LicenseAsModel__c}" rendered="false"/>
+</apex:page>

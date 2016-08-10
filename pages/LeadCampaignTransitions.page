@@ -1,0 +1,15 @@
+<apex:page controller="LeadCampaignTransitionsController" tabStyle="Campaign">
+    <apex:form >
+        <apex:sectionHeader title="Lead Campaign Transitions" subtitle="{!Title}"/>
+        <apex:pageBlock >
+            <apex:pageBlockTable value="{!LeadTransitions}" var="key">
+                <apex:column headerValue="Type">
+                    {!key}
+               </apex:column>
+               <apex:column headerValue="Values">
+                    {!LeadTransitions[key]}
+               </apex:column>
+            </apex:pageBlockTable>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

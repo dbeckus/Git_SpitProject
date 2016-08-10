@@ -1,0 +1,51 @@
+<apex:component controller="LeadChannelAndSalesTeamController">
+    <apex:stylesheet value="https://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" />
+    <style>
+        .listCaption {
+            font-size: 15px;
+            font-weight: bold;
+            line-height: 20px;
+        }
+        .listData caption {
+            background-color: #FDF0B8;
+        }
+        .listAction {
+            float: right;
+            line-height: 20px;
+            font-size: 12px;
+        }
+    </style>
+    <apex:attribute name="lead" type="String" assignTo="{!LeadId}" required="true" description="Lead Id"/>
+    <apex:pageBlockSection columns="2" title="Sales Team/Channel Information">
+        <apex:pageBlockTable value="{!AllMembers}" var="member" headerClass="hidden" styleClass="listData">
+            <apex:facet name="caption">
+                <span class="fa fa-user listCaption">{!IF(AllMembers.size > 0, 'Team Members', 'No team members')}</span>
+                <span class="listAction">
+                    <a href="javascript:spDynamicPage.onButtonClick('LeadPatchLock')" class="{!IF(ShowLockButton, '', 'hidden')}">Lock Patch</a>
+                    <a href="javascript:spDynamicPage.onButtonClick('LeadPatchUnlock')" class="{!IF(ShowUnlockButton, '', 'hidden')}">Unlock Patch</a>
+                    <span class="{!IF(ShowLockButton || ShowUnlockButton, '', 'hidden')}">&nbsp;|&nbsp;</span>
+                    <a href="javascript:spDynamicPage.onButtonClick('LeadPatchOverride')">Override Patch</a>
+                </span>
+            </apex:facet>
+            <apex:column headerValue="Role">
+                <apex:outputText value="{!member.Role}"/>
+            </apex:column>
+            <apex:column headerValue="Team Member">
+                <a href="/{!member.UserId}" target="_blank">{!member.UserName}</a>
+            </apex:column>
+        </apex:pageBlockTable>
+
+        <apex:pageBlockTable value="{!AllPartners}" var="partner" headerClass="hidden" styleClass="listData">
+            <apex:facet name="caption">
+                <span class="fa fa-globe listCaption">{!IF(AllPartners.size > 0, 'Channels', 'No channel defined')}</span>
+                
+            </apex:facet>
+            <apex:column headerValue="Role">
+                <apex:outputText value="{!partner.Role}"/>
+            </apex:column>
+            <apex:column headerValue="Partner">
+                <a href="/{!partner.AccountId}" target="_blank">{!partner.AccountName}</a>
+            </apex:column>
+        </apex:pageBlockTable>
+    </apex:pageBlockSection>
+</apex:component>

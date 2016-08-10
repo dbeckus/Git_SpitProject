@@ -1,0 +1,48 @@
+<apex:page standardController="Request__c" extensions="POCRenewalAssetsController" showHeader="false" sidebar="false" id="thePage">
+    <style type="text/css">
+        .pocLoading {
+            vertical-align: middle;
+        }
+        .pocLoadingText {
+            font-size: 95%;
+            font-weight: bold;
+            color: #666;
+            padding-left: 10px;
+        } 
+    </style>
+    <script type="text/javascript"></script>
+    <apex:sectionHeader title="Renew Virtual Assets">
+        <apex:form >
+           <apex:pageMessages id="pageMsg" escape="false" />
+            <apex:pageBlock >
+              New License End Date:&nbsp;<apex:inputField value="{!License.License_Expiration__c}"/>
+           
+            <apex:pageBlockSection columns="1" id="listSection">
+                <apex:pageBlockTable value="{!AssetList}" var="item" rendered="{!AssetList.size>0}">
+                    <apex:column headerValue="Asset Name" value="{!item.Name}"></apex:column>
+                     <apex:column headerValue="Product Name" value="{!item.Product2.Name}"></apex:column>
+                     <apex:column headerValue="Ship Date" value="{!item.Ship_Date__c}"></apex:column>
+                      <apex:column headerValue="Status" value="{!item.Status}"></apex:column>
+                     <apex:column headerValue="License End Date" value="{!item.License_End_Date__c}"></apex:column>            
+                </apex:pageBlockTable>
+            </apex:pageBlockSection>
+                   <apex:pageBlockButtons location="Top">
+                 <apex:actionStatus id="btnStatus">
+                    <apex:facet name="start">
+                        <apex:outputPanel >
+                            <img src="/img/loading.gif" alt="Processing..." title="Processing..." width="16" height="16" class="pocLoading"/>
+                            <span class="pocLoading pocLoadingText">Processing...</span>
+                        </apex:outputPanel>
+                    </apex:facet>
+                    <apex:facet name="stop">
+                        <apex:outputPanel >
+                            <apex:commandButton value="Save" action="{!SaveAssets}" reRender="pageMsg,encryptForm" status="btnStatus"/>
+                            <input type="button" value="Cancel" class="btn" onclick="top.close();" />
+                        </apex:outputPanel>
+                    </apex:facet>
+                </apex:actionStatus>   
+                </apex:pageBlockButtons>   
+                 </apex:pageBlock>
+        </apex:form>
+    </apex:sectionHeader>
+</apex:page>

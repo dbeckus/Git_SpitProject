@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<HomePageComponent xmlns="http://soap.sforce.com/2006/04/metadata">
+    <body>&lt;div style=&quot;width: 820px; text-align: center; color: rgb(3, 53, 110);&quot;&gt;&lt;img src=&quot;https://c.na32.content.force.com/servlet/servlet.ImageServer?id=015500000011QsI&amp;amp;oid=00D300000000byV&quot; style=&quot;margin-left: -15px;&quot;&gt;&lt;/img&gt;
+&lt;div class=&quot;btn_home&quot;&gt;&lt;span style=&quot;font-size: 12px;&quot;&gt;&lt;a class=&quot;home&quot; href=&quot;/apex/CaseListOverride?sfdc.tabName=01r500000001mGP&quot;&gt;Open/Manage a Case&lt;/a&gt;&lt;/span&gt;&lt;/div&gt;
+
+&lt;div class=&quot;btn_home&quot;&gt;&lt;span style=&quot;font-size: 12px;&quot;&gt;&lt;a class=&quot;home&quot; href=&quot;/_ui/knowledge/ui/KnowledgeHome&quot;&gt;Search our Knowledge Base &lt;/a&gt;&lt;/span&gt;&lt;/div&gt;
+
+&lt;div class=&quot;btn_home&quot;&gt;&lt;span style=&quot;font-size: 14px;&quot;&gt;&lt;a href=&quot;/apex/Downloads?sfdc.tabName=01r38000000HtDN&quot;&gt;Download Software&lt;/a&gt;&lt;/span&gt;&lt;/div&gt;
+
+&lt;div class=&quot;btn_home&quot;&gt;&lt;span style=&quot;font-size: 12px;&quot;&gt;&lt;a class=&quot;home&quot; href=&quot;/apex/PickAssetForNewRMA?sfdc.tabName=01r500000001oeT&quot;&gt;Open a Self Service RMA&lt;/a&gt;&lt;/span&gt;&lt;/div&gt;
+
+&lt;div class=&quot;btn_home&quot;&gt;&lt;span style=&quot;font-size: 14px;&quot;&gt;&lt;a href=&quot;/apex/AssetListView_EC?sfdc.tabName=01r38000000HtDc&quot;&gt;EdgeConnect Subscriptions &amp;amp; Appliances&lt;/a&gt;&lt;/span&gt;&lt;/div&gt;
+
+&lt;div class=&quot;btn_home&quot;&gt;&lt;span style=&quot;font-size: 14px;&quot;&gt;&lt;a href=&quot;/apex/AssetListView?sfdc.tabName=01r38000000HtDm&quot;&gt;VX/VRX Licenses &amp;amp; NX Appliances&lt;/a&gt;&lt;/span&gt;&lt;/div&gt;
+
+&lt;div class=&quot;btn_home&quot;&gt;&lt;span style=&quot;font-size: 12px;&quot;&gt;&lt;a class=&quot;home&quot; href=&quot;http://www.silver-peak.com/Support/user_docs.asp&quot; target=&quot;_blank&quot;&gt;View Documentation &lt;/a&gt;&lt;/span&gt;&lt;/div&gt;
+
+&lt;div class=&quot;btn_home&quot;&gt;&lt;span style=&quot;font-size: 12px;&quot;&gt;&lt;a class=&quot;home&quot; href=&quot;/apex/DocumentListing?sfdc.tabName=01r500000001eJe&quot;&gt;Supplemental Documents&lt;/a&gt;&lt;/span&gt;&lt;/div&gt;
+
+&lt;div class=&quot;btn_home&quot;&gt;&lt;span style=&quot;font-size: 14px;&quot;&gt;&lt;a href=&quot;/apex/AssetListView_NXToVX?sfdc.tabName=01r38000000HtDh&quot;&gt;Convert NX to VX&lt;/a&gt;  &lt;/span&gt;&lt;/div&gt;
+&lt;/div&gt;</body>
+    <pageComponentType>htmlArea</pageComponentType>
+    <width>wide</width>
+</HomePageComponent>

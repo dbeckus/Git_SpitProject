@@ -1,0 +1,8 @@
+<apex:component controller="ECAssetListComponentController" access="global" layout="none">
+    <apex:attribute name="POCRequestId" description="Id of the POC request" type="Id" assignTo="{!RequestId}" />
+  
+     <apex:repeat var="cx" value="{!assets}">
+     {!cx.Model__c}, S/N {!cx.Name}, new expiration date:<b><apex:outputText value="{0, date, MMMM d','  yyyy}"><apex:param value="{!cx.License_End_Date__c}" /> </apex:outputText></b><br/>
+
+</apex:repeat>    
+</apex:component>

@@ -1,0 +1,813 @@
+<apex:page standardController="Request__c" extensions="CustomPOCRequestController" id="page" showHeader="false" sidebar="false" action="{!AutoSavePOCRequest}">
+<script src="{!URLFOR($Resource.jQuery, 'jquery-1.4.3.min.js')}" type="text/javascript"></script>
+<script type="text/javascript">
+    
+    var CopyStateValue = '';  //save state value when the user clicked 'Use previous address' link.
+    function loadStates(countryObj, index)
+    {   
+        if(typeof(countryObj.selectedIndex) == "undefined")
+        {
+            return;
+        }
+        var hiddenCountryId = "page:form:editPageBlock:physicalPageBlockSection:physicalRepeater:" + index + ":hiddenCountry";
+        var destinationCountryId = "page:form:editPageBlock:physicalPageBlockSection:physicalRepeater:" + index + ":destinationCountry";
+        var countryName = countryObj.options[countryObj.selectedIndex].innerHTML;
+        var isEU = countryObj.options[countryObj.selectedIndex].value;
+        document.getElementById(hiddenCountryId).value = countryName;    
+        CustomPOCRequestController.getCountryStateList(countryName, function(result, event) 
+        {
+            if(event.status == true)
+            {
+                var list = document.getElementById("stateList" + index);
+                list.options.length = 0;
+                var stateId = "page:form:editPageBlock:physicalPageBlockSection:physicalRepeater:" + index + ":state";
+                var originalState = document.getElementById(stateId).value;
+                var foundState = false;
+                for(var i = 0; i < result.length; i++)
+                {
+                    var stateCode = result[i].StateCode__c;
+                    var stateName = result[i].StateName__c;
+                    list.options.add(new Option(stateName, stateCode));
+                    if(stateCode.toUpperCase() == originalState.toUpperCase() || stateName.toUpperCase() == originalState.toUpperCase())
+                    {
+                        list.value = stateCode;
+                        foundState = true;
+                        fillStateCode(list.value, index);
+                    }
+                }
+                if(!foundState || result.length == 0)
+                {                    
+                    fillStateCode(result.length == 0 ? '' : result[0].StateCode__c , index);
+                }
+                if(CopyStateValue != '' && CopyStateValue != null)
+                {
+                    fillStateCode(CopyStateValue, index);
+                    list.value = CopyStateValue;
+                    CopyStateValue = '';
+                }
+                if (result.length == 0) 
+                {                    
+                    document.getElementById('stateList' + index).disabled = true; 
+                }        
+                else
+                {
+                    document.getElementById('stateList' + index).disabled = false; 
+                }        
+            }
+        }, {escape:true});
+        var checkboxId = 'page:form:editPageBlock:physicalPageBlockSection:physicalRepeater:' + index + ':euCheckbox';
+        var sender = document.getElementById(checkboxId);    
+        var destinationCountry = document.getElementById(destinationCountryId);
+        if((isEU == 'true' && countryName != 'Germany') || destinationCountry.value == true)
+        {        
+            sender.checked = true;          
+        }
+        else
+        {
+            sender.checked = false;
+        }
+        showAdditionalDestination(sender, '#euPanelSpan' + index,'.euTr' + index, 'eu');
+    }        
+    
+    //judge whether EU panel is displayed when the user selected shipping country or destination country.
+    //countryType enum: 'ShippingCountry','DestinationCountry'
+    function loadFinalCountry(countryObj, index, countryType)
+    {        
+        var countryName = countryObj.options[countryObj.selectedIndex].innerHTML;
+        var destinationCountryInput = 'page:form:editPageBlock:physicalPageBlockSection:physicalRepeater:' + index + ':destinationCountryInput';
+        document.getElementById(destinationCountryInput).value = countryName;
+    }
+
+    function fillStateCode(stateCode, index)
+    {
+        var stateId = "page:form:editPageBlock:physicalPageBlockSection:physicalRepeater:" + index + ":state"
+        document.getElementById(stateId).value = stateCode;
+    }  
+
+    function refreshStateList(index)
+    {
+        var countryId = "page:form:editPageBlock:physicalPageBlockSection:physicalRepeater:" + index + ":country";
+        var countryObj = document.getElementById(countryId);
+        var stateId = "page:form:editPageBlock:physicalPageBlockSection:physicalRepeater:" + index + ":state"
+        if(countryObj.value != null && countryObj.value != '')
+        {
+            loadStates(countryObj, index);
+        }
+    }
+    
+    function showStatus(index)
+    {
+        var id = "physicalStateImage" + index;
+        document.getElementById(id).style.display = "inline";
+    }
+    function selectVirtualProduct()
+    {
+        var qty = document.getElementById("page:form:editPageBlock:virtualRepeater:virtualQuantityInput");
+        if(qty.value == '' || parseInt(qty.value) == 0)
+        {
+            alert(value);
+            qty.value = 1;
+        }
+    }    
+    function showAdditionalDestination(sender, subPanelId, classname, target)
+    {
+        var obj = $(classname);
+        var beginPoint = target == 'destination' ? 3 : 1;
+        if ($(sender).attr("checked"))
+        {
+            $(subPanelId).attr("class","hideListButton");               
+            obj.each(function(i){
+                $(this).css('display','table-row');
+                if($(this).find("input").length > 0 && i >= beginPoint)
+                {
+                    $(this).find("input").eq(0).addClass("requiredField");
+                }
+                if($(this).find("textarea").length > 0 && i >= beginPoint)
+                {
+                    $(this).find("textarea").eq(0).addClass("requiredField");
+                }                
+            });            
+        }
+        else
+        {
+            obj.each(function(i){
+                $(this).css('display','none');
+                if($(this).find("input").length > 0 && i >= beginPoint)
+                {
+                    $(this).find("input").eq(0).removeClass("requiredField");
+                } 
+            });     
+        }
+    }
+    
+    function hideEUAddress(obj,index)
+    {
+        var checkboxId = 'page:form:editPageBlock:physicalPageBlockSection:physicalRepeater:' + index + ':euCheckbox';
+        var euCheck = document.getElementById(checkboxId); 
+        if(obj.checked)
+        {
+            var destinationCountryId = "page:form:editPageBlock:physicalPageBlockSection:physicalRepeater:" + index + ":destinationCountry"
+            var destinationCountryObj = document.getElementById(destinationCountryId);
+            /*
+            if(destinationCountryObj.value == "true")
+            {        
+                euCheck.checked = true;          
+                showAdditionalDestination(euCheck, '#euPanelSpan' + index,'.euTr' + index, 'eu');
+            } 
+            */
+        }
+        else
+        {
+            var shippingCountryId = "page:form:editPageBlock:physicalPageBlockSection:physicalRepeater:"+index+":country"
+            var shippingCountryObj = document.getElementById(shippingCountryId);
+            if(shippingCountryObj.value == "false" || shippingCountryObj.value == "United States")
+            {        
+                euCheck.checked = false;          
+                showAdditionalDestination(euCheck, '#euPanelSpan' + index,'.euTr' + index, 'eu');
+            } 
+        }
+       
+    }
+
+    function showAdditionalDestinationSubPanel(sender, classname)
+    {
+        var obj = $(classname);
+        if($(obj[1]).css('display') == 'none')
+        {
+            $(sender).attr("class","hideListButton");
+            obj.each(function(index){
+                if(index != 0)
+                {
+                    $(this).css('display','table-row');
+                }    
+            });      
+        }
+        else
+        {
+            $(sender).attr("class","showListButton");    
+            obj.each(function(index){
+                if(index != 0)
+                {
+                    $(this).css('display','none');
+                }    
+            });      
+        }
+    }
+    
+    function validate()
+    {
+        var isValid = true;
+        $(".requiredQtyField").each(function(index){
+             
+            if($(this).val() == null || $(this).val() == '' || parseInt($(this).val()) <= 0)
+            {
+                isValid = false;
+            }            
+        });
+        if (!isValid) { alert("Qty must greater than 0."); return isValid; }
+
+        $(".requiredField").each(function(index){
+            
+            if(($(this).val() == null || $(this).val() == ''))
+            {
+                isValid = false;
+            }
+        }); 
+        
+        if(isValid)
+        { 
+            document.getElementById("page:form:editPageBlock:pageBlockButtons:conditionSatisfiedCHB").checked = true;
+        }
+        else
+        {
+            document.getElementById("page:form:editPageBlock:pageBlockButtons:conditionSatisfiedCHB").checked = false;   
+        }
+        return true;
+    }
+
+    function copyShippingAddr(index)
+    {
+        var addr = '';
+        var isValid = true;  
+        var addrAreaId = 'page:form:editPageBlock:physicalPageBlockSection:physicalRepeater:' + index + ':vatAddress';
+        var classId = '.copyAddr' + index;
+        $(classId).each(function(index){
+            if (($(this).val() == null || $(this).val() == '') && index != 1 && index != 4 )
+            {
+                isValid = false;
+            }
+        });
+        if (!isValid) 
+        {
+            alert('Please finish User Shipping Address before copying.');
+        }
+        else
+        {
+            var objs = $(classId);
+            //format copy address: street1 \r\n street2 \r\n  City, Postal Code \r\n Country
+            addr = objs.eq(3).val() +'\r\n' + (objs.eq(4).val() != '' ? objs.eq(4).val() + '\r\n' : '') + objs.eq(2).val() + ', ' + (objs[1].options.length > 0 ? objs.eq(1).val() + ' ' : '') + objs.eq(5).val() + '\r\n' + objs.eq(0).val();
+            document.getElementById(addrAreaId).value = addr;
+        }
+    }
+    function showWarningMessageForNonUSCountries(index)
+    {
+            var shippingCountryId = "page:form:editPageBlock:physicalPageBlockSection:physicalRepeater:"+index+":country";
+            var shippingCountryObj = document.getElementById(shippingCountryId);
+            var warningMessageId = "page:form:editPageBlock:physicalPageBlockSection:physicalRepeater:"+index+":countryWarnMessage";
+            var warningMessageObj = document.getElementById(warningMessageId);
+            
+            if(shippingCountryObj.value != "United States" || shippingCountryObj.value == "false")
+            { 
+              warningMessageObj.innerHTML='Note: Hardware shipped internationally cannot convert in place.';
+             
+            }  
+            else
+            {
+               warningMessageObj.innerHTML='';
+               
+            }
+            
+    }
+    function copyLastAddress(index)
+    {
+        var classId = 'copyAddr' + (index - 1);
+        var countrySelectObj = document.getElementById('page:form:editPageBlock:physicalPageBlockSection:physicalRepeater:' + index + ':country');
+        var lastItemObjs = $('.copyAddr' + (index -1));
+        var currentItemObjs = $('.copyAddr' + index);
+        for(var i = 0; i < lastItemObjs.length; i++)
+        {
+            if (i == 0 && i != 1) 
+            {
+                for(var j = 0; j < countrySelectObj.options.length; j++)
+                {
+                    if(lastItemObjs.eq(0).val() == countrySelectObj.options[j].innerHTML)
+                    {
+                        countrySelectObj.selectedIndex = j;
+                        loadStates(countrySelectObj, index);
+                        break;
+                    }
+                }               
+            }      
+            else if(i == 1)
+            {
+                CopyStateValue = lastItemObjs.eq(1).val();
+            }
+            else
+            {
+                currentItemObjs.eq(i).val(lastItemObjs.eq(i).val());
+            }
+        }
+    }
+    function enableDisableVirtualECPOC()
+    {
+        //Make fields read only based on profile
+        // $('.readOnly').each(function(i){               
+        //  element = $(document.getElementById(this.id)); 
+        //  element.attr('readOnly', true); 
+               
+        // });
+           
+      
+       
+    }
+    function refreshEUAddressFormat(id, content)
+    {
+        $(id).html(content);
+    }
+</script>
+<style type="text/css">
+    .requiredSpan
+    {
+        color: red;
+        font-weight: bolder;
+        font-size: 15px;    
+    }
+    .locationStyle
+    {
+        width: 560px;
+        height: 400px;
+
+    }
+    .editVirtualTitleTd
+    {
+        text-align:right;
+        width:20%;
+    }
+    .editTableTitleTd
+    {
+        width:40%;
+    }    
+    .editTableContentTd
+    {
+        width:50%;
+    }
+    .apexElementsStyle
+    {
+        min-width:110px;
+        width:80%;
+    }    
+    .subSectionHeader
+    {
+        background-color:#57B5D3;
+        font-weight: bold;
+    }
+    .finalDestinationTr
+    {
+        background-color:#57B5D3;
+    }
+    .euTr
+    {
+        background-color:#6666EC;
+    }
+    .longContents
+    {
+        overflow:hidden;
+        text-overflow:ellipsis;
+        display:inline-block;
+        white-space:nowrap;
+        max-width:100%
+    }
+    .addButtonTable
+    {
+        width:190px;
+        height:365px;
+        border:1px dashed rgb(0,0,0);   
+        background-color:rgb(226,226,226);
+    }
+    .inlineTable
+    {
+        height:70px;
+        min-width:190px;
+        display:inline-table;
+        background-color:rgb(226,226,226);
+        border:1px dashed gray;
+        border-collapse:collapse;
+        margin-right:7px;
+        float:left;
+    }
+</style>
+    <apex:form id="form">    
+        <apex:outputPanel id="refresh" rendered="true">
+ 		<apex:outputPanel id="refresh1" rendered="{!refreshPage}">
+  		<script>
+   			window.top.location='/{!CurrentRequest.id}';
+  	    </script>
+ 		</apex:outputPanel>
+		</apex:outputPanel>
+        <apex:pageBlock id="disablePageBlock" rendered="{!NOT(IsEdit)}">
+            <apex:pageBlockButtons title="POC request Edit"  location="top"> 
+                <apex:commandButton action="{!editPage}" onclick="return enableDisableVirtualECPOC();"  value="Edit" disabled="{!!HasContact}"/>
+            </apex:pageBlockButtons>       
+            <apex:pageBlockSection title="Virtual Appliances" columns="1">
+                <table style="width:1100px;table-layout:fixed">
+                    <tr><td>
+                        <apex:outputPanel >
+                            <apex:repeat value="{!VirtualProducts}" var="info">
+                                    <table class="inlineTable" style="width:{!CASE(VirtualProducts.size, 1, '50%', 2, '30%', 3, '25%','19%')};">                                        
+                                        <tr>
+                                            <td class="editVirtualTitleTd" style="width:50%;font-weight:bold;vertical-align:middle">
+                                                Product: 
+                                            </td>        
+                                            <td style="vertical-align:middle">
+                                                {!info.ProductName}
+                                            </td>   
+                                        </tr>
+                                        <tr>
+                                            <td class="editVirtualTitleTd" style="width:50%;font-weight:bold;">
+                                             Qty: 
+                                            </td>
+                                            <td>
+                                                {!info.Qty}
+                                            </td>   
+                                        </tr>   
+                                    </table>                                                 
+                            </apex:repeat>
+                            <table class="inlineTable" style="display:{!IF(VirtualProducts.size >4, 'none', 'inline-table')}">
+                                <tr><td style="vertical-align:middle;text-align:center">
+                                    <apex:commandButton action="{!addVirtualProduct}" value="Add Virtual Product" style="display:{!IF(VirtualProducts.size = 5, 'none','inline')}" disabled="{!!HasContact || DisableVirtualSection}"/>
+                                </td></tr>
+                            </table>
+                        </apex:outputPanel>
+                    </td></tr>
+                </table>    
+            </apex:pageBlockSection>
+            
+            <apex:pageBlockSection title="Physical Appliances and Shipping Information" columns="1">
+                <table style="width:1100px">                
+                    <apex:outputPanel id="physicalInfoPanel">                  
+                           <apex:repeat value="{!PhysicalProducts}" var="info" rendered="{!IF(PhysicalProducts.size = 0,false,true)}">
+                                <table valign="top" cellpadding="8px" style="table-layout:fixed;width:{!CASE(PhysicalProducts.size, 1, '40%', 2, '30%', '19%')};min-width:160px;display:inline-table;background-color:rgb(226,226,226);border:1px dashed gray;border-collapse:collapse;margin-right:10px;float:left">
+                                <tr style="height:32px" class="subSectionHeader">
+                                    <td style="width:{!IF(PhysicalProducts.size > 3, '30px','')}">
+                                        Product:                                
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="height:20px" align="left">
+                                        {!info.ProductName}
+                                    </td>
+                                </tr>
+                                <tr style="height:32px" class="subSectionHeader">
+                                    <td> 
+                                        Qty:
+                                    </td>
+                                </tr>                        
+                                <tr>
+                                    <td style="height:20px">                                
+                                        {!info.Qty}
+                                    </td>
+                                </tr>
+                               <tr style="height:32px" class="subSectionHeader">
+                                    <td>
+                                        Address:
+                                    </td>
+                                </tr>                           
+                                <tr>
+                                    <td style="height:120px;" align="left">
+                                        <div id="streetDiv{!info.Index}" class="longContents" title="{!info.SiteLocation.ShippingAddress.Street}">{!info.SiteLocation.ShippingAddress.Street}</div><br/>
+                                        <div style="display:{!IF(OR(info.SiteLocation.ShippingAddress.AdditionalStreet = null, info.SiteLocation.ShippingAddress.AdditionalStreet = ''),'none','auto')}">
+                                            <span class="longContents" id="additionalStreetDiv{!info.Index}" title="{!info.SiteLocation.ShippingAddress.AdditionalStreet}">{!info.SiteLocation.ShippingAddress.AdditionalStreet}</span><br/>
+                                        </div>
+                                        <span class="longContents" style="max-width:70%;" title="{!info.SiteLocation.ShippingAddress.City}">{!info.SiteLocation.ShippingAddress.City}</span>, {!info.SiteLocation.ShippingAddress.State} {!info.SiteLocation.ShippingAddress.Code}<br/>
+                                        <span class="longContents" title="{!info.SiteLocation.ShippingAddress.Country}">{!info.SiteLocation.ShippingAddress.Country}</span><br/>
+                                        <div class="longContents" style="font-weight:bold">
+                                            {!info.SiteLocation.ShippingContact.Firstname} {!info.SiteLocation.ShippingContact.Lastname}<br/>
+                                            {!info.SiteLocation.ShippingContact.Phone}<br/>
+                                            <span class="longContents" id="company{!info.Index}" title="{!info.SiteLocation.ShippingContact.Company}">
+                                                {!info.SiteLocation.ShippingContact.Company}
+                                            </span>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr style="display:{!IF(ISBLANK(TRIM(info.EndCustomerName)), 'none','block')}" class="subSectionHeader">
+                                   <td>
+                                       End Customer Name:
+                                   </td>
+                                </tr>                                         
+                                <tr>
+                                    <td style="height:20px;display:{!IF(ISBLANK(TRIM(info.EndCustomerName)), 'none','block')}" align="left">
+                                        {!info.EndCustomerName}
+                                    </td>
+                                </tr>                                
+                                <tr style="display:{!IF(info.SiteLocation.DestinationAddress.IsFinalDestination, 'block','none')}" class="subSectionHeader">
+                                   <td>
+                                       Final Destination Country and Contact Information:
+                                   </td>
+                                </tr>                                         
+                                <tr>
+                                    <td style="height:60px;display:{!IF(info.SiteLocation.DestinationAddress.IsFinalDestination, 'block','none')}" align="left">
+                                        <apex:outputPanel rendered="{!info.SiteLocation.DestinationAddress.IsFinalDestination}">
+                                            {!info.SiteLocation.DestinationAddress.Country}<br/>
+                                            <div style="display:inline-block;font-weight:bold">
+                                                {!info.SiteLocation.DestinationContact.Firstname} {!info.SiteLocation.DestinationContact.Lastname}<br/>
+                                                <div id="finalCompany{!info.Index}" class="longContents">
+                                                    {!info.SiteLocation.DestinationContact.Company}
+                                                </div>
+                                            </div>
+                                        </apex:outputPanel>
+                                    </td>
+                                </tr>                                
+                               <tr style="display:{!IF(info.SiteLocation.VAT.IsEU, 'block','none')}" class="subSectionHeader">
+                                    <td>
+                                        If Ship To country is an EU Country: VAT Info Req&apos;d:
+                                    </td>
+                                </tr>  
+                                <tr style="display:{!IF(info.SiteLocation.VAT.IsEU, 'block','none')}">
+                                    <td align="left" style="height:140px">
+                                            <div style="display:{!IF(info.SiteLocation.VAT.IsEU, 'inline-block','none')};width:100%">
+                                                <div class="longContents" title="{!info.SiteLocation.VAT.VATId}">{!info.SiteLocation.VAT.VATId}</div><br/>
+                                                <div id="euAddress{!info.Index}" class="longContents" title="{!info.SiteLocation.VAT.VATAddress}">
+                                                    <script>refreshEUAddressFormat('#euAddress{!info.Index}', '{!info.SiteLocation.VAT.VATDisplayAddress}')</script>
+                                                </div>
+                                                <br/>
+                                                <div id="euCompany{!info.Index}" class="longContents" title="{!info.SiteLocation.VAT.VATCompany}">
+                                                    {!info.SiteLocation.VAT.VATCompany}
+                                                </div>
+                                            </div>
+                                    </td>
+                                </tr>
+                            </table>
+                            </apex:repeat>                       
+                            <table cellpadding="10px" style="text-align:center;min-width:190px;height:285px;display:{!IF(PhysicalProducts.size = 5, 'none','inline-table')};background-color:rgb(226,226,226);border:1px dashed gray;border-collapse:collapse;margin-right:10px;float:left">
+                                <tr>
+                                    <td style="vertical-align: middle;">
+                                        <apex:commandButton action="{!addPhysicalProduct}" value="Add Physical Product" style="display:{!IF(PhysicalProducts.size = 5, 'none','inline')}" disabled="{!!HasContact || POCType=='Service Provider'}"/>
+                                    </td>
+                                </tr>
+                            </table>
+                    </apex:outputPanel>
+                </table>
+            </apex:pageBlockSection>                                         
+        </apex:pageBlock>
+
+        <apex:pageBlock id="editPageBlock" rendered="{!IsEdit}">
+            <apex:pageBlockButtons id="pageBlockButtons" title="POC request Edit" location="top">
+                <apex:commandButton action="{!savePage}" onclick="return validate();" value="Save" />
+                <apex:commandButton action="{!cancelPage}" value="Cancel" immediate="true" />
+                <apex:inputCheckbox id="conditionSatisfiedCHB" value="{!CurrentRequest.Submission_Condition_Satisfied__c}" style="display:none"/>
+            </apex:pageBlockButtons>       
+            <apex:pageBlockSection id="virtualPageBlockSection"  title="Ship To Virtual" columns="1">
+                <table style="width:1100px;table-layout:fixed">
+                    <tr><td>
+                        <apex:outputpanel id="virtualInfoPanel">
+                            <apex:repeat id="virtualRepeater" value="{!VirtualProducts}" var="info">
+                                    <table class="inlineTable" style="width:{!CASE(VirtualProducts.size, 1, '50%', 2, '30%', 3, '25%','19%')};">
+                                        <tr>
+                                            <td colspan="2">
+                                                <apex:commandLink action="{!removeVirtualProduct}" value="X" rendered="{! !DisableVirtualSection && (POCType!='EdgeConnect' && POCType!='Service Provider')}" reRender="virtualInfoPanel" status="deleteVirtualStatus" style="float:right;margin-right: 3px;text-decoration: none;font-size:10px" onmouseover="this.style.color = 'red';" onmouseout="this.style.color = 'black';this.style.fontSize='10px'">
+                                                    <apex:param name="index" value="{!info.Index}"/>    
+                                                </apex:commandLink>
+                                                <apex:actionStatus id="deleteVirtualStatus">
+                                                    <apex:facet name="start">
+                                                        <img src="/img/loading.gif"/>
+                                                    </apex:facet>
+                                                </apex:actionStatus>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="editVirtualTitleTd">
+                                                Product:<span class="requiredSpan"> |</span>
+                                            </td>
+                                            <td class="editTableContentTd">
+                                                <apex:selectList id="virtProducts" value="{!info.ProductName}" disabled="{!DisableVirtualSection && (POCType=='EdgeConnect'|| POCType=='Service Provider')}" onchange="selectVirtualProduct()" size="1" label="Product" styleClass="apexElementsStyle">
+                                                    <apex:selectOptions value="{!VirtualProductOptions}"/>
+                                                </apex:selectList>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="editVirtualTitleTd">
+                                                Qty:<span class="requiredSpan"> |</span>
+                                            </td>
+                                            <td class="editTableContentTd">  
+                                                <apex:outputPanel id="nameFields">
+                                                  <apex:outputText value="{!info.Qty}" label="Quantity" styleClass="apexElementsStyle" rendered="{!POCType=='EdgeConnect'|| POCType=='Service Provider'}" />
+                                                 <apex:inputText value="{!info.Qty}" label="Quantity" styleClass="apexElementsStyle requiredField requiredQtyField" rendered="{!POCType!='EdgeConnect' && POCType!='Service Provider'}"  />
+                                                </apex:outputPanel>
+                                                    
+                                            </td>
+                                        </tr>   
+                                    </table>                                                 
+                            </apex:repeat>
+                            <table class="inlineTable" style="display:{!IF(VirtualProducts.size >4, 'none', 'inline-table')}">
+                                <tr><td style="vertical-align:middle;text-align:center">
+                                    <apex:commandButton action="{!addVirtualProduct}" value="Add Virtual Product" disabled="{!DisableVirtualSection}" reRender="virtualInfoPanel" style="display:{!IF(VirtualProducts.size = 5, 'none','inline')}"/>
+                                </td></tr>
+                            </table>
+                        </apex:outputpanel>
+                    </td></tr>
+                </table>                
+            </apex:pageBlockSection>
+            <apex:pageBlockSection id="physicalPageBlockSection" title="Ship To Physical" columns="1">
+            <table style="width:1100px">
+                <tr><td style="vertical-align:top">
+                <apex:outputPanel id="physicalInfoPanel">  
+                    <apex:repeat id="physicalRepeater" value="{!PhysicalProducts}" var="info" rendered="{!IF(PhysicalProducts.size = 0,false,true)}">
+                        <table class="editTable" valign="top" cellpadding="2px" style="width:{!CASE(PhysicalProducts.size, 1, '50%', 2, '30%', 3, '25%','19%')};min-width:190px;display:inline-block;background-color:rgb(226,226,226);border:1px dashed gray;border-collapse:collapse;margin-right:7px;float:left">
+                        <tr>
+                            <td colspan="2">
+                                <apex:commandLink action="{!removePhysicalProduct}" value="X" reRender="physicalInfoPanel" status="deleteStatus" style="float:right;margin-right: 3px;text-decoration: none;font-size:10px" onmouseover="this.style.color = 'red';" onmouseout="this.style.color = 'black';this.style.fontSize='10px'">
+                                    <apex:param name="index" value="{!info.Index}"/>    
+                                </apex:commandLink>
+                                <apex:actionStatus id="deleteStatus">
+                                    <apex:facet name="start">
+                                        <img src="/img/loading.gif"/>
+                                    </apex:facet>
+                                </apex:actionStatus>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="editTableTitleTd" align="right">Product:<span class="requiredSpan"> |</span></td>
+                            <td class="editTableContentTd">
+                                <apex:selectList value="{!info.ProductName}"   size="1" styleclass="apexElementsStyle">
+                                    <apex:selectOptions value="{!PhysicalProductOptions}"/>
+                                </apex:selectList>
+                        </td></tr>
+                        <tr>
+                            <td class="editTableTitleTd" align="right">Qty:<span class="requiredSpan"> |</span></td>
+                            <td class="editTableContentTd">
+                                <apex:inputText value="{!info.Qty}" styleclass="apexElementsStyle requiredField requiredQtyField" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="editTableTitleTd" align="right">Country:</td>
+                            <td class="editTableContentTd">                                
+                                <apex:inputText id="hiddenCountry" Style="display:none" styleClass="copyAddr{!info.index}" value="{!info.SiteLocation.ShippingAddress.Country}"/>
+                                <apex:selectList id="country" size="1" styleclass="apexElementsStyle" onchange="loadStates(this, {!info.index});loadFinalCountry(this, {!info.index}, 'ShippingCountry');showWarningMessageForNonUSCountries({!info.index});" >
+                                <apex:selectOptions value="{!CountryList}"/>
+                                </apex:selectList>
+                               
+                                <script>
+                                    var countryId = 'page:form:editPageBlock:physicalPageBlockSection:physicalRepeater:' + {!info.index} + ':country';
+                                    var countryObj = document.getElementById(countryId);
+                                    for(var i=0; i < countryObj.options.length; i++)
+                                    {
+                                        if(countryObj.options[i].innerHTML == '{!info.SiteLocation.ShippingAddress.Country}')
+                                        {
+                                            countryObj.selectedIndex = i;
+                                            break;
+                                        }
+                                    }
+                                </script>
+                            </td>
+                        </tr>  
+                        <tr>
+                            <td align="right" colspan="2">
+                                 <apex:outputText id="countryWarnMessage" style="color: #9F6000;background-color: #FEEFB3;"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="center" colspan="2">
+                                Is the final destination in a different country?                                
+                                <apex:inputCheckbox value="{!info.SiteLocation.DestinationAddress.IsFinalDestination}" onclick="showAdditionalDestination(this, '#destinationPanelSpan{!info.Index}','.finalCountryTr{!info.Index}', 'destination');hideEUAddress(this,'{!info.Index}')"/>
+                            </td>
+                        </tr>                                                
+                        <tr>    
+                           <td class="editTableTitleTd" align="right">State:</td>
+                           <td class="editTableContentTd">
+                                <apex:outputPanel >
+                                    <apex:inputText value="{!info.SiteLocation.ShippingAddress.State}" id="state" style="display:none" styleClass="apexElementsStyle" />
+                                    <select id="stateList{!info.index}" onchange="fillStateCode(this.value, {!info.index})" class="apexElementsStyle copyAddr{!info.index}">
+                                    </select>
+                                    <img id="physicalStateImage{!info.Index}" src="/img/loading.gif" style="display:none" />
+                                </apex:outputPanel>                                                         
+                            </td>
+                        </tr>                        
+                       <tr>
+                        <td class="editTableTitleTd" align="right">City:</td>
+                        <td class="editTableContentTd"><apex:inputText value="{!info.SiteLocation.ShippingAddress.City}" styleclass="apexElementsStyle copyAddr{!info.index} requiredField" /></td>
+                       </tr>                      
+                        <tr>
+                            <td class="editTableTitleTd" align="right">Street:</td>
+                            <td class="editTableContentTd">
+                                <apex:inputText value="{!info.SiteLocation.ShippingAddress.Street}" styleclass="apexElementsStyle copyAddr{!info.index} requiredField" /><br/>
+                                <apex:inputText value="{!info.SiteLocation.ShippingAddress.AdditionalStreet}" styleclass="apexElementsStyle copyAddr{!info.index}"/>
+                            </td>
+                        </tr> 
+                        <tr>
+                            <td class="editTableTitleTd" align="right">Postal Code:</td>
+                            <td class="editTableContentTd"><apex:inputText value="{!info.SiteLocation.ShippingAddress.Code}" styleclass="apexElementsStyle copyAddr{!info.index} requiredField" /></td>
+                        </tr>                           
+    
+                        <tr>
+                            <td align="center" colspan="2">
+                                <apex:inputCheckbox id="euCheckbox" value="{!info.SiteLocation.VAT.IsEU}" onclick="showAdditionalDestination(this, '#euPanelSpan{!info.Index}','.euTr{!info.Index}', 'eu')" style="display:none"/>
+                            </td>                           
+                        </tr>
+                        <tr>
+                            <td class="editTableTitleTd" align="right">First Name:</td>
+                            <td class="editTableContentTd"><apex:inputText value="{!info.SiteLocation.ShippingContact.FirstName}" styleclass="apexElementsStyle copyAddr{!info.index}"/></td>
+                        </tr>
+                        <tr>
+                            <td class="editTableTitleTd" align="right">Last Name:</td>
+                            <td class="editTableContentTd"><apex:inputText value="{!info.SiteLocation.ShippingContact.LastName}" styleclass="apexElementsStyle copyAddr{!info.index} requiredField"/></td>
+                        </tr>
+                        <tr>
+                            <td class="editTableTitleTd" align="right">Phone:</td>
+                            <td class="editTableContentTd"><apex:inputText value="{!info.SiteLocation.ShippingContact.Phone}" styleclass="apexElementsStyle copyAddr{!info.index} requiredField"/></td>
+                        </tr>
+                        <tr>
+                            <td class="editTableTitleTd" align="right">Company:</td>
+                            <td class="editTableContentTd"><apex:inputText value="{!info.SiteLocation.ShippingContact.Company}" styleclass="apexElementsStyle copyAddr{!info.index} requiredField"/></td>
+                        </tr>
+                        <tr>
+                            <td class="editTableTitleTd" align="right">End Customer Contact Name (if diff):</td>
+                            <td class="editTableContentTd"><apex:inputText value="{!info.EndCustomerName}" styleclass="apexElementsStyle copyAddr{!info.index}"/></td>
+                        </tr>                        
+                        <tr>
+                            <td class="editTableTitleTd" align="center" colspan='2'>
+                                <a style="text-decoration:underline;cursor:pointer;visibility:{!IF(info.index == 0, 'hidden', 'visible')}" onclick="copyLastAddress('{!info.index}')">Use previous address</a>
+                            </td>
+                        </tr>                        
+                            <tr class="finalCountryTr{!info.Index} finalDestinationTr" style="font-weight: bold;display:{!IF(info.SiteLocation.DestinationAddress.IsFinalDestination, 'table-row','none')}">
+                                <td class="editTableTitleTd" colspan="2">
+                                    Final Destination Country and Contact Information:
+                                    <img class="hideListButton" src="/s.gif" id="euPanelSpan{!info.Index}" style="float:right;cursor:pointer;" onclick="showAdditionalDestinationSubPanel(this,'.finalCountryTr{!info.Index}')"/>
+                                </td>
+                            </tr>
+                            <tr class="finalCountryTr{!info.Index} finalDestinationTr" style="display:{!IF(info.SiteLocation.DestinationAddress.IsFinalDestination, 'table-row','none')}">
+                                <td class="editTableTitleTd" align="right">Country:</td>
+                                <td class="editTableContentTd">
+                                    <apex:inputText id="destinationCountryInput" value="{!info.SiteLocation.DestinationAddress.Country}" style="display:none"/>
+                                    <apex:selectList id="destinationCountry" size="1" styleclass="apexElementsStyle" onchange="loadFinalCountry(this, {!info.index}, 'DestinationCountry')" >
+                                        <apex:selectOptions value="{!CountryList}"/>
+                                    </apex:selectList>
+                                    <script>
+                                        var countryId = 'page:form:editPageBlock:physicalPageBlockSection:physicalRepeater:' + {!info.index} + ':destinationCountry';
+                                        var countryObj = document.getElementById(countryId);
+                                        for(var i=0; i < countryObj.options.length; i++)
+                                        {
+                                            if(countryObj.options[i].innerHTML == '{!info.SiteLocation.DestinationAddress.Country}')
+                                            {
+                                                countryObj.selectedIndex = i;
+                                                break;
+                                            }
+                                        }
+                                    </script>
+                                </td>                                
+                            </tr>                        
+                            <tr class="finalCountryTr{!info.Index} finalDestinationTr" style="display:{!IF(info.SiteLocation.DestinationAddress.IsFinalDestination, 'table-row','none')}">
+                                <td class="editTableTitleTd" align="right">First Name:</td>
+                                <td class="editTableContentTd"><apex:inputText value="{!info.SiteLocation.DestinationContact.FirstName}" styleclass="apexElementsStyle"/></td>
+                            </tr>
+                            <tr class="finalCountryTr{!info.Index} finalDestinationTr" style="display:{!IF(info.SiteLocation.DestinationAddress.IsFinalDestination, 'table-row','none')}">
+                                <td class="editTableTitleTd" align="right">Last Name:</td>
+                                <td class="editTableContentTd"><apex:inputText value="{!info.SiteLocation.DestinationContact.LastName}" styleclass="apexElementsStyle {!IF(info.SiteLocation.DestinationAddress.IsFinalDestination, 'requiredField','')}"/></td>
+                            </tr>
+                            <tr class="finalCountryTr{!info.Index} finalDestinationTr" style="display:{!IF(info.SiteLocation.DestinationAddress.IsFinalDestination, 'table-row','none')}">
+                                <td class="editTableTitleTd" align="right">Company:</td>
+                                <td class="editTableContentTd"><apex:inputText value="{!info.SiteLocation.DestinationContact.Company}" styleclass="apexElementsStyle {!IF(info.SiteLocation.DestinationAddress.IsFinalDestination, 'requiredField','')}"/></td>
+                            </tr>      
+                           <tr class="euTr{!info.Index} euTr" style="font-weight:bold;display:{!IF(info.SiteLocation.VAT.IsEU, 'table-row','none')}">
+                                <td class="editTableTitleTd" colspan="2">
+                                    EU Country VAT Information:
+                                    <img class="hideListButton" src="/s.gif" id="euPanelSpan{!info.Index}" style="float:right;cursor:pointer;" onclick="showAdditionalDestinationSubPanel(this,'.euTr{!info.Index}')"/>
+                                </td>
+                            </tr>
+                            <tr class="euTr{!info.Index} euTr" style="display:{!IF(info.SiteLocation.VAT.IsEU, 'table-row','none')}">
+                                <td class="editTableTitleTd" align="right">VAT ID:</td>
+                                <td class="editTableContentTd"><apex:inputText value="{!info.SiteLocation.VAT.VATId}" styleclass="apexElementsStyle {!IF(info.SiteLocation.VAT.IsEU, 'requiredField','')}"/></td>
+                            </tr>
+                            <tr class="euTr{!info.Index} euTr" style="display:{!IF(info.SiteLocation.VAT.IsEU, 'table-row','none')}">
+                                <td class="editTableTitleTd" align="right">Company:</td>
+                                <td class="editTableContentTd"><apex:inputText value="{!info.SiteLocation.VAT.VATCompany}" styleclass="apexElementsStyle {!IF(info.SiteLocation.VAT.IsEU, 'requiredField','')}"/></td>
+                            </tr>  
+                            <tr class="euTr{!info.Index} euTr" style="display:{!IF(info.SiteLocation.VAT.IsEU, 'table-row','none')}">
+                                <td class="editTableTitleTd" align="right">VAT Addr.:</td>
+                               <td class="editTableContentTd">
+                                    <apex:inputTextarea id="vatAddress" rows="4" value="{!info.SiteLocation.VAT.VATAddress}" styleclass="apexElementsStyle {!IF(info.SiteLocation.VAT.IsEU, 'requiredField','')}"/>
+                               </td>                                     
+                            </tr>  
+                           <tr class="euTr{!info.Index} euTr" style="display:{!IF(info.SiteLocation.VAT.IsEU, 'table-row','none')};text-align:center">
+                                <td colspan='2'>
+                                    <a style="cursor:pointer;text-decoration:underline" onclick="copyShippingAddr({!info.index})">Use shipping address</a>
+                                </td>
+                            </tr>  
+                    </table> 
+                    <script>
+                        var destinationCountryId = "page:form:editPageBlock:physicalPageBlockSection:physicalRepeater:{!info.index}:destinationCountry";
+                        var destinationCountry = document.getElementById(destinationCountryId); 
+                        refreshStateList({!info.index});
+                        loadFinalCountry(destinationCountry, {!info.index}, 'DestinationCountry');
+                    </script>                    
+                    </apex:repeat>                   
+                    <table class="addButtonTable" style="display:{!IF(PhysicalProducts.size = 5, 'none', 'inline-table')};">
+                        <tr>
+                            <td style="vertical-align:middle;text-align:center">
+                                <apex:commandButton action="{!addPhysicalProduct}" value="Add Physical Product" rendered="{!IsEdit}" reRender="physicalInfoPanel" disabled="{!POCType=='Service Provider'}" status="addStatus" style="display:{!IF(PhysicalProducts.size = 5, 'none','inline')}"/>
+                                <apex:actionStatus id="addStatus">
+                                    <apex:facet name="start">
+                                        <img src="/img/loading.gif" />
+                                    </apex:facet>
+                                </apex:actionStatus>                                
+                            </td>
+                        </tr>
+                    </table>   
+                </apex:outputPanel>
+                    </td></tr>
+                </table>
+            </apex:pageBlockSection>            
+        </apex:pageBlock> 
+        <div style="clear:both"></div>
+        <apex:pageMessages />   
+    </apex:form>
+</apex:page>

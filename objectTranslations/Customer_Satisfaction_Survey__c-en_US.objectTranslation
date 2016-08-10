@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Customer Satisfaction Survey</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Surveys</value>
+    </caseValues>
+    <fields>
+        <label><!-- Case Priority --></label>
+        <name>Case_Priority__c</name>
+    </fields>
+    <fields>
+        <label><!-- Case --></label>
+        <name>Case__c</name>
+        <relationshipLabel><!-- Surveys --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Contact Speed --></label>
+        <name>Contact_Speed__c</name>
+    </fields>
+    <fields>
+        <label><!-- Contact --></label>
+        <name>Contact__c</name>
+        <relationshipLabel><!-- Surveys --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Detractor Suggestions --></label>
+        <name>Detractor__c</name>
+    </fields>
+    <fields>
+        <label><!-- Follow-Up --></label>
+        <name>Follow_Up__c</name>
+        <picklistValues>
+            <masterLabel>No</masterLabel>
+            <translation><!-- No --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Yes</masterLabel>
+            <translation><!-- Yes --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- How TAC Can Improve --></label>
+        <name>How_TAC_Can_Improve__c</name>
+    </fields>
+    <fields>
+        <label><!-- New Customer --></label>
+        <name>New_Customer__c</name>
+        <picklistValues>
+            <masterLabel>I Don&apos;t Remember</masterLabel>
+            <translation><!-- I Don&apos;t Remember --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>No</masterLabel>
+            <translation><!-- No --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Yes</masterLabel>
+            <translation><!-- Yes --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Overall Rating --></label>
+        <name>Overall_Rating__c</name>
+    </fields>
+    <fields>
+        <label><!-- Owner --></label>
+        <name>Owner__c</name>
+        <relationshipLabel><!-- Surveys --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Passive Suggestions --></label>
+        <name>Passive__c</name>
+    </fields>
+    <fields>
+        <label><!-- Previous Interaction Rating --></label>
+        <name>Previous_Interaction_Rating__c</name>
+    </fields>
+    <fields>
+        <label><!-- Promoter Suggestions --></label>
+        <name>Promoter__c</name>
+    </fields>
+    <fields>
+        <label><!-- Resolution --></label>
+        <name>Resolution__c</name>
+    </fields>
+    <fields>
+        <label><!-- TAC Informativeness --></label>
+        <name>TAC_Informativeness__c</name>
+    </fields>
+    <fields>
+        <label><!-- TAC Knowledge --></label>
+        <name>TAC_Knowledge__c</name>
+    </fields>
+    <fields>
+        <label><!-- TAC Overall --></label>
+        <name>TAC_Overall__c</name>
+    </fields>
+    <fields>
+        <label><!-- TAC Professionalism --></label>
+        <name>TAC_Professionalism__c</name>
+    </fields>
+    <fields>
+        <label><!-- TAC Speed --></label>
+        <name>TAC_Speed__c</name>
+    </fields>
+    <fields>
+        <label><!-- TAC Success --></label>
+        <name>TAC_Success__c</name>
+    </fields>
+    <layouts>
+        <layout>Customer Satisfaction Survey Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+    </layouts>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

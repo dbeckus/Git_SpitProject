@@ -1,0 +1,424 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Silver Peak Quote</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Silver Peak Quotes</value>
+    </caseValues>
+    <fields>
+        <label><!-- Approval Level Max --></label>
+        <name>ApprovalLevelMax__c</name>
+    </fields>
+    <fields>
+        <help><!-- if( Level3Required__c =1,3,
+
+MAX(ApprovalLevelMax__c,
+Approval_Required__c,
+if(Opportunity__r.Primary_Partner__r.CreditHold__c,2,0) ,
+if( Service_Discount_Max__c &gt; RegPartServDisc__c ,3,0)
+)) --></help>
+        <label><!-- Approval Level Needed --></label>
+        <name>Approval_Level_Needed__c</name>
+    </fields>
+    <fields>
+        <label><!-- Approval Made --></label>
+        <name>Approval_Made__c</name>
+    </fields>
+    <fields>
+        <label><!-- Approval Required --></label>
+        <name>Approval_Required__c</name>
+    </fields>
+    <fields>
+        <help><!-- Use for workflow and approval processes --></help>
+        <label><!-- Approval Status --></label>
+        <name>Approval_Status__c</name>
+        <picklistValues>
+            <masterLabel>Approved</masterLabel>
+            <translation><!-- Approved --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Rejected</masterLabel>
+            <translation><!-- Rejected --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Submitted</masterLabel>
+            <translation><!-- Submitted --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Order Discount % --></label>
+        <name>Average_Discount__c</name>
+    </fields>
+    <fields>
+        <label><!-- Bill To Account --></label>
+        <name>Bill_To_Account__c</name>
+    </fields>
+    <fields>
+        <label><!-- Bill To Address --></label>
+        <name>Bill_To_Address__c</name>
+    </fields>
+    <fields>
+        <label><!-- Bill To City --></label>
+        <name>Bill_To_City__c</name>
+    </fields>
+    <fields>
+        <label><!-- Bill To Country --></label>
+        <name>Bill_To_Country__c</name>
+    </fields>
+    <fields>
+        <label><!-- Bill To State --></label>
+        <name>Bill_To_State__c</name>
+    </fields>
+    <fields>
+        <label><!-- Bill To Zip --></label>
+        <name>Bill_To_Zip__c</name>
+    </fields>
+    <fields>
+        <help><!-- Used to Override the Bill To Address Information on the quote --></help>
+        <label><!-- Billing Address --></label>
+        <name>Billing_Address__c</name>
+    </fields>
+    <fields>
+        <help><!-- Used to Override the Bill To Address Information on the quote --></help>
+        <label><!-- Billing City --></label>
+        <name>Billing_City__c</name>
+    </fields>
+    <fields>
+        <help><!-- Used to Override the Bill To Address Information on the quote --></help>
+        <label><!-- Billing Country --></label>
+        <name>Billing_Country__c</name>
+    </fields>
+    <fields>
+        <help><!-- Used to Override the Bill To Address Information on the quote --></help>
+        <label><!-- Billing Postal Code --></label>
+        <name>Billing_Postal_Code__c</name>
+    </fields>
+    <fields>
+        <help><!-- Used to Override the Bill To Address Information on the quote --></help>
+        <label><!-- Billing State --></label>
+        <name>Billing_State__c</name>
+    </fields>
+    <fields>
+        <label><!-- Consulting Discount Max --></label>
+        <name>ConsultingDiscountMax__c</name>
+    </fields>
+    <fields>
+        <help><!-- Note to send to approvers to communicate reason for requesting the discount --></help>
+        <label><!-- Discount Justification --></label>
+        <name>Discount_Justification__c</name>
+    </fields>
+    <fields>
+        <label><!-- Product Discount Max --></label>
+        <name>Discount_Max__c</name>
+    </fields>
+    <fields>
+        <label><!-- EC Approval --></label>
+        <name>EC_Approval__c</name>
+    </fields>
+    <fields>
+        <help><!-- Use this box if you want to generate a quote document that has no pricing on it (i.e. an EMC or HDS configuration outline). --></help>
+        <label><!-- Hide Pricing --></label>
+        <name>Hide_Pricing__c</name>
+    </fields>
+    <fields>
+        <label><!-- Level3Required --></label>
+        <name>Level3Required__c</name>
+    </fields>
+    <fields>
+        <help><!-- IF( AND( Primary__c = True, Opportunity_Amount__c = Quote_Amount_Rollup__c  ) , 0, 1) --></help>
+        <label><!-- Matches Opportunity --></label>
+        <name>Matches_Opportunity__c</name>
+    </fields>
+    <fields>
+        <label><!-- MultiYearValue --></label>
+        <name>MultiYearValue__c</name>
+    </fields>
+    <fields>
+        <label><!-- Number of Quote Lines --></label>
+        <name>Number_of_Quote_Lines__c</name>
+    </fields>
+    <fields>
+        <label><!-- Opportunity Amount --></label>
+        <name>Opportunity_Amount__c</name>
+    </fields>
+    <fields>
+        <label><!-- Opportunity --></label>
+        <name>Opportunity__c</name>
+        <relationshipLabel><!-- Silver Peak Quotes --></relationshipLabel>
+    </fields>
+    <fields>
+        <help><!-- Used to Override the Bill To Address Information on the quote --></help>
+        <label><!-- Override Bill To --></label>
+        <name>Override_Bill_To__c</name>
+    </fields>
+    <fields>
+        <help><!-- Override the account shipping address for this quote --></help>
+        <label><!-- Override Ship To --></label>
+        <name>Override_Ship_To__c</name>
+    </fields>
+    <fields>
+        <label><!-- Partner Credit Hold --></label>
+        <name>PartnerCreditHold__c</name>
+    </fields>
+    <fields>
+        <label><!-- Partner Discount Level --></label>
+        <name>Partner_Discount_Level__c</name>
+    </fields>
+    <fields>
+        <label><!-- Payment Term Instructions --></label>
+        <name>PaymentTermInstructions__c</name>
+    </fields>
+    <fields>
+        <label><!-- Payment Term --></label>
+        <name>PaymentTerm__c</name>
+        <picklistValues>
+            <masterLabel>Cond PO</masterLabel>
+            <translation><!-- Cond PO --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Net 30</masterLabel>
+            <translation><!-- Net 30 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Reseller Demo</masterLabel>
+            <translation><!-- Reseller Demo --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Prepared For --></label>
+        <name>PreparedFor__c</name>
+        <relationshipLabel><!-- Silver Peak Quotes --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Primary --></label>
+        <name>Primary__c</name>
+    </fields>
+    <fields>
+        <help><!-- Use this to choose which address is to be used on the quote output --></help>
+        <label><!-- Quote Address --></label>
+        <name>Quote_Address__c</name>
+        <picklistValues>
+            <masterLabel>Opportunity Account</masterLabel>
+            <translation><!-- Opportunity Account --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Prepared For Contact</masterLabel>
+            <translation><!-- Prepared For Contact --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Quote Amount Rollup --></label>
+        <name>Quote_Amount_Rollup__c</name>
+    </fields>
+    <fields>
+        <label><!-- Quote Date --></label>
+        <name>Quote_Date__c</name>
+    </fields>
+    <fields>
+        <label><!-- Quote Discount Percent --></label>
+        <name>Quote_Discount_Percent__c</name>
+    </fields>
+    <fields>
+        <help><!-- Discount % from list --></help>
+        <label><!-- Quote Discount Sum --></label>
+        <name>Quote_Discount__c</name>
+    </fields>
+    <fields>
+        <label><!-- Quote Valid Until --></label>
+        <name>Quote_Valid_Until__c</name>
+    </fields>
+    <fields>
+        <help><!-- this is maximum discount available without requiring approval for a quote on a given opportunity. It is the greater of the primary partner negotiated discount rates or the customer negotiated discount rates. --></help>
+        <label><!-- Partner Product Discount --></label>
+        <name>RegPartProdDisc__c</name>
+    </fields>
+    <fields>
+        <help><!-- this is maximum discount available without requiring approval for a quote on a given opportunity. It is the greater of the primary partner negotiated discount rates or the customer negotiated discount rates. --></help>
+        <label><!-- Partner Service Discount --></label>
+        <name>RegPartServDisc__c</name>
+    </fields>
+    <fields>
+        <label><!-- Renewal Term --></label>
+        <name>Renewal_Term__c</name>
+        <picklistValues>
+            <masterLabel>1 Year</masterLabel>
+            <translation><!-- 1 Year --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>3 Years</masterLabel>
+            <translation><!-- 3 Years --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>5 Years</masterLabel>
+            <translation><!-- 5 Years --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Service Discount Max --></label>
+        <name>Service_Discount_Max__c</name>
+    </fields>
+    <fields>
+        <label><!-- Ship To Address --></label>
+        <name>Ship_To_Address__c</name>
+    </fields>
+    <fields>
+        <label><!-- Ship To City --></label>
+        <name>Ship_To_City__c</name>
+    </fields>
+    <fields>
+        <label><!-- Ship To Country --></label>
+        <name>Ship_To_Country__c</name>
+    </fields>
+    <fields>
+        <label><!-- Ship To State --></label>
+        <name>Ship_To_State__c</name>
+    </fields>
+    <fields>
+        <label><!-- Ship To Zip --></label>
+        <name>Ship_To_Zip__c</name>
+    </fields>
+    <fields>
+        <help><!-- Override the account shipping address for this quote --></help>
+        <label><!-- Shipping Address --></label>
+        <name>Shipping_Address__c</name>
+    </fields>
+    <fields>
+        <help><!-- Override the account shipping address for this quote --></help>
+        <label><!-- Shipping City --></label>
+        <name>Shipping_City__c</name>
+    </fields>
+    <fields>
+        <help><!-- Override the account shipping address for this quote --></help>
+        <label><!-- Shipping Country --></label>
+        <name>Shipping_Country__c</name>
+    </fields>
+    <fields>
+        <help><!-- Override the account shipping address for this quote --></help>
+        <label><!-- Shipping Postal Code --></label>
+        <name>Shipping_Postal_Code__c</name>
+    </fields>
+    <fields>
+        <help><!-- Override the account shipping address for this quote --></help>
+        <label><!-- Shipping State --></label>
+        <name>Shipping_State__c</name>
+    </fields>
+    <fields>
+        <label><!-- Show Discount --></label>
+        <name>ShowDiscount__c</name>
+    </fields>
+    <fields>
+        <help><!-- Use this checkbox if you want to generate a document with subtotals on Maintenance/Product/Service --></help>
+        <label><!-- Show Subtotal --></label>
+        <name>Show_Subtotal__c</name>
+    </fields>
+    <fields>
+        <label><!-- Show Virtual Alternatives --></label>
+        <name>Show_Virtual_Alternatives__c</name>
+    </fields>
+    <fields>
+        <label><!-- Special Instructions --></label>
+        <name>Special_Instructions__c</name>
+    </fields>
+    <fields>
+        <label><!-- Stage --></label>
+        <name>Stage__c</name>
+        <picklistValues>
+            <masterLabel>Draft</masterLabel>
+            <translation><!-- Draft --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Presented</masterLabel>
+            <translation><!-- Presented --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Review</masterLabel>
+            <translation><!-- Review --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- TmpApprovalRequired --></label>
+        <name>TmpApprovalRequired__c</name>
+    </fields>
+    <fields>
+        <label><!-- Value At List --></label>
+        <name>Value_At_List__c</name>
+    </fields>
+    <layouts>
+        <layout>Partner Quote Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+        <sections>
+            <label><!-- Quote Addresses --></label>
+            <section>Quote Addresses</section>
+        </sections>
+        <sections>
+            <label><!-- Quote Instructions --></label>
+            <section>Quote Instructions</section>
+        </sections>
+    </layouts>
+    <layouts>
+        <layout>Quote Layout</layout>
+        <sections>
+            <label><!-- Approval Info --></label>
+            <section>Approval Info</section>
+        </sections>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+        <sections>
+            <label><!-- Override Address --></label>
+            <section>Override Address</section>
+        </sections>
+        <sections>
+            <label><!-- Quote Addresses --></label>
+            <section>Quote Addresses</section>
+        </sections>
+        <sections>
+            <label><!-- Quote Instructions --></label>
+            <section>Quote Instructions</section>
+        </sections>
+    </layouts>
+    <startsWith>Consonant</startsWith>
+    <validationRules>
+        <errorMessage><!-- In order to hide pricing you must disable show discounts too --></errorMessage>
+        <name>Cant_Show_Discounts_and_Hide_Prices</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- There is no pricebook for the specified opportunity. --></errorMessage>
+        <name>check_Opportunity_Pricebook</name>
+    </validationRules>
+    <webLinks>
+        <label><!-- CloneWithProducts --></label>
+        <name>CloneWithProducts</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- Email_Quote_Document --></label>
+        <name>Email_Quote_Document</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- GenerateQuote --></label>
+        <name>GenerateQuote</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- NewQuoteFromOpportunity --></label>
+        <name>NewQuoteFromOpportunity</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- Oppo2Quote --></label>
+        <name>Oppo2Quote</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- Quote_Document --></label>
+        <name>Quote_Document</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- UpdateOpportunity --></label>
+        <name>UpdateOpportunity</name>
+    </webLinks>
+</CustomObjectTranslation>

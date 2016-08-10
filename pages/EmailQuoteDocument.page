@@ -1,0 +1,58 @@
+<apex:page standardController="Quote__c"  extensions="EmailQuoteDocumentController" showheader="false" id="page">
+    <apex:sectionHeader title="Email Quote Document" />
+    <script>
+        function isValid()
+        {
+            var toVal = document.getElementById("page:form:block:section:item1:to").value;
+            var ccVal = document.getElementById("page:form:block:section:item2:cc").value;
+            var subjectVal = document.getElementById("page:form:block:section:item3:subject").value;
+            var bodyVal = document.getElementById("page:form:block:section:item4:body").value;
+            if(toVal == null || toVal == "")
+            {
+                alert("You must specify a contact to receive.");
+                return false;
+            }
+            if(subjectVal == null || subjectVal == "" || bodyVal == null || bodyVal == "")
+            {
+                return confirm("Subject or body is empty. Are you sure you want to proceed?");
+            }
+            return true;
+        }
+    </script>
+    <apex:form id="form">
+    <apex:pageMessages escape="false" />
+    
+    <apex:pageBlock id="block">
+        <apex:pageblockButtons location="bottom">
+            <apex:commandButton value="Send" action="{!send}" onclick="return isValid()" />
+            <input type="button" class="btn" value="Close" onclick="top.close()"/>
+        </apex:pageblockButtons>
+        <apex:pageBlockSection columns="1" id="section">
+            <apex:pageblockSectionItem id="item1">
+                <apex:outputLabel value="To"/>
+                <apex:inputField value="{!Quote__c.PreparedFor__c}" id="to"/>
+            </apex:pageblockSectionItem>
+            <apex:pageblockSectionItem id="item2">
+                <apex:outputLabel value="CC" />
+                <apex:outputPanel >
+                    <apex:inputText value="{!ccAddr}" style="width:300px" id="cc"/><br/>
+                    <span>Separate multiple addresses with comma or semi-colon</span>
+                </apex:outputPanel>
+            </apex:pageblockSectionItem>
+            <apex:pageblockSectionItem id="item3">
+                <apex:outputLabel value="Subject"/>
+                <apex:inputText value="{!subject}" style="width:300px" id="subject"/>
+            </apex:pageblockSectionItem>
+            <apex:pageblockSectionItem id="item4">
+                <apex:outputLabel value="Body"/>
+                <apex:inputTextarea value="{!body}" style="width:300px;height:60px;" id="body"/>
+            </apex:pageblockSectionItem>
+            <apex:pageblockSectionItem >
+                <apex:outputLabel value="Attachment"/>
+                <apex:outputLink value="{!'/apex/quotepdf?id='+Quote__c.Id}">Quote{!IF(ISBLANK(Quote__c.Opportunity__r.Account.Name), '', ' for ' + Quote__c.Opportunity__r.Account.Name)}.pdf</apex:outputLink>
+            </apex:pageblockSectionItem>
+            <apex:outputField value="{!Quote__c.Opportunity__r.Account.Name}" rendered="false"/>
+        </apex:pageBlockSection>
+    </apex:pageBlock>
+    </apex:form>
+</apex:page>

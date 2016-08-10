@@ -1,0 +1,349 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Scrum Team</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Scrum Teams</value>
+    </caseValues>
+    <fields>
+        <label><!-- Active --></label>
+        <name>Active__c</name>
+    </fields>
+    <fields>
+        <label><!-- Product Area --></label>
+        <name>Product_Area__c</name>
+        <picklistValues>
+            <masterLabel>CSS</masterLabel>
+            <translation><!-- CSS --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>CSS - Knowledge Base</masterLabel>
+            <translation><!-- CSS - Knowledge Base --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Collaboration</masterLabel>
+            <translation><!-- Collaboration --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Content</masterLabel>
+            <translation><!-- Content --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Core - Architecture</masterLabel>
+            <translation><!-- Core - Architecture --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Email Clients</masterLabel>
+            <translation><!-- Email Clients --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Exchange Edition</masterLabel>
+            <translation><!-- Exchange Edition --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Ideas</masterLabel>
+            <translation><!-- Ideas --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Marketing/SFGA</masterLabel>
+            <translation><!-- Marketing/SFGA --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Messaging</masterLabel>
+            <translation><!-- Messaging --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Mobile</masterLabel>
+            <translation><!-- Mobile --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Other</masterLabel>
+            <translation><!-- Other --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Partner Networks</masterLabel>
+            <translation><!-- Partner Networks --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Platform - Administration &amp; Distribution</masterLabel>
+            <translation><!-- Platform - Administration &amp; Distribution --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Platform - Analytics</masterLabel>
+            <translation><!-- Platform - Analytics --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Platform - AppExchange</masterLabel>
+            <translation><!-- Platform - AppExchange --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Platform - Application Development</masterLabel>
+            <translation><!-- Platform - Application Development --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Platform - Application Services</masterLabel>
+            <translation><!-- Platform - Application Services --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Platform - Appstore</masterLabel>
+            <translation><!-- Platform - Appstore --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Platform - Other</masterLabel>
+            <translation><!-- Platform - Other --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>SFA</masterLabel>
+            <translation><!-- SFA --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>SFA - Calendar &amp; Activities</masterLabel>
+            <translation><!-- SFA - Calendar &amp; Activities --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>SFA - Forecasting</masterLabel>
+            <translation><!-- SFA - Forecasting --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>SFA - Pipeline Management</masterLabel>
+            <translation><!-- SFA - Pipeline Management --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Web</masterLabel>
+            <translation><!-- Web --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Product Division --></label>
+        <name>Product_Division__c</name>
+        <picklistValues>
+            <masterLabel>Core</masterLabel>
+            <translation><!-- Core --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>IT</masterLabel>
+            <translation><!-- IT --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Internal</masterLabel>
+            <translation><!-- Internal --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>R&amp;D Products</masterLabel>
+            <translation><!-- R&amp;D Products --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Tech Ops</masterLabel>
+            <translation><!-- Tech Ops --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Web</masterLabel>
+            <translation><!-- Web --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Product Line --></label>
+        <name>Product_Line__c</name>
+        <picklistValues>
+            <masterLabel>ADN</masterLabel>
+            <translation><!-- ADN --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Analytics</masterLabel>
+            <translation><!-- Analytics --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>AppExchange</masterLabel>
+            <translation><!-- AppExchange --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Application Services</masterLabel>
+            <translation><!-- Application Services --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Appstore</masterLabel>
+            <translation><!-- Appstore --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Architecture</masterLabel>
+            <translation><!-- Architecture --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Content</masterLabel>
+            <translation><!-- Content --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Customer Service</masterLabel>
+            <translation><!-- Customer Service --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Documentation</masterLabel>
+            <translation><!-- Documentation --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>ISV &amp; IT App Dev</masterLabel>
+            <translation><!-- ISV &amp; IT App Dev --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Ideas</masterLabel>
+            <translation><!-- Ideas --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Labs</masterLabel>
+            <translation><!-- Labs --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Marketing</masterLabel>
+            <translation><!-- Marketing --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Mobile</masterLabel>
+            <translation><!-- Mobile --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Monitoring</masterLabel>
+            <translation><!-- Monitoring --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Partner Networks - Partner Portal</masterLabel>
+            <translation><!-- Partner Networks - Partner Portal --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Partner Networks - S2S</masterLabel>
+            <translation><!-- Partner Networks - S2S --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Process</masterLabel>
+            <translation><!-- Process --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Release</masterLabel>
+            <translation><!-- Release --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Sales &amp; Marketing</masterLabel>
+            <translation><!-- Sales &amp; Marketing --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Successforce</masterLabel>
+            <translation><!-- Successforce --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Testing</masterLabel>
+            <translation><!-- Testing --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Tools</masterLabel>
+            <translation><!-- Tools --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>UI and Application Development</masterLabel>
+            <translation><!-- UI and Application Development --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>User Experience</masterLabel>
+            <translation><!-- User Experience --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Verticals</masterLabel>
+            <translation><!-- Verticals --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>www</masterLabel>
+            <translation><!-- www --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Related Links --></label>
+        <name>Related_Links__c</name>
+    </fields>
+    <fields>
+        <label><!-- Rollup Reporting Group --></label>
+        <name>Rollup_Reporting_Group__c</name>
+        <picklistValues>
+            <masterLabel>AX Apps</masterLabel>
+            <translation><!-- AX Apps --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>AppStore</masterLabel>
+            <translation><!-- AppStore --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>IT Business Applications</masterLabel>
+            <translation><!-- IT Business Applications --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>IT Infrastructure</masterLabel>
+            <translation><!-- IT Infrastructure --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Internal</masterLabel>
+            <translation><!-- Internal --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Platform</masterLabel>
+            <translation><!-- Platform --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Public Websites</masterLabel>
+            <translation><!-- Public Websites --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Sales &amp; Marketing</masterLabel>
+            <translation><!-- Sales &amp; Marketing --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Service &amp; Support</masterLabel>
+            <translation><!-- Service &amp; Support --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Systems</masterLabel>
+            <translation><!-- Systems --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <help><!-- The time and location of the team&apos;s scrum meeting. Include dial-in #, if applicable. --></help>
+        <label><!-- Scrum Meeting Time/Location --></label>
+        <name>Scrum_Meeting_Time_Location__c</name>
+    </fields>
+    <fields>
+        <label><!-- Special Views --></label>
+        <name>Special_Views__c</name>
+    </fields>
+    <fields>
+        <help><!-- Enter the estimated hours scale your team uses. This field must be a number comma separated list. --></help>
+        <label><!-- Estimated Hours Scale --></label>
+        <name>Story_Point_Scale__c</name>
+    </fields>
+    <fields>
+        <label><!-- Team Email Group ID --></label>
+        <name>Team_Email_Group_ID__c</name>
+    </fields>
+    <fields>
+        <label><!-- Team Queue ID --></label>
+        <name>Team_Queue_ID__c</name>
+    </fields>
+    <fields>
+        <label><!-- Team Queue --></label>
+        <name>Team_Queue__c</name>
+    </fields>
+    <layouts>
+        <layout>Scrum Team Layout</layout>
+        <sections>
+            <label><!-- Reports --></label>
+            <section>Reports</section>
+        </sections>
+    </layouts>
+    <startsWith>Consonant</startsWith>
+    <validationRules>
+        <errorMessage><!-- Scrum Team name cannot contain &quot;&amp;&quot;, please use &quot;and&quot; instead --></errorMessage>
+        <name>No_Ampersand_in_names</name>
+    </validationRules>
+    <webLinks>
+        <label><!-- Sprints_Stories_and_Story_points --></label>
+        <name>Sprints_Stories_and_Story_points</name>
+    </webLinks>
+</CustomObjectTranslation>

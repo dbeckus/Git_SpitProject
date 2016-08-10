@@ -1,0 +1,96 @@
+<apex:page standardController="RMA_Item__c" extensions="EditRMALineAddressController" showHeader="false" id="page">
+    <apex:sectionHeader title="Edit RMA Line Ship To" subtitle="{!RMA_Item__c.Name}"/>
+    <script>
+        function loadStates(country)
+        {
+            EditRMALineAddressController.getStateList(country, function(result, event) 
+            {
+                if(event.status == true)
+                {
+                    var list = document.getElementById("stateList");
+                    list.options.length = 0;
+                    list.options.add(new Option("", ""), 0);
+                    var originalState = document.getElementById("page:form:block:contactSection:stateItem:state").value;
+                    var foundState = false;
+                    document.getElementById("stateRequiredFlag").style.display = "none";
+                    for(var i = 0; i < result.length; i++)
+                    {
+                        var stateCode = result[i].StateCode__c;
+                        var stateName = result[i].StateName__c;
+                        list.options.add(new Option(stateName, stateCode));
+                        document.getElementById("stateRequiredFlag").style.display = "";
+                        if(stateCode.toUpperCase() == originalState.toUpperCase() || stateName.toUpperCase() == originalState.toUpperCase())
+                        {
+                            list.value = stateCode;
+                            foundState = true;
+                            fillStateCode(list.value);
+                        }
+                    }
+                    if(!foundState)
+                    {
+                        fillStateCode("");
+                    }
+                }
+            }, {escape:true});
+        }
+        function fillStateCode(stateCode)
+        {
+            document.getElementById("page:form:block:contactSection:stateItem:state").value = stateCode;
+        }
+        function refreshStateList()
+        {
+            var countryValue = document.getElementById("page:form:block:contactSection:countryItem:country").value;
+            if(countryValue != null && countryValue != '')
+            {
+                loadStates(countryValue);
+            }
+        }
+    </script>
+    <apex:form id="form">
+        <apex:pageMessages escape="false" />
+        <apex:pageBlock id="block">
+            <apex:pageBlockButtons location="bottom">
+                <!--<apex:commandButton value="Get Address from Case" />-->
+                <apex:commandButton value="Save" action="{!Save}" />
+                <input type="button" class="btn" value="Close" onclick="top.close()" />
+            </apex:pageBlockButtons>
+            <apex:pageBlockSection title="Ship To Address" id="contactSection" collapsible="false">
+                <!--<apex:inputField value="{!Contact.FirstName}"/>
+                <apex:inputField value="{!Contact.LastName}"/>-->
+                <apex:outputField value="{!RMA_Item__c.Ship_To_Contact__r.FirstName}" rendered="false" />
+                <apex:outputField value="{!RMA_Item__c.Ship_To_Contact__r.LastName}" rendered="false" />
+                <apex:inputField value="{!RMA_Item__c.Contact_Email__c}" required="true"/>
+                <apex:inputField value="{!RMA_Item__c.Contact_Phone__c}" required="true"/>
+                <apex:inputField value="{!RMA_Item__c.ShipToCompany__c}" required="true" id="company"/>
+                <apex:outputText />
+                <apex:pageBlockSectionItem id="countryItem">
+                    <apex:outputLabel value="Ship To Country" for="country"/>
+                    <apex:inputField value="{!RMA_Item__c.ShipToCountry__c}" required="true" id="country" style="width:160px" onchange="loadStates(this.value)" />
+                </apex:pageBlockSectionItem>
+                <apex:outputText />
+                <apex:inputField value="{!RMA_Item__c.ShipToAddress__c}" required="true" id="address1"/>
+                <apex:outputText />
+                <apex:inputField value="{!RMA_Item__c.ShipToAddressAdditional__c}" id="address2"/>
+                <apex:outputText />
+                <apex:inputField value="{!RMA_Item__c.ShipToCity__c}" required="true" id="city"/>
+                <apex:outputText />
+                <apex:pageBlockSectionItem id="stateItem">
+                    <apex:outputLabel value="Ship To State/Province" for="state"/>
+                    <apex:outputPanel layout="none">
+                        <apex:inputField value="{!RMA_Item__c.ShipToStateOrProvince__c}" id="state" style="display:none" />
+                        <div class="requiredInput" id="stateDiv">
+                            <div class="requiredBlock" id="stateRequiredFlag"></div>
+                            <select id="stateList" onchange="fillStateCode(this.value)" style="width:160px">
+                            </select>
+                        </div>
+                    </apex:outputPanel>
+                </apex:pageBlockSectionItem>
+                <apex:outputText />
+                <apex:inputField value="{!RMA_Item__c.ShipToPostalCode__c}" required="true" id="postalCode"/>
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+    </apex:form>
+    <script>
+        refreshStateList();
+    </script>
+</apex:page>

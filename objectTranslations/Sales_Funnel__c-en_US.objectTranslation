@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Sales Funnel</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Sales Funnel</value>
+    </caseValues>
+    <fields>
+        <label><!-- Category --></label>
+        <name>Category__c</name>
+        <picklistValues>
+            <masterLabel>Inside Sales</masterLabel>
+            <translation><!-- Inside Sales --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Marketing</masterLabel>
+            <translation><!-- Marketing --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Outside Sales</masterLabel>
+            <translation><!-- Outside Sales --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Pipeline</masterLabel>
+            <translation><!-- Pipeline --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Metric Value --></label>
+        <name>Metric_Value__c</name>
+    </fields>
+    <fields>
+        <label><!-- Metric --></label>
+        <name>Metric__c</name>
+        <picklistValues>
+            <masterLabel>Closed Dead</masterLabel>
+            <translation><!-- Closed Dead --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Closed Lost</masterLabel>
+            <translation><!-- Closed Lost --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Closed Opptys</masterLabel>
+            <translation><!-- Closed Opptys --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Closed Won</masterLabel>
+            <translation><!-- Closed Won --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Competitive User</masterLabel>
+            <translation><!-- Competitive User --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Convert Contact</masterLabel>
+            <translation><!-- Convert Contact --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Converts to Oppty Pipeline</masterLabel>
+            <translation><!-- Converts to Oppty Pipeline --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Converts to Oppty Prospecting</masterLabel>
+            <translation><!-- Converts to Oppty Prospecting --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Disqualified</masterLabel>
+            <translation><!-- Disqualified --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>First Meetings Set</masterLabel>
+            <translation><!-- First Meetings Set --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>New Leads</masterLabel>
+            <translation><!-- New Leads --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>New Opptys</masterLabel>
+            <translation><!-- New Opptys --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>New eTrigue Enabled</masterLabel>
+            <translation><!-- New eTrigue Enabled --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>New eTrigue Entries</masterLabel>
+            <translation><!-- New eTrigue Entries --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Opportunity Value</masterLabel>
+            <translation><!-- Opportunity Value --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Opptys in Pipeline</masterLabel>
+            <translation><!-- Opptys in Pipeline --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Opptys in Prospecting</masterLabel>
+            <translation><!-- Opptys in Prospecting --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>SFDC Campaign Participant</masterLabel>
+            <translation><!-- SFDC Campaign Participant --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Total Active Leads</masterLabel>
+            <translation><!-- Total Active Leads --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Total Converts</masterLabel>
+            <translation><!-- Total Converts --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Total eTrigue Entries</masterLabel>
+            <translation><!-- Total eTrigue Entries --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Unresponsive</masterLabel>
+            <translation><!-- Unresponsive --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>eTrigue Converts to SFDC</masterLabel>
+            <translation><!-- eTrigue Converts to SFDC --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <help><!-- End the month end date for this entry --></help>
+        <label><!-- Month Close Date --></label>
+        <name>Month_Close_Date__c</name>
+    </fields>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

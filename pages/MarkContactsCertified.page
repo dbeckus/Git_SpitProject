@@ -1,0 +1,87 @@
+<apex:page controller="MarkContactsCertifiedController" showHeader="false" tabStyle="Contact">
+    <apex:stylesheet value="{!URLFOR($Resource.ContactsCertification, '/ContactsCertification.css')}"/>
+    <apex:sectionHeader title="Mark Contacts Certified"/>
+    <apex:form >
+        <apex:pageMessages escape="false" id="pageMsg"/>
+        <apex:actionFunction action="{!save}" name="saveRecords" status="loading" reRender="pageMsg"/>
+        <apex:pageBlock >
+            <apex:pageBlockButtons location="bottom">
+                <apex:actionStatus id="loading">
+                    <apex:facet name="start">
+                        <img src="/img/loading.gif" title="loading" alt=""/>
+                        <input type="button" class="btn" value=" Saving... " disabled="true"/>
+                        <input type="button" class="btn" value=" Saving... " disabled="true"/>
+                    </apex:facet>
+                    <apex:facet name="stop">
+                        <input type="button" class="btn" value=" Save " id="saveBtn" />
+                        <input type="button" class="btn" value=" Cancel " id="cancelBtn" />
+                    </apex:facet>
+                </apex:actionStatus>
+            </apex:pageBlockButtons>
+            
+            <apex:pageBlockTable value="{!contacts}" var="contact" id="contactList">
+                <apex:column value="{!contact.Name}" headerValue="Contact" />
+                <apex:column headerValue="SCTP">
+                    <table>
+                        <tr>
+                            <td style="border: none;" class="label">SCTP Certified:</td>
+                            <td style="border: none"><apex:inputCheckbox value="{!contact.SCTP_Certified__c}" disabled="{!contact.SCTP_Certified__c}"></apex:inputCheckbox></td>
+                        </tr>
+                        <tr>
+                            <td style="border: none;" class="label">SCTP Score: </td>
+                            <td style="border: none"><apex:inputField value="{!contact.SCTP_Score__c}"></apex:inputField></td>
+                        </tr>
+                        <tr>
+                            <td style="border: none;" class="label">SCTP Certification Date: </td>
+                            <td style="border: none"><apex:inputField value="{!contact.SCTP_Certification_Date__c}"></apex:inputField></td>
+                        </tr>
+                    </table>
+                </apex:column>
+                <apex:column headerValue="SPIE">
+                    <table>
+                        <tr>
+                            <td style="border: none;" class="label">SPIE Certified:</td>
+                            <td style="border: none"><apex:inputCheckbox value="{!contact.SPIE_Certified__c}" disabled="{!contact.SPIE_Certified__c}"></apex:inputCheckbox></td>
+                        </tr>
+                        <tr>
+                            <td style="border: none;" class="label">SPIE Score: </td>
+                            <td style="border: none"><apex:inputField value="{!contact.SPIE_Score__c}"></apex:inputField></td>
+                        </tr>
+                        <tr>
+                            <td style="border: none;" class="label">SPIE Certification Date: </td>
+                            <td style="border: none"><apex:inputField value="{!contact.SPIE_Certification_Date__c}"></apex:inputField></td>
+                        </tr>
+                    </table>
+                </apex:column>
+                <apex:column headerValue="SPX">
+                    <table>
+                        <tr>
+                            <td style="border: none;" class="label">SPX Certified:</td>
+                            <td style="border: none"><apex:inputCheckbox value="{!contact.SPX_Certified__c}" disabled="{!contact.SPX_Certified__c}"></apex:inputCheckbox></td>
+                        </tr>
+                        <tr>
+                            <td style="border: none;" class="label">SPX Score: </td>
+                            <td style="border: none"><apex:inputField value="{!contact.SPX_Score__c}"></apex:inputField></td>
+                        </tr>
+                        <tr>
+                            <td style="border: none;" class="label">SPX Certification Date: </td>
+                            <td style="border: none"><apex:inputField value="{!contact.SPX_Certification_Date__c}"></apex:inputField></td>
+                        </tr>
+                    </table>
+                </apex:column>
+            </apex:pageBlockTable>
+        </apex:pageBlock>
+    </apex:form>
+    <script type="text/javascript">
+        window.onload = function() {
+            document.getElementById('saveBtn').onclick = function() {
+                saveRecords();
+            }
+            document.getElementById('cancelBtn').onclick = function() {
+                if(confirm('Are you sure to discard all the changes?')) {
+                    top.close();
+                }
+            }
+         }
+    </script>
+</apex:page>

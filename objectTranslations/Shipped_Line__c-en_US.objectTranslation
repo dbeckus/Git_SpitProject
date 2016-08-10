@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Shipped Line</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Shipped Lines</value>
+    </caseValues>
+    <fields>
+        <label><!-- Asset --></label>
+        <name>Asset__c</name>
+        <relationshipLabel><!-- Shipment Log --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Eval End --></label>
+        <name>Eval_End__c</name>
+    </fields>
+    <fields>
+        <label><!-- Eval Start --></label>
+        <name>Eval_Start__c</name>
+    </fields>
+    <fields>
+        <help><!-- for GMS assets, set the number of nodes licensed for --></help>
+        <label><!-- GMS Nodes --></label>
+        <name>GMS_Nodes__c</name>
+        <picklistValues>
+            <masterLabel>10</masterLabel>
+            <translation><!-- 10 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>100</masterLabel>
+            <translation><!-- 100 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>200</masterLabel>
+            <translation><!-- 200 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>25</masterLabel>
+            <translation><!-- 25 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>50</masterLabel>
+            <translation><!-- 50 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>500</masterLabel>
+            <translation><!-- 500 --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Model --></label>
+        <name>Model__c</name>
+    </fields>
+    <fields>
+        <help><!-- Status to set asset to after shipment --></help>
+        <label><!-- Post Shipment Status --></label>
+        <name>Post_Shipment_Status__c</name>
+        <picklistValues>
+            <masterLabel>Cold Spare</masterLabel>
+            <translation><!-- Cold Spare --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Conditional PO</masterLabel>
+            <translation><!-- Conditional PO --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Customer Evaluation</masterLabel>
+            <translation><!-- Customer Evaluation --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Customer Owned</masterLabel>
+            <translation><!-- Customer Owned --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Loan</masterLabel>
+            <translation><!-- Loan --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Pending Return – Eval</masterLabel>
+            <translation><!-- Pending Return – Eval --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Pending Return – Support</masterLabel>
+            <translation><!-- Pending Return – Support --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Silver Peak Inventory</masterLabel>
+            <translation><!-- Silver Peak Inventory --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Write-Off</masterLabel>
+            <translation><!-- Write-Off --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <help><!-- Status of existing asset --></help>
+        <label><!-- Prior Status --></label>
+        <name>Prior_Status__c</name>
+        <picklistValues>
+            <masterLabel>Cold Spare</masterLabel>
+            <translation><!-- Cold Spare --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Conditional PO</masterLabel>
+            <translation><!-- Conditional PO --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Customer Evaluation</masterLabel>
+            <translation><!-- Customer Evaluation --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Customer Owned</masterLabel>
+            <translation><!-- Customer Owned --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Loan</masterLabel>
+            <translation><!-- Loan --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Pending Return – Eval</masterLabel>
+            <translation><!-- Pending Return – Eval --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Pending Return – Support</masterLabel>
+            <translation><!-- Pending Return – Support --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Silver Peak Inventory</masterLabel>
+            <translation><!-- Silver Peak Inventory --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Write-Off</masterLabel>
+            <translation><!-- Write-Off --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <help><!-- Defaults to shipment date, override for RMA adjustments --></help>
+        <label><!-- Ship Date --></label>
+        <name>Ship_Date__c</name>
+    </fields>
+    <fields>
+        <label><!-- Shipment Id --></label>
+        <name>Shipment_Id__c</name>
+        <relationshipLabel><!-- Shipped Lines --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Warranty End --></label>
+        <name>Warranty_End__c</name>
+    </fields>
+    <fields>
+        <label><!-- Warranty Start --></label>
+        <name>Warranty_Start__c</name>
+    </fields>
+    <layouts>
+        <layout>Shipped Line Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+    </layouts>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

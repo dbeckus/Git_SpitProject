@@ -1,0 +1,101 @@
+/**
+ * A Trigger handler of Lead.
+ * Move lead to SD campaign when Lead Lifecycle Stage equals "03 MQL", "04 SAL", "13 MQC" or "14 SAC". Clear Lead Sub Status.
+ * Move lead off the SD campaign when Lead Lifecycle Stage not equals "03 MQL", "04 SAL", "13 MQC" or "14 SAC".
+ * Clear BANT Qualified and Contact Me field when Lead Lifecycle Lifecycle equals "Sales - Rejected", or "Rejected" or being converted. 
+ *
+ * @author  SnapBI
+ * @version 1.2
+ *
+ * @changelog
+ * 4/21/2015 Matt Yuan - Created.
+ * 7/27/2015 Matt Yuan - Updated move lead off the SD Campaign logic.
+ * 8/18/2015 Matt Yuan - Added 'MQL', 'SAL', 'MQC' in Lead Lifecycle Stages.
+ * 2/10/2016 Andy Getz - Added condition to remove leads from campaign when Lead Status is changed (case 20160130-182792)
+ */
+
+public class LeadTriggerHandlerForSDC extends TriggerHandler 
+{
+    public override void afterInsert()
+    {
+        moveLeadsOnOffCampaign();
+    }
+    
+    public override void afterUpdate()
+    {
+        moveLeadsOnOffCampaign();
+    }
+    
+    private void moveLeadsOnOffCampaign()
+    {
+        Set<String> moveToSDCampaignStages = new Set<String> { '03 MQL', '04 SAL', '13 MQC', '14 SAC', 'MQL', 'SAL', 'MQC' };
+        Set<String> excludedStatuses = new Set<String> {'Submitted', 'Approved', 'Rejected' };
+        Set<String> rejectedStatuses = new Set<String> { 'Sales Rejected', 'Rejected' };
+
+        String sdCampaignId = SalesDevelopmentHelper.getSDCampaign();
+        List<CampaignMember> newSDCampaignMembers = new List<CampaignMember>();
+        Set<Id> leadIdsToBeMovedOff = new Set<Id>();
+        List<Lead> leadsToBeUpdated = new List<Lead>();
+
+        Lead oldLead;
+        for(Lead newLead : [select Id, IsConverted, Lead_Lifecycle_Stage__c, Lead_Sub_Status__c, Contact_Me__c, BANT_Qualified__c, Status from Lead where Id in :trigger.newMap.keyset()])
+        {
+            if(Trigger.isInsert)
+            {
+                if(moveToSDCampaignStages.contains(newLead.Lead_Lifecycle_Stage__c) && !excludedStatuses.contains(newLead.Status))
+                {
+                    newLead.Lead_Sub_Status__c = null;
+                    leadsToBeUpdated.add(newLead);
+                    newSDCampaignMembers.add(new CampaignMember(LeadId = newLead.Id, CampaignId = sdCampaignId));
+                }
+            }
+            else if(Trigger.isUpdate)
+            {
+                oldLead = (Lead)Trigger.oldMap.get(newLead.Id);
+                if(moveToSDCampaignStages.contains(newLead.Lead_Lifecycle_Stage__c) && !moveToSDCampaignStages.contains(oldLead.Lead_Lifecycle_Stage__c) && !excludedStatuses.contains(newLead.Status))
+                {
+                    newLead.Lead_Sub_Status__c = null;
+                    leadsToBeUpdated.add(newLead);
+                    newSDCampaignMembers.add(new CampaignMember(LeadId = newLead.Id, CampaignId = sdCampaignId));
+                }
+                //preserving previous if condition
+                /*if(!moveToSDCampaignStages.contains(newLead.Lead_Lifecycle_Stage__c) && moveToSDCampaignStages.contains(oldLead.Lead_Lifecycle_Stage__c))
+                {
+                    leadIdsToBeMovedOff.add(newLead.Id);
+                }*/
+                //new if condition 
+                if((!moveToSDCampaignStages.contains(newLead.Lead_Lifecycle_Stage__c) && moveToSDCampaignStages.contains(oldLead.Lead_Lifecycle_Stage__c)) || (excludedStatuses.contains(newLead.Status) && !excludedStatuses.contains(oldLead.Status)))
+                {
+                    leadIdsToBeMovedOff.add(newLead.Id);
+                }
+                if((rejectedStatuses.contains(newLead.Status) && !rejectedStatuses.contains(oldLead.Status)) || (newLead.IsConverted && !oldLead.IsConverted))
+                {
+                    newLead.Contact_Me__c = false;
+                    newLead.BANT_Qualified__c = false;
+                    leadsToBeUpdated.add(newLead);
+                    leadIdsToBeMovedOff.add(newLead.Id);
+                }
+            }
+        }
+
+        //Move leads to SD campaign
+        if(!newSDCampaignMembers.isEmpty())
+        {
+            Database.insert(newSDCampaignMembers, false);
+        }
+
+        //Move leads off SD campaign
+        if(!leadIdsToBeMovedOff.isEmpty())
+        {
+            delete [select Id from CampaignMember where CampaignId = :sdCampaignId and LeadId in :leadIdsToBeMovedOff];
+        }
+
+        //Update leads
+        if(!leadsToBeUpdated.isEmpty())
+        {
+            SilverPeakUtils.BypassingTriggers = true;
+            Database.update(leadsToBeUpdated, false);
+            SilverPeakUtils.BypassingTriggers = false;
+        }
+    }
+}

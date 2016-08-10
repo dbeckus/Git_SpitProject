@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Release</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Releases</value>
+    </caseValues>
+    <fields>
+        <label><!-- EULA Agreement --></label>
+        <name>EULA_Agreement__c</name>
+    </fields>
+    <fields>
+        <label><!-- Release Date --></label>
+        <name>Release_Date__c</name>
+    </fields>
+    <fields>
+        <label><!-- Release Details --></label>
+        <name>Release_Details__c</name>
+    </fields>
+    <fields>
+        <label><!-- Release Status --></label>
+        <name>Release_Status__c</name>
+        <picklistValues>
+            <masterLabel>BETA</masterLabel>
+            <translation><!-- BETA --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>DSR</masterLabel>
+            <translation><!-- DSR --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>EOM</masterLabel>
+            <translation><!-- EOM --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>FCS</masterLabel>
+            <translation><!-- FCS --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>GA</masterLabel>
+            <translation><!-- GA --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <help><!-- format x.y --></help>
+        <label><!-- Release Number --></label>
+        <name>Release__c</name>
+    </fields>
+    <fields>
+        <label><!-- Type --></label>
+        <name>Type__c</name>
+        <picklistValues>
+            <masterLabel>EdgeConnect</masterLabel>
+            <translation><!-- EdgeConnect --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>GMS</masterLabel>
+            <translation><!-- GMS --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>GX-V Image</masterLabel>
+            <translation><!-- GX-V Image --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>ISO Image</masterLabel>
+            <translation><!-- ISO Image --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Service Provider</masterLabel>
+            <translation><!-- Service Provider --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>VX Image</masterLabel>
+            <translation><!-- VX Image --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>VXOA Release</masterLabel>
+            <translation><!-- VXOA Release --></translation>
+        </picklistValues>
+    </fields>
+    <layouts>
+        <layout>Releases Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+        <sections>
+            <label><!-- End User License Agreement --></label>
+            <section>End User License Agreement</section>
+        </sections>
+    </layouts>
+    <nameFieldLabel>Release Name</nameFieldLabel>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

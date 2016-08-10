@@ -1,0 +1,228 @@
+<apex:page id="page" standardController="Opportunity" extensions="NewOpportunityController">
+    <apex:includeScript value="{!URLFOR($Resource.jQuery, 'jquery-1.4.3.min.js')}" />
+    <apex:outputPanel rendered="{!IsStep1}">
+        <script type="text/javascript">
+            function nextStep()
+            {
+                $("[id$='leadid_hd']").val($("#leadid").val());
+                $("[id$='contactid_hd']").val($("#contactid").val());
+                $("[id$='accountid_hd']").val($("#accountid").val());
+            }
+            
+            function selectRecord(type, label, value, accountLabel, accountValue)
+            {
+                if(type == 'Lead')
+                {
+                    setLeadHidden(value, label);
+                }
+                else if(type == 'Contact')
+                {
+                    setContactHidden(value, label, accountValue, accountLabel);
+                }
+                else
+                {
+                    alert("Invalid Type.");
+                }
+            }
+            
+            function lookupPick(a,b,c,d,e,f,g,k) //c: element,e: Id, f: Name
+            {
+                if(c == "leadid")
+                {
+                    setLeadHidden(e, f);
+                }
+                else if(c == "accountid")
+                {
+                    setAccountHidden(e, f);
+                }
+            }
+            
+            function lookupPick2(a,b,c,d,e,f,g,k,n,j) //c: element, d: Id, e: Name, n: childId, g: childName
+            {
+                if(c == "contactid")
+                {
+                    setContactHidden(d, e, n, g);
+                }
+            }
+            
+            function setLeadHidden(value, label)
+            {
+                clear();
+                addOption("leadid", 1, value, label);
+                closePopup();
+            }
+            
+            function setContactHidden(value, label, accountValue, accountLabel)
+            {
+                clear();
+                addOption("contactid", 1, value, label);
+                addOption("accountid", 1, accountValue, accountLabel);
+                closePopup();
+            }
+            
+            function setAccountHidden(value, label)
+            {
+                clear();
+                addOption("accountid", 1, value, label);
+                NewOpportunityController.pushContacts(value, function(result, event)
+                {
+                    for(var i = 0; i < result.length; i++)
+                    {
+                        addOption("contactid", i + 1, result[i].Id, result[i].Name);
+                    }
+                });
+                closePopup();
+            }
+            
+            function clearSelect(elementId)
+            {
+                var element = document.getElementById(elementId);
+                var index = element.length;
+                while(index > 1)
+                {
+                    element.remove(index - 1);
+                    index--;
+                }
+            }
+            
+            function clear()
+            {
+                clearSelect("leadid");
+                clearSelect("contactid");
+                clearSelect("accountid");
+            }
+            
+            function addOption(element, index, value, label)
+            {
+                var selectElement = document.getElementById(element);
+                selectElement[index] = new Option('Attach to Existing: ' + label, value);
+                selectElement.selectedIndex = index;
+            }
+        </script>
+        <apex:sectionHeader title="New Opportunity" />
+        <apex:form id="form1" styleClass="opp">
+            <apex:pageMessages />
+            <apex:pageBlock id="pageBlock1" title="Choose Opportunity Sources" >
+                <apex:pageBlockButtons location="bottom">
+                    <apex:commandButton value="Next" action="{!next}" onClick="nextStep()"/>
+                    <apex:commandButton value="Cancel" action="{!cancel}" immediate="true" />
+                </apex:pageBlockButtons>
+                <table id="main" width="100%">
+                    <tr>
+                        <td align="right" width="410">
+                            <apex:outputLabel value="Find a Lead or Contact by Email: "/>
+                            <apex:inputText id="email" value="{!Email}" onkeydown="if(event.keyCode==13){search();return false;}"/>
+                            <input type="button" class="btn" value="Search" onclick="search()"/>
+                            <apex:actionFunction action="{!search}" name="search" status="searchLoading" reRender="result"/>
+                            <apex:actionStatus id="searchLoading">
+                                <apex:facet name="start">
+                                    <img src="/img/loading.gif"/>
+                                </apex:facet>
+                            </apex:actionStatus>
+                        </td>
+                        <td align="right" width="120">
+                            <apex:outputLabel value="Lead Name" styleClass="labelCol"/>
+                        </td>
+                        <td>
+                            <select id="leadid">
+                                <option value="new">Create New Lead</option>
+                            </select>
+                            <apex:inputHidden id="leadid_hd" value="{!LeadSource}"/>
+                            <a href="javascript:openLookup('/_ui/common/data/LookupPage?lkfm=editPage&lknm=leadid&lktp=00Q', 670);" onclick="setLastMousePosition(event);" title=" Lookup (New Window)">
+                                <img src="/s.gif" alt=" Lookup (New Window)" class="lookupIcon" onblur="this.className = 'lookupIcon';" onfocus="this.className = 'lookupIconOn';" 
+                                onmouseout="this.className = 'lookupIcon';this.className = 'lookupIcon';" onmouseover="this.className = 'lookupIconOn';this.className = 'lookupIconOn';" 
+                                title=" Lookup (New Window)"/>
+                            </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td rowspan="2">
+                            <apex:outputPanel id="result">
+                                <apex:outputPanel rendered="{!Email != null && Email != ''}">
+                                    <apex:pageBlockTable value="{!LeadAndContacts}" var="lac">
+                                        <apex:column headerValue="Action">
+                                            <a href="#" onclick="selectRecord('{!lac.Type}', '{!SUBSTITUTE(lac.Name, "'", "\\'")}', '{!lac.Id}', '{!SUBSTITUTE(lac.AccountName, "'", "\\'")}', '{!lac.AccountId}'); return false;" class="color: blue;">select</a>
+                                        </apex:column>
+                                        <apex:column headerValue="Type" value="{!lac.Type}"/>
+                                        <apex:column headerValue="Name" value="{!lac.Name}"/>
+                                        <apex:column headerValue="Email" value="{!lac.Email}"/>
+                                    </apex:pageBlockTable>
+                                    <apex:outputPanel rendered="{!LeadAndContacts.size == 0}">No records to display.</apex:outputPanel>
+                                </apex:outputPanel>
+                            </apex:outputPanel>
+                        </td>
+                        <td align="right" height="25">
+                            <apex:outputLabel value="Contact Name" styleClass="labelCol"/>
+                        </td>
+                        <td>
+                            <select id="contactid">
+                                <option value="new">Create New Contact</option>
+                            </select>
+                            <apex:inputHidden id="contactid_hd" value="{!ContactSource}"/>
+                            <a href="javascript:openLookup('/_ui/common/data/LookupPage?lkfm=editPage&lknm=contactid&lktp=003', 670);" onclick="setLastMousePosition(event);" title=" Lookup (New Window)">
+                                <img src="/s.gif" alt=" Lookup (New Window)" class="lookupIcon" onblur="this.className = 'lookupIcon';" onfocus="this.className = 'lookupIconOn';" 
+                                onmouseout="this.className = 'lookupIcon';this.className = 'lookupIcon';" onmouseover="this.className = 'lookupIconOn';this.className = 'lookupIconOn';" 
+                                title=" Lookup (New Window)"/>
+                            </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="right">
+                            <apex:outputLabel value="Account Name" styleClass="labelCol"/>
+                        </td>
+                        <td>
+                            <select id="accountid">
+                                <option value="new">Create New Account</option>
+                            </select>
+                            <apex:inputHidden id="accountid_hd" value="{!AccountSource}"/>
+                            <a href="javascript:openLookup('/_ui/common/data/LookupPage?lkfm=editPage&lknm=accountid&lktp=001', 670);" onclick="setLastMousePosition(event);" title=" Lookup (New Window)">
+                                <img src="/s.gif" alt=" Lookup (New Window)" class="lookupIcon" onblur="this.className = 'lookupIcon';" onfocus="this.className = 'lookupIconOn';" 
+                                onmouseout="this.className = 'lookupIcon';this.className = 'lookupIcon';" onmouseover="this.className = 'lookupIconOn';this.className = 'lookupIconOn';" 
+                                title=" Lookup (New Window)"/>
+                            </a>
+                        </td>
+                    </tr>
+                </table>
+            </apex:pageBlock>
+        </apex:form>
+    </apex:outputPanel>
+    <apex:outputPanel rendered="{!NOT(IsStep1)}">
+        <apex:sectionHeader title="Opportunity Edit" subtitle="New Opportunity"/>
+        <apex:form id="form2">
+            <apex:pageMessages />
+            <apex:pageBlock id="pageBlock2" title="Opportunity Edit" mode="edit">
+                <apex:pageBlockButtons >
+                    <apex:commandLink value="Previous" action="{!prev}" immediate="true"/>&nbsp;
+                    <apex:commandButton value=" Save " action="{!save}"/>
+                    <apex:commandButton value="Save & New" action="{!saveAndNew}" />&nbsp;
+                    <apex:commandLink value="Cancel" action="{!cancel}" immediate="true" />
+                </apex:pageBlockButtons>
+                <div id="opp">
+                    <apex:outputPanel rendered="{!IF(ContactSource == 'new', true, false)}">
+                        <apex:pageBlockSection collapsible="false" title="Lead Information">
+                            <apex:repeat value="{!$ObjectType.Lead.FieldSets.Create_a_Lead}" var="f">
+                                <apex:inputField value="{!CurrentLead[f]}" required="{!OR(f.Required, f.DBRequired)}"/>
+                            </apex:repeat>
+                            <apex:pageBlockSectionItem >
+                                <apex:outputLabel value="Lead Status"/>
+                                <apex:outputPanel >
+                                    <div class="requiredInput">
+                                        <div class="requiredBlock"></div>
+                                        <apex:selectList value="{!LeadConvertStatus}" size="1" required="true">
+                                            <apex:selectOptions value="{!LeadStatusOptions}"/>
+                                        </apex:selectList>
+                                    </div>
+                                </apex:outputPanel>
+                            </apex:pageBlockSectionItem>
+                        </apex:pageBlockSection>
+                    </apex:outputPanel>
+                    <apex:pageBlockSection collapsible="false" title="Opportunity Information">
+                        <apex:repeat value="{!$ObjectType.Opportunity.FieldSets.Create_a_Opportunity}" var="f">
+                            <apex:inputField value="{!CurrentOpportunity[f]}" required="{!OR(f.Required, f.DBRequired)}"/>
+                        </apex:repeat>
+                    </apex:pageBlockSection>
+                </div>
+            </apex:pageBlock>
+        </apex:form>
+    </apex:outputPanel>
+</apex:page>

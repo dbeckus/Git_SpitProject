@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Asset Summary</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Summary of Asset</value>
+    </caseValues>
+    <fields>
+        <label><!-- Asset --></label>
+        <name>Asset__c</name>
+        <relationshipLabel><!-- Summary of Asset --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- LAN Total - 15 days --></label>
+        <name>LAN_Total_15_days__c</name>
+    </fields>
+    <fields>
+        <label><!-- Last Contact --></label>
+        <name>Last_Contact__c</name>
+    </fields>
+    <fields>
+        <label><!-- Platform --></label>
+        <name>Platform__c</name>
+    </fields>
+    <fields>
+        <label><!-- Reduction Total - 15 days --></label>
+        <name>Reduction_Total_15_days__c</name>
+    </fields>
+    <fields>
+        <label><!-- Release --></label>
+        <name>Release__c</name>
+    </fields>
+    <fields>
+        <label><!-- WAN Total - 15 days --></label>
+        <name>WAN_Total_15_days__c</name>
+    </fields>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

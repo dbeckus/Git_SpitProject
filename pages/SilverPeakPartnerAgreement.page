@@ -1,0 +1,8 @@
+<apex:page showHeader="false">
+    <style>
+        .wrap{margin:0 auto;width:960px;} 
+    </style>
+    <div  style="width: 90%;text-align:justify;" align = "center" class = "wrap">
+<br/>By submitting this application, the applicant is requesting Silver Peak's approval to procure Silver Peak products from a local Silver Peak authorized distributor.  The applicant acknowledges that Silver Peak may grant or withhold this approval in its sole discretion and, once granted, may terminate its approval for any reason upon thirty (30) days advance written notice.  Upon termination of Silver Peak's approval, the applicant will no longer be authorized to procure Silver Peak products and will immediately cease use of all Silver Peak material, including but not limited to Silver Peak products, marketing material and Silver Peak trademarks.
+</div>
+</apex:page>

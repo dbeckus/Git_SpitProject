@@ -1,0 +1,12 @@
+<apex:page controller="CheckInEmailSendingController" showHeader="false" sidebar="false">
+    <apex:form >
+        <apex:pageMessages escape="false" />
+        <div style="margin:10px 20px;">
+            <div style="font-size:14px; margin-bottom:10px">
+                Please enter email addresses to send this list to (one per line): 
+            </div>
+            <apex:inputTextarea value="{!emailAddresses}" rows="10" style="width:300px"/>
+        </div>
+        <apex:commandButton value=" Send " action="{!send}" style="margin-left:280px;" />
+    </apex:form>
+</apex:page>

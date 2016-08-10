@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<HomePageComponent xmlns="http://soap.sforce.com/2006/04/metadata">
+    <body>&lt;BR&gt;
+&lt;DIV style=&quot;TEXT-ALIGN: center; FONT-WEIGHT: bold&quot;&gt;&lt;FONT size=5&gt;Welcome to the Silver Peak Partner Information Site&lt;/FONT&gt;&lt;BR&gt;&lt;/DIV&gt;&lt;BR&gt;&lt;BR&gt;&lt;BR&gt;
+&lt;UL&gt;
+&lt;LI&gt;&lt;FONT size=4&gt;Our &lt;/FONT&gt;&lt;A href=&quot;https://c.na3.visual.force.com/apex/PartnerDocumentListing?sfdc.tabName=01r500000001eua&amp;amp;j_id0%3Aj_id1%3Afcf=00B50000005xvZu&quot;&gt;&lt;FONT size=4&gt;welcome&lt;/FONT&gt;&lt;/A&gt;&lt;FONT size=4&gt; documentation&amp;nbsp; &lt;/FONT&gt;&lt;/LI&gt;&lt;/UL&gt;
+&lt;P&gt;&amp;nbsp;&lt;/P&gt;
+&lt;UL&gt;
+&lt;LI&gt;&lt;A href=&quot;https://na3.salesforce.com/00Q/e&quot;&gt;&lt;FONT size=4&gt;Register&lt;/FONT&gt;&lt;/A&gt;&lt;FONT size=4&gt; a new opportunity (review our registration process &lt;A href=&quot;https://na3.salesforce.com/servlet/servlet.ImageServer?oid=00D300000000byV&amp;amp;id=01550000000X3Rk&quot;&gt;here&lt;/A&gt;)&lt;/FONT&gt;&lt;/LI&gt;&lt;/UL&gt;
+&lt;P&gt;&lt;FONT size=4&gt;&lt;/FONT&gt;&amp;nbsp;&lt;/P&gt;
+&lt;UL&gt;
+&lt;LI&gt;&lt;FONT size=4&gt;Our &lt;/FONT&gt;&lt;A href=&quot;https://c.na3.visual.force.com/apex/PartnerDocumentListing?sfdc.tabName=01r500000001eua&amp;amp;j_id0%3Aj_id1%3Afcf=00B50000005xvYr&quot;&gt;&lt;FONT size=4&gt;selling tools&lt;/FONT&gt;&lt;/A&gt;&lt;FONT size=4&gt; and documentation &lt;/FONT&gt;&lt;/LI&gt;&lt;/UL&gt;
+&lt;P&gt;&lt;FONT size=4&gt;&lt;/FONT&gt;&amp;nbsp;&lt;/P&gt;
+&lt;UL&gt;
+&lt;LI&gt;&lt;FONT size=4&gt;Want more leads? Click &lt;/FONT&gt;&lt;A href=&quot;https://c.na3.visual.force.com/apex/PartnerDocumentListing?sfdc.tabName=01r500000001eua&amp;amp;j_id0%3Aj_id1%3Afcf=00B50000005xvsX&quot;&gt;&lt;FONT size=4&gt;here&lt;/FONT&gt;&lt;/A&gt;&lt;FONT size=4&gt; to learn about participating in our &lt;/FONT&gt;&lt;FONT size=4&gt;&lt;A href=&quot;http://www.silver-peak.com/News/events.htm&quot;&gt;upcoming events&lt;/A&gt;&lt;/FONT&gt;&lt;BR&gt;&lt;/LI&gt;&lt;/UL&gt;
+&lt;DIV&gt;&lt;BR&gt;&lt;/DIV&gt;
+&lt;DIV style=&quot;TEXT-ALIGN: right&quot;&gt;&lt;A href=&quot;mailto:portalsupport@silver-peak.com&quot;&gt;Need help using the portal?&lt;/A&gt;&lt;/DIV&gt;</body>
+    <pageComponentType>htmlArea</pageComponentType>
+    <width>wide</width>
+</HomePageComponent>

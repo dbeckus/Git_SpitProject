@@ -1,0 +1,5 @@
+<apex:component controller="LicenseKeyForVirtualAssetController" access="global">
+{!LicenseKey}
+    <apex:attribute name="assetId" type="String" assignTo="{!AssetId}" description="Id of the asset"/>
+    <apex:attribute name="licenseIndex" type="Integer" assignTo="{!LicenseIndex}" description="index of the license, starting from 0" />
+</apex:component>
