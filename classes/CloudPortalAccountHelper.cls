@@ -3,6 +3,7 @@ public class CloudPortalAccountHelper {
     
     public static string  GetTokenFromPortal()
     {
+        // Added comments
         string endPtUrl;
         HttpRequest request = new HttpRequest();
         request.setMethod('POST');
