@@ -9,7 +9,7 @@ trigger DeleteRMAForApprovedPendRet on Request__c (after update) {
         }
     }
     
-    List<RMA__c> rmaIds = [Select Id from RMA__c where Request__c in:reqIdList];
+    List<RMA__c> rmaIds = [Select Id from RMA__c where Request__c in:reqIdList and Status__c!='Closed'];
     
     if(rmaIds!=null && rmaIds.size()>0)
     {
