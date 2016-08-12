@@ -1,0 +1,6 @@
+<apex:component controller="RMAListComponentController" access="global" layout="none">
+    <apex:attribute name="POCRequestId" description="Id of the POC request" type="Id" assignTo="{!RequestId}" />
+    <apex:repeat value="{!RMAs}" var="rma">
+        {!rma.Name}
+    </apex:repeat>
+</apex:component>

@@ -116,7 +116,7 @@
     </entryCriteria>
     <finalApprovalActions>
         <action>
-            <name>POCExtensionApproved</name>
+            <name>POCExtensionApproved_PendingReturn</name>
             <type>Alert</type>
         </action>
         <action>

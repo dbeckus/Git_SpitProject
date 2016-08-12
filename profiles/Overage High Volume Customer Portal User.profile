@@ -1393,6 +1393,10 @@
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>RMAListComponentController</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>RegisterAccountController</apexClass>
         <enabled>false</enabled>
     </classAccesses>
@@ -1734,6 +1738,10 @@
     </classAccesses>
     <classAccesses>
         <apexClass>TestQuoteEmailReviewHelper</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>TestRMAListComponentController</apexClass>
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>

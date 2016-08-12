@@ -6,6 +6,10 @@
         <description>Eval Approved</description>
         <protected>false</protected>
         <recipients>
+            <field>Tech_Responsible_Email__c</field>
+            <type>email</type>
+        </recipients>
+        <recipients>
             <recipient>prane@silver-peak.com</recipient>
             <type>user</type>
         </recipients>
@@ -42,6 +46,14 @@
         <ccEmails>notifications@silver-peak.com</ccEmails>
         <description>Eval Approved - All Virtual</description>
         <protected>false</protected>
+        <recipients>
+            <field>Tech_Responsible_Email__c</field>
+            <type>email</type>
+        </recipients>
+        <recipients>
+            <recipient>prane@silver-peak.com</recipient>
+            <type>user</type>
+        </recipients>
         <recipients>
             <field>RSM_Manager__c</field>
             <type>userLookup</type>
@@ -174,6 +186,14 @@
         <description>POC Extension Approved</description>
         <protected>false</protected>
         <recipients>
+            <field>POC_Contact__c</field>
+            <type>contactLookup</type>
+        </recipients>
+        <recipients>
+            <field>Tech_Responsible_Email__c</field>
+            <type>email</type>
+        </recipients>
+        <recipients>
             <recipient>prane@silver-peak.com</recipient>
             <type>user</type>
         </recipients>
@@ -204,6 +224,51 @@
         <senderAddress>notifications@silver-peak.com</senderAddress>
         <senderType>OrgWideEmailAddress</senderType>
         <template>POC/Extension_Approval</template>
+    </alerts>
+    <alerts>
+        <fullName>POCExtensionApproved_PendingReturn</fullName>
+        <ccEmails>notifications@silver-peak.com</ccEmails>
+        <description>POC Extension Approved Pending Return</description>
+        <protected>false</protected>
+        <recipients>
+            <field>POC_Contact__c</field>
+            <type>contactLookup</type>
+        </recipients>
+        <recipients>
+            <field>Tech_Responsible_Email__c</field>
+            <type>email</type>
+        </recipients>
+        <recipients>
+            <recipient>prane@silver-peak.com</recipient>
+            <type>user</type>
+        </recipients>
+        <recipients>
+            <field>RSM_Manager__c</field>
+            <type>userLookup</type>
+        </recipients>
+        <recipients>
+            <field>RSM_VP_Sales__c</field>
+            <type>userLookup</type>
+        </recipients>
+        <recipients>
+            <field>RSM__c</field>
+            <type>userLookup</type>
+        </recipients>
+        <recipients>
+            <field>SE_Director__c</field>
+            <type>userLookup</type>
+        </recipients>
+        <recipients>
+            <field>SE_Manager__c</field>
+            <type>userLookup</type>
+        </recipients>
+        <recipients>
+            <field>SE__c</field>
+            <type>userLookup</type>
+        </recipients>
+        <senderAddress>notifications@silver-peak.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>POC/Extension_Approval_Pending_Return</template>
     </alerts>
     <alerts>
         <fullName>POCExtensionDenied</fullName>

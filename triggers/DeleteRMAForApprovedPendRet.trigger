@@ -9,21 +9,24 @@ trigger DeleteRMAForApprovedPendRet on Request__c (after update) {
         }
     }
     
-    List<RMA__c> rmaIds = [Select Id from RMA__c where Request__c in:reqIdList and Status__c!='Closed'];
-    
-    if(rmaIds!=null && rmaIds.size()>0)
+    if(reqIdList.size()>0)
     {
-        List<Asset> lstAsset=[Select Id from Asset where Id in (Select Asset__c from RMA_Item__c where RMA__c in: rmaIds)];
-        if(lstAsset!=null && lstAsset.size()>0)
+        List<RMA__c> rmaIds = [Select Id from RMA__c where Request__c in:reqIdList and Status__c!='Closed'];
+        if(rmaIds!=null && rmaIds.size()>0)
         {
-            for(Asset item: lstAsset)
+            List<Asset> lstAsset=[Select Id from Asset where Id in (Select Asset__c from RMA_Item__c where RMA__c in: rmaIds)];
+            if(lstAsset!=null && lstAsset.size()>0)
             {
-                item.Status='Customer Evaluation';
+                for(Asset item: lstAsset)
+                {
+                    item.Status='Customer Evaluation';
+                }
+                
+                update lstAsset;
             }
             
-            update lstAsset;
+            delete rmaIds;
         }
-        
-        delete rmaIds;
     }
+    
 }
