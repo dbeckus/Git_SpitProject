@@ -2903,6 +2903,19 @@ NOT(ISBLANK(TEXT( PhysicalProduct1__c )))
         <errorMessage>Both the RSM and Technically Responsible must review and approve this request before it can be submited for approvals</errorMessage>
     </validationRules>
     <validationRules>
+        <fullName>Dont_Allow_ExpInt_Shipping_AprvdToShip</fullName>
+        <active>true</active>
+        <errorConditionFormula>AND(
+ISPICKVAL(Status__c,&quot;Approved to Ship&quot;),
+OR(
+ISCHANGED(  Expedited_Shipping__c ),
+ISCHANGED( International_Shipping__c ),
+ISCHANGED(  Number_of_Appliances__c )
+)
+)</errorConditionFormula>
+        <errorMessage>You cannot add appliances or change the expedited shipping or international shipping after the POC is approved to Ship.</errorMessage>
+    </validationRules>
+    <validationRules>
         <fullName>ECSP_Poc_cant_be_created_for_non_servPr</fullName>
         <active>true</active>
         <errorConditionFormula>OR(

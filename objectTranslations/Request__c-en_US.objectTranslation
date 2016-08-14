@@ -965,6 +965,10 @@
         <name>Cant_submit_until_approved</name>
     </validationRules>
     <validationRules>
+        <errorMessage><!-- You cannot add appliances or change the expedited shipping or international shipping after the POC is approved to Ship. --></errorMessage>
+        <name>Dont_Allow_ExpInt_Shipping_AprvdToShip</name>
+    </validationRules>
+    <validationRules>
         <errorMessage><!-- The selected POC Type is not valid for this account. Service Provider is valid for ECSP Enabled Service Provider accounts . Edge Connect and Wan OP is valid for non-Service Provider accounts. --></errorMessage>
         <name>ECSP_Poc_cant_be_created_for_non_servPr</name>
     </validationRules>

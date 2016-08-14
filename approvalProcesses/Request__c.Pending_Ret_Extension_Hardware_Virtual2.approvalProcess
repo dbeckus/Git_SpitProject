@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ApprovalProcess xmlns="http://soap.sforce.com/2006/04/metadata">
-    <active>true</active>
+    <active>false</active>
     <allowRecall>true</allowRecall>
     <allowedSubmitters>
         <submitter>CountryManagerLAT</submitter>
@@ -54,7 +54,7 @@
         <field>Opportunity__c</field>
     </approvalPageFields>
     <approvalStep>
-        <allowDelegate>false</allowDelegate>
+        <allowDelegate>true</allowDelegate>
         <assignedApprover>
             <approver>
                 <name>SE_Manager__c</name>
@@ -62,8 +62,8 @@
             </approver>
             <whenMultipleApprovers>FirstResponse</whenMultipleApprovers>
         </assignedApprover>
-        <label>Send to next SE Manager</label>
-        <name>Send_to_next_SE_Manager</name>
+        <label>Send to next approver SE Manager</label>
+        <name>Send_to_next_approver_SE_Manager</name>
     </approvalStep>
     <approvalStep>
         <allowDelegate>false</allowDelegate>
@@ -74,8 +74,8 @@
             </approver>
             <whenMultipleApprovers>FirstResponse</whenMultipleApprovers>
         </assignedApprover>
-        <label>Send to Regional Sales Director</label>
-        <name>Send_to_Regional_Sales_Director</name>
+        <label>Send to Sales Director</label>
+        <name>Send_to_Sales_Director</name>
         <rejectBehavior>
             <type>RejectRequest</type>
         </rejectBehavior>
@@ -89,34 +89,20 @@
             </approver>
             <whenMultipleApprovers>FirstResponse</whenMultipleApprovers>
         </assignedApprover>
-        <entryCriteria>
-            <booleanFilter>1 OR 2 OR 3</booleanFilter>
-            <criteriaItems>
-                <field>Request__c.International_Shipping__c</field>
-                <operation>equals</operation>
-                <value>Yes</value>
-            </criteriaItems>
-            <criteriaItems>
-                <field>Request__c.Expedited_Shipping__c</field>
-                <operation>equals</operation>
-                <value>Yes</value>
-            </criteriaItems>
-            <criteriaItems>
-                <field>Request__c.Number_of_Appliances__c</field>
-                <operation>greaterThan</operation>
-                <value>2</value>
-            </criteriaItems>
-        </entryCriteria>
-        <label>Send to Vp Of Sales</label>
-        <name>Send_to_Vp_Of_Sales</name>
+        <label>Send to VP Of Sales</label>
+        <name>Send_to_VP_Of_Sales</name>
         <rejectBehavior>
             <type>RejectRequest</type>
         </rejectBehavior>
     </approvalStep>
-    <emailTemplate>Support/New_Evaluation_Request_VF</emailTemplate>
+    <emailTemplate>POC/Extension_Requested</emailTemplate>
     <enableMobileDeviceAccess>false</enableMobileDeviceAccess>
     <entryCriteria>
-        <booleanFilter>1 AND 2 AND 3 AND 4 AND 5 AND 6</booleanFilter>
+        <criteriaItems>
+            <field>Request__c.Type__c</field>
+            <operation>equals</operation>
+            <value>Evaluation</value>
+        </criteriaItems>
         <criteriaItems>
             <field>Request__c.IsAllVirtual__c</field>
             <operation>equals</operation>
@@ -125,52 +111,32 @@
         <criteriaItems>
             <field>Request__c.Status__c</field>
             <operation>equals</operation>
-            <value>Open</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>Request__c.Type__c</field>
-            <operation>equals</operation>
-            <value>Evaluation</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>Request__c.RSM_Approved__c</field>
-            <operation>equals</operation>
-            <value>True</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>Request__c.TR_Approved__c</field>
-            <operation>equals</operation>
-            <value>True</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>Request__c.Submission_Condition_Satisfied__c</field>
-            <operation>equals</operation>
-            <value>True</value>
+            <value>Pending Return,Pending Return - Invoiced</value>
         </criteriaItems>
     </entryCriteria>
     <finalApprovalActions>
         <action>
-            <name>EvalApproved</name>
+            <name>POCExtensionApproved_PendingReturn</name>
             <type>Alert</type>
         </action>
         <action>
-            <name>SetStatusApproved</name>
+            <name>SetStatusExtended</name>
+            <type>FieldUpdate</type>
+        </action>
+        <action>
+            <name>Update_Target_End_Date</name>
             <type>FieldUpdate</type>
         </action>
     </finalApprovalActions>
     <finalApprovalRecordLock>false</finalApprovalRecordLock>
     <finalRejectionActions>
         <action>
-            <name>NotifyRequestorofevaldenied</name>
+            <name>POCExtensionDenied</name>
             <type>Alert</type>
-        </action>
-        <action>
-            <name>SetStatusOpen</name>
-            <type>FieldUpdate</type>
         </action>
     </finalRejectionActions>
     <finalRejectionRecordLock>false</finalRejectionRecordLock>
-    <label>Open Virtual Hardware</label>
+    <label>Pending Ret Extension Hardware Virtual2</label>
     <nextAutomatedApprover>
         <useApproverFieldOfRecordOwner>false</useApproverFieldOfRecordOwner>
         <userHierarchyField>Manager</userHierarchyField>

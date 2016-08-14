@@ -84,6 +84,21 @@
         <allowDelegate>true</allowDelegate>
         <assignedApprover>
             <approver>
+                <name>SE_Director__c</name>
+                <type>relatedUserField</type>
+            </approver>
+            <whenMultipleApprovers>FirstResponse</whenMultipleApprovers>
+        </assignedApprover>
+        <label>Send to SE Director</label>
+        <name>Send_to_SE_Director</name>
+        <rejectBehavior>
+            <type>RejectRequest</type>
+        </rejectBehavior>
+    </approvalStep>
+    <approvalStep>
+        <allowDelegate>true</allowDelegate>
+        <assignedApprover>
+            <approver>
                 <name>RSM_VP_Sales__c</name>
                 <type>relatedUserField</type>
             </approver>
