@@ -1,7 +1,9 @@
 /*
  * Controller of VF page BecomePartner
+ *
  *@changelog
  *21APR2016 - removed commented email domains used validation and updated error messaging
+ *10JUN2016: Andy Getz - set account partner type to resellers and set GEO Supported to selection from region field
  */
 public class RegisterAccountController 
 {
@@ -54,6 +56,7 @@ public class RegisterAccountController
         if(!String.isBlank(ppapa.Region__c))
         {
             acct.Region__c = (String) ppapa.Region__c;
+            acct.GEO_Supported__c = (String) ppapa.Region__c;
         }
         if(!String.isBlank(acct.Region__c))
         {
@@ -79,6 +82,7 @@ public class RegisterAccountController
         //setting account field for email template use
         //acct.Full_Name_Primary_Partner_Contact__c = primaryContact.FirstName + ' ' + primaryContact.LastName;
         acct.Type = 'Partner';
+        acct.Partner_Type__c = 'Reseller';
         acct.Partner_Application_Status__c = 'Pending';
         acct.RecordTypeId = getRecordTypeId('Resellers');
 
@@ -216,8 +220,8 @@ public class RegisterAccountController
                 }
                 if(similarDomains.contains(acct.Email_Domain_Used__c))
                 {
-                    errorMessage += ';:Email Domains Used Duplicate domain found';
-                    acct.Email_Domain_Used__c.addError('Duplicate domain found. If your company is an existing Silver Peak partner, please request a login.');
+                    errorMessage += ';:Email Domains Used - Please use the domain of your business email address. If you’ve reached this message in error, please email us at channel@silver-peak.com.';
+                    acct.Email_Domain_Used__c.addError('Please use the domain of your business email address. If you’ve reached this message in error, please email us at channel@silver-peak.com.');
                     isPass = false;
                 }
             }

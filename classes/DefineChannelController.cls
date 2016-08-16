@@ -460,6 +460,7 @@ public without sharing class DefineChannelController
         Account acc = new Account(Name='acme');
         insert acc;
         Opportunity opp = new Opportunity(Name='acme', StageName='Discovery', CloseDate=Date.today(), AccountId=acc.Id, Pricebook2id=priceBook.Id, Amount=1);
+        opp.Technical_Responsible__c= USerInfo.getUserId();
         insert opp;
         Account partnerAcc = new Account(Name='acme', Reseller_Agreement__c=true);
         insert partnerAcc;

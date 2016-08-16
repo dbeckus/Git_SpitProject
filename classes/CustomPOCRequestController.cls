@@ -314,6 +314,13 @@ global with sharing class CustomPOCRequestController
         {
             acctId=lstOpp[0].Account.Id;
         }
+       /* List<string> lstPocTypes= new List<String>();
+        lstPocTypes.add(pocType);
+        if(pocType=='Service Provider')
+        {
+            lstPocTypes.add('EdgeConnect');
+        }
+       */
         List<Request__c> lstRequest=[Select Id,VirtualProduct1__c from Request__c where POC_Type__c =:pocType and Opportunity__c in (Select Id from Opportunity where AccountId=:acctId)];
         if(lstRequest!=null && lstRequest.size()>0)
         {

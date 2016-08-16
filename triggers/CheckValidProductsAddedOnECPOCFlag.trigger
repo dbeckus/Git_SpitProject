@@ -114,11 +114,11 @@ trigger CheckValidProductsAddedOnECPOCFlag on Request__c (before update) {
             {
                 if(currRequest.Opportunity__r.Account.ECSP__c)  
                 {
-                    if(requestIds.get(recordId)=='EdgeConnect' || requestIds.get(recordId)=='WAN Op')
+                    if(requestIds.get(recordId)=='WAN Op')
                     {
                         Trigger.New[0].POC_Type__c.addError('You cannot select this POC Type for this account. Please select Service Provider as POC Type.');
                     }
-                    if(requestIds.get(recordId)=='Service Provider' && ((NonECProducts!=null && NonECProducts.size()>0 ) || (ECProducts!=null && ECProducts.size()>0 )))
+                    if(requestIds.get(recordId)=='Service Provider' && NonECProducts!=null && NonECProducts.size()>0 )
                     {
                         Trigger.New[0].POC_Type__c.addError('Service Provider and Enterprise assets cannot be mixed. Please create a new POC.');
                     }

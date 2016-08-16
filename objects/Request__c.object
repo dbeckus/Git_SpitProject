@@ -2923,7 +2923,7 @@ AND
 (
 ISPICKVAL(Opportunity__r.Account.Partner_Type__c,&quot;Service Provider&quot;),
 Opportunity__r.Account.ECSP__c ,
-NOT(ISPICKVAL(POC_Type__c,&quot;Service Provider&quot; ))
+ISPICKVAL(POC_Type__c,&quot;WAN Op&quot; )
 ),
 AND
 (
