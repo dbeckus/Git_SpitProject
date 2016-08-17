@@ -1,0 +1,57 @@
+<apex:page standardController="Request__c" extensions="POCExtensionController" showHeader="false" sidebar="false" >
+    <style type="text/css">
+        .pocLoading {
+        vertical-align: middle;
+        }
+        .pocLoadingText {
+        font-size: 95%;
+        font-weight: bold;
+        color: #666;
+        padding-left: 10px;
+        } 
+    </style>
+    <script type="text/javascript"></script>
+    <apex:sectionHeader title="POC Extension Request">
+        <apex:form >
+            <apex:pageMessages id="pageMsg" escape="false" />
+                <apex:pageblock >
+                    
+                    <b>If the POC is in Pending Return status and contains EdgeConnect, Orchestrator, VX, or VRX software assets you will need to enter a new POC request for new licenses. Hardware assets including EdgeConnect and NX will be extended under the existing POC request.</b><br/>
+                        <br/><br/><br/>
+                        <table>
+                        <tr>
+                        <td width="50%">
+                        <b>Extend To Date:</b> &nbsp;&nbsp;<apex:inputField value="{!POCRequest.Requested_End_Date__c}"/> <br/> <br/><br/>
+                        </td>
+                        </tr>
+                       <tr>
+                        <td>
+                        <b>Why is an extension needed?</b> <apex:inputField value="{!POCRequest.Extension_Justification__c}" style="width:80%"/> <br/> <br/><br/>
+                        </td>
+                        </tr>
+                        </table>
+                        <apex:pageBlockButtons location="Top">
+                        <apex:actionStatus id="btnStatus">
+                        <apex:facet name="start">
+                        <apex:outputPanel >
+                        <img src="/img/loading.gif" alt="Processing..." title="Processing..." width="16" height="16" class="pocLoading"/>
+                        <span class="pocLoading pocLoadingText">Processing...</span>
+                        </apex:outputPanel>
+                        </apex:facet>
+                        <apex:facet name="stop">
+                        <apex:outputPanel >
+                        <apex:commandButton value="Save" action="{!SaveExtension}" reRender="pageMsg,encryptForm" status="btnStatus"/>
+                        <input type="button" value="Cancel" class="btn" onclick="top.close();" />
+                        </apex:outputPanel>
+                        </apex:facet>
+                        </apex:actionStatus>   
+                        </apex:pageBlockButtons>  
+                        </apex:pageblock>
+                        </apex:form>
+                        
+                        </apex:sectionHeader>
+                        
+                        
+                        
+                        
+                        </apex:page>

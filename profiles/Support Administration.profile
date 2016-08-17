@@ -953,6 +953,10 @@
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>POCExtensionController</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>POCRenewalAssetsController</apexClass>
         <enabled>false</enabled>
     </classAccesses>
@@ -1714,6 +1718,10 @@
     </classAccesses>
     <classAccesses>
         <apexClass>TestOpportunityPocStatusBatchJob</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>TestPOCExtensionController</apexClass>
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
@@ -6055,6 +6063,31 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
+        <editable>true</editable>
+        <field>Request__c.CC_List_1__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Request__c.CC_List_2__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Request__c.CC_List_3__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Request__c.CC_List_4__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Request__c.CC_List_5__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>false</editable>
         <field>Request__c.Days_Remaining_to_Expire__c</field>
         <readable>true</readable>
@@ -6177,6 +6210,11 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Request__c.Number_of_Appliances__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Request__c.Number_of_Virtual_Products__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -7930,6 +7968,10 @@
     </pageAccesses>
     <pageAccesses>
         <apexPage>Exception</apexPage>
+        <enabled>false</enabled>
+    </pageAccesses>
+    <pageAccesses>
+        <apexPage>ExtensionRequestPopup</apexPage>
         <enabled>false</enabled>
     </pageAccesses>
     <pageAccesses>

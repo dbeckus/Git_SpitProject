@@ -158,6 +158,56 @@ OR(
         <type>Picklist</type>
     </fields>
     <fields>
+        <fullName>CC_List_1__c</fullName>
+        <externalId>false</externalId>
+        <label>CC List 1</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Email</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>CC_List_2__c</fullName>
+        <externalId>false</externalId>
+        <label>CC List 2</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Email</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>CC_List_3__c</fullName>
+        <externalId>false</externalId>
+        <label>CC List 3</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Email</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>CC_List_4__c</fullName>
+        <externalId>false</externalId>
+        <label>CC List 4</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Email</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>CC_List_5__c</fullName>
+        <externalId>false</externalId>
+        <label>CC List 5</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Email</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
         <fullName>Days_Remaining_to_Expire__c</fullName>
         <externalId>false</externalId>
         <formula>If(Target_End_Date__c &lt; TODAY(), -1,
@@ -680,6 +730,20 @@ NOT(ISBLANK(TEXT( PhysicalProduct1__c )))
         <precision>18</precision>
         <required>false</required>
         <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Number_of_Virtual_Products__c</fullName>
+        <externalId>false</externalId>
+        <formula>VirtualQuantity1__c + VirtualQuantity2__c +VirtualQuantity3__c +VirtualQuantity4__c +VirtualQuantity5__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Number of Virtual Products</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
         <trackHistory>false</trackHistory>
         <trackTrending>false</trackTrending>
         <type>Number</type>
@@ -2910,10 +2974,11 @@ ISPICKVAL(Status__c,&quot;Approved to Ship&quot;),
 OR(
 ISCHANGED(  Expedited_Shipping__c ),
 ISCHANGED( International_Shipping__c ),
-ISCHANGED(  Number_of_Appliances__c )
+ISCHANGED(  Number_of_Appliances__c ),
+ISChanged( Number_of_Virtual_Products__c )
 )
 )</errorConditionFormula>
-        <errorMessage>You cannot add appliances or change the expedited shipping or international shipping after the POC is approved to Ship.</errorMessage>
+        <errorMessage>You cannot add appliances/virtual products or change the expedited shipping or international shipping after the POC is approved to Ship.</errorMessage>
     </validationRules>
     <validationRules>
         <fullName>ECSP_Poc_cant_be_created_for_non_servPr</fullName>
@@ -2945,6 +3010,26 @@ ISPICKVAL( POC_Type__c,&quot;Service Provider&quot; )
         <description>doesn&apos;t allow status to be changed from default of draft</description>
         <errorConditionFormula>AND(  ISNEW() , not(ISPICKVAL( PRIORVALUE( Status__c), &quot;Open&quot; )),  Marketplace_Sourced_Opp__c =0,  IsAllVirtual__c =0)</errorConditionFormula>
         <errorMessage>Request can only be opened in stage &quot;Open&quot;. After RSM and TR approvals are made it can be submitted for approval</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>POCApprovercanbechangedbyOps</fullName>
+        <active>true</active>
+        <errorConditionFormula>AND
+(
+NOT( Trigger_POC_Approvers__c ),
+NOT(ISNEW()),
+OR(
+ISCHANGED( RSM__c ),
+ISCHANGED( RSM_Manager__c ),
+ISCHANGED( RSM_Manager__c ),
+ISCHANGED( SE__c ),
+ISCHANGED( SE_Director__c ),
+ISCHANGED( SE_Manager__c )
+),
+NOT($User.Id ==&apos;00550000001jvSe&apos;),
+NOT($User.Id ==&apos;00550000002rxts&apos;)
+)</errorConditionFormula>
+        <errorMessage>You are not allowed to change POC Approvers.</errorMessage>
     </validationRules>
     <validationRules>
         <fullName>POC_cant_be_created_without_prim_quotes</fullName>
@@ -2991,7 +3076,7 @@ false)</errorConditionFormula>
     </validationRules>
     <validationRules>
         <fullName>Requested_End_Date_cannot_exceed_30_days</fullName>
-        <active>true</active>
+        <active>false</active>
         <errorConditionFormula>OR( 
 ISPICKVAL( POC_Type__c ,&quot;WAN Op&quot;), 
 ISPICKVAL( POC_Type__c ,&quot;EdgeConnect&quot;) 
@@ -3065,6 +3150,16 @@ window.location.reload();</url>
         <openType>onClickJavaScript</openType>
         <protected>false</protected>
         <url>openPopup(&quot;/apex/POCAssetsRenewal?Id={!Request__c.Id}&quot;, &quot;VirtualPOCFulfillment&quot;, 800, 600, &quot;width=800, height=600, toolbar=no, status=no, directories=no, menubar=no,resizable=yes,scrollable=yes&quot;, false);</url>
+    </webLinks>
+    <webLinks>
+        <fullName>Request_Extension</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>Request Extension</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <url>openPopup(&quot;/apex/ExtensionRequestPopUp?Id={!Request__c.Id}&quot;, &quot;ExtensionRequest&quot;, 600, 400, &quot;width=600, height=400, toolbar=no, status=no, directories=no, menubar=no,resizable=yes,scrollable=yes&quot;, false);</url>
     </webLinks>
     <webLinks>
         <fullName>Submit_for_Approval_Custom</fullName>

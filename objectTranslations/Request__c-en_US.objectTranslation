@@ -58,6 +58,26 @@
         </picklistValues>
     </fields>
     <fields>
+        <label><!-- CC List 1 --></label>
+        <name>CC_List_1__c</name>
+    </fields>
+    <fields>
+        <label><!-- CC List 2 --></label>
+        <name>CC_List_2__c</name>
+    </fields>
+    <fields>
+        <label><!-- CC List 3 --></label>
+        <name>CC_List_3__c</name>
+    </fields>
+    <fields>
+        <label><!-- CC List 4 --></label>
+        <name>CC_List_4__c</name>
+    </fields>
+    <fields>
+        <label><!-- CC List 5 --></label>
+        <name>CC_List_5__c</name>
+    </fields>
+    <fields>
         <label><!-- Days Remaining to Expire --></label>
         <name>Days_Remaining_to_Expire__c</name>
     </fields>
@@ -388,6 +408,10 @@
     <fields>
         <label><!-- Number of Appliances --></label>
         <name>Number_of_Appliances__c</name>
+    </fields>
+    <fields>
+        <label><!-- Number of Virtual Products --></label>
+        <name>Number_of_Virtual_Products__c</name>
     </fields>
     <fields>
         <label><!-- OppStage --></label>
@@ -935,12 +959,12 @@
             <section>Approver Section</section>
         </sections>
         <sections>
-            <label><!-- Custom Links --></label>
-            <section>Custom Links</section>
+            <label><!-- CC List --></label>
+            <section>CC List</section>
         </sections>
         <sections>
-            <label><!-- Extension Request --></label>
-            <section>Extension Request</section>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
         </sections>
         <sections>
             <label><!-- Products and Ship To --></label>
@@ -965,7 +989,7 @@
         <name>Cant_submit_until_approved</name>
     </validationRules>
     <validationRules>
-        <errorMessage><!-- You cannot add appliances or change the expedited shipping or international shipping after the POC is approved to Ship. --></errorMessage>
+        <errorMessage><!-- You cannot add appliances/virtual products or change the expedited shipping or international shipping after the POC is approved to Ship. --></errorMessage>
         <name>Dont_Allow_ExpInt_Shipping_AprvdToShip</name>
     </validationRules>
     <validationRules>
@@ -975,6 +999,10 @@
     <validationRules>
         <errorMessage><!-- Request can only be opened in stage &quot;Open&quot;. After RSM and TR approvals are made it can be submitted for approval --></errorMessage>
         <name>Must_Open_as_Draft</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- You are not allowed to change POC Approvers. --></errorMessage>
+        <name>POCApprovercanbechangedbyOps</name>
     </validationRules>
     <validationRules>
         <errorMessage><!-- POC cannot be created for the selected opportunity as there is no primary quote defined. --></errorMessage>
@@ -1015,6 +1043,10 @@
     <webLinks>
         <label><!-- Renew_Virtual_Assets --></label>
         <name>Renew_Virtual_Assets</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- Request_Extension --></label>
+        <name>Request_Extension</name>
     </webLinks>
     <webLinks>
         <label><!-- Submit_for_Approval_Custom --></label>

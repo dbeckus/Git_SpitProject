@@ -3,7 +3,6 @@
     <customButtons>Patch_Lock_Unlock</customButtons>
     <customButtons>Patch_Override</customButtons>
     <excludeButtons>DataDotComClean</excludeButtons>
-    <excludeButtons>Submit</excludeButtons>
     <layoutSections>
         <customLabel>true</customLabel>
         <detailHeading>false</detailHeading>

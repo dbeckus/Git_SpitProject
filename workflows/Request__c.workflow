@@ -6,7 +6,23 @@
         <description>Eval Approved</description>
         <protected>false</protected>
         <recipients>
-            <field>Tech_Responsible_Email__c</field>
+            <field>CC_List_1__c</field>
+            <type>email</type>
+        </recipients>
+        <recipients>
+            <field>CC_List_2__c</field>
+            <type>email</type>
+        </recipients>
+        <recipients>
+            <field>CC_List_3__c</field>
+            <type>email</type>
+        </recipients>
+        <recipients>
+            <field>CC_List_4__c</field>
+            <type>email</type>
+        </recipients>
+        <recipients>
+            <field>CC_List_5__c</field>
             <type>email</type>
         </recipients>
         <recipients>
@@ -47,7 +63,23 @@
         <description>Eval Approved - All Virtual</description>
         <protected>false</protected>
         <recipients>
-            <field>Tech_Responsible_Email__c</field>
+            <field>CC_List_1__c</field>
+            <type>email</type>
+        </recipients>
+        <recipients>
+            <field>CC_List_2__c</field>
+            <type>email</type>
+        </recipients>
+        <recipients>
+            <field>CC_List_3__c</field>
+            <type>email</type>
+        </recipients>
+        <recipients>
+            <field>CC_List_4__c</field>
+            <type>email</type>
+        </recipients>
+        <recipients>
+            <field>CC_List_5__c</field>
             <type>email</type>
         </recipients>
         <recipients>
@@ -149,6 +181,26 @@
         <description>Notify Requestor of eval denied</description>
         <protected>false</protected>
         <recipients>
+            <field>CC_List_1__c</field>
+            <type>email</type>
+        </recipients>
+        <recipients>
+            <field>CC_List_2__c</field>
+            <type>email</type>
+        </recipients>
+        <recipients>
+            <field>CC_List_3__c</field>
+            <type>email</type>
+        </recipients>
+        <recipients>
+            <field>CC_List_4__c</field>
+            <type>email</type>
+        </recipients>
+        <recipients>
+            <field>CC_List_5__c</field>
+            <type>email</type>
+        </recipients>
+        <recipients>
             <recipient>prane@silver-peak.com</recipient>
             <type>user</type>
         </recipients>
@@ -190,7 +242,23 @@
             <type>contactLookup</type>
         </recipients>
         <recipients>
-            <field>Tech_Responsible_Email__c</field>
+            <field>CC_List_1__c</field>
+            <type>email</type>
+        </recipients>
+        <recipients>
+            <field>CC_List_2__c</field>
+            <type>email</type>
+        </recipients>
+        <recipients>
+            <field>CC_List_3__c</field>
+            <type>email</type>
+        </recipients>
+        <recipients>
+            <field>CC_List_4__c</field>
+            <type>email</type>
+        </recipients>
+        <recipients>
+            <field>CC_List_5__c</field>
             <type>email</type>
         </recipients>
         <recipients>
@@ -235,7 +303,23 @@
             <type>contactLookup</type>
         </recipients>
         <recipients>
-            <field>Tech_Responsible_Email__c</field>
+            <field>CC_List_1__c</field>
+            <type>email</type>
+        </recipients>
+        <recipients>
+            <field>CC_List_2__c</field>
+            <type>email</type>
+        </recipients>
+        <recipients>
+            <field>CC_List_3__c</field>
+            <type>email</type>
+        </recipients>
+        <recipients>
+            <field>CC_List_4__c</field>
+            <type>email</type>
+        </recipients>
+        <recipients>
+            <field>CC_List_5__c</field>
             <type>email</type>
         </recipients>
         <recipients>
@@ -275,6 +359,26 @@
         <ccEmails>notifications@silver-peak.com</ccEmails>
         <description>Extension Denied</description>
         <protected>false</protected>
+        <recipients>
+            <field>CC_List_1__c</field>
+            <type>email</type>
+        </recipients>
+        <recipients>
+            <field>CC_List_2__c</field>
+            <type>email</type>
+        </recipients>
+        <recipients>
+            <field>CC_List_3__c</field>
+            <type>email</type>
+        </recipients>
+        <recipients>
+            <field>CC_List_4__c</field>
+            <type>email</type>
+        </recipients>
+        <recipients>
+            <field>CC_List_5__c</field>
+            <type>email</type>
+        </recipients>
         <recipients>
             <field>RSM_Manager__c</field>
             <type>userLookup</type>
@@ -564,6 +668,15 @@ IF(ISBLANK(Target_End_Date__c) , TODAY()+Target_End_Date_Duration__c,Target_End_
 Requested_End_Date__c
 )</formula>
         <name>TargetEndDateadd30</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>UpdateTodayTargetEndDate</fullName>
+        <field>Target_End_Date__c</field>
+        <formula>Today()</formula>
+        <name>UpdateTodayTargetEndDate</name>
         <notifyAssignee>false</notifyAssignee>
         <operation>Formula</operation>
         <protected>false</protected>
@@ -948,6 +1061,22 @@ ISPICKVAL(PRIORVALUE(Status__c),&quot;Approved to Ship&quot;)
         <active>true</active>
         <formula>NOT(ISNULL(Id))</formula>
         <triggerType>onCreateOnly</triggerType>
+    </rules>
+    <rules>
+        <fullName>UpdateTargetEndDatePendingReturn</fullName>
+        <actions>
+            <name>UpdateTodayTargetEndDate</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <formula>AND(
+OR(
+ISPICKVAL( Status__c,&quot;Pending Return&quot; ),
+ISPICKVAL(Status__c,&quot;Pending Return - Invoiced&quot;)
+),
+Target_End_Date__c !=Today()
+)</formula>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
     </rules>
     <rules>
         <fullName>UponShipmentSetTargetEndDate</fullName>

@@ -4,6 +4,7 @@
     <customButtons>Virtual_POC_Fulfillment</customButtons>
     <customButtons>Renew_Virtual_Assets</customButtons>
     <customButtons>Refresh_POC_Approvers</customButtons>
+    <customButtons>Request_Extension</customButtons>
     <excludeButtons>Submit</excludeButtons>
     <layoutSections>
         <customLabel>false</customLabel>
@@ -46,6 +47,10 @@
             <layoutItems>
                 <behavior>Edit</behavior>
                 <field>Trigger_POC_Approvers__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>Number_of_Virtual_Products__c</field>
             </layoutItems>
         </layoutColumns>
         <layoutColumns>
@@ -119,26 +124,32 @@
         <customLabel>true</customLabel>
         <detailHeading>true</detailHeading>
         <editHeading>true</editHeading>
-        <label>Extension Request</label>
+        <label>CC List</label>
         <layoutColumns>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>Requested_End_Date__c</field>
+                <field>CC_List_1__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>Extension_Justification__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Readonly</behavior>
-                <field>Submission_Requirements__c</field>
+                <field>CC_List_3__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>Need_Additional_Approval_For__c</field>
+                <field>CC_List_5__c</field>
             </layoutItems>
         </layoutColumns>
-        <style>OneColumn</style>
+        <layoutColumns>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>CC_List_2__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>CC_List_4__c</field>
+            </layoutItems>
+        </layoutColumns>
+        <style>TwoColumnsLeftToRight</style>
     </layoutSections>
     <layoutSections>
         <customLabel>true</customLabel>

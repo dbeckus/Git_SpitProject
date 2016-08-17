@@ -47,6 +47,10 @@
                 <behavior>Edit</behavior>
                 <field>Trigger_POC_Approvers__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>Number_of_Virtual_Products__c</field>
+            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>
