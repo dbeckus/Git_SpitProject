@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ApprovalProcess xmlns="http://soap.sforce.com/2006/04/metadata">
-    <active>true</active>
+    <active>false</active>
     <allowRecall>true</allowRecall>
     <allowedSubmitters>
         <submitter>CountryManagerLAT</submitter>
@@ -63,9 +63,11 @@
             <whenMultipleApprovers>FirstResponse</whenMultipleApprovers>
         </assignedApprover>
         <entryCriteria>
-            <formula>NOT(Opportunity__r.Account.ECSP__c )</formula>
+            <formula>AND(
+NOT( ISPICKVAL(Opportunity__r.Account.Partner_Type__c,&quot;Service Provider&quot;)),
+NOT(Opportunity__r.Account.ECSP__c ))</formula>
         </entryCriteria>
-        <ifCriteriaNotMet>GotoNextStep</ifCriteriaNotMet>
+        <ifCriteriaNotMet>RejectRecord</ifCriteriaNotMet>
         <label>Send to next approver RSM</label>
         <name>Send_to_next_approver_RSM</name>
     </approvalStep>
@@ -73,7 +75,7 @@
         <allowDelegate>false</allowDelegate>
         <assignedApprover>
             <approver>
-                <name>dbeckus@silver-peak.com</name>
+                <name>ewhite@silver-peak.com</name>
                 <type>user</type>
             </approver>
             <whenMultipleApprovers>FirstResponse</whenMultipleApprovers>
@@ -158,7 +160,7 @@
         </action>
     </finalRejectionActions>
     <finalRejectionRecordLock>false</finalRejectionRecordLock>
-    <label>Open Virtual</label>
+    <label>Open Virtual 1</label>
     <nextAutomatedApprover>
         <useApproverFieldOfRecordOwner>false</useApproverFieldOfRecordOwner>
         <userHierarchyField>Manager</userHierarchyField>

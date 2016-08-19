@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ApprovalProcess xmlns="http://soap.sforce.com/2006/04/metadata">
-    <active>true</active>
+    <active>false</active>
     <allowRecall>true</allowRecall>
     <allowedSubmitters>
         <submitter>CountryManagerLAT</submitter>
@@ -62,55 +62,8 @@
             </approver>
             <whenMultipleApprovers>FirstResponse</whenMultipleApprovers>
         </assignedApprover>
-        <entryCriteria>
-            <formula>NOT(Opportunity__r.Account.ECSP__c )</formula>
-        </entryCriteria>
-        <ifCriteriaNotMet>GotoNextStep</ifCriteriaNotMet>
         <label>Send to next approver RSM</label>
         <name>Send_to_next_approver_RSM</name>
-    </approvalStep>
-    <approvalStep>
-        <allowDelegate>false</allowDelegate>
-        <assignedApprover>
-            <approver>
-                <name>dbeckus@silver-peak.com</name>
-                <type>user</type>
-            </approver>
-            <whenMultipleApprovers>FirstResponse</whenMultipleApprovers>
-        </assignedApprover>
-        <entryCriteria>
-            <formula>AND(
- ISPICKVAL(Opportunity__r.Account.Partner_Type__c,&quot;Service Provider&quot;),
- Opportunity__r.Account.ECSP__c 
-
-
-)</formula>
-        </entryCriteria>
-        <ifCriteriaNotMet>ApproveRecord</ifCriteriaNotMet>
-        <label>Send to Shayne Stubbs for Service Provider</label>
-        <name>Send_to_Shayne_Stubbs_for_Service_Provider</name>
-        <rejectBehavior>
-            <type>RejectRequest</type>
-        </rejectBehavior>
-    </approvalStep>
-    <approvalStep>
-        <allowDelegate>false</allowDelegate>
-        <assignedApprover>
-            <approver>
-                <name>chelfer@silver-peak.com</name>
-                <type>user</type>
-            </approver>
-            <whenMultipleApprovers>FirstResponse</whenMultipleApprovers>
-        </assignedApprover>
-        <entryCriteria>
-            <formula>AND(
- ISPICKVAL(Opportunity__r.Account.Partner_Type__c,&quot;Service Provider&quot;),Opportunity__r.Account.ECSP__c)</formula>
-        </entryCriteria>
-        <label>Send to Chris Helfer</label>
-        <name>Send_to_Chris_Helfer</name>
-        <rejectBehavior>
-            <type>RejectRequest</type>
-        </rejectBehavior>
     </approvalStep>
     <emailTemplate>Support/NewEvaluationRequest</emailTemplate>
     <enableMobileDeviceAccess>false</enableMobileDeviceAccess>
@@ -158,7 +111,7 @@
         </action>
     </finalRejectionActions>
     <finalRejectionRecordLock>false</finalRejectionRecordLock>
-    <label>Open Virtual</label>
+    <label>Open Virtual temp</label>
     <nextAutomatedApprover>
         <useApproverFieldOfRecordOwner>false</useApproverFieldOfRecordOwner>
         <userHierarchyField>Manager</userHierarchyField>

@@ -417,6 +417,26 @@
             <type>contactLookup</type>
         </recipients>
         <recipients>
+            <field>CC_List_1__c</field>
+            <type>email</type>
+        </recipients>
+        <recipients>
+            <field>CC_List_2__c</field>
+            <type>email</type>
+        </recipients>
+        <recipients>
+            <field>CC_List_3__c</field>
+            <type>email</type>
+        </recipients>
+        <recipients>
+            <field>CC_List_4__c</field>
+            <type>email</type>
+        </recipients>
+        <recipients>
+            <field>CC_List_5__c</field>
+            <type>email</type>
+        </recipients>
+        <recipients>
             <recipient>prane@silver-peak.com</recipient>
             <type>user</type>
         </recipients>
@@ -448,6 +468,26 @@
         <recipients>
             <field>POC_Contact__c</field>
             <type>contactLookup</type>
+        </recipients>
+        <recipients>
+            <field>CC_List_1__c</field>
+            <type>email</type>
+        </recipients>
+        <recipients>
+            <field>CC_List_2__c</field>
+            <type>email</type>
+        </recipients>
+        <recipients>
+            <field>CC_List_3__c</field>
+            <type>email</type>
+        </recipients>
+        <recipients>
+            <field>CC_List_4__c</field>
+            <type>email</type>
+        </recipients>
+        <recipients>
+            <field>CC_List_5__c</field>
+            <type>email</type>
         </recipients>
         <recipients>
             <field>RSM_Manager__c</field>

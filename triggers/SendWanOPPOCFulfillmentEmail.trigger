@@ -36,8 +36,8 @@ trigger SendWanOPPOCFulfillmentEmail on Request__c (after update) {
             lstVXModels.add('VX-8000');
             lstVXModels.add('VX-9000');
             string shipConemail=setPocIds.get(pocId);
-          
-            List<Request__c> members = [select Id, SE__r.Email,SE_Manager__r.Email,RSM_Manager__r.Email,RSM__r.Email from Request__c where Id=:pocId];
+            
+            List<Request__c> members = [select Id, SE__r.Email,SE_Manager__r.Email,RSM_Manager__r.Email,RSM__r.Email,CC_List_1__c,CC_List_2__c,CC_List_3__c,CC_List_4__c,CC_List_5__c from Request__c where Id=:pocId];
             
             if(members!=null && members.size()>0)
             {
@@ -57,6 +57,27 @@ trigger SendWanOPPOCFulfillmentEmail on Request__c (after update) {
                 {
                     lstCopyEmail.add(members[0].RSM__r.Email);
                 }
+                if(members[0].CC_List_1__c!=null)
+                {
+                    lstCopyEmail.add(members[0].CC_List_1__c);
+                }
+                if(members[0].CC_List_2__c!=null)
+                {
+                    lstCopyEmail.add(members[0].CC_List_1__c);
+                }
+                if(members[0].CC_List_3__c!=null)
+                {
+                    lstCopyEmail.add(members[0].CC_List_3__c);
+                }
+                if(members[0].CC_List_4__c!=null)
+                {
+                    lstCopyEmail.add(members[0].CC_List_4__c);
+                }
+                if(members[0].CC_List_5__c!=null)
+                {
+                    lstCopyEmail.add(members[0].CC_List_5__c);
+                }
+                
             }
             lstCopyEmail.add('notifications@silver-peak.com');
             lstCopyEmail.add('prane@silver-peak.com');

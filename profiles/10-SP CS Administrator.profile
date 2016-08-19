@@ -209,6 +209,10 @@
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>CaseSharePartnerUserQueryAction</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>CaseSupportEmailHandler</apexClass>
         <enabled>true</enabled>
     </classAccesses>

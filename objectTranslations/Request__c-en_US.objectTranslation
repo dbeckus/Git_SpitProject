@@ -936,12 +936,16 @@
     <layouts>
         <layout>New Request Layout</layout>
         <sections>
-            <label><!-- Custom Links --></label>
-            <section>Custom Links</section>
+            <label><!-- CC List --></label>
+            <section>CC List</section>
         </sections>
         <sections>
-            <label><!-- Extension Request --></label>
-            <section>Extension Request</section>
+            <label><!-- Contact and Comments --></label>
+            <section>Contact and Comments</section>
+        </sections>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
         </sections>
         <sections>
             <label><!-- Products and Ship To --></label>

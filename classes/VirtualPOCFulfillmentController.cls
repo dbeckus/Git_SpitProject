@@ -325,7 +325,7 @@ productName= prd.Name;
         }
         
     }
-     private void SendFulfillmentEmailForServiceProviders()
+    private void SendFulfillmentEmailForServiceProviders()
     {
         
         if(pocRequest!=null && pocRequest.POC_Type__c=='Service Provider')
@@ -368,9 +368,9 @@ productName= prd.Name;
         }
         return emails;
     }
-     private List<String> getPOCRecipients(Id pocId)
+    private List<String> getPOCRecipients(Id pocId)
     {
-        List<Request__c> members = [select Id, SE__r.Email,SE_Manager__r.Email,RSM_Manager__r.Email,RSM__r.Email from Request__c where Id=:pocId];
+        List<Request__c> members = [select Id, SE__r.Email,SE_Manager__r.Email,RSM_Manager__r.Email,RSM__r.Email,CC_List_1__c,CC_List_2__c,CC_List_3__c,CC_List_4__c,CC_List_5__c from Request__c where Id=:pocId];
         List<String> emails = new List<String>();
         if(members!=null && members.size()>0)
         {
@@ -389,6 +389,26 @@ productName= prd.Name;
             if(members[0].RSM__r.Email!=null)
             {
                 emails.add(members[0].RSM__r.Email);
+            }
+            if(members[0].CC_List_1__c!=null)
+            {
+                emails.add(members[0].CC_List_1__c);
+            }
+            if(members[0].CC_List_2__c!=null)
+            {
+                emails.add(members[0].CC_List_1__c);
+            }
+            if(members[0].CC_List_3__c!=null)
+            {
+                emails.add(members[0].CC_List_3__c);
+            }
+            if(members[0].CC_List_4__c!=null)
+            {
+                emails.add(members[0].CC_List_4__c);
+            }
+            if(members[0].CC_List_5__c!=null)
+            {
+                emails.add(members[0].CC_List_5__c);
             }
         }
         

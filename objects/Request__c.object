@@ -3019,12 +3019,12 @@ ISPICKVAL( POC_Type__c,&quot;Service Provider&quot; )
 NOT( Trigger_POC_Approvers__c ),
 NOT(ISNEW()),
 OR(
-ISCHANGED( RSM__c ),
-ISCHANGED( RSM_Manager__c ),
-ISCHANGED( RSM_Manager__c ),
-ISCHANGED( SE__c ),
-ISCHANGED( SE_Director__c ),
-ISCHANGED( SE_Manager__c )
+AND(NOT(ISBLANK(PRIORVALUE(RSM__c))),ISCHANGED( RSM__c )),
+AND(NOT(ISBLANK(PRIORVALUE(RSM_Manager__c))),ISCHANGED( RSM_Manager__c )),
+AND(NOT(ISBLANK(PRIORVALUE(RSM_VP_Sales__c))),ISCHANGED( RSM_VP_Sales__c )),
+AND(NOT(ISBLANK(PRIORVALUE(SE__c))),ISCHANGED( SE__c )),
+AND(NOT(ISBLANK(PRIORVALUE(SE_Director__c))),ISCHANGED( SE_Director__c )),
+AND(NOT(ISBLANK(PRIORVALUE(SE_Manager__c))),ISCHANGED( SE_Manager__c ))
 ),
 NOT($User.Id ==&apos;00550000001jvSe&apos;),
 NOT($User.Id ==&apos;00550000002rxts&apos;)
