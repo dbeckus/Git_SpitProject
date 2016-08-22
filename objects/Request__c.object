@@ -1396,6 +1396,10 @@ NOT(ISBLANK(TEXT( PhysicalProduct1__c )))
                 <fullName>Pending Approvals</fullName>
                 <default>false</default>
             </picklistValues>
+            <picklistValues>
+                <fullName>Shipped- Pending Extension Approval</fullName>
+                <default>false</default>
+            </picklistValues>
             <sorted>false</sorted>
         </picklist>
         <trackHistory>true</trackHistory>
@@ -2363,6 +2367,10 @@ NOT(ISBLANK(TEXT( PhysicalProduct1__c )))
             </values>
             <values>
                 <fullName>Shipped - Extended</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Shipped- Pending Extension Approval</fullName>
                 <default>false</default>
             </values>
         </picklistValues>

@@ -147,6 +147,12 @@ NOT(Opportunity__r.Account.ECSP__c)
         </action>
     </finalRejectionActions>
     <finalRejectionRecordLock>false</finalRejectionRecordLock>
+    <initialSubmissionActions>
+        <action>
+            <name>Update_the_status_to_Pending_Approval</name>
+            <type>FieldUpdate</type>
+        </action>
+    </initialSubmissionActions>
     <label>Pending Ret Extension Hardware Virtual</label>
     <nextAutomatedApprover>
         <useApproverFieldOfRecordOwner>false</useApproverFieldOfRecordOwner>

@@ -749,6 +749,15 @@ Requested_End_Date__c
         <operation>Literal</operation>
         <protected>false</protected>
     </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_the_status_to_Pending_Approval</fullName>
+        <field>Status__c</field>
+        <literalValue>Shipped- Pending Extension Approval</literalValue>
+        <name>Update the status to Pending Approval</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+    </fieldUpdates>
     <rules>
         <fullName>2Scheduled Eval Shipment</fullName>
         <active>false</active>

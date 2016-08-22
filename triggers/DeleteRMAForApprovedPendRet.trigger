@@ -3,7 +3,7 @@ trigger DeleteRMAForApprovedPendRet on Request__c (after update) {
     for(Request__c req: Trigger.New)
     {
         Request__c oldPOC= Trigger.OldMap.get(req.Id);
-        if((oldPoc.Status__c=='Pending Return' || oldPoc.Status__c=='Pending Return - Invoiced')&& req.Status__c=='Shipped - Extended')
+        if(oldPoc.Status__c=='Shipped- Pending Extension Approval' && req.Status__c=='Shipped - Extended')
         {
             reqIdList.add(req.Id);
         }

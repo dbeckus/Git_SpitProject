@@ -117,6 +117,12 @@ ISPICKVAL(Opportunity__r.Account.Partner_Type__c ,&quot;Service Provider&quot;)
         </action>
     </finalRejectionActions>
     <finalRejectionRecordLock>false</finalRejectionRecordLock>
+    <initialSubmissionActions>
+        <action>
+            <name>Update_the_status_to_Pending_Approval</name>
+            <type>FieldUpdate</type>
+        </action>
+    </initialSubmissionActions>
     <label>Pending Ret Extension Hardware Vir SP</label>
     <nextAutomatedApprover>
         <useApproverFieldOfRecordOwner>false</useApproverFieldOfRecordOwner>

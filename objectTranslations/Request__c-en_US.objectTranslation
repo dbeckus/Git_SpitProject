@@ -739,6 +739,10 @@
             <masterLabel>Shipped - Extended</masterLabel>
             <translation><!-- Shipped - Extended --></translation>
         </picklistValues>
+        <picklistValues>
+            <masterLabel>Shipped- Pending Extension Approval</masterLabel>
+            <translation><!-- Shipped- Pending Extension Approval --></translation>
+        </picklistValues>
     </fields>
     <fields>
         <label><!-- Submission Condition Satisfied --></label>
