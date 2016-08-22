@@ -62,79 +62,19 @@
             </approver>
             <whenMultipleApprovers>FirstResponse</whenMultipleApprovers>
         </assignedApprover>
-        <entryCriteria>
-            <formula>NOT(Opportunity__r.Account.ECSP__c )</formula>
-        </entryCriteria>
-        <ifCriteriaNotMet>GotoNextStep</ifCriteriaNotMet>
         <label>Send to next approver RSM</label>
         <name>Send_to_next_approver_RSM</name>
-    </approvalStep>
-    <approvalStep>
-        <allowDelegate>false</allowDelegate>
-        <assignedApprover>
-            <approver>
-                <name>dbeckus@silver-peak.com</name>
-                <type>user</type>
-            </approver>
-            <whenMultipleApprovers>FirstResponse</whenMultipleApprovers>
-        </assignedApprover>
-        <entryCriteria>
-            <formula>AND(
- ISPICKVAL(Opportunity__r.Account.Partner_Type__c,&quot;Service Provider&quot;),
- Opportunity__r.Account.ECSP__c 
-
-
-)</formula>
-        </entryCriteria>
-        <ifCriteriaNotMet>ApproveRecord</ifCriteriaNotMet>
-        <label>Send to Shayne Stubbs for Service Provider</label>
-        <name>Send_to_Shayne_Stubbs_for_Service_Provider</name>
-        <rejectBehavior>
-            <type>RejectRequest</type>
-        </rejectBehavior>
-    </approvalStep>
-    <approvalStep>
-        <allowDelegate>false</allowDelegate>
-        <assignedApprover>
-            <approver>
-                <name>chelfer@silver-peak.com</name>
-                <type>user</type>
-            </approver>
-            <whenMultipleApprovers>FirstResponse</whenMultipleApprovers>
-        </assignedApprover>
-        <entryCriteria>
-            <formula>AND(
- ISPICKVAL(Opportunity__r.Account.Partner_Type__c,&quot;Service Provider&quot;),Opportunity__r.Account.ECSP__c)</formula>
-        </entryCriteria>
-        <label>Send to Chris Helfer</label>
-        <name>Send_to_Chris_Helfer</name>
-        <rejectBehavior>
-            <type>RejectRequest</type>
-        </rejectBehavior>
     </approvalStep>
     <emailTemplate>Support/NewEvaluationRequest</emailTemplate>
     <enableMobileDeviceAccess>false</enableMobileDeviceAccess>
     <entryCriteria>
-        <criteriaItems>
-            <field>Request__c.IsAllVirtual__c</field>
-            <operation>equals</operation>
-            <value>1</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>Request__c.Status__c</field>
-            <operation>equals</operation>
-            <value>Open</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>Request__c.Type__c</field>
-            <operation>equals</operation>
-            <value>Evaluation</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>Request__c.TR_Approved__c</field>
-            <operation>equals</operation>
-            <value>True</value>
-        </criteriaItems>
+        <formula>AND(
+ IsAllVirtual__c =1,
+ISPICKVAL(Status__c,&quot;Open&quot;),
+ISPICKVAL(Type__c,&quot;Evaluation&quot;),
+ TR_Approved__c ,
+NOT(Opportunity__r.Account.ECSP__c )
+)</formula>
     </entryCriteria>
     <finalApprovalActions>
         <action>

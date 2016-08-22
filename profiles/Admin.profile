@@ -1777,6 +1777,10 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>TestShareCaseWithPartnerManager</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>TestSubscriptionExpirationJobDate</apexClass>
         <enabled>true</enabled>
     </classAccesses>

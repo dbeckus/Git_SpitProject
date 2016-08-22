@@ -87,7 +87,8 @@
 ISPICKVAL( Type__c ,&apos;Evaluation&apos;), 
 ISPICKVAL( Status__c , &apos;Shipped - Extended&apos;),
 len( Extension_Justification__c )&gt;0 ,
-IsAllVirtual__c=0
+IsAllVirtual__c=0,
+NOT(Opportunity__r.Account.ECSP__c )
 )</formula>
     </entryCriteria>
     <finalApprovalActions>

@@ -62,11 +62,11 @@
             </approver>
             <whenMultipleApprovers>FirstResponse</whenMultipleApprovers>
         </assignedApprover>
-        <label>Send to next approver SE Manager</label>
-        <name>Send_to_next_approver_SE_Manager</name>
+        <label>Send to SE Manager</label>
+        <name>Send_to_SE_Manager</name>
     </approvalStep>
     <approvalStep>
-        <allowDelegate>false</allowDelegate>
+        <allowDelegate>true</allowDelegate>
         <assignedApprover>
             <approver>
                 <name>RSM_Manager__c</name>
@@ -113,21 +113,17 @@
     <emailTemplate>POC/Extension_Requested</emailTemplate>
     <enableMobileDeviceAccess>false</enableMobileDeviceAccess>
     <entryCriteria>
-        <criteriaItems>
-            <field>Request__c.Type__c</field>
-            <operation>equals</operation>
-            <value>Evaluation</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>Request__c.IsAllVirtual__c</field>
-            <operation>equals</operation>
-            <value>0</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>Request__c.Status__c</field>
-            <operation>equals</operation>
-            <value>Pending Return,Pending Return - Invoiced</value>
-        </criteriaItems>
+        <formula>AND
+(
+ISPICKVAL(Type__c,&quot;Evaluation&quot;),
+IsAllVirtual__c =0,
+OR(
+ISPICKVAL(Status__c,&quot;Pending Return&quot;),
+ISPICKVAL(Status__c,&quot;Pending Return - Invoiced&quot;)
+),
+NOT(Opportunity__r.Account.ECSP__c)
+
+)</formula>
     </entryCriteria>
     <finalApprovalActions>
         <action>

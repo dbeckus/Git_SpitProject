@@ -116,37 +116,15 @@
     <emailTemplate>Support/New_Evaluation_Request_VF</emailTemplate>
     <enableMobileDeviceAccess>false</enableMobileDeviceAccess>
     <entryCriteria>
-        <booleanFilter>1 AND 2 AND 3 AND 4 AND 5 AND 6</booleanFilter>
-        <criteriaItems>
-            <field>Request__c.IsAllVirtual__c</field>
-            <operation>equals</operation>
-            <value>0</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>Request__c.Status__c</field>
-            <operation>equals</operation>
-            <value>Open</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>Request__c.Type__c</field>
-            <operation>equals</operation>
-            <value>Evaluation</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>Request__c.RSM_Approved__c</field>
-            <operation>equals</operation>
-            <value>True</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>Request__c.TR_Approved__c</field>
-            <operation>equals</operation>
-            <value>True</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>Request__c.Submission_Condition_Satisfied__c</field>
-            <operation>equals</operation>
-            <value>True</value>
-        </criteriaItems>
+        <formula>AND(
+ IsAllVirtual__c =0,
+ ISPICKVAL(Status__c,&quot;Open&quot;),
+ISPICKVAL(Type__c,&quot;Evaluation&quot;),
+ RSM_Approved__c , TR_Approved__c ,
+ Submission_Condition_Satisfied__c ,
+NOT(Opportunity__r.Account.ECSP__c )
+
+)</formula>
     </entryCriteria>
     <finalApprovalActions>
         <action>
