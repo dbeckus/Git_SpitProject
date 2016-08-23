@@ -1496,7 +1496,11 @@ NOT(ISBLANK(TEXT( PhysicalProduct1__c )))
     <fields>
         <fullName>Target_End_Date_Duration__c</fullName>
         <externalId>false</externalId>
-        <formula>IF(ISPICKVAL(POC_Type__c,&quot;Service Provider&quot;),90,10)</formula>
+        <formula>IF( 
+AND(Opportunity__r.Account.ECSP__c, 
+ISPICKVAL( Opportunity__r.Account.Partner_Type__c,&quot;Service Provider&quot;) 
+), 
+90,10)</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>Target End Date Duration</label>
         <precision>18</precision>
