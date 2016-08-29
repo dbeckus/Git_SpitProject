@@ -1,6 +1,6 @@
 /*
- * Controller of page SelfRegister, SelfRegisterCase
- */
+* Controller of page SelfRegister, SelfRegisterCase
+*/
 public class SelfRegisterController 
 {
     public SelfRegisterController()
@@ -44,7 +44,8 @@ public class SelfRegisterController
                 else if(contact == null && asset != null)
                 {
                     contact = createContact(asset.AccountId);
-                    grantTheContact(contact);
+                    SendNotificationEmailToShipmentTeam(contact);
+                    //grantTheContact(contact);
                 }
                 else if(contact != null && asset == null)
                 {
@@ -66,7 +67,8 @@ public class SelfRegisterController
         {
             try
             {
-                grantTheContact(contact);
+                //grantTheContact(contact);
+                SendNotificationEmailToShipmentTeam(contact);
                 ApexPages.addMessage(new ApexPages.Message(ApexPages.Severity.Info, 'Registration succeeded.'));
                 Succeeded = true;
             }
@@ -127,7 +129,41 @@ public class SelfRegisterController
             return null;
         }
     }
+    private static boolean SendNotificationEmailToShipmentTeam(Contact contactInfo)
+    {
+        if(contactInfo!=null)
+        {
+            Contact result=[Select Id, FirstName,LastName,Account.Name from Contact where Id=:contactInfo.Id];
+            Messaging.SingleEmailMessage mail = new Messaging.SingleEmailMessage();
+            mail.setSubject('Action required: Request Support Access Check Self Registration box.');
+            string datastring='Please grant customer portal access to this contact: ' + result.firstName+' '+ result.LastName +' on this account: '+ result.Account.Name;
+            mail.setPlainTextBody(datastring);
+            mail.setToAddresses(getMailAddresses());
+            mail.setCCAddresses( new String[]{'notifications@silver-peak.com'});
+            Messaging.sendEmail(new Messaging.SingleEmailMessage[] { mail });
+        }
+        return true;
+    }
     
+    private static List<String> getMailAddresses()
+    {
+        List<String> mailList = new List<String>();
+        List<String> mailAddresses = new List<String>(); 
+        
+        Group g = [SELECT (select userOrGroupId from groupMembers) FROM group WHERE name like 'Operations_Only'];
+        for (GroupMember gm : g.groupMembers) 
+        {
+            mailList.add(gm.userOrGroupId);
+        }
+        User[] usr = [SELECT email FROM user WHERE id IN :mailList];
+        for(User u : usr) 
+        {
+            if(u.email!=null)
+            {mailAddresses.add(u.email);}
+            
+        } 
+        return mailAddresses;
+    }
     private void createCase(Contact ct, Asset asset)
     {
         List<RecordType> types = [select Id from RecordType where Name='Incoming Email' and SObjectType='Case' limit 1];
@@ -135,11 +171,11 @@ public class SelfRegisterController
         Id assetId = (asset == null) ? null : asset.Id;
         Case newCase = new Case(Subject=Subject, ContactId=ct.Id, AssetId=assetId, AccountId=ct.AccountId, RecordTypeId=recordTypeId, Status='Qualifying', Type='Incoming Email');
         newCase.Description = 'Request Support Center Access \r\n' +
-                                'Contact Name: ' + FullName + '\r\n' +
-                                'Email: ' + Email + '\r\n' +
-                                'Phone: ' + PhoneNumber + '\r\n' +
-                                'Company: ' + CompanyName + '\r\n' +
-                                'SN: ' + SerialNumber + '\r\n';
+            'Contact Name: ' + FullName + '\r\n' +
+            'Email: ' + Email + '\r\n' +
+            'Phone: ' + PhoneNumber + '\r\n' +
+            'Company: ' + CompanyName + '\r\n' +
+            'SN: ' + SerialNumber + '\r\n';
         insert newCase;
     }
     
@@ -199,7 +235,7 @@ public class SelfRegisterController
         
         SelfRegisterController controller = new SelfRegisterController();
         controller.submit();
-         
+        
         controller.FullName = 'Test Acme';
         controller.Email = 'existing@testacme.com';
         controller.PhoneNumber = '1';

@@ -74,7 +74,7 @@ public class TestAutomateVirtualPOCBatch {
         
     }
     
-    @IsTest(SeeAllData=true) 
+    
     public static void AllowCustomerSelfRegistration()
     {
         //Set<String> customerUserTypes = new Set<String> {'CSPLiteUser', 'PowerPartner', 'PowerCustomerSuccess',   'CustomerSuccess'};
@@ -265,7 +265,7 @@ public class TestAutomateVirtualPOCBatch {
         Request__c outputPOC=[Select Id,Status__c from Request__c where Id=:request.Id ];
         System.assertEquals('Shipped', outputPOC.Status__c);
     }
-    @IsTest(SeeAllData=true) 
+   
     public static void CreatePartnerPortalUser()
     {
         //Set<String> customerUserTypes = new Set<String> {'CSPLiteUser', 'PowerPartner', 'PowerCustomerSuccess',   'CustomerSuccess'};
@@ -405,7 +405,7 @@ public class TestAutomateVirtualPOCBatch {
         
     }
     
-    @IsTest(SeeAllData=true)
+   
     public static void GMS_Fulfillment()
     {
         Set<String> customerUserTypes = new Set<String> {'PowerPartner'};
