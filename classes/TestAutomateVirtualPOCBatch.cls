@@ -1,7 +1,7 @@
 @IsTest
 public class TestAutomateVirtualPOCBatch {
     
-    @IsTest(SeeAllData=true) 
+  
     public static void ValidateCustomerPortalEnabled()
     {
         //Set<String> customerUserTypes = new Set<String> {'CSPLiteUser', 'PowerPartner', 'PowerCustomerSuccess',   'CustomerSuccess'};
@@ -135,7 +135,7 @@ public class TestAutomateVirtualPOCBatch {
         
     }
     
-    @IsTest(SeeAllData=true) 
+    
     public static void CustomerPortalNotEnabled_NotFulfilled()
     {
         //Set<String> customerUserTypes = new Set<String> {'CSPLiteUser', 'PowerPartner', 'PowerCustomerSuccess',   'CustomerSuccess'};
@@ -195,7 +195,7 @@ public class TestAutomateVirtualPOCBatch {
         System.assertEquals(false, updateContact.CanAllowPortalSelfReg);
         
     }
-    @IsTest(SeeAllData=true) 
+
     public static void ValidatePartnerPortalLogic()
     {
         //Set<String> customerUserTypes = new Set<String> {'CSPLiteUser', 'PowerPartner', 'PowerCustomerSuccess',   'CustomerSuccess'};
@@ -275,7 +275,7 @@ public class TestAutomateVirtualPOCBatch {
         Contact contact = new Contact(FirstName = 'AcmeFirstname', LastName = 'AcmeLastname', Phone='123456789', Email = 'acme@acme.com' , accountId=acc.Id);
         insert contact;
         
-       	Profile p = [select Id,name from Profile where Name='13g-SP Partner Community' limit 1];
+        Profile p = [select Id,name from Profile where Name='13g-SP Partner Community' limit 1];
         User partnerUser = new User(
             profileId = p.id, 
             username = 'acme@acme.com.pp', 
@@ -346,7 +346,7 @@ public class TestAutomateVirtualPOCBatch {
         User updateContact=[Select Id from User where ContactId=:contact.Id];
         System.assert(updateContact!=null);
     }
-    @IsTest(SeeAllData=true) 
+  
     public static void PartnerPortalUser_NotEnabled_NotFulfilled()
     {
         //Set<String> customerUserTypes = new Set<String> {'CSPLiteUser', 'PowerPartner', 'PowerCustomerSuccess',   'CustomerSuccess'};
@@ -414,7 +414,7 @@ public class TestAutomateVirtualPOCBatch {
         Contact contact = new Contact(FirstName = 'AcmeFirstname', LastName = 'AcmeLastname', Phone='123456789', Email = 'acme@acme.com' , accountId=acc.Id);
         insert contact;
         
-       	Profile p = [select Id,name from Profile where Name='13g-SP Partner Community' limit 1];
+        Profile p = [select Id,name from Profile where Name='13g-SP Partner Community' limit 1];
         User partnerUser = new User(
             profileId = p.id, 
             username = 'acme@acme.com.pp', 
@@ -492,7 +492,7 @@ public class TestAutomateVirtualPOCBatch {
     
   
     
-    @IsTest(SeeAllData=true)
+   
     public static void Multiple_Fulfillment()
     {
         Set<String> customerUserTypes = new Set<String> {'PowerPartner'};

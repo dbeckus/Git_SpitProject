@@ -1877,6 +1877,10 @@
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>UpdatesOpportunityContactRoleTest</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>ValueGetterController</apexClass>
         <enabled>true</enabled>
     </classAccesses>

@@ -290,7 +290,7 @@ public class ShippingInputFormController
     private void changePOCRequestActualDateAndStatus()
     {
         
-        List<Request__c> requests = [select Actual_Ship_Date__c, Status__c,POC_Type__c,Target_End_Date__c from Request__c where Id = : Shipment.POC_Request__c];
+        List<Request__c> requests = [select Actual_Ship_Date__c, Status__c,POC_Type__c,Target_End_Date__c,Opportunity__r.Account.Partner_Type__c,Opportunity__r.Account.ECSP__c from Request__c where Id = : Shipment.POC_Request__c];
         if(!requests.isEmpty())
         {
             Request__c request = requests[0];
@@ -300,17 +300,18 @@ public class ShippingInputFormController
             }
             if(request.Status__c == 'Open' || request.Status__c == 'Approved to Ship')
             {
-              //  request.Target_End_Date__c = (request.Target_End_Date__c == null) ? Date.today().addDays(60) : request.Target_End_Date__c.addDays(60);
-              if(request.POC_Type__c=='EdgeConnect')
+              if(request.Opportunity__r.Account.Partner_Type__c=='Service Provider' && request.Opportunity__r.Account.ECSP__c)
+              {request.Target_End_Date__c = (request.Target_End_Date__c == null) ? Shipment.Ship_Date__c.addDays(90) : request.Target_End_Date__c.addDays(90);}
+              else if(request.POC_Type__c=='EdgeConnect')
               {request.Target_End_Date__c = (request.Target_End_Date__c == null) ? Shipment.Ship_Date__c.addDays(45) : request.Target_End_Date__c.addDays(45);}
               else
               {request.Target_End_Date__c = (request.Target_End_Date__c == null) ? Shipment.Ship_Date__c.addDays(60) : request.Target_End_Date__c.addDays(60);}
-                request.Status__c = 'Shipped';
+             request.Status__c = 'Shipped';
             }
             
             update requests[0];
            
-           
+            
             
         }
     }

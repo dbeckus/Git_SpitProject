@@ -14,7 +14,7 @@ public with sharing class NewCaseWithAssetController
     {
         get
         {
-            return [select Id, Name, SerialNumber, Model__c from Asset where Status = 'Customer Owned' order by Model__c limit 1000];
+            return [select Id, Name, SerialNumber, Model__c from Asset where Status in('Customer Owned','Customer Subscription Active','Customer Subscription','Customer Evaluation') order by Model__c limit 1000];
         }
     }
 
@@ -22,7 +22,7 @@ public with sharing class NewCaseWithAssetController
     {
         AssetsPageNo = 0;
         AssetsPageSize = 50;
-        Integer rmaCount = [select count() from Asset where Status = 'Customer Owned' limit 1000];
+        Integer rmaCount = [select count() from Asset where Status in('Customer Owned','Customer Subscription Active','Customer Subscription','Customer Evaluation') limit 1000];
         AssetsPageCount = rmaCount / AssetsPageSize;
     }
 
