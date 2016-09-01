@@ -1,7 +1,7 @@
 trigger UpdateWarrantyDatesForEdgeConnect on Asset (after insert,after update) {
     Set<Id> assetIds= new Set<Id>();
     
-    for(Asset toUpdateAsset:[Select Id,Ship_Date__c,Product2Id from Asset where Id in: trigger.NewMap.keyset() and Product2.Product_Category__c ='Appliance' and Product2.Family ='Product' and Product2.Name like 'EC%'])
+    for(Asset toUpdateAsset: Trigger.New)
     {
         if(Trigger.isInsert)
         {
@@ -22,7 +22,7 @@ trigger UpdateWarrantyDatesForEdgeConnect on Asset (after insert,after update) {
     {
         
         List<Asset> finalAssets= new List<Asset>();
-        List<Asset> lstAssets = [Select Id,Ship_Date__c,Warranty_Start_Date__c,Warranty_End_Date__c,Product2.Name from Asset where Id in: assetIds];
+        List<Asset> lstAssets = [Select Id,Ship_Date__c,Warranty_Start_Date__c,Warranty_End_Date__c,Product2.Name from Asset where Id in: assetIds  and Product2.Family ='Product' and Product2.Name like 'EC%'];
         integer yearsCounter=0;
         for(Asset newAsset: lstAssets)
         {

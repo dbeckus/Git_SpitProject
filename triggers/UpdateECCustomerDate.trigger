@@ -26,17 +26,17 @@ trigger UpdateECCustomerDate on Asset (after insert,after update) {
     List<account> lstAccountToUpdate= new List<Account>();
     if(setAcctIds.size()>0)
     {
-        List<Account> lstAccount=[Select Id from Account where Id in:setAcctIds and EC_Customer_Date__c=null];
+        List<Account> lstAccount=[Select Id, (select Id, CreatedDate from Assets where Product2.Name like 'EC%' and Status in('Customer Subscription Active','Customer Owned' ) order by CreatedDate asc LIMIT 1) from Account where Id in:setAcctIds and EC_Customer_Date__c=null];
         if(lstAccount!=null && lstAccount.size()>0)
         {
-            for(Account accId: lstAccount)
+            for(Account acc: lstAccount)
             {
-                List<Asset> lstAsset=[Select Id,CreatedDate from asset where AccountId=:accId.Id and Product2.Name like 'EC%' and Status in('Customer Subscription Active','Customer Owned' ) order by CreatedDate asc LIMIT 1];
+                List<Asset> lstAsset = acc.Assets;
                 if(lstAsset!=null && lstAsset.size()>0)
                 {
-                    Account acc= new Account(Id=accId.Id);
-                    acc.EC_Customer_Date__c=lstAsset[0].CreatedDate;
-                    lstAccountToUpdate.add(acc);
+                    Account newAcc= new Account(Id=acc.Id);
+                    newAcc.EC_Customer_Date__c=lstAsset[0].CreatedDate;
+                    lstAccountToUpdate.add(newAcc);
                 }
             }
         }

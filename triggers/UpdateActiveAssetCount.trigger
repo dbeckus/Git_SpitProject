@@ -47,13 +47,29 @@ trigger UpdateActiveAssetCount on Asset (after insert, after update,after delete
             
         }
     }
-    List<Account> updatingAccounts = new List<Account>();
-    for(Id accId : acctIds)
+    if(acctIds.size() > 0)
     {
-        Integer count = [select count() from Asset where AccountId=:accId and Status in ('Customer Owned','Customer Subscription Active','Customer Subscription')];
-        Account updatingAcc = new Account(Id = accId, Active_Asset_Count__c = count);
-        updatingAccounts.add(updatingAcc);
+        List<Account> updatingAccounts = new List<Account>();
+        List<AggregateResult> result = [select count(Id) c, AccountId a from Asset where AccountId in :acctIds and Status in ('Customer Owned','Customer Subscription Active','Customer Subscription') group by AccountId];
+        for(Id accId : acctIds)
+        {
+            Boolean found = false;
+            for(AggregateResult r : result)
+            {
+                Id resultAccId = (Id)r.get('a');
+                if(resultAccId == accId)
+                {
+                    Decimal assetCount = (Decimal)r.get('c');
+                    updatingAccounts.add(new Account(Id = accId, Active_Asset_Count__c = assetCount));
+                    found = true;
+                    break;
+                }
+            }
+            if(!found) 
+            {
+                updatingAccounts.add(new Account(Id = accId, Active_Asset_Count__c = 0));
+            }
+        }
+        update updatingAccounts;
     }
-    update updatingAccounts;
-
 }

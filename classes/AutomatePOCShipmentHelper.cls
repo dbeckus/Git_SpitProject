@@ -125,6 +125,7 @@ public class AutomatePOCShipmentHelper {
         }
         return false;
     }
+    /*
     public static boolean UpdateSelfCheckRegistration(Id pocContact)
     {
         boolean isSucess=false;
@@ -151,7 +152,7 @@ public class AutomatePOCShipmentHelper {
             
         }
         return isSucess;
-    }
+    }*/
     
     public static Account RetreiveAccount(Id pocContact)
     {
