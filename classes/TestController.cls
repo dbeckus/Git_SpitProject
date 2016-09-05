@@ -4,23 +4,23 @@ public class TestController {
     public PageReference Save()
     {
         string token='';
-        AuthenticateLMSUser();
+        CreateDepartment();
         return null;
     }
     
     private static void AuthenticateLMSUser()
     {
-       /* string SSOKey='a750ad20-34ff-4f05-a292-8a227c323441';
-        string emailAddress='dbeckus@silver-peak.com';
-        string url='https://silverpeaksystems-migration.sandbox.myabsorb.com';
-    
-        
-        string idAndKey = emailAddress+SSOKey;
-        blob salt = EncodingUtil.base64Decode(token);
-        string key=EncodingUtil.base64Encode(Crypto.generateDigest('PBKDF2', Blob.valueOf(idAndKey+salt)));
-        string test=url+'/externallogincallback?id='+emailAddress+'&key='+key;
-     
-       //HttpRequest req= new HttpRequest();*/
+        /* string SSOKey='a750ad20-34ff-4f05-a292-8a227c323441';
+string emailAddress='dbeckus@silver-peak.com';
+string url='https://silverpeaksystems-migration.sandbox.myabsorb.com';
+
+
+string idAndKey = emailAddress+SSOKey;
+blob salt = EncodingUtil.base64Decode(token);
+string key=EncodingUtil.base64Encode(Crypto.generateDigest('PBKDF2', Blob.valueOf(idAndKey+salt)));
+string test=url+'/externallogincallback?id='+emailAddress+'&key='+key;
+
+//HttpRequest req= new HttpRequest();*/
     }
     
     private void GetCourses()
@@ -30,7 +30,53 @@ public class TestController {
         System.debug(obj.Enrollement);
         
     }
+    private void VALidateDepartmentById()
+    {
+        string token=	HPartnerPortalSSOStub.getHttpToken();
+        
+        System.debug(HPartnerPortalSSOStub.validateDepartmentById('18a9be99-1089-468d-9099-25701197d562',token));
+        
+    }
+    private void VALidateDepartmentByName()
+    {
+        string token=	HPartnerPortalSSOStub.getHttpToken();
+        HPartnerPortalGetDepartmentsApi obj=HPartnerPortalSSOStub.validateDepartmentByName('Beckus and Associates',token);
+        System.debug(obj);
+        
+    }
     
+     private void CreateLearner()
+    {
+        string token=	HPartnerPortalSSOStub.getHttpToken();
+        Contact con=[Select Id,FirstName,LastName,Title from Contact where Id='0033B000007F0CC'];
+        Account acc=[Select Id,Name,GEO_Supported__c from Account where Id='0013B0000081IuG'];
+        string obj=HPartnerPortalSSOStub.createLearner(con,'18a9be99-1089-468d-9099-25701197d562','test@123.com',token,acc);
+        System.debug(obj);
+        
+    }
+     private void CreateDepartment()
+    {
+        string token=	HPartnerPortalSSOStub.getHttpToken();
+        Account acc=[Select Id,Name,GEO_Supported__c from Account where Id='0013B000007Zwb8'];
+        string obj=HPartnerPortalSSOStub.createDepartment(acc,null,token);
+        System.debug(obj);
+        
+    }
+     private void UpdateLearner()
+    {
+        string token=	HPartnerPortalSSOStub.getHttpToken();
+         Contact con=[Select Id,FirstName,LastName,Title,Email from Contact where Id='0033B000007F0CC'];
+        HPartnerPortalSSOStub.updateLearner('cc1953ca-e06c-4520-a5cf-ad3e46b44dc0','CA','Sunnyvale',token,con);
+       
+        
+    }
+     private void VALidateLearner()
+    {
+        string token=HPartnerPortalSSOStub.getHttpToken();
+        boolean isSucceed=HPartnerPortalSSOStub.validateLearner('dennis.beckus@gmail.com',token);
+        System.debug('isSucceed'+isSucceed);
+        
+    }
     private  void CP()
     {
         string token='';

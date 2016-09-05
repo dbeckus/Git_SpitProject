@@ -42,8 +42,8 @@ public with sharing class HPartnerPortalCreateLearnerApi extends HPartnerPortalA
     
     public override void processResult(String response)
     {
-    	HPartnerPortalLMSObject student = (HPartnerPortalLMSObject) JSON.deserialize(response, HPartnerPortalLMSObject.class);
-        studentId = student.getId();
+    	HPartnerPortalLearner student = (HPartnerPortalLearner) JSON.deserialize(response, HPartnerPortalLearner.class);
+        studentId = student.Id;
     	System.debug(response);
     }
 }

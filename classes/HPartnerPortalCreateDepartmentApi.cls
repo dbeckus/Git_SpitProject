@@ -46,8 +46,8 @@ public with sharing class HPartnerPortalCreateDepartmentApi extends HPartnerPort
     
     public override void processResult(String response)
     {
-    	HPartnerPortalLMSObject department = (HPartnerPortalLMSObject) JSON.deserialize(response, HPartnerPortalLMSObject.class);
-    	departmentId = department.getId();
+    	HPartnerPortalDepartmentInfo department = (HPartnerPortalDepartmentInfo) JSON.deserialize(response, HPartnerPortalDepartmentInfo.class);
+    	departmentId = department.Id;
         System.debug(response);
     }
 }

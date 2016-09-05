@@ -10,7 +10,7 @@ public with sharing class HPartnerPortalGetDepartmentsApi extends HPartnerPortal
         this.departmentName = departmentName;
 	}
 
-	public List<HPartnerPortalQueryResult> departments {get; set;}
+	public List<HPartnerPortalLMSDepartment> departments {get; set;}
 
 	public override String generateEndPoint()
     {
@@ -18,7 +18,7 @@ public with sharing class HPartnerPortalGetDepartmentsApi extends HPartnerPortal
     	String endpoint = BaseEndpoint + '/departments';
     	if(!String.isBlank(departmentName))
     	{
-    		endpoint += '?departmentName=' + departmentName;
+    		endpoint += '?departmentName=' + EncodingUtil.urlEncode(departmentName, 'UTF-8');
     	}
 		return endpoint;
     	
@@ -39,6 +39,6 @@ public with sharing class HPartnerPortalGetDepartmentsApi extends HPartnerPortal
     public override void processResult(String response)
     {
     	System.debug(response);
-    	departments = (List<HPartnerPortalQueryResult>) JSON.deserialize(response, List<HPartnerPortalQueryResult>.class);
+    	departments = (List<HPartnerPortalLMSDepartment>) JSON.deserialize(response, List<HPartnerPortalLMSDepartment>.class);
     }
 }

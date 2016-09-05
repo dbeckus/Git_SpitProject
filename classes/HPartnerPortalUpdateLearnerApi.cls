@@ -7,7 +7,7 @@ public with sharing class HPartnerPortalUpdateLearnerApi extends HPartnerPortalA
     public HPartnerPortalUpdateLearnerApi(Map<String, String> params, String token) 
     {
         this.params = params;
-        studentId = params.get('studentId');
+        studentId = params.get('Id');
         this.token = String.isNotBlank(token) ? token : HPartnerPortalSSOStub.getHttpToken();
     }
     
@@ -29,8 +29,7 @@ public with sharing class HPartnerPortalUpdateLearnerApi extends HPartnerPortalA
     public override HttpRequest setBody(HttpRequest request)
     {
         JSONGenerator generator = JSON.createGenerator(true);
-        generator.writeStartObject();
-        generator.writeFieldName('studentInfo');
+      
         generator.writeStartObject();
         for(String fieldName : params.keySet())
         {
@@ -39,8 +38,7 @@ public with sharing class HPartnerPortalUpdateLearnerApi extends HPartnerPortalA
                 generator.writeStringField(fieldName, params.get(fieldName));
             }
         }
-        generator.writeEndObject();        
-        generator.writeEndObject();        
+        generator.writeEndObject();         
         String parameters = generator.getAsString();
         System.debug(parameters);
         request.setBody(parameters);
@@ -49,8 +47,7 @@ public with sharing class HPartnerPortalUpdateLearnerApi extends HPartnerPortalA
     
     public override void processResult(String response)
     {
-        //HPartnerPortalLMSObject student = (HPartnerPortalLMSObject) JSON.deserialize(response, HPartnerPortalLMSObject.class);
-        //studentId = student.getId();
+        
         System.debug(response);
     }
 }

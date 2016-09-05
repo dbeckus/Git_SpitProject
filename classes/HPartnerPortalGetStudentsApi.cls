@@ -10,7 +10,7 @@ public with sharing class HPartnerPortalGetStudentsApi extends HPartnerPortalApi
 		this.userName=userName;
 	}
 
-	public List<HPartnerPortalQueryResult> students {get; set;}
+	public List<HPartnerPortalStudentInfo> students {get; set;}
 
 	public override String generateEndPoint()
     {
@@ -31,7 +31,7 @@ public with sharing class HPartnerPortalGetStudentsApi extends HPartnerPortalApi
     
     public override void processResult(String response)
     {
-    	system.debug(response);
-        students = (List<HPartnerPortalQueryResult>) JSON.deserialize(response, List<HPartnerPortalQueryResult>.class);
+       
+        students = (List<HPartnerPortalStudentInfo>)JSON.deserialize(response, List<HPartnerPortalStudentInfo>.class);
     }
 }
