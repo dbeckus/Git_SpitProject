@@ -100,7 +100,7 @@ public class PORenewalAssetsController {
         {
             for(Asset item: assets)
             {
-                if(item.Renewal_Start_Date__c!=null && item.Renewal_Start_Date__c==Date.today())
+                if(item.Renewal_Start_Date__c==null || item.Renewal_Start_Date__c==Date.today())
                 {
                     lstAssetToUpdateToday.add(item);
                 }
