@@ -40,6 +40,10 @@
                 <behavior>Edit</behavior>
                 <field>Renewal_Nodes__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>Renewal_Text__c</field>
+            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>

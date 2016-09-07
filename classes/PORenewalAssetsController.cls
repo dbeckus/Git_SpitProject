@@ -100,7 +100,17 @@ public class PORenewalAssetsController {
         {
             for(Asset item: assets)
             {
-                if(item.Renewal_Start_Date__c==null || item.Renewal_Start_Date__c==Date.today())
+                decimal originalNodes=0;
+                string prodName=item.Product2.Name;
+                if(prodName.startsWith('EC-BASE') || prodName.startsWith('EC-PLUS'))
+                {
+                    originalNodes =item.Licenses_Nodes__c;
+                }
+                if(prodName.startsWith('EC-BOOST'))
+                {
+                    originalNodes =item.Bandwidth_Nodes__c;
+                }
+                if(item.Renewal_Start_Date__c==null || item.Renewal_Start_Date__c==Date.today()|| item.Renewal_Nodes__c==originalNodes )
                 {
                     lstAssetToUpdateToday.add(item);
                 }
@@ -121,9 +131,11 @@ public class PORenewalAssetsController {
                         {
                             RenewalAssetsHelper.CheckUnCheckAssets(lstAssetToUpdateToday, true);
                             RenewalAssetsHelper.RenewEdgeConnectLicense(lstAssetToUpdateToday);
+                            RenewalAssetsHelper.UpdateAssetStatus(lstAssetToUpdateToday, AssetTypeSelection);
                         }
                         if(lstAssetToUpdateLater.size()>0)
                         {
+                            RenewalAssetsHelper.UpdateAssetStatus(lstAssetToUpdateLater, AssetTypeSelection);
                             update lstAssetToUpdateLater;
                         }
                         isSuccessful=true;
@@ -162,6 +174,7 @@ public class PORenewalAssetsController {
                     {
                         RenewalAssetsHelper.CheckUnCheckAssets(lstAssetToUpdateToday, true);
                         RenewalAssetsHelper.CreateNewLicenses(lstAssetToUpdateToday);
+                        RenewalAssetsHelper.UpdateAssetStatus(lstAssetToUpdateToday, AssetTypeSelection);
                         isSuccessful=true;
                     }
                     catch(Exception ex)

@@ -15,7 +15,46 @@ public  class RenewalAssetsHelper
         }
     }
     
-    
+    public static boolean UpdateAssetStatus(List<Asset> lstAsset,string assetType)
+    {
+      
+       	List<Asset>lstAssetsToUpdate=new  	List<Asset>();
+        if(lstAsset!=null && lstAsset.size()>0)
+        {
+            for(Asset asset: lstAsset)
+            {
+                if(asset.Status=='Customer Subscription Expired')
+                {
+                    if(assetType=='1')
+                    {
+                        asset.Status='Customer Subscription';
+                    }
+                    else if(assetType=='2')
+                    {
+                        asset.Status='Customer Subscription Active';
+                    }
+                    lstAssetsToUpdate.add(asset);
+                }
+            }
+            try
+            {
+                if(lstAssetsToUpdate.size()>0)
+                {
+                    update lstAssetsToUpdate;
+                }
+            }
+            catch(Exception ex)
+            {
+                
+                ApexPages.addMessages(ex);
+                SilverPeakutils.logException(ex);
+                return false;
+            }
+            
+        }
+        
+        return true;
+    }    
     public static boolean RenewEdgeConnectLicense(List<Asset> lstAsset)
     {
         

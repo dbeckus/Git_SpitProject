@@ -340,6 +340,9 @@
                                 <apex:inputText value="{!item.CustomerNotes}" styleClass="input-notes" style="display:none" onblur="hideInlineEditPopup(this, 'output-notes');" id="custNotes" />
                             </apex:outputPanel>
                         </apex:column>
+                        <apex:column style="width: 15%;">
+                              <apex:outputField value="{!item.AssetRecord.Renewal_Text__c}"/>
+                        </apex:column>
                     </apex:pageBlockTable>
                     <apex:panelGrid id="buttonsSection" columns="4" cellspacing="5" style="padding: 5px 35%;" width="80%">
                         <apex:commandLink value="<Previous" rendered="{!PageNumber > 0}" action="{!previous}" reRender="assetListBlock,errorMsg" status="loading2"/>

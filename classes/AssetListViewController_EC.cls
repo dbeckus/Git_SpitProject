@@ -295,7 +295,7 @@ public with sharing class AssetListViewController_EC extends AssetListViewBase
     
     private List<String> getFieldList(String listView, Boolean isServiceProvider)
     {
-        List<String> result = new List<String> {'Id', 'SerialNumber', 'Product2.Name', 'Product2.Model__c', 'License_End_Date__c', 'Customer_Notes__c','Status','Warranty_End_Date__c','Ship_Date__c','Bandwidth_Nodes__c','Licenses_Nodes__c','Account.Name'};
+        List<String> result = new List<String> {'Id', 'SerialNumber', 'Product2.Name', 'Product2.Model__c', 'License_End_Date__c', 'Customer_Notes__c','Status','Warranty_End_Date__c','Ship_Date__c','Bandwidth_Nodes__c','Licenses_Nodes__c','Account.Name','Renewal_Text__c'};
             return result;
     }
     
