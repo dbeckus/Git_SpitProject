@@ -212,6 +212,7 @@ public class LMSBatchHelper {
     {
         List<LMS_Course_Certification__c> lstCertsToUpdate= new List<LMS_Course_Certification__c>();
         List<Contact> lstContactsToUpdate= new List<Contact>();
+         Set<Id> setContactsToUpdate= new Set<Id>();
         List<LMS_Course_Certification__c> lstCerts= new List<LMS_Course_Certification__c>();
         lstCerts=[Select Id,LMS_User_Id__c,Student_Email__c from  LMS_Course_Certification__c where Student_Email__c!=null and Learner_Contact__c=null];
         Set<string> setUserEmail= new Set<String>();
@@ -233,11 +234,22 @@ public class LMSBatchHelper {
                 for(LMS_Course_Certification__c item:lstCerts)
                 {
                     Contact con= mapUsrInfo.get(item.Student_Email__c);
-                    item.Learner_Contact__c=con.Id;
-                    item.Learner_Account__c=con.AccountId;
-                    lstCertsToUpdate.add(item);
-                    con.LMS_User_Id__c=item.LMS_User_Id__c;
-                    lstContactsToUpdate.add(con);
+                    if(con!=null)
+                    {
+                        item.Learner_Contact__c=con.Id;
+                        if(con.AccountId!=null)
+                        {
+                            item.Learner_Account__c=con.AccountId;
+                        }
+                        lstCertsToUpdate.add(item);
+                        con.LMS_User_Id__c=item.LMS_User_Id__c;
+                        if(!setContactsToUpdate.contains(con.Id))
+                        {
+                        	setContactsToUpdate.add(con.Id);
+                            lstContactsToUpdate.add(con);
+                        }
+                    }
+                    
                 }
                 if(lstCertsToUpdate.size()>0)
                 {

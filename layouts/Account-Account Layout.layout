@@ -89,6 +89,10 @@
                 <behavior>Edit</behavior>
                 <field>ECSP__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>IsCap__c</field>
+            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>

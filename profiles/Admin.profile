@@ -197,6 +197,10 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>CapCaseController</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>CaseAuditBatchJob</apexClass>
         <enabled>true</enabled>
     </classAccesses>
@@ -1642,6 +1646,10 @@
     </classAccesses>
     <classAccesses>
         <apexClass>TestCalculateQuarterForOpp</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>TestCapCaseController</apexClass>
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
@@ -8317,6 +8325,10 @@
     </pageAccesses>
     <pageAccesses>
         <apexPage>BuildDetail</apexPage>
+        <enabled>true</enabled>
+    </pageAccesses>
+    <pageAccesses>
+        <apexPage>CapWarningMessage</apexPage>
         <enabled>true</enabled>
     </pageAccesses>
     <pageAccesses>

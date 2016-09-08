@@ -1,0 +1,13 @@
+<apex:page standardcontroller="Case" extensions="CapCaseController">
+    <table>
+        <tr style="display: {!IF(!IsCAPAccount, 'none', 'table-row')};">
+            <td>
+                <apex:outputPanel rendered="{!IsCAPAccount}" layout="none"> 
+                    <marquee style="box-shadow: 0px 0px 15px black; border-radius: 5px; padding: 10px; background-color: crimson; font-weight: bolder; font-size: 14px; margin: 10px; color: white;">Account is under critical accounts program. This account needs highest priority and extra caution for communication on tech issues. Please reach out to criticalaccounts@silver-peak.com for any questions or clarifications. </marquee>
+                </apex:outputPanel>
+            </td>
+        </tr>
+        
+    </table>
+    
+</apex:page>

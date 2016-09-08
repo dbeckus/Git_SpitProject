@@ -8,12 +8,13 @@ public with sharing class PartnerPortalSSOController
             return currentUser.ContactId != null && String.isNotBlank(currentUser.Contact.FirstName) && String.isNotBlank(currentUser.Contact.LastName); 
         }
     }
-
+    
     public PageReference redirect()
     {
         if(ProfileValid)
         {
-            String ssoRequest = ApexPages.currentPage().getParameters().get('SSORequest');
+           /* String ssoRequest = ApexPages.currentPage().getParameters().get('SSORequest');
+            
             if(String.isNotBlank(ssoRequest))
             {
                 return ssoLoginCofirm();
@@ -21,19 +22,23 @@ public with sharing class PartnerPortalSSOController
             else
             {
                 return ssoLoginTry();
-            }   
+            }   */
+            
+            return ssoLoginTry();
         }
         else
         {
             return null;
         }
+        
+        
     }
     
     private PageReference ssoLoginTry()
     {
         if(UserInfo.getUserType() == 'PowerPartner')
         {
-            String url = PartnerPortalSSOStub.getSSOLink(UserInfo.getUserId());
+            String url = HPartnerPortalSSOStub.getSSOLink(UserInfo.getUserId());       
             return new PageReference(url);
         }
         else
@@ -45,8 +50,10 @@ public with sharing class PartnerPortalSSOController
     
     private PageReference ssoLoginCofirm()
     {
-        String ssoRequest = ApexPages.currentPage().getParameters().get('SSORequest');
-        String ssoResponse = PartnerPortalSSOStub.md5Hash(ssoRequest);
-        return new PageReference('http://training.silver-peak.com/get.ashx?method=sso&SSOResponse=' + ssoResponse);
+        
+        /*String ssoRequest = ApexPages.currentPage().getParameters().get('SSORequest');
+        String ssoResponse = HPartnerPortalSSOStub.md5Hash(ssoRequest);
+        return new PageReference('https://training.silver-peak.com/get.ashx?method=sso&SSOResponse=' + ssoResponse);*/
+        return null;
     }
 }
