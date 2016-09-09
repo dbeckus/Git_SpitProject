@@ -91,6 +91,10 @@
                 <behavior>Edit</behavior>
                 <field>Renewal_Nodes__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>EC_Old_Node_Count__c</field>
+            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>

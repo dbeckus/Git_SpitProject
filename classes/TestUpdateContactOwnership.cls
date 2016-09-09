@@ -1,7 +1,6 @@
-@IsTest
 public class TestUpdateContactOwnership {
     
-    @Istest(SeeAllData=true)
+   
     public static void TestUpdateConTypeChange()
     {
         Profile prof = [SELECT Id FROM Profile WHERE Name='1.4- Intl Regional Sales Manager']; 
@@ -52,7 +51,7 @@ public class TestUpdateContactOwnership {
         System.assertEquals( patch.RSM__c, actCon2.OwnerId);
         
     }
-    @Istest(SeeAllData=true)
+    
     public static void TestUpdateAccTypeChange()
     {
         Profile prof = [SELECT Id FROM Profile WHERE Name='1.4- Intl Regional Sales Manager']; 

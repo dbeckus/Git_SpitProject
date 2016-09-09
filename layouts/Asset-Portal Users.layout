@@ -44,6 +44,10 @@
                 <behavior>Readonly</behavior>
                 <field>Renewal_Text__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>EC_Old_Node_Count__c</field>
+            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>

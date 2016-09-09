@@ -16,6 +16,7 @@ public class NewVirtualShipmentTest
     @isTest
     static void testNewShipmentController()
     {
+        Test.startTest();
         Account testAccount = new Account(Name='acme');
         insert testAccount;
         Opportunity testOpp = new Opportunity(Name='acme', CloseDate=Date.today(), StageName='Open', ForecastCategoryName ='Pipeline', AccountId=testAccount.Id);
@@ -26,6 +27,7 @@ public class NewVirtualShipmentTest
         insert testContact;
         Purchase_Order__c testPO = new Purchase_Order__c(Name = 'acme', Email_Contact__c=testContact.Id, Opportunity__c=testOpp.Id);
         insert testPO;
+        Test.stopTest();
         
         Shipment__c testShipment = new Shipment__c();  
         
@@ -51,7 +53,9 @@ public class NewVirtualShipmentTest
     @isTest
     static void testNewShipmentController_ECORCH()
     {
+        Test.startTest();
         Account testAccount = new Account(Name='acme');
+        testAccount.EC_Customer_Date__c=Date.today();
         insert testAccount;
         Opportunity testOpp = new Opportunity(Name='acme', CloseDate=Date.today(), StageName='Open', ForecastCategoryName ='Pipeline', AccountId=testAccount.Id);
         insert testOpp;
@@ -61,6 +65,7 @@ public class NewVirtualShipmentTest
         insert testContact;
         Purchase_Order__c testPO = new Purchase_Order__c(Name = 'acme', Email_Contact__c=testContact.Id, Opportunity__c=testOpp.Id);
         insert testPO;
+        Test.stopTest();
         
         Shipment__c testShipment = new Shipment__c();  
         
@@ -91,6 +96,7 @@ public class NewVirtualShipmentTest
     {
         Test.startTest();
         Account testAccount = new Account(Name='acme');
+        testAccount.EC_Customer_Date__c=Date.today();
         insert testAccount;
         Opportunity testOpp = new Opportunity(Name='acme', CloseDate=Date.today(), StageName='Open', ForecastCategoryName ='Pipeline', AccountId=testAccount.Id);
         insert testOpp;
@@ -102,6 +108,7 @@ public class NewVirtualShipmentTest
         insert testContact;
         Purchase_Order__c testPO = new Purchase_Order__c(Name = 'acme', Email_Contact__c=testContact.Id, Opportunity__c=testOpp.Id);
         insert testPO;
+        Test.stopTest();
         
         Shipment__c testShipment = new Shipment__c();  
         
@@ -121,7 +128,6 @@ public class NewVirtualShipmentTest
         controller.removeLine();
         
         controller.save();
-        Test.stopTest();
 
         System.assert(testShipment.Id != null);
         System.assertEquals(1, [SELECT count() FROM Shipped_Line__c WHERE Shipment_Id__c = :testShipment.Id]);
@@ -151,7 +157,7 @@ public class NewVirtualShipmentTest
     @isTest
     static void testNewShipmentController_ECBase1YUpdate()
     {
-        
+        Test.startTest();
         Account testAccount = new Account(Name='acme');
         testAccount.EC_Customer_Date__c= Date.today();
         insert testAccount;
@@ -165,6 +171,7 @@ public class NewVirtualShipmentTest
         insert testContactupdated;
         Purchase_Order__c testPO = new Purchase_Order__c(Name = 'acme', Email_Contact__c=testContact.Id, Opportunity__c=testOpp.Id);
         insert testPO;
+        Test.stopTest();
         
         Shipment__c testShipment = new Shipment__c();  
         
@@ -178,6 +185,7 @@ public class NewVirtualShipmentTest
         controller.AssetLines[0].Asset.Quantity = 1;
         controller.AssetLines[0].Asset.Licenses_Nodes__c = 10;
         controller.AssetLines[0].Asset.Evaluation_End_Date__c = Date.newInstance(2016, 1, 1);
+        controller.AssetLines[0].Asset.End_of_Maintenance__c=Date.today().addYears(2);
         controller.addLine();
         
         ApexPages.currentPage().getParameters().put('rowIndex', '1');
@@ -189,7 +197,7 @@ public class NewVirtualShipmentTest
         Asset firstAssetRec= [Select Id,Licenses_Nodes__c from Asset where Id in (SELECT Asset__c FROM Shipped_Line__c WHERE Shipment_Id__c = :testShipment.Id) LIMIT 1];
         System.assertEquals(10,firstAssetRec.Licenses_Nodes__c);
         // Create one more virtual product with the same prouduct
-        Test.startTest();
+
         testShipment = new Shipment__c(); 
         pageRef = new PageReference('/apex/NewVirtualShipment?poId=' + testPO.Id);
         Test.setCurrentPage(pageRef);
@@ -201,6 +209,8 @@ public class NewVirtualShipmentTest
         controller.AssetLines[0].Asset.Quantity = 1;
         controller.AssetLines[0].Asset.Licenses_Nodes__c = 10;
         controller.AssetLines[0].Asset.Evaluation_End_Date__c = Date.newInstance(2017, 1, 1);
+        controller.AssetLines[0].Asset.End_of_Maintenance__c=Date.today().addYears(2);
+
         controller.addLine();
         
         ApexPages.currentPage().getParameters().put('rowIndex', '1');
@@ -214,14 +224,12 @@ public class NewVirtualShipmentTest
         System.assertEquals(20,secondAssetRec.Licenses_Nodes__c);
         System.assertEquals(Date.newInstance(2017, 1, 1), secondAssetRec.Licenses__r[0].License_Expiration__c);
         System.assertEquals(secondAssetRec.ContactId,testContactupdated.Id);
-        Test.stopTest();
-        
-        
     }
     
     @isTest
     static void testNewShipmentController_ECBOOST1YUpdate()
     {
+        Test.startTest();
         Account testAccount = new Account(Name='acme');
         insert testAccount;
         Opportunity testOpp = new Opportunity(Name='acme', CloseDate=Date.today(), StageName='Open', ForecastCategoryName ='Pipeline', AccountId=testAccount.Id);
@@ -232,6 +240,7 @@ public class NewVirtualShipmentTest
         insert testContact;
         Purchase_Order__c testPO = new Purchase_Order__c(Name = 'acme', Email_Contact__c=testContact.Id, Opportunity__c=testOpp.Id);
         insert testPO;
+        Test.stopTest();
         
         Shipment__c testShipment = new Shipment__c();  
         
@@ -244,8 +253,9 @@ public class NewVirtualShipmentTest
         controller.AssetLines[0].Asset.Product2Id = controller.ProductsList[0].Id;
         controller.AssetLines[0].Asset.Quantity = 1;
         controller.AssetLines[0].Asset.Bandwidth_Nodes__c = 10;
+        controller.AssetLines[0].Asset.End_of_Maintenance__c=Date.today().addYears(2);
         controller.addLine();
-        
+
         ApexPages.currentPage().getParameters().put('rowIndex', '1');
         controller.removeLine();
         
@@ -255,7 +265,7 @@ public class NewVirtualShipmentTest
         Asset firstAssetRec= [Select Id,Bandwidth_Nodes__c from Asset where Id in (SELECT Asset__c FROM Shipped_Line__c WHERE Shipment_Id__c = :testShipment.Id) LIMIT 1];
         System.assertEquals(10,firstAssetRec.Bandwidth_Nodes__c);
         // Create one more virtual product with the same prouduct
-        Test.startTest();
+ 
         testShipment = new Shipment__c(); 
         pageRef = new PageReference('/apex/NewVirtualShipment?poId=' + testPO.Id);
         Test.setCurrentPage(pageRef);
@@ -266,6 +276,7 @@ public class NewVirtualShipmentTest
         controller.AssetLines[0].Asset.Product2Id = controller.ProductsList[0].Id;
         controller.AssetLines[0].Asset.Quantity = 1;
         controller.AssetLines[0].Asset.Bandwidth_Nodes__c = 10;
+        
         controller.addLine();
         
         ApexPages.currentPage().getParameters().put('rowIndex', '1');
@@ -277,7 +288,6 @@ public class NewVirtualShipmentTest
         Asset secondAssetRec= [Select Id,Bandwidth_Nodes__c from Asset where Id in (SELECT Asset__c FROM Shipped_Line__c WHERE Shipment_Id__c = :testShipment.Id) LIMIT 1];
         System.assertEquals(firstAssetRec.Id, secondAssetRec.Id);
         System.assertEquals(20,secondAssetRec.Bandwidth_Nodes__c);
-        Test.stopTest();
         
     }
     

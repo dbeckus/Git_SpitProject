@@ -377,6 +377,10 @@
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>CopyEndDateToContractTriggerTest</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>CustomAction</apexClass>
         <enabled>false</enabled>
     </classAccesses>
@@ -1617,6 +1621,14 @@
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>SycnOpportunityToQuoteHandler</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>SycnOpportunityToQuoteTest</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>TeamMemberCheck</apexClass>
         <enabled>false</enabled>
     </classAccesses>
@@ -1874,6 +1886,10 @@
     </classAccesses>
     <classAccesses>
         <apexClass>UpdateAssetsFromCSVFile</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>UpdateMasterContractTest</apexClass>
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>

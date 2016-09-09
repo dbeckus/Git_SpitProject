@@ -90,6 +90,10 @@
                 <behavior>Readonly</behavior>
                 <field>New_Business__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Contract_Activation_Date__c</field>
+            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>

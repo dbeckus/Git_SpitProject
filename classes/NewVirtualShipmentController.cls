@@ -21,7 +21,8 @@ public with sharing class NewVirtualShipmentController
         String poId = ApexPages.currentPage().getParameters().get('poId');
         shipmentRecord = (Shipment__c)std.getRecord();
         TempAsset = new Asset();
-        List<Purchase_Order__c> purchaseOrders = [SELECT Id, Name, Email_Contact__c, Opportunity__r.Account.Id FROM Purchase_Order__c WHERE Id = :poId];
+        PoOpp = null;
+        List<Purchase_Order__c> purchaseOrders = [SELECT Id, Name, Email_Contact__c, Opportunity__r.Account.Id, Opportunity__c FROM Purchase_Order__c WHERE Id = :poId];
         if(purchaseOrders.size() <= 0)
         {
             ApexPages.addMessage(new ApexPages.Message(ApexPages.Severity.Fatal, 'You need to select a Purchase Order.'));
@@ -34,6 +35,15 @@ public with sharing class NewVirtualShipmentController
             shipmentRecord.Shipment_Contact__c = PO.Email_Contact__c;
             shipmentRecord.PurchaseOrder__c = PO.Id;
             shipmentRecord.IsVirtualShipment__c=true;
+            if(PO.Opportunity__c != null && !Test.isRunningTest())
+            {
+                PoOpp = [select Id, Contract_Activation_Date__c, SBQQ__Contracted__c from Opportunity where Id = :PO.Opportunity__c];
+                originalActivationDate = PoOpp.Contract_Activation_Date__c;
+                if(PoOpp.Contract_Activation_Date__c == null)
+                {
+                    PoOpp.Contract_Activation_Date__c = Date.today();
+                }   
+            }       
         }
         
         AssetLines = new List<VirtualAssetManager.VirtualAsset>();
@@ -42,7 +52,10 @@ public with sharing class NewVirtualShipmentController
     
     public Purchase_Order__c PO { get; set; }
     public Asset TempAsset { get; set; }
+    public Opportunity PoOpp { get; set; }
+    public Date originalActivationDate { set; get; }
     public List<VirtualAssetManager.VirtualAsset> AssetLines { get; set; }
+    
     private Map<Id,String> ECProductIds {
         get{
             Map<Id,String> ecProdIds= new Map<Id,String>();
@@ -115,6 +128,11 @@ public with sharing class NewVirtualShipmentController
         SavePoint sp = Database.setSavePoint();
         try
         {
+            if( POOpp != null && POOpp.Contract_Activation_Date__c != originalActivationDate)
+            {
+                POOpp.SBQQ__Contracted__c = true;
+                update POOpp;
+            }
             shipmentRecord.SendTrackingInformation__c = false;
             insert shipmentRecord;              
         }
@@ -147,10 +165,16 @@ public with sharing class NewVirtualShipmentController
                 vasset.Asset.Evaluation_End_Date__c= virtualAsset.Asset.Evaluation_End_Date__c;
                 vasset.Asset.ContactId = TempAsset.ContactId;
                 
-                if(currAsset.Product2.Name.contains('EC-BASE')|| currAsset.Product2.Name.contains('EC-PLUS'))
-                {vasset.Asset.Licenses_Nodes__c = (currAsset.Licenses_Nodes__c + virtualAsset.Asset.Licenses_Nodes__c) ;}
+               if(currAsset.Product2.Name.contains('EC-BASE')|| currAsset.Product2.Name.contains('EC-PLUS'))
+                {
+                    vasset.Asset.EC_Old_Node_Count__c=currAsset.Licenses_Nodes__c;
+                    vasset.Asset.Licenses_Nodes__c = (currAsset.Licenses_Nodes__c + virtualAsset.Asset.Licenses_Nodes__c) ;
+                }
                 if(currAsset.Product2.Name.contains('EC-BOOST'))
-                {vasset.Asset.Bandwidth_Nodes__c = (currAsset.Bandwidth_Nodes__c + virtualAsset.Asset.Bandwidth_Nodes__c) ;}
+                {
+                    vasset.Asset.EC_Old_Node_Count__c=currAsset.Bandwidth_Nodes__c;
+                    vasset.Asset.Bandwidth_Nodes__c = (currAsset.Bandwidth_Nodes__c + virtualAsset.Asset.Bandwidth_Nodes__c) ;
+                }
                 updateAssetLines.add(vasset);
                 
             }
