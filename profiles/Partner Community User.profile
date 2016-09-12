@@ -565,6 +565,10 @@
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>HLMSPartnerPortalAPiMock</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>HPartnerPortalApiBase</apexClass>
         <enabled>false</enabled>
     </classAccesses>
@@ -1726,6 +1730,42 @@
     </classAccesses>
     <classAccesses>
         <apexClass>TestFixtures</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>TestHPartnerPortalCreateDepartment</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>TestHPartnerPortalCreateLearnerApi</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>TestHPartnerPortalGetCertificatesApi</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>TestHPartnerPortalGetCoursesApi</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>TestHPartnerPortalGetDepartmentApi</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>TestHPartnerPortalGetDepartmentsApi</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>TestHPartnerPortalGetEnrolDetailsApi</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>TestHPartnerPortalGetStudentsApi</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>TestHPartnerPortalGetUserDetailsApi</apexClass>
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
