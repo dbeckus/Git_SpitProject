@@ -5,6 +5,7 @@ public without sharing class ConvertRmaToCmaController
 {
     private String assetId;
     private String virtualProductId;
+     private String gmsNodes;
     private Map<String, String> nxToVxMap;
     private User currentUser;
 
@@ -49,10 +50,11 @@ public without sharing class ConvertRmaToCmaController
     private void buildData()
     {
         NxAsset = [select Id, Model__c, SerialNumber, Ship_Date__c, CreatedDate, ContactId, AccountId, Account.Name, Product2Id,
-                        Contract_Number__c, Contract_Type__c, Contract_End__c from Asset where Id = :assetId];
+                        Contract_Number__c,GMS_Nodes__c, Contract_Type__c, Contract_End__c from Asset where Id = :assetId];
         if(NxAsset != null && String.IsNotEmpty(NxAsset.Model__c))
         {
             VxModel = nxToVXMap.get(NxAsset.Model__c);
+            gmsNodes=nxAsset.GMS_Nodes__c;
             List<Product2> products = [select Id from Product2 where Name = :VxModel];
             if(products.size() > 0)
             {
@@ -132,6 +134,7 @@ public without sharing class ConvertRmaToCmaController
             vxAsset.Contract_Number__c = asset.Contract_Number__c;
             vxAsset.product2Id = virtualProductId;
             vxAsset.TriggerAutoFulfillEmail__c=true;
+            vxAsset.GMS_Nodes__c=gmsNodes;
             insert vxAsset;
 
             assetMac.AssetId__c = vxAsset.Id;
@@ -166,7 +169,7 @@ public without sharing class ConvertRmaToCmaController
         license.SerialNumber__c = asset.Name;
         license.License_Expiration__c = null;
         insert license;
-        VirtualAssetManager.encryptLicenses(new List<String> { license.Id });
+        //VirtualAssetManager.encryptLicenses(new List<String> { license.Id });
     }
 
     // NX Recycle Criteria

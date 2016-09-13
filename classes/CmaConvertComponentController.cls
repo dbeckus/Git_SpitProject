@@ -17,12 +17,12 @@ public class CmaConvertComponentController
                 {
                     String model = item.Asset__r.Model__c;
                     model = (model == null) ? '' : model;
-                    if(model.contains('NX')) //no contract on NX
+                    if(model.contains('NX')|| model.contains('GMS-10') ) //no contract on NX
                     {
                         info.NxModel = item.Asset__r.Model__c;
                         info.NxSerialNumber = item.Asset__r.SerialNumber;
                     }
-                    if(model.contains('VX'))
+                    if(model.contains('VX')|| model.contains('GX-V'))
                     {
                         info.VxModel = item.Asset__r.Model__c;
                         info.VxSerialNumber = item.Asset__r.SerialNumber;
