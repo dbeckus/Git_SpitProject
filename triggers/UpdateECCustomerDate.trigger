@@ -26,7 +26,7 @@ trigger UpdateECCustomerDate on Asset (after insert,after update) {
     List<account> lstAccountToUpdate= new List<Account>();
     if(setAcctIds.size()>0)
     {
-        List<Account> lstAccount=[Select Id, (select Id, CreatedDate from Assets where Product2.Name like 'EC%' and Status in('Customer Subscription Active','Customer Owned' ) order by CreatedDate asc LIMIT 1) from Account where Id in:setAcctIds and EC_Customer_Date__c=null];
+        List<Account> lstAccount=[Select Id, (select Id,Name, CreatedDate from Assets where Product2.Name like 'EC%' and Status in('Customer Subscription Active','Customer Owned' ) order by CreatedDate asc LIMIT 1) from Account where Id in:setAcctIds and EC_Customer_Date__c=null];
         if(lstAccount!=null && lstAccount.size()>0)
         {
             for(Account acc: lstAccount)
@@ -36,6 +36,7 @@ trigger UpdateECCustomerDate on Asset (after insert,after update) {
                 {
                     Account newAcc= new Account(Id=acc.Id);
                     newAcc.EC_Customer_Date__c=lstAsset[0].CreatedDate;
+                    newAcc.EC_Asset_Name__c=lstAsset[0].Name;
                     lstAccountToUpdate.add(newAcc);
                 }
             }

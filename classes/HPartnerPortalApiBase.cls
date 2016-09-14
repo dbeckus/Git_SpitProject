@@ -18,7 +18,7 @@ public abstract class HPartnerPortalApiBase
             HttpRequest request = setHeaders(new HttpRequest());
             request.setEndpoint(generateEndPoint());
             request = setBody(request);
-            system.debug(request);
+            //system.debug(request);
             // Sends request.
             HttpResponse response = new Http().send(request);
             

@@ -6,7 +6,7 @@ public with sharing class HPartnerPortalGetCertificatesApi extends HPartnerPorta
     
     public HPartnerPortalGetCertificatesApi(String courseId, String token, Date validSince)
     {
-        this.token = String.isBlank(token) ? HPartnerPortalSSOStub.getHttpToken() : token;
+        this.token = String.isBlank(token) ? PartnerPortalSSOStub.getHttpToken() : token;
         this.courseId = courseId;
         if(validSince!=null)
         {

@@ -553,15 +553,7 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
-        <apexClass>HLMSFetchCertificationsBatch</apexClass>
-        <enabled>true</enabled>
-    </classAccesses>
-    <classAccesses>
         <apexClass>HLMSFetchEnrollmentInformationforUser</apexClass>
-        <enabled>true</enabled>
-    </classAccesses>
-    <classAccesses>
-        <apexClass>HLMSFetchUserDetailsBatch</apexClass>
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
@@ -650,6 +642,14 @@
     </classAccesses>
     <classAccesses>
         <apexClass>HPartnerPortalUser</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>H_LMSFetchCertificationsBatch</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>H_LMSFetchUserDetailsBatch</apexClass>
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
@@ -1733,6 +1733,10 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>TestHLMSFetchCertificationsBatch</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>TestHPartnerPortalCreateDepartment</apexClass>
         <enabled>true</enabled>
     </classAccesses>
@@ -1766,6 +1770,10 @@
     </classAccesses>
     <classAccesses>
         <apexClass>TestHPartnerPortalGetUserDetailsApi</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>TestH_PartnerPortalSSOStub</apexClass>
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
