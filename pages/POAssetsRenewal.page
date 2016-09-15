@@ -1,5 +1,5 @@
 <apex:page standardController="Purchase_Order__c" extensions="PORenewalAssetsController" docType="html-5.0" showHeader="false" sidebar="false" id="thePage">
-    <apex:includeScript value="{!URLFOR($Resource.jQuery, 'jquery-1.4.3.min.js')}" />
+     <apex:includeScript value="{!URLFOR($Resource.jQuery, 'jquery-1.4.3.min.js')}" />
     <apex:includeScript value="{!URLFOR($Resource.jQuery, 'autoresize.jquery.js')}" />
     <style type="text/css">
         .pocLoading {
@@ -13,13 +13,6 @@
         } 
     </style>
     <script type="text/javascript">
-    
-    
-    function disableBox(val)
-    {
-        alert(val);
-    }
-    
     function checkAll(cb,cbid)
     {
         var inputElem = document.getElementsByTagName("input");                     
@@ -40,31 +33,18 @@
         $("#InlineEditDialog").hide();
     }
     function setFocusOnLoad() {}
-    function showDatePopup( val)
+    function showDatePopup()
     {
-     
         $(".overlayBackground").show();
         $("#InlineEditDialog").show();
         $(".datePicker").css("z-index", 500);
-        if(val=='Start')
-        {
-            
-            $("#popUpShipDateS").show();
-            $("#popUpShipDateE").hide();
-        }
-        if(val=='End')
-        {
-            
-            $("#popUpShipDateS").hide();
-            $("#popUpShipDateE").show();
-        }
+        $("#popUpShipDate").show();
         $("#datePicker").css("z-index", 50103);
     }
     function setValueToAllRows()
     {
         
-        $('td[id$="LicenseDateCol"] input').val($("#popUpShipDateS input").val());
-        $('td[id$="LicenseDateEndCol"] input').val($("#popUpShipDateE input").val());
+        $('td[id$="LicenseDateCol"] input').val($("#popUpShipDate input").val());
         
     }
     </script>
@@ -72,25 +52,31 @@
         <apex:form >
             <apex:pageMessages id="pageMsg" escape="false" />
             <apex:pageBlock >
-                <apex:pageBlockSection columns="1">
+                <apex:pageBlockSection columns="1" id="mainSection">
                     <table width="100%">
                         <tr>
                             <td>
                                 <apex:selectList id="assetType" style="width:20%" label="Asset Type" value="{!AssetTypeSelection}" required="false" size="1">
                                     <apex:selectOption itemvalue="1" itemLabel="Wan Op"/>
                                     <apex:selectOption itemvalue="2" itemLabel="Edge Connect"/>
-                                    <apex:actionSupport event="onchange" action="{!ResetFilter}" reRender="listSection" />
+                                    <apex:actionSupport event="onchange" action="{!ResetFilter}" reRender="listSection,mainSection" />
                                 </apex:selectList>
                             </td>
                             <td>
-                                <apex:inputField label="Customer Contact" value="{!CustomerContact.Email_Contact__c}"/>
+                               <apex:inputField label="Customer Contact" value="{!CustomerContact.Email_Contact__c}"/>
+                            </td>
+                              <td>
+                                <apex:inputField label="Renewal Start Date" value="{!RenewalAsset.Renewal_Start_Date__c}" rendered="{!AssetTypeSelection=='2'}"/>
+                            </td>
+                             <td>
+                                <apex:inputField label="Renewal End Date" value="{!RenewalAsset.Renewal_Date__c}" rendered="{!AssetTypeSelection=='2'}"/>
                             </td>
                         </tr>
                     </table>
                     
                 </apex:pageBlockSection>
                 <apex:pageBlockSection columns="1" id="listSection">
-                    <apex:pageBlockTable style="width:100%"   value="{!AssetList}" var="item" id="AssetsList" rendered="{!AssetList.size>0}">
+                    <apex:pageBlockTable value="{!AssetList}" var="item" id="AssetsList" rendered="{!AssetList.size>0}">
                         <apex:column ><apex:facet name="header">
                             <apex:inputCheckbox onclick="checkAll(this,'checkedone')"/>
                             </apex:facet>
@@ -101,7 +87,13 @@
                         <apex:column headerValue="Ship Date" value="{!item.Ship_Date__c}"></apex:column>
                         <apex:column headerValue="Status" value="{!item.Status}"></apex:column>
                         <apex:column headerValue="License Expiration" value="{!item.License_Expiration__c}"></apex:column>
-                         <apex:column headerValue="License"  rendered="{!AssetTypeSelection=='2'}" >
+                        <apex:column id="LicenseDateCol" rendered="{!AssetTypeSelection=='1'}">
+                            <apex:facet name="header">
+                                Renewal Date <img src="/s.gif" alt="Expand" class="moreArrow" title="Expand" onclick="showDatePopup()" style="cursor:pointer"/>
+                            </apex:facet>
+                            <apex:inputField value="{!item.Renewal_Date__c}" />
+                        </apex:column>          
+                              <apex:column headerValue="License"  rendered="{!AssetTypeSelection=='2'}" >
                             <apex:outputText value="{!item.Licenses_Nodes__c}" />
                         </apex:column> 
                           <apex:column headerValue="Bandwidth"  rendered="{!AssetTypeSelection=='2'}" >
@@ -110,19 +102,7 @@
                           <apex:column headerValue="Updated Nodes"  rendered="{!AssetTypeSelection=='2'}" >
                             <apex:inputField value="{!item.Renewal_Nodes__c}" rendered="{!IF(CONTAINS(item.Product2.Name,'EC-BOOST')||CONTAINS(item.Product2.Name,'EC-BASE')||CONTAINS(item.Product2.Name,'EC-PLUS'),true,false)}" />
                             <apex:outputText value="{!item.Renewal_Nodes__c}" rendered="{!IF(CONTAINS(item.Product2.Name,'EC-BOOST')||CONTAINS(item.Product2.Name,'EC-BASE')||CONTAINS(item.Product2.Name,'EC-PLUS'),false,true)}" />
-                        </apex:column> 
-                        <apex:column id="LicenseDateCol" rendered="{!AssetTypeSelection=='2'}">
-                            <apex:facet name="header">
-                                Start Date <img src="/s.gif" alt="Expand" class="moreArrow" title="Expand" onclick="showDatePopup('Start')" style="cursor:pointer"/>
-                            </apex:facet>
-                            <apex:inputField value="{!item.Renewal_Start_Date__c}"   />
-                        </apex:column>   
-                        <apex:column id="LicenseDateEndCol">
-                            <apex:facet name="header">
-                                End Date <img src="/s.gif" alt="Expand" class="moreArrow" title="Expand" onclick="showDatePopup('End')" style="cursor:pointer"/>
-                            </apex:facet>
-                            <apex:inputField value="{!item.Renewal_Date__c}"  />
-                        </apex:column>        
+                        </apex:column>  
                     </apex:pageBlockTable>
                 </apex:pageBlockSection>
                 <apex:pageBlockButtons location="Top">
@@ -155,8 +135,7 @@
                     <div class="innerContent" id="InlineEditDialogContent">
                         <div class="activeField">
                             <div class="inlineEditCompoundDiv" style="width:300px;height:100px">
-                                <span id="popUpShipDateS">License Expiration Date&nbsp;<apex:inputField value="{!StartDate.License_Expiration__c}" /><br/><br/></span>
-                                <span id="popUpShipDateE">License Expiration Date&nbsp;<apex:inputField value="{!EndDate.License_Expiration__c}" /><br/><br/></span>
+                                <span id="popUpShipDate">License Expiration Date&nbsp;<apex:inputField value="{!License.License_Expiration__c}" /><br/><br/></span>
                             </div>
                         </div>
                         <div></div>

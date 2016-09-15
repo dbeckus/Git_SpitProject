@@ -1669,6 +1669,10 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>TestCaseShareWithPartnerManager</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>TestCheckECSPEnabledonEnterAcc</apexClass>
         <enabled>true</enabled>
     </classAccesses>
@@ -1854,10 +1858,6 @@
     </classAccesses>
     <classAccesses>
         <apexClass>TestSetDefaultTechResponsibility</apexClass>
-        <enabled>true</enabled>
-    </classAccesses>
-    <classAccesses>
-        <apexClass>TestShareCaseWithPartnerManager</apexClass>
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>

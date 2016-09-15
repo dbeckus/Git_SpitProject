@@ -1,18 +1,19 @@
 <apex:component controller="RenewalPurchaseOrderAssetsListController" access="global" layout="none">
     <apex:attribute name="EdgeConnectOnly" description="Id of the POC request" type="boolean" assignTo="{!IsEdgeConnect}" />
      <apex:attribute name="AccountIdOnly" description="Id of the account" type="Id" assignTo="{!AccId}" />
+         <apex:attribute name="IsECReduction" description="IsEdgeConnectReduction" type="boolean" assignTo="{!IsEdgeConnectReduction}" />
     <apex:variable var="termvalue" value="{!DefaultDate}"/>
      <apex:variable var="startvalue" value="{!DefaultDate}"/>
     <apex:variable var="idx" value="{!0}"/>
      <apex:repeat var="cx" value="{!assets}">
-    {!cx.EC_Product_Name__c}, S/N {!cx.Name}{!IF((ISNULL(cx.Licenses_Nodes__c) || cx.Licenses_Nodes__c==0),if((ISNULL(cx.Bandwidth_Nodes__c)||cx.Bandwidth_Nodes__c==0),'',', bandwidth:'),', license:')}<b><apex:outputText value="{0, number,########0}"><apex:param value="{!IF((ISBLANK(cx.Licenses_Nodes__c)||cx.Licenses_Nodes__c==0),cx.Bandwidth_Nodes__c,cx.Licenses_Nodes__c)}" /></apex:outputText></b><br/>
+    {!cx.EC_Product_Name__c}, S/N {!cx.Name}{!IF((ISNULL(cx.Licenses_Nodes__c) || cx.Licenses_Nodes__c==0),if((ISNULL(cx.Bandwidth_Nodes__c)||cx.Bandwidth_Nodes__c==0),'',', previous bandwidth count:'),', previous license count:')}<b><apex:outputText value="{0, number,########0}"><apex:param value="{!IF((ISBLANK(cx.Licenses_Nodes__c)||cx.Licenses_Nodes__c==0),cx.Bandwidth_Nodes__c,cx.Licenses_Nodes__c)}" /></apex:outputText></b>{!IF((ISNULL(cx.Licenses_Nodes__c) || cx.Licenses_Nodes__c==0),if((ISNULL(cx.Bandwidth_Nodes__c)||cx.Bandwidth_Nodes__c==0),'',', new bandwidth count:'),', new license count:')}<b><apex:outputText value="{0, number,########0}"><apex:param value="{!IF((ISBLANK(cx.Licenses_Nodes__c)||cx.Licenses_Nodes__c==0),cx.Renewal_Nodes__c,cx.Renewal_Nodes__c)}" /></apex:outputText></b><br/>
      
-     <apex:variable var="termvalue" value="{!IF(idx==0,cx.License_End_Date__c,termvalue)}"/>
+     <apex:variable var="termvalue" value="{!IF(idx==0,cx.Renewal_Date__c,termvalue)}"/>
      <apex:variable var="startvalue" value="{!IF(idx==0,cx.Renewal_Start_Date__c,startvalue)}"/>
      <apex:variable var="idx" value="{! idx+ 1}" />
 
 </apex:repeat>    
  <br/>
-Your term will start on:<b> <apex:outputText value="{0, date, MMMM d','  yyyy}"><apex:param value="{!startvalue}" /> </apex:outputText> </b> <br/>
-Your term will now expire on:<b> <apex:outputText value="{0, date, MMMM d','  yyyy}"><apex:param value="{!termvalue}" /> </apex:outputText> </b> 
+<apex:outputText rendered="{!!IsEdgeConnectReduction}" value="New term effective Date:"></apex:outputText><b> <apex:outputText rendered="{!!IsEdgeConnectReduction}" value="{0, date, MMMM d','  yyyy}"><apex:param value="{!startvalue}" /> </apex:outputText> </b> <br/>
+New term expiration Date:<b> <apex:outputText value="{0, date, MMMM d','  yyyy}"><apex:param value="{!termvalue}" /> </apex:outputText> </b> 
 </apex:component>

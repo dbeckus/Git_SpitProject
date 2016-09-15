@@ -2,8 +2,8 @@ public class PORenewalAssetsController {
     public Purchase_Order__c PORequest{get;set;}
     public Purchase_Order__c CustomerContact{get;set;}
     public List<Asset> AssetList{get;set;}
-    public License__c StartDate { get; set; }
-    public License__c EndDate { get; set; }
+    public License__c License { get; set; }
+    public Asset RenewalAsset { get; set; }
     public boolean IsFromApex {get;set;}
     public String AssetTypeSelection{get; set;}
     public PORenewalAssetsController(ApexPages.StandardController controller)
@@ -11,12 +11,15 @@ public class PORenewalAssetsController {
         
         if(AssetList==null)
         { AssetList= new List<Asset>();}
-        StartDate= new License__c();
-        EndDate= new License__c();
+        
+         if(RenewalAsset==null)
+        { RenewalAsset= new Asset();}
+        License= new License__c();
         CustomerContact = new Purchase_Order__c();
         List<Purchase_Order__c> requests = [select Id, Opportunity__c, Opportunity__r.AccountId,Email_Contact__c from Purchase_Order__c where Id = :controller.getId()];        
         if(!requests.isEmpty())
         {
+            AssetTypeSelection='1';
             PORequest = requests[0];
             AssetList= RetreiveAssets(false);
             
@@ -29,10 +32,12 @@ public class PORenewalAssetsController {
     {
         if(AssetTypeSelection=='1')
         {
+           
             AssetList= RetreiveAssets(false);
         }
         else
         {
+            
             AssetList= RetreiveAssets(true);
         }
         return null;
@@ -102,6 +107,8 @@ public class PORenewalAssetsController {
             {
                 decimal originalNodes=0;
                 string prodName=item.Product2.Name;
+                item.Renewal_Start_Date__c=RenewalAsset.Renewal_Start_Date__c;
+                item.Renewal_Date__c=RenewalAsset.Renewal_Date__c;
                 if(prodName.startsWith('EC-BASE') || prodName.startsWith('EC-PLUS'))
                 {
                     originalNodes =item.Licenses_Nodes__c;
@@ -110,7 +117,7 @@ public class PORenewalAssetsController {
                 {
                     originalNodes =item.Bandwidth_Nodes__c;
                 }
-                if(item.Renewal_Start_Date__c==null || item.Renewal_Start_Date__c==Date.today()|| item.Renewal_Nodes__c==originalNodes )
+                if(item.Renewal_Nodes__c==originalNodes || AssetTypeSelection=='1' )
                 {
                     lstAssetToUpdateToday.add(item);
                 }
@@ -135,6 +142,7 @@ public class PORenewalAssetsController {
                         }
                         if(lstAssetToUpdateLater.size()>0)
                         {
+                            RenewalAssetsHelper.RenewEdgeConnectLicense(lstAssetToUpdateLater);
                             RenewalAssetsHelper.UpdateAssetStatus(lstAssetToUpdateLater, AssetTypeSelection);
                             update lstAssetToUpdateLater;
                         }
@@ -227,35 +235,35 @@ public class PORenewalAssetsController {
             {
                 // Check the renewal start dates and end dates are not blank
                 // Check the renewal end dates is not less than start Date.
+                // 
+                if(RenewalAsset.Renewal_Start_Date__c== null || RenewalAsset.Renewal_Date__c== null)
+                {
+                    ApexPages.addMessage(new ApexPages.Message(ApexPages.Severity.ERROR,'Renewal Dates are empty.\n'));
+                    return false;
+                }
+                if(RenewalAsset.Renewal_Start_Date__c!= null && RenewalAsset.Renewal_Date__c!= null)
+                {
+                    if(RenewalAsset.Renewal_Date__c< RenewalAsset.Renewal_Start_Date__c)
+                    {
+                        ApexPages.addMessage(new ApexPages.Message(ApexPages.Severity.ERROR,'End date is less than start date.\n'));
+                        return false;
+                    }
+                }
                 for(Asset item:lstAssets)
                 {
-                    if(item.Renewal_Start_Date__c== null || item.Renewal_Date__c== null)
-                    {
-                        lstDateIssue.add(item.Name);
-                    }
-                    if(item.Renewal_Start_Date__c!= null && item.Renewal_Date__c!= null)
-                    {
-                        if(item.Renewal_Date__c<item.Renewal_Start_Date__c)
-                        {
-                            lstDateIssue.add(item.Name);
-                        }
-                    }
+                    
                     if(item.Renewal_Nodes__c==null)
                     {
                         lstNodesIssue.add(item.Name);
                     }
                 }
-                if(lstDateIssue.size()>0)
-                {
-                    ApexPages.addMessage(new ApexPages.Message(ApexPages.Severity.ERROR,'Either Dates are empty or  end date is less than start date.\n'+ lstDateIssue));
-                    
-                }
+                
                 if(lstNodesIssue.size()>0)
                 {
                     ApexPages.addMessage(new ApexPages.Message(ApexPages.Severity.ERROR,'Updated Nodes cannot be empty for the selected Assets.\n'+ lstNodesIssue));
                     
                 }
-                if(lstDateIssue.size()>0 || lstNodesIssue.size()>0)
+                if(lstNodesIssue.size()>0)
                 {
                     return false;
                 }
