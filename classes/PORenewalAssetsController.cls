@@ -91,8 +91,6 @@ public class PORenewalAssetsController {
         boolean isSuccessful=false;
         
         List<Asset> assets= new List<Asset>();
-        List<Asset> lstAssetToUpdateToday= new List<Asset>();
-        List<Asset> lstAssetToUpdateLater= new List<Asset>();
         //List<Asset> ecOrchAsset= new List<Asset>();
         for(Asset item: AssetList)
         {
@@ -109,21 +107,18 @@ public class PORenewalAssetsController {
                 string prodName=item.Product2.Name;
                 item.Renewal_Start_Date__c=RenewalAsset.Renewal_Start_Date__c;
                 item.Renewal_Date__c=RenewalAsset.Renewal_Date__c;
-                if(prodName.startsWith('EC-BASE') || prodName.startsWith('EC-PLUS'))
+                System.debug('item.Renewal_Nodes__c'+item.Renewal_Nodes__c);
+                if(item.Status=='Customer Subscription Expired')
                 {
-                    originalNodes =item.Licenses_Nodes__c;
-                }
-                if(prodName.startsWith('EC-BOOST'))
-                {
-                    originalNodes =item.Bandwidth_Nodes__c;
-                }
-                if(item.Renewal_Nodes__c==originalNodes || AssetTypeSelection=='1' )
-                {
-                    lstAssetToUpdateToday.add(item);
-                }
-                else
-                {
-                    lstAssetToUpdateLater.add(item);
+                    if(AssetTypeSelection=='1')
+                    {
+                        item.Status='Customer Subscription';
+                    }
+                    else if(AssetTypeSelection=='2')
+                    {
+                        item.Status='Customer Subscription Active';
+                    }
+                   
                 }
             }
             if(AssetTypeSelection=='2')
@@ -134,17 +129,10 @@ public class PORenewalAssetsController {
                     SavePoint sp= Database.setSavepoint();
                     try
                     {
-                        if(lstAssetToUpdateToday.size()>0)
+                        if(assets.size()>0)
                         {
-                            RenewalAssetsHelper.CheckUnCheckAssets(lstAssetToUpdateToday, true);
-                            RenewalAssetsHelper.RenewEdgeConnectLicense(lstAssetToUpdateToday);
-                            RenewalAssetsHelper.UpdateAssetStatus(lstAssetToUpdateToday, AssetTypeSelection);
-                        }
-                        if(lstAssetToUpdateLater.size()>0)
-                        {
-                            RenewalAssetsHelper.RenewEdgeConnectLicense(lstAssetToUpdateLater);
-                            RenewalAssetsHelper.UpdateAssetStatus(lstAssetToUpdateLater, AssetTypeSelection);
-                            update lstAssetToUpdateLater;
+                            RenewalAssetsHelper.CheckUnCheckAssets(assets, true);
+                            RenewalAssetsHelper.RenewEdgeConnectLicense(assets);
                         }
                         isSuccessful=true;
                     }
@@ -159,30 +147,22 @@ public class PORenewalAssetsController {
                     {
                         RenewalAssetsHelper.SendEmailsForPurchaseOrder(true, PORequest,CustomerContact.Email_Contact__c);    
                     }
-                    if(lstAssetToUpdateToday.size()>0)
+                    if(assets.size()>0)
                     {
-                        RenewalAssetsHelper.CheckUnCheckAssets(lstAssetToUpdateToday, false);
-                        RenewalAssetsHelper.ClearRenewalDate(lstAssetToUpdateToday);
+                        RenewalAssetsHelper.CheckUnCheckAssets(assets, false);
+                        RenewalAssetsHelper.ClearRenewalDate(assets);
                     }
-                    if(lstAssetToUpdateLater.size()>0)
-                    {
-                        RenewalAssetsHelper.CheckUnCheckAssets(lstAssetToUpdateLater, false);
-                    }
-                    
-                    
-                    
                 }
             }
             if(AssetTypeSelection=='1')
             {
-                if(lstAssetToUpdateToday.size()>0)
+                if(assets.size()>0)
                 {
                     SavePoint sp= Database.setSavepoint();
                     try
                     {
-                        RenewalAssetsHelper.CheckUnCheckAssets(lstAssetToUpdateToday, true);
-                        RenewalAssetsHelper.CreateNewLicenses(lstAssetToUpdateToday);
-                        RenewalAssetsHelper.UpdateAssetStatus(lstAssetToUpdateToday, AssetTypeSelection);
+                        RenewalAssetsHelper.CheckUnCheckAssets(assets, true);
+                        RenewalAssetsHelper.CreateNewLicenses(assets);
                         isSuccessful=true;
                     }
                     catch(Exception ex)
@@ -197,10 +177,10 @@ public class PORenewalAssetsController {
                         {
                             RenewalAssetsHelper.SendEmailsForPurchaseOrder(false, PORequest,CustomerContact.Email_Contact__c);    
                         }
-                        if(lstAssetToUpdateToday.size()>0)
+                        if(assets.size()>0)
                         {
-                            RenewalAssetsHelper.CheckUnCheckAssets(lstAssetToUpdateToday, false);
-                            RenewalAssetsHelper.ClearRenewalDate(lstAssetToUpdateToday);
+                            RenewalAssetsHelper.CheckUnCheckAssets(assets, false);
+                            RenewalAssetsHelper.ClearRenewalDate(assets);
                         }
                     }      
                     

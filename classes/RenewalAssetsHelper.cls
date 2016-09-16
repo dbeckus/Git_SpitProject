@@ -15,46 +15,46 @@ public  class RenewalAssetsHelper
         }
     }
     
-    public static boolean UpdateAssetStatus(List<Asset> lstAsset,string assetType)
-    {
-      
-       	List<Asset>lstAssetsToUpdate=new  	List<Asset>();
-        if(lstAsset!=null && lstAsset.size()>0)
-        {
-            for(Asset asset: lstAsset)
-            {
-                if(asset.Status=='Customer Subscription Expired')
-                {
-                    if(assetType=='1')
-                    {
-                        asset.Status='Customer Subscription';
-                    }
-                    else if(assetType=='2')
-                    {
-                        asset.Status='Customer Subscription Active';
-                    }
-                    lstAssetsToUpdate.add(asset);
-                }
-            }
-            try
-            {
-                if(lstAssetsToUpdate.size()>0)
-                {
-                    update lstAssetsToUpdate;
-                }
-            }
-            catch(Exception ex)
-            {
-                
-                ApexPages.addMessages(ex);
-                SilverPeakutils.logException(ex);
-                return false;
-            }
-            
-        }
-        
-        return true;
-    }    
+    /* public static boolean UpdateAssetStatus(List<Asset> lstAsset,string assetType)
+{
+
+List<Asset>lstAssetsToUpdate=new  	List<Asset>();
+if(lstAsset!=null && lstAsset.size()>0)
+{
+for(Asset asset: lstAsset)
+{
+if(asset.Status=='Customer Subscription Expired')
+{
+if(assetType=='1')
+{
+asset.Status='Customer Subscription';
+}
+else if(assetType=='2')
+{
+asset.Status='Customer Subscription Active';
+}
+lstAssetsToUpdate.add(asset);
+}
+}
+try
+{
+if(lstAssetsToUpdate.size()>0)
+{
+update lstAssetsToUpdate;
+}
+}
+catch(Exception ex)
+{
+
+ApexPages.addMessages(ex);
+SilverPeakutils.logException(ex);
+return false;
+}
+
+}
+
+return true;
+}    */
     public static boolean RenewEdgeConnectLicense(List<Asset> lstAsset)
     {
         
@@ -65,11 +65,11 @@ public  class RenewalAssetsHelper
             for(Asset asset: lstAsset)
             {
                 string prodName= asset.Product2.Name;
-                if(prodName.startsWith('EC-BASE')||prodName.startsWith('EC-PLUS'))
+                if((prodName.startsWith('EC-BASE')||prodName.startsWith('EC-PLUS'))&& asset.Licenses_Nodes__c == asset.Renewal_Nodes__c )
                 {
                     asset.Licenses_Nodes__c= asset.Renewal_Nodes__c;
                 }
-                if(prodName.startsWith('EC-BOOST'))
+                if(prodName.startsWith('EC-BOOST')&& asset.Bandwidth_Nodes__c == asset.Renewal_Nodes__c)
                 {
                     asset.Bandwidth_Nodes__c= asset.Renewal_Nodes__c;
                 }
@@ -94,7 +94,49 @@ public  class RenewalAssetsHelper
                 {
                     update lstLicenses;
                 }
-                 if(lstAssets.size()>0)
+                if(lstAssets.size()>0)
+                {
+                    update lstAssets;
+                }
+            }
+            catch(Exception ex)
+            {
+                
+                ApexPages.addMessages(ex);
+                SilverPeakutils.logException(ex);
+                return false;
+            }
+            
+        }
+        
+        return true;
+    }
+    
+    public static boolean RenewEdgeConnectNodes(List<Asset> lstAsset)
+    {
+        
+        List<License__c> lstLicenses= new List<License__c>();
+        List<Asset> lstAssets= new List<Asset>();
+        if(lstAsset!=null && lstAsset.size()>0)
+        {
+            for(Asset asset: lstAsset)
+            {
+                string prodName= asset.Product2.Name;
+                if((prodName.startsWith('EC-BASE')||prodName.startsWith('EC-PLUS')))
+                {
+                    asset.EC_Old_Node_Count__c=asset.Licenses_Nodes__c;
+                    asset.Licenses_Nodes__c= asset.Renewal_Nodes__c;
+                }
+                if(prodName.startsWith('EC-BOOST'))
+                {
+                    asset.EC_Old_Node_Count__c=asset.Bandwidth_Nodes__c;
+                    asset.Bandwidth_Nodes__c= asset.Renewal_Nodes__c;
+                }
+                lstAssets.add(asset);
+            }
+            try
+            {
+                if(lstAssets.size()>0)
                 {
                     update lstAssets;
                 }
@@ -117,9 +159,21 @@ public  class RenewalAssetsHelper
         {
             for(Asset asset: lstAsset)
             {
-                asset.Renewal_Date__c=null;
-                asset.Renewal_Start_Date__c=null;
-                asset.Renewal_Nodes__c=0;
+                
+                string prodName= asset.Product2.Name;
+                if((prodName.startsWith('EC-BASE')||prodName.startsWith('EC-PLUS'))&& asset.Licenses_Nodes__c == asset.Renewal_Nodes__c )
+                {
+                    asset.Renewal_Nodes__c=0;
+                    asset.Renewal_Date__c=null;
+                    asset.Renewal_Start_Date__c=null;
+                }
+                if(prodName.startsWith('EC-BOOST')&& asset.Bandwidth_Nodes__c == asset.Renewal_Nodes__c)
+                {
+                    asset.Renewal_Nodes__c=0;
+                    asset.Renewal_Date__c=null;
+                    asset.Renewal_Start_Date__c=null;
+                }
+                
             }
             try
             {
@@ -263,6 +317,32 @@ public  class RenewalAssetsHelper
                     Contact contactPerson = [Select email from Contact where Id=:customerContact];
                     ccs.add(contactPerson.Email);
                 }
+                ccs.add('notifications@silver-peak.com');
+                Messaging.SingleEmailMessage email = new Messaging.SingleEmailMessage();
+                email.setTemplateId(template[0].Id);
+                email.setTargetObjectId(purchaseOrder.Email_Contact__c);
+                email.setCcAddresses(ccs);
+                email.setWhatId(purchaseOrder.Id);
+                email.setsaveAsActivity(false);
+                Id orgWideEmail = SilverPeakUtils.getOrganizationWideEmailId('notifications@silver-peak.com');
+                if(orgWideEmail != null)
+                {
+                    email.setOrgWideEmailAddressId(orgWideEmail);
+                }
+                Messaging.sendEmail(new List<Messaging.Email> {email}, true);  
+            }
+        }
+    }    
+    
+    public static void SendEmailsForPurchaseOrder_Reduction(Purchase_Order__c purchaseOrder)
+    {
+        string pocRenewalEmailType= 'EC Virtual Renewal Email PO Reduction';
+        if(pocRenewalEmailType!=null)
+        {
+            List<EmailTemplate> template = [select Id from EmailTemplate where Name=:pocRenewalEmailType limit 1];
+            if(template.size() > 0)
+            {
+                List<String> ccs = getAccountTeam(purchaseOrder.Opportunity__r.AccountId);
                 ccs.add('notifications@silver-peak.com');
                 Messaging.SingleEmailMessage email = new Messaging.SingleEmailMessage();
                 email.setTemplateId(template[0].Id);
