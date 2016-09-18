@@ -1817,6 +1817,10 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>TestPORenewECAssetsBatch</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>TestPORenewalAssetsController</apexClass>
         <enabled>true</enabled>
     </classAccesses>
