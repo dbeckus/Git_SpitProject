@@ -47,6 +47,7 @@ public class TestPORenewECAssetsBatch {
         PORenewalAssetsController renewController = new PORenewalAssetsController(poStdController);
         renewController.AssetList = renewController.RetreiveAssets(true);
         renewController.AssetTypeSelection ='2';
+        renewController.RenewalAsset= new Asset(Renewal_Start_Date__c=Date.today(),Renewal_Date__c=Date.today().addyears(3));
         //renewController.License.License_Expiration__c = Date.today().addyears(3);
         List<Asset> outputAssets= new List<Asset>();
         for(Asset asset :renewController.AssetList)
@@ -65,6 +66,8 @@ public class TestPORenewECAssetsBatch {
         System.assertEquals(10,asset[0].Licenses_Nodes__c);
         System.assertEquals(8,asset[0].Renewal_Nodes__c);
         
+        PORenewECAssetsBatch obj= new PORenewECAssetsBatch();
+        Database.executeBatch(obj,1);
         
     }
 

@@ -12,7 +12,7 @@ public class PORenewalAssetsController {
         if(AssetList==null)
         { AssetList= new List<Asset>();}
         
-         if(RenewalAsset==null)
+        if(RenewalAsset==null)
         { RenewalAsset= new Asset();}
         License= new License__c();
         CustomerContact = new Purchase_Order__c();
@@ -32,7 +32,7 @@ public class PORenewalAssetsController {
     {
         if(AssetTypeSelection=='1')
         {
-           
+            
             AssetList= RetreiveAssets(false);
         }
         else
@@ -105,8 +105,11 @@ public class PORenewalAssetsController {
             {
                 decimal originalNodes=0;
                 string prodName=item.Product2.Name;
-                item.Renewal_Start_Date__c=RenewalAsset.Renewal_Start_Date__c;
-                item.Renewal_Date__c=RenewalAsset.Renewal_Date__c;
+                if(AssetTypeSelection=='2')
+                {
+                    item.Renewal_Start_Date__c=RenewalAsset.Renewal_Start_Date__c;
+                    item.Renewal_Date__c=RenewalAsset.Renewal_Date__c;
+                }
                 System.debug('item.Renewal_Nodes__c'+item.Renewal_Nodes__c);
                 if(item.Status=='Customer Subscription Expired')
                 {
@@ -118,7 +121,7 @@ public class PORenewalAssetsController {
                     {
                         item.Status='Customer Subscription Active';
                     }
-                   
+                    
                 }
             }
             if(AssetTypeSelection=='2')

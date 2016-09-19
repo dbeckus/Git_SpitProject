@@ -173,6 +173,10 @@ return true;
                     asset.Renewal_Date__c=null;
                     asset.Renewal_Start_Date__c=null;
                 }
+                if(!prodName.startsWith('EC-'))
+                {                   
+                    asset.Renewal_Date__c=null;
+                }	              
                 
             }
             try
