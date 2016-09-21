@@ -168,7 +168,6 @@
         <fields>ACCOUNT.NAME</fields>
         <fields>ACCOUNT.SITE</fields>
         <fields>Account_Billing_State__c</fields>
-        <fields>Channel_Manager__c</fields>
         <fields>Inside_Sales_Mgr__c</fields>
         <fields>Systems_Engineer__c</fields>
         <fields>CORE.USERS.FULL_NAME</fields>

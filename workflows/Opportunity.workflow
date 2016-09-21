@@ -1167,6 +1167,16 @@ $Profile.Name =&quot;1.0- Sales Management&quot;
         <triggerType>onCreateOrTriggeringUpdate</triggerType>
     </rules>
     <rules>
+        <fullName>Update Channel Manager on Opp</fullName>
+        <active>false</active>
+        <criteriaItems>
+            <field>Opportunity.IsClosed</field>
+            <operation>equals</operation>
+            <value>False</value>
+        </criteriaItems>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
         <fullName>UpdateLeadSource</fullName>
         <active>false</active>
         <description>when a lead source is null, then update it to the opportunity source when that field is set or changes</description>

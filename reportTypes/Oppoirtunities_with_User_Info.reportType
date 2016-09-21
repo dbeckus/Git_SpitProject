@@ -1699,11 +1699,6 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>Channel_Manager__c</field>
-            <table>User.Opportunities2CSM__r</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
             <field>Inside_Sales_Mgr__c</field>
             <table>User.Opportunities2CSM__r</table>
         </columns>

@@ -1855,11 +1855,6 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>Channel_Manager__c</field>
-            <table>Account.Tier1PartnerOpps__r</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
             <field>Inside_Sales_Mgr__c</field>
             <table>Account.Tier1PartnerOpps__r</table>
         </columns>
