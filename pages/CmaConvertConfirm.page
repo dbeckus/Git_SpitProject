@@ -1,6 +1,6 @@
 <apex:page showHeader="true" sidebar="true" controller="CmaConvertConfirmController" >
     <h1>Convert Result</h1>
-    <p>Congratulations! Your request to convert your NX appliance to the perpetually licensed VX appliance shown in the table below has been. The affected appliances and maintenance service contracts are listed below.</p>
+    <p>Congratulations! Your request to convert your NX/GMS appliance to the perpetually licensed VX/GMS appliance shown in the table below has been. The affected appliances and maintenance service contracts are listed below.</p>
     <c:CmaConvert IsShowContract="true" CmaId="{!CmaId}"/>
     <p>Your Silver Peak virtual appliance and the associated license key are now available for download.</p>
     <p>Get your virtual appliance <a href="/apex/Downloads" target="_blank" style="color:blue">here</a></p>

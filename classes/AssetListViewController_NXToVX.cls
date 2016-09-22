@@ -185,7 +185,7 @@ public with sharing class AssetListViewController_NXToVX extends AssetListViewBa
         query += String.join(fields, ',');
         query.removeEnd(',');
         query += ' from Asset';
-        query += ' where Product2.Name like \'NX%\' and Status=\'Customer Owned\' and Contract_Status__c = \'Activated\'  and Contract_End__c >=today and Model__c in :models and (SerialNumber=\'' + escapedKeyword + '\' or Model__c like \'' + maskKeyword + '\' or Product2.Name like \'' + maskKeyword + '\' or Customer_Notes__c like \'' + maskKeyword + '\')';
+        query += ' where (Product2.Name like \'NX%\' or Product2.Name like \'GMS-10%\') and Status=\'Customer Owned\' and Contract_Status__c = \'Activated\'  and Contract_End__c >=today and Model__c in :models and (SerialNumber=\'' + escapedKeyword + '\' or Model__c like \'' + maskKeyword + '\' or Product2.Name like \'' + maskKeyword + '\' or Customer_Notes__c like \'' + maskKeyword + '\')';
         
         String sortFirstField = FieldName.split(';')[0];
         String sortAnotherField  = FieldName.split(';').size() > 1 ? FieldName.split(';')[1] : '';

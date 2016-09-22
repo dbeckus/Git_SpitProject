@@ -193,13 +193,13 @@
     };
     
     </script>
-    <apex:sectionHeader subtitle="NX Assets"></apex:sectionHeader>
+    <apex:sectionHeader subtitle="NX/GMS Assets"></apex:sectionHeader>
     <apex:form id="assetListForm">
         <apex:pageMessages id="errorMsg"/>
         <apex:actionFunction name="reloadData" action="{!searchAssets}" status="loading" reRender="assetListBlock,errorMsg"></apex:actionFunction>
         <span id="searchSection">
             <apex:selectList value="{!ListView}" size="1" id="listViewOption">
-                <apex:selectOption itemLabel="NX Assets" itemValue="NXToVX_Subscriptions"></apex:selectOption>
+                <apex:selectOption itemLabel="NX/GMS Assets" itemValue="NXToVX_Subscriptions"></apex:selectOption>
                 <apex:actionSupport event="onchange" action="{!initSort}" status="loading" reRender="assetListBlock,errorMsg"></apex:actionSupport>
             </apex:selectList>
            

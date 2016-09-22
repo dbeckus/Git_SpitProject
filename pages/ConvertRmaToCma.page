@@ -3,14 +3,14 @@
     <h1>Convert to Virtual</h1>
     <apex:messages />
     <apex:form id="form">
-    <p class="text-warning">You have elected to convert your NX series appliance to the perpetually licensed VX appliance shown in the table below.  The affected appliance and maintenance service contract are listed below.</p>
+        <p class="text-warning">You have elected to convert your NX/GMS series appliance to the perpetually licensed VX/GMS appliance shown in the table below.  The affected appliance and maintenance service contract are listed below.</p>
     <table class="table table-bordered">
         <thead>
             <th style="text-align: center" colspan="3">Appliance</th>
             <tr>
-                <th>NX Model</th>
-                <th>NX Serial Number</th>
-                <th>Converts to VX Model</th>
+                <th>NX/GMS Model</th>
+                <th>NX/GMS Serial Number</th>
+                <th>Converts to VX/GMS Model</th>
             </tr>
         </thead>
         <tbody>
@@ -59,16 +59,16 @@
     <br/>
     <p class="text-warning">By clicking the Convert button below you agree to the following:</p>
     <ul>
-        <li>You are converting the NX appliance to the VX appliance defined above.</li>
-        <li>You will decommission the NX model defined above</li>
-        <li>You will return the NX appliance defined above to Silver Peak. Failure to return the NX appliance within 60 days will result in being invoiced for the list value of the VX appliance defined above. Return instructions will be sent to in a separate email.</li>
-        <li>If instructed to do so by Silver Peak Systems, you will electronically recycle the NX appliance defined above.</li>
+        <li>You are converting the NX/GMS appliance to the VX/GMS appliance defined above.</li>
+        <li>You will decommission the NX/GMS model defined above</li>
+        <li>You will return the NX/GMS appliance defined above to Silver Peak. Failure to return the NX/GMS appliance within 60 days will result in being invoiced for the list value of the VX/GMS appliance defined above. Return instructions will be sent to in a separate email.</li>
+        <li>If instructed to do so by Silver Peak Systems, you will electronically recycle the NX/GMS appliance defined above.</li>
         <li>You agree to the terms of our Export compliance::Silver Peak software and license keys are subject to United States export controls and may be subject to the export or import regulations of other countries. You agree to comply strictly with all applicable export and import laws and regulations. In particular, represent and warrant that you are not a party identified on any government export exclusion lists, including but not limited to the U.S. Denied Persons, Entity, and Specially Designated Nationals Lists; you are not located in or a national of a country subject to U.S. embargo or trade sanctions; agree not to use the Service for military, nuclear, missile, chemical or biological weaponry end uses in violation of U.S. export laws; and agree not to re-export or transfer Silver Peak software and/or license keys in violation of the U.S. export controls.</li>
-        <li>Your Silver Peak inventory list will be updated and the NX model defined above will be removed</li>
-        <li>You will no longer be entitled to support or warranty on the NX model defined above</li>
+        <li>Your Silver Peak inventory list will be updated and the NX/GMS model defined above will be removed</li>
+        <li>You will no longer be entitled to support or warranty on the NX/GMS model defined above</li>
     </ul>
     <p class="text-warning">I agree with the above. &nbsp;<apex:inputCheckBox value="{!IsConverted}" id="check"/> </p><br/>
-    <p>The VX appliance serial number and perpetual license key will be available immediately the conversion is processed.</p>
+    <p>The VX/GMS appliance serial number and perpetual license key will be available immediately the conversion is processed.</p>
     <apex:actionFunction action="{!convert}" name="convertRmaToCma" status="status" rerender="page" />
     <apex:actionStatus id="status">
         <apex:facet name="start">
@@ -77,7 +77,7 @@
     </apex:actionStatus>
     <a class="btn btn-large" href="" onclick="checkConvert();" >Convert</a>
     <a class="btn btn-large" href="{!$Page.AssetListView_NXToVX}" >Cancel</a>&nbsp;
-    <a style="text-decoration:underline" href="http://marketplace.silver-peak.com/" target="_blank">Try VX Appliance </a>&nbsp;
+    <a style="text-decoration:underline" href="http://marketplace.silver-peak.com/" target="_blank">Try VX/GMS Appliance </a>&nbsp;
     <a style="text-decoration:underline" href="{!$Page.CmaConversionFaq}" target="_blank">Read FAQ</a>    </apex:form>
     <script>
         function checkConvert() {
