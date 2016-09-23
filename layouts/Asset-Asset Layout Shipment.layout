@@ -79,6 +79,10 @@
                 <behavior>Edit</behavior>
                 <field>EC_Old_Node_Count__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>Is_Asset_For_POC_Extended__c</field>
+            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>

@@ -165,11 +165,15 @@ public without sharing class ConvertRmaToCmaController
                 licenseAsModel = String.isEmpty(products[0].LicenseAsModel__c) ? products[0].Model__c : products[0].LicenseAsModel__c;
             }
         }
+        if(!string.isBlank(gmsNodes))
+        {
+            license.Quantity__c=decimal.valueOf(gmsNodes);
+        }
         license.Model__c = licenseAsModel;
         license.SerialNumber__c = asset.Name;
         license.License_Expiration__c = null;
         insert license;
-        //VirtualAssetManager.encryptLicenses(new List<String> { license.Id });
+        VirtualAssetManager.encryptLicenses(new List<String> { license.Id });
     }
 
     // NX Recycle Criteria

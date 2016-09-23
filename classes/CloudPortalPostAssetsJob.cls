@@ -2,7 +2,7 @@ public class CloudPortalPostAssetsJob implements Database.Batchable<sObject>,Dat
 {
     public Database.QueryLocator start(Database.BatchableContext context)
     {
-        return Database.getQueryLocator([Select Id,Name,Cloud_Portal_Account_Id__c from Account where Id in (Select AccountId from Asset where Sync_With_Cloud_Portal__c=true and Cloud_Portal_Sync_Status__c='Pending' and Product2.Family='Virtual Image')]);
+        return Database.getQueryLocator([Select Id,Name,Cloud_Portal_Account_Id__c from Account where Sync_With_Cloud_Portal__c=true]);
     }
     public void execute(Database.BatchableContext context, List<sObject> scope)
     { 

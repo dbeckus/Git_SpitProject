@@ -87,6 +87,7 @@ public class TestCalculateQuarterForOpp {
         opp1.StageName='New';
         update opp1;
         Account acco=[Select Id, First_Asset_Quarter__c from Account where Id=:acc.Id];
+        System.assertEquals(acco.First_Asset_Quarter__c, null);
         Test.stopTest();
     }
 }

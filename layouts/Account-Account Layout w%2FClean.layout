@@ -109,6 +109,10 @@
                 <behavior>Edit</behavior>
                 <field>Is_Partner_Initiated_Account__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Sync_Virtual_Assets_with_CP__c</field>
+            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>
@@ -130,6 +134,10 @@
             <layoutItems>
                 <behavior>Edit</behavior>
                 <field>Fax</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Sync_with_Cloud_Portal__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
