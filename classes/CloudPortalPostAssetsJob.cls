@@ -2,7 +2,7 @@ public class CloudPortalPostAssetsJob implements Database.Batchable<sObject>,Dat
 {
     public Database.QueryLocator start(Database.BatchableContext context)
     {
-        return Database.getQueryLocator([Select Id,Name,Cloud_Portal_Account_Id__c from Account where Sync_With_Cloud_Portal__c=true]);
+        return Database.getQueryLocator([Select Id,Name,Cloud_Portal_Account_Id__c from Account where Sync_Virtual_Assets_with_CP__c=true]);
     }
     public void execute(Database.BatchableContext context, List<sObject> scope)
     { 
@@ -11,7 +11,7 @@ public class CloudPortalPostAssetsJob implements Database.Batchable<sObject>,Dat
         
         List<Account> lstAccountToUpdate= new List<Account>();
         List<Asset> lstFinalAssets= new List<Asset>();
-        
+        List<Account> lstFinalSyncAccountUpdate= new List<Account>();
         List<Account> lstAccounts =(List<Account>)scope;
         if(lstAccounts!=null && lstAccounts.size()>0)
         {
@@ -64,7 +64,7 @@ public class CloudPortalPostAssetsJob implements Database.Batchable<sObject>,Dat
                             lstAccountToUpdate.add(accUpdated);
                         }
                         
-                        
+                        lstFinalSyncAccountUpdate.add(new Account(Id=accId.Id,Sync_Virtual_Assets_with_CP__c=false));
                     } 
                 }
                 catch(Exception ex)
@@ -83,7 +83,12 @@ public class CloudPortalPostAssetsJob implements Database.Batchable<sObject>,Dat
                 if(lstFinalAssets.size()>0)
                 {
                     update lstFinalAssets;
-                }                       
+                }     
+                 if(lstFinalSyncAccountUpdate.size()>0)
+                {
+                    update lstFinalSyncAccountUpdate;
+                }    
+                 
             }
             catch(Exception ex)
             {

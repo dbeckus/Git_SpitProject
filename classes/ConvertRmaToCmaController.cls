@@ -20,6 +20,7 @@ public without sharing class ConvertRmaToCmaController
 
     public Asset NxAsset { get; set; }
     public String VxModel { get; set; }
+    public String VxModelDisplayName { get; set; }
     public Boolean IsConverted { get; set; }
     public String CmaId { get; set; }
 
@@ -54,7 +55,12 @@ public without sharing class ConvertRmaToCmaController
         if(NxAsset != null && String.IsNotEmpty(NxAsset.Model__c))
         {
             VxModel = nxToVXMap.get(NxAsset.Model__c);
+            VxModelDisplayName = nxToVXMap.get(NxAsset.Model__c);
             gmsNodes=nxAsset.GMS_Nodes__c;
+            if(!string.isEmpty(gmsNodes))
+            {
+                VxModelDisplayName= String.format('{0}({1})', new String[]{VxModelDisplayName,gmsNodes});
+            }
             List<Product2> products = [select Id from Product2 where Name = :VxModel];
             if(products.size() > 0)
             {

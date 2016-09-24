@@ -12,7 +12,7 @@ public class CmaConvertComponentController
             {
                 CmaInfo info = new CmaInfo();
                 List<RMA_Item__c> rmaItems = [select Id, Asset__c, Asset__r.Model__c, Asset__r.SerialNumber, Asset__r.Contract_Type__c,
-                                                Asset__r.Contract_End__c from RMA_Item__c where RMA__c = :CmaRecordId order by Asset__r.Model__c];
+                                                Asset__r.Contract_End__c,Asset__r.GMS_Nodes__c from RMA_Item__c where RMA__c = :CmaRecordId order by Asset__r.Model__c];
                 for(RMA_Item__c item : rmaItems)
                 {
                     String model = item.Asset__r.Model__c;
@@ -25,6 +25,10 @@ public class CmaConvertComponentController
                     if(model.contains('VX')|| model.contains('GX-V'))
                     {
                         info.VxModel = item.Asset__r.Model__c;
+                        if(model.contains('GX-V') && !String.isEmpty(item.Asset__r.GMS_Nodes__c) )
+                        {
+                            info.VxModel= String.format('{0}({1})', new String[]{model,item.Asset__r.GMS_Nodes__c});
+                        }
                         info.VxSerialNumber = item.Asset__r.SerialNumber;
                         info.ContractType = item.Asset__r.Contract_Type__c;
                         info.ContractEndDate = item.Asset__r.Contract_End__c;

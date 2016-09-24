@@ -52,12 +52,14 @@ public class PocRequestAutomationHelper
         List<Asset> partVirtualAssets = new List<Asset>();
         List<Asset> changeAssets = new List<Asset>();
         List<Asset> trashyAssets = new List<Asset>();
+        List<Account> lstAccountToUpdate= new List<Account>();
+        Set<Id> accIds =new Set<Id>();
         Set<Id> AssetIds = new Set<Id>();
         List<Opportunity> opportunities = new List<Opportunity>();
         Set<Id> opportunityIds = new Set<Id>();
         
         Map<Id, List<RMA_Item__c>> rmaItemMap = new Map<Id, List<RMA_Item__c>>(); //key: poc id, value: rma line items
-        List<Request__c> requests = [select Id, Name, Status__c, IsAllVirtual__c, POC_Contact__c, Evaluation_Product_1__c, Ship_To_Location_1__c, Opportunity__r.AccountId, Opportunity__r.Type, Opportunity__r.StageName, Opportunity__r.Amount, (select Id, Product2Id, Product2.Product_Family_Clean__c, Hosted_GMS__c, Account.Name from Assets__r), (select Id from RMAs__r where RecordTypeId=:EvalRmaRecordTypeId) from Request__c where Id in :pocIds];
+        List<Request__c> requests = [select Id, Name, Status__c, IsAllVirtual__c, POC_Contact__c, Evaluation_Product_1__c, Ship_To_Location_1__c,POC_Type__c, Opportunity__r.AccountId, Opportunity__r.Type, Opportunity__r.StageName, Opportunity__r.Amount, (select Id, Product2Id, Product2.Product_Family_Clean__c, Hosted_GMS__c, Account.Name from Assets__r), (select Id from RMAs__r where RecordTypeId=:EvalRmaRecordTypeId) from Request__c where Id in :pocIds];
         
         Id accountId;
         List<Account> accounts = [select Id, Name from Account where Name = 'EMAIL SUPPORT CONTACTS'];
@@ -74,6 +76,11 @@ public class PocRequestAutomationHelper
         {
             if(request.RMAs__r.size() == 0)
             {
+                if(request.POC_Type__c=='EdgeConnect' || request.POC_Type__c=='Service Provider')
+                {
+                    accIds.add(request.Opportunity__r.AccountId);
+                }
+                
                 RMA__c rma = new RMA__c(Account__c=request.Opportunity__r.AccountId, RecordTypeId=EvalRmaRecordTypeId, Request__c=request.Id, Status__c='Initiated', Type__c='Eval Return', Contact_Loc_1__c=request.POC_Contact__c, Product__c=request.Evaluation_Product_1__c, Address1__c=request.Ship_To_Location_1__c);
                 List<RMA_Item__c> items = new List<RMA_Item__c>();
                 for(Asset asset : request.Assets__r)
@@ -127,6 +134,17 @@ public class PocRequestAutomationHelper
             }
             deleteAssets(AssetIds);
             update changeAssets;
+            if(accIds.size()>0)
+            {
+                for(Id item: accIds)
+                {
+                    lstAccountToUpdate.add(new Account(Id=item,Sync_Virtual_Assets_with_CP__c=true));
+                }
+            }
+            if(lstAccountToUpdate.size()>0)
+            {
+                update lstAccountToUpdate;
+            }
         }
         catch(DmlException ex)
         {
