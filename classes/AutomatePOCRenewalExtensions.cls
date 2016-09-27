@@ -1,0 +1,74 @@
+public class AutomatePOCRenewalExtensions implements Schedulable, Database.Batchable<sObject>, Database.Stateful
+{
+    
+    public void execute(SchedulableContext context)
+    {
+        Database.executeBatch(new AutomatePOCRenewalExtensions(), 10);
+    }
+    
+    public Database.QueryLocator start(Database.BatchableContext context)
+    {
+        return Database.getQueryLocator([Select Id,Opportunity__c, Opportunity__r.AccountId,POC_Type__c, POC_Contact__c, GMS_Needed__c, EvaluationProductHypervisor__c, Evaluation_Product_1__c, Evaluation_Product_2__c, Quantity_Location_1__c, Quantity_Location_2__c, Status__c, Actual_Ship_Date__c, Target_End_Date__c, VirtualProduct1__c, VirtualProduct2__c, VirtualProduct3__c, VirtualProduct4__c, VirtualProduct5__c, VirtualQuantity1__c, VirtualQuantity2__c, VirtualQuantity3__c, VirtualQuantity4__c, VirtualQuantity5__c  from Request__c where Id in (Select POCRequest__c from Asset where POCREquest__c!=null and Is_Asset_Eligible_For_POC_Renewal_Ext__c=true )]);
+    }
+    
+    public void execute(Database.BatchableContext context, List<sObject> scope)
+    {
+        List<Request__c> lstReq=(List<Request__c>)scope;
+        
+        for(Request__c pocReq: lstReq)
+        {
+            SavePoint sp= Database.setSavepoint();
+            try
+            {
+                List<Asset> lstAssetsForRenewal=[Select Id, Name,License_End_Date__c,Product2.Name,Status,Ship_Date__c, Product2.Product_Category__c,Product2.NumberOfLicenses__c,Hosted_GMS__c,GMS_Nodes__c,Product2.Model__c,Renewal_Date__c from Asset where  POCRequest__c=:pocReq.Id and Product2.Family='Virtual Image' and Status='Customer Evaluation'];
+                List<Asset> assets= new List<Asset>();
+                List<Asset> ecOrchAsset= new List<Asset>();
+                for(Asset item: lstAssetsForRenewal)
+                {
+                    item.Renewal_Date__c=pocReq.Target_End_Date__c;
+                    if(item.Product2.Name=='EC-ORCH')
+                    {
+                        ecOrchAsset.add(item);
+                    }
+                    else
+                    {
+                        assets.add(item);
+                    }
+                }
+                if(pocReq.POC_Type__c=='WAN Op')
+                {
+                    RenewalAssetsHelper.CreateNewLicenses(assets);
+                }
+                else if(pocReq.POC_Type__c=='EdgeConnect')
+                {
+                    RenewalAssetsHelper.RenewEdgeConnectLicense(assets);
+                    RenewalAssetsHelper.CreateNewLicenses(ecOrchAsset);
+                }
+                else if(pocReq.POC_Type__c=='Service Provider')
+                {
+                    RenewalAssetsHelper.RenewEdgeConnectLicense(assets);
+                }
+                RenewalAssetsHelper.SendEmailsForPOCRequest(pocReq);
+            }
+            catch(Exception ex)
+            {
+                Database.Rollback(sp);
+                SilverPEakUtils.logException(ex);
+            }   
+            
+        }
+        
+        
+        
+    }
+    
+    public void finish(Database.BatchableContext context)
+    {
+        if(!Test.isRunningTest())
+        {
+            AutomatePOCRenewalExtensions obj= new AutomatePOCRenewalExtensions();
+            System.scheduleBatch(obj, 'Automate POC Renewals', 60, 1);
+        }
+    }
+    
+}
