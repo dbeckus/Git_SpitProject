@@ -15,7 +15,7 @@
         </thead>
         <tbody>
             <tr>
-                <td>{!NxAsset.Model__c}</td>
+                <td>{!NxModelDisplayName}</td>
                 <td>{!NxAsset.SerialNumber}</td>
                 <td>{!VxModelDisplayName}</td>
             </tr>
@@ -37,7 +37,7 @@
         </thead>
         <tbody>
             <tr>
-                <td>{!NxAsset.Model__c}</td>
+                <td>{!NxModelDisplayName}</td>
                 <td>{!NxAsset.Contract_Type__c}</td>
                 <td>
                     <apex:outputText value="{0, date, MMM dd, yyyy}">

@@ -21,6 +21,10 @@ public class CmaConvertComponentController
                     {
                         info.NxModel = item.Asset__r.Model__c;
                         info.NxSerialNumber = item.Asset__r.SerialNumber;
+                        if(model.contains('GMS-10') && !String.isEmpty(item.Asset__r.GMS_Nodes__c) )
+                        {
+                            info.NxModel = String.format('{0}({1})', new String[]{model,item.Asset__r.GMS_Nodes__c});
+                        }
                     }
                     if(model.contains('VX')|| model.contains('GX-V'))
                     {

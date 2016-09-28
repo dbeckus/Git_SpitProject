@@ -79,10 +79,14 @@ public class VirtualPOCFulfillmentController
     
     public PageReference save()
     {
+        
         initVAManager();
+      
         VAManager.nameRankSerial();
+       
         if(saveAssets())
         {
+            System.debug('Save successful4');
             VAManager.willEncryptLicenses();
             SendFulfillmentEmailForEdgeConnect();
             SendFulfillmentEmailForServiceProviders();
@@ -197,6 +201,7 @@ public class VirtualPOCFulfillmentController
             }
             catch(DmlException ex)
             {
+                System.debug(ex);
                 SilverPeakUtils.logException(ex);
                 if(!isFromApex)
                 {
