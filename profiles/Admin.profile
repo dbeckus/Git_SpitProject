@@ -1853,6 +1853,10 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>TestReSyncDeletedAssetsInCP</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>TestSendNottoHardwareEng</apexClass>
         <enabled>true</enabled>
     </classAccesses>

@@ -27,7 +27,7 @@ public class POCRenewalAssetsController {
     
     private List<Asset> RetreiveAssets()
     {
-        List<Asset> lstAssets=[Select Id, Name,License_End_Date__c,Product2.Name,Status,Ship_Date__c, Product2.Product_Category__c,Product2.NumberOfLicenses__c,Hosted_GMS__c,GMS_Nodes__c,Product2.Model__c,Renewal_Date__c from Asset where POCRequest__c=:POCRequest.Id and Product2.Family='Virtual Image'];
+        List<Asset> lstAssets=[Select Id, Name,License_End_Date__c,Product2.Name,Status,Ship_Date__c, Product2.Product_Category__c,Product2.NumberOfLicenses__c,Hosted_GMS__c,GMS_Nodes__c,Product2.Model__c,Renewal_Date__c,Licenses_Nodes__c,Bandwidth_Nodes__c,Renewal_Nodes__c from Asset where POCRequest__c=:POCRequest.Id and Product2.Family='Virtual Image'];
         return lstAssets;
     }
     
@@ -37,16 +37,23 @@ public class POCRenewalAssetsController {
         SavePoint sp= Database.setSavepoint();
         try
         {
-            
+            List<Asset> ecOrchAsset= new List<Asset>();
             List<Asset> assets= new List<Asset>();
             if(POCRequest.POC_Type__c=='EdgeConnect')
             {
                 
-                List<Asset> ecOrchAsset= new List<Asset>();
+                
                 for(Asset item: AssetList)
                 {
                     item.Renewal_Date__c= License.License_Expiration__c;
-                  
+                    if(item.Product2.Name.startsWith('EC-BASE')||item.Product2.Name.startsWith('EC-PLUS'))
+                    {
+                        item.Renewal_Nodes__c=item.Licenses_Nodes__c;
+                    }
+                    if(item.Product2.Name.startsWith('EC-BOOST'))
+                    {
+                        item.Renewal_Nodes__c= item.Bandwidth_Nodes__c;
+                    }
                     if(item.Product2.Name=='EC-ORCH')
                     {
                         ecOrchAsset.add(item);
@@ -67,6 +74,8 @@ public class POCRenewalAssetsController {
             }
             // Send Email to POC Request.
             RenewalAssetsHelper.SendEmailsForPOCRequest(POCRequest);
+            RenewalAssetsHelper.ClearRenewalDate(assets);
+            RenewalAssetsHelper.ClearRenewalDate(ecOrchAsset);
             AssetList= RetreiveAssets();
             if(ApexPages.currentPage() != null)
             {

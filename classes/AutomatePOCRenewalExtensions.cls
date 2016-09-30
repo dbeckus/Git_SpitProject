@@ -20,12 +20,20 @@ public class AutomatePOCRenewalExtensions implements Schedulable, Database.Batch
             SavePoint sp= Database.setSavepoint();
             try
             {
-                List<Asset> lstAssetsForRenewal=[Select Id, Name,License_End_Date__c,Product2.Name,Status,Ship_Date__c, Product2.Product_Category__c,Product2.NumberOfLicenses__c,Hosted_GMS__c,GMS_Nodes__c,Product2.Model__c,Renewal_Date__c from Asset where  POCRequest__c=:pocReq.Id and Product2.Family='Virtual Image' and Status='Customer Evaluation'];
+                List<Asset> lstAssetsForRenewal=[Select Id, Name,License_End_Date__c,Renewal_Nodes__c,Product2.Name,Status,Ship_Date__c, Product2.Product_Category__c,Product2.NumberOfLicenses__c,Hosted_GMS__c,GMS_Nodes__c,Product2.Model__c,Renewal_Date__c,Licenses_Nodes__c,Bandwidth_Nodes__c from Asset where  POCRequest__c=:pocReq.Id and Product2.Family='Virtual Image' and Status='Customer Evaluation'];
                 List<Asset> assets= new List<Asset>();
                 List<Asset> ecOrchAsset= new List<Asset>();
                 for(Asset item: lstAssetsForRenewal)
                 {
                     item.Renewal_Date__c=pocReq.Target_End_Date__c;
+                    if(item.Product2.Name.startsWith('EC-BASE')||item.Product2.Name.startsWith('EC-PLUS'))
+                    {
+                        item.Renewal_Nodes__c=item.Licenses_Nodes__c;
+                    }
+                    if(item.Product2.Name.startsWith('EC-BOOST'))
+                    {
+                        item.Renewal_Nodes__c= item.Bandwidth_Nodes__c;
+                    }
                     if(item.Product2.Name=='EC-ORCH')
                     {
                         ecOrchAsset.add(item);
@@ -39,16 +47,14 @@ public class AutomatePOCRenewalExtensions implements Schedulable, Database.Batch
                 {
                     RenewalAssetsHelper.CreateNewLicenses(assets);
                 }
-                else if(pocReq.POC_Type__c=='EdgeConnect')
+                else if(pocReq.POC_Type__c=='EdgeConnect' || pocReq.POC_Type__c=='Service Provider')
                 {
                     RenewalAssetsHelper.RenewEdgeConnectLicense(assets);
                     RenewalAssetsHelper.CreateNewLicenses(ecOrchAsset);
                 }
-                else if(pocReq.POC_Type__c=='Service Provider')
-                {
-                    RenewalAssetsHelper.RenewEdgeConnectLicense(assets);
-                }
                 RenewalAssetsHelper.SendEmailsForPOCRequest(pocReq);
+                RenewalAssetsHelper.ClearRenewalDate(assets);
+                RenewalAssetsHelper.ClearRenewalDate(ecOrchAsset);
             }
             catch(Exception ex)
             {

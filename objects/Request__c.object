@@ -3194,8 +3194,7 @@ alert(&quot;POC Approvers are blank. Check whether the opportunity is patched co
 }
 else
 {
-var primaryQuote= sforce.connection.query(&quot;select Product_Type__c,Type from Opportunity where Id=&apos;{!Request__c.OpportunityId__c}&apos;&quot;); 
-var queueNameQueryResult = primaryQuote.getArray(&quot;records&quot;); 
+
 
 var accountInfo=sforce.connection.query(&quot;select AccountId from Opportunity where Id=&apos;{!Request__c.OpportunityId__c}&apos;&quot;); 
 var accountInfoQueryResult = accountInfo.getArray(&quot;records&quot;); 
@@ -3210,15 +3209,7 @@ var queryData=&quot;select Id from Asset where (NOT Product2.Name like &apos;EC%
 assetInfo=sforce.connection.query(queryData); 
 
 } 
-
-var quoteInfo= sforce.connection.query(&quot;Select Id from Quote__C where Primary__c=true and Opportunity__c =&apos;{!Request__c.OpportunityId__c}&apos; and Id in (Select Quote__c from Quote_Line__c)&quot;); 
-var quoteInfoQueryResult = quoteInfo.getArray(&quot;records&quot;); 
-
-if(reqType!=&quot;Service Provider&quot; &amp;&amp; queueNameQueryResult!=null &amp;&amp; queueNameQueryResult[0].Type!=&quot;Marketplace&quot; &amp;&amp; (quoteInfoQueryResult== null ||quoteInfoQueryResult==&apos;&apos;)) 
-{ 
-alert(&quot;POC cannot be submitted for an approval as there is no primary quote defined for this opportunity or there are no quote lines added to the quote.&quot;); 
-} 
-else if(assetInfo!=null &amp;&amp; assetInfo.size&gt;0 &amp;&amp; &apos;{!Request__c.Allow_Fulfillment__c}&apos;== false) 
+ if(assetInfo!=null &amp;&amp; assetInfo.size&gt;0 &amp;&amp; &apos;{!Request__c.Allow_Fulfillment__c}&apos;== false) 
 { 
 alert(&quot;You cannot fulfill this POC as the customer has existing assets. Please contact operations.&quot;); 
 } 

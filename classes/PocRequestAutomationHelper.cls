@@ -52,8 +52,6 @@ public class PocRequestAutomationHelper
         List<Asset> partVirtualAssets = new List<Asset>();
         List<Asset> changeAssets = new List<Asset>();
         List<Asset> trashyAssets = new List<Asset>();
-        List<Account> lstAccountToUpdate= new List<Account>();
-        Set<Id> accIds =new Set<Id>();
         Set<Id> AssetIds = new Set<Id>();
         List<Opportunity> opportunities = new List<Opportunity>();
         Set<Id> opportunityIds = new Set<Id>();
@@ -75,12 +73,7 @@ public class PocRequestAutomationHelper
         for(Request__c request : requests)
         {
             if(request.RMAs__r.size() == 0)
-            {
-                if(request.POC_Type__c=='EdgeConnect' || request.POC_Type__c=='Service Provider')
-                {
-                    accIds.add(request.Opportunity__r.AccountId);
-                }
-                
+            { 
                 RMA__c rma = new RMA__c(Account__c=request.Opportunity__r.AccountId, RecordTypeId=EvalRmaRecordTypeId, Request__c=request.Id, Status__c='Initiated', Type__c='Eval Return', Contact_Loc_1__c=request.POC_Contact__c, Product__c=request.Evaluation_Product_1__c, Address1__c=request.Ship_To_Location_1__c);
                 List<RMA_Item__c> items = new List<RMA_Item__c>();
                 for(Asset asset : request.Assets__r)
@@ -134,17 +127,6 @@ public class PocRequestAutomationHelper
             }
             deleteAssets(AssetIds);
             update changeAssets;
-            if(accIds.size()>0)
-            {
-                for(Id item: accIds)
-                {
-                    lstAccountToUpdate.add(new Account(Id=item,Sync_Virtual_Assets_with_CP__c=true));
-                }
-            }
-            if(lstAccountToUpdate.size()>0)
-            {
-                update lstAccountToUpdate;
-            }
         }
         catch(DmlException ex)
         {
