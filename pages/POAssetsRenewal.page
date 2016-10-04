@@ -39,13 +39,24 @@
         $("#InlineEditDialog").show();
         $(".datePicker").css("z-index", 500);
         $("#popUpShipDate").show();
+        $("#popUpSupportDate").hide();
         $("#datePicker").css("z-index", 50103);
     }
+     function showDateSupportPopup()
+    {
+        $(".overlayBackground").show();
+        $("#InlineEditDialog").show();
+        $(".datePicker").css("z-index", 500);
+        $("#popUpShipDate").hide();
+        $("#popUpSupportDate").show();
+        $("#datePicker").css("z-index", 50103);
+    }
+    
     function setValueToAllRows()
     {
         
         $('td[id$="LicenseDateCol"] input').val($("#popUpShipDate input").val());
-        
+        $('td[id$="ServiceLicenseDateCol"] input').val($("#popUpSupportDate input").val());
     }
     </script>
     <apex:sectionHeader title="Renew Virtual Assets">
@@ -59,6 +70,7 @@
                                 <apex:selectList id="assetType" style="width:20%" label="Asset Type" value="{!AssetTypeSelection}" required="false" size="1">
                                     <apex:selectOption itemvalue="1" itemLabel="Wan Op"/>
                                     <apex:selectOption itemvalue="2" itemLabel="Edge Connect"/>
+                                    <apex:selectOption itemvalue="3" itemLabel="Service Provider"/>
                                     <apex:actionSupport event="onchange" action="{!ResetFilter}" reRender="listSection,mainSection" />
                                 </apex:selectList>
                             </td>
@@ -103,6 +115,12 @@
                             <apex:inputField value="{!item.Renewal_Nodes__c}" rendered="{!IF(CONTAINS(item.Product2.Name,'EC-BOOST')||CONTAINS(item.Product2.Name,'EC-BASE')||CONTAINS(item.Product2.Name,'EC-PLUS'),true,false)}" />
                             <apex:outputText value="{!item.Renewal_Nodes__c}" rendered="{!IF(CONTAINS(item.Product2.Name,'EC-BOOST')||CONTAINS(item.Product2.Name,'EC-BASE')||CONTAINS(item.Product2.Name,'EC-PLUS'),false,true)}" />
                         </apex:column>  
+                         <apex:column id="ServiceLicenseDateCol" rendered="{!AssetTypeSelection=='3'}">
+                            <apex:facet name="header">
+                                Service Support End Date <img src="/s.gif" alt="Expand" class="moreArrow" title="Expand" onclick="showDateSupportPopup()" style="cursor:pointer"/>
+                            </apex:facet>
+                            <apex:inputField value="{!item.Service_Support_End_Date__c}" />
+                        </apex:column>
                     </apex:pageBlockTable>
                 </apex:pageBlockSection>
                 <apex:pageBlockButtons location="Top">
@@ -136,6 +154,7 @@
                         <div class="activeField">
                             <div class="inlineEditCompoundDiv" style="width:300px;height:100px">
                                 <span id="popUpShipDate">License Expiration Date&nbsp;<apex:inputField value="{!License.License_Expiration__c}" /><br/><br/></span>
+                                <span id="popUpSupportDate">Service Support End Date&nbsp;<apex:inputField value="{!SupportAsset.Service_Support_End_Date__c}" /><br/><br/></span>
                             </div>
                         </div>
                         <div></div>

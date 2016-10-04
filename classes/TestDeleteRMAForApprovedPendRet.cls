@@ -5,6 +5,8 @@ public class TestDeleteRMAForApprovedPendRet {
     {
         Account acc = new Account(Name='testECPOC');
         insert acc;
+        Account spAcc = new Account(Name='Silver Peak Systems');
+        insert spAcc;
         Contact contact = new Contact(FirstName = 'AcmeFirstname', LastName = 'AcmeLastname', Phone='123456789', Email = 'acme@acme.com' , accountId=acc.Id);
         insert contact;
         Opportunity opportunity = new Opportunity();
@@ -67,9 +69,6 @@ public class TestDeleteRMAForApprovedPendRet {
             update request;
             
         }
-        rmaItem=null;
-    	rmaItem=[Select Id from RMA__c where Request__c=:request.Id];
-        System.assert(rmaItem.size()==0);
         Test.stopTest();
     }
 }

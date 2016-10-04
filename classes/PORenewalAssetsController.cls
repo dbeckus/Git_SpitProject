@@ -3,6 +3,7 @@ public class PORenewalAssetsController {
     public Purchase_Order__c CustomerContact{get;set;}
     public List<Asset> AssetList{get;set;}
     public License__c License { get; set; }
+    public Asset SupportAsset { get; set; }
     public Asset RenewalAsset { get; set; }
     public boolean IsFromApex {get;set;}
     public String AssetTypeSelection{get; set;}
@@ -14,6 +15,8 @@ public class PORenewalAssetsController {
         
         if(RenewalAsset==null)
         { RenewalAsset= new Asset();}
+         if(SupportAsset==null)
+        { SupportAsset= new Asset();}
         License= new License__c();
         CustomerContact = new Purchase_Order__c();
         List<Purchase_Order__c> requests = [select Id, Opportunity__c, Opportunity__r.AccountId,Email_Contact__c from Purchase_Order__c where Id = :controller.getId()];        
@@ -35,10 +38,13 @@ public class PORenewalAssetsController {
             
             AssetList= RetreiveAssets(false);
         }
-        else
+        else if(AssetTypeSelection=='2')
         {
-            
             AssetList= RetreiveAssets(true);
+        }
+        else if(AssetTypeSelection=='3')
+        {
+            AssetList= RetreiveAssets(false);
         }
         return null;
         
@@ -74,11 +80,23 @@ public class PORenewalAssetsController {
         }
         else
         {
-            lstAssets =[Select Id, Name,License_End_Date__c,Product2.Name,Status,Ship_Date__c, Product2.Product_Category__c,Product2.NumberOfLicenses__c,Hosted_GMS__c,GMS_Nodes__c,Product2.Model__c,Is_Selected_For_Renewal__c,Renewal_Date__c,License_Expiration__c,Renewal_Nodes__c,Renewal_Start_Date__c  from Asset where AccountId =:PORequest.Opportunity__r.AccountId and  Status in('Customer Subscription Active', 'Customer Subscription Expired','Customer Subscription') and Product2.Family='Virtual Image'  and  (NOT Product2.Name like'EC%')];
-            for(Asset item: lstAssets)
+            if(AssetTypeSelection=='1')
             {
-                item.Renewal_Start_Date__c=Date.today();
+                lstAssets =[Select Id, Name,License_End_Date__c,Product2.Name,Status,Ship_Date__c, Product2.Product_Category__c,Product2.NumberOfLicenses__c,Hosted_GMS__c,GMS_Nodes__c,Product2.Model__c,Is_Selected_For_Renewal__c,Renewal_Date__c,License_Expiration__c,Renewal_Nodes__c,Renewal_Start_Date__c  from Asset where AccountId =:PORequest.Opportunity__r.AccountId and  Status in('Customer Subscription Active', 'Customer Subscription Expired','Customer Subscription') and Product2.Family='Virtual Image'  and  (NOT Product2.Name like'EC%')];
+                for(Asset item: lstAssets)
+                {
+                    item.Renewal_Start_Date__c=Date.today();
+                }
             }
+            if(AssetTypeSelection=='3')
+            {
+                lstAssets =[Select Id, Name,License_End_Date__c,Product2.Name,Status,Ship_Date__c,Service_Support_End_Date__c, Product2.Product_Category__c,Product2.NumberOfLicenses__c,Hosted_GMS__c,GMS_Nodes__c,Product2.Model__c,Is_Selected_For_Renewal__c,Renewal_Date__c,License_Expiration__c,Renewal_Nodes__c,Renewal_Start_Date__c  from Asset where AccountId =:PORequest.Opportunity__r.AccountId and  Status in('Customer Owned') and Product2.Family='Virtual Image' and Product2.Product_Type__c ='EC-SP'];
+                for(Asset item: lstAssets)
+                {
+                    item.Renewal_Start_Date__c=Date.today();
+                }
+            }
+            
         }
         
         
@@ -120,6 +138,10 @@ public class PORenewalAssetsController {
                     else if(AssetTypeSelection=='2')
                     {
                         item.Status='Customer Subscription Active';
+                    }
+                    else if(AssetTypeSelection=='3')
+                    {
+                        item.Status='Customer Owned';
                     }
                     
                 }
@@ -189,7 +211,37 @@ public class PORenewalAssetsController {
                     
                 }
             }
-            
+             if(AssetTypeSelection=='3')
+            {
+                if(assets.size()>0)
+                {
+                    SavePoint sp= Database.setSavepoint();
+                    try
+                    {
+                        update assets;
+                        isSuccessful=true;
+                    }
+                    catch(Exception ex)
+                    {
+                        Database.Rollback(sp);
+                        ApexPages.addMessages(ex);
+                        SilverPEakUtils.logException(ex);
+                    }
+                    finally
+                    {
+                        if(isSuccessful)
+                        {
+                            //RenewalAssetsHelper.SendEmailsForPurchaseOrder(false, PORequest,CustomerContact.Email_Contact__c);    
+                        }
+                        if(assets.size()>0)
+                        {
+                            RenewalAssetsHelper.CheckUnCheckAssets(assets, false);
+                           
+                        }
+                    }      
+                    
+                }
+            }
             if(ApexPages.currentPage() != null)
             {
                 if(!isFromApex)

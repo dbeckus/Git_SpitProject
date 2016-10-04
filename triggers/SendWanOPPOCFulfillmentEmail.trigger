@@ -80,7 +80,6 @@ trigger SendWanOPPOCFulfillmentEmail on Request__c (after update) {
                 
             }
             lstCopyEmail.add('notifications@silver-peak.com');
-            lstCopyEmail.add('prane@silver-peak.com');
             List<Asset> lstVXAsset=[Select Id,ContactId from Asset where POCRequest__c=:pocId and CreatedDate=today and Product2.Family='Virtual Image' and Hosted_GMS__c=false and Marketplace_Sourced_Opp__c=0 and (NOT Model__c='GX-V') and Model__c in:lstVXModels];
             
             if(lstVXAsset!=null && lstVXAsset.size()>0)

@@ -95,6 +95,9 @@
                     "licensesNodes":nodeCurrentRow.find("input[id$='licensesNodes']"),
                     "bandwidthNodes":nodeCurrentRow.find("input[id$='bandwidthNodes']"),
                     "qty":nodeCurrentRow.find("input[id$='qty']"),
+                    "serviceEndDate":nodeCurrentRow.find("input[id$='serviceendDate']"),
+                    "serviceendDateOutput": nodeCurrentRow.find(".service-end-date-output"),
+                    "serviceendDateInput": nodeCurrentRow.find(".service-end-date-input"),
                 }
             };
              
@@ -139,7 +142,7 @@
                      nodeLine.qty.prop("disabled",true);
                  }
                 //Refresh Other(Start Date,End Date, Duration) Columns
-                if(productCode.indexOf("VX") >= 0 || productCode.indexOf("30") == 0 ||(productName!='EC-ORCH' && productName.indexOf("EC-") >= 0) ||(productCode=="500188-001" && productName.indexOf("VX") >= 0 )) {  //30 - Customer Subscription
+                if(productCode.indexOf("VX") >= 0 || productCode.indexOf("30") == 0 ||(productName!='EC-ORCH' && productName.indexOf("EC-SP") != 0 && productName.indexOf("EC-") >= 0) ||(productCode=="500188-001" && productName.indexOf("VX") >= 0 )) {  //30 - Customer Subscription
                     nodeLine.status.val("Customer Subscription");
 
                     nodeLine.ownerDurationSelect.hide();
@@ -150,11 +153,11 @@
 
                     nodeLine.endDateInput.css("display", "inline-block");
                     nodeLine.endDateOutput.hide();
-
+                    nodeLine.serviceendDateOutput.hide();
+                    nodeLine.serviceendDateInput.hide();
                     refreshAssetEndDate(nodeLine);
                 } else { //50 - Customer Owned
                     var today = formatDate(new Date());
-
                     nodeLine.status.val("Customer Owned");
 
                     nodeLine.ownerDurationSelect.show();
@@ -169,6 +172,17 @@
                     nodeLine.endDateOutput.css("display", "inline-block");
                     nodeLine.endDateOutput.text("");
                     nodeLine.endDate.val("");
+                    nodeLine.serviceendDateOutput.hide();
+                    nodeLine.serviceendDateInput.hide();
+                    nodeLine.serviceEndDate.val("");
+                    if(productName.indexOf("EC-SP") == 0)
+                        {
+                           
+                            nodeLine.serviceendDateInput.show();
+                            nodeLine.serviceEndDate.val(today);
+                    		nodeLine.serviceendDateInput.css("display", "inline-block");
+                    		
+                        }
                 }
             };
 
@@ -311,6 +325,13 @@
                             <span class="end-date-output"></span>
                             <span class="end-date-input">
                                 <apex:inputField id="endDate" value="{!assetInfo.Asset.Evaluation_End_Date__c}" />
+                            <apex:variable var="index" value="{!index + 1}" />
+                            </span>
+                        </apex:column>
+                         <apex:column headerValue="Service Support End Date" width="15%">
+                            <span class="service-end-date-output"></span>
+                            <span class="service-end-date-input">
+                                <apex:inputField id="serviceendDate" value="{!assetInfo.Asset.Service_Support_End_Date__c}" />
                             <apex:variable var="index" value="{!index + 1}" />
                             </span>
                         </apex:column>

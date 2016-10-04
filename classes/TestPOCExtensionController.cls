@@ -1,6 +1,6 @@
 @IsTest
 public class TestPOCExtensionController {
-    @IsTest
+    
     public static void POCTest_Active()
     {
         Id accountId = TestUtilities.createTestAccount();

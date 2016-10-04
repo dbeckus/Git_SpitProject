@@ -61,7 +61,7 @@ public with sharing class NewVirtualShipmentController
             Map<Id,String> ecProdIds= new Map<Id,String>();
             try
             {
-                List<Product2> productList=[Select Id,Name from Product2 where Name like 'EC%' and Family='Virtual Image'];
+                List<Product2> productList=[Select Id,Name from Product2 where Name like 'EC%' and Family='Virtual Image' and Product2.Product_Type__c ='EDGECONNECT' ];
                 for(Product2 prod : productList)
                 {
                     ecProdIds.put(prod.Id,prod.Name);
@@ -98,7 +98,7 @@ public with sharing class NewVirtualShipmentController
     public PageReference addLine()
     {    
         VirtualAssetManager.VirtualAsset newAssetInfo = new VirtualAssetManager.VirtualAsset();
-        newAssetInfo.Asset = new Asset(Evaluation_Start_Date__c = Date.today(),Evaluation_End_Date__c = Date.today());
+        newAssetInfo.Asset = new Asset(Evaluation_Start_Date__c = Date.today(),Evaluation_End_Date__c = Date.today(),Service_Support_End_Date__c=Date.today());
         //newAssetInfo.License = new License__c();
         AssetLines.add(newAssetInfo);
         return null;
@@ -399,7 +399,7 @@ public with sharing class NewVirtualShipmentController
         Map<string,Asset> mapAssetItems = new Map<string,Asset>();   
         
         List<Id>productIds = new List<Id>();
-        List<Product2> ecProducts= [Select Id from Product2 where Name like 'EC-%' and Family='Virtual Image'];
+        List<Product2> ecProducts= [Select Id from Product2 where Name like 'EC-%' and Family='Virtual Image' and Product_Type__c='EDGECONNECT'];
         
         for(Product2 prod :ecProducts)
         {
