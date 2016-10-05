@@ -5,7 +5,8 @@ public class TestCloudPortalPostAssetsJob {
     {
         Account acc= new Account(Name='acme',Cloud_Portal_Account_Id__c='123666669898');
         insert acc;
-        
+        Account spAcc= new Account(Name='Silver Peak Systems');
+        insert spAcc;
         Product2 baseProduct = new Product2();
         baseProduct.Name = 'EC-BASE-1Y';
         baseProduct.ProductCode = 'EC-BASE';
@@ -102,7 +103,8 @@ public class TestCloudPortalPostAssetsJob {
     {
         Account acc= new Account(Name='acme_test');
         insert acc;
-        
+        Account spAcc= new Account(Name='Silver Peak Systems');
+        insert spAcc;
         Product2 product = new Product2();
         product.Name = 'EC-BASE-6Y';
         product.ProductCode = 'EC-BASE';

@@ -28,4 +28,5 @@
     <tab>standard-Forecasting3</tab>
     <tab>LMS_Course_Certification__c</tab>
     <tab>LMS_Course__c</tab>
+    <tab>Api_Configuration__c</tab>
 </CustomApplication>

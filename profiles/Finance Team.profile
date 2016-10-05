@@ -121,6 +121,10 @@
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>ApiConfigurationDataController</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>ArchiveDeletedOpportunityController</apexClass>
         <enabled>false</enabled>
     </classAccesses>
@@ -1645,6 +1649,10 @@
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>TestApiConfigurationDataController</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>TestAssetListViewControllerEC</apexClass>
         <enabled>false</enabled>
     </classAccesses>
@@ -2179,6 +2187,26 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
+        <editable>false</editable>
+        <field>Api_Configuration__c.Endpoint_URL__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Api_Configuration__c.Environment_Name__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Api_Configuration__c.Password__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Api_Configuration__c.UserName__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>true</editable>
         <field>AssetContract__c.Asset__c</field>
         <readable>true</readable>
@@ -2496,26 +2524,6 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Customer_Satisfaction_Survey__c.TAC_Success__c</field>
-        <readable>false</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>DataConfiguration__c.Endpoint_URL__c</field>
-        <readable>false</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>DataConfiguration__c.Environment_Name__c</field>
-        <readable>false</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>DataConfiguration__c.Password__c</field>
-        <readable>false</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>DataConfiguration__c.UserName__c</field>
         <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -7344,6 +7352,9 @@
         <layout>AccountWithTimeline__c-Timeline Layout</layout>
     </layoutAssignments>
     <layoutAssignments>
+        <layout>Api_Configuration__c-Api Configuration Layout</layout>
+    </layoutAssignments>
+    <layoutAssignments>
         <layout>Asset-Asset Layout</layout>
     </layoutAssignments>
     <layoutAssignments>
@@ -7405,9 +7416,6 @@
     </layoutAssignments>
     <layoutAssignments>
         <layout>DandBCompany-D%26B Company Layout</layout>
-    </layoutAssignments>
-    <layoutAssignments>
-        <layout>DataConfiguration__c-DataConfiguration Layout</layout>
     </layoutAssignments>
     <layoutAssignments>
         <layout>Deficiency_Component__c-Deficiency Component Layout</layout>
@@ -8927,6 +8935,10 @@
     </tabVisibilities>
     <tabVisibilities>
         <tab>Account_Summary</tab>
+        <visibility>DefaultOff</visibility>
+    </tabVisibilities>
+    <tabVisibilities>
+        <tab>Api_Configuration__c</tab>
         <visibility>DefaultOff</visibility>
     </tabVisibilities>
     <tabVisibilities>

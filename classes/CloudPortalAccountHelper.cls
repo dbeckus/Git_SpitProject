@@ -5,63 +5,78 @@ public class CloudPortalAccountHelper {
     {
         // Added comments
         string endPtUrl;
-        HttpRequest request = new HttpRequest();
-        request.setMethod('POST');
-        request.setHeader('charset', 'UTF-8');
-        request.setHeader('Content-Type', 'application/json');
-        if(SilverPeakUtils.IsProduction())
-        {
-            endPtUrl='https://cloudportal.silver-peak.com/portal/apis/rest/login';
-        }
-        else
-        {
-            endPtUrl='https://portaldev.silver-peak.com/portal/apis/rest/login';
-        }
-        request.setEndpoint(endPtUrl);
-        JSONGenerator generator = JSON.createGenerator(true);
-        generator.writeStartObject();
-        if(SilverPeakUtils.IsProduction())
-        {
-            generator.writeStringField('email', 'cp-salesforce@silver-peak.com');
-            generator.writeStringField('mfaCode', '');
-            generator.writeStringField('password', 'Mo@V3eLiHLYHbo1U');
-        }
-        else
-        {
-            generator.writeStringField('email', 'cloudportaltest@silver-peak.com');
-            generator.writeStringField('mfaCode', '');
-            generator.writeStringField('password', 'Yesadmin4u');
-        }
-        
-        generator.writeEndObject();        
-        String parameters = generator.getAsString();
-        request.setBody(parameters);
-        
-        HttpResponse response = new Http().send(request);
-        
-        // Process response.
-        if(response.getStatusCode() >= 200 && response.getStatusCode() < 400)
-        {
-            string cookie=response.getHeader('set-cookie');
-            System.debug(cookie);
-            if(cookie!=null)
-            {
-                string[] cookiesArr= cookie.split(';');
-                //token= cookiesArr[0].substring(cookiesArr[0].indexOf('=')+1,cookiesArr[0].length());
-                return cookiesArr[0];
-            }
-            
-        }
-        else
-        {
-            system.debug(response.getBody());
-        }
         if(Test.isRunningTest())
         {
             return 'test123';
         }
+        Api_Configuration__c apiData;
+        
+        if(SilverPeakUtils.IsProduction())
+        {
+            apiData= ApiConfigurationDataController.RetreiveApiCredentials('Cloud Portal Production');
+            //endPtUrl='https://cloudportal.silver-peak.com/portal/apis/rest/login';
+        }
+        else
+        {
+            apiData= ApiConfigurationDataController.RetreiveApiCredentials('Cloud Portal Testing');
+            //endPtUrl='https://portaldev.silver-peak.com/portal/apis/rest/login';
+        }
+        
+        if(apiData!=null)
+        {
+            HttpRequest request = new HttpRequest();
+            request.setMethod('POST');
+            request.setHeader('charset', 'UTF-8');
+            request.setHeader('Content-Type', 'application/json');
+            endPtUrl=apiData.Endpoint_URL__c;
+            request.setEndpoint(endPtUrl);
+            JSONGenerator generator = JSON.createGenerator(true);
+            generator.writeStartObject();
+            generator.writeStringField('email', apiData.UserName__c);
+            generator.writeStringField('mfaCode', '');
+            generator.writeStringField('password', apiData.Password__c);
+            /* if(SilverPeakUtils.IsProduction())
+{
+generator.writeStringField('email', 'cp-salesforce@silver-peak.com');
+generator.writeStringField('mfaCode', '');
+generator.writeStringField('password', 'Mo@V3eLiHLYHbo1U');
+}
+else
+{
+generator.writeStringField('email', 'cloudportaltest@silver-peak.com');
+generator.writeStringField('mfaCode', '');
+generator.writeStringField('password', 'Yesadmin4u');
+}*/
+            
+            generator.writeEndObject();        
+            String parameters = generator.getAsString();
+            request.setBody(parameters);
+            
+            HttpResponse response = new Http().send(request);
+            
+            // Process response.
+            if(response.getStatusCode() >= 200 && response.getStatusCode() < 400)
+            {
+                string cookie=response.getHeader('set-cookie');
+                System.debug(cookie);
+                if(cookie!=null)
+                {
+                    string[] cookiesArr= cookie.split(';');
+                    //token= cookiesArr[0].substring(cookiesArr[0].indexOf('=')+1,cookiesArr[0].length());
+                    return cookiesArr[0];
+                }
+                
+            }
+            else
+            {
+                system.debug(response.getBody());
+            }
+            
+        }
         return null;
     }
+    
+    
     
     public static Account CreateAccount(Id accountId,string accountName)
     {
@@ -126,7 +141,7 @@ public class CloudPortalAccountHelper {
             {filterAssets.add(counter);}
             if(assetType=='SAAS' && (prodName.contains('EC-SAAS') || prodName.contains('UNITY CLOUD INTELLIGENCE')))
             {filterAssets.add(counter);}
-             if(assetType=='CPX' && prodName.contains('EC-SP'))
+            if(assetType=='CPX' && prodName.contains('EC-SP'))
             {filterAssets.add(counter);}
         }
         for(Asset item:filterAssets)

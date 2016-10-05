@@ -4,7 +4,7 @@ public class TestController {
     public PageReference Save()
     {
         string token='';
-        CreateDepartment();
+        CP();
         return null;
     }
     
@@ -84,7 +84,7 @@ string test=url+'/externallogincallback?id='+emailAddress+'&key='+key;
         request.setMethod('POST');
         request.setHeader('charset', 'UTF-8');
         request.setHeader('Content-Type', 'application/json');
-        DataConfiguration__c dataObj=[Select Endpoint_URL__c ,UserName__c,Password__c from DataConfiguration__c where Environment_Name__c='CloudPortal_TestEnv' LIMIT 1];
+        Api_Configuration__c dataObj=[Select Endpoint_URL__c ,UserName__c,Password__c from Api_Configuration__c where Environment_Name__c='Cloud Portal Testing' LIMIT 1];
         System.debug(dataObj.Endpoint_URL__c);
         System.debug(dataObj.UserName__c);
         System.debug(dataObj.Password__c);
