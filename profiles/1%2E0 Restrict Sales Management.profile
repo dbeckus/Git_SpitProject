@@ -153,6 +153,10 @@
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>AssetListViewController_SP</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>AssetUtilities</apexClass>
         <enabled>false</enabled>
     </classAccesses>
@@ -8140,6 +8144,10 @@
         <enabled>false</enabled>
     </pageAccesses>
     <pageAccesses>
+        <apexPage>AssetListView_SP</apexPage>
+        <enabled>false</enabled>
+    </pageAccesses>
+    <pageAccesses>
         <apexPage>AssetListing</apexPage>
         <enabled>false</enabled>
     </pageAccesses>
@@ -9147,6 +9155,10 @@
     <tabVisibilities>
         <tab>Sales_Development</tab>
         <visibility>DefaultOn</visibility>
+    </tabVisibilities>
+    <tabVisibilities>
+        <tab>Service_Provider</tab>
+        <visibility>DefaultOff</visibility>
     </tabVisibilities>
     <tabVisibilities>
         <tab>Silver_Peak_Intranet</tab>

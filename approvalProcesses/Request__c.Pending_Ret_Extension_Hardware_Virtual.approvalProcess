@@ -154,10 +154,6 @@ NOT(Opportunity__r.Account.ECSP__c)
         </action>
     </initialSubmissionActions>
     <label>Pending Ret Extension Hardware Virtual</label>
-    <nextAutomatedApprover>
-        <useApproverFieldOfRecordOwner>false</useApproverFieldOfRecordOwner>
-        <userHierarchyField>Manager</userHierarchyField>
-    </nextAutomatedApprover>
     <recordEditability>AdminOnly</recordEditability>
     <showApprovalHistory>false</showApprovalHistory>
 </ApprovalProcess>

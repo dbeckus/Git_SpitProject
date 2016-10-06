@@ -1,7 +1,7 @@
 /*
- * Controller for page ShippingInputForm and ShippingInputFormInternal
- * ShippingInputFormInternal page is a slimmed version of ShippingInputForm with hard-coded account id.
- */
+* Controller for page ShippingInputForm and ShippingInputFormInternal
+* ShippingInputFormInternal page is a slimmed version of ShippingInputForm with hard-coded account id.
+*/
 public class ShippingInputFormController
 {    
     private static final String SP_Account_Id = '00130000007mEjX';  //"Silver Peak Systems" account for the internal shipment page.
@@ -54,13 +54,13 @@ public class ShippingInputFormController
                 Shipment.PurchaseOrder__c = pos[0].Id;
                 Shipment.PurchaseOrderNumber__c = pos[0].Name;
                 Shipment.SendTrackingInformation__c = true;             
-
+                
             }
         }
         else
         {
-             ApexPages.addMessage(new ApexPages.Message(ApexPages.Severity.ERROR, 'Please select an Account or a POC Request')); 
-             IsError = true;
+            ApexPages.addMessage(new ApexPages.Message(ApexPages.Severity.ERROR, 'Please select an Account or a POC Request')); 
+            IsError = true;
         }
     }
     
@@ -72,7 +72,7 @@ public class ShippingInputFormController
     public String ShipToLocation {get;set;}
     public String Comments {get;set;}
     //private Account account {get; set;}
-       
+    
     public PageReference Process()
     {       
         ShippedLineList = new List<ShipLineInfo>();
@@ -145,7 +145,7 @@ public class ShippingInputFormController
                 {
                     updateRMAExchange(Shipment.To_Be_Swapped_Asset__c, ShippedLineList[0].AssetId, Shipment.PurchaseOrderNumber__c, Shipment.Email__c, Shipment.Secondary_Email__c, Shipment.Third_Email__c);
                 }
-              
+                
                 
                 return new PageReference('/' + Shipment.Id);
             }
@@ -180,10 +180,24 @@ public class ShippingInputFormController
     public static boolean IsProductGMS(String productId)
     {
         boolean result=true;
-         List<Product2> products = [select Model__c from Product2 where Id=:productId limit 1];
+        List<Product2> products = [select Model__c from Product2 where Id=:productId limit 1];
         if(products.size() > 0)
         {
             if(products[0].Model__c!=null && products[0].Model__c.startswith('GX-'))
+            {
+                result=false;
+            }
+        }
+        return result;
+    }
+    @RemoteAction
+    public static boolean IsServiceProviderProduct(String productId)
+    {
+        boolean result=true;
+        List<Product2> products = [select Product_Type__c from Product2 where Id=:productId limit 1];
+        if(products.size() > 0)
+        {
+            if(products[0].Product_Type__c!=null && products[0].Product_Type__c=='EC-SP')
             {
                 result=false;
             }
@@ -234,6 +248,8 @@ public class ShippingInputFormController
                 shipInfo.PostShipmentStatus = null;
                 shipInfo.PriorStatus = null;
                 shipInfo.TempAsset.Ship_Date__c = Shipment.Ship_Date__c;
+                shipInfo.TempAsset.Service_Support_Start_Date__c = Date.today();
+                shipInfo.TempAsset.Service_Support_End_Date__c = Date.today();
                 shipInfo.ProductCode = null;
                 shipInfo.ProductId = null; 
                 shipInfo.SelectProductId = null;
@@ -251,8 +267,8 @@ public class ShippingInputFormController
         update po;
     }
     /**
-    * added the POCRequest__c exchange into this cdc 1-25-2012
-    **/
+* added the POCRequest__c exchange into this cdc 1-25-2012
+**/
     private void updateRMAExchange(Id faultyAssetId, Id newAssetId, String RMANum, String Email1, String Email2, String Email3)
     {
         Asset faultyAsset = [select Id, Status, Ship_Date__c, Name, Contract_Number__c, POCRequest__c, End_of_Maintenance__c, GMS_Nodes__c, Evaluation_End_Date__c, Evaluation_Start_Date__c from Asset where Id=:faultyAssetId limit 1];
@@ -275,18 +291,18 @@ public class ShippingInputFormController
         faultyAsset.POCRequest__c = null;
         faultyAsset.Status = 'Pending Return – Support';
         update new List<Asset> { faultyAsset, newAsset };
-        
-        //ShipDate change on asset will fire a trigger to populate EOM date, we have to do second update
-        newAsset = new Asset(Id=newAssetId, End_of_Maintenance__c=faultyAsset.End_of_Maintenance__c);
+            
+            //ShipDate change on asset will fire a trigger to populate EOM date, we have to do second update
+            newAsset = new Asset(Id=newAssetId, End_of_Maintenance__c=faultyAsset.End_of_Maintenance__c);
         update newAsset;
     }
     
     /**
-    * 1.If the POC Request - "Actual Ship Date" is blank, 
-    * stamp the POC request "Actual Ship Date" with the Ship Date entered on the Shipment
-    * 2.Set the POC Request status to Shipped if it is Approved to Ship
-    * 3. sets TargetEndDate on POC = target end date + 60d
-    **/
+* 1.If the POC Request - "Actual Ship Date" is blank, 
+* stamp the POC request "Actual Ship Date" with the Ship Date entered on the Shipment
+* 2.Set the POC Request status to Shipped if it is Approved to Ship
+* 3. sets TargetEndDate on POC = target end date + 60d
+**/
     private void changePOCRequestActualDateAndStatus()
     {
         
@@ -300,17 +316,17 @@ public class ShippingInputFormController
             }
             if(request.Status__c == 'Open' || request.Status__c == 'Approved to Ship')
             {
-              if(request.Opportunity__r.Account.Partner_Type__c=='Service Provider' && request.Opportunity__r.Account.ECSP__c)
-              {request.Target_End_Date__c = (request.Target_End_Date__c == null) ? Shipment.Ship_Date__c.addDays(90) : request.Target_End_Date__c.addDays(90);}
-              else if(request.POC_Type__c=='EdgeConnect')
-              {request.Target_End_Date__c = (request.Target_End_Date__c == null) ? Shipment.Ship_Date__c.addDays(45) : request.Target_End_Date__c.addDays(45);}
-              else
-              {request.Target_End_Date__c = (request.Target_End_Date__c == null) ? Shipment.Ship_Date__c.addDays(60) : request.Target_End_Date__c.addDays(60);}
-             request.Status__c = 'Shipped';
+                if(request.Opportunity__r.Account.Partner_Type__c=='Service Provider' && request.Opportunity__r.Account.ECSP__c)
+                {request.Target_End_Date__c = (request.Target_End_Date__c == null) ? Shipment.Ship_Date__c.addDays(90) : request.Target_End_Date__c.addDays(90);}
+                else if(request.POC_Type__c=='EdgeConnect')
+                {request.Target_End_Date__c = (request.Target_End_Date__c == null) ? Shipment.Ship_Date__c.addDays(45) : request.Target_End_Date__c.addDays(45);}
+                else
+                {request.Target_End_Date__c = (request.Target_End_Date__c == null) ? Shipment.Ship_Date__c.addDays(60) : request.Target_End_Date__c.addDays(60);}
+                request.Status__c = 'Shipped';
             }
             
             update requests[0];
-           
+            
             
             
         }
@@ -390,40 +406,51 @@ public class ShippingInputFormController
     
     private Asset getAssetInfo(ShipLineInfo ShipInfo)
     {
-         Asset aset ;
-         if(ShipInfo.AssetId != null)
-         {
-             aset = new Asset(Id = ShipInfo.AssetId);
-             aset.POCRequest__c = Shipment.POC_Request__c;
-             aset.Contract_Number__c = Shipment.Shipment_Contract__c;
-             aset.AccountId = Shipment.Shipment_Account__c;
-             aset.GMS_Nodes__c = ShipInfo.TempAsset.GMS_Nodes__c;
-             aset.Status = ShipInfo.TempAsset.Status;
-             aset.Ship_Date__c = ShipInfo.TempAsset.Ship_Date__c;
-             aset.SerialNumber = ShipInfo.SerialNumber;
-             aset.Product2Id = ShipInfo.TempAsset.Product2Id;
-             aset.Ship_To_Location__c = ShipToLocation+ '  ( Tracking Information:: ' + Shipment.Tracking_Information__c + ')';
-             aset.Description = Comments;
-         }
-         else
-         {
-             aset = new Asset();
-             aset.POCRequest__c = Shipment.POC_Request__c;
-             aset.Contract_Number__c = Shipment.Shipment_Contract__c;
-             aset.AccountId = Shipment.Shipment_Account__c;
-             aset.Name = ShipInfo.SerialNumber;
-             aset.AccountId = Shipment.Shipment_Account__c;
-             aset.GMS_Nodes__c = ShipInfo.TempAsset.GMS_Nodes__c;
-             aset.Status = ShipInfo.TempAsset.Status;
-             aset.Ship_Date__c = ShipInfo.TempAsset.Ship_Date__c;
-             aset.SerialNumber = ShipInfo.SerialNumber;
-             aset.Part_Number__c = ShipInfo.PartNumber;
-             aset.Product2Id = ShipInfo.SelectProductId;
-             aset.Ship_To_Location__c = ShipToLocation + '  ( Tracking Information:: ' + Shipment.Tracking_Information__c + ')';
-             aset.Description = Comments;
-             aset.Quantity = 1;
-         }
-         return aset;
+        Asset aset ;
+        if(ShipInfo.AssetId != null)
+        {
+            aset = new Asset(Id = ShipInfo.AssetId);
+            aset.POCRequest__c = Shipment.POC_Request__c;
+            aset.Contract_Number__c = Shipment.Shipment_Contract__c;
+            aset.AccountId = Shipment.Shipment_Account__c;
+            aset.GMS_Nodes__c = ShipInfo.TempAsset.GMS_Nodes__c;
+            aset.Status = ShipInfo.TempAsset.Status;
+            aset.Ship_Date__c = ShipInfo.TempAsset.Ship_Date__c;
+            aset.SerialNumber = ShipInfo.SerialNumber;
+            aset.Product2Id = ShipInfo.TempAsset.Product2Id;
+            if(!IsServiceProviderProduct(aset.Product2Id))
+            {
+                aset.Service_Support_Start_Date__c = ShipInfo.TempAsset.Service_Support_Start_Date__c;
+                aset.Service_Support_End_Date__c = ShipInfo.TempAsset.Service_Support_End_Date__c;
+            }
+            
+            aset.Ship_To_Location__c = ShipToLocation+ '  ( Tracking Information:: ' + Shipment.Tracking_Information__c + ')';
+            aset.Description = Comments;
+        }
+        else
+        {
+            aset = new Asset();
+            aset.POCRequest__c = Shipment.POC_Request__c;
+            aset.Contract_Number__c = Shipment.Shipment_Contract__c;
+            aset.AccountId = Shipment.Shipment_Account__c;
+            aset.Name = ShipInfo.SerialNumber;
+            aset.AccountId = Shipment.Shipment_Account__c;
+            aset.GMS_Nodes__c = ShipInfo.TempAsset.GMS_Nodes__c;
+            aset.Status = ShipInfo.TempAsset.Status;
+            aset.Ship_Date__c = ShipInfo.TempAsset.Ship_Date__c;
+            aset.SerialNumber = ShipInfo.SerialNumber;
+            aset.Part_Number__c = ShipInfo.PartNumber;
+            aset.Product2Id = ShipInfo.SelectProductId;
+            if(!IsServiceProviderProduct(aset.Product2Id))
+            {
+                aset.Service_Support_Start_Date__c = ShipInfo.TempAsset.Service_Support_Start_Date__c;
+                aset.Service_Support_End_Date__c = ShipInfo.TempAsset.Service_Support_End_Date__c;
+            }
+            aset.Ship_To_Location__c = ShipToLocation + '  ( Tracking Information:: ' + Shipment.Tracking_Information__c + ')';
+            aset.Description = Comments;
+            aset.Quantity = 1;
+        }
+        return aset;
     }
     
     public List<SelectOption> getProductList()
@@ -444,7 +471,7 @@ public class ShippingInputFormController
         }
         return options;
     }
-
+    
     public List<SelectOption> getPartNumberList()
     {
         List<SelectOption> result = new List<SelectOption>();

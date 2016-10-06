@@ -153,6 +153,10 @@
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>AssetListViewController_SP</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>AssetUtilities</apexClass>
         <enabled>false</enabled>
     </classAccesses>
@@ -7732,6 +7736,10 @@
     </pageAccesses>
     <pageAccesses>
         <apexPage>AssetListView_NXToVX</apexPage>
+        <enabled>false</enabled>
+    </pageAccesses>
+    <pageAccesses>
+        <apexPage>AssetListView_SP</apexPage>
         <enabled>false</enabled>
     </pageAccesses>
     <pageAccesses>

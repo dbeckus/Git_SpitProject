@@ -799,7 +799,7 @@ BEGINS( Product2.Name ,&quot;EC&quot;)
             <name>Update_Service_Support_Start_Date</name>
             <type>FieldUpdate</type>
         </actions>
-        <active>true</active>
+        <active>false</active>
         <criteriaItems>
             <field>Product2.Product_Type__c</field>
             <operation>equals</operation>

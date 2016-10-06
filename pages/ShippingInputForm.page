@@ -2,49 +2,55 @@
     <apex:includeScript value="{!URLFOR($Resource.jQuery, 'jquery-1.4.3.min.js')}" />
     <apex:includeScript value="{!URLFOR($Resource.jQuery, 'autoresize.jquery.js')}" />
     <script>
-        function loadAssetsPN(productId, index)
-        {
-            
-            ShippingInputFormController.getAssetPartNumber(productId, function(result, event) {
-                if(event.status == true)
-                {
-                    fillListOptions("PartNumberList" + index, result);
-                    setAssetPN(index, "")
-                }
-            }, {escape:true});
-          
-            
-        }
-   
-        function fillListOptions(listId, options)
-        {
-            var list = document.getElementById(listId);
-            list.options.length = 0;
-            list.options.add(new Option("--None--", ""), 0);
-            list.disabled = (options.length == 0);
-            for(var i = 0; i < options.length; i++)
+    function loadAssetsPN(productId, index)
+    {
+        
+        ShippingInputFormController.getAssetPartNumber(productId, function(result, event) {
+            if(event.status == true)
             {
-                list.options.add(new Option(options[i], options[i]));
+                fillListOptions("PartNumberList" + index, result);
+                setAssetPN(index, "")
             }
-        }
-        function setAssetPN(index, val)
+        }, {escape:true});
+        
+        
+    }
+    
+    function fillListOptions(listId, options)
+    {
+        var list = document.getElementById(listId);
+        list.options.length = 0;
+        list.options.add(new Option("--None--", ""), 0);
+        list.disabled = (options.length == 0);
+        for(var i = 0; i < options.length; i++)
         {
-            document.getElementById("page:form:block:listSection:lineItemTable:" + index + ":PartNumber").value = val;
+            list.options.add(new Option(options[i], options[i]));
         }
-        function hideshowGMS(productId,index)
-        {
-            ShippingInputFormController.IsProductGMS(productId, function(result, event) {
-                if(event.status == true)
-                {
-                    document.getElementById("page:form:block:listSection:lineItemTable:" + index + ":GMSNodesList").disabled= result;
-                }
-            }, {escape:true});
-                    
-            
-            
-        }
-   
-     	
+    }
+    function setAssetPN(index, val)
+    {
+        document.getElementById("page:form:block:listSection:lineItemTable:" + index + ":PartNumber").value = val;
+    }
+    function hideshowGMS(productId,index)
+    {
+        ShippingInputFormController.IsProductGMS(productId, function(result, event) {
+            if(event.status == true)
+            {
+                document.getElementById("page:form:block:listSection:lineItemTable:" + index + ":GMSNodesList").disabled= result;
+            }
+        }, {escape:true}); 
+    }
+    function hideshowServiceProduct(productId,index)
+    {
+        ShippingInputFormController.IsServiceProviderProduct(productId, function(result, event) {
+            if(event.status == true)
+            {
+                document.getElementById("page:form:block:listSection:lineItemTable:" + index + ":servicestartDate").disabled= result;
+                document.getElementById("page:form:block:listSection:lineItemTable:" + index + ":serviceendDate").disabled= result;
+            }
+        }, {escape:true}); 
+    }
+    
     </script>
     <apex:sectionHeader title="Shipment" />
     <apex:form id="form">
@@ -97,12 +103,12 @@
                             <apex:pageBlockSectionItem dataStyle="text-align:center">
                                 <apex:outputLabel />
                                 <apex:outputPanel >
-                                <apex:commandButton action="{!Process}" reRender="listSection, message, Save" status="status" value="Process" oncomplete="hideDateInput();"/>
-                                <apex:actionStatus id="status">
-                                    <apex:facet name="start">
-                                        <img src="/img/loading.gif" />
-                                    </apex:facet>
-                                </apex:actionStatus>
+                                    <apex:commandButton action="{!Process}" reRender="listSection, message, Save" status="status" value="Process" oncomplete="hideDateInput();"/>
+                                    <apex:actionStatus id="status">
+                                        <apex:facet name="start">
+                                            <img src="/img/loading.gif" />
+                                        </apex:facet>
+                                    </apex:actionStatus>
                                 </apex:outputPanel>
                             </apex:pageBlockSectionItem>
                         </apex:pageBlockSection>
@@ -111,11 +117,11 @@
                 <tr>
                     <td colspan="2" style="text-align:center;padding:5px">
                         <!--<apex:commandButton action="{!Process}" reRender="listSection, message, Save" status="status" value="Process" oncomplete="hideDateInput();"/>
-                        <apex:actionStatus id="status">
-                            <apex:facet name="start">
-                                <img src="/img/loading.gif" />
-                            </apex:facet>
-                        </apex:actionStatus>-->
+<apex:actionStatus id="status">
+<apex:facet name="start">
+<img src="/img/loading.gif" />
+</apex:facet>
+</apex:actionStatus>-->
                     </td>
                 </tr>
                 <tr>
@@ -145,21 +151,21 @@
                         Prior&nbsp;<apex:inputText value="{!ShipLine.PriorStatus}" disabled="true" />
                     </apex:column>
                     <apex:column id="ProListCol" headerValue="Product Number">
-                         <apex:facet name="header">
+                        <apex:facet name="header">
                             Product&nbsp;<img src="/s.gif" alt="Expand" class="moreArrow" title="Expand" onclick="showDatePopup('ProList')" style="cursor:pointer"/>
                         </apex:facet>
-                        <apex:selectList id="ProList" size="1" value="{!ShipLine.SelectProductId}" rendered="{!NOT(ShipLine.AssetIsExisted)}" onchange="loadAssetsPN(this.value, {!FLOOR(index)});hideshowGMS(this.value, {!FLOOR(index)});">
+                        <apex:selectList id="ProList" size="1" value="{!ShipLine.SelectProductId}" rendered="{!NOT(ShipLine.AssetIsExisted)}" onchange="loadAssetsPN(this.value, {!FLOOR(index)});hideshowGMS(this.value, {!FLOOR(index)});hideshowServiceProduct(this.value, {!FLOOR(index)});">
                             <apex:selectOptions value="{!ProductList}"/>
                         </apex:selectList>
                         <apex:outputText value="{!ShipLine.ProductCode}" rendered="{!ShipLine.AssetIsExisted}"/>
                     </apex:column>
                     <apex:column id="PartNumberCol" headerValue="Part Number">
-                       <!-- <apex:facet name="header">
-                            Part Number&nbsp;<img src="/s.gif" alt="Expand" class="moreArrow" title="Expand" onclick="showDatePopup('PartNumber')" style="cursor:pointer"/>
-                        </apex:facet>-->
+                        <!-- <apex:facet name="header">
+Part Number&nbsp;<img src="/s.gif" alt="Expand" class="moreArrow" title="Expand" onclick="showDatePopup('PartNumber')" style="cursor:pointer"/>
+</apex:facet>-->
                         <!--<apex:selectList size="1" value="{!ShipLine.PartNumber}" id="PartNumber" rendered="{!NOT(ShipLine.AssetIsExisted)}">
-                            <apex:selectOptions value="{!PartNumberList}" />
-                        </apex:selectList>-->
+<apex:selectOptions value="{!PartNumberList}" />
+</apex:selectList>-->
                         <select id="PartNumberList{!FLOOR(index)}" onchange="setAssetPN({!FLOOR(index)}, this.value)" style="display:{!IF(ShipLine.AssetIsExisted, 'none', '')}"></select>
                         <apex:inputHidden value="{!ShipLine.PartNumber}" id="PartNumber"/>
                         <apex:outputText rendered="{!ShipLine.AssetIsExisted}">{!ShipLine.PartNumber}</apex:outputText>
@@ -168,139 +174,147 @@
                         <apex:inputField value="{!ShipLine.TempAsset.GMS_Nodes__c}" id="GMSNodesList"  />
                         <apex:variable var="index" value="{!index + 1}" />
                     </apex:column>
+                    <apex:column headerValue="Service Support Start Date" width="10%">
+                        <apex:inputField id="servicestartDate" value="{!ShipLine.TempAsset.Service_Support_Start_Date__c}" />
+                        <apex:variable var="index" value="{!index + 1}" />
+                    </apex:column>
+                    <apex:column headerValue="Service Support End Date" width="10%">
+                        <apex:inputField id="serviceendDate" value="{!ShipLine.TempAsset.Service_Support_End_Date__c}" />
+                        <apex:variable var="index" value="{!index + 1}" />
+                    </apex:column>
                 </apex:pageBlockTable>
             </apex:pageBlockSection> 
-             <apex:pageBlockButtons location="bottom">
+            <apex:pageBlockButtons location="bottom">
                 <apex:commandButton action="{!Save}" value="Save" reRender="message" id="Save" disabled="{!ShippedLineList.size=0}" status="status2"/>
                 <apex:actionStatus id="status2">
                     <apex:facet name="start">
                         <img src="/img/loading.gif" />
                     </apex:facet>
                 </apex:actionStatus>
-             </apex:pageBlockButtons>       
+            </apex:pageBlockButtons>       
         </apex:pageBlock>
-         <apex:pageBlock rendered="{!IsError}">
-             <a href="/001/o">Back to account list</a>
-         </apex:pageBlock>
-         <div class="overlayBackground" style="display: none; width: 1477px; height: 1817px; "></div>
-         <div id="InlineEditDialog" class="overlayDialog inlineEditDialog" style="max-width: 500px; display: none; visibility: visible; left: 480px; top: 294px; ">
-             <div class="topRight">
-                 <div class="topLeft">
-                     <img id="InlineEditDialogX" onmouseover="this.className = 'dialogCloseOn'" onmouseout="this.className = 'dialogClose'" onclick="closeDatePopup()" class="dialogClose" src="/s.gif"/>
-                     <h2 id="InlineEditDialogTitle">Set value to all rows</h2>
-                 </div>
-             </div>
-             <div class="middle">
-                 <div class="innerContent" id="InlineEditDialogContent">
-                     <div class="activeField">
-                         <div class="inlineEditCompoundDiv" style="width:300px;height:100px">
-                             <span id="popUpShipDate">Ship Date&nbsp;<apex:inputField value="{!TempAsset.Ship_Date__c}" /><br/><br/></span>
-                             <span id="popUpPostShip">Post Ship Status&nbsp;<apex:inputField value="{!TempAsset.Status}" /></span>
-                              <span id="popUpProduct">Product &nbsp; 
-                                  <apex:selectList size="1" id="prdsList" value="{!TempAsset.Product2Id}">
-                            		<apex:selectOptions value="{!ProductList}"/>
-                                  </apex:selectList><br/> 
-                             </span>
-                          <span id="popUpPartNumber">Part Number&nbsp;<apex:inputField value="{!TempAsset.Part_Number__c}" /></span>
-                         </div>
-                     </div>
-                     <div></div>
-                     <div style="display: none; "></div>
-                     <div id="InlineEditDialog_buttons" class="buttons">
-                         <input class="btn" type="button" value="OK" onclick="setValueToAllRows();closeDatePopup()"/>
-                         <input class="btn" type="button" value="Cancel" onclick="closeDatePopup()"/>
-                     </div>
-                 </div>
-             </div>
-             <div class="bottomRight">
-                 <div class="bottomLeft"></div>
-             </div>
-         </div>
+        <apex:pageBlock rendered="{!IsError}">
+            <a href="/001/o">Back to account list</a>
+        </apex:pageBlock>
+        <div class="overlayBackground" style="display: none; width: 1477px; height: 1817px; "></div>
+        <div id="InlineEditDialog" class="overlayDialog inlineEditDialog" style="max-width: 500px; display: none; visibility: visible; left: 480px; top: 294px; ">
+            <div class="topRight">
+                <div class="topLeft">
+                    <img id="InlineEditDialogX" onmouseover="this.className = 'dialogCloseOn'" onmouseout="this.className = 'dialogClose'" onclick="closeDatePopup()" class="dialogClose" src="/s.gif"/>
+                    <h2 id="InlineEditDialogTitle">Set value to all rows</h2>
+                </div>
+            </div>
+            <div class="middle">
+                <div class="innerContent" id="InlineEditDialogContent">
+                    <div class="activeField">
+                        <div class="inlineEditCompoundDiv" style="width:300px;height:100px">
+                            <span id="popUpShipDate">Ship Date&nbsp;<apex:inputField value="{!TempAsset.Ship_Date__c}" /><br/><br/></span>
+                            <span id="popUpPostShip">Post Ship Status&nbsp;<apex:inputField value="{!TempAsset.Status}" /></span>
+                            <span id="popUpProduct">Product &nbsp; 
+                                <apex:selectList size="1" id="prdsList" value="{!TempAsset.Product2Id}">
+                                    <apex:selectOptions value="{!ProductList}"/>
+                                </apex:selectList><br/> 
+                            </span>
+                            <span id="popUpPartNumber">Part Number&nbsp;<apex:inputField value="{!TempAsset.Part_Number__c}" /></span>
+                        </div>
+                    </div>
+                    <div></div>
+                    <div style="display: none; "></div>
+                    <div id="InlineEditDialog_buttons" class="buttons">
+                        <input class="btn" type="button" value="OK" onclick="setValueToAllRows();closeDatePopup()"/>
+                        <input class="btn" type="button" value="Cancel" onclick="closeDatePopup()"/>
+                    </div>
+                </div>
+            </div>
+            <div class="bottomRight">
+                <div class="bottomLeft"></div>
+            </div>
+        </div>
     </apex:form>
-
+    
     <script type="text/javascript">
-        function hideDateInput()
+    function hideDateInput()
+    {
+        $(".dateInput .dateFormat").hide();
+    }
+    function setFocusOnLoad() {}
+    var popUp = "";
+    function showDatePopup(popUpType)
+    {
+        popUp = popUpType;
+        $(".overlayBackground").show();
+        $("#InlineEditDialog").show();
+        $(".datePicker").css("z-index", 200);
+        if(popUpType == "SingleDate")
         {
-            $(".dateInput .dateFormat").hide();
+            $("#popUpShipDate").show();
+            $("#popUpPostShip").hide();
+            $("#popUpProduct").hide();
+            $("#popUpPartNumber").hide();
+            $("#datePicker").css("z-index", 50103);
         }
-        function setFocusOnLoad() {}
-        var popUp = "";
-        function showDatePopup(popUpType)
+        else if(popUpType == "PostShip")
         {
-            popUp = popUpType;
-            $(".overlayBackground").show();
-            $("#InlineEditDialog").show();
-            $(".datePicker").css("z-index", 200);
-            if(popUpType == "SingleDate")
-            {
-                $("#popUpShipDate").show();
-                $("#popUpPostShip").hide();
-                 $("#popUpProduct").hide();
-                $("#popUpPartNumber").hide();
-                $("#datePicker").css("z-index", 50103);
-            }
-            else if(popUpType == "PostShip")
-            {
-                $("#popUpShipDate").hide();
-                $("#popUpPostShip").show();
-                 $("#popUpProduct").hide();
-                $("#popUpPartNumber").hide();
-            }
+            $("#popUpShipDate").hide();
+            $("#popUpPostShip").show();
+            $("#popUpProduct").hide();
+            $("#popUpPartNumber").hide();
+        }
             else if(popUpType == "PartNumber")
             {
                 $("#popUpShipDate").hide();
                 $("#popUpPostShip").hide();
-                 $("#popUpProduct").hide();
+                $("#popUpProduct").hide();
                 $("#popUpPartNumber").show();
             }
-            else if(popUp == "ProList")
-            {
-                 $("#popUpShipDate").hide();
-                $("#popUpPostShip").hide();
-                 $("#popUpPartNumber").hide();
-                $("#popUpProduct").show();
-            }
-        }
-        function closeDatePopup()
+                else if(popUp == "ProList")
+                {
+                    $("#popUpShipDate").hide();
+                    $("#popUpPostShip").hide();
+                    $("#popUpPartNumber").hide();
+                    $("#popUpProduct").show();
+                }
+    }
+    function closeDatePopup()
+    {
+        $(".overlayBackground").hide();
+        $("#InlineEditDialog").hide();
+    }
+    function setValueToAllRows()
+    {
+        if(popUp == "SingleDate")
         {
-            $(".overlayBackground").hide();
-            $("#InlineEditDialog").hide();
+            $('td[id$="ShipDateCol"] input').val($("#popUpShipDate input").val());
         }
-        function setValueToAllRows()
+        else if(popUp =="PostShip")
         {
-            if(popUp == "SingleDate")
-            {
-                $('td[id$="ShipDateCol"] input').val($("#popUpShipDate input").val());
-            }
-            else if(popUp =="PostShip")
-            {
-                $('td[id$="StatusCol"] select[id$="PostShip"]').val($("#popUpPostShip select").val());
-                
-            }
+            $('td[id$="StatusCol"] select[id$="PostShip"]').val($("#popUpPostShip select").val());
+            
+        }
             else if(popUp == "PartNumber")
             {
                 $('td[id$="PartNumberCol"] select[id$="PartNumber"]').val($("#popUpPartNumber select").val());
             }
-            else if(popUp == "ProList")
-            {
-                
-                $('td[id$="ProListCol"] select[id$="ProList"]').val($("#popUpProduct select").val());
-                $( 'td[id$="ProListCol"] select[id$="ProList"]').trigger( "change" );
-
-                
-            }
-        }
-        $(
-            function()
-            {
-                $("[id$='SNSets']").autoResize(
+                else if(popUp == "ProList")
+                {
+                    
+                    $('td[id$="ProListCol"] select[id$="ProList"]').val($("#popUpProduct select").val());
+                    $( 'td[id$="ProListCol"] select[id$="ProList"]').trigger( "change" );
+                    
+                    
+                }
+    }
+    $(
+        function()
+        {
+            $("[id$='SNSets']").autoResize(
                 {
                     animateDuration : 300,
                     extraSpace : 20,
                     limit : 300
                 }
-                );
-            }
-        );
+            );
+        }
+    );
     </script>
 </apex:page>

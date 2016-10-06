@@ -3,6 +3,10 @@ trigger ClearRequestEndDate on Request__c (after update) {
     for(Request__c request: Trigger.New)
     {
         Request__c oldRequest = Trigger.oldMap.get(request.Id);
+        System.debug(request.Status__c);
+        System.debug(request.Type__c);
+        System.debug(request.Requested_End_Date__c);
+        System.debug(request.First_Extension_Granted__c);
         if(request.Status__c == 'Shipped - Extended' && request.Type__c =='Evaluation' && request.Requested_End_Date__c!=null && (request.First_Extension_Granted__c || request.Second_Extension_Granted__c ) )
         {
             //removes the poc link on assets

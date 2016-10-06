@@ -1,237 +1,247 @@
 <apex:page standardController="Shipment__c" extensions="NewVirtualShipmentController" id="page">
     <style type="text/css">
         .product-select {
-            width: 100%;
+        width: 100%;
         }
         .quantity-input {
-            width: 50px;
+        width: 50px;
         }
         .gms-input {
-            width: 80px;
+        width: 80px;
         }
         .ec-input {
-            width: 50px;
+        width: 50px;
         }
         .add-line-link {
-            float: right; 
-            margin-right: 20px;
+        float: right; 
+        margin-right: 20px;
         }
         #productSortBtn {
-            float: right;
-            margin-right: 10px;
-            font-size: 12px;
-            text-decoration: underline;
+        float: right;
+        margin-right: 10px;
+        font-size: 12px;
+        text-decoration: underline;
         }
     </style>
     <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
     <script type="text/javascript">
         var j$ = jQuery.noConflict();
-
-        var vf_variables = {
-            sortOrder: "Product Name"
-        };
-
-        var sortProducts = function(sortOrder) {
-            j$("#productSortOrder").text(sortOrder);
-            var sortAttr = (sortOrder == "Product Code") ? "data-product-code" : "data-product-name";
-
-            j$(".product-select").each(function() {
-                var options = j$(this).find("option");
-                var selected = j$(this).val();
-
-                options.sort(function(a,b) {
-                    a = j$(a).attr(sortAttr);
-                    b = j$(b).attr(sortAttr);
-                    if (a > b) return 1;
-                    else if (a < b) return -1;
-                    else return 0;
-                });
-
-                j$(this).empty().append(options);
-                j$(this).val(selected);
-            });
-        };
-
-        var refreshAssetTable = function() {
-            sortProducts(vf_variables.sortOrder);
-
-            j$("[id$='assetTable'] tr").each(function() {
-                var nodeCurrentRow = j$(this);
-                var nodeProductSelect = nodeCurrentRow.find(".product-select");
-                var nodeProduct2Id = nodeCurrentRow.find("input[id$='product2Id']");
-                var product2IdVal = nodeProduct2Id.val()
-                if(product2IdVal) {
-                    nodeProductSelect.val(product2IdVal);
-                }
-                nodeProductSelect.trigger("change");
-            });
-        };
-
-        jQuery(document).ready(function() {
-            
-            var formatDate = function (dateValue) {
-                return (dateValue.getMonth() + 1) + "/" + dateValue.getDate() + "/" + dateValue.getFullYear();
-            };
+    
+    var vf_variables = {
+        sortOrder: "Product Name"
+    };
+    
+    var sortProducts = function(sortOrder) {
+        j$("#productSortOrder").text(sortOrder);
+        var sortAttr = (sortOrder == "Product Code") ? "data-product-code" : "data-product-name";
         
-            var parseDate = function (dateStr) {
-                var dateParts = dateStr.split("/");
-                return new Date(dateParts[2], dateParts[0] - 1, dateParts[1]);
-            };
-
-            var domBinding = function(nodeCurrentRow) {
-                return {
-                    "product": nodeCurrentRow.find(".product-select"),
-                    "product2Id": nodeCurrentRow.find("input[id$='product2Id']"),
-                    "gms": nodeCurrentRow.find(".gms-input"),
-                    "status" : nodeCurrentRow.find("input[id$='status']"),
-                    "startDate": nodeCurrentRow.find("input[id$='startDate']"),
-                    "startDateOutput": nodeCurrentRow.find(".start-date-output"),
-                    "startDateInput": nodeCurrentRow.find(".start-date-input"),
-                    "endDate": nodeCurrentRow.find("input[id$='endDate']"),
-                    "endDateOutput": nodeCurrentRow.find(".end-date-output"),
-                    "endDateInput": nodeCurrentRow.find(".end-date-input"),
-                    "ownerDurationSelect": nodeCurrentRow.find(".owner-duration-select"),
-                    "subscriptionDurationSelect": nodeCurrentRow.find(".subscription-duration-select"),
-                    "licensesNodes":nodeCurrentRow.find("input[id$='licensesNodes']"),
-                    "bandwidthNodes":nodeCurrentRow.find("input[id$='bandwidthNodes']"),
-                    "qty":nodeCurrentRow.find("input[id$='qty']"),
-                    "serviceEndDate":nodeCurrentRow.find("input[id$='serviceendDate']"),
-                    "serviceendDateOutput": nodeCurrentRow.find(".service-end-date-output"),
-                    "serviceendDateInput": nodeCurrentRow.find(".service-end-date-input"),
-                }
-            };
-             
-            var refreshAssetLine = function(nodeLine) {
-                var productCode = nodeLine.product.find("option:selected").attr("data-product-code");
-                var productName = nodeLine.product.find("option:selected").attr("data-product-name");
-
-                nodeLine.product2Id.val(nodeLine.product.val());
-
-                //Refresh GMS Column
-                if(productName.indexOf("GMS") >= 0) {
-                    nodeLine.gms.attr("disabled", false);
-                } else {
-                    nodeLine.gms.prop("disabled", true);
-                    nodeLine.gms.val("");
-                }
-                
-                nodeLine.licensesNodes.prop("disabled", true);
-                nodeLine.bandwidthNodes.prop("disabled", true);
-                nodeLine.qty.prop("disabled",false);
-                
-                
-                 if((productName.indexOf("EC-BASE") >= 0)||(productName.indexOf("EC-PLUS")>=0))
-                 {
-
-                     nodeLine.licensesNodes.prop("disabled", false);
-                     nodeLine.qty.val("1");
-                     nodeLine.qty.prop("disabled",true);
-                 }
-                 else{nodeLine.licensesNodes.val("");}  
-                 if(productName.indexOf("EC-BOOST") >= 0)
-                 {
-                    
-                     nodeLine.bandwidthNodes.prop("disabled", false);
-                     nodeLine.qty.val("1");
-                     nodeLine.qty.prop("disabled",true);
-                 }
-                 if((productName.indexOf("EC-ORCH") >= 0) || (productName.indexOf("EC-SAAS") >= 0))
-                 {
-                     
-                     nodeLine.qty.val("1");
-                     nodeLine.qty.prop("disabled",true);
-                 }
-                //Refresh Other(Start Date,End Date, Duration) Columns
-                if(productCode.indexOf("VX") >= 0 || productCode.indexOf("30") == 0 ||(productName!='EC-ORCH' && productName.indexOf("EC-SP") != 0 && productName.indexOf("EC-") >= 0) ||(productCode=="500188-001" && productName.indexOf("VX") >= 0 )) {  //30 - Customer Subscription
-                    nodeLine.status.val("Customer Subscription");
-
-                    nodeLine.ownerDurationSelect.hide();
-                    nodeLine.subscriptionDurationSelect.show();
-
-                    nodeLine.startDateInput.css("display", "inline-block");
-                    nodeLine.startDateOutput.hide();
-
-                    nodeLine.endDateInput.css("display", "inline-block");
-                    nodeLine.endDateOutput.hide();
-                    nodeLine.serviceendDateOutput.hide();
-                    nodeLine.serviceendDateInput.hide();
-                    refreshAssetEndDate(nodeLine);
-                } else { //50 - Customer Owned
-                    var today = formatDate(new Date());
-                    nodeLine.status.val("Customer Owned");
-
-                    nodeLine.ownerDurationSelect.show();
-                    nodeLine.subscriptionDurationSelect.hide();
-
-                    nodeLine.startDateInput.hide();
-                    nodeLine.startDateOutput.css("display", "inline-block");
-                    nodeLine.startDateOutput.text(today);
-                    nodeLine.startDate.val(today);
-
-                    nodeLine.endDateInput.hide();
-                    nodeLine.endDateOutput.css("display", "inline-block");
-                    nodeLine.endDateOutput.text("");
-                    nodeLine.endDate.val("");
-                    nodeLine.serviceendDateOutput.hide();
-                    nodeLine.serviceendDateInput.hide();
-                    nodeLine.serviceEndDate.val("");
-                    if(productName.indexOf("EC-SP") == 0)
-                        {
-                           
-                            nodeLine.serviceendDateInput.show();
-                            nodeLine.serviceEndDate.val(today);
-                    		nodeLine.serviceendDateInput.css("display", "inline-block");
-                    		
-                        }
-                }
-            };
-
-            var refreshAssetEndDate = function(nodeLine) {
-                var dateValue = parseDate(nodeLine.startDate.val());
-                var durationValue = nodeLine.subscriptionDurationSelect.val();
-
-                if(durationValue.indexOf("d") > 0) {
-                    var days = durationValue.substring(0, durationValue.length - 1);
-                    dateValue.setDate(dateValue.getDate() + parseInt(days));
-                    var endDateStr = (dateValue.getMonth() + 1) + "/" + dateValue.getDate() + "/" + dateValue.getFullYear();    
-                    nodeLine.endDate.val(endDateStr);
-                } else if(durationValue.indexOf("y") > 0) {
-                    var years = durationValue.substring(0, durationValue.length - 1);
-                    dateValue.setFullYear(parseInt(dateValue.getFullYear()) + parseInt(years));
-                    var endDateStr = (dateValue.getMonth() + 1) + "/" + dateValue.getDate() + "/" + dateValue.getFullYear();
-                    nodeLine.endDate.val(endDateStr);
-                }
-                if(!nodeLine.endDate.val()) {
-                    nodeLine.endDate.val(formatDate(new Date()));
-                }
-            };
-
-            //Events binding
-            (function() {
-                j$("[id$='assetTableContainer']").on("change", ".product-select", function() {
-                    var nodeCurrentRow = j$(this).closest('tr');
-                    var nodeLine = domBinding(nodeCurrentRow);
-                    refreshAssetLine(nodeLine);
-                });
-
-                j$("[id$='assetTableContainer']").on("change", ".start-date-input, .subscription-duration-select", function() {
-                    var nodeCurrentRow = j$(this).closest('tr');
-                    var nodeLine = domBinding(nodeCurrentRow);
-                    refreshAssetEndDate(nodeLine);
-                });
-
-                j$("[id$='assetTableContainer']").on("click", "#productSortBtn", function() {
-                    if(vf_variables.sortOrder == "Product Name") {
-                        vf_variables.sortOrder = "Product Code";
-                    } else {
-                        vf_variables.sortOrder = "Product Name";
-                    }
-                    sortProducts(vf_variables.sortOrder);
-                });
-            }());
-
-            refreshAssetTable();
+        j$(".product-select").each(function() {
+            var options = j$(this).find("option");
+            var selected = j$(this).val();
+            
+            options.sort(function(a,b) {
+                a = j$(a).attr(sortAttr);
+                b = j$(b).attr(sortAttr);
+                if (a > b) return 1;
+                else if (a < b) return -1;
+                    else return 0;
+            });
+            
+            j$(this).empty().append(options);
+            j$(this).val(selected);
         });
+    };
+    
+    var refreshAssetTable = function() {
+        sortProducts(vf_variables.sortOrder);
+        
+        j$("[id$='assetTable'] tr").each(function() {
+            var nodeCurrentRow = j$(this);
+            var nodeProductSelect = nodeCurrentRow.find(".product-select");
+            var nodeProduct2Id = nodeCurrentRow.find("input[id$='product2Id']");
+            var product2IdVal = nodeProduct2Id.val()
+            if(product2IdVal) {
+                nodeProductSelect.val(product2IdVal);
+            }
+            nodeProductSelect.trigger("change");
+        });
+    };
+    
+    jQuery(document).ready(function() {
+        
+        var formatDate = function (dateValue) {
+            return (dateValue.getMonth() + 1) + "/" + dateValue.getDate() + "/" + dateValue.getFullYear();
+        };
+        
+        var parseDate = function (dateStr) {
+            var dateParts = dateStr.split("/");
+            return new Date(dateParts[2], dateParts[0] - 1, dateParts[1]);
+        };
+        
+        var domBinding = function(nodeCurrentRow) {
+            return {
+                "product": nodeCurrentRow.find(".product-select"),
+                "product2Id": nodeCurrentRow.find("input[id$='product2Id']"),
+                "gms": nodeCurrentRow.find(".gms-input"),
+                "status" : nodeCurrentRow.find("input[id$='status']"),
+                "startDate": nodeCurrentRow.find("input[id$='startDate']"),
+                "startDateOutput": nodeCurrentRow.find(".start-date-output"),
+                "startDateInput": nodeCurrentRow.find(".start-date-input"),
+                "endDate": nodeCurrentRow.find("input[id$='endDate']"),
+                "endDateOutput": nodeCurrentRow.find(".end-date-output"),
+                "endDateInput": nodeCurrentRow.find(".end-date-input"),
+                "ownerDurationSelect": nodeCurrentRow.find(".owner-duration-select"),
+                "subscriptionDurationSelect": nodeCurrentRow.find(".subscription-duration-select"),
+                "licensesNodes":nodeCurrentRow.find("input[id$='licensesNodes']"),
+                "bandwidthNodes":nodeCurrentRow.find("input[id$='bandwidthNodes']"),
+                "qty":nodeCurrentRow.find("input[id$='qty']"),
+                "servicestartDate":nodeCurrentRow.find("input[id$='servicestartDate']"),
+                "servicestartDateOutput": nodeCurrentRow.find(".service-start-date-output"),
+                "servicestartDateInput": nodeCurrentRow.find(".service-start-date-input"),
+                "serviceEndDate":nodeCurrentRow.find("input[id$='serviceendDate']"),
+                "serviceendDateOutput": nodeCurrentRow.find(".service-end-date-output"),
+                "serviceendDateInput": nodeCurrentRow.find(".service-end-date-input"),
+            }
+        };
+        
+        var refreshAssetLine = function(nodeLine) {
+            var productCode = nodeLine.product.find("option:selected").attr("data-product-code");
+            var productName = nodeLine.product.find("option:selected").attr("data-product-name");
+            
+            nodeLine.product2Id.val(nodeLine.product.val());
+            
+            //Refresh GMS Column
+            if(productName.indexOf("GMS") >= 0) {
+                nodeLine.gms.attr("disabled", false);
+            } else {
+                nodeLine.gms.prop("disabled", true);
+                nodeLine.gms.val("");
+            }
+            
+            nodeLine.licensesNodes.prop("disabled", true);
+            nodeLine.bandwidthNodes.prop("disabled", true);
+            nodeLine.qty.prop("disabled",false);
+            
+            
+            if((productName.indexOf("EC-BASE") >= 0)||(productName.indexOf("EC-PLUS")>=0))
+            {
+                
+                nodeLine.licensesNodes.prop("disabled", false);
+                nodeLine.qty.val("1");
+                nodeLine.qty.prop("disabled",true);
+            }
+            else{nodeLine.licensesNodes.val("");}  
+            if(productName.indexOf("EC-BOOST") >= 0)
+            {
+                
+                nodeLine.bandwidthNodes.prop("disabled", false);
+                nodeLine.qty.val("1");
+                nodeLine.qty.prop("disabled",true);
+            }
+            if((productName.indexOf("EC-ORCH") >= 0) || (productName.indexOf("EC-SAAS") >= 0))
+            {
+                
+                nodeLine.qty.val("1");
+                nodeLine.qty.prop("disabled",true);
+            }
+            //Refresh Other(Start Date,End Date, Duration) Columns
+            if(productCode.indexOf("VX") >= 0 || productCode.indexOf("30") == 0 ||(productName!='EC-ORCH' && productName.indexOf("EC-SP") != 0 && productName.indexOf("EC-") >= 0) ||(productCode=="500188-001" && productName.indexOf("VX") >= 0 )) {  //30 - Customer Subscription
+                nodeLine.status.val("Customer Subscription");
+                
+                nodeLine.ownerDurationSelect.hide();
+                nodeLine.subscriptionDurationSelect.show();
+                
+                nodeLine.startDateInput.css("display", "inline-block");
+                nodeLine.startDateOutput.hide();
+                
+                nodeLine.endDateInput.css("display", "inline-block");
+                nodeLine.endDateOutput.hide();
+                nodeLine.servicestartDateOutput.hide();
+                nodeLine.servicestartDateInput.hide();
+                nodeLine.serviceendDateOutput.hide();
+                nodeLine.serviceendDateInput.hide();
+                
+                refreshAssetEndDate(nodeLine);
+            } else { //50 - Customer Owned
+                var today = formatDate(new Date());
+                nodeLine.status.val("Customer Owned");
+                
+                nodeLine.ownerDurationSelect.show();
+                nodeLine.subscriptionDurationSelect.hide();
+                
+                nodeLine.startDateInput.hide();
+                nodeLine.startDateOutput.css("display", "inline-block");
+                nodeLine.startDateOutput.text(today);
+                nodeLine.startDate.val(today);
+                
+                nodeLine.endDateInput.hide();
+                nodeLine.endDateOutput.css("display", "inline-block");
+                nodeLine.endDateOutput.text("");
+                nodeLine.endDate.val("");
+                nodeLine.servicestartDateOutput.hide();
+                nodeLine.servicestartDateInput.hide();
+                nodeLine.servicestartDate.val("");
+                nodeLine.serviceendDateOutput.hide();
+                nodeLine.serviceendDateInput.hide();
+                nodeLine.serviceEndDate.val("");
+                if(productName.indexOf("EC-SP") == 0)
+                {
+                    nodeLine.servicestartDateInput.show();
+                    nodeLine.servicestartDate.val(today);
+                    nodeLine.servicestartDateInput.css("display", "inline-block");
+                    nodeLine.serviceendDateInput.show();
+                    nodeLine.serviceEndDate.val(today);
+                    nodeLine.serviceendDateInput.css("display", "inline-block");
+                }
+            }
+        };
+        
+        var refreshAssetEndDate = function(nodeLine) {
+            var dateValue = parseDate(nodeLine.startDate.val());
+            var durationValue = nodeLine.subscriptionDurationSelect.val();
+            
+            if(durationValue.indexOf("d") > 0) {
+                var days = durationValue.substring(0, durationValue.length - 1);
+                dateValue.setDate(dateValue.getDate() + parseInt(days));
+                var endDateStr = (dateValue.getMonth() + 1) + "/" + dateValue.getDate() + "/" + dateValue.getFullYear();    
+                nodeLine.endDate.val(endDateStr);
+            } else if(durationValue.indexOf("y") > 0) {
+                var years = durationValue.substring(0, durationValue.length - 1);
+                dateValue.setFullYear(parseInt(dateValue.getFullYear()) + parseInt(years));
+                var endDateStr = (dateValue.getMonth() + 1) + "/" + dateValue.getDate() + "/" + dateValue.getFullYear();
+                nodeLine.endDate.val(endDateStr);
+            }
+            if(!nodeLine.endDate.val()) {
+                nodeLine.endDate.val(formatDate(new Date()));
+            }
+        };
+        
+        //Events binding
+        (function() {
+            j$("[id$='assetTableContainer']").on("change", ".product-select", function() {
+                var nodeCurrentRow = j$(this).closest('tr');
+                var nodeLine = domBinding(nodeCurrentRow);
+                refreshAssetLine(nodeLine);
+            });
+            
+            j$("[id$='assetTableContainer']").on("change", ".start-date-input, .subscription-duration-select", function() {
+                var nodeCurrentRow = j$(this).closest('tr');
+                var nodeLine = domBinding(nodeCurrentRow);
+                refreshAssetEndDate(nodeLine);
+            });
+            
+            j$("[id$='assetTableContainer']").on("click", "#productSortBtn", function() {
+                if(vf_variables.sortOrder == "Product Name") {
+                    vf_variables.sortOrder = "Product Code";
+                } else {
+                    vf_variables.sortOrder = "Product Name";
+                }
+                sortProducts(vf_variables.sortOrder);
+            });
+        }());
+        
+        refreshAssetTable();
+    });
     </script>
     <apex:sectionHeader title="New Virtual Shipment"/>
     <apex:pageMessages />
@@ -241,7 +251,7 @@
                 <apex:commandButton value="Save" action="{!save}" disabled="{!ISBLANK(PO)}" />
                 <apex:commandButton value="Cancel" disabled="{!ISBLANK(PO)}" action="{!cancel}" immediate="true" />
             </apex:pageBlockButtons>
-        
+            
             <apex:pageBlockSection title="Shipment Information" collapsible="false">
                 <apex:inputField value="{!Shipment__c.Shipment_Account__c}" />
                 <apex:inputField value="{!Shipment__c.Shipment_Contact__c}" />
@@ -250,13 +260,13 @@
                 <apex:inputField value="{!Shipment__c.SalesOrderNumber__c}" />
                 <apex:inputField value="{!PoOpp.Contract_Activation_Date__c}" rendered="{! NOT(ISBLANK(PoOpp))}"/>
             </apex:pageBlockSection>
-
+            
             <apex:pageblocksection title="Service Provider" collapsible="false">
                 <apex:pageBlockSectionItem >
                     <apex:outputLabel for="assetsReference" value="Reference" />
                     <apex:inputText id="assetsReference" value="{!TempAsset.Reference__c}" />
                 </apex:pageBlockSectionItem>
-
+                
                 <apex:inputField value="{!TempAsset.Term__c}" />
                 <apex:inputField value="{!TempAsset.End_Customer__c}" />
             </apex:pageblocksection>      
@@ -293,14 +303,14 @@
                         <apex:column headerValue="Quantity" width="5%">
                             <apex:inputField label="Qty" id="qty" value="{!assetInfo.Asset.Quantity}" styleClass="quantity-input" />
                         </apex:column>
-
+                        
                         <apex:column headerValue="GMS Nodes" width="10%">
                             <apex:inputField label="GMSNode" value="{!assetInfo.Asset.GMS_Nodes__c}" styleClass="gms-input" />
                         </apex:column>
                         <apex:column headerValue="Licenses" width="5%">
                             <apex:inputField id="licensesNodes" label="LicensesNodes" value="{!assetInfo.Asset.Licenses_Nodes__c}" styleClass="ec-input" />
                         </apex:column>
-                      <apex:column headerValue="Bandwidth" width="5%">
+                        <apex:column headerValue="Bandwidth" width="5%">
                             <apex:inputField id="bandwidthNodes" label="BandwidthNodes" value="{!assetInfo.Asset.Bandwidth_Nodes__c}" styleClass="ec-input" />
                         </apex:column>
                         <apex:column headerValue="Start Date" width="15%">
@@ -309,7 +319,7 @@
                                 <apex:inputField id="startDate" value="{!assetInfo.Asset.Evaluation_Start_Date__c}" />
                             </span>
                         </apex:column>
-                                     
+                        
                         <apex:column headerValue="Duration" width="10%">
                             <select class="owner-duration-select" disabled="true" >
                                 <option value="0d">Perpetual</option>
@@ -325,14 +335,21 @@
                             <span class="end-date-output"></span>
                             <span class="end-date-input">
                                 <apex:inputField id="endDate" value="{!assetInfo.Asset.Evaluation_End_Date__c}" />
-                            <apex:variable var="index" value="{!index + 1}" />
+                                <apex:variable var="index" value="{!index + 1}" />
                             </span>
                         </apex:column>
-                         <apex:column headerValue="Service Support End Date" width="15%">
+                        <apex:column headerValue="Service Support Start Date" width="10%">
+                            <span class="service-start-date-output"></span>
+                            <span class="service-start-date-input">
+                                <apex:inputField id="servicestartDate" value="{!assetInfo.Asset.Service_Support_Start_Date__c}" />
+                                <apex:variable var="index" value="{!index + 1}" />
+                            </span>
+                        </apex:column>
+                        <apex:column headerValue="Service Support End Date" width="10%">
                             <span class="service-end-date-output"></span>
                             <span class="service-end-date-input">
                                 <apex:inputField id="serviceendDate" value="{!assetInfo.Asset.Service_Support_End_Date__c}" />
-                            <apex:variable var="index" value="{!index + 1}" />
+                                <apex:variable var="index" value="{!index + 1}" />
                             </span>
                         </apex:column>
                     </apex:pageblockTable>
