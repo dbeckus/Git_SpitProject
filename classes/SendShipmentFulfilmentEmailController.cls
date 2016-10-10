@@ -86,36 +86,46 @@ public class SendShipmentFulfilmentEmailController
         
         string shipmentType='Shipping Fulfilment';
         boolean isEdgeConnect=false;
+        boolean isServiceProvider=false;
         integer counterData=0;
         List<Shipment__c> shipmentIds= new List<Shipment__c>();
         Set<Id> shipmentIdList = new Set<Id>();
         List<Shipped_Line__c> lstShipment = new List<Shipped_Line__c>();
-        shipmentIds= [Select Id from Shipment__c where Shipment_Account__c=:accountId and PurchaseOrder__c!=null];
         
-        if(shipmentIds.size()>0)
+        lstShipment= [Select Shipment_Id__c from Shipped_Line__c where Asset__r.Product2.Name like 'EC-%' and Asset__r.Status='Customer Owned' and Asset__r.Product2.Product_Type__c ='EC-SP' and Shipment_Id__c=:shipmentId];
+        if(lstShipment.size()>0)
         {
-            lstShipment= [Select Shipment_Id__c from Shipped_Line__c where Asset__r.Product2.Name like 'EC-%' and Asset__r.Status='Customer Subscription Active' and Shipment_Id__c=:shipmentIds];
+            isServiceProvider=true;
         }
-        
-        if(lstShipment!=null && lstShipment.size()>0)
+        else
         {
-            
-            for(Shipped_Line__c item :lstShipment)
+            shipmentIds= [Select Id from Shipment__c where Shipment_Account__c=:accountId and PurchaseOrder__c!=null];
+            if(shipmentIds.size()>0)
             {
-                shipmentIdList.add(item.Shipment_Id__c);
+                lstShipment= [Select Shipment_Id__c from Shipped_Line__c where Asset__r.Product2.Name like 'EC-%' and Asset__r.Status='Customer Subscription Active' and Asset__r.Product2.Product_Type__c ='EDGECONNECT' and Shipment_Id__c=:shipmentIds];
+            }
+            if(lstShipment!=null && lstShipment.size()>0)
+            {
+                
+                for(Shipped_Line__c item :lstShipment)
+                {
+                    shipmentIdList.add(item.Shipment_Id__c);
+                }
+                
+                if(shipmentIdList.size()>0 && shipmentIdList.contains(shipmentId))
+                {
+                    counterData= shipmentIdList.size();
+                    isEdgeConnect=true;                
+                }
             }
             
-            if(shipmentIdList.size()>0 && shipmentIdList.contains(shipmentId))
-            {
-                counterData= shipmentIdList.size();
-                isEdgeConnect=true;                
-            }
         }
         if(isEdgeConnect && counterData==1)
-            shipmentType='EdgeConnect Fulfillment Email';
+        {shipmentType='EdgeConnect Fulfillment Email';}
         else if(isEdgeConnect && counterData>1)
-            shipmentType='EdgeConnect Add-On Email';
-        
+        {shipmentType='EdgeConnect Add-On Email';}
+        else if(isServiceProvider)
+        {shipmentType='Service Provider Shipping Fulfilment';}
         return shipmentType;
     }
     

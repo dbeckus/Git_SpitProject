@@ -339,10 +339,10 @@ public without sharing class DefineChannelQuoteController {
             string partnerAcctName= partnerAcc.Name;
             if(partnerAcctName!='')
             {
-                partnerAcctName= partnerAcctName.replaceAll( '\\s+', '');
-                string portalRoleName= partnerAcctName+'PartnerManager';
+                //partnerAcctName= partnerAcctName.replaceAll( '\\s+', '');
+                string portalRoleName= partnerAcctName+'Partner Manager';
                 System.debug('portalRoleName'+portalRoleName);
-                List<Group> lstGroup=[Select Id from Group where DeveloperName=:portalRoleName and Type='Role'];
+                List<Group> lstGroup=[SELECT Id,Name,DeveloperName,Type FROM Group where RelatedId in(Select Id from UserRole where Name=:portalRoleName) and Type='Role'];
                 System.debug('lstGroup'+lstGroup);
                 if(lstGroup!=null && lstGroup.size()>0) 
                 {

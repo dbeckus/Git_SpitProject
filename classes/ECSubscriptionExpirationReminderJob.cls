@@ -21,7 +21,7 @@ public class ECSubscriptionExpirationReminderJob implements Schedulable, Databas
     public Database.QueryLocator start(Database.BatchableContext context)
     {
         List<Date> expirationDates = new List<Date> { Date.today().addDays(-30), Date.today().addDays(-1), Date.today().addDays(30), Date.today().addDays(60), Date.today().addDays(90) };
-            return Database.getQueryLocator([select Id from Contact where Id in (select ContactId from Asset where Product2.Name like 'EC%' and Opt_Out_Subscription_Reminder__c=false and Hosted_GMS__c=false and Product2.Family='Virtual Image' and Status!='Customer Evaluation' and Product2.Product_Category__c='Subscription' and License_End_Date__c in :expirationDates)]);
+            return Database.getQueryLocator([select Id from Contact where Id in (select ContactId from Asset where Product2.Name like 'EC%' and Opt_Out_Subscription_Reminder__c=false and Hosted_GMS__c=false and Product2.Family='Virtual Image' and Product2.Product_Type__c='EDGECONNECT' and Status!='Customer Evaluation' and Product2.Product_Category__c='Subscription' and License_End_Date__c in :expirationDates)]);
     }
     
     public void execute(Database.BatchableContext context, List<sObject> scope)
@@ -33,7 +33,7 @@ public class ECSubscriptionExpirationReminderJob implements Schedulable, Databas
         Map<Id, Set<Id>> contact2Account = new Map<Id, Set<Id>>();
         Map<Id, String> userEmails = new Map<Id, String>();
         List<Date> expirationDates = new List<Date> { Date.today().addDays(-30), Date.today().addDays(-1), Date.today().addDays(30), Date.today().addDays(60), Date.today().addDays(90) };
-            for(Asset asset : [select Id, AccountId, ContactId, License_End_Date__c, Contact.Owner.Email from Asset where Product2.Name like 'EC%' and Opt_Out_Subscription_Reminder__c=false and Hosted_GMS__c=false and Product2.Family='Virtual Image' and Status!='Customer Evaluation' and Product2.Product_Category__c='Subscription' and License_End_Date__c in :expirationDates and ContactId in :scope and AccountId not in :ExclusionIds])
+            for(Asset asset : [select Id, AccountId, ContactId, License_End_Date__c, Contact.Owner.Email from Asset where Product2.Name like 'EC%' and Opt_Out_Subscription_Reminder__c=false and Hosted_GMS__c=false and Product2.Family='Virtual Image' and Product2.Product_Type__c='EDGECONNECT' and Status!='Customer Evaluation' and Product2.Product_Category__c='Subscription' and License_End_Date__c in :expirationDates and ContactId in :scope and AccountId not in :ExclusionIds])
         {
             accountIds.add(asset.AccountId);
             if(!contact2Account.containsKey(asset.ContactId))

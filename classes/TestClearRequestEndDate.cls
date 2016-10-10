@@ -1,6 +1,6 @@
 @IsTest
 public class TestClearRequestEndDate {
-    @IsTest
+    @isTest(SeeAllData=true)
     public static void ClearRequestEndDate_Test()
     {
         Account acc = new Account(Name='Test Acc');
@@ -23,6 +23,14 @@ public class TestClearRequestEndDate {
         
         Contact contact = new Contact(FirstName = 'AcmeFirstname', LastName = 'AcmeLastname', Phone='123456789', Email = 'acme@acme.com' );
         insert contact;
+        
+        Profile prof = [SELECT Id FROM Profile WHERE Name='9-Operations Manager']; 
+        User usr = new User(Alias = 'standt', Email='testUser@uniquetest.com', 
+                            EmailEncodingKey='UTF-8', LastName='Testing', LanguageLocaleKey='en_US', 
+                            LocaleSidKey='en_US', ProfileId = prof.Id,
+                            TimeZoneSidKey='America/Los_Angeles', UserName='testUser@uniquetest.com');
+        usr.IsActive =true;
+        insert usr;
         Request__c request = new Request__c(POC_Contact__c = contact.Id);
         request.POC_Type__c='EdgeConnect';
         request.Extension_Justification__c='Test';
@@ -30,7 +38,7 @@ public class TestClearRequestEndDate {
         request.RSM_Approved__c=true;
         request.Type__c='Evaluation';
         request.Submission_Condition_Satisfied__c=true;
-        request.Target_End_Date__c=Date.today().adddays(5);
+        request.Target_End_Date__c=Date.today().adddays(30);
         request.Status__c='Shipped - Extended';
         request.Opportunity__c=opportunity.Id;
         request.RSM__c=UserInfo.getUserId();
@@ -42,32 +50,13 @@ public class TestClearRequestEndDate {
         request.VirtualProduct1__c = 'EC-BASE-1Y';
         request.VirtualQuantity1__c = 10;
         insert request;
-        request.Target_End_Date__c= Date.today().adddays(30);
-        request.Requested_End_Date__c= Date.today().adddays(30);
-        request.First_Extension_Granted__c=true;
-        update request;
-       
-      
-       /* ApexPages.StandardController stdController = new ApexPages.StandardController(request);
-        CustomPOCRequestController controller = new CustomPOCRequestController(stdController);
-        controller.savePage();
-        
-        
-       Approval.ProcessSubmitRequest req1 =new Approval.ProcessSubmitRequest();
-        req1.setComments('Automatic submit.');
-        req1.setObjectId(request.id);
-        // Submit the approval request for the account
-        Approval.ProcessResult result = Approval.process(req1);
-        List<Id> newWorkItemIds = result.getNewWorkitemIds();
-         Approval.ProcessWorkitemRequest req2 = 
-            new Approval.ProcessWorkitemRequest();
-        req2.setComments('Approving request.');
-        req2.setAction('Approve');
-        req2.setNextApproverIds(new Id[] {UserInfo.getUserId()});
-        // Use the ID from the newly created item to specify the item to be worked
-        req2.setWorkitemId(newWorkItemIds.get(0));
-        // Submit the request for approval
-        Approval.ProcessResult result2 =  Approval.process(req2);*/
+        //request.Target_End_Date__c= Date.today().adddays(30);
+        System.runAs(usr)
+        {
+            request.Requested_End_Date__c= Date.today().adddays(30);
+            request.First_Extension_Granted__c=true;
+            update request;
+        }
         Request__c outputReq=[Select Id,Requested_End_Date__c from Request__c where Id=:request.id];
         System.assertEquals(null, outputReq.Requested_End_Date__c);
         

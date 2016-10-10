@@ -15,46 +15,7 @@ public  class RenewalAssetsHelper
         }
     }
     
-    /* public static boolean UpdateAssetStatus(List<Asset> lstAsset,string assetType)
-{
-
-List<Asset>lstAssetsToUpdate=new  	List<Asset>();
-if(lstAsset!=null && lstAsset.size()>0)
-{
-for(Asset asset: lstAsset)
-{
-if(asset.Status=='Customer Subscription Expired')
-{
-if(assetType=='1')
-{
-asset.Status='Customer Subscription';
-}
-else if(assetType=='2')
-{
-asset.Status='Customer Subscription Active';
-}
-lstAssetsToUpdate.add(asset);
-}
-}
-try
-{
-if(lstAssetsToUpdate.size()>0)
-{
-update lstAssetsToUpdate;
-}
-}
-catch(Exception ex)
-{
-
-ApexPages.addMessages(ex);
-SilverPeakutils.logException(ex);
-return false;
-}
-
-}
-
-return true;
-}    */
+    
     public static boolean RenewEdgeConnectLicense(List<Asset> lstAsset)
     {
         
@@ -298,7 +259,32 @@ return true;
             }
         }
     }
-    
+    public static void SendEmailsForServiceProviderPO(Purchase_Order__c purchaseOrder,Id customerContact)
+    {
+        List<EmailTemplate> template = [select Id from EmailTemplate where Name='SP Virtual Renewal Email PO' limit 1];
+        if(template.size() > 0)
+        {
+            List<String> ccs = getAccountTeam(purchaseOrder.Opportunity__r.AccountId);
+            if(customerContact!=null)
+            {
+                Contact contactPerson = [Select email from Contact where Id=:customerContact];
+                ccs.add(contactPerson.Email);
+            }
+            ccs.add('notifications@silver-peak.com');
+            Messaging.SingleEmailMessage email = new Messaging.SingleEmailMessage();
+            email.setTemplateId(template[0].Id);
+            email.setTargetObjectId(purchaseOrder.Email_Contact__c);
+            email.setCcAddresses(ccs);
+            email.setWhatId(purchaseOrder.Id);
+            email.setsaveAsActivity(false);
+            Id orgWideEmail = SilverPeakUtils.getOrganizationWideEmailId('notifications@silver-peak.com');
+            if(orgWideEmail != null)
+            {
+                email.setOrgWideEmailAddressId(orgWideEmail);
+            }
+            Messaging.sendEmail(new List<Messaging.Email> {email}, true);  
+        }
+    }
     public static void SendEmailsForPurchaseOrder(boolean IsEdgeConnect,Purchase_Order__c purchaseOrder, Id customerContact )
     {
         string pocRenewalEmailType= '';

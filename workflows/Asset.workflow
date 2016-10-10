@@ -727,9 +727,9 @@ right(Id,4))</formula>
         <active>true</active>
         <formula>AND ( 
 OR(  BEGINS(Product2.Name,&quot;EC&quot;),  BEGINS(Product2.Name,&quot;UNITY CLOUD&quot;) ), 
-NOT(Product2.Name == &quot;EC-ORCH&quot;), 
-NOT(ISPICKVAL(Product2.Product_Type__c,&quot;EC-SP&quot;)), 
-OR( ISPICKVAL(Status,&quot;Customer Subscription Active&quot;), ISPICKVAL(Status,&quot;Customer Subscription&quot;), ISPICKVAL(Status,&quot;Customer Evaluation&quot;), ISPICKVAL(Status,&quot;Loan&quot;), ISPICKVAL(Status,&quot;Conditional PO&quot;) ), 
+NOT(Product2.Name == &quot;EC-ORCH&quot;),  
+OR( ISPICKVAL(Status,&quot;Customer Subscription Active&quot;), ISPICKVAL(Status,&quot;Customer Subscription&quot;), ISPICKVAL(Status,&quot;Customer Evaluation&quot;), 
+ISPICKVAL(Status,&quot;Customer Owned&quot;), ISPICKVAL(Status,&quot;Loan&quot;), ISPICKVAL(Status,&quot;Conditional PO&quot;) ), 
 ISPICKVAL(Product2.Family,&quot;Virtual Image&quot;), 
 OR(ISNew(), 
 ISCHANGED(License_End_Date__c), 

@@ -215,7 +215,7 @@ public class ShippingInputFormController
         }    
         List<ShipLineInfo> ShipLineInfoLists = new List<ShipLineInfo>();
         List<Asset> exitingAssets = [select Id, Product2.ProductCode, Product2.Name, Product2Id, SerialNumber, Ship_Date__c, Status, GMS_Nodes__c, Evaluation_Start_Date__c,
-                                     Evaluation_End_Date__c, Warranty_Start_Date__c, Warranty_End_Date__c, Part_Number__c from Asset
+                                     Evaluation_End_Date__c, Warranty_Start_Date__c, Warranty_End_Date__c, Part_Number__c,Service_Support_Start_Date__c,Service_Support_End_Date__c from Asset
                                      where SerialNumber in : removedDashesSno];
         for(Asset aset : exitingAssets)
         {
@@ -226,6 +226,8 @@ public class ShippingInputFormController
             shipInfo.PostShipmentStatus = aset.Status;
             shipInfo.PriorStatus = aset.Status;
             shipInfo.TempAsset.Ship_Date__c = Shipment.Ship_Date__c;
+            shipInfo.TempAsset.Service_Support_Start_Date__c = aset.Service_Support_Start_Date__c;
+            shipInfo.TempAsset.Service_Support_End_Date__c = aset.Service_Support_End_Date__c;
             shipInfo.SerialNumber = aset.SerialNumber;
             shipInfo.ProductCode = aset.Product2.Name;
             shipInfo.PartNumber = aset.Part_Number__c;

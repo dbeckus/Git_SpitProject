@@ -137,11 +137,14 @@ generator.writeStringField('password', 'Yesadmin4u');
         for(Asset counter:lstAsset)
         {
             string prodName=counter.Product2.Name;
-            if(assetType=='EC'&& prodName.startsWith('EC')&& !prodName.contains('EC-SAAS')&& !prodName.contains('EC-SP'))
+            string prodType=counter.Product2.Product_Type__c;
+            if(assetType=='EC'&& prodName.startsWith('EC')&& !prodName.contains('EC-SAAS')&& !prodName.contains('EC-SP') && prodType=='EDGECONNECT')
             {filterAssets.add(counter);}
             if(assetType=='SAAS' && (prodName.contains('EC-SAAS') || prodName.contains('UNITY CLOUD INTELLIGENCE')))
             {filterAssets.add(counter);}
-            if(assetType=='CPX' && prodName.contains('EC-SP'))
+            if(assetType=='CPX' && prodName=='EC-SP')
+            {filterAssets.add(counter);}
+            if(assetType=='SP' && prodName.startsWith('EC-SP-')&& prodType=='EC-SP')
             {filterAssets.add(counter);}
         }
         for(Asset item:filterAssets)
@@ -171,7 +174,34 @@ generator.writeStringField('password', 'Yesadmin4u');
             {
                 cp.BoostNode=((integer.valueOf(item.Bandwidth_Nodes__c)*1000)*100);
             }
-            
+            if(item.Service_Support_Start_Date__c!=null)
+            {
+                DateTime dt=DateTime.newInstance(item.Service_Support_Start_Date__c,Time.newInstance(0, 0, 0, 0));
+                millis=dt.getTime();
+                cp.startDate=millis;
+            }
+             if(item.Service_Support_End_Date__c!=null)
+            {
+                DateTime dt=DateTime.newInstance(item.Service_Support_End_Date__c,Time.newInstance(0, 0, 0, 0));
+                millis=dt.getTime();
+                cp.endDate=millis;
+            }
+            if(item.Id!=null)
+            {
+                cp.salesforceId=item.Id;
+            }
+            if(item.SerialNumber!=null)
+            {
+                cp.id=item.SerialNumber;
+            }
+            if(item.Product2.Name!=null)
+            {
+                cp.name=item.Product2.Name;
+            }
+            if(item.Quantity>0)
+            {
+                cp.quantity=item.Quantity;
+            }
             lstResult.add(cp); 
         }
         

@@ -1,17 +1,15 @@
 public class CloudPortalPostAssetsApi extends CloudPortalApiBase {
     public string token; 
     public string cloudPortalId;
-    private List<CPAsset> ecAssets;
-    private List<CPAsset> saasAssets;
-    private List<CPAsset> cpxAssets;
+    public List<CPAsset> ecAssets;
+    public List<CPAsset> saasAssets;
+    public List<CPAsset> cpxAssets;
+    public List<CPAsset> spAssets;
     private string cloudPortalAccId;
     
-    public CloudPortalPostAssetsApi(string cloudPortalAccId,List<CPAsset> ecAssets, List<CPAsset> saasAssets, List<CPAsset> cpxAssets)
+    public CloudPortalPostAssetsApi(string cloudPortalAccId)
     {
         this.cloudPortalAccId=cloudPortalAccId;
-        this.ecAssets=ecAssets;
-        this.saasAssets=saasAssets;
-        this.cpxAssets=cpxAssets;
     }
     public override String generateEndPoint()
     {
@@ -72,6 +70,24 @@ public class CloudPortalPostAssetsApi extends CloudPortalApiBase {
             {
                 generator.writeStartObject();   
                 generator.writeObjectField('expire',item.ExpiryDate);
+                generator.writeEndObject();
+            }
+            
+        }
+        generator.writeEndArray(); 
+        generator.writeFieldName('ecsp');
+        generator.writeStartArray();
+        if(spAssets!=null && spAssets.size()>0)
+        {
+            for(CPAsset item:spAssets)
+            {
+                generator.writeStartObject();   
+                generator.writeObjectField('startDate',item.startDate);
+                generator.writeObjectField('endDate',item.endDate);
+                generator.writeObjectField('salesforceId',item.salesforceId);
+                generator.writeObjectField('id',item.id);
+                generator.writeObjectField('name',item.name);
+                generator.writeObjectField('quantity',item.quantity);
                 generator.writeEndObject();
             }
             

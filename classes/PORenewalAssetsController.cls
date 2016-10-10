@@ -231,7 +231,7 @@ public class PORenewalAssetsController {
                     {
                         if(isSuccessful)
                         {
-                            //RenewalAssetsHelper.SendEmailsForPurchaseOrder(false, PORequest,CustomerContact.Email_Contact__c);    
+                            RenewalAssetsHelper.SendEmailsForServiceProviderPO(PORequest,CustomerContact.Email_Contact__c);    
                         }
                         if(assets.size()>0)
                         {

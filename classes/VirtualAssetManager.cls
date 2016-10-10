@@ -225,7 +225,7 @@ public class VirtualAssetManager
         for(VirtualAsset virtualAsset : VirtualAssets)
         {
             string prodModel= virtualAsset.ProductModel;
-         
+          	System.debug(prodModel);
             if(prodModel!=null && !prodModel.startsWith('UNITY CLOUD') && !prodModel.startsWith('ECBASE') && !prodModel.startsWith('ECPLUS') && !prodModel.startsWith('ECBOOST')&& !prodModel.startsWith('ECSAAS') && !prodModel.startsWith('ECSP'))
             {
                 for(VirtualAssetLicense license : virtualAsset.Licenses)

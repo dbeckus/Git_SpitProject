@@ -38,14 +38,19 @@ public class CloudPortalPostAssetsJob implements Database.Batchable<sObject>,Dat
                     {
                         continue;
                     }
-                    List<Asset> lstAssetsToUpdate=[Select Id,SerialNumber,Product2.Name,Licenses_Nodes__c,Bandwidth_Nodes__c,License_End_Date__c from Asset where AccountId=:accId.Id and (Product2.Name like 'EC%' or Product2.Name like'UNITY CLOUD%') and Product2.Family='Virtual Image' and (NOT Product2.Name='EC-ORCH') and Status in ('Customer Subscription Active','Customer Subscription','Customer Evaluation','Loan','Conditional PO') ];
+                    List<Asset> lstAssetsToUpdate=[Select Id,SerialNumber,Product2.Name,Product2.Model__c,Product2.Product_Type__c,Licenses_Nodes__c,Bandwidth_Nodes__c,License_End_Date__c,Service_Support_Start_Date__c,Service_Support_End_Date__c,Quantity from Asset where AccountId=:accId.Id and (Product2.Name like 'EC%' or Product2.Name like'UNITY CLOUD%') and Product2.Family='Virtual Image' and (NOT Product2.Name='EC-ORCH') and Status in ('Customer Subscription Active','Customer Subscription','Customer Evaluation','Loan','Conditional PO','Customer Owned') ];
                     // Call the account helper to create assets in cloudportal format.
                     List<CPAsset> lstECAssets=CloudPortalAccountHelper.ConvertAssetToCpAsset(lstAssetsToUpdate, 'EC');
                     List<CPAsset> lstSaasAssets=CloudPortalAccountHelper.ConvertAssetToCpAsset(lstAssetsToUpdate, 'SAAS');
                     List<CPAsset> lstCPXAssets=CloudPortalAccountHelper.ConvertAssetToCpAsset(lstAssetsToUpdate, 'CPX');
+                    List<CPAsset> lstSPAssets=CloudPortalAccountHelper.ConvertAssetToCpAsset(lstAssetsToUpdate, 'SP');
                     string currToken= CloudPortalAccountHelper.GetTokenFromPortal();
-                    CloudPortalPostAssetsApi obj= new CloudPortalPostAssetsApi(cloudPortalId,lstECAssets,lstSaasAssets,lstCPXAssets);
+                    CloudPortalPostAssetsApi obj= new CloudPortalPostAssetsApi(cloudPortalId);
                     obj.token=currToken;
+                    obj.cpxAssets=lstCPXAssets;
+                    obj.ecAssets=lstECAssets;
+                    obj.saasAssets=lstSaasAssets;
+                    obj.spAssets=lstSPAssets;
                     obj.execute();
                     if(obj.isSucceed)
                     {

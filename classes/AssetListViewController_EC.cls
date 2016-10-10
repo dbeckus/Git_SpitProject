@@ -175,7 +175,7 @@ public with sharing class AssetListViewController_EC extends AssetListViewBase
         query += String.join(fields, ',');
         query.removeEnd(',');
         query += ' from Asset';
-        query += ' where Product2.Name like \'EC%\' and SBQQ__QuoteLine__c = null ';
+        query += ' where Product2.Name like \'EC%\' and Product2.Product_Type__c = \'EDGECONNECT\' and SBQQ__QuoteLine__c = null ';
         
         String sortFirstField = FieldName.split(';')[0];
         String sortAnotherField  = FieldName.split(';').size() > 1 ? FieldName.split(';')[1] : '';

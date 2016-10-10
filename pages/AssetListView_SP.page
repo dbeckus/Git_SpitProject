@@ -193,7 +193,7 @@
     };
     
     </script>
-    <apex:sectionHeader subtitle="EdgeConnect Assets"></apex:sectionHeader>
+    <apex:sectionHeader subtitle="Service Provider Assets"></apex:sectionHeader>
     <apex:form id="assetListForm">
         <apex:pageMessages id="errorMsg"/>
         <apex:actionFunction name="reloadData" action="{!searchAssets}" status="loading" reRender="assetListBlock,errorMsg"></apex:actionFunction>
@@ -207,7 +207,7 @@
          </apex:pageblock>
         <span id="searchSection">
             <apex:selectList value="{!ListView}" size="1" id="listViewOption">
-                <apex:selectOption itemLabel="Edge Connect Subscriptions" itemValue="EdgeConnect_Subscriptions"></apex:selectOption>
+                <apex:selectOption itemLabel="Service Provider" itemValue="SP_Subscriptions"></apex:selectOption>
                 <apex:actionSupport event="onchange" action="{!initSort}" status="loading" reRender="assetListBlock,errorMsg"></apex:actionSupport>
             </apex:selectList>
            

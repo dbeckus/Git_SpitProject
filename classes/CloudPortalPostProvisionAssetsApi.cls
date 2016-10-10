@@ -1,8 +1,8 @@
 public class CloudPortalPostProvisionAssetsApi extends CloudPortalApiBase {
     public string token; 
     public string cloudPortalId;
-    public Set<string> lstSerialNumber;
-    public CloudPortalPostProvisionAssetsApi(string cloudAccId,Set<string> lstSn)
+    public Map<string,string> lstSerialNumber;
+    public CloudPortalPostProvisionAssetsApi(string cloudAccId,Map<string,string> lstSn)
     {
         cloudPortalId=cloudAccId;
         lstSerialNumber=lstSn;
@@ -25,7 +25,17 @@ public class CloudPortalPostProvisionAssetsApi extends CloudPortalApiBase {
     {
         JSONGenerator generator = JSON.createGenerator(true);
         generator.writeStartObject();
-       	generator.writeObjectField('serials', lstSerialNumber);
+        generator.writeFieldName('serials');
+        generator.writeStartArray();
+        for(string item:lstSerialNumber.keyset())
+            {
+                generator.writeStartObject();   
+                generator.writeObjectField('serial',item);
+                generator.writeObjectField('model',lstSerialNumber.get(item));
+                generator.writeEndObject();
+            }
+        generator.writeEndArray();
+       	//generator.writeObjectField('serials', lstSerialNumber);
         generator.writeEndObject();        
         String parameters = generator.getAsString();
         request.setBody(parameters);
