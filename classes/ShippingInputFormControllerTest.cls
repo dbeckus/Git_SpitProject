@@ -1,11 +1,13 @@
 @isTest
 public class ShippingInputFormControllerTest
 {
-	  @isTest
+    @isTest
     static void testShippingInputFormController()
     {
         Account account = new Account(Name = 'test shipment');
         insert account;
+        Account spAccount = new Account(Name = 'Silver Peak Systems');
+        insert spAccount;
         Contact ct = new Contact(AccountId = account.Id, LastName = 'test ship');
         insert ct;
         Product2 prd = new Product2(Name='acme', Family='Product', IsActive=true, ProductCode='acme');
@@ -40,12 +42,14 @@ public class ShippingInputFormControllerTest
         System.assertEquals('Pending Return – Support', asset2.Status);
     }
     
-     @isTest
+    @isTest
     static void testShippingInputFormControllerForPOC()
     {
-       	
+        
         Account account = new Account(Name = 'test shipment');
         insert account;
+         Account spAccount = new Account(Name = 'Silver Peak Systems');
+        insert spAccount;
         Contact ct = new Contact(AccountId = account.Id, LastName = 'test ship',Email='abc@abc.com');
         insert ct;
         Product2 prd = new Product2(Name='EC-XS', Family='Product', IsActive=true, ProductCode='500210-001');
@@ -66,7 +70,7 @@ public class ShippingInputFormControllerTest
         Test.startTest();
         PageReference pageRef = new PageReference('/apex/ShippingInputForm?pocId=' + pocRequest.Id);
         Test.setCurrentPage(pageRef);
-       	
+        
         ShippingInputFormController controller = new ShippingInputFormController();
         controller.SNSets = '123456789012';
         controller.Process();
@@ -83,15 +87,15 @@ public class ShippingInputFormControllerTest
                           EmailEncodingKey='UTF-8', LastName='Testing', LanguageLocaleKey='en_US', 
                           LocaleSidKey='en_US', ProfileId = p.Id, 
                           TimeZoneSidKey='America/Los_Angeles', UserName='testUser@uniquetest.com');
-    
+        
         u.IsActive =true;
         System.runAs(u) {
             // The following code runs as user 'u' 
-           controller.save();
+            controller.save();
             
         }
         Test.stopTest();
-       	List<Shipment__c> shipmentList = [select Shipment_Account__c, Shipment_Contact__c, Shipment_Contract__c from Shipment__c where Id = :controller.Shipment.Id limit 1];
+        List<Shipment__c> shipmentList = [select Shipment_Account__c, Shipment_Contact__c, Shipment_Contract__c from Shipment__c where Id = :controller.Shipment.Id limit 1];
         System.assertEquals(1, shipmentList.size());
         
     }
@@ -125,5 +129,5 @@ public class ShippingInputFormControllerTest
         System.assert(!controller.isValidSerialNumber('.1234.5678.90ab'));
     }
     
-     
+    
 }

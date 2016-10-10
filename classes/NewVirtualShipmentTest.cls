@@ -19,6 +19,8 @@ public class NewVirtualShipmentTest
         Test.startTest();
         Account testAccount = new Account(Name='acme');
         insert testAccount;
+        Account spAccount = new Account(Name='Silver Peak Systems');
+        insert spAccount;
         Opportunity testOpp = new Opportunity(Name='acme', CloseDate=Date.today(), StageName='Open', ForecastCategoryName ='Pipeline', AccountId=testAccount.Id);
         insert testOpp;
         Product2 testProduct = new Product2(Name='acme', Forecast_Category__c = 'Virtual', Family='Virtual Image', IsActive=true);
@@ -57,9 +59,11 @@ public class NewVirtualShipmentTest
         Account testAccount = new Account(Name='acme');
         testAccount.EC_Customer_Date__c=Date.today();
         insert testAccount;
+        Account spAccount = new Account(Name='Silver Peak Systems');
+        insert spAccount;
         Opportunity testOpp = new Opportunity(Name='acme', CloseDate=Date.today(), StageName='Open', ForecastCategoryName ='Pipeline', AccountId=testAccount.Id);
         insert testOpp;
-        Product2 testProduct = new Product2(Name='EC-ORCH',Product_Category__c='GMS', Forecast_Category__c = 'Virtual', Family='Virtual Image', IsActive=true);
+        Product2 testProduct = new Product2(Name='EC-ORCH',Product_Category__c='GMS', Forecast_Category__c = 'Virtual', Family='Virtual Image', IsActive=true,Product_Type__c='EDGECONNECT');
         insert testProduct;
         Contact testContact = new Contact(LastName='acme', AccountId=testAccount.Id);
         insert testContact;
@@ -98,11 +102,13 @@ public class NewVirtualShipmentTest
         Account testAccount = new Account(Name='acme');
         testAccount.EC_Customer_Date__c=Date.today();
         insert testAccount;
+        Account spAccount = new Account(Name='Silver Peak Systems');
+        insert spAccount;
         Opportunity testOpp = new Opportunity(Name='acme', CloseDate=Date.today(), StageName='Open', ForecastCategoryName ='Pipeline', AccountId=testAccount.Id);
         insert testOpp;
-        Product2 testProduct = new Product2(Name='EC-BASE-1Y',Product_Category__c='GMS', Forecast_Category__c = 'Virtual', Family='Virtual Image', IsActive=true);
+        Product2 testProduct = new Product2(Name='EC-BASE-1Y',Product_Category__c='GMS', Forecast_Category__c = 'Virtual', Family='Virtual Image', IsActive=true,Product_Type__c='EDGECONNECT');
         insert testProduct;
-        Product2 plusProduct = new Product2(Name='EC-PLUS-1Y',Product_Category__c='GMS', Forecast_Category__c = 'Virtual', Family='Virtual Image', IsActive=true);
+        Product2 plusProduct = new Product2(Name='EC-PLUS-1Y',Product_Category__c='GMS', Forecast_Category__c = 'Virtual', Family='Virtual Image', IsActive=true,Product_Type__c='EDGECONNECT');
         insert plusProduct;
         Contact testContact = new Contact(LastName='acme', AccountId=testAccount.Id);
         insert testContact;
@@ -128,7 +134,7 @@ public class NewVirtualShipmentTest
         controller.removeLine();
         
         controller.save();
-
+        
         System.assert(testShipment.Id != null);
         System.assertEquals(1, [SELECT count() FROM Shipped_Line__c WHERE Shipment_Id__c = :testShipment.Id]);
         
@@ -161,9 +167,11 @@ public class NewVirtualShipmentTest
         Account testAccount = new Account(Name='acme');
         testAccount.EC_Customer_Date__c= Date.today();
         insert testAccount;
+        Account spAccount = new Account(Name='Silver Peak Systems');
+        insert spAccount;
         Opportunity testOpp = new Opportunity(Name='acme', CloseDate=Date.today(), StageName='Open', ForecastCategoryName ='Pipeline', AccountId=testAccount.Id);
         insert testOpp;
-        Product2 testProduct = new Product2(Name='EC-BASE-1Y',Product_Category__c='Virtual Image', Forecast_Category__c = 'Virtual', Family='Virtual Image', IsActive=true);
+        Product2 testProduct = new Product2(Name='EC-BASE-1Y',Product_Category__c='Virtual Image', Forecast_Category__c = 'Virtual', Family='Virtual Image', IsActive=true,Product_Type__c='EDGECONNECT');
         insert testProduct;
         Contact testContact = new Contact(LastName='acme', AccountId=testAccount.Id);
         insert testContact;
@@ -197,7 +205,7 @@ public class NewVirtualShipmentTest
         Asset firstAssetRec= [Select Id,Licenses_Nodes__c from Asset where Id in (SELECT Asset__c FROM Shipped_Line__c WHERE Shipment_Id__c = :testShipment.Id) LIMIT 1];
         System.assertEquals(10,firstAssetRec.Licenses_Nodes__c);
         // Create one more virtual product with the same prouduct
-
+        
         testShipment = new Shipment__c(); 
         pageRef = new PageReference('/apex/NewVirtualShipment?poId=' + testPO.Id);
         Test.setCurrentPage(pageRef);
@@ -210,12 +218,12 @@ public class NewVirtualShipmentTest
         controller.AssetLines[0].Asset.Licenses_Nodes__c = 10;
         controller.AssetLines[0].Asset.Evaluation_End_Date__c = Date.newInstance(2017, 1, 1);
         controller.AssetLines[0].Asset.End_of_Maintenance__c=Date.today().addYears(2);
-
+        
         controller.addLine();
         
         ApexPages.currentPage().getParameters().put('rowIndex', '1');
         controller.removeLine();
-       
+        
         controller.save();
         System.assert(testShipment.Id != null);
         System.assertEquals(1, [SELECT count() FROM Shipped_Line__c WHERE Shipment_Id__c = :testShipment.Id]);
@@ -232,9 +240,11 @@ public class NewVirtualShipmentTest
         Test.startTest();
         Account testAccount = new Account(Name='acme');
         insert testAccount;
+        Account spAccount = new Account(Name='Silver Peak Systems');
+        insert spAccount;
         Opportunity testOpp = new Opportunity(Name='acme', CloseDate=Date.today(), StageName='Open', ForecastCategoryName ='Pipeline', AccountId=testAccount.Id);
         insert testOpp;
-        Product2 testProduct = new Product2(Name='EC-BOOST-1Y',Product_Category__c='Virtual Image', Forecast_Category__c = 'Virtual', Family='Virtual Image', IsActive=true);
+        Product2 testProduct = new Product2(Name='EC-BOOST-1Y',Product_Category__c='Virtual Image', Forecast_Category__c = 'Virtual', Family='Virtual Image', IsActive=true,Product_Type__c='EDGECONNECT');
         insert testProduct;
         Contact testContact = new Contact(LastName='acme', AccountId=testAccount.Id);
         insert testContact;
@@ -255,7 +265,7 @@ public class NewVirtualShipmentTest
         controller.AssetLines[0].Asset.Bandwidth_Nodes__c = 10;
         controller.AssetLines[0].Asset.End_of_Maintenance__c=Date.today().addYears(2);
         controller.addLine();
-
+        
         ApexPages.currentPage().getParameters().put('rowIndex', '1');
         controller.removeLine();
         
@@ -265,7 +275,7 @@ public class NewVirtualShipmentTest
         Asset firstAssetRec= [Select Id,Bandwidth_Nodes__c from Asset where Id in (SELECT Asset__c FROM Shipped_Line__c WHERE Shipment_Id__c = :testShipment.Id) LIMIT 1];
         System.assertEquals(10,firstAssetRec.Bandwidth_Nodes__c);
         // Create one more virtual product with the same prouduct
- 
+        
         testShipment = new Shipment__c(); 
         pageRef = new PageReference('/apex/NewVirtualShipment?poId=' + testPO.Id);
         Test.setCurrentPage(pageRef);
@@ -282,7 +292,7 @@ public class NewVirtualShipmentTest
         ApexPages.currentPage().getParameters().put('rowIndex', '1');
         controller.removeLine();  
         controller.save();
-     
+        
         System.assert(testShipment.Id != null);
         System.assertEquals(1, [SELECT count() FROM Shipped_Line__c WHERE Shipment_Id__c = :testShipment.Id]);
         Asset secondAssetRec= [Select Id,Bandwidth_Nodes__c from Asset where Id in (SELECT Asset__c FROM Shipped_Line__c WHERE Shipment_Id__c = :testShipment.Id) LIMIT 1];
