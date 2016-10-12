@@ -15,15 +15,17 @@ public class TestCheckECSPEnabledonEnterAcc {
         catch(Exception ex)
         {
             Boolean expectedExceptionThrown =  ex.getMessage().contains('You cannot modify ECSP flag at this point of time. Please contact service provider team.') ? true : false;
-			System.AssertEquals(expectedExceptionThrown, true);
+            System.AssertEquals(expectedExceptionThrown, true);
         }
     }
- 	@IsTest
+    @IsTest
     public static void ECSPFlag_AccountAssetsCreated()
     {
         Account acc=new Account(Name='Test',ECSP__c=true);
         insert acc;
-       	Product2 product = new Product2(Name='EC-BASE-1Y', Family='Virtual Image', Product_Category__c='Subscription', IsActive=true);
+        Account spacc=new Account(Name='Silver Peak Systems',ECSP__c=true);
+        insert spacc;
+        Product2 product = new Product2(Name='EC-BASE-1Y', Family='Virtual Image', Product_Category__c='Subscription', IsActive=true);
         insert product;
         Asset asset1 = new Asset(Name='T-30', AccountId=acc.Id, Product2Id=product.Id,Status='Customer Evaluation');
         insert asset1;
@@ -35,7 +37,7 @@ public class TestCheckECSPEnabledonEnterAcc {
         catch(Exception ex)
         {
             Boolean expectedExceptionThrown =  ex.getMessage().contains('You cannot modify ECSP flag at this point of time. Please contact service provider team.') ? true : false;
-			System.AssertEquals(expectedExceptionThrown, true);
+            System.AssertEquals(expectedExceptionThrown, true);
         }
     }
     
@@ -45,7 +47,7 @@ public class TestCheckECSPEnabledonEnterAcc {
         Account acc=new Account(Name='Test',ECSP__c=true);
         insert acc;
         acc.ECSP__c=false;
-
+        
         try
         {
             update acc;
@@ -53,7 +55,7 @@ public class TestCheckECSPEnabledonEnterAcc {
         catch(Exception ex)
         {
             Boolean expectedExceptionThrown =  ex.getMessage().contains('You cannot modify ECSP flag at this point of time. Please contact operations.') ? true : false;
-			System.AssertEquals(expectedExceptionThrown, true);
+            System.AssertEquals(expectedExceptionThrown, true);
         }
     }
 }

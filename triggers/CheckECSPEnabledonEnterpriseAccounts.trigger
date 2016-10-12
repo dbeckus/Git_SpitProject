@@ -3,7 +3,7 @@ trigger CheckECSPEnabledonEnterpriseAccounts on Account (before update) {
    {
       
        Account oldAcc= Trigger.OldMap.get(acc.Id);
-       if(oldAcc.ECSP__c!=acc.ECSP__c)
+       if(oldAcc.ECSP__c!=acc.ECSP__c && !acc.ECSP__c)
        {
            if(acc.Cloud_Portal_Account_Id__c!=null || acc.Cloud_Portal_Account_Key__c!=null || acc.Cloud_Portal_Account_Name__c !=null)
            {

@@ -125,7 +125,7 @@ public class SendShipmentFulfilmentEmailController
         else if(isEdgeConnect && counterData>1)
         {shipmentType='EdgeConnect Add-On Email';}
         else if(isServiceProvider)
-        {shipmentType='Service Provider Shipping Fulfilment';}
+        {shipmentType='SP Shipping Fulfilment';}
         return shipmentType;
     }
     

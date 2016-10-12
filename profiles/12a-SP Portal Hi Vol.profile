@@ -1665,6 +1665,10 @@
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>TestAssetListViewControllerSP</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>TestAutomatePOCRenewalExtensions</apexClass>
         <enabled>false</enabled>
     </classAccesses>

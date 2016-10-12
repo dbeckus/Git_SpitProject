@@ -735,6 +735,8 @@ OR(ISNew(),
 ISCHANGED(License_End_Date__c), 
 ISCHANGED(Bandwidth_Nodes__c), 
 ISCHANGED(Licenses_Nodes__c), 
+ISCHANGED( Service_Support_Start_Date__c ), 
+ISCHANGED( Service_Support_End_Date__c ), 
 ISCHANGED(Status) ) )</formula>
         <triggerType>onAllChanges</triggerType>
     </rules>
