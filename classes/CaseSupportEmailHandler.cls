@@ -64,6 +64,7 @@ global class CaseSupportEmailHandler implements Messaging.InboundEmailHandler
         try
         {
             boolean isAutoCase=isAutoEmail(email.subject);
+            System.debug('isAutoCase'+isAutoCase);
             boolean isECCheck=false;
             String[] subjectValues;
             String assetNumber = '';
@@ -82,6 +83,7 @@ global class CaseSupportEmailHandler implements Messaging.InboundEmailHandler
                     isECCheck=true;
                 }
             }
+             System.debug('isECCheck'+isECCheck);
             if(isAutoCase && !isECCheck)
             {
                 //subjectValues = parseSubjectValues(email.subject);
