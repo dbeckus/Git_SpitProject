@@ -110,6 +110,7 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
+        <required>false</required>
         <trackHistory>true</trackHistory>
         <trackTrending>true</trackTrending>
         <type>Picklist</type>
@@ -178,6 +179,7 @@
             </picklistValues>
             <sorted>false</sorted>
         </picklist>
+        <required>false</required>
         <trackHistory>true</trackHistory>
         <trackTrending>true</trackTrending>
         <type>Picklist</type>

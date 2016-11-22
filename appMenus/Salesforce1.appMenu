@@ -44,4 +44,8 @@
         <name>PendingInterviews</name>
         <type>StandardAppMenuItem</type>
     </appMenuItems>
+    <appMenuItems>
+        <name>Forecasting</name>
+        <type>StandardAppMenuItem</type>
+    </appMenuItems>
 </AppMenu>

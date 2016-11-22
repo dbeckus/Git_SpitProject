@@ -4,6 +4,8 @@ public class TestAssetListViewControllerEC
     @isTest
     public static void testAssetListView()
     {
+        Account spAcc= new Account(Name='Silver Peak Systems');
+        insert spAcc;
         Asset asset1 = createTestData();
         //Asset asset2 = createTestData();
         AssetListViewController_EC controller = new AssetListViewController_EC();
@@ -30,6 +32,8 @@ public class TestAssetListViewControllerEC
     @isTest
     public static void testCSVUpload()
     {
+        Account spAcc= new Account(Name='Silver Peak Systems');
+        insert spAcc;
         Asset asset1 = createTestData();
         Asset asset2 = createTestData();
         String body = 'Id,Product Model,Serial Number,Ship Date,License Key,End Customer,Reference,Deployment Date,Customer Notes\r';
@@ -57,6 +61,8 @@ public class TestAssetListViewControllerEC
         Product2 product = new Product2();
         product.Name = 'EC-BASE-1Y';
         product.ProductCode = 'acme';
+        product.Product_Type__c = 'EDGECONNECT';
+
         insert product;
 
         Asset asset = new Asset();
@@ -64,7 +70,7 @@ public class TestAssetListViewControllerEC
         asset.SerialNumber = '001BBC039649_t';
         asset.AccountId = account.Id;
         asset.Product2Id = product.Id;
-        asset.Status = 'Customer Ownered';
+        asset.Status = 'Customer Subscription Active';
         asset.Quantity = 1;
         insert asset;
         return asset;

@@ -6,8 +6,8 @@ public class TestCloudPortalProvisionAssetsJob {
         Account acc= new Account(Name='acme',Cloud_Portal_Account_Id__c='123666669898');
         insert acc;
        
-        //Account acc1= new Account(Name='Silver Peak Systems');
-        //insert acc1;
+        Account acc1= new Account(Name='Silver Peak Systems');
+        insert acc1;
         Product2 product = new Product2();
         product.Name = 'EC-XS';
         product.ProductCode = 'EC-XS';

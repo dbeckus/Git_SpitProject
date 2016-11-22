@@ -14,20 +14,7 @@ public class TestCalculateQuarterForOpp {
         Opportunity result=[Select Id,Fiscal_Quarter_Name__c from Opportunity where Id=:opp.Id];
         System.assert(result.Fiscal_Quarter_Name__c!=null);
     }
-    @IsTest
-    public static void TestCalculateQuarterForOppData_NoFiscal()
-    {
-        Account acc = new Account(Name='acme', Type='Eval');
-        insert acc;
-        Contact con = new Contact(LastName='acme', AccountId=acc.Id);
-        con.MailingStreet='address1 \r\n address2';
-        insert con;
-        
-        Opportunity opp = new Opportunity(Name='test', StageName='Discovery', CloseDate=Date.newInstance(2021,9,23),AccountId = acc.Id);
-        insert opp;
-        Opportunity result=[Select Id,Fiscal_Quarter_Name__c from Opportunity where Id=:opp.Id];
-        System.assert(result.Fiscal_Quarter_Name__c==null);
-    }
+    
  	@IsTest
     public static void TestCalculateQuarterForOppData_Update()
     {

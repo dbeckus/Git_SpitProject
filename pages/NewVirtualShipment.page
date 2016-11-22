@@ -172,25 +172,25 @@
                 nodeLine.startDateInput.hide();
                 nodeLine.startDateOutput.css("display", "inline-block");
                 nodeLine.startDateOutput.text(today);
-                nodeLine.startDate.val(today);
+                //nodeLine.startDate.val(today);
                 
                 nodeLine.endDateInput.hide();
                 nodeLine.endDateOutput.css("display", "inline-block");
                 nodeLine.endDateOutput.text("");
-                nodeLine.endDate.val("");
+                //nodeLine.endDate.val("");
                 nodeLine.servicestartDateOutput.hide();
                 nodeLine.servicestartDateInput.hide();
-                nodeLine.servicestartDate.val("");
+                //nodeLine.servicestartDate.val("");
                 nodeLine.serviceendDateOutput.hide();
                 nodeLine.serviceendDateInput.hide();
-                nodeLine.serviceEndDate.val("");
+                //nodeLine.serviceEndDate.val("");
                 if(productName.indexOf("EC-SP") == 0)
                 {
                     nodeLine.servicestartDateInput.show();
-                    nodeLine.servicestartDate.val(today);
+                    //nodeLine.servicestartDate.val(today);
                     nodeLine.servicestartDateInput.css("display", "inline-block");
                     nodeLine.serviceendDateInput.show();
-                    nodeLine.serviceEndDate.val(today);
+                    //nodeLine.serviceEndDate.val(today);
                     nodeLine.serviceendDateInput.css("display", "inline-block");
                 }
             }
