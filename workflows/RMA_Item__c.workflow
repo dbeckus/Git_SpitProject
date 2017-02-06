@@ -63,21 +63,6 @@
         <triggerType>onCreateOnly</triggerType>
     </rules>
     <rules>
-        <fullName>Send email to Hardware Engineering team</fullName>
-        <active>false</active>
-        <criteriaItems>
-            <field>RMA__c.Type__c</field>
-            <operation>equals</operation>
-            <value>Advance Replace</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>RMA__c.Status__c</field>
-            <operation>equals</operation>
-            <value>In FA/Recd</value>
-        </criteriaItems>
-        <triggerType>onCreateOrTriggeringUpdate</triggerType>
-    </rules>
-    <rules>
         <fullName>UnDispatchSystemOrders</fullName>
         <actions>
             <name>UnDispatchSystemOrders</name>

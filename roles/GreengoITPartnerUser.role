@@ -2,9 +2,9 @@
 <Role xmlns="http://soap.sforce.com/2006/04/metadata">
     <caseAccessLevel>None</caseAccessLevel>
     <contactAccessLevel>Edit</contactAccessLevel>
-    <description>Greengo IT Partner User</description>
+    <description>Greengo It Services Consultoria em Informatica Ltda. Partner User</description>
     <mayForecastManagerShare>false</mayForecastManagerShare>
-    <name>Greengo IT Partner User</name>
+    <name>Greengo It Services Consultoria em Informatica Ltda. Partner User</name>
     <opportunityAccessLevel>None</opportunityAccessLevel>
     <parentRole>GreengoITPartnerManager</parentRole>
 </Role>

@@ -130,6 +130,10 @@ public with sharing class NewVirtualShipmentController
         try
         {
             Integer index = Integer.valueOf(rowIndex);
+            /*if(index>0)
+            {
+                index=index-1;
+            }*/
             AssetLines.remove(index);
         }
         catch(Exception ex)
@@ -142,6 +146,11 @@ public with sharing class NewVirtualShipmentController
         if(TempAsset.ContactId == null || shipmentRecord.Shipment_Account__c == null || shipmentRecord.Shipment_Contact__c == null)
         {
             ApexPages.addMessage(new ApexPages.Message(ApexPages.Severity.Error, 'You must select Account and Contact.'));
+            return null;
+        }
+        if(!ValidateEndDatesForEdgeConnect())
+        {
+            ApexPages.addMessage(new ApexPages.Message(ApexPages.Severity.Error, 'Dates must match for all the EdgeConnect products.'));  
             return null;
         }
         SavePoint sp = Database.setSavePoint();
@@ -168,6 +177,8 @@ public with sharing class NewVirtualShipmentController
         Map<string,Asset> lstExistingECAssets= RetreiveExistingAssetInfo(shipmentRecord.Shipment_Account__c);
         List<VirtualAssetManager.VirtualAsset> insertAssetLines = new List<VirtualAssetManager.VirtualAsset>();
         List<VirtualAssetManager.VirtualAsset> updateAssetLines = new List<VirtualAssetManager.VirtualAsset>();
+        
+        
         for(VirtualAssetManager.VirtualAsset virtualAsset : AssetLines)
         {  
             
@@ -182,6 +193,11 @@ public with sharing class NewVirtualShipmentController
                 VirtualAssetManager.VirtualAsset vasset= new VirtualAssetManager.VirtualAsset();
                 vasset.Asset = currAsset;
                 vasset.Asset.Evaluation_End_Date__c= virtualAsset.Asset.Evaluation_End_Date__c;
+                if(currAsset.Product2.Name.contains('EC-ORCH'))
+                {
+                    vasset.Asset.Evaluation_End_Date__c=null;
+                }
+                
                 vasset.Asset.ContactId = TempAsset.ContactId;
                 
                 if(currAsset.Product2.Name.contains('EC-BASE')|| currAsset.Product2.Name.contains('EC-PLUS'))
@@ -213,7 +229,10 @@ public with sharing class NewVirtualShipmentController
                 }
                 //If the EC Orchestrator is selected, then hardcode the GMS Nodes to 10000
                 if(ECProductIds!=null && ECProductIds.size()>0 && ECProductIds.containsKey(virtualAsset.Asset.Product2Id) &&  ECProductIds.get(virtualAsset.Asset.Product2Id) =='EC-ORCH' )
-                {virtualAsset.Asset.GMS_Nodes__c = '100000'; }
+                {
+                    virtualAsset.Asset.GMS_Nodes__c = '100000';
+                    virtualAsset.Asset.Evaluation_End_Date__c = null;  
+                }
                 if(virtualAsset.Asset.Quantity == null)
                 {
                     virtualAsset.Asset.Quantity = 1;
@@ -222,7 +241,8 @@ public with sharing class NewVirtualShipmentController
                 {
                     virtualAsset.Asset.Evaluation_End_Date__c = null;      
                 }
-                if(SPProductIds!=null && SPProductIds.size()>0 && !SPProductIds.containsKey(virtualAsset.Asset.Product2Id))
+                
+                if(SPProductIds!=null && !SPProductIds.containsKey(virtualAsset.Asset.Product2Id))
                 {
                     virtualAsset.Asset.Service_Support_Start_Date__c = null; 
                     virtualAsset.Asset.Service_Support_End_Date__c = null; 
@@ -261,6 +281,7 @@ public with sharing class NewVirtualShipmentController
                 }
                 else
                 {
+                    
                     InsertShippedLineRecords(shipmentRecord.Id, updateAssetLines);
                 }
                 
@@ -355,9 +376,25 @@ public with sharing class NewVirtualShipmentController
         }
         
         PageReference resultPage = new PageReference('/' + shipmentRecord.Id);
-        return resultPage;                
+        return resultPage;      
     }    
-    
+    private  boolean ValidateEndDatesForEdgeConnect()
+    {
+        Set<Date> setDates= new Set<Date>();
+        for(VirtualAssetManager.VirtualAsset virtualAsset : AssetLines)
+        {
+            if(ECProductIds.containsKey(virtualAsset.Asset.Product2Id) && ECProductIds.get(virtualAsset.Asset.Product2Id) !='EC-ORCH')
+            {
+                setDates.add(virtualAsset.Asset.Evaluation_End_Date__c);
+            }
+        }
+        System.debug('setDates'+ setDates.size());
+        if(setDates.size()>0 && setDates.size()>1)
+        {
+            return false;
+        }
+        return true;
+    }
     private static void UpdateLicensesForEdgeConnectAssets(Id shipmentId, Id accountId)
     {
         List<Asset> lstAssetsinShipment= [Select Id,license_End_Date__c from Asset where status='Customer Subscription Active' and Product2.Family='Virtual Image' and Product2.Name like 'EC-%' and Id in (Select Asset__c from Shipped_Line__c where Shipment_Id__c=: shipmentId)];

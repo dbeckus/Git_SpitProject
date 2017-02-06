@@ -8,12 +8,14 @@
  *
  * @changelog
  * 4/21/2015 Matt Yuan - Created.
+ * 6/24/2016 Zhong - Updated to remove usage of TriggerFactory to avoid additional SOQL
  */
 
 trigger ContactTriggerDispatcher on Contact (before insert, before update, before delete, after insert, after update, after delete, after undelete) 
 {
     if(!SilverPeakUtils.BypassingTriggers)
     {
-        TriggerFactory.createTriggerHandlers(Contact.SObjectType);
+        TriggerHandler handler = new ContactTriggerHandlerForSDC();
+        handler.execute();
     }
 }

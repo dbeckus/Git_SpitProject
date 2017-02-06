@@ -6,11 +6,9 @@ public class TestECSubscriptionExpirationRemJob
     {
         Account acc = new Account(Name='acme');
         insert acc;
-        Account spAccount = new Account(Name = 'Silver Peak Systems');
-        insert spAccount;
         Contact contact = new Contact(LastName='acme', AccountId=acc.Id);
         insert contact;
-        Product2 product = new Product2(Name='EC-BASE-1Y', Product_Type__c='EDGECONNECT',Family='Virtual Image', Product_Category__c='Subscription', IsActive=true);
+        Product2 product = new Product2(Name='EC-BASE-1Y', Family='Virtual Image', Product_Category__c='Subscription', IsActive=true);
         insert product;
         Asset asset1 = new Asset(Name='T-30', ContactId=contact.Id, Product2Id=product.Id);
         Asset asset2 = new Asset(Name='T0', ContactId=contact.Id, Product2Id=product.Id);
@@ -35,11 +33,9 @@ public class TestECSubscriptionExpirationRemJob
     {
         Account acc = new Account(Name='acme');
         insert acc;
-          Account spAccount = new Account(Name = 'Silver Peak Systems');
-        insert spAccount;
         Contact contact = new Contact(LastName='acme', AccountId=acc.Id);
         insert contact;
-        Product2 product = new Product2(Name='EC-BASE-1Y',Product_Type__c='EDGECONNECT', Family='Virtual Image', Product_Category__c='Subscription', IsActive=true);
+        Product2 product = new Product2(Name='EC-BASE-1Y', Family='Virtual Image', Product_Category__c='Subscription', IsActive=true);
         insert product;
         Asset asset1 = new Asset(Name='T-0', ContactId=contact.Id, Product2Id=product.Id,Status='Customer Evaluation');
        
@@ -58,11 +54,9 @@ public class TestECSubscriptionExpirationRemJob
     {
         Account acc = new Account(Name='acme');
         insert acc;
-          Account spAccount = new Account(Name = 'Silver Peak Systems');
-        insert spAccount;
         Contact contact = new Contact(LastName='acme', AccountId=acc.Id);
         insert contact;
-        Product2 product = new Product2(Name='EC-BASE-1Y',Product_Type__c='EDGECONNECT', Family='Virtual Image', Product_Category__c='Subscription', IsActive=true);
+        Product2 product = new Product2(Name='EC-BASE-1Y', Family='Virtual Image', Product_Category__c='Subscription', IsActive=true);
         insert product;
         Asset asset1 = new Asset(Name='T-0', ContactId=contact.Id, Product2Id=product.Id,Status='Customer Subscription');
        

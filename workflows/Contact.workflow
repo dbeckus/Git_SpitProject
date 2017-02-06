@@ -98,7 +98,7 @@ Sales_Rejected_Comments__c</formula>
             <operation>equals</operation>
             <value>Converted into Existing Opportunity</value>
         </criteriaItems>
-        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+        <triggerType>onCreateOnly</triggerType>
     </rules>
     <rules>
         <fullName>Partner Role is Populated</fullName>

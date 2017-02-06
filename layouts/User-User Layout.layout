@@ -40,7 +40,15 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
+                <field>IsServiceProviderTeam__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
                 <field>End_Date__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>Manager_Text_Field__c</field>
             </layoutItems>
         </layoutColumns>
         <layoutColumns>
@@ -61,10 +69,6 @@
                 <field>RoleGrouping__c</field>
             </layoutItems>
             <layoutItems>
-                <behavior>Readonly</behavior>
-                <field>OverrideOpportunity__c</field>
-            </layoutItems>
-            <layoutItems>
                 <behavior>Edit</behavior>
                 <field>qbdialer__InsideSales_Admin__c</field>
             </layoutItems>
@@ -75,6 +79,18 @@
             <layoutItems>
                 <behavior>Edit</behavior>
                 <field>Week_1_Pipeline__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>Override_Opportunity__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>Account_Reseller_Agreement__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>Reseller_Agreement_Acknowledged__c</field>
             </layoutItems>
         </layoutColumns>
         <style>TwoColumnsLeftToRight</style>

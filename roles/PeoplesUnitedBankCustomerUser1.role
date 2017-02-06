@@ -6,5 +6,5 @@
     <mayForecastManagerShare>false</mayForecastManagerShare>
     <name>Peoples United Bank Customer User</name>
     <opportunityAccessLevel>None</opportunityAccessLevel>
-    <parentRole>VPSalesEastern</parentRole>
+    <parentRole>SalesManagerEastern</parentRole>
 </Role>

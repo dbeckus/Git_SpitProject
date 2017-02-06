@@ -8,40 +8,14 @@ public without sharing class PartnerPortalSSOStub
     private static String ssoBase = 'http://training.silver-peak.com/get.ashx?method=sso';
     private static String adminId = 'training@silver-peak.com';
     private static String adminKey = 'f1698f6ec979bf9fe3a16c62732cfff0';
-    private static String httpLoginBase='https://silverpeaksystems-migration.sandbox.myabsorb.com/api/Rest/v1/Authenticate?username=prane@silver-peak.com&password=test@2505&privateKey=a750ad20-34ff-4f05-a292-8a227c323441';
+
     public static String getToken()
     {
         webservicesAbsorbtrainingCom.Main2Soap soapClient = new webservicesAbsorbtrainingCom.Main2Soap();
         String token = soapClient.DoLogin(adminId, hashAdminKey());
         return token;
     }
-    public static String getHttpToken()
-    {
-        string token='';
-      
-        HttpRequest request = new HttpRequest();
-        request.setMethod('POST');
-        request.setHeader('charset', 'UTF-8');
-        request.setHeader('Content-Type', 'application/json'); 
-        request.setEndpoint(httpLoginBase);
-        request.setBody('');
-        HttpResponse response = new Http().send(request);
-        
-        // Process response.
-        if(response.getStatusCode() >= 200 && response.getStatusCode() < 400)
-        {
-            system.debug(response.getStatusCode());
-            
-            token=response.getBody();
-            token=token.substring(1,token.length()-1);
-           	System.debug('token'+token);
-        }
-        else
-        {
-            system.debug(response.getBody());
-        }
-        return token;
-    }
+    
     public static String getSSOLink(Id uid)
     {
         User currentUser = [select Id, UserName, Email, ContactId, Contact.FirstName, Contact.LastName, Contact.Email, 
@@ -163,7 +137,7 @@ public without sharing class PartnerPortalSSOStub
             }
         }
 
-        HPartnerPortalGetDepartmentsApi result = validateDepartmentByName(departmentName, token);
+        PartnerPortalGetDepartmentsApi result = validateDepartmentByName(departmentName, token);
         accountProfile.LmsDepartmentName__c = departmentName;
         if(result.isSucceed && result.departments != null && result.departments.size() > 0)
         {
@@ -198,7 +172,7 @@ public without sharing class PartnerPortalSSOStub
     {
         try
         {
-            HPartnerPortalGetDepartmentsApi getDepartmentApi = new HPartnerPortalGetDepartmentsApi(departmentId, token);
+            PartnerPortalGetDepartmentApi getDepartmentApi = new PartnerPortalGetDepartmentApi(departmentId, token);
             getDepartmentApi.execute();
             return getDepartmentApi.isSucceed;    
         }
@@ -209,12 +183,12 @@ public without sharing class PartnerPortalSSOStub
         return false;
     }
 
-    private static HPartnerPortalGetDepartmentsApi validateDepartmentByName(String departmentName, String token)
+    private static PartnerPortalGetDepartmentsApi validateDepartmentByName(String departmentName, String token)
     {
         try
         {
-            //Map<String, String> params = new Map<String, String>{'departmentname'=>departmentName};
-            HPartnerPortalGetDepartmentsApi getDepartmentsApi = new HPartnerPortalGetDepartmentsApi(token, departmentName);
+            Map<String, String> params = new Map<String, String>{'departmentname'=>departmentName};
+            PartnerPortalGetDepartmentsApi getDepartmentsApi = new PartnerPortalGetDepartmentsApi(token, params);
             getDepartmentsApi.execute();
             return getDepartmentsApi;   
         }
@@ -246,7 +220,7 @@ public without sharing class PartnerPortalSSOStub
         departmentParams.put('name', currentAccount.Name);
         //departmentParams.put('notes', currentAccount.Description);
         departmentParams.put('locations', currentAccount.BillingCity);
-        //departmentParams.put('token', token);
+        departmentParams.put('token', token);
         
         if(parentAccount != null && parentAccount.Partner_Accounts_Profile__r != null && parentAccount.Partner_Accounts_Profile__r.size() > 0 && String.isNotBlank(parentAccount.Partner_Accounts_Profile__r[0].LmsDepartmentId__c))
         {
@@ -257,7 +231,7 @@ public without sharing class PartnerPortalSSOStub
             departmentParams.put('parentDeptId', DEFAULT_PARENT_DEPARTMENT_ID);
         }
         
-        HPartnerPortalCreateDepartmentApi createDepartmentApi = new HPartnerPortalCreateDepartmentApi(token,departmentParams);
+        PartnerPortalCreateDepartmentApi createDepartmentApi = new PartnerPortalCreateDepartmentApi(departmentParams);
         createDepartmentApi.execute();
         
         system.debug(createDepartmentApi);
@@ -276,8 +250,8 @@ public without sharing class PartnerPortalSSOStub
     {
         try
         {
-            //Map<String, String> studentParams = new Map<String, String>{'username'=>username};
-            HPartnerPortalGetStudentsApi getStudentsApi = new HPartnerPortalGetStudentsApi(token, username);
+            Map<String, String> studentParams = new Map<String, String>{'username'=>username};
+            PartnerPortalGetStudentsApi getStudentsApi = new PartnerPortalGetStudentsApi(token, studentParams);
             getStudentsApi.execute();
             return getStudentsApi.isSucceed;
         }
@@ -294,16 +268,16 @@ public without sharing class PartnerPortalSSOStub
         studentParams.put('username', username);
         studentParams.put('firstName', currentContact.FirstName);
         studentParams.put('lastName', currentContact.LastName);
-        studentParams.put('JobTitle', currentContact.Title);
+        studentParams.put('extra1', currentContact.Title);
         studentParams.put('emailAddress', username);
         studentParams.put('departmentId', departmentId);
-        //studentParams.put('token', token);
+        studentParams.put('token', token);
         if(currentContact.Partner_Contacts_Profile__r != null && currentContact.Partner_Contacts_Profile__r.size() > 0)
         {
             studentParams.put('extra2', currentContact.Partner_Contacts_Profile__r[0].Dell_Segment__c);
         }
 
-        HPartnerPortalCreateLearnerApi createLearnerApi = new HPartnerPortalCreateLearnerApi(token,studentParams);
+        PartnerPortalCreateLearnerApi createLearnerApi = new PartnerPortalCreateLearnerApi(studentParams);
         createLearnerApi.execute();
         if(!createLearnerApi.isSucceed)
         {
@@ -316,9 +290,10 @@ public without sharing class PartnerPortalSSOStub
     {
         Map<String, String> studentParams = new Map<String, String>();
         studentParams.put('studentId', studentId);
-        //studentParams.put('Country', country);
+        studentParams.put('Country', country);
         studentParams.put('Location', location);
- 		HPartnerPortalUpdateLearnerApi updateLearnerApi = new HPartnerPortalUpdateLearnerApi(studentParams, token);
+
+        PartnerPortalUpdateLearnerApi updateLearnerApi = new PartnerPortalUpdateLearnerApi(studentParams, token);
         updateLearnerApi.execute();
         if(!updateLearnerApi.isSucceed)
         {

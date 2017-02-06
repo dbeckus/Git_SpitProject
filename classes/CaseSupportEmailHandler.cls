@@ -1,6 +1,6 @@
 /*
-* receives email from support and converts to case/comments
-*/
+ * receives email from support and converts to case/comments
+ */
 global class CaseSupportEmailHandler implements Messaging.InboundEmailHandler 
 {
     private static EmailSetupHelper.EmailSetupInfo emailSetup = EmailSetupHelper.getEmailSetup('Support'); 
@@ -14,7 +14,7 @@ global class CaseSupportEmailHandler implements Messaging.InboundEmailHandler
         String emailSubject = (email.subject != null && email.subject.length() > 80)?email.subject.substring(0, 80):email.subject;
         Email_Log__c emailLog = new Email_Log__c(Name = emailSubject);
         insert emailLog;
-        
+    
         String fromAddress = email.fromAddress;
         //filter the email from system administrator
         if(email.fromName != null)
@@ -25,14 +25,14 @@ global class CaseSupportEmailHandler implements Messaging.InboundEmailHandler
                 return result;
             }
         }
-        
+    
         //filter to avoid duplicate cases being created in a short time
         if(isDuplicateCase(email.subject, fromAddress))
         {
             result.success = false;
             return result;
         } 
-        
+    
         //filter spam keywords
         String tempSubject = email.subject.toLowerCase();
         for(String keyword : emailSetup.spamKeywordList)
@@ -50,7 +50,7 @@ global class CaseSupportEmailHandler implements Messaging.InboundEmailHandler
                 }
             } 
         }
-        
+    
         //filter drop email address
         for(String address : emailSetup.dropEmailList)
         {
@@ -60,36 +60,15 @@ global class CaseSupportEmailHandler implements Messaging.InboundEmailHandler
                 return result;
             }
         }
-        
+    
         try
         {
-            boolean isAutoCase=isAutoEmail(email.subject);
-            System.debug('isAutoCase'+isAutoCase);
-            boolean isECCheck=false;
-            String[] subjectValues;
-            String assetNumber = '';
-            String emailAddress = '';
-            String priority = '';
-            string ecCheck='';
-            if(isAutoCase)
+            if(isAutoEmail(email.subject))
             {
-                subjectValues= parseSubjectValues(email.subject);
-                assetNumber = subjectValues[0];
-                emailAddress = subjectValues[1];
-                priority = subjectValues[2];
-                ecCheck=subjectValues[3];
-                if(!subjectValues.isEmpty() && !String.isEmpty(ecCheck))
-                {
-                    isECCheck=true;
-                }
-            }
-             System.debug('isECCheck'+isECCheck);
-            if(isAutoCase && !isECCheck)
-            {
-                //subjectValues = parseSubjectValues(email.subject);
-                //String assetNumber = subjectValues[0];
-                //String emailAddress = subjectValues[1];
-                //String  priority = subjectValues[2];
+                String[] subjectValues = parseSubjectValues(email.subject);
+                String assetNumber = subjectValues[0];
+                String emailAddress = subjectValues[1];
+                String priority = subjectValues[2];
                 Contact contact = findContactByEmail(emailAddress);
                 Asset asset = findAssetByNumber(assetNumber);
                 if(asset != null)
@@ -136,11 +115,6 @@ global class CaseSupportEmailHandler implements Messaging.InboundEmailHandler
                     }
                     result.success = true;
                 }
-                else if(isECCheck)
-                {
-                     Case theCase = createCaseByMail(email, null); 
-                     addAttachmentsToCase(theCase, email);
-                }
                 else
                 {
                     //Stop creating contact, Feb 27, 2014
@@ -178,43 +152,29 @@ global class CaseSupportEmailHandler implements Messaging.InboundEmailHandler
     }
     
     @testvisible
-    public static Boolean isAutoEmail(String subject)
+    private static Boolean isAutoEmail(String subject)
     {
         String regex1 = 'AUTOCASE:[\\s]*\\[[\\w\\d\\-]{17}\\]:\\[.+\\]:\\[.+\\]';
         String regex2 = 'AUTOCASE:[\\s]*\\[[\\w\\d]{12}\\]:\\[.+\\]:\\[.+\\]';
-        String regex3 = 'AUTOCASE:[\\s]*\\[[\\w\\d\\-]{17}\\]:\\[.+\\]:\\[.+\\]:\\[.+\\]';
-        String regex4 = 'AUTOCASE:[\\s]*\\[[\\w\\d]{12}\\]:\\[.+\\]:\\[.+\\]:\\[.+\\]';
-        return Pattern.matches(regex1, subject) || Pattern.matches(regex2, subject)|| Pattern.matches(regex3, subject)|| Pattern.matches(regex4, subject);
+        return Pattern.matches(regex1, subject) || Pattern.matches(regex2, subject);
     }
     
-    
-    
     @testvisible
-    public static List<String> parseSubjectValues(String subject)
+    private static List<String> parseSubjectValues(String subject)
     {
-        Pattern subjectPattern1 = Pattern.compile('AUTOCASE:[\\s]*\\[(.+)\\]:\\[(.+)\\]:\\[(.+)\\]:\\[(.+)\\]');
-        Matcher subjectMatcher1 = subjectPattern1.matcher(subject);
-        Pattern subjectPattern2 = Pattern.compile('AUTOCASE:[\\s]*\\[(.+)\\]:\\[(.+)\\]:\\[(.+)\\]');
-        Matcher subjectMatcher2 = subjectPattern2.matcher(subject);
-        if(subjectMatcher1.matches() &&  subjectMatcher1.groupCount() == 4 )
+        Pattern subjectPattern = Pattern.compile('AUTOCASE:[\\s]*\\[(.+)\\]:\\[(.+)\\]:\\[(.+)\\]');
+        Matcher subjectMatcher = subjectPattern.matcher(subject);
+        if(subjectMatcher.matches() && subjectMatcher.groupCount() == 3)
         {
-            String asset = subjectMatcher1.group(1);
-            String email = subjectMatcher1.group(2);
-            String priority = subjectMatcher1.group(3);
-            String gmsCheck=subjectMatcher1.groupCount() == 4?subjectMatcher1.group(4):'';
-            return new List<String> { asset, email, priority, gmsCheck };
-                }
-        else if(subjectMatcher2.matches() &&  subjectMatcher2.groupCount() == 3 )
-        {
-            String asset = subjectMatcher2.group(1);
-            String email = subjectMatcher2.group(2);
-            String priority = subjectMatcher2.group(3);
-            return new List<String> { asset, email, priority,''};
-                }
+            String asset = subjectMatcher.group(1);
+            String email = subjectMatcher.group(2);
+            String priority = subjectMatcher.group(3);
+            return new List<String> { asset, email, priority };
+        }
         else
         {
-            return new List<String> {'', '', '',''};
-                }
+            return new List<String> {'', '', ''};
+        }
     }
     
     private static Map<String, String> parseBodyValues(String body)
@@ -326,15 +286,15 @@ global class CaseSupportEmailHandler implements Messaging.InboundEmailHandler
         insert contact;
         return contact;
     }
-    
+  
     //create a new case by email info.
     private static Case createCaseByMail(Messaging.InboundEmail email, Id contactId)
     {
         return createCaseByMail(email, contactId, null, null);
     }
-    
+  
     //create a new case by email info.
-    public static Case createCaseByMail(Messaging.InboundEmail email, Id contactId, Id assetId, String priority)
+    private static Case createCaseByMail(Messaging.InboundEmail email, Id contactId, Id assetId, String priority)
     {
         Case cs = new Case(ContactId=contactId, subject=email.subject, AssetId=assetId, description=email.plainTextBody, status='Qualifying', Type='Incoming Email', CreatedByApex__c=true, RecordTypeId=emailSetup.caseRecordTypeId);          
         cs.OwnerId = Tier1Id;  //default owner is queue Tier1
@@ -346,8 +306,6 @@ global class CaseSupportEmailHandler implements Messaging.InboundEmailHandler
         cs = [select CaseNumber, Id, OwnerId from Case where id=:cs.Id];
         return cs;
     }
-    
-    
     
     private static String matchPriority(String priority)
     {
@@ -395,7 +353,7 @@ global class CaseSupportEmailHandler implements Messaging.InboundEmailHandler
             insert attachments;
         }
     }
-    
+
     //add a comment to case
     private static CaseComment insertCaseComment(Case theCase, Messaging.InboundEmail email)
     {
@@ -424,7 +382,7 @@ global class CaseSupportEmailHandler implements Messaging.InboundEmailHandler
         update theCase;
         return cc;
     }
-    
+  
     @testvisible
     //checks if there is already a case created with the specified subject with in 5 minutes.
     private static Boolean isDuplicateCase(string theSubject, string fromAddress)

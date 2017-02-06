@@ -1,6 +1,7 @@
 public class PartnerAccountSummaryController {
     
     public Account PartnerAccount{get;set;}
+    private final integer  limitSize =50;
     public string ShippingAddress{get;set;}
     public string BillingAddress{get;set;}
     public Contact LoggedinContact{get;set;}
@@ -67,9 +68,9 @@ public class PartnerAccountSummaryController {
                     }
                 }
                 
-                PartnerContacts=[Select Id, Name, Title,Email, Phone,CanAllowPortalSelfReg from Contact where AccountId=:PartnerAccount.Id LIMIT 1000];
+                PartnerContacts=[Select Id, Name, Title,Email, Phone,CanAllowPortalSelfReg from Contact where AccountId=:PartnerAccount.Id ];
                 PartnerAssets=[Select Id, Name, SerialNumber,InstallDate, Quantity,Contact.Name,Status, IsCompetitorProduct from Asset where AccountId=:PartnerAccount.Id];
-                PartnerCases=[Select Id, CaseNumber, Contact.Name,Subject, Priority,CreatedDate,Status,Owner.Name,IsClosed from Case where AccountId=:PartnerAccount.Id];
+                PartnerCases=[Select Id, CaseNumber, Contact.Name,Subject, Priority,CreatedDate,Status,Owner.Name,IsClosed from Case where AccountId=:PartnerAccount.Id and IsClosed=false];
                 System.debug('Contact'+PartnerContacts.size());
                 System.debug('Assets'+PartnerAssets.size());
                 System.debug('Cases'+PartnerCases.size());
@@ -78,6 +79,54 @@ public class PartnerAccountSummaryController {
                 System.debug('Pending Deal Opps'+PendingDealReg.size());
             }
         }
+    }
+    
+    
+    public ApexPages.StandardSetController cases_setCon {
+        get {
+            if(cases_setCon == null) {
+                cases_setCon = new ApexPages.StandardSetController(PartnerCases);
+            }
+            return cases_setCon;
+        }
+        set;
+    }
+    
+    // Initialize setCon and return a list of records
+    public List<Case> getCases() {
+        cases_setCon.setpagesize(limitSize);
+        return (List<Case>) cases_setCon.getRecords();
+    }
+    public ApexPages.StandardSetController assets_setCon {
+        get {
+            if(assets_setCon == null) {
+                assets_setCon = new ApexPages.StandardSetController(PartnerAssets);
+            }
+            return assets_setCon;
+        }
+        set;
+    }
+    
+    // Initialize setCon and return a list of records
+    public List<Asset> getAssets() {
+        assets_setCon.setpagesize(limitSize);
+        return (List<Asset>) assets_setCon.getRecords();
+    }
+    
+    public ApexPages.StandardSetController contacts_setCon {
+        get {
+            if(contacts_setCon == null) {
+                contacts_setCon = new ApexPages.StandardSetController(PartnerContacts);
+            }
+            return contacts_setCon;
+        }
+        set;
+    }
+    
+    // Initialize setCon and return a list of records
+    public List<Contact> getContacts() {
+        contacts_setCon.setpagesize(limitSize);
+        return (List<Contact>) contacts_setCon.getRecords();
     }
     private AccountTeamMemberInfo PopulateTeamMember()
     {

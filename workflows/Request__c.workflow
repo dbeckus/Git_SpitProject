@@ -26,10 +26,6 @@
             <type>email</type>
         </recipients>
         <recipients>
-            <recipient>prane@silver-peak.com</recipient>
-            <type>user</type>
-        </recipients>
-        <recipients>
             <field>RSM_Manager__c</field>
             <type>userLookup</type>
         </recipients>
@@ -81,10 +77,6 @@
         <recipients>
             <field>CC_List_5__c</field>
             <type>email</type>
-        </recipients>
-        <recipients>
-            <recipient>prane@silver-peak.com</recipient>
-            <type>user</type>
         </recipients>
         <recipients>
             <field>RSM_Manager__c</field>
@@ -201,10 +193,6 @@
             <type>email</type>
         </recipients>
         <recipients>
-            <recipient>prane@silver-peak.com</recipient>
-            <type>user</type>
-        </recipients>
-        <recipients>
             <field>RSM_Manager__c</field>
             <type>userLookup</type>
         </recipients>
@@ -262,10 +250,6 @@
             <type>email</type>
         </recipients>
         <recipients>
-            <recipient>prane@silver-peak.com</recipient>
-            <type>user</type>
-        </recipients>
-        <recipients>
             <field>RSM_Manager__c</field>
             <type>userLookup</type>
         </recipients>
@@ -321,10 +305,6 @@
         <recipients>
             <field>CC_List_5__c</field>
             <type>email</type>
-        </recipients>
-        <recipients>
-            <recipient>prane@silver-peak.com</recipient>
-            <type>user</type>
         </recipients>
         <recipients>
             <field>RSM_Manager__c</field>
@@ -435,10 +415,6 @@
         <recipients>
             <field>CC_List_5__c</field>
             <type>email</type>
-        </recipients>
-        <recipients>
-            <recipient>prane@silver-peak.com</recipient>
-            <type>user</type>
         </recipients>
         <recipients>
             <field>RSM_Manager__c</field>
@@ -682,15 +658,6 @@
         <protected>false</protected>
     </fieldUpdates>
     <fieldUpdates>
-        <fullName>Set_Shipped_Status</fullName>
-        <field>Status__c</field>
-        <literalValue>Shipped - Extended</literalValue>
-        <name>Set Shipped Status</name>
-        <notifyAssignee>false</notifyAssignee>
-        <operation>Literal</operation>
-        <protected>false</protected>
-    </fieldUpdates>
-    <fieldUpdates>
         <fullName>TargetEndDateAdd60</fullName>
         <description>Add 60 days to target end date, if blank, today + 60</description>
         <field>Target_End_Date__c</field>
@@ -738,15 +705,6 @@ Requested_End_Date__c
         <name>Update Target End Date</name>
         <notifyAssignee>false</notifyAssignee>
         <operation>Formula</operation>
-        <protected>false</protected>
-    </fieldUpdates>
-    <fieldUpdates>
-        <fullName>Update_the_Status</fullName>
-        <field>Status__c</field>
-        <literalValue>Open</literalValue>
-        <name>Update the Status</name>
-        <notifyAssignee>false</notifyAssignee>
-        <operation>Literal</operation>
         <protected>false</protected>
     </fieldUpdates>
     <fieldUpdates>
@@ -1053,23 +1011,6 @@ Eval RMA opened by trigger on status change to pending return (set by monitoring
         <triggerType>onAllChanges</triggerType>
     </rules>
     <rules>
-        <fullName>Trigger POC Process</fullName>
-        <actions>
-            <name>Update_the_Status</name>
-            <type>FieldUpdate</type>
-        </actions>
-        <active>false</active>
-        <formula>AND
-(
-NOT(ISNEW()),
-OR(ISCHANGED( International_Shipping__c ),
-ISCHANGED( Expedited_Shipping__c ),
-ISCHANGED( Number_of_Appliances__c )),
-ISPICKVAL(PRIORVALUE(Status__c),&quot;Approved to Ship&quot;)
-)</formula>
-        <triggerType>onAllChanges</triggerType>
-    </rules>
-    <rules>
         <fullName>TriggerVXFulfillmentEmail_POC</fullName>
         <active>true</active>
         <criteriaItems>
@@ -1118,13 +1059,7 @@ ISPICKVAL(PRIORVALUE(Status__c),&quot;Approved to Ship&quot;)
             <type>FieldUpdate</type>
         </actions>
         <active>true</active>
-        <formula>AND(
-OR(
-ISPICKVAL( Status__c,&quot;Pending Return&quot; ),
-ISPICKVAL(Status__c,&quot;Pending Return - Invoiced&quot;)
-),
-Target_End_Date__c !=Today()
-)</formula>
+        <formula>AND( OR( ISPICKVAL( Status__c,&quot;Pending Return&quot; ), ISPICKVAL(Status__c,&quot;Pending Return - Invoiced&quot;) ), Target_End_Date__c !=Today() )</formula>
         <triggerType>onCreateOrTriggeringUpdate</triggerType>
     </rules>
     <rules>

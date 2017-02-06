@@ -124,6 +124,10 @@ if( Service_Discount_Max__c &gt; RegPartServDisc__c ,3,0)
         <name>Hide_Pricing__c</name>
     </fields>
     <fields>
+        <label><!-- IsSelectedForApproval --></label>
+        <name>IsSelectedForApproval__c</name>
+    </fields>
+    <fields>
         <label><!-- Level3Required --></label>
         <name>Level3Required__c</name>
     </fields>
@@ -337,6 +341,11 @@ if( Service_Discount_Max__c &gt; RegPartServDisc__c ,3,0)
             <masterLabel>Review</masterLabel>
             <translation><!-- Review --></translation>
         </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- SteelBrick Quote --></label>
+        <name>SteelBrick_Quote__c</name>
+        <relationshipLabel><!-- Silver Peak Quotes --></relationshipLabel>
     </fields>
     <fields>
         <label><!-- TmpApprovalRequired --></label>

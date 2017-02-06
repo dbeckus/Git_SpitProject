@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ConnectedApp xmlns="http://soap.sforce.com/2006/04/metadata">
+    <contactEmail>prane@silver-peak.com</contactEmail>
+    <label>LMS SSO</label>
+    <samlConfig>
+        <acsUrl>https://silverpeaksystems-migration.sandbox.myabsorb.com/Account/SAML</acsUrl>
+        <encryptionType>AES_128</encryptionType>
+        <entityUrl>https://silverpeaksystems-migration.sandbox.myabsorb.com/Account/SAML</entityUrl>
+        <issuer>https://silverpeaksystems.my.salesforce.com</issuer>
+        <samlNameIdFormat>Unspecified</samlNameIdFormat>
+        <samlSubjectCustomAttr>Manager_Text_Field</samlSubjectCustomAttr>
+        <samlSubjectType>CustomAttribute</samlSubjectType>
+    </samlConfig>
+</ConnectedApp>

@@ -164,7 +164,6 @@ public class VirtualAssetManager
         }
         catch(DmlException ex)
         {
-            System.debug(ex);
             if(!isFromApex)
             {
                 ApexPages.addMessages(ex);
@@ -207,8 +206,6 @@ public class VirtualAssetManager
         }
         catch(DmlException ex)
         {
-            System.debug(ex);
-            
             if(!isFromApex)
             {
                 ApexPages.addMessages(ex);
@@ -225,7 +222,7 @@ public class VirtualAssetManager
         for(VirtualAsset virtualAsset : VirtualAssets)
         {
             string prodModel= virtualAsset.ProductModel;
-          	System.debug(prodModel);
+         
             if(prodModel!=null && !prodModel.startsWith('UNITY CLOUD') && !prodModel.startsWith('ECBASE') && !prodModel.startsWith('ECPLUS') && !prodModel.startsWith('ECBOOST')&& !prodModel.startsWith('ECSAAS') && !prodModel.startsWith('ECSP'))
             {
                 for(VirtualAssetLicense license : virtualAsset.Licenses)
@@ -282,6 +279,21 @@ public class VirtualAssetManager
         }
     }
     
+    public static void encryptLicenses_Batch(List<Id> licenseIds)
+    {
+        
+        Set<Id> generateLicenseIds = new Set<Id>();
+        for(License__c item : [select Id from License__c where Id in :licenseIds])
+        {
+            generateLicenseIds.add(item.Id);
+        }
+        if(generateLicenseIds.size() > 0)
+        {
+            LicenseEncryptionJob job = new LicenseEncryptionJob();
+            job.LicenseIds = new List<Id>(generateLicenseIds);
+            System.enqueueJob(job);
+        }
+    }
     private void assignProductModel()
     {
         Set<String> productIds = new Set<String>();

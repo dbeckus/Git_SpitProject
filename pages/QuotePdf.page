@@ -67,7 +67,7 @@
     <table width="100%">
         <tr>
             <td width="30%">
-                <img src="{!URLFOR($Resource.pdfresource, 'logo.gif')}"/>
+               <img src="{!URLFOR($Resource.pdfresourcenew, 'Logonew.gif')}"/>
             </td>
             <td>
                 <p style="text-align:center;margin-right:220px">
@@ -157,7 +157,9 @@
             </apex:outputPanel>
             <tr>
                 <td style="border-top:1px solid black;padding:5px;" colspan="{!4 + IF(quote.ShowDiscount__c, 1, 0) + IF(NOT(quote.Hide_Pricing__c), 2, 0)}">
-                    <apex:outputText >Special Instructions:<br/>{!quote.Special_Instructions__c}<br/>Payment Term: {!quote.PaymentTerm__c}<br/><strong>{!quote.PaymentTermInstructions__c}</strong></apex:outputText>
+                    <apex:outputText >Special Instructions:<br/>{!quote.Special_Instructions__c}<br/>Payment Term: {!quote.PaymentTerm__c}<br/><strong>{!quote.PaymentTermInstructions__c}</strong></apex:outputText><br/>
+                    <apex:outputText ><font style="color:blue"> <b>Please address all purchase orders to salesorders@silver-peak.com</b></font><br/>All quotes are in US dollars.<br/>This quote is subject to the terms and conditions of the related agreement between Reseller/Partner and Silver Peak Systems, Inc. </apex:outputText>
+                    
                 </td>
             </tr>
         </table>
@@ -257,6 +259,7 @@
         </apex:panelGrid>
     </apex:panelGrid>   --> 
     </apex:outputPanel>
+        <!--
     <div style="clear:both"></div>
     <div style="page-break-after:always;"></div>
     <table width="100%">
@@ -411,5 +414,6 @@
     laws of the State of California, without reference to conflict of laws principles. Buyer consents to the exclusive jurisdiction of the
     courts of Santa Clara County, California and the district courts for the Northern District of California.
     </p>    
+-->
     </body>
 </apex:page>

@@ -132,7 +132,7 @@
         <inlineHelpText>Chosen approver on web submission</inlineHelpText>
         <label>First Approver</label>
         <lookupFilter>
-            <active>true</active>
+            <active>false</active>
             <filterItems>
                 <field>User.PR_Approver__c</field>
                 <operation>equals</operation>
@@ -191,6 +191,15 @@
         <defaultValue>false</defaultValue>
         <externalId>false</externalId>
         <label>Pay on Credit Card</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Pay_by_wire__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Pay by wire</label>
         <trackHistory>false</trackHistory>
         <trackTrending>false</trackTrending>
         <type>Checkbox</type>

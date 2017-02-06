@@ -16,8 +16,23 @@
         }
     </style>
     <apex:attribute name="opportunity" type="String" assignTo="{!oppId}" required="true" description="Opportunity Id"/>
+    <apex:variable var="fieldCount" value="{!0}"/>
+    <apex:repeat value="{!$ObjectType.Opportunity.FieldSets.Sales_Team_Patch_Channel_Information_Sec}" var="field">
+        <apex:variable var="fieldCount" value="{!fieldCount + IF($ObjectType.Opportunity.fields[field].accessible, 1, 0)}" />
+    </apex:repeat>
     <apex:pageBlockSection columns="2" title="Sales Team/Channel Information">
-        <apex:outputField value="{!opp.Registered_Partner__c}" />
+        <apex:repeat value="{!$ObjectType.Opportunity.FieldSets.Sales_Team_Patch_Channel_Information_Sec}" var="field">
+            <apex:outputField value="{!opp[field]}" rendered="{!field != 'Patch__c'}"/>
+            <apex:pageblocksectionItem rendered="{!field = 'Patch__c'}">
+                <apex:outputLabel value="{!$ObjectType.Opportunity.fields.Patch__c.Label}"/>
+                <apex:panelGrid columns="2">
+                    <apex:outputField value="{!opp.Patch__c}" />
+                    <apex:outputField value="{!opp.Patch__r.Patch_Name__c}" />
+                </apex:panelGrid>
+            </apex:pageblocksectionItem>
+        </apex:repeat>
+        <apex:outputText value="" rendered="{!MOD(fieldCount, 2) = 1}" />
+        <!--<apex:outputField value="{!opp.Registered_Partner__c}" />
         <apex:pageblocksectionItem >
             <apex:outputLabel value="{!$ObjectType.Opportunity.fields.Patch__c.Label}"/>
             <apex:panelGrid columns="2">
@@ -26,10 +41,10 @@
             </apex:panelGrid>
         </apex:pageblocksectionItem>
         <apex:outputField value="{!opp.Sales_Region__c}" />
-        <apex:outputField value="{!opp.Patch_Locked__c}" />
+        <apex:outputField value="{!opp.Patch_Locked__c}" />-->
         <apex:pageBlockTable value="{!AllPartners}" var="p" headerClass="hidden" styleClass="opplist">
             <apex:facet name="caption">
-                <span class="fa fa-globe listCaption">{!IF(AllPartners.size > 0, 'Channels', 'No channel defined')}</span>
+                <span class="fa fa-globe listCaption"> {!IF(AllPartners.size > 0, 'Channels', 'No channel defined')}</span>
                 <span class="listAction"><a href="javascript:spDynamicPage.onButtonClick('OpportunityDefineChannel')">Define Channel</a></span>
             </apex:facet>
             <apex:column headerValue="Role">
@@ -41,7 +56,7 @@
         </apex:pageBlockTable>
         <apex:pageBlockTable value="{!AllMembers}" var="t" headerClass="hidden" styleClass="opplist">
             <apex:facet name="caption">
-                <span class="fa fa-user listCaption">{!IF(AllMembers.size > 0, 'Team Members', 'No team members')}</span>
+                <span class="fa fa-user listCaption"> {!IF(AllMembers.size > 0, 'Team Members', 'No team members')}</span>
                 <span class="listAction"><a href="javascript:void(0)" onclick="spDynamicPage.onButtonClick('OpportunityPatchLock')" class="{!IF(ShowLockButton, '', 'hidden')}">Lock Patch</a><a href="javascript:void(0)" onclick="spDynamicPage.onButtonClick('OpportunityPatchUnlock')" class="{!IF(ShowUnlockButton, '', 'hidden')}">Unlock Patch</a><span class="{!IF(ShowLockButton || ShowUnlockButton, '', 'hidden')}">&nbsp;|&nbsp;</span><a href="javascript:spDynamicPage.onButtonClick('OpportunityPatchOverride')">Override Patch</a></span>
             </apex:facet>
             <apex:column value="{!t.TeamMemberRole}"/>

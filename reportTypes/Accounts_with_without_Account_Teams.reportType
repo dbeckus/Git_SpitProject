@@ -1330,11 +1330,6 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>OverrideOpportunity__c</field>
-            <table>Account.AccountTeamMembers</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
             <field>RoleGrouping__c</field>
             <table>Account.AccountTeamMembers</table>
         </columns>

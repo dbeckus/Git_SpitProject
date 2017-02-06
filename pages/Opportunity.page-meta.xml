@@ -5,7 +5,7 @@
     <confirmationTokenRequired>false</confirmationTokenRequired>
     <label>Opportunity</label>
     <packageVersions>
-        <majorNumber>23</majorNumber>
+        <majorNumber>24</majorNumber>
         <minorNumber>0</minorNumber>
         <namespace>SBQQ</namespace>
     </packageVersions>

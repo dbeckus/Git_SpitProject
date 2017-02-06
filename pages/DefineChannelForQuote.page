@@ -119,6 +119,33 @@
                 }
             });
         });
+        $(".distibutorRepList").each(function(index) {
+            $(this).select2({
+                width: "300px",
+                placeholder: "-None-",
+                placeholderOption: null,
+                allowClear: true,
+                initSelection : function (element, callback) {
+                        for(var i = 0; i < initialSelection.length; i++)
+                        {
+                            if(initialSelection[i].id == $(element).val())
+                            {
+                                callback(initialSelection[i]);
+                                break;
+                            }
+                        }
+                    },
+                query: function(query) {
+                    var acctName= $(".distibutorPartnerList").text();
+                    acctName= $.trim(acctName);
+                    DefineChannelQuoteController.InitResellerContacts(acctName,query.term,function (result, event) {
+                        var decodedResult = $("<div/>").html(result).text();
+                        result = JSON.parse(decodedResult);
+                        query.callback({results: result});
+                    });
+                }
+            });
+        });
     });
     </script>
     <apex:sectionHeader title="Channel Partners for:" subtitle="{!reqOpp.Name}"/>
@@ -150,10 +177,16 @@
                             <apex:inputText styleClass="distibutorPartnerList" label="Distributor Account:" value="{!PartnerData.Registered_DistributorId}" />
                         </td>
                     </tr>
+                    <tr>
+                        <td>
+                            <apex:facet name="header">Partner</apex:facet>
+                            <apex:inputText styleClass="distibutorRepList" label="Distributor Rep:" value="{!PartnerData.Registered_Distributor_RepId}" />
+                        </td>
+                    </tr>
                     <tr>    
                         <td>
                             <apex:facet name="header">Partner</apex:facet>
-                            <apex:inputText styleClass="Tier3PartnerList" label="Tier 3 Account:" value="{!PartnerData.Tier2_PartnerId}" />
+                            <apex:inputText styleClass="Tier3PartnerList" label="Tier 3 Account:" value="{!PartnerData.Tier3_PartnerId}" />
                         </td>
                     </tr>
                 </table>

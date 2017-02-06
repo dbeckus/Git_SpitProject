@@ -9,6 +9,18 @@
         <value>Funding Requests</value>
     </caseValues>
     <fields>
+        <label><!-- Account Activity PoC: Mobile Phone --></label>
+        <name>Account_Activity_PoC_Mobile_Phone__c</name>
+    </fields>
+    <fields>
+        <label><!-- Account Activity PoC: Office Phone --></label>
+        <name>Account_Activity_PoC_Office_Phone__c</name>
+    </fields>
+    <fields>
+        <label><!-- Account Name --></label>
+        <name>Account_Name__c</name>
+    </fields>
+    <fields>
         <label><!-- Account --></label>
         <name>Account__c</name>
         <relationshipLabel><!-- Funding Requests --></relationshipLabel>
@@ -22,6 +34,11 @@
         <name>Accounting_PoC_Name__c</name>
     </fields>
     <fields>
+        <label><!-- Accounting PoC: Title --></label>
+        <name>Accounting_PoC_Title__c</name>
+    </fields>
+    <fields>
+        <help><!-- Client to check the checkbox in community after the activity date --></help>
         <label><!-- Activity Complete --></label>
         <name>Activity_Complete__c</name>
     </fields>
@@ -57,6 +74,10 @@
     <fields>
         <label><!-- Vendor 3 --></label>
         <name>Addl_Vendor_3__c</name>
+    </fields>
+    <fields>
+        <label><!-- Addressee/Contact Information --></label>
+        <name>Addressee_Contact_Information__c</name>
     </fields>
     <fields>
         <label><!-- Approval Date --></label>
@@ -129,6 +150,10 @@
         <relationshipLabel><!-- Funding Requests (CAM) --></relationshipLabel>
     </fields>
     <fields>
+        <label><!-- Campaign Name --></label>
+        <name>Campaign_Name__c</name>
+    </fields>
+    <fields>
         <label><!-- Campaign --></label>
         <name>Campaign__c</name>
         <relationshipLabel><!-- Funding Requests --></relationshipLabel>
@@ -148,6 +173,16 @@
     <fields>
         <label><!-- Company Billing Address --></label>
         <name>Company_Billing_Address__c</name>
+    </fields>
+    <fields>
+        <help><!-- If client doesn&apos;t have a community login (not record owner), populate contact so that he/she can get the emails. --></help>
+        <label><!-- Contact --></label>
+        <name>Contact__c</name>
+        <relationshipLabel><!-- Funding Requests (Contact) --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Date Materials Need to Arrive --></label>
+        <name>Date_Materials_Need_to_Arrive__c</name>
     </fields>
     <fields>
         <help><!-- Estimated Value of Expected Opportunities --></help>
@@ -191,6 +226,50 @@
         <name>Event_Location_Zip__c</name>
     </fields>
     <fields>
+        <label><!-- Event Materials Requested --></label>
+        <name>Event_Materials_Requested__c</name>
+    </fields>
+    <fields>
+        <label><!-- Event Materials --></label>
+        <name>Event_Materials__c</name>
+        <picklistValues>
+            <masterLabel>Brochures, briefs or datasheets</masterLabel>
+            <translation><!-- Brochures, briefs or datasheets --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Giveaways</masterLabel>
+            <translation><!-- Giveaways --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Silver Peak banner stands</masterLabel>
+            <translation><!-- Silver Peak banner stands --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Supplies (power strip, extension cord, tape)</masterLabel>
+            <translation><!-- Supplies (power strip, extension cord, tape) --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Table drapes</masterLabel>
+            <translation><!-- Table drapes --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Event Raffle --></label>
+        <name>Event_Raffle__c</name>
+        <picklistValues>
+            <masterLabel>No</masterLabel>
+            <translation><!-- No --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Yes</masterLabel>
+            <translation><!-- Yes --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Total Opportunities Generated --></label>
+        <name>Event_Results_Opportunities__c</name>
+    </fields>
+    <fields>
         <label><!-- Exception Granted Reason --></label>
         <name>Exception_Granted_Reason__c</name>
     </fields>
@@ -206,6 +285,11 @@
         <help><!-- Fast Start Marketing Program? --></help>
         <label><!-- Fast Start Marketing Program --></label>
         <name>Fast_Start_Marketing_Program__c</name>
+    </fields>
+    <fields>
+        <help><!-- Code to check the checkbox after client filled the post activity information in community. --></help>
+        <label><!-- Results Complete --></label>
+        <name>Feedback_Complete__c</name>
     </fields>
     <fields>
         <label><!-- GEO --></label>
@@ -225,6 +309,10 @@
         <name>Invoice_No__c</name>
     </fields>
     <fields>
+        <label><!-- IsCAM --></label>
+        <name>IsCAM__c</name>
+    </fields>
+    <fields>
         <label><!-- Is Portal Request --></label>
         <name>Is_Portal_Request__c</name>
     </fields>
@@ -237,6 +325,10 @@
         <label><!-- MDF Status --></label>
         <name>MDF_Status__c</name>
         <picklistValues>
+            <masterLabel>Approved</masterLabel>
+            <translation><!-- Approved --></translation>
+        </picklistValues>
+        <picklistValues>
             <masterLabel>Cancelled</masterLabel>
             <translation><!-- Cancelled --></translation>
         </picklistValues>
@@ -245,8 +337,20 @@
             <translation><!-- Completed --></translation>
         </picklistValues>
         <picklistValues>
+            <masterLabel>Denied</masterLabel>
+            <translation><!-- Denied --></translation>
+        </picklistValues>
+        <picklistValues>
             <masterLabel>In Progress</masterLabel>
             <translation><!-- In Progress --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Past Due</masterLabel>
+            <translation><!-- Past Due --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Pending Results</masterLabel>
+            <translation><!-- Pending Results --></translation>
         </picklistValues>
     </fields>
     <fields>
@@ -254,9 +358,29 @@
         <name>Marketing_Activity_PoC_Email__c</name>
     </fields>
     <fields>
+        <label><!-- Marketing Activity PoC: Mobile Phone --></label>
+        <name>Marketing_Activity_PoC_Mobile_Phone__c</name>
+    </fields>
+    <fields>
+        <label><!-- Marketing Activity PoC: Office Phone --></label>
+        <name>Marketing_Activity_PoC_Office_Phone__c</name>
+    </fields>
+    <fields>
+        <label><!-- Marketing Activity PoC Title --></label>
+        <name>Marketing_Activity_PoC_Title__c</name>
+    </fields>
+    <fields>
         <help><!-- Point of Contact for Marketing --></help>
         <label><!-- Marketing Activity PoC: Name --></label>
         <name>Marketing_Activity_Point_of_Contact_Nam__c</name>
+    </fields>
+    <fields>
+        <label><!-- Media or Publications Engaged --></label>
+        <name>Media_or_Publications_Engaged__c</name>
+    </fields>
+    <fields>
+        <label><!-- Number of Certifications --></label>
+        <name>Number_of_Certifications__c</name>
     </fields>
     <fields>
         <label><!-- Owner Role --></label>
@@ -382,6 +506,67 @@
         <name>Result_Detail__c</name>
     </fields>
     <fields>
+        <help><!-- A time-dependent workflow to check this checkbox and send alert email to client to remind them filling up the post activity information (one day after activity date) --></help>
+        <label><!-- Send Reminder --></label>
+        <name>SendReminder__c</name>
+    </fields>
+    <fields>
+        <label><!-- Shipping/Destination City --></label>
+        <name>Shipping_Destination_City__c</name>
+    </fields>
+    <fields>
+        <label><!-- Shipping Destination Country --></label>
+        <name>Shipping_Destination_Country__c</name>
+    </fields>
+    <fields>
+        <label><!-- Shipping/Destination Postal Code --></label>
+        <name>Shipping_Destination_Postal_Code__c</name>
+    </fields>
+    <fields>
+        <label><!-- Shipping Destination State --></label>
+        <name>Shipping_Destination_State__c</name>
+    </fields>
+    <fields>
+        <label><!-- Silver Peak Speaking Opportunity --></label>
+        <name>Silver_Peak_Speaking_Opportunity__c</name>
+        <picklistValues>
+            <masterLabel>No</masterLabel>
+            <translation><!-- No --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Yes</masterLabel>
+            <translation><!-- Yes --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Speaking Opportunity Abstract --></label>
+        <name>Speaking_Opportunity_Abstract__c</name>
+    </fields>
+    <fields>
+        <label><!-- Speaking Opportunity Duration --></label>
+        <name>Speaking_Opportunity_Duration__c</name>
+    </fields>
+    <fields>
+        <label><!-- Speaking Opportunity Type --></label>
+        <name>Speaking_Opportunity_Type__c</name>
+        <picklistValues>
+            <masterLabel>Introduction</masterLabel>
+            <translation><!-- Introduction --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Keynote</masterLabel>
+            <translation><!-- Keynote --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Panel</masterLabel>
+            <translation><!-- Panel --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Session</masterLabel>
+            <translation><!-- Session --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
         <label><!-- Submitted For --></label>
         <name>Submitted_For__c</name>
     </fields>
@@ -392,11 +577,19 @@
     <fields>
         <label><!-- Submitter --></label>
         <name>Submitter__c</name>
-        <relationshipLabel><!-- Funding Requests --></relationshipLabel>
+        <relationshipLabel><!-- Funding Requests (Submitter) --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Supplies --></label>
+        <name>Supplies__c</name>
     </fields>
     <fields>
         <label><!-- Target Audience Profile --></label>
         <name>Target_Audience_Profile__c</name>
+    </fields>
+    <fields>
+        <label><!-- Topic/Course --></label>
+        <name>Topic_Course__c</name>
     </fields>
     <fields>
         <label><!-- Total Attendees --></label>
@@ -415,88 +608,52 @@
         <name>Total_Qualified_Leads__c</name>
     </fields>
     <fields>
+        <label><!-- Type of Donation Accepted --></label>
+        <name>Type_of_Donation_Accepted__c</name>
+    </fields>
+    <fields>
         <label><!-- Type of Program --></label>
         <name>Type_of_Program__c</name>
         <picklistValues>
-            <masterLabel>Advertisement - 1/2 page</masterLabel>
-            <translation><!-- Advertisement - 1/2 page --></translation>
+            <masterLabel>Awareness</masterLabel>
+            <translation><!-- Awareness --></translation>
         </picklistValues>
         <picklistValues>
-            <masterLabel>Advertisement - 1/4 page</masterLabel>
-            <translation><!-- Advertisement - 1/4 page --></translation>
+            <masterLabel>Demand Generation</masterLabel>
+            <translation><!-- Demand Generation --></translation>
         </picklistValues>
         <picklistValues>
-            <masterLabel>Advertisement - Full page</masterLabel>
-            <translation><!-- Advertisement - Full page --></translation>
+            <masterLabel>Enablement</masterLabel>
+            <translation><!-- Enablement --></translation>
         </picklistValues>
         <picklistValues>
-            <masterLabel>Broadcast (Television/Radio)</masterLabel>
-            <translation><!-- Broadcast (Television/Radio) --></translation>
+            <masterLabel>Engagement</masterLabel>
+            <translation><!-- Engagement --></translation>
         </picklistValues>
-        <picklistValues>
-            <masterLabel>Collateral/Literature</masterLabel>
-            <translation><!-- Collateral/Literature --></translation>
-        </picklistValues>
-        <picklistValues>
-            <masterLabel>Direct Mail</masterLabel>
-            <translation><!-- Direct Mail --></translation>
-        </picklistValues>
-        <picklistValues>
-            <masterLabel>Email Blast</masterLabel>
-            <translation><!-- Email Blast --></translation>
-        </picklistValues>
-        <picklistValues>
-            <masterLabel>Floor Day</masterLabel>
-            <translation><!-- Floor Day --></translation>
-        </picklistValues>
-        <picklistValues>
-            <masterLabel>List Acquisition</masterLabel>
-            <translation><!-- List Acquisition --></translation>
-        </picklistValues>
-        <picklistValues>
-            <masterLabel>Lunch and Learn</masterLabel>
-            <translation><!-- Lunch and Learn --></translation>
-        </picklistValues>
-        <picklistValues>
-            <masterLabel>Other</masterLabel>
-            <translation><!-- Other --></translation>
-        </picklistValues>
-        <picklistValues>
-            <masterLabel>Sales Conference</masterLabel>
-            <translation><!-- Sales Conference --></translation>
-        </picklistValues>
-        <picklistValues>
-            <masterLabel>Sales Incentives/Promotional Contest/Giveaways</masterLabel>
-            <translation><!-- Sales Incentives/Promotional Contest/Giveaways --></translation>
-        </picklistValues>
-        <picklistValues>
-            <masterLabel>Seminars</masterLabel>
-            <translation><!-- Seminars --></translation>
-        </picklistValues>
-        <picklistValues>
-            <masterLabel>Telemarketing</masterLabel>
-            <translation><!-- Telemarketing --></translation>
-        </picklistValues>
-        <picklistValues>
-            <masterLabel>Trade Industry Shows</masterLabel>
-            <translation><!-- Trade Industry Shows --></translation>
-        </picklistValues>
-        <picklistValues>
-            <masterLabel>Training Seminar</masterLabel>
-            <translation><!-- Training Seminar --></translation>
-        </picklistValues>
-        <picklistValues>
-            <masterLabel>Web Advertising</masterLabel>
-            <translation><!-- Web Advertising --></translation>
-        </picklistValues>
-        <picklistValues>
-            <masterLabel>Webinars</masterLabel>
-            <translation><!-- Webinars --></translation>
-        </picklistValues>
-        <picklistValues>
-            <masterLabel>eNewletters</masterLabel>
-            <translation><!-- eNewletters --></translation>
-        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Value or Amount of Donation --></label>
+        <name>Value_or_Amount_of_Donation__c</name>
+    </fields>
+    <fields>
+        <label><!-- Vendor Activity PoC: Email Address --></label>
+        <name>Vendor_Activity_PoC_Email_Address__c</name>
+    </fields>
+    <fields>
+        <label><!-- Vendor Activity PoC: Mobile Phone --></label>
+        <name>Vendor_Activity_PoC_Mobile_Phone__c</name>
+    </fields>
+    <fields>
+        <label><!-- Vendor Activity PoC: Name --></label>
+        <name>Vendor_Activity_PoC_Name__c</name>
+    </fields>
+    <fields>
+        <label><!-- Vendor Activity PoC: Office Phone --></label>
+        <name>Vendor_Activity_PoC_Office_Phone__c</name>
+    </fields>
+    <fields>
+        <label><!-- Vendor Activity PoC Title --></label>
+        <name>Vendor_Activity_PoC_Title__c</name>
     </fields>
     <fields>
         <help><!-- What is your post event follow up plan? --></help>
@@ -528,6 +685,10 @@
         <sections>
             <label><!-- Program Details --></label>
             <section>Program Details</section>
+        </sections>
+        <sections>
+            <label><!-- Shipping Information --></label>
+            <section>Shipping Information</section>
         </sections>
     </layouts>
     <layouts>
@@ -601,4 +762,8 @@
         <errorMessage><!-- You cannot submit an MDF where the number of leads exceeds the number of attendees. Please fix the data and submit again. --></errorMessage>
         <name>Leads_should_not_exceed_Attendees</name>
     </validationRules>
+    <webLinks>
+        <label><!-- Send_URL_To_User --></label>
+        <name>Send_URL_To_User</name>
+    </webLinks>
 </CustomObjectTranslation>

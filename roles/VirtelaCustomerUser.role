@@ -2,9 +2,9 @@
 <Role xmlns="http://soap.sforce.com/2006/04/metadata">
     <caseAccessLevel>None</caseAccessLevel>
     <contactAccessLevel>Edit</contactAccessLevel>
-    <description>Virtela Customer User</description>
+    <description>NTT-Virtela Customer User</description>
     <mayForecastManagerShare>false</mayForecastManagerShare>
-    <name>Virtela Customer User</name>
+    <name>NTT-Virtela Customer User</name>
     <opportunityAccessLevel>None</opportunityAccessLevel>
-    <parentRole>VP_Service_Provider_Sales</parentRole>
+    <parentRole>Service_Provider_Sales_Manager</parentRole>
 </Role>

@@ -13,13 +13,13 @@
 
 &lt;div class=&quot;btn_home&quot;&gt;&lt;span style=&quot;font-size: 14px;&quot;&gt;&lt;a href=&quot;/apex/AssetListView?sfdc.tabName=01r38000000HtDm&quot;&gt;VX/VRX Licenses &amp;amp; NX Appliances&lt;/a&gt;&lt;/span&gt;&lt;/div&gt;
 
-&lt;div class=&quot;btn_home&quot;&gt;&lt;span style=&quot;font-size: 12px;&quot;&gt;&lt;a class=&quot;home&quot; href=&quot;http://www.silver-peak.com/Support/user_docs.asp&quot; target=&quot;_blank&quot;&gt;View Documentation &lt;/a&gt;&lt;/span&gt;&lt;/div&gt;
+&lt;div class=&quot;btn_home&quot;&gt;&lt;span style=&quot;font-size: 14px;&quot;&gt;&lt;a href=&quot;/apex/AssetListView_SP&quot;&gt;Service Provider Subscription &amp;amp; Appliances&lt;/a&gt;&lt;/span&gt;&lt;/div&gt;
+
+&lt;div class=&quot;btn_home&quot;&gt;&lt;span style=&quot;font-size: 14px;&quot;&gt;&lt;a class=&quot;home&quot; href=&quot;https://www.silver-peak.com/support/user-documentation&quot; style=&quot;font-size: 12px;&quot; target=&quot;_blank&quot;&gt;View Documentation&lt;/a&gt;&lt;/span&gt;&lt;/div&gt;
 
 &lt;div class=&quot;btn_home&quot;&gt;&lt;span style=&quot;font-size: 12px;&quot;&gt;&lt;a class=&quot;home&quot; href=&quot;/apex/DocumentListing?sfdc.tabName=01r500000001eJe&quot;&gt;Supplemental Documents&lt;/a&gt;&lt;/span&gt;&lt;/div&gt;
 
-&lt;div class=&quot;btn_home&quot;&gt;&lt;span style=&quot;font-size: 14px;&quot;&gt;&lt;a href=&quot;/apex/AssetListView_NXToVX?sfdc.tabName=01r38000000HtDh&quot;&gt;Convert NX to VX&lt;/a&gt; &lt;/span&gt;&lt;/div&gt;
-
-&lt;div class=&quot;btn_home&quot;&gt;&lt;a href=&quot;/apex/AssetListView_SP?sfdc.tabName=01r3B000000CqLL&quot;&gt;&lt;span style=&quot;font-size: 14px;&quot;&gt;Service Provider &lt;/span&gt;&lt;/a&gt;&lt;/div&gt;
+&lt;p class=&quot;btn_home&quot;&gt;&lt;span style=&quot;font-size: 12px;&quot;&gt;&lt;a class=&quot;home&quot; href=&quot;/apex/AssetListView_NXToVX?sfdc.tabName=01r38000000HtDh&quot;&gt;Convert NX/GMS to VX/GMS&lt;/a&gt;&lt;/span&gt;&lt;/p&gt;
 &lt;/div&gt;</body>
     <pageComponentType>htmlArea</pageComponentType>
     <width>wide</width>

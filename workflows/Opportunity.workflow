@@ -1,6 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Workflow xmlns="http://soap.sforce.com/2006/04/metadata">
     <alerts>
+        <fullName>Closed_Won_New_and_FO</fullName>
+        <description>Closed Won New and FO</description>
+        <protected>false</protected>
+        <recipients>
+            <recipient>ddalponte@silver-peak.com</recipient>
+            <type>user</type>
+        </recipients>
+        <recipients>
+            <recipient>ewhite@silver-peak.com</recipient>
+            <type>user</type>
+        </recipients>
+        <recipients>
+            <recipient>rbooth@silver-peak.com</recipient>
+            <type>user</type>
+        </recipients>
+        <senderAddress>silverpeakinfo@silver-peak.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>Sales/Opportunity_Won_New</template>
+    </alerts>
+    <alerts>
         <fullName>Commit_Changed</fullName>
         <description>Commit Changed</description>
         <protected>false</protected>
@@ -63,6 +83,10 @@
         <description>Email finance that RevRec is signed off by RSM</description>
         <protected>false</protected>
         <recipients>
+            <recipient>elee@silver-peak.com</recipient>
+            <type>user</type>
+        </recipients>
+        <recipients>
             <recipient>kreichert@silver-peak.com</recipient>
             <type>user</type>
         </recipients>
@@ -71,7 +95,7 @@
             <type>user</type>
         </recipients>
         <recipients>
-            <recipient>svalenzuela@silver-peak.com</recipient>
+            <recipient>trnguyen@silver-peak.com</recipient>
             <type>user</type>
         </recipients>
         <recipients>
@@ -169,6 +193,10 @@
         <recipients>
             <recipient>InsideSalesMgr</recipient>
             <type>roleSubordinatesInternal</type>
+        </recipients>
+        <recipients>
+            <recipient>afuoss@silver-peak.com</recipient>
+            <type>user</type>
         </recipients>
         <recipients>
             <recipient>ewhite@silver-peak.com</recipient>
@@ -514,6 +542,23 @@
         <protected>false</protected>
     </fieldUpdates>
     <fieldUpdates>
+        <fullName>Blank_out_Opp_Source</fullName>
+        <field>Opportunity_Source__c</field>
+        <name>Blank out Opp Source</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Check_Partner_Initated_To_True</fullName>
+        <field>Deal_Reg__c</field>
+        <literalValue>1</literalValue>
+        <name>Check Partner Initated To True</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+    </fieldUpdates>
+    <fieldUpdates>
         <fullName>Clear_Bypassing_Validation</fullName>
         <field>Bypassing_Validation__c</field>
         <literalValue>0</literalValue>
@@ -700,6 +745,15 @@
         <protected>false</protected>
     </fieldUpdates>
     <fieldUpdates>
+        <fullName>Uncheck_Partner_Initated_Flag</fullName>
+        <field>Deal_Reg__c</field>
+        <literalValue>0</literalValue>
+        <name>Uncheck Partner Initated Flag</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+    </fieldUpdates>
+    <fieldUpdates>
         <fullName>Update_Last_Modified_Date</fullName>
         <field>Owner_Last_Activity_Date__c</field>
         <formula>LastModifiedDate</formula>
@@ -816,6 +870,21 @@
         <triggerType>onAllChanges</triggerType>
     </rules>
     <rules>
+        <fullName>Check Partner Initated Flag</fullName>
+        <actions>
+            <name>Check_Partner_Initated_To_True</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <formula>AND(
+NOT(ISNULL( AccountId)),
+Account.Is_Partner_Initiated_Account__c,
+NOT(ISPICKVAL(Type,&quot;Marketplace&quot;)),
+New_Business__c 
+)</formula>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
         <fullName>Clear Bypassing Validation</fullName>
         <actions>
             <name>Clear_Bypassing_Validation</name>
@@ -828,6 +897,24 @@
             <value>True</value>
         </criteriaItems>
         <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>Clear out opp source for renewal</fullName>
+        <actions>
+            <name>Blank_out_Opp_Source</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>Opportunity.Opportunity_Source__c</field>
+            <operation>notEqual</operation>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Opportunity.Type</field>
+            <operation>equals</operation>
+            <value>Support Renewal,Subscription Renewal,EC Renewal</value>
+        </criteriaItems>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
     </rules>
     <rules>
         <fullName>CloseMarketplacePOC</fullName>
@@ -946,6 +1033,26 @@ ISCHANGED(StageName)
         <triggerType>onCreateOrTriggeringUpdate</triggerType>
     </rules>
     <rules>
+        <fullName>Opportunity Closed Won%28New%26FO%29</fullName>
+        <actions>
+            <name>Closed_Won_New_and_FO</name>
+            <type>Alert</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>Opportunity.StageName</field>
+            <operation>equals</operation>
+            <value>Closed Won</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Opportunity.Type</field>
+            <operation>equals</operation>
+            <value>Follow on Business,New Business</value>
+        </criteriaItems>
+        <description>Sends an email when a new and follow on  opportunity is closed/won</description>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
         <fullName>Opportunity Registration Converted</fullName>
         <actions>
             <name>Deal_Reg_Converted</name>
@@ -954,10 +1061,6 @@ ISCHANGED(StageName)
         <actions>
             <name>Deal_Reg_Converted_Partner</name>
             <type>Alert</type>
-        </actions>
-        <actions>
-            <name>SetOppSourceToDR</name>
-            <type>FieldUpdate</type>
         </actions>
         <active>true</active>
         <criteriaItems>
@@ -975,10 +1078,7 @@ ISCHANGED(StageName)
             <type>FieldUpdate</type>
         </actions>
         <active>true</active>
-        <formula>OR( $Profile.Name =&quot;1.1- Regional Sales Manager&quot;,
-$Profile.Name =&quot;1.4- Intl Regional Sales Manager&quot;,
-$Profile.Name =&quot;1.0- Sales Management&quot;
-)</formula>
+        <formula>OR( $Profile.Name =&quot;1.1- Regional Sales Manager&quot;, $Profile.Name =&quot;1.4- Intl Regional Sales Manager&quot;, $Profile.Name =&quot;1.0- Sales Management&quot; )</formula>
         <triggerType>onCreateOnly</triggerType>
     </rules>
     <rules>
@@ -1167,13 +1267,18 @@ $Profile.Name =&quot;1.0- Sales Management&quot;
         <triggerType>onCreateOrTriggeringUpdate</triggerType>
     </rules>
     <rules>
-        <fullName>Update Channel Manager on Opp</fullName>
-        <active>false</active>
-        <criteriaItems>
-            <field>Opportunity.IsClosed</field>
-            <operation>equals</operation>
-            <value>False</value>
-        </criteriaItems>
+        <fullName>UnCheck Partner Intiated Flag</fullName>
+        <actions>
+            <name>Uncheck_Partner_Initated_Flag</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <formula>AND(
+NOT(ISNULL( AccountId)),
+Account.Is_Partner_Initiated_Account__c,
+NOT(ISPICKVAL(Type,&quot;Marketplace&quot;)),
+NOT(New_Business__c) 
+)</formula>
         <triggerType>onCreateOrTriggeringUpdate</triggerType>
     </rules>
     <rules>

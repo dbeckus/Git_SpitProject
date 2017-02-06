@@ -6,5 +6,5 @@
     <mayForecastManagerShare>false</mayForecastManagerShare>
     <name>Prime INC Customer User</name>
     <opportunityAccessLevel>None</opportunityAccessLevel>
-    <parentRole>SeniorSystemEngineerWest</parentRole>
+    <parentRole>Sales_Manager_Central</parentRole>
 </Role>

@@ -24,18 +24,19 @@ trigger SetLastCampaignResponseDate2LeadOrContact on CampaignMember (after inser
         }
     }
     
-    List<Lead> leads = [select Id, Do_Not_Tele_Qualify__c, Do_Not_Tele_Qualify_Date__c from Lead where Id in:leadIds];
-    for(Lead updatingLead : leads)
+    if(leadIds.size() > 0)
     {
-        updatingLead.Last_Campaign_Response_Date__c = System.today();
-        if(updatingLead.Do_Not_Tele_Qualify__c == true && updatingLead.Do_Not_Tele_Qualify_Date__c != null && updatingLead.Do_Not_Tele_Qualify_Date__c < Date.today().addDays(-30))
+        List<Lead> leads = [select Id, Do_Not_Tele_Qualify__c, Do_Not_Tele_Qualify_Date__c from Lead where Id in:leadIds];
+        for(Lead updatingLead : leads)
         {
-            updatingLead.Do_Not_Tele_Qualify__c = false;
-            updatingLead.Do_Not_Tele_Qualify_Date__c = null;
+            updatingLead.Last_Campaign_Response_Date__c = System.today();
+            if(updatingLead.Do_Not_Tele_Qualify__c == true && updatingLead.Do_Not_Tele_Qualify_Date__c != null && updatingLead.Do_Not_Tele_Qualify_Date__c < Date.today().addDays(-30))
+            {
+                updatingLead.Do_Not_Tele_Qualify__c = false;
+                updatingLead.Do_Not_Tele_Qualify_Date__c = null;
+            }
         }
-    }
-    if(leads.size() > 0)
-    {
+    
         try
         {
             SilverPeakUtils.BypassingTriggers = true;

@@ -5,5 +5,5 @@
     <mayForecastManagerShare>false</mayForecastManagerShare>
     <name>Country Manager LAT</name>
     <opportunityAccessLevel>Edit</opportunityAccessLevel>
-    <parentRole>VP_Sales_Central_2</parentRole>
+    <parentRole>VPSalesLAT</parentRole>
 </Role>

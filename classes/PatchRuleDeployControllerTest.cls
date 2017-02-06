@@ -10,7 +10,8 @@ public class PatchRuleDeployControllerTest
         insert rule1;
         
         Test.startTest();
-        Test.setMock(WebServiceMock.class, new MetadataServiceMockup());
+        MetadataServiceMockup mock = new MetadataServiceMockup();
+        Test.setMock(WebServiceMock.class, mock);
         PatchRuleDeployController controller = new PatchRuleDeployController();
         String s1 = controller.getPackageXml();
         String s2 = controller.getClassMetadata();
@@ -18,12 +19,34 @@ public class PatchRuleDeployControllerTest
         controller.ZipData = 'acme';
         controller.startDeploy();
         controller.deployZip();
+        
+        mock.setStatus('Canceling');
         controller.checkAsyncRequest();
+        
+        mock.setStatus('InProgress');
+        controller.checkAsyncRequest();
+        
+        mock.setStatus('Succeeded');
+        controller.checkAsyncRequest();
+        
+        mock.setStatus('Failed');
+        controller.checkAsyncRequest();
+        
+        //mock.setStatus('Canceled');
+        //controller.checkAsyncRequest();
+
         Test.stopTest();
     }
     
     public class MetadataServiceMockup implements WebServiceMock 
     {
+        private String status;
+        
+        public void setStatus(String status)
+        {
+            this.status = status;    
+        }
+        
         public void doInvoke(Object stub, Object request, Map<String, Object> response, String endpoint, String soapAction, String requestName, String responseNS, String responseName, String responseType) 
         {
             if(requestName == 'deploy')
@@ -45,8 +68,9 @@ public class PatchRuleDeployControllerTest
             {
                 MetadataService.checkDeployStatusResponse_element responseElement = new MetadataService.checkDeployStatusResponse_element();
                 MetadataService.DeployResult result = new MetadataService.DeployResult();
-                result.done = true;
-                result.status = 'Succeeded';
+                result.done = status == 'Succeeded' || status == 'Failed' || status == 'Canceled';
+                result.status = status;
+                result.success = (status == 'Succeeded');
                 result.details = new MetadataService.DeployDetails();
                 result.details.componentFailures = new List<MetadataService.DeployMessage>();
                 responseElement.result = result;

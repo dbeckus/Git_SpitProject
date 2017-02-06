@@ -34,38 +34,22 @@
                 <field>Renewal_Contact__c</field>
             </layoutItems>
             <layoutItems>
-                <behavior>Edit</behavior>
+                <behavior>Readonly</behavior>
                 <field>Payment_Terms__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>First_Asset_Quarter__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>ECSP__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>IsCap__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>EC_Asset_Name__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>Is_Partner_Initiated_Account__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>Sync_Virtual_Assets_with_CP__c</field>
+                <field>Oppty_Healty__c</field>
             </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>
                 <behavior>Edit</behavior>
                 <field>Trigger_Assignment__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>ECSP__c</field>
             </layoutItems>
         </layoutColumns>
         <style>TwoColumnsLeftToRight</style>
@@ -128,6 +112,18 @@
                 <behavior>Edit</behavior>
                 <field>Primary_Market__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Support_Contact1__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Support_Contact2__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Support_Contact3__c</field>
+            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>
@@ -165,6 +161,18 @@
             <layoutItems>
                 <behavior>Edit</behavior>
                 <field>Maintenance_Discount__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Public_Reference__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Peer_to_Peer_Reference__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Reference_Status__c</field>
             </layoutItems>
         </layoutColumns>
         <style>TwoColumnsTopToBottom</style>
@@ -488,7 +496,31 @@
         <fields>CONTRACT.END_DATE</fields>
         <fields>CONTRACT.STATUS</fields>
         <fields>SP_Contract_Number__c</fields>
+        <relatedList>Contract.Silver_Peak_Account__c</relatedList>
+    </relatedLists>
+    <relatedLists>
+        <fields>CONTRACT.CONTRACT_NUMBER</fields>
+        <fields>CONTRACT.NAME</fields>
+        <fields>CONTRACT.START_DATE</fields>
+        <fields>CONTRACT.END_DATE</fields>
+        <fields>CONTRACT.STATUS</fields>
+        <fields>SP_Contract_Number__c</fields>
         <relatedList>RelatedContractList</relatedList>
+    </relatedLists>
+    <relatedLists>
+        <customButtons>New_Virtual_Asset</customButtons>
+        <customButtons>Open_RMA_on_Account</customButtons>
+        <fields>ASSET.NAME</fields>
+        <fields>Product_Name_And_Nodes__c</fields>
+        <fields>Ship_Date__c</fields>
+        <fields>ASSET.STATUS</fields>
+        <fields>Contract_Number_and_Status__c</fields>
+        <fields>Contract_Type__c</fields>
+        <fields>Contract_End__c</fields>
+        <fields>Evaluation_End_Date__c</fields>
+        <fields>End_of_Maintenance__c</fields>
+        <fields>License_End_Date__c</fields>
+        <relatedList>Asset.Silver_Peak_Account__c</relatedList>
     </relatedLists>
     <relatedLists>
         <customButtons>Open_RMA_on_Account</customButtons>

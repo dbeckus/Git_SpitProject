@@ -41,16 +41,22 @@
         .matrix .row td {
             border-bottom: rgb(245, 245, 245) solid 1px;
         }
+        a.bread {
+            margin-bottom:5px;
+            float:left;
+        }
     </style>
     <apex:sectionHeader title="Opportunity Layout Setup"/>
-    <a href="/apex/MiscellaneousSetup">« Back to Miscellaneous Setup</a>
     <apex:form >
+    <a href="/apex/MiscellaneousSetup" class="bread">« Back to Miscellaneous Setup</a>
+    <div style="float:right">Layout Set&nbsp;<apex:selectList size="1" value="{!LayoutSetNumber}" ><apex:actionSupport event="onchange" action="{!init}"/><apex:selectOption itemLabel="1" itemValue="1"/><apex:selectOption itemLabel="2" itemValue="2"/><apex:selectOption itemLabel="3" itemValue="3"/></apex:selectList></div>
+    <div style="clear:both"></div>
     <apex:pageMessages />
     <apex:pageBlock >
         <apex:pageBlockButtons location="bottom" >
             <apex:commandButton value="Save" action="{!save}" />
             <apex:commandButton value="Reset" action="{!init}" />
-            <apex:commandButton value="Preview" onclick="window.open('{!$Page.OpportunityLayoutPreview}', '_blank', 'width=700,height=500,location=no,resizable=yes,scrollbars=yes');return false;" />
+            <apex:commandButton value="Preview" onclick="window.open('{!$Page.OpportunityLayoutPreview}?layoutset=' + {!LayoutSetNumber}, '_blank', 'width=700,height=500,location=no,resizable=yes,scrollbars=yes');return false;" />
         </apex:pageBlockButtons>
             <table class="matrix" cellspacing="0" cellpadding="0">
                 <tr>

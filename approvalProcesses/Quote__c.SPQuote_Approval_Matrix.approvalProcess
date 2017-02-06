@@ -203,14 +203,8 @@
         <allowDelegate>true</allowDelegate>
         <assignedApprover>
             <approver>
-                <name>chelfer@silver-peak.com</name>
-                <type>user</type>
+                <type>userHierarchyField</type>
             </approver>
-            <approver>
-                <name>eyeaman@silver-peak.com</name>
-                <type>user</type>
-            </approver>
-            <whenMultipleApprovers>FirstResponse</whenMultipleApprovers>
         </assignedApprover>
         <entryCriteria>
             <criteriaItems>
@@ -236,7 +230,15 @@
         <allowDelegate>true</allowDelegate>
         <assignedApprover>
             <approver>
+                <name>chelfer@silver-peak.com</name>
+                <type>user</type>
+            </approver>
+            <approver>
                 <name>eyeaman@silver-peak.com</name>
+                <type>user</type>
+            </approver>
+            <approver>
+                <name>rbooth@silver-peak.com</name>
                 <type>user</type>
             </approver>
             <whenMultipleApprovers>FirstResponse</whenMultipleApprovers>

@@ -6,6 +6,11 @@ public with sharing class OpportunityLayoutPreviewController extends Opportunity
     public OpportunityLayoutPreviewController(ApexPages.standardController sc) 
     {
         super(sc);
+        IsOverridable = true;
+        if(String.isNotBlank(ApexPages.currentPage().getParameters().get('layoutset')))
+        {
+            currentLayoutSet = ApexPages.currentPage().getParameters().get('layoutset');
+        }
     }
     
     public List<SelectOption> allSalesProcesses

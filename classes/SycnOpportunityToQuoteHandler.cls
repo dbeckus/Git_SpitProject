@@ -6,7 +6,7 @@ public class SycnOpportunityToQuoteHandler {
         for(Opportunity newOpp : newMap.values())
         {
             oldOpp = oldMap.get(newOpp.Id);
-            if(oldOpp.Contract_Activation_Date__c != newOpp.Contract_Activation_Date__c || oldOpp.Closedate != newOpp.CloseDate)
+            if((oldOpp.Contract_Activation_Date__c != newOpp.Contract_Activation_Date__c || oldOpp.Closedate != newOpp.CloseDate) && !(newOpp.IsClosed == true && newOpp.IsWon == false))
             {
                 oppIds.add(newOpp.Id);
             }
@@ -14,7 +14,7 @@ public class SycnOpportunityToQuoteHandler {
         
         if(!oppIds.isEmpty())
         {
-         	sycnDate(oppIds);   
+            sycnDate(oppIds);   
         }
     }
     
@@ -34,7 +34,7 @@ public class SycnOpportunityToQuoteHandler {
                     quote.SBQQ__StartDate__c = quote.SBQQ__Opportunity2__r.CloseDate;
                 }
             }  
-            update quotes;
+            Database.update(quotes, false);
         }
     }
 }

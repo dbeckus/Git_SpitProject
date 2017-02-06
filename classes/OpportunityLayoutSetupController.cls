@@ -2,8 +2,10 @@ public with sharing class OpportunityLayoutSetupController
 {
     public OpportunityLayoutSetupController() 
     {
+        LayoutSetNumber = '1';
     }
 
+    public String LayoutSetNumber { get ;set; }
     public List<ButtonOpt> Buttons { get; set; }
     public List<SectionOpt> Sections { get; set; }
     public List<RelatedListOpt> RelatedLists { get; set; }
@@ -17,7 +19,9 @@ public with sharing class OpportunityLayoutSetupController
             new ButtonOpt(30, 'Delete', 'OpportunityDelete'),
             new ButtonOpt(40, 'Rev Rec Checklist', 'OpportunityRevenueRecognitionChecklist'),
             new ButtonOpt(50, 'Renewal', 'OpportunityRenewal'),
-            new ButtonOpt(60, 'Merge', 'OpportunityMerge')
+            new ButtonOpt(60, 'Merge', 'OpportunityMerge'),
+            new ButtonOpt(70, 'Define Channel on Quote', 'DefineChannelOnQuote'),
+            new ButtonOpt(80, 'Define Channel', 'OpportunityDefineChannel')
         };
 
         Sections = new List<SectionOpt> 
@@ -37,22 +41,23 @@ public with sharing class OpportunityLayoutSetupController
         RelatedLists = new List<RelatedListOpt> 
         {
             new RelatedListOpt(10, 'Contact Roles', 'OpportunityContactRole', 'OpportunityId'),
+            new RelatedListOpt(15, 'POC Requests', 'Request__c', 'Opportunity__c'),
             new RelatedListOpt(20, 'Silver Peak Quotes', 'Quote__c', 'Opportunity__c'),
             new RelatedListOpt(25, 'SteelBrick Quotes', 'SBQQ__Quote__c', 'SBQQ__Opportunity2__c'),
             new RelatedListOpt(30, 'Products', 'OpportunityLineItem', 'OpportunityId'),
-            new RelatedListOpt(40, 'POC Requests', 'Request__c', 'Opportunity__c'),
-            new RelatedListOpt(50, 'Purchase Orders', 'Purchase_Order__c', 'Opportunity__c'),
-            new RelatedListOpt(60, 'Competitors', 'OpportunityCompetitor', 'OpportunityId'),
-            new RelatedListOpt(70, 'Open Activities', 'OpenActivity', 'ParentId'),
-            new RelatedListOpt(80, 'Activity History', 'ActivityHistory', 'ParentId'),
-            new RelatedListOpt(90, 'Stage History', 'OpportunityHistory', 'OpportunityId'),
+            new RelatedListOpt(35, 'Open Activities', 'OpenActivity', 'ParentId'),
+            new RelatedListOpt(40, 'Activity History', 'ActivityHistory', 'ParentId'),
+            new RelatedListOpt(50, 'Stage History', 'OpportunityHistory', 'OpportunityId'),
             new RelatedListOpt(100, 'Opportunity History', 'OpportunityFieldHistory', 'OpportunityId'),
-            new RelatedListOpt(110, 'Note and Attachments', 'NoteAndAttachment', 'ParentId'),
-            new RelatedListOpt(110, 'Related Opportunities', 'Opportunity', 'Related_Opportunity__c')
+            new RelatedListOpt(110, 'Related Opportunities', 'Opportunity', 'Related_Opportunity__c'),
+            new RelatedListOpt(120, 'Purchase Orders', 'Purchase_Order__c', 'Opportunity__c'),
+            new RelatedListOpt(150, 'Competitors', 'OpportunityCompetitor', 'OpportunityId'),            
+            new RelatedListOpt(200, 'Note and Attachments', 'NoteAndAttachment', 'ParentId')
+            //new RelatedListOpt(250, 'Opportunity Team', 'OpportunityTeamMember', 'OpportunityId')
         };
         
         Map<String, DynamicLayout__c> layoutNumberMap = new Map<String, DynamicLayout__c>();
-        for(DynamicLayout__c layout : [select Name, SalesProcess__c, Stage__c from DynamicLayout__c where Object__c='Opportunity'])
+        for(DynamicLayout__c layout : [select Name, SalesProcess__c, Stage__c from DynamicLayout__c where Object__c='Opportunity' and LayoutSet__c=:LayoutSetNumber])
         {
             layoutNumberMap.put(layout.Name, layout);
         }
@@ -103,7 +108,7 @@ public with sharing class OpportunityLayoutSetupController
     
     private void removeExistingLayoutSetup()
     {
-        List<DynamicLayout__c> oppLayouts = [select Id, Name from DynamicLayout__c where Object__c='Opportunity'];
+        List<DynamicLayout__c> oppLayouts = [select Id, Name from DynamicLayout__c where Object__c='Opportunity' and LayoutSet__c=:LayoutSetNumber];
         List<String> layoutNumbers = new List<String>();
         for(DynamicLayout__c layout : oppLayouts)
         {
@@ -116,26 +121,26 @@ public with sharing class OpportunityLayoutSetupController
     private void buildNewLayout()
     {
         List<DynamicLayout__c> newOppLayouts = new List<DynamicLayout__c> {
-            new DynamicLayout__c(Name='DL-1', Object__c='Opportunity', SalesProcess__c='New', Stage__c='New'),
-            new DynamicLayout__c(Name='DL-2', Object__c='Opportunity', SalesProcess__c='New', Stage__c='Discovery'),
-            new DynamicLayout__c(Name='DL-3', Object__c='Opportunity', SalesProcess__c='New', Stage__c='Qualified'),
-            new DynamicLayout__c(Name='DL-4', Object__c='Opportunity', SalesProcess__c='New', Stage__c='Approved'),
-            new DynamicLayout__c(Name='DL-5', Object__c='Opportunity', SalesProcess__c='New', Stage__c='Final'),
-            new DynamicLayout__c(Name='DL-6', Object__c='Opportunity', SalesProcess__c='New', Stage__c='Closed'),
-            new DynamicLayout__c(Name='DL-7', Object__c='Opportunity', SalesProcess__c='FollowOn', Stage__c='New'),
-            new DynamicLayout__c(Name='DL-8', Object__c='Opportunity', SalesProcess__c='FollowOn', Stage__c='Discovery'),
-            new DynamicLayout__c(Name='DL-9', Object__c='Opportunity', SalesProcess__c='FollowOn', Stage__c='Qualified'),
-            new DynamicLayout__c(Name='DL-10', Object__c='Opportunity', SalesProcess__c='FollowOn', Stage__c='Approved'),
-            new DynamicLayout__c(Name='DL-11', Object__c='Opportunity', SalesProcess__c='FollowOn', Stage__c='Final'),
-            new DynamicLayout__c(Name='DL-12', Object__c='Opportunity', SalesProcess__c='FollowOn', Stage__c='Closed'),
-            new DynamicLayout__c(Name='DL-13', Object__c='Opportunity', SalesProcess__c='Maintenance', Stage__c='New'),
-            new DynamicLayout__c(Name='DL-14', Object__c='Opportunity', SalesProcess__c='Maintenance', Stage__c='Discovery'),
-            new DynamicLayout__c(Name='DL-15', Object__c='Opportunity', SalesProcess__c='Maintenance', Stage__c='Qualified'),
-            new DynamicLayout__c(Name='DL-16', Object__c='Opportunity', SalesProcess__c='Maintenance', Stage__c='Approved'),
-            new DynamicLayout__c(Name='DL-17', Object__c='Opportunity', SalesProcess__c='Maintenance', Stage__c='Final'),
-            new DynamicLayout__c(Name='DL-18', Object__c='Opportunity', SalesProcess__c='Maintenance', Stage__c='Closed'),
-            new DynamicLayout__c(Name='DL-19', Object__c='Opportunity', SalesProcess__c='Deleted', Stage__c='Closed'),
-            new DynamicLayout__c(Name='DL-20', Object__c='Opportunity', SalesProcess__c=null, Stage__c=null)
+            new DynamicLayout__c(Name='DL-' + LayoutSetNumber + '-1', Object__c='Opportunity', SalesProcess__c='New', Stage__c='New', LayoutSet__c=LayoutSetNumber),
+            new DynamicLayout__c(Name='DL-' + LayoutSetNumber + '-2', Object__c='Opportunity', SalesProcess__c='New', Stage__c='Discovery', LayoutSet__c=LayoutSetNumber),
+            new DynamicLayout__c(Name='DL-' + LayoutSetNumber + '-3', Object__c='Opportunity', SalesProcess__c='New', Stage__c='Qualified', LayoutSet__c=LayoutSetNumber),
+            new DynamicLayout__c(Name='DL-' + LayoutSetNumber + '-4', Object__c='Opportunity', SalesProcess__c='New', Stage__c='Approved', LayoutSet__c=LayoutSetNumber),
+            new DynamicLayout__c(Name='DL-' + LayoutSetNumber + '-5', Object__c='Opportunity', SalesProcess__c='New', Stage__c='Final', LayoutSet__c=LayoutSetNumber),
+            new DynamicLayout__c(Name='DL-' + LayoutSetNumber + '-6', Object__c='Opportunity', SalesProcess__c='New', Stage__c='Closed', LayoutSet__c=LayoutSetNumber),
+            new DynamicLayout__c(Name='DL-' + LayoutSetNumber + '-7', Object__c='Opportunity', SalesProcess__c='FollowOn', Stage__c='New', LayoutSet__c=LayoutSetNumber),
+            new DynamicLayout__c(Name='DL-' + LayoutSetNumber + '-8', Object__c='Opportunity', SalesProcess__c='FollowOn', Stage__c='Discovery', LayoutSet__c=LayoutSetNumber),
+            new DynamicLayout__c(Name='DL-' + LayoutSetNumber + '-9', Object__c='Opportunity', SalesProcess__c='FollowOn', Stage__c='Qualified', LayoutSet__c=LayoutSetNumber),
+            new DynamicLayout__c(Name='DL-' + LayoutSetNumber + '-10', Object__c='Opportunity', SalesProcess__c='FollowOn', Stage__c='Approved', LayoutSet__c=LayoutSetNumber),
+            new DynamicLayout__c(Name='DL-' + LayoutSetNumber + '-11', Object__c='Opportunity', SalesProcess__c='FollowOn', Stage__c='Final', LayoutSet__c=LayoutSetNumber),
+            new DynamicLayout__c(Name='DL-' + LayoutSetNumber + '-12', Object__c='Opportunity', SalesProcess__c='FollowOn', Stage__c='Closed', LayoutSet__c=LayoutSetNumber),
+            new DynamicLayout__c(Name='DL-' + LayoutSetNumber + '-13', Object__c='Opportunity', SalesProcess__c='Maintenance', Stage__c='New', LayoutSet__c=LayoutSetNumber),
+            new DynamicLayout__c(Name='DL-' + LayoutSetNumber + '-14', Object__c='Opportunity', SalesProcess__c='Maintenance', Stage__c='Discovery', LayoutSet__c=LayoutSetNumber),
+            new DynamicLayout__c(Name='DL-' + LayoutSetNumber + '-15', Object__c='Opportunity', SalesProcess__c='Maintenance', Stage__c='Qualified', LayoutSet__c=LayoutSetNumber),
+            new DynamicLayout__c(Name='DL-' + LayoutSetNumber + '-16', Object__c='Opportunity', SalesProcess__c='Maintenance', Stage__c='Approved', LayoutSet__c=LayoutSetNumber),
+            new DynamicLayout__c(Name='DL-' + LayoutSetNumber + '-17', Object__c='Opportunity', SalesProcess__c='Maintenance', Stage__c='Final', LayoutSet__c=LayoutSetNumber),
+            new DynamicLayout__c(Name='DL-' + LayoutSetNumber + '-18', Object__c='Opportunity', SalesProcess__c='Maintenance', Stage__c='Closed', LayoutSet__c=LayoutSetNumber),
+            new DynamicLayout__c(Name='DL-' + LayoutSetNumber + '-19', Object__c='Opportunity', SalesProcess__c='Deleted', Stage__c='Closed', LayoutSet__c=LayoutSetNumber),
+            new DynamicLayout__c(Name='DL-' + LayoutSetNumber + '-20', Object__c='Opportunity', SalesProcess__c=null, Stage__c=null, LayoutSet__c=LayoutSetNumber)
         };
         insert newOppLayouts;
         List<DynamicLayoutElement__c> newLayoutElements = new List<DynamicLayoutElement__c>();
@@ -147,7 +152,7 @@ public with sharing class OpportunityLayoutSetupController
                 StageGroupInfo cell = sec.findStage(oppLayout.SalesProcess__c, oppLayout.Stage__c);
                 if(cell != null && cell.IsChecked)
                 {
-                    newLayoutElements.add(new DynamicLayoutElement__c(Name='DLE-' + (index++), LayoutNumber__c=oppLayout.Name, Type__c='Section', SectionName__c=sec.Label, FieldSet__c=sec.FieldSetName, SectionColumns__c=sec.Columns, Sequence__c=sec.Sequence));
+                    newLayoutElements.add(new DynamicLayoutElement__c(Name='DLE-' + LayoutSetNumber + '-' + (index++), LayoutNumber__c=oppLayout.Name, Type__c='Section', SectionName__c=sec.Label, FieldSet__c=sec.FieldSetName, SectionColumns__c=sec.Columns, Sequence__c=sec.Sequence));
                 }
             }
             for(ButtonOpt btn : Buttons)
@@ -155,7 +160,7 @@ public with sharing class OpportunityLayoutSetupController
                 StageGroupInfo cell = btn.findStage(oppLayout.SalesProcess__c, oppLayout.Stage__c);
                 if(cell != null && cell.IsChecked)
                 {
-                    newLayoutElements.add(new DynamicLayoutElement__c(Name='DLE-' + (index++), LayoutNumber__c=oppLayout.Name, Type__c='Button', ButtonName__c=btn.Name, ButtonLabel__c=btn.Label, Sequence__c=btn.Sequence));
+                    newLayoutElements.add(new DynamicLayoutElement__c(Name='DLE-' + LayoutSetNumber + '-' + (index++), LayoutNumber__c=oppLayout.Name, Type__c='Button', ButtonName__c=btn.Name, ButtonLabel__c=btn.Label, Sequence__c=btn.Sequence));
                 }
             }
             for(RelatedListOpt relList : RelatedLists)
@@ -163,7 +168,7 @@ public with sharing class OpportunityLayoutSetupController
                 StageGroupInfo cell = relList.findStage(oppLayout.SalesProcess__c, oppLayout.Stage__c);
                 if(cell != null && cell.IsChecked)
                 {
-                    newLayoutElements.add(new DynamicLayoutElement__c(Name='DLE-' + (index++), LayoutNumber__c=oppLayout.Name, Type__c='Related List', ChildObjectLabel__c=relList.Label, ChildObject__c=relList.ChildObjectName, RelatedField__c=relList.RelatedFieldName, Sequence__c=relList.Sequence));
+                    newLayoutElements.add(new DynamicLayoutElement__c(Name='DLE-' + LayoutSetNumber + '-' + (index++), LayoutNumber__c=oppLayout.Name, Type__c='Related List', ChildObjectLabel__c=relList.Label, ChildObject__c=relList.ChildObjectName, RelatedField__c=relList.RelatedFieldName, Sequence__c=relList.Sequence));
                 }
             }
         }
@@ -181,8 +186,6 @@ public with sharing class OpportunityLayoutSetupController
         }
         return null;
     }
-    
-    
     
     public class SalesProcessInfo
     {

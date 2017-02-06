@@ -6,5 +6,5 @@
     <mayForecastManagerShare>false</mayForecastManagerShare>
     <name>Gyrocom Limited Partner Manager</name>
     <opportunityAccessLevel>None</opportunityAccessLevel>
-    <parentRole>EMEA_Inside_Sales</parentRole>
+    <parentRole>EMEASales</parentRole>
 </Role>

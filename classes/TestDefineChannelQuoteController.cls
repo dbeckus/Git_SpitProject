@@ -124,7 +124,6 @@ public class TestDefineChannelQuoteController {
         system.assert(b);
     }
     
-    @Istest(SeeAllData=true)
     static void testDefineChannelQuoteController_Distributor_Validation()
     {
         Profile prof = [SELECT Id FROM Profile WHERE Name='1.4- Intl Regional Sales Manager']; 

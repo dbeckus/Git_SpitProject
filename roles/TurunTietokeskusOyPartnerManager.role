@@ -6,5 +6,5 @@
     <mayForecastManagerShare>false</mayForecastManagerShare>
     <name>Turun Tietokeskus Oy Partner Manager</name>
     <opportunityAccessLevel>None</opportunityAccessLevel>
-    <parentRole>DirectorofChannelEMEA</parentRole>
+    <parentRole>EMEASales</parentRole>
 </Role>

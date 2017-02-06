@@ -4,7 +4,7 @@
     <backgroundColor>#CCCCCC</backgroundColor>
     <bodyColor>#FFFFFF</bodyColor>
     <bottomLine>
-        <color>#AAAAFF</color>
+        <color>#33CCFF</color>
         <height>5</height>
     </bottomLine>
     <description>Plain Letterhead</description>
@@ -16,17 +16,17 @@
     </footer>
     <header>
         <backgroundColor>#FFFFFF</backgroundColor>
-        <height>100</height>
+        <height>75</height>
         <horizontalAlignment>Left</horizontalAlignment>
         <verticalAlignment>Top</verticalAlignment>
     </header>
     <middleLine>
-        <color>#AAAAFF</color>
+        <color>#33CCFF</color>
         <height>5</height>
     </middleLine>
     <name>Silver Peak Standard</name>
     <topLine>
-        <color>#AAAAFF</color>
-        <height>5</height>
+        <color>#33CCFF</color>
+        <height>4</height>
     </topLine>
 </Letterhead>

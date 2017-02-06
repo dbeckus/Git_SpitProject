@@ -598,6 +598,12 @@
             <field>re10__OrderHeaderId__c.re10__VSignDate__c</field>
             <table>re10__GKDefRfv__c</table>
         </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>As of Date</displayNameOverride>
+            <field>re10__SchedHeaderId__c.re10__AsOfDate__c</field>
+            <table>re10__GKDefRfv__c</table>
+        </columns>
         <masterLabel>Deferred Schedule Lines</masterLabel>
     </sections>
 </ReportType>

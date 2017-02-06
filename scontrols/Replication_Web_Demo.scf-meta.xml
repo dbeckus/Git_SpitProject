@@ -2,6 +2,7 @@
 <Scontrol xmlns="http://soap.sforce.com/2006/04/metadata">
     <contentSource>URL</contentSource>
     <encodingKey>UTF-8</encodingKey>
+    <fileContent>AFQAAAAYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</fileContent>
     <name>Replication Web Demo</name>
     <supportsCaching>true</supportsCaching>
 </Scontrol>

@@ -93,8 +93,13 @@
     <label>Api Configuration</label>
     <listViews>
         <fullName>All</fullName>
+        <columns>NAME</columns>
+        <columns>Environment_Name__c</columns>
         <filterScope>Everything</filterScope>
         <label>All</label>
+        <sharedTo>
+            <allInternalUsers></allInternalUsers>
+        </sharedTo>
     </listViews>
     <nameField>
         <displayFormat>A-{0000}</displayFormat>

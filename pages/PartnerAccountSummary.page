@@ -15,16 +15,6 @@
             <apex:pageBlockSection collapsible="false" title="Address Information" columns="2" >
                 <apex:outputText label="Shipping Address:" value="{!ShippingAddress}" /> 
                 <apex:outputText label="Billing Address:" value="{!BillingAddress}" /> 
-                <!-- <apex:outputText label="Street" value="{!PartnerAccount.BillingStreet}"/> 
-<apex:outputText label="Street" value="{!PartnerAccount.ShippingStreet}"/> 
-<apex:outputText label="City" value="{!PartnerAccount.BillingCity}"/> 
-<apex:outputText label="City" value="{!PartnerAccount.ShippingCity}"/> 
-<apex:outputText label="State" value="{!PartnerAccount.BillingState}"/> 
-<apex:outputText label="State" value="{!PartnerAccount.ShippingState}"/> 
-<apex:outputText label="Postal Code" value="{!PartnerAccount.BillingPostalCode}"/>
-<apex:outputText label="Postal Code" value="{!PartnerAccount.ShippingPostalCode}"/> 
-<apex:outputText label="Country" value="{!PartnerAccount.BillingCountry}"/>
-<apex:outputText label="Country" value="{!PartnerAccount.ShippingCountry}"/>-->
             </apex:pageBlockSection>  
             <apex:pageBlockSection collapsible="false" title="Silver Peak Sales Team" columns="2">
                 <apex:outputText label="Account Owner" value="{!PartnerAccount.Owner.Name}"/>
@@ -105,38 +95,64 @@
                 </apex:pageBlockTable>
             </apex:pageBlockSection>
             <apex:pageBlockSection columns="1" collapsible="false" title="Assets">
-                <apex:outputText value="There are no assets." rendered="{!PartnerAssets.size=0}"></apex:outputText>
-                <apex:pageBlockTable value="{!PartnerAssets}" var="asset" width="100%" rendered="{!PartnerAssets.size>0}">
-                    <apex:column value="{!asset.Name}" headerValue="Asset Name"/>
-                    <apex:column value="{!asset.SerialNumber}" headerValue="Serial Number"/>
-                    <apex:column value="{!asset.InstallDate}" headerValue="Install Date"/>
-                    <apex:column value="{!asset.Quantity}" headerValue="Quantity" />
-                    <apex:column value="{!asset.Contact.name}" headerValue="Contact Name"/>  
-                    <apex:column value="{!asset.Status}" headerValue="Status"/>  
-                    <apex:column value="{!asset.IsCompetitorProduct}" headerValue="Competitor Asset"/>  
-                </apex:pageBlockTable>
+                <apex:pageBlock >
+                    <apex:outputText value="There are no assets." rendered="{!Assets.size=0}"></apex:outputText>
+                    <apex:pageBlockTable value="{!Assets}" var="item" width="100%" rendered="{!Assets.size>0}">
+                        <apex:column value="{!item.Name}" headerValue="Asset Name"/>
+                        <apex:column value="{!item.SerialNumber}" headerValue="Serial Number"/>
+                        <apex:column value="{!item.InstallDate}" headerValue="Install Date"/>
+                        <apex:column value="{!item.Quantity}" headerValue="Quantity" />
+                        <apex:column value="{!item.Contact.Name}" headerValue="Contact Name"/>  
+                        <apex:column value="{!item.Status}" headerValue="Status"/>  
+                        <apex:column value="{!item.IsCompetitorProduct}" headerValue="Competitor Asset"/> 
+                    </apex:pageBlockTable>
+                    <apex:commandButton rendered="{!assets_setCon.hasPrevious}" value="first" action="{!assets_setCon.first}"/>
+                    <apex:commandButton rendered="{!assets_setCon.hasPrevious}" value="Previous" action="{!assets_setCon.previous}"/>
+                    <apex:outputText rendered="{!(assets_setCon.pageNumber * assets_setCon.pageSize) < assets_setCon.ResultSize}" value="{!assets_setCon.pageNumber * assets_setCon.pageSize} Of {!assets_setCon.ResultSize}"></apex:outputText>
+                    <apex:outputText rendered="{!(assets_setCon.pageNumber * assets_setCon.pageSize) >= assets_setCon.ResultSize}" value="{!assets_setCon.ResultSize} Of {!assets_setCon.ResultSize}"></apex:outputText>
+                    <apex:commandButton rendered="{!assets_setCon.hasNext}" value="next" action="{!assets_setCon.next}"/>
+                    <apex:commandButton rendered="{!assets_setCon.hasNext}" value="last" action="{!assets_setCon.last}"/>
+                </apex:pageBlock>
             </apex:pageBlockSection>
             <apex:pageBlockSection columns="1" collapsible="false" title="Cases">
-                <apex:outputText value="There are no cases." rendered="{!PartnerCases.size=0}"></apex:outputText>
-                <apex:pageBlockTable value="{!PartnerCases}" var="case" rendered="{!PartnerCases.size>0}" width="100%">
-                    <apex:column value="{!case.CaseNumber}" headerValue="Case"/>
-                    <apex:column value="{!case.Contact.name}" headerValue="Contact Name"/>
-                    <apex:column value="{!case.Subject}" headerValue="Subject"/>
-                    <apex:column value="{!case.Priority}" headerValue="Priority" />
-                    <apex:column value="{!case.CreatedDate}" headerValue="Date Opened"/> 
-                    <apex:column value="{!case.Status}" headerValue="Status"/> 
-                    <apex:column value="{!case.Owner.Name}" headerValue="Owner"/> 
-                </apex:pageBlockTable>
+                <apex:pageBlock >
+                    <apex:outputText value="There are no cases." rendered="{!Cases.size=0}"></apex:outputText>
+                    <apex:pageBlockTable value="{!Cases}" var="case" rendered="{!Cases.size>0}" width="100%">
+                        <apex:column value="{!case.CaseNumber}" headerValue="Case"/>
+                        <apex:column value="{!case.Contact.name}" headerValue="Contact Name"/>
+                        <apex:column value="{!case.Subject}" headerValue="Subject"/>
+                        <apex:column value="{!case.Priority}" headerValue="Priority" />
+                        <apex:column value="{!case.CreatedDate}" headerValue="Date Opened"/> 
+                        <apex:column value="{!case.Status}" headerValue="Status"/> 
+                        <apex:column value="{!case.Owner.Name}" headerValue="Owner"/> 
+                    </apex:pageBlockTable>
+                    <apex:commandButton rendered="{!cases_setCon.hasPrevious}" value="first" action="{!cases_setCon.first}"/>
+                    <apex:commandButton rendered="{!cases_setCon.hasPrevious}" value="Previous" action="{!cases_setCon.previous}"/>
+                    <apex:outputText rendered="{!(cases_setCon.pageNumber * cases_setCon.pageSize) < cases_setCon.ResultSize}" value="{!cases_setCon.pageNumber * cases_setCon.pageSize} Of {!cases_setCon.ResultSize}"></apex:outputText>
+                    <apex:outputText rendered="{!(cases_setCon.pageNumber * cases_setCon.pageSize) >= cases_setCon.ResultSize}" value="{!cases_setCon.ResultSize} Of {!cases_setCon.ResultSize}"></apex:outputText>
+                    <apex:commandButton rendered="{!cases_setCon.hasNext}" value="next" action="{!cases_setCon.next}"/>
+                    <apex:commandButton rendered="{!cases_setCon.hasNext}" value="last" action="{!cases_setCon.last}"/>
+                </apex:pageBlock>
             </apex:pageBlockSection>	
+            
             <apex:pageBlockSection columns="1" collapsible="false" title="Contacts">
-                <apex:outputText value="There are no contacts." rendered="{!PartnerContacts.size=0}"></apex:outputText>
-                <apex:pageBlockTable value="{!PartnerContacts}" var="con" rendered="{!PartnerContacts.size>0}" width="100%">
-                    <apex:column value="{!con.Name}" headerValue="Contact Name"/>
-                    <apex:column value="{!con.Title}" headerValue="Title"/>
-                    <apex:column value="{!con.Email}" headerValue="Email"/>
-                    <apex:column value="{!con.Phone}" headerValue="Phone" />
-                    <apex:column value="{!con.CanAllowPortalSelfReg}" headerValue="Allow Customer Portal Self-Registration"/>        
-                </apex:pageBlockTable>
+                <apex:pageBlock >
+                    
+                    <apex:outputText value="There are no contacts." rendered="{!Contacts.size=0}"></apex:outputText>
+                    <apex:pageBlockTable value="{!Contacts}" var="con" rendered="{!Contacts.size>0}" width="100%">
+                        <apex:column value="{!con.Name}" headerValue="Contact Name"/>
+                        <apex:column value="{!con.Title}" headerValue="Title"/>
+                        <apex:column value="{!con.Email}" headerValue="Email"/>
+                        <apex:column value="{!con.Phone}" headerValue="Phone" />
+                        <apex:column value="{!con.CanAllowPortalSelfReg}" headerValue="Allow Customer Portal Self-Registration"/>        
+                    </apex:pageBlockTable>
+                    <apex:commandButton rendered="{!contacts_setCon.hasPrevious}" value="first" action="{!contacts_setCon.first}"/>
+                    <apex:commandButton rendered="{!contacts_setCon.hasPrevious}" value="Previous" action="{!contacts_setCon.previous}"/>
+                    <apex:outputText rendered="{!(contacts_setCon.pageNumber * contacts_setCon.pageSize) < contacts_setCon.ResultSize}" value="{!contacts_setCon.pageNumber * contacts_setCon.pageSize} Of {!contacts_setCon.ResultSize}"></apex:outputText>
+                    <apex:outputText rendered="{!(contacts_setCon.pageNumber * contacts_setCon.pageSize) >= contacts_setCon.ResultSize}" value="{!contacts_setCon.ResultSize} Of {!contacts_setCon.ResultSize}"></apex:outputText>
+                    <apex:commandButton rendered="{!contacts_setCon.hasNext}" value="next" action="{!contacts_setCon.next}"/>
+                    <apex:commandButton rendered="{!contacts_setCon.hasNext}" value="last" action="{!contacts_setCon.last}"/>
+                </apex:pageBlock>
             </apex:pageBlockSection>
         </apex:pageblock>
     </apex:form>

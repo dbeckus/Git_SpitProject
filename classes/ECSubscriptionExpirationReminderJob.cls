@@ -21,7 +21,7 @@ public class ECSubscriptionExpirationReminderJob implements Schedulable, Databas
     public Database.QueryLocator start(Database.BatchableContext context)
     {
         List<Date> expirationDates = new List<Date> { Date.today().addDays(-30), Date.today().addDays(-1), Date.today().addDays(30), Date.today().addDays(60), Date.today().addDays(90) };
-            return Database.getQueryLocator([select Id from Contact where Id in (select ContactId from Asset where Product2.Name like 'EC%' and Opt_Out_Subscription_Reminder__c=false and Hosted_GMS__c=false and Product2.Family='Virtual Image' and Product2.Product_Type__c='EDGECONNECT' and Status!='Customer Evaluation' and Product2.Product_Category__c='Subscription' and License_End_Date__c in :expirationDates)]);
+            return Database.getQueryLocator([select Id from Contact where Id in (select ContactId from Asset where Product2.Name like 'EC%' and Opt_Out_Subscription_Reminder__c=false and Hosted_GMS__c=false and Product2.Family='Virtual Image' and Product2.Product_Type__c='EDGECONNECT' and Status!='Customer Evaluation' and Product2.Product_Category__c in ('Subscription','GMS') and License_End_Date__c in :expirationDates)]);
     }
     
     public void execute(Database.BatchableContext context, List<sObject> scope)
@@ -42,33 +42,34 @@ public class ECSubscriptionExpirationReminderJob implements Schedulable, Databas
             }
             contact2Account.get(asset.ContactId).add(asset.AccountId);
             userEmails.put(asset.ContactId, asset.Contact.Owner.Email);
-            if(asset.License_End_Date__c == Date.today().adddays(-30))
+            if(asset.License_End_Date__c!=null && asset.License_End_Date__c == Date.today().adddays(-30))
             {
                 contactsT_30.add(asset.ContactId);
                 accountsT_30.add(asset.AccountId);
             }
-            else if(asset.License_End_Date__c == Date.today().addDays(-1))
+            else if(asset.License_End_Date__c!=null && asset.License_End_Date__c == Date.today().addDays(-1))
             {
                 contactsT0.add(asset.ContactId);
                 accountsT0.add(asset.AccountId);
                 lstExpiredAssets.add(new Asset(Id= asset.Id,Status='Customer Subscription Expired',Licenses_Nodes__c=0,Bandwidth_Nodes__c=0));
             }
-            else if(asset.License_End_Date__c == Date.today().adddays(30))
+            else if(asset.License_End_Date__c!=null && asset.License_End_Date__c == Date.today().adddays(30))
             {
                 contactsT30.add(asset.ContactId);
                 accountsT30.add(asset.AccountId);
             }
-            else if(asset.License_End_Date__c == Date.today().adddays(60))
+            else if(asset.License_End_Date__c!=null && asset.License_End_Date__c == Date.today().adddays(60))
             {
                 contactsT60.add(asset.ContactId);
                 accountsT60.add(asset.AccountId);
             }
-            else if(asset.License_End_Date__c == Date.today().adddays(90))
+            else if(asset.License_End_Date__c!=null && asset.License_End_Date__c == Date.today().adddays(90))
             {
                 contactsT90.add(asset.ContactId);
                 accountsT90.add(asset.AccountId);
             }
         }
+        MarkOrchestratorAsExpired(accountsT0);
         Set<Id> allContacts = new Set<Id>();
         allContacts.addAll(contactsT_30);
         allContacts.addAll(contactsT0);
@@ -144,6 +145,22 @@ public class ECSubscriptionExpirationReminderJob implements Schedulable, Databas
     public void finish(Database.BatchableContext context)
     {
         insert new ErrorLog__c(Subject__c='EC Subscription Expiration Reminder', Message__c='Sent ' + emailsSentCount + ' emails.');
+    }
+    
+    private boolean MarkOrchestratorAsExpired(Set<Id> acctIds)
+    {
+        List<Asset> lstAsset=[Select Id, Status from Asset where AccountId in:acctIds and  Status ='Customer Subscription Active' and Product2.Family='Virtual Image' and Product2.Name='EC-ORCH'];
+        if(lstAsset!=null && lstAsset.size()>0)
+        {
+            for(Asset item: lstAsset)
+            {
+                item.status='Customer Subscription Expired';
+            }
+            
+            update lstAsset;
+        }
+        
+        return true;
     }
     
     private List<String> getCcEmails(Id contactId, Map<Id, String> userEmails, Id accountId, Map<Id, List<String>> teamMemberEmails)

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ApprovalProcess xmlns="http://soap.sforce.com/2006/04/metadata">
-    <active>true</active>
+    <active>false</active>
     <allowRecall>true</allowRecall>
     <allowedSubmitters>
         <submitter>CountryManagerLAT</submitter>
@@ -62,11 +62,11 @@
             </approver>
             <whenMultipleApprovers>FirstResponse</whenMultipleApprovers>
         </assignedApprover>
-        <label>Send to SE Manager</label>
-        <name>Send_to_SE_Manager</name>
+        <label>Send to next approver SE Manager</label>
+        <name>Send_to_next_approver_SE_Manager</name>
     </approvalStep>
     <approvalStep>
-        <allowDelegate>true</allowDelegate>
+        <allowDelegate>false</allowDelegate>
         <assignedApprover>
             <approver>
                 <name>RSM_Manager__c</name>
@@ -76,21 +76,6 @@
         </assignedApprover>
         <label>Send to Sales Director</label>
         <name>Send_to_Sales_Director</name>
-        <rejectBehavior>
-            <type>RejectRequest</type>
-        </rejectBehavior>
-    </approvalStep>
-    <approvalStep>
-        <allowDelegate>true</allowDelegate>
-        <assignedApprover>
-            <approver>
-                <name>SE_Director__c</name>
-                <type>relatedUserField</type>
-            </approver>
-            <whenMultipleApprovers>FirstResponse</whenMultipleApprovers>
-        </assignedApprover>
-        <label>Send to SE Director</label>
-        <name>Send_to_SE_Director</name>
         <rejectBehavior>
             <type>RejectRequest</type>
         </rejectBehavior>
@@ -113,16 +98,15 @@
     <emailTemplate>POC/Extension_Requested</emailTemplate>
     <enableMobileDeviceAccess>false</enableMobileDeviceAccess>
     <entryCriteria>
-        <formula>AND
-(
-ISPICKVAL(Type__c,&quot;Evaluation&quot;),
-IsAllVirtual__c =0,
-OR(
-ISPICKVAL(Status__c,&quot;Pending Return&quot;),
-ISPICKVAL(Status__c,&quot;Pending Return - Invoiced&quot;)
-),
-NOT(Opportunity__r.Account.ECSP__c)
-
+        <formula>AND 
+( 
+ISPICKVAL(Type__c,&quot;Evaluation&quot;), 
+IsAllVirtual__c =0, 
+OR( 
+ISPICKVAL(Status__c,&quot;Pending Return&quot;), 
+ISPICKVAL(Status__c,&quot;Pending Return - Invoiced&quot;) 
+), 
+NOT(Opportunity__r.Account.ECSP__c) 
 )</formula>
     </entryCriteria>
     <finalApprovalActions>
@@ -147,12 +131,6 @@ NOT(Opportunity__r.Account.ECSP__c)
         </action>
     </finalRejectionActions>
     <finalRejectionRecordLock>false</finalRejectionRecordLock>
-    <initialSubmissionActions>
-        <action>
-            <name>Update_the_status_to_Pending_Approval</name>
-            <type>FieldUpdate</type>
-        </action>
-    </initialSubmissionActions>
     <label>Pending Ret Extension Hardware Virtual</label>
     <recordEditability>AdminOnly</recordEditability>
     <showApprovalHistory>false</showApprovalHistory>

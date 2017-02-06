@@ -1,11 +1,88 @@
-<apex:page showHeader="true" tabstyle="MDF_Request__c">
-  <!-- Begin Default Content REMOVE THIS -->
-  <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
-  <apex:ListViews type="MDF_Request__c" />
-
-  <script>
-      $(document).ready(function() {
-          $("input.btn").hide();
-      });
-  </script>
+<apex:page showHeader="false" tabstyle="MDF_Request__c" id="thePage" standardStylesheets="false" controller="PartnerMDFListingController">
+    <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+        hightlight();
+        autoAdjustHeight();
+    });
+    function autoAdjustHeight(){
+        top.document.getElementById("myIframe").style.height = (document.body.clientHeight + 50)+ "px";
+    }
+    function gotoFeedback(requestId){
+        if($(".isCompleted").is(":checked")){
+            top.open("/s/MarketingFunds?id=" + requestId);
+        }
+    }
+    function hightlight(){
+        $(".redMark").parent("td").parent("tr").attr("style","background-color:rgb(255, 223, 223);");
+    }
+    </script>
+    <style type="text/css">
+        body{
+            font-family: 'GillSansMT-Regular';
+            font-size: 14px;
+            line-height: 1.42857143;
+            color: #333;
+        }
+        .outBorder {
+            /*border: 1px solid #ccc;
+            background-color: rgba(252,252,252,1);*/
+            padding:0;
+            margin:0;
+            width:100%;
+        }
+        .inBorder{
+            border-bottom: 1px solid #ccc;
+        /*border-right: 1px solid #ccc;*/
+        }
+        .title{
+            font-weight: bolder;
+            font-size: 20px;
+        }
+        th,td{
+            text-align:center;
+            height:40px;
+        }
+        th{
+            border-bottom: 1px solid #ccc;
+            border-top: 1px solid #ccc;
+        }
+        table tr:nth-child(even),th{
+            background: #f8f8f8;
+        }
+        div{
+            margin-left:10px;
+        }
+    </style>
+    <body id="iframeBody">
+    <apex:form >
+    <apex:dataTable value="{!Requests}" var="request" id="theTable" rowClasses="odd,even" styleClass="outBorder">
+        <apex:column styleClass="inBorder markUp">
+            <apex:facet name="header">Funding Request</apex:facet>
+            <apex:outputLink target="_top" value="/s/MarketingFunds?id={!request.Id}">{!request.Name}</apex:outputLink>
+        </apex:column>
+        <apex:column styleClass="inBorder">
+            <apex:facet name="header">Type of Program</apex:facet>
+            <apex:outputText >{!request.Type_of_Program__c}</apex:outputText>
+        </apex:column>
+        <apex:column styleClass="inBorder">
+            <apex:facet name="header">Event/Campaign Name</apex:facet>
+            <apex:outputText >{!request.Event_Campaign_Name__c}</apex:outputText>
+        </apex:column>
+         <apex:column styleClass="inBorder">
+            <apex:facet name="header">Activity Date</apex:facet>
+            <apex:outputField value="{!request.Activity_Date__c}"/>
+        </apex:column>
+        <apex:column styleClass="inBorder">
+            <apex:facet name="header">Activity Complete</apex:facet>
+            <apex:inputField value="{!request.Activity_Complete__c}" onclick="gotoFeedback('{!request.Id}')" styleClass="isCompleted" rendered="{!NOT(request.Activity_Complete__c) && request.Approval_Status__c =='Approved'}"/>
+            <apex:outputField value="{!request.Activity_Complete__c}" rendered="{!request.Activity_Complete__c || request.Approval_Status__c!='Approved'}"/>
+        </apex:column>
+         <apex:column styleClass="inBorder" style="border-right:0px;">
+            <apex:facet name="header">MFR status</apex:facet>
+            <apex:outputText styleClass="{!IF(request.MDF_Status__c == 'Past Due','redMark','blueMark')}">{!request.MDF_Status__c}</apex:outputText>
+        </apex:column>
+    </apex:dataTable>
+    </apex:form>
+    </body>
 </apex:page>

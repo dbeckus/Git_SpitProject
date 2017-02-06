@@ -6,5 +6,5 @@
     <mayForecastManagerShare>false</mayForecastManagerShare>
     <name>Japan Ministry Of Defense (J-MoD) Customer User</name>
     <opportunityAccessLevel>None</opportunityAccessLevel>
-    <parentRole>EastAsiaDirector</parentRole>
+    <parentRole>AsiaSouthDirector</parentRole>
 </Role>

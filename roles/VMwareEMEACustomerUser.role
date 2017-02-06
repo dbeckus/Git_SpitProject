@@ -6,5 +6,5 @@
     <mayForecastManagerShare>false</mayForecastManagerShare>
     <name>VMware EMEA Customer User</name>
     <opportunityAccessLevel>None</opportunityAccessLevel>
-    <parentRole>VP_Sales_North_America</parentRole>
+    <parentRole>AccountRepresentativeWest</parentRole>
 </Role>

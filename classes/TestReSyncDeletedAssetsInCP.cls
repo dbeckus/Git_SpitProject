@@ -15,7 +15,7 @@ public class TestReSyncDeletedAssetsInCP {
         Request__c request = new Request__c(POC_Contact__c = contact.Id);
         request.POC_Type__c='EdgeConnect';
         insert request;
-        Product2 testProduct = new Product2(Name='EC-BASE-1Y',Product_Category__c='Subscription', Forecast_Category__c = 'Virtual', Family='Virtual Image', IsActive=true);
+        Product2 testProduct = new Product2(Name='EC-BASE-1Y',Model__c='EC-BASE-1Y',Product_Category__c='Subscription', Forecast_Category__c = 'Virtual', Family='Virtual Image', IsActive=true);
         insert testProduct;
         Asset asset = new Asset(Name='001HHD898JJJ',AccountId=testAccount.Id,Product2Id=testProduct.Id,Status='Customer Evaluation',POCRequest__c=request.Id);
         insert asset;

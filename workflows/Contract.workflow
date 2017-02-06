@@ -48,6 +48,33 @@
         <template>POC/ContractRenewed</template>
     </alerts>
     <fieldUpdates>
+        <fullName>Contract_Set_EC_Total_Contract_Value</fullName>
+        <field>SD_WAN_Optimization_Value__c</field>
+        <formula>SBQQ__Quote__r.License_Value__c</formula>
+        <name>Contract: Set EC Total Contract Value</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Contract_Set_Master_Contract_True</fullName>
+        <field>SBQQ__MasterContract__c</field>
+        <literalValue>1</literalValue>
+        <name>Contract: Set Master Contract = True</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Contract_Set_Status_to_Activated</fullName>
+        <field>Status</field>
+        <literalValue>Activated</literalValue>
+        <name>Contract: Set Status to Activated</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+    </fieldUpdates>
+    <fieldUpdates>
         <fullName>contract_expiry</fullName>
         <field>Status</field>
         <literalValue>Expired</literalValue>
@@ -68,6 +95,39 @@ ISCHANGED( EndDate ) &amp;&amp;  ISPICKVAL( Status , &quot;Activated&quot;),
 ISPICKVAL( Status , &quot;Activated&quot;) &amp;&amp; ISPICKVAL( Priorvalue(Status) , &quot;Draft&quot;),
 ISPICKVAL( Status , &quot;Activated&quot;) &amp;&amp; ISPICKVAL( Priorvalue(Status) , &quot;Expired&quot;)
 )</formula>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>Contract%3A Created from EdgeConnect Quote</fullName>
+        <actions>
+            <name>Contract_Set_Status_to_Activated</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <description>Set&apos;s actions to occur when contracts are created from an opportunity that is quoting edgeconnect products.</description>
+        <formula>AND(  ISPICKVAL(SBQQ__Quote__r.Product_Type__c, &quot;EDGECONNECT&quot;),  NOT(SBQQ__MasterContract__c)  )</formula>
+        <triggerType>onCreateOnly</triggerType>
+        <workflowTimeTriggers>
+            <actions>
+                <name>Contract_Set_Master_Contract_True</name>
+                <type>FieldUpdate</type>
+            </actions>
+            <timeLength>0</timeLength>
+            <workflowTimeTriggerUnit>Hours</workflowTimeTriggerUnit>
+        </workflowTimeTriggers>
+    </rules>
+    <rules>
+        <fullName>Contract%3A Edited</fullName>
+        <actions>
+            <name>Contract_Set_EC_Total_Contract_Value</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>Contract.CreatedDate</field>
+            <operation>notEqual</operation>
+        </criteriaItems>
+        <description>Set&apos;s actions to occur when contracts are edited.</description>
         <triggerType>onAllChanges</triggerType>
     </rules>
 </Workflow>

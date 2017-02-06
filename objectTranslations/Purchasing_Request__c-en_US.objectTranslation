@@ -78,6 +78,10 @@
         <name>PayOnCreditCard__c</name>
     </fields>
     <fields>
+        <label><!-- Pay by wire --></label>
+        <name>Pay_by_wire__c</name>
+    </fields>
+    <fields>
         <label><!-- Purchasing Instructions --></label>
         <name>Purchasing_Instructions__c</name>
     </fields>

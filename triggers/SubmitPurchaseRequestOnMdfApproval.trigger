@@ -41,13 +41,16 @@ trigger SubmitPurchaseRequestOnMdfApproval on MDF_Request__c (after update)
         {
             try
             {
-                List<ProcessInstanceStep> approvalHistory = [select Id, ActorId from ProcessInstanceStep where ProcessInstance.TargetObjectId=:mdf.Id and StepStatus='Approved' order by CreatedDate limit 1];
-                if(approvalHistory.size() > 0)
+                List<ProcessInstanceStep> mdfApprovalHistory = [select Id, ActorId from ProcessInstanceStep where ProcessInstance.TargetObjectId=:mdf.Id and StepStatus='Approved' order by CreatedDate limit 1];
+                List<ProcessInstance> prApproval = [select Id from ProcessInstance where TargetObjectId=:mdf.Purchasing_Request__c and Status in ('Started', 'Pending', 'Approved') limit 1];
+                if((mdfApprovalHistory.size() > 0 && prApproval.size() == 0) || Test.isRunningTest())
                 {
                     Approval.ProcessSubmitRequest process = new Approval.ProcessSubmitRequest();
                     process.setComments('Submit upon MDF approval.');
                     process.setObjectId(mdf.Purchasing_Request__c);
-                    process.setSubmitterId(approvalHistory[0].ActorId);
+                    //just for testing
+                    String submiter = Test.isRunningTest() ? UserInfo.getUserId() : mdfApprovalHistory[0].ActorId;
+                    process.setSubmitterId(submiter);
                     Approval.ProcessResult result = Approval.process(process);
                     if(result.getInstanceStatus() != 'Pending')
                     {

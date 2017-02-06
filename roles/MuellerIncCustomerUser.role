@@ -6,5 +6,5 @@
     <mayForecastManagerShare>false</mayForecastManagerShare>
     <name>Mueller Inc Customer User</name>
     <opportunityAccessLevel>None</opportunityAccessLevel>
-    <parentRole>Sales_Manager_South_Central</parentRole>
+    <parentRole>VP_Sales_Central_2</parentRole>
 </Role>

@@ -6,5 +6,5 @@
     <mayForecastManagerShare>false</mayForecastManagerShare>
     <name>Enterprise Unified Solutions, Inc. Partner Manager</name>
     <opportunityAccessLevel>None</opportunityAccessLevel>
-    <parentRole>ChannelSalesManagerCentral</parentRole>
+    <parentRole>ChannelSalesManagerWest</parentRole>
 </Role>

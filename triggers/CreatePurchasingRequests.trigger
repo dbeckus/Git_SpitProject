@@ -9,6 +9,8 @@ trigger CreatePurchasingRequests on MDF_Request__c (before insert, after insert)
         List<Contact> contacts = [select Id, AccountId, Account.OwnerId, Account.Owner.GEO_Region__c, Account.Patch__c, Account.Patch__r.CSM__c, Account.Patch__r.CSM__r.GEO_Region__c, Account.Patch__r.RSM__c, Account.Patch__r.RSM__r.GEO_Region__c from Contact where Id = :currentUser.ContactId limit 1];
         Account currentAccount = (contacts.size() > 0) ? contacts[0].Account : null;
         Contact currentContact = (contacts.size() > 0) ? contacts[0] : null;
+        Map<Id, Account> moreAccounts = getAccounts(Trigger.new);
+        Map<Id, Contact> moreContacts = getContacts(Trigger.new);
         
         List<RecordType> purchaseRecordType = [select Id from RecordType where SobjectType = 'Purchasing_Request__c' and Name = 'MDF Request' limit 1];
         Id purchaseRecordTypeId = (purchaseRecordType.size() > 0) ? purchaseRecordType[0].Id : null;
@@ -26,7 +28,15 @@ trigger CreatePurchasingRequests on MDF_Request__c (before insert, after insert)
             request = trigger.new[i];
             if(request.Account__c == null)
             {
+                //MDF created by portal user
                 updateGEO(request, currentAccount, currentContact);
+            }
+            else
+            {
+                //MDF created by internal user
+                Account acc = moreAccounts.get(request.Account__c);
+                Contact ct = moreContacts.get(request.Contact__c);
+                updateGEO(request, acc, ct);
             }
             if(request.Purchasing_Request__c == null)
             {
@@ -64,17 +74,7 @@ trigger CreatePurchasingRequests on MDF_Request__c (before insert, after insert)
         if(acc != null)
         {
             req.Account__c = acc.Id;
-            //req.CSM__c = acc.Patch__r.CSM__c;
-            //req.RSM__c = acc.Patch__r.RSM__c;
             req.GEO__c = acc.Patch__r.CSM__r.GEO_Region__c;
-            /*if(req.CSM__c == null)
-            {
-                req.CSM__c = acc.OwnerId;
-            }
-            if(req.RSM__c == null)
-            {
-                req.RSM__c = acc.OwnerId;
-            }*/
             if(String.isBlank(req.GEO__c))
             {
                 req.GEO__c = acc.Owner.GEO_Region__c;
@@ -93,5 +93,29 @@ trigger CreatePurchasingRequests on MDF_Request__c (before insert, after insert)
         {
             req.Submitter__c = ct.Id;
         }
+    }
+    
+    private Map<Id, Account> getAccounts(List<MDF_Request__c> mdfs)
+    {
+        Set<Id> accIds = new Set<Id>();
+        for(MDF_Request__c mdf : mdfs)
+        {
+            accIds.add(mdf.Account__c);
+        }
+        return new Map<Id, Account>([select Id, OwnerId, Owner.GEO_Region__c, Patch__c, Patch__r.CSM__c, Patch__r.CSM__r.GEO_Region__c, Patch__r.RSM__c, Patch__r.RSM__r.GEO_Region__c from Account where Id in :accIds]);
+    }
+    
+    private Map<Id, Contact> getContacts(List<MDF_Request__c> mdfs)
+    {
+        Set<Id> contactIds = new Set<Id>();
+        Map<Id, Contact> result = new Map<Id, Contact>();
+        for(MDF_Request__c mdf : mdfs)
+        {
+            if(mdf.Contact__c != null)
+            {
+                result.put(mdf.Contact__c, new Contact(Id=mdf.Contact__c));
+            }
+        }
+        return result;
     }
 }

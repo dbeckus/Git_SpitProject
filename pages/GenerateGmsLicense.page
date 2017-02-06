@@ -79,6 +79,7 @@
                     <apex:selectOption itemLabel="200" itemValue="200" />
                     <apex:selectOption itemLabel="500" itemValue="500" />
                     <apex:selectOption itemLabel="1000" itemValue="1000" />
+                    <apex:selectOption itemLabel="100000" itemValue="100000" />
                 </apex:selectList>
                 <apex:inputField label="Leave blank for perpetual-Expiration Date:" value="{!License.License_Expiration__c}" />
             </apex:pageBlockSection>

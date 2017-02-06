@@ -2,9 +2,9 @@
 <Role xmlns="http://soap.sforce.com/2006/04/metadata">
     <caseAccessLevel>None</caseAccessLevel>
     <contactAccessLevel>Edit</contactAccessLevel>
-    <description>Clear North Technologies, Inc. Partner User</description>
+    <description>Loffler (formerly known as Clear North Technologies, Inc.) Partner User</description>
     <mayForecastManagerShare>false</mayForecastManagerShare>
-    <name>Clear North Technologies, Inc. Partner User</name>
+    <name>Loffler (formerly known as Clear North Technologies, Inc.) Partner User</name>
     <opportunityAccessLevel>None</opportunityAccessLevel>
     <parentRole>ClearNorthTechnologiesPartnerManager</parentRole>
 </Role>

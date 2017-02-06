@@ -138,13 +138,21 @@
             <recipient>ewhite@silver-peak.com</recipient>
             <type>user</type>
         </recipients>
-        <recipients>
-            <recipient>jcameron@silver-peak.com</recipient>
-            <type>user</type>
-        </recipients>
         <senderAddress>silverpeakinfo@silver-peak.com</senderAddress>
         <senderType>OrgWideEmailAddress</senderType>
         <template>Partner_Account_Templates/New_Partner_Approved_Distributor_Alert</template>
+    </alerts>
+    <alerts>
+        <fullName>Account_Send_Partner_Application_Denial_Email</fullName>
+        <description>Account: Send Partner Application Denial Email</description>
+        <protected>false</protected>
+        <recipients>
+            <field>PrimaryPartnerContact__c</field>
+            <type>contactLookup</type>
+        </recipients>
+        <senderAddress>silverpeakinfo@silver-peak.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>Partner_Account_Templates/Partner_Application_Denial</template>
     </alerts>
     <alerts>
         <fullName>Expired_Flag_is_unchecked</fullName>
@@ -339,6 +347,15 @@
         <protected>false</protected>
     </fieldUpdates>
     <fieldUpdates>
+        <fullName>Account_Set_Type_Partner</fullName>
+        <field>Type</field>
+        <literalValue>Partner</literalValue>
+        <name>Account: Set Type = Partner</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+    </fieldUpdates>
+    <fieldUpdates>
         <fullName>AcctRecType2Other</fullName>
         <field>RecordTypeId</field>
         <lookupValue>Other</lookupValue>
@@ -378,6 +395,14 @@
         <protected>false</protected>
     </fieldUpdates>
     <fieldUpdates>
+        <fullName>ClearFirstCustomerQuarter</fullName>
+        <field>First_Asset_Quarter__c</field>
+        <name>ClearFirstCustomerQuarter</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Null</operation>
+        <protected>false</protected>
+    </fieldUpdates>
+    <fieldUpdates>
         <fullName>SetRecTypetoReseller</fullName>
         <field>RecordTypeId</field>
         <lookupValue>Resellers</lookupValue>
@@ -385,6 +410,15 @@
         <name>SetRecTypetoReseller</name>
         <notifyAssignee>false</notifyAssignee>
         <operation>LookupValue</operation>
+        <protected>false</protected>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Set_Account_to_ECSP</fullName>
+        <field>ECSP__c</field>
+        <literalValue>1</literalValue>
+        <name>Set Account to ECSP</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
         <protected>false</protected>
     </fieldUpdates>
     <fieldUpdates>
@@ -463,6 +497,20 @@
         <triggerType>onCreateOrTriggeringUpdate</triggerType>
     </rules>
     <rules>
+        <fullName>Account%3A Partner Application Status %3D Denied</fullName>
+        <actions>
+            <name>Account_Send_Partner_Application_Denial_Email</name>
+            <type>Alert</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>Account.Partner_Application_Status__c</field>
+            <operation>equals</operation>
+            <value>Denied</value>
+        </criteriaItems>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
         <fullName>Account%3A Partner Application Status %3D Pending</fullName>
         <active>true</active>
         <criteriaItems>
@@ -499,6 +547,39 @@
         </workflowTimeTriggers>
     </rules>
     <rules>
+        <fullName>Account%3A Reseller Agreement Acknowledged %3D True</fullName>
+        <actions>
+            <name>Account_Set_Type_Partner</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>Account.Reseller_Agreement_Acknowledged__c</field>
+            <operation>equals</operation>
+            <value>True</value>
+        </criteriaItems>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>Account%3A Reseller Agreement Acknowledged True</fullName>
+        <actions>
+            <name>Account_Set_Type_Partner</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>Account.Reseller_Agreement_Acknowledged__c</field>
+            <operation>equals</operation>
+            <value>True</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Account.Type</field>
+            <operation>notEqual</operation>
+            <value>Partner</value>
+        </criteriaItems>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
         <fullName>ActivateExpiredAccountField</fullName>
         <actions>
             <name>Send_Email_to_Marketing_when_the_expired_customer_is_checked</name>
@@ -521,6 +602,19 @@
         <active>true</active>
         <formula>ISCHANGED(LastModifiedDate) &amp;&amp; BL__SyncWithBoulderLogic__c == true</formula>
         <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>ClearFirstCustomerQuarter</fullName>
+        <actions>
+            <name>ClearFirstCustomerQuarter</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>Account.First_Asset_Date__c</field>
+            <operation>equals</operation>
+        </criteriaItems>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
     </rules>
     <rules>
         <fullName>DeactivateExpiredAccountField</fullName>
@@ -564,6 +658,17 @@
         <active>true</active>
         <formula>AND( ISCHANGED(Active_Asset_Count__c), Active_Asset_Count__c &gt;0, NOT(OR(ISPICKVAL(PRIORVALUE(Type),&quot;Customer&quot;),ISPICKVAL(PRIORVALUE(Type),&quot;Partner&quot;))) )</formula>
         <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>Set ECSP to True</fullName>
+        <actions>
+            <name>Set_Account_to_ECSP</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <description>Used to automate the ECSP value when the Parent assigned to the account is set as ECSP.  Intent is to lock the field but allow newly created accounts to get updated properly through workflow, regardless of ECSP field rights of the creator.</description>
+        <formula>Parent.ECSP__c = TRUE</formula>
+        <triggerType>onCreateOnly</triggerType>
     </rules>
     <rules>
         <fullName>SetRecordTypetoCustomer</fullName>

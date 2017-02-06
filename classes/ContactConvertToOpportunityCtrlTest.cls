@@ -17,10 +17,10 @@ private class ContactConvertToOpportunityCtrlTest
         insert acc;
         Contact ct = new Contact(LastName='acme', AccountId=acc.Id);
         insert ct;
-        Test.startTest();
+        
         ContactConvertToOpportunityController ctrl = new ContactConvertToOpportunityController(new ApexPages.StandardController(ct));
         ctrl.ConvertToNewOpportunity();
-         Test.stopTest();
+        
         System.assert(ctrl.OpportunityId != null);
     }
     

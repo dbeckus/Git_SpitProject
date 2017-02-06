@@ -412,7 +412,8 @@
     </alerts>
     <alerts>
         <fullName>NewHighPriorityCaseiscreated</fullName>
-        <ccEmails>tseteam@silver-peak.com</ccEmails>
+        <ccEmails>tseteam@silver-peak.com,</ccEmails>
+        <ccEmails>SEManagers@silver-peak.com</ccEmails>
         <description>New High Priority Case is created</description>
         <protected>false</protected>
         <recipients>
@@ -440,10 +441,6 @@
         </recipients>
         <recipients>
             <recipient>dhughes@silver-peak.com</recipient>
-            <type>user</type>
-        </recipients>
-        <recipients>
-            <recipient>hgelman@silver-peak.com</recipient>
             <type>user</type>
         </recipients>
         <recipients>
@@ -1188,6 +1185,7 @@ NOT(Contact.Testing__c)
             <type>FieldUpdate</type>
         </actions>
         <active>true</active>
+        <booleanFilter>1 AND 2 OR 3</booleanFilter>
         <criteriaItems>
             <field>Case.RecordTypeId</field>
             <operation>equals</operation>
@@ -1197,6 +1195,11 @@ NOT(Contact.Testing__c)
             <field>Case.OwnerId</field>
             <operation>contains</operation>
             <value>Technical</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Case.Origin</field>
+            <operation>equals</operation>
+            <value>Orchestrator</value>
         </criteriaItems>
         <description>Change the case record type and type Technical Support</description>
         <triggerType>onAllChanges</triggerType>

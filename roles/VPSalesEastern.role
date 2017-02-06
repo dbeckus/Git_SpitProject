@@ -6,5 +6,5 @@
     <mayForecastManagerShare>false</mayForecastManagerShare>
     <name>VP Sales - Northeast</name>
     <opportunityAccessLevel>Edit</opportunityAccessLevel>
-    <parentRole>SVPSales</parentRole>
+    <parentRole>VP_Sales_North_America</parentRole>
 </Role>

@@ -173,6 +173,19 @@ public class CustomAction
         }
     }
     
+    public class DefineChannelOnQuote implements IPageAction
+    {
+        public ActionResponse execute(Id recordId)
+        {
+            ActionResponse result = new ActionResponse();
+            result.url = '/apex/DefineChannelForQuote?id=' + recordId;
+            result.popup = true;
+            result.popupWidth = 750;
+            result.popupHeight = 600;
+            return result;
+        }
+    }
+    
     public class OpportunityForwardLead implements IPageAction
     {
         public ActionResponse execute(Id recordId)

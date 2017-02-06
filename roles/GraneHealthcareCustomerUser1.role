@@ -6,5 +6,5 @@
     <mayForecastManagerShare>false</mayForecastManagerShare>
     <name>Grane Healthcare Customer User</name>
     <opportunityAccessLevel>None</opportunityAccessLevel>
-    <parentRole>Sales_Manager_Central</parentRole>
+    <parentRole>VPSalesEastern</parentRole>
 </Role>

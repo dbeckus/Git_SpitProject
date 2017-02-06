@@ -64,7 +64,11 @@ public class RenewalOpportunityController
             for(Id productId : productId2OpportunityLineItem.keySet())
             {
                 OpportunityLineItem oppLineItem = productId2OpportunityLineItem.get(productId);
-                NewProducts.add(new ProductInfo(productId, oppLineItem.Quantity, (productId2UnitPrice.get(productId) * getDiscountFromOpportunityLineItem(oppLineItem)).setScale(2)));
+                Decimal unitPrice = productId2UnitPrice.get(productId);
+                if(unitPrice != null) 
+                {
+                    NewProducts.add(new ProductInfo(productId, oppLineItem.Quantity, (unitPrice * getDiscountFromOpportunityLineItem(oppLineItem)).setScale(2)));
+                }
             }
         }
     }

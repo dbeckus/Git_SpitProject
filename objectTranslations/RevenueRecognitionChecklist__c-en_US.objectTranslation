@@ -163,7 +163,7 @@
         <relationshipLabel><!-- Revenue Recognition Checklists --></relationshipLabel>
     </fields>
     <fields>
-        <help><!-- Does customer expect to receive Training or WAN Start at no charge?If yes, Please describe the expectations set with the customer. --></help>
+        <help><!-- Does the customer expect to receive WAN Start at no charge?If yes, Please describe the expectations set with the customer. --></help>
         <label><!-- Does customer expect to receive Training --></label>
         <name>TrainingOrWANStartExpectations__c</name>
         <picklistValues>

@@ -2,9 +2,9 @@
 <Role xmlns="http://soap.sforce.com/2006/04/metadata">
     <caseAccessLevel>None</caseAccessLevel>
     <contactAccessLevel>Edit</contactAccessLevel>
-    <description>BOC Aviation Pte. Ltd. Customer User</description>
+    <description>BOC Aviation Limited Customer User</description>
     <mayForecastManagerShare>false</mayForecastManagerShare>
-    <name>BOC Aviation Pte. Ltd. Customer User</name>
+    <name>BOC Aviation Limited Customer User</name>
     <opportunityAccessLevel>None</opportunityAccessLevel>
     <parentRole>AsiaSouthDirector</parentRole>
 </Role>

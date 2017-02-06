@@ -6,5 +6,5 @@
     <mayForecastManagerShare>false</mayForecastManagerShare>
     <name>Nova Chemicals Inc. Customer Manager</name>
     <opportunityAccessLevel>None</opportunityAccessLevel>
-    <parentRole>Sales_Manager_Central</parentRole>
+    <parentRole>SalesManagerEastern</parentRole>
 </Role>

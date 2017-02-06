@@ -75,6 +75,10 @@
                 <behavior>Edit</behavior>
                 <field>PayOnCreditCard__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Pay_by_wire__c</field>
+            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>

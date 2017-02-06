@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Workflow xmlns="http://soap.sforce.com/2006/04/metadata">
     <fieldUpdates>
-        <fullName>Add_to_nickname</fullName>
+        <fullName>Add_underscore_to_nickname</fullName>
         <field>CommunityNickname</field>
         <formula>&quot;_&quot;&amp;CommunityNickname</formula>
-        <name>Add _ to nickname</name>
+        <name>Add underscore to nickname</name>
         <notifyAssignee>false</notifyAssignee>
         <operation>Formula</operation>
         <protected>false</protected>
@@ -22,7 +22,7 @@
     <rules>
         <fullName>Underscore Added to Username when Customer Portal User Becomes Inactive</fullName>
         <actions>
-            <name>Add_to_nickname</name>
+            <name>Add_underscore_to_nickname</name>
             <type>FieldUpdate</type>
         </actions>
         <actions>

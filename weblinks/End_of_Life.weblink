@@ -2,7 +2,7 @@
 <CustomPageWebLink xmlns="http://soap.sforce.com/2006/04/metadata">
     <availability>online</availability>
     <description>End of life notices document
-https://silverpeaksystems.my.salesforce.com/a0O50000002d0pn</description>
+https://silverpeaksystems.my.salesforce.com/a0O3800000OMtKTEA1</description>
     <displayType>link</displayType>
     <encodingKey>UTF-8</encodingKey>
     <hasMenubar>false</hasMenubar>
@@ -17,5 +17,5 @@ https://silverpeaksystems.my.salesforce.com/a0O50000002d0pn</description>
     <protected>false</protected>
     <showsLocation>false</showsLocation>
     <showsStatus>false</showsStatus>
-    <url>https://silverpeaksystems.my.salesforce.com/a0O50000002d0pn</url>
+    <url>https://silverpeaksystems.my.salesforce.com/a0O3800000OMtKTEA1</url>
 </CustomPageWebLink>

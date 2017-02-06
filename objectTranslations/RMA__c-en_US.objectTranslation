@@ -200,6 +200,10 @@
             <translation><!-- Compact Flash Card --></translation>
         </picklistValues>
         <picklistValues>
+            <masterLabel>Compromised</masterLabel>
+            <translation><!-- Compromised --></translation>
+        </picklistValues>
+        <picklistValues>
             <masterLabel>Customer Damage</masterLabel>
             <translation><!-- Customer Damage --></translation>
         </picklistValues>

@@ -35,16 +35,19 @@ public  class RenewalAssetsHelper
                     asset.Bandwidth_Nodes__c= asset.Renewal_Nodes__c;
                 }
                 lstAssets.add(asset);
-                List<License__c> lstLicense=  [Select Id,Name,License_Expiration__c, AssetId__c from License__c where AssetId__c =: asset.Id];
-                if(lstLicense!=null && lstLicense.size()>0)
+                if(prodName!='EC-ORCH')
                 {
-                    for(License__c item: lstLicense)
+                    List<License__c> lstLicense=  [Select Id,Name,License_Expiration__c, AssetId__c from License__c where AssetId__c =: asset.Id];
+                    if(lstLicense!=null && lstLicense.size()>0)
                     {
-                        if(item!=null)
-                        {      
-                            
-                            item.License_Expiration__c= asset.Renewal_Date__c;
-                            lstLicenses.add(item);                
+                        for(License__c item: lstLicense)
+                        {
+                            if(item!=null)
+                            {      
+                                
+                                item.License_Expiration__c= asset.Renewal_Date__c;
+                                lstLicenses.add(item);                
+                            }
                         }
                     }
                 }
@@ -114,6 +117,7 @@ public  class RenewalAssetsHelper
         
         return true;
     }
+    
     public static boolean ClearRenewalDate(List<Asset> lstAsset)
     {
         if(lstAsset!=null && lstAsset.size()>0)
@@ -171,7 +175,6 @@ public  class RenewalAssetsHelper
             {
                 for(Asset asset: lstAssets)
                 {
-                    
                     License= new License__c();
                     License.AssetId__c= asset.Id;
                     License.Contact_for_Notification__c = asset.ContactId;
@@ -193,8 +196,6 @@ public  class RenewalAssetsHelper
                         newLicense.Model__c = existingLicense.Model__c;
                         newLicense.License_Expiration__c= asset.Renewal_Date__c;
                         newLicense.SerialNumber__c = existingLicense.SerialNumber__c;
-                        
-                        
                         concretLicenses.add(newLicense);
                     }
                 }
@@ -225,6 +226,79 @@ public  class RenewalAssetsHelper
         return true;
     }
     
+    public static List<License__c> CreateNewLicensesForBatch(List<Asset> lstAssets)
+    {
+        
+        License__c License =null;
+        List<License__c> concretLicenses = new List<License__c>();
+        Savepoint sp = Database.setSavePoint();
+        try
+        { 
+            if(lstAssets!=null && lstAssets.size()>0)
+            {
+                for(Asset asset: lstAssets)
+                {
+                    System.debug('Licenses'+ asset.Renewal_Date__c);
+                    License= new License__c();
+                    License.AssetId__c= asset.Id;
+                    License.Contact_for_Notification__c = asset.ContactId;
+                    if(asset.Product2.Product_Category__c == 'GMS' && (asset.Product2.Model__c == 'GX-V' || asset.Product2.Model__c == 'EC-ORCH'))
+                    {
+                        License.Quantity__c = Integer.valueOf(asset.GMS_Nodes__c);
+                    }
+                    else
+                    {
+                        License.Quantity__c = 1;
+                    }
+                    License.Start_Date__c = Date.today();
+                    //License.RenewalKeyGenerated__c = true;
+                    Integer numberOfLicenses = (asset.Product2.NumberOfLicenses__c == null) ? 1 : asset.Product2.NumberOfLicenses__c.intValue();
+                    List<License__c> existingLicenses = [select Id, Model__c, SerialNumber__c from License__c where AssetId__c=:asset.Id order by CreatedDate desc limit :numberOfLicenses];
+                    for(License__c existingLicense : existingLicenses)
+                    {
+                        License__c newLicense = License.clone(false, false, false, false);
+                        newLicense.Model__c = existingLicense.Model__c;
+                        newLicense.License_Expiration__c= asset.Renewal_Date__c;
+                        newLicense.SerialNumber__c = existingLicense.SerialNumber__c;
+                        concretLicenses.add(newLicense);
+                    }
+                }
+            }
+            if(concretLicenses!=null && concretLicenses.size()>0)
+            {
+                insert concretLicenses;
+            }
+        }
+        
+        catch(Exception ex)
+        {
+            ApexPages.addMessages(ex);
+            Database.rollback(sp);
+            SilverPeakutils.logException(ex);
+            return null;
+        }
+        
+        
+        return concretLicenses;
+    }
+    public static boolean GenerateLicensesForBatch(List<Id> lstLicenses)
+    {
+        
+        try
+        { 
+            VirtualAssetManager.encryptLicenses_Batch(lstLicenses);
+            LicenseIdJSON = JSON.serialize(lstLicenses);
+        }
+        catch(Exception ex)
+        {
+            ApexPages.addMessages(ex);
+            SilverPeakutils.logException(ex);
+            return false;
+        }
+        
+        
+        return true;
+    }
     public static void SendEmailsForPOCRequest(Request__c pocRequest)
     {
         string pocRenewalEmailType= '';

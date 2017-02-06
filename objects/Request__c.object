@@ -564,7 +564,7 @@ Target_End_Date__c- Today()
         <fullName>Extension_Justification__c</fullName>
         <externalId>false</externalId>
         <inlineHelpText>Input your justification and resubmit for approval</inlineHelpText>
-        <label>Why is an extension needed?</label>
+        <label>Extension Request</label>
         <length>32768</length>
         <trackHistory>false</trackHistory>
         <trackTrending>false</trackTrending>
@@ -1194,7 +1194,7 @@ NOT(ISBLANK(TEXT( PhysicalProduct1__c )))
         <referenceTo>User</referenceTo>
         <relationshipName>POC_Requests_RSMM</relationshipName>
         <required>false</required>
-        <trackHistory>false</trackHistory>
+        <trackHistory>true</trackHistory>
         <trackTrending>false</trackTrending>
         <type>Lookup</type>
     </fields>
@@ -1206,7 +1206,7 @@ NOT(ISBLANK(TEXT( PhysicalProduct1__c )))
         <referenceTo>User</referenceTo>
         <relationshipName>POC_Requests_VP</relationshipName>
         <required>false</required>
-        <trackHistory>false</trackHistory>
+        <trackHistory>true</trackHistory>
         <trackTrending>false</trackTrending>
         <type>Lookup</type>
     </fields>
@@ -1218,7 +1218,7 @@ NOT(ISBLANK(TEXT( PhysicalProduct1__c )))
         <referenceTo>User</referenceTo>
         <relationshipName>POC_Requests_RSM</relationshipName>
         <required>false</required>
-        <trackHistory>false</trackHistory>
+        <trackHistory>true</trackHistory>
         <trackTrending>false</trackTrending>
         <type>Lookup</type>
     </fields>
@@ -1258,7 +1258,7 @@ NOT(ISBLANK(TEXT( PhysicalProduct1__c )))
         <referenceTo>User</referenceTo>
         <relationshipName>POC_Requests_SED</relationshipName>
         <required>false</required>
-        <trackHistory>false</trackHistory>
+        <trackHistory>true</trackHistory>
         <trackTrending>false</trackTrending>
         <type>Lookup</type>
     </fields>
@@ -1280,7 +1280,7 @@ NOT(ISBLANK(TEXT( PhysicalProduct1__c )))
         <referenceTo>User</referenceTo>
         <relationshipName>POC_Requests_SEM</relationshipName>
         <required>false</required>
-        <trackHistory>false</trackHistory>
+        <trackHistory>true</trackHistory>
         <trackTrending>false</trackTrending>
         <type>Lookup</type>
     </fields>
@@ -1292,7 +1292,7 @@ NOT(ISBLANK(TEXT( PhysicalProduct1__c )))
         <referenceTo>User</referenceTo>
         <relationshipName>POC_Requests_SE</relationshipName>
         <required>false</required>
-        <trackHistory>false</trackHistory>
+        <trackHistory>true</trackHistory>
         <trackTrending>false</trackTrending>
         <type>Lookup</type>
     </fields>
@@ -1528,7 +1528,7 @@ ISPICKVAL( Opportunity__r.Account.Partner_Type__c,&quot;Service Provider&quot;)
         <fullName>Target_End_Date__c</fullName>
         <externalId>false</externalId>
         <inlineHelpText>This is the date the POC request is approved to run to</inlineHelpText>
-        <label>Target End Date</label>
+        <label>POC Expiration Date</label>
         <required>false</required>
         <trackHistory>true</trackHistory>
         <trackTrending>false</trackTrending>
@@ -3055,6 +3055,7 @@ AND(NOT(ISBLANK(PRIORVALUE(SE_Director__c))),ISCHANGED( SE_Director__c )),
 AND(NOT(ISBLANK(PRIORVALUE(SE_Manager__c))),ISCHANGED( SE_Manager__c ))
 ),
 NOT($User.Id ==&apos;00550000001jvSe&apos;),
+NOT($User.Id ==&apos;005500000045fp1&apos;),
 NOT($User.Id ==&apos;00550000002rxts&apos;)
 )</errorConditionFormula>
         <errorMessage>You are not allowed to change POC Approvers.</errorMessage>
@@ -3117,7 +3118,7 @@ Requested_End_Date__c - Target_End_Date__c &gt; 30</errorConditionFormula>
     </validationRules>
     <validationRules>
         <fullName>Requested_End_Date_cannot_exceed_90_days</fullName>
-        <active>true</active>
+        <active>false</active>
         <errorConditionFormula>ISPICKVAL( POC_Type__c ,&quot;Service Provider&quot;)&amp;&amp; 
 NOT(ISBLANK( Requested_End_Date__c )) &amp;&amp; 
 NOT(ISBLANK( Target_End_Date__c )) &amp;&amp; 
@@ -3134,7 +3135,7 @@ Requested_End_Date__c - Target_End_Date__c &gt; 90</errorConditionFormula>
     </validationRules>
     <validationRules>
         <fullName>enforce_approval_process_to_advance</fullName>
-        <active>true</active>
+        <active>false</active>
         <description>Enforce new approval submission instead of changing status</description>
         <errorConditionFormula>and( ISCHANGED(Status__c) ,  
 OR(ISPICKVAL(Status__c, &quot;Open&quot; ),
@@ -3203,18 +3204,25 @@ window.location.reload();</url>
 
 if(confirm(&quot;Once you submit this record for approval, you might not be able to edit it or recall it from the approval process depending on your settings. Continue?&quot;)) 
 { 
+var primaryQuote= sforce.connection.query(&quot;select Product_Type__c,Type from Opportunity where Id=&apos;{!Request__c.OpportunityId__c}&apos;&quot;); 
+var queueNameQueryResult = primaryQuote.getArray(&quot;records&quot;); 
 
-if(&apos;{!Request__c.RSM__c}&apos;== &quot;&quot; || &apos;{!Request__c.RSM_Manager__c}&apos;== &quot;&quot; || &apos;{!Request__c.RSM_VP_Sales__c}&apos;== &quot;&quot; || &apos;{!Request__c.SE__c}&apos;== &quot;&quot; || &apos;{!Request__c.SE_Manager__c}&apos;== &quot;&quot;|| &apos;{!Request__c.SE_Director__c}&apos;== &quot;&quot;)
-{
-alert(&quot;POC Approvers are blank. Check whether the opportunity is patched correctly or the managers are set properly on RSM and SE.&quot;);
-}
-else
-{
-
-
+var quoteInfo= sforce.connection.query(&quot;Select Id from Quote__C where Primary__c=true and Opportunity__c =&apos;{!Request__c.OpportunityId__c}&apos; and Id in (Select Quote__c from Quote_Line__c)&quot;); 
+var quoteInfoQueryResult = quoteInfo.getArray(&quot;records&quot;); 
 var accountInfo=sforce.connection.query(&quot;select AccountId from Opportunity where Id=&apos;{!Request__c.OpportunityId__c}&apos;&quot;); 
 var accountInfoQueryResult = accountInfo.getArray(&quot;records&quot;); 
 var accId=accountInfoQueryResult[0].AccountId; 
+
+var accDtl=sforce.connection.query(&quot;select ECSP__c from Account where Id=&apos;&quot;+accId+&quot;&apos;&quot;); 
+var accDtlQueryResult = accDtl.getArray(&quot;records&quot;); 
+var ecspAcc=accDtlQueryResult[0].ECSP__c; 
+ 
+if(ecspAcc==&quot;false&quot; &amp;&amp; ( &apos;{!Request__c.RSM__c}&apos;== &quot;&quot; || &apos;{!Request__c.RSM_Manager__c}&apos;== &quot;&quot; || &apos;{!Request__c.RSM_VP_Sales__c}&apos;== &quot;&quot; || &apos;{!Request__c.SE__c}&apos;== &quot;&quot; || &apos;{!Request__c.SE_Manager__c}&apos;== &quot;&quot;|| &apos;{!Request__c.SE_Director__c}&apos;== &quot;&quot; )) 
+{ 
+alert(&quot;POC Approvers are blank. Check whether the opportunity is patched correctly or the managers are set properly on RSM and SE.&quot;); 
+} 
+else 
+{ 
 
 var reqType= &apos;{!Request__c.POC_Type__c}&apos;; 
 var assetInfo=null; 
@@ -3223,11 +3231,19 @@ if(reqType==&quot;WAN Op&quot;)
 { 
 var queryData=&quot;select Id from Asset where (NOT Product2.Name like &apos;EC%&apos;) and Status in(&apos;Customer Subscription&apos;,&apos;Customer Subscription Expired&apos;) and Product2.Family=&apos;Virtual Image&apos; and AccountId=&apos;&quot;+ accId+&quot;&apos;&quot;; 
 assetInfo=sforce.connection.query(queryData); 
-
 } 
- if(assetInfo!=null &amp;&amp; assetInfo.size&gt;0 &amp;&amp; &apos;{!Request__c.Allow_Fulfillment__c}&apos;== false) 
+if(reqType==&quot;EdgeConnect&quot;) 
+{ 
+var queryData=&quot;select Id from Asset where Product2.Name like &apos;EC%&apos; and Status in(&apos;Customer Subscription Active&apos;,&apos;Customer Subscription Expired&apos;) and Product2.Family=&apos;Virtual Image&apos; and Product2.Product_Type__c=&apos;EDGECONNECT&apos; and AccountId=&apos;&quot;+ accId+&quot;&apos;&quot;; 
+assetInfo=sforce.connection.query(queryData); 
+} 
+if(assetInfo!=null &amp;&amp; assetInfo.size&gt;0 &amp;&amp; &apos;{!Request__c.Allow_Fulfillment__c}&apos;== false) 
 { 
 alert(&quot;You cannot fulfill this POC as the customer has existing assets. Please contact operations.&quot;); 
+} 
+else if(queueNameQueryResult!=null &amp;&amp; queueNameQueryResult[0].Type!=&quot;Marketplace&quot; &amp;&amp; (quoteInfoQueryResult== null ||quoteInfoQueryResult==&apos;&apos;)) 
+{ 
+alert(&quot;POC cannot be submitted for an approval as there is no primary quote defined for this opportunity or there are no quote lines added to the quote.&quot;); 
 } 
 else if((&apos;{!Request__c.Status__c}&apos;==&quot;Shipped&quot; ||&apos;{!Request__c.Status__c}&apos;==&quot;Shipped - Extended&quot;) &amp;&amp;&apos;{!JSENCODE(Request__c.Extension_Justification__c)}&apos;==&quot;&quot; ) 
 { 
@@ -3235,12 +3251,13 @@ alert(&quot;Extension Justification is required.&quot;);
 } 
 else 
 { 
+
 var approval = new sforce.ProcessSubmitRequest(); 
 approval.objectId = &quot;{!Request__c.Id}&quot;; 
 var processRes = sforce.connection.process([approval]); 
 window.location=(&quot;/{!Request__c.Id}&quot;); 
 } 
-}
+} 
 }</url>
     </webLinks>
     <webLinks>

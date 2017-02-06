@@ -9,6 +9,7 @@ public with sharing virtual class OpportunityController
     protected transient LayoutInfo layout;
     protected String currentSalesProcess = '';
     protected String currentStage = '';
+    protected String currentLayoutSet = '1';
     
     public OpportunityController(ApexPages.standardController sc) 
     {
@@ -41,14 +42,19 @@ public with sharing virtual class OpportunityController
             }
         }
         
-        List<User> users = [select Id, OverrideOpportunity__c, Profile.PermissionsModifyAllData from User where Id=:UserInfo.getUserId() limit 1];
+        List<User> users = [select Id, Override_Opportunity__c, Profile.PermissionsModifyAllData from User where Id=:UserInfo.getUserId() limit 1];
         IsAdmin = users[0].Profile.PermissionsModifyAllData;
-        IsOverridable = users[0].OverrideOpportunity__c;
+        IsOverridable = users[0].Override_Opportunity__c != '0';
+        currentLayoutSet = users[0].Override_Opportunity__c;
+        if(Test.isRunningTest())
+        {
+            currentLayoutSet = '1';  //no matter what current user's setting is, we always use set 1 which is always in custom setting.
+        }
     }
     
     public Boolean IsAdmin { get; set; }
     public Boolean IsOverridable { get; set; }
-    
+
     public Boolean IsEditable
     {
         get
@@ -68,18 +74,18 @@ public with sharing virtual class OpportunityController
     {
         get 
         {
-            List<DynamicLayout__c> result = [SELECT Name FROM DynamicLayout__c WHERE Object__c='Opportunity' and SalesProcess__c = :currentSalesProcess and Stage__c=:currentStage limit 1];
+            List<DynamicLayout__c> result = [SELECT Name FROM DynamicLayout__c WHERE Object__c='Opportunity' and SalesProcess__c = :currentSalesProcess and Stage__c=:currentStage and LayoutSet__c=:currentLayoutSet limit 1];
             if(result.size() == 0)
             {
-                result = [SELECT Name FROM DynamicLayout__c WHERE Object__c='Opportunity' and SalesProcess__c = :currentSalesProcess and Stage__c=null limit 1];
+                result = [SELECT Name FROM DynamicLayout__c WHERE Object__c='Opportunity' and SalesProcess__c = :currentSalesProcess and Stage__c=null and LayoutSet__c=:currentLayoutSet limit 1];
             }
             if(result.size() == 0)
             {
-                result = [SELECT Name FROM DynamicLayout__c WHERE Object__c='Opportunity' and SalesProcess__c = null and Stage__c=:currentStage limit 1];
+                result = [SELECT Name FROM DynamicLayout__c WHERE Object__c='Opportunity' and SalesProcess__c = null and Stage__c=:currentStage and LayoutSet__c=:currentLayoutSet limit 1];
             }
             if(result.size() == 0)
             {
-                result = [SELECT Name FROM DynamicLayout__c WHERE Object__c='Opportunity' and SalesProcess__c = null and Stage__c=null limit 1];
+                result = [SELECT Name FROM DynamicLayout__c WHERE Object__c='Opportunity' and SalesProcess__c = null and Stage__c=null and LayoutSet__c=:currentLayoutSet limit 1];
             }
             //null value to capture default
             if(result.size() == 0)
@@ -175,7 +181,7 @@ public with sharing virtual class OpportunityController
     public List<String> PredefinedButtons
     { 
         //these are buttons embedded in section
-        get { return new List<String> {'OpportunityDefineChannel', 'OpportunityPatchOverride'}; }
+        get { return new List<String> {'DefineChannelOnQuote', 'OpportunityDefineChannel', 'OpportunityPatchOverride'}; }
     }
     
     public String PredefinedLists 

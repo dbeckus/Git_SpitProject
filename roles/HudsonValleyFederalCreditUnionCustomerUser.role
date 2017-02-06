@@ -6,5 +6,5 @@
     <mayForecastManagerShare>false</mayForecastManagerShare>
     <name>Hudson Valley Federal Credit Union Customer User</name>
     <opportunityAccessLevel>None</opportunityAccessLevel>
-    <parentRole>VPSalesEastern</parentRole>
+    <parentRole>SalesManagerEastern</parentRole>
 </Role>

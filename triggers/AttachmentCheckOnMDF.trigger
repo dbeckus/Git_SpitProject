@@ -3,6 +3,7 @@
  */
 trigger AttachmentCheckOnMDF on Attachment (before insert) 
 {
+    /*
     List <Id> mdfIds = new List <Id>();
     List <Attachment> attachments = new List<Attachment>();
     List <MDF_Request__c> mdfs = new List <MDF_Request__c>();
@@ -39,4 +40,5 @@ trigger AttachmentCheckOnMDF on Attachment (before insert)
     {
         return (mdf.Total_Attendees__c != null && mdf.Total_Leads_Generated__c != null && mdf.Total_Qualified_Leads__c != null && mdf.Result_Detail__c != null && mdf.Activity_Complete__c == true && mdf.Estimated_Pipeline_Value__c != null && mdf.Requested_Reimbursement_Amount__c != null); 
     }
+    */
 }

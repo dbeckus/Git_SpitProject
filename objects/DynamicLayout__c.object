@@ -4,6 +4,17 @@
     <customSettingsVisibility>Public</customSettingsVisibility>
     <enableFeeds>false</enableFeeds>
     <fields>
+        <fullName>LayoutSet__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>&quot;1&quot; or &quot;2&quot;, related to the OverrideOpportunity field on User record. Determings which set of dynamic layout the user should see.</inlineHelpText>
+        <label>Layout Set</label>
+        <length>10</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
         <fullName>Object__c</fullName>
         <externalId>false</externalId>
         <inlineHelpText>Object name, such as &quot;Opportunity&quot; or &quot;Lead&quot;</inlineHelpText>

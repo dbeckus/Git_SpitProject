@@ -9,14 +9,7 @@ public class TestPOCRenewalAssetsController {
         insert acc;
         Contact contact = new Contact(FirstName = 'AcmeFirstname', LastName = 'AcmeLastname', Phone='123456789', Email = 'acme@acme.com' , accountId=acc.Id);
         insert contact;
-        Profile prof = [SELECT Id FROM Profile WHERE Name='1.4- Intl Regional Sales Manager']; 
-        User techUser = new User(Alias = 'standt', Email='testUser@testtechuser.com', 
-                                 EmailEncodingKey='UTF-8', LastName='Testing', LanguageLocaleKey='en_US', 
-                                 LocaleSidKey='en_US', ProfileId = prof.Id, 
-                                 TimeZoneSidKey='America/Los_Angeles', UserName='testUser@testtechuser.com');
         
-        techUser.IsActive =true;
-        insert techUser;
         Opportunity opportunity = new Opportunity();
         opportunity.Name = 'acme';
         opportunity.AccountId = acc.Id;
@@ -29,7 +22,7 @@ public class TestPOCRenewalAssetsController {
         opportunity.POC_Type__c = 'POC';
         opportunity.Deal_Type__c = 'Replication';
         opportunity.Product_Type__c='Both';
-        opportunity.Technical_Responsible__c=techUser.Id;
+        opportunity.Technical_Responsible__c=UserInfo.getUserId();
         insert opportunity;
         
         Request__c request = new Request__c(POC_Contact__c = contact.Id);
@@ -74,14 +67,7 @@ public class TestPOCRenewalAssetsController {
         insert acc;
         Contact contact = new Contact(FirstName = 'AcmeFirstname', LastName = 'AcmeLastname', Phone='123456789', Email = 'acme@acme.com' , accountId=acc.Id);
         insert contact;
-        Profile prof = [SELECT Id FROM Profile WHERE Name='1.4- Intl Regional Sales Manager']; 
-        User techUser = new User(Alias = 'standt', Email='testUser@testtechuser.com', 
-                                 EmailEncodingKey='UTF-8', LastName='Testing', LanguageLocaleKey='en_US', 
-                                 LocaleSidKey='en_US', ProfileId = prof.Id, 
-                                 TimeZoneSidKey='America/Los_Angeles', UserName='testUser@testtechuser.com');
-        
-        techUser.IsActive =true;
-        insert techUser;
+    
         Opportunity opportunity = new Opportunity();
         opportunity.Name = 'acme';
         opportunity.AccountId = acc.Id;
@@ -94,7 +80,7 @@ public class TestPOCRenewalAssetsController {
         opportunity.POC_Type__c = 'POC';
         opportunity.Deal_Type__c = 'Replication';
         opportunity.Product_Type__c='Both';
-        opportunity.Technical_Responsible__c=techUser.Id;
+        opportunity.Technical_Responsible__c=UserInfo.getUserId();
         insert opportunity;
         
         Request__c request = new Request__c(POC_Contact__c = contact.Id);

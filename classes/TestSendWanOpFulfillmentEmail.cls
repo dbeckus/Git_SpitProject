@@ -1,6 +1,6 @@
 @IsTest
 public class TestSendWanOpFulfillmentEmail {
-
+    
     @IsTest
     public static void TestSendEmail_VX()
     {
@@ -31,7 +31,7 @@ public class TestSendWanOpFulfillmentEmail {
         
         ApexPages.currentPage().getParameters().put('rowIndex', '1');
         controller.removeLine();
-               
+        
         controller.save();
         System.assert(testShipment.Id != null);
         System.assertEquals(1, [SELECT count() FROM Shipped_Line__c WHERE Shipment_Id__c = :testShipment.Id]);
@@ -39,9 +39,9 @@ public class TestSendWanOpFulfillmentEmail {
         testShipment.Send_Email__c=true;
         update testShipment;
         Test.stopTest();
-       
+        
     }
-     @IsTest
+    @IsTest
     public static void TestSendEmail_VRX()
     {
         Account testAccount = new Account(Name='acme');
@@ -70,25 +70,26 @@ public class TestSendWanOpFulfillmentEmail {
         controller.addLine();
         
         ApexPages.currentPage().getParameters().put('rowIndex', '1');
-        controller.removeLine(); 
+        controller.removeLine();
+        Test.startTest();
+        
         controller.save();
         System.assert(testShipment.Id != null);
         System.assertEquals(1, [SELECT count() FROM Shipped_Line__c WHERE Shipment_Id__c = :testShipment.Id]);
         List<Asset> lstAsset =[Select Id,Model__c,Key_Generated__c,Marketplace_Sourced_Opp__c from Asset where Id in (Select Asset__c from Shipped_Line__c where Shipment_Id__c =:testShipment.id)];
-         List<Asset> lstAssetToUpdate=new List<Asset>();
+        List<Asset> lstAssetToUpdate=new List<Asset>();
         for(Asset asset: lstAsset)
         {
             asset.Key_Generated__c=true;
             lstAssetToUpdate.add(asset);
         }
         update lstAssetToUpdate;
-        Test.startTest();
         testShipment.Send_Email__c=true;
         update testShipment;
         Test.stopTest();
         
         
         
-       
+        
     }
 }

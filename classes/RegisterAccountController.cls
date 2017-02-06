@@ -4,6 +4,9 @@
  *@changelog
  *21APR2016 - removed commented email domains used validation and updated error messaging
  *10JUN2016: Andy Getz - set account partner type to resellers and set GEO Supported to selection from region field
+ *07NOV2016: Jimmy Li - set contact lead cource to Partner Portal, at line 104, 109 and 116.
+ *09NOV2016: Daniel Wu - Disable submit button while the form is being submitted
+ *22DEC2016: Zhong - updated 'illegal' to 'invalid'
  */
 public class RegisterAccountController 
 {
@@ -20,6 +23,7 @@ public class RegisterAccountController
     public String errorMessage { get; set; }
     public Map<String,String> dataBinding { get; set; }
     private List<Contact> conList = new List<Contact>();
+    private Boolean onSubmitting = false;
 
     public RegisterAccountController(ApexPages.StandardController stdController)
     {
@@ -49,9 +53,14 @@ public class RegisterAccountController
     public PageReference insertAccount()
     {
         errorMessage = '';
-        if(validateSucceeded() == false)
+        if(validateSucceeded() == false || onSubmitting == True)
         {
+            OnSubmitting = false;
             return null;
+        }
+        else
+        {
+            onSubmitting = true;
         }
         if(!String.isBlank(ppapa.Region__c))
         {
@@ -89,7 +98,7 @@ public class RegisterAccountController
         try
         {
             insert acct;
-            Account acct1 = [select Id, Name, Patch__c from Account where Id =: acct.Id limit 1];
+            Account acct1 = [select Id, Name, Patch__c, CAM__c, OwnerId, Partner_Signatory_Contact_E_Mail_Address__c, Partner_Marketing_Contact_E_Mail_Address__c,PrimaryPartnerContact__c,SignatoryPartnerContact__c,MarketingPartnerContact__c from Account where Id =: acct.Id limit 1];
             List<Patch__c> patch = [select Id, CSM__c from Patch__c where Id =: acct1.Patch__c limit 1];
             if(patch.size() > 0)
             {
@@ -100,16 +109,19 @@ public class RegisterAccountController
             }
             primaryContact.AccountId = acct1.Id;
             primaryContact.Primary_Account_Contact__c = true;
+            primaryContact.LeadSource = 'Partner Portal';//
             conList.add(primaryContact);
             if(signatoryContact.Email != primaryContact.Email)
             {
                 signatoryContact.AccountId = acct1.Id;
+                signatoryContact.LeadSource = 'Partner Portal';//
                 conList.add(signatoryContact);
                 acct1.Partner_Signatory_Contact_E_Mail_Address__c = signatoryContact.Email;
             }
             if((marketingContact.Email != primaryContact.Email) && (marketingContact.Email != signatoryContact.Email))
             {
                 marketingContact.AccountId = acct1.Id;
+                marketingContact.LeadSource = 'Partner Portal';//
                 conList.add(marketingContact);
                 acct1.Partner_Marketing_Contact_E_Mail_Address__c = marketingContact.Email;
             }
@@ -122,11 +134,13 @@ public class RegisterAccountController
             }
             update acct1;
             succeeded = true; 
-            submitAccout(acct1);            
+            submitAccout(acct1);
         }
         catch(Exception e)
         {
+            onSubmitting = false;
             ApexPages.addMessages(e);
+            system.debug(e.getMessage());
         }
         return null;
     }
@@ -220,8 +234,8 @@ public class RegisterAccountController
                 }
                 if(similarDomains.contains(acct.Email_Domain_Used__c))
                 {
-                    errorMessage += ';:Email Domains Used - Please use the domain of your business email address. If you’ve reached this message in error, please email us at channel@silver-peak.com.';
-                    acct.Email_Domain_Used__c.addError('Please use the domain of your business email address. If you’ve reached this message in error, please email us at channel@silver-peak.com.');
+                    errorMessage += ';:Email Domains Used - Please use the domain of your business email address. If your company is a registered partner, please request a login at the login page. If you have any question, please email us at channel@silver-peak.com.';
+                    acct.Email_Domain_Used__c.addError('Please use the domain of your business email address. If your company is a registered partner, please request a login at the login page. If you have any question, please email us at channel@silver-peak.com.');
                     isPass = false;
                 }
             }
@@ -313,7 +327,7 @@ public class RegisterAccountController
             isPass = false;
         }else if(!Pattern.matches(regex, dataBinding.get('pcEmail')))
         {
-            errorMessage += ';pcEmail:Primary Partner Contact Email is illegal';
+            errorMessage += ';pcEmail:Primary Partner Contact Email is invalid';
             isPass = false;
         }
         if(String.isBlank(primaryContact.Title))
@@ -390,7 +404,7 @@ public class RegisterAccountController
             isPass = false;
         }else if(!Pattern.matches(regex, dataBinding.get('scEmail')))
         {
-            errorMessage += ';scEmail:Partner Signatory Contact Email is illegal';
+            errorMessage += ';scEmail:Partner Signatory Contact Email is invalid';
             isPass = false;
         }
         if(String.isBlank(signatoryContact.Title))
@@ -467,7 +481,7 @@ public class RegisterAccountController
             isPass = false;
         }else if(!Pattern.matches(regex, dataBinding.get('mcEmail')))
         {
-            errorMessage += ';mcEmail:Partner Marketing Contact Email Illegal';
+            errorMessage += ';mcEmail:Partner Marketing Contact Email invalid';
             isPass = false;
         }
         if(String.isBlank(marketingContact.Title))

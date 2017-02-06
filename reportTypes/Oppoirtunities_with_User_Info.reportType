@@ -524,11 +524,6 @@
             <field>Week_1_Pipeline__c</field>
             <table>User</table>
         </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>OverrideOpportunity__c</field>
-            <table>User</table>
-        </columns>
         <masterLabel>Users</masterLabel>
     </sections>
     <sections>
@@ -2283,11 +2278,6 @@
         <columns>
             <checkedByDefault>false</checkedByDefault>
             <field>Week_1_Pipeline__c</field>
-            <table>User.Opportunities2CSM__r.OpportunityTeamMembers</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>OverrideOpportunity__c</field>
             <table>User.Opportunities2CSM__r.OpportunityTeamMembers</table>
         </columns>
         <masterLabel>Opportunity Team</masterLabel>

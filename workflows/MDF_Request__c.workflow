@@ -14,6 +14,42 @@
         <template>MDF/MDF_Update_Email</template>
     </alerts>
     <alerts>
+        <fullName>Funding_Request_Send_Feedback_Needed_Template</fullName>
+        <ccEmails>andy@snapbi.com</ccEmails>
+        <description>Funding Request: Send Feedback Needed Template</description>
+        <protected>false</protected>
+        <recipients>
+            <type>owner</type>
+        </recipients>
+        <senderAddress>silverpeakinfo@silver-peak.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>MDF/Funding_Request_Feedback_Alert_Template</template>
+    </alerts>
+    <alerts>
+        <fullName>Funding_Request_Send_New_Funding_Request_Submitted_Template</fullName>
+        <description>Funding Request: Send New Funding Request Submitted Template</description>
+        <protected>false</protected>
+        <recipients>
+            <field>CSM__c</field>
+            <type>userLookup</type>
+        </recipients>
+        <senderAddress>silverpeakinfo@silver-peak.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>MDF/New_Funding_Request_Submitted</template>
+    </alerts>
+    <alerts>
+        <fullName>MDF_Request_is_Approved_External</fullName>
+        <ccEmails>amenjivar@silver-peak.com</ccEmails>
+        <description>MDF Request is Approved (External)</description>
+        <protected>false</protected>
+        <recipients>
+            <type>owner</type>
+        </recipients>
+        <senderAddress>silverpeakinfo@silver-peak.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>MDF/MDF_Request_is_Approved_External</template>
+    </alerts>
+    <alerts>
         <fullName>MDF_has_been_Submitted_External</fullName>
         <ccEmails>pchavez@silver-peak.com</ccEmails>
         <description>MDF has been Submitted (External)</description>
@@ -46,7 +82,7 @@
             <type>owner</type>
         </recipients>
         <senderType>CurrentUser</senderType>
-        <template>MDF/New_MDF_Approved_Post_Event</template>
+        <template>MDF/New_MDF_Approved_Post_Event_HTML</template>
     </alerts>
     <alerts>
         <fullName>New_MDF_Request_has_Been_Denied_Internal_APAC</fullName>
@@ -221,6 +257,33 @@
         <protected>false</protected>
     </fieldUpdates>
     <fieldUpdates>
+        <fullName>Funding_Request_Set_MDF_Status_Denied</fullName>
+        <field>MDF_Status__c</field>
+        <literalValue>Denied</literalValue>
+        <name>Funding Request: Set MDF Status = Denied</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Funding_Request_Set_Status_Cancelled</fullName>
+        <field>MDF_Status__c</field>
+        <literalValue>Cancelled</literalValue>
+        <name>Funding Request: Set Status = Cancelled</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Funding_Request_Set_Status_Value_Below</fullName>
+        <field>MDF_Status__c</field>
+        <literalValue>Completed</literalValue>
+        <name>Funding Request: Set Status Value Below</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+    </fieldUpdates>
+    <fieldUpdates>
         <fullName>Move_MDF_Request_To_Pending</fullName>
         <field>Approval_Status__c</field>
         <literalValue>Pending</literalValue>
@@ -259,12 +322,65 @@
         <reevaluateOnChange>true</reevaluateOnChange>
     </fieldUpdates>
     <fieldUpdates>
+        <fullName>Update_MDF_Status_to_Past_Due</fullName>
+        <description>Update MDF Status to Past Due</description>
+        <field>MDF_Status__c</field>
+        <literalValue>Past Due</literalValue>
+        <name>Update MDF Status to Past Due</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+    </fieldUpdates>
+    <fieldUpdates>
         <fullName>Update_Reason_Denied_to_Blank</fullName>
         <field>Reason_Rejected__c</field>
         <name>Update &quot;Reason Denied&quot; to Blank</name>
         <notifyAssignee>false</notifyAssignee>
         <operation>Literal</operation>
         <protected>false</protected>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Send_Reminder_To_true</fullName>
+        <description>Update Send Reminder To true</description>
+        <field>SendReminder__c</field>
+        <literalValue>1</literalValue>
+        <name>Update Send Reminder To true</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>true</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Send_Reminder_To_true_1</fullName>
+        <description>Update Send Reminder To true After 1 Day of Activity Date</description>
+        <field>SendReminder__c</field>
+        <literalValue>1</literalValue>
+        <name>Update Send Reminder To true After 1 Day</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>true</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Send_Reminder_To_true_1_Day</fullName>
+        <description>Update Send Reminder To true after  Activity is past due  1days</description>
+        <field>SendReminder__c</field>
+        <literalValue>1</literalValue>
+        <name>Update Send Reminder To true</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Send_Reminder_To_true_After_1_Day</fullName>
+        <description>Update Send Reminder To true After 1 Day</description>
+        <field>SendReminder__c</field>
+        <literalValue>1</literalValue>
+        <name>Update Send Reminder To true After 1 Day</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>true</reevaluateOnChange>
     </fieldUpdates>
     <fieldUpdates>
         <fullName>Updated_RT_to_Approved</fullName>
@@ -277,10 +393,47 @@
         <protected>false</protected>
     </fieldUpdates>
     <rules>
+        <fullName>Funding Request%3A Activity Complete %3D True and Status %3D Approved</fullName>
+        <actions>
+            <name>Funding_Request_Set_Status_Value_Below</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>MDF_Request__c.Activity_Complete__c</field>
+            <operation>equals</operation>
+            <value>True</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>MDF_Request__c.Approval_Status__c</field>
+            <operation>equals</operation>
+            <value>Approved</value>
+        </criteriaItems>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>Funding Request%3A Feedback Complete %3D True</fullName>
+        <actions>
+            <name>Funding_Request_Set_Status_Value_Below</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>false</active>
+        <criteriaItems>
+            <field>MDF_Request__c.Feedback_Complete__c</field>
+            <operation>equals</operation>
+            <value>True</value>
+        </criteriaItems>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
         <fullName>MDF Request Reason Entered</fullName>
         <actions>
             <name>New_MDF_Request_has_been_Denied_External</name>
             <type>Alert</type>
+        </actions>
+        <actions>
+            <name>Funding_Request_Set_MDF_Status_Denied</name>
+            <type>FieldUpdate</type>
         </actions>
         <actions>
             <name>Update_MDF_Request_To_Deny</name>
@@ -312,6 +465,10 @@
     <rules>
         <fullName>New MDF Request is Approved</fullName>
         <actions>
+            <name>MDF_Request_is_Approved_External</name>
+            <type>Alert</type>
+        </actions>
+        <actions>
             <name>Approval_Date_Updates</name>
             <type>FieldUpdate</type>
         </actions>
@@ -328,6 +485,10 @@
         <description>This fires when the Purchase Request is approved. Updated MDF Fields (Approval Status, Approval Status (Hidden), and Alerts Partner &amp; Channel Team</description>
         <triggerType>onCreateOrTriggeringUpdate</triggerType>
         <workflowTimeTriggers>
+            <actions>
+                <name>Update_Send_Reminder_To_true_After_1_Day</name>
+                <type>FieldUpdate</type>
+            </actions>
             <offsetFromField>MDF_Request__c.Activity_Date__c</offsetFromField>
             <timeLength>1</timeLength>
             <workflowTimeTriggerUnit>Days</workflowTimeTriggerUnit>
@@ -345,5 +506,33 @@ CONTAINS(TEXT(CreatedBy.UserType) , &apos;Partner&apos;),
 ISBLANK(GEO__c) 
 )</formula>
         <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>When Send Reminder is true and Activity Complete is false</fullName>
+        <actions>
+            <name>Update_MDF_Status_to_Past_Due</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>MDF_Request__c.SendReminder__c</field>
+            <operation>equals</operation>
+            <value>True</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>MDF_Request__c.Activity_Complete__c</field>
+            <operation>equals</operation>
+            <value>False</value>
+        </criteriaItems>
+        <description>When Send Reminder is true and Activity Complete is false, Change the mdf status to Past Due</description>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+        <workflowTimeTriggers>
+            <timeLength>7</timeLength>
+            <workflowTimeTriggerUnit>Days</workflowTimeTriggerUnit>
+        </workflowTimeTriggers>
+        <workflowTimeTriggers>
+            <timeLength>1</timeLength>
+            <workflowTimeTriggerUnit>Days</workflowTimeTriggerUnit>
+        </workflowTimeTriggers>
     </rules>
 </Workflow>

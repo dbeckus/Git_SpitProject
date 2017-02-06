@@ -103,18 +103,36 @@
             <apex:commandLink styleClass="grayBtn clearAllBtn" value="Clear All " action="{!formReset}" immediate="true"  />
             <div class="clearfix"></div>
             <div class="radioOptBox">
-            
-            <div class="radioName">Paying on Credit Card?</div>
-            <div class="checkCon"><apex:inputcheckbox id="payCredit" value="{!Purchasing_Request__c.PayOnCreditCard__c}"/></div>
-            <div class="clearfix"></div>
-            
-            <div class="radioName">Send PO to vendor?</div>
-            <div class="checkCon"><apex:inputcheckbox id="sendPO" value="{!sendToVendor}" /><!--<apex:selectRadio enabledClass="radioCon" value="{!Purchasing_Request__c.Send_PO_to_Vendor__c}"  styleClass="radioCon"><apex:selectOption itemLabel="Yes" itemValue="Yes" /><apex:selectOption itemLabel="No" itemValue="No" /></apex:selectRadio>--></div>
-            <div class="clearfix"></div>
-            
-            <div class="radioName">Partner Mktg Program?</div>
-            <div class="checkCon"><apex:inputcheckbox id="Channel_Mkt_Program__c" value="{!Purchasing_Request__c.Channel_Mkt_Program__c}"/></div>
-            <div class="clearfix"></div>
+            <table>
+            <tr>
+            <td>
+                &nbsp;&nbsp;Paying on Credit Card?
+            </td>
+            <td>
+             &nbsp;<apex:inputcheckbox id="payCredit" value="{!Purchasing_Request__c.PayOnCreditCard__c}"/>
+            </td>
+            <td>
+             &nbsp; &nbsp;Paying By Wire?
+            </td>
+            <td>
+             &nbsp;<apex:inputcheckbox id="payWire" value="{!Purchasing_Request__c.Pay_by_wire__c}"/>
+            </td>
+            </tr>
+            <tr>
+            <td>
+                &nbsp; &nbsp;Send PO to vendor?
+            </td>
+            <td>
+                 &nbsp;<apex:inputcheckbox id="sendPO" value="{!sendToVendor}" />
+            </td>
+            <td>
+                 &nbsp; &nbsp;Partner Mktg Program?
+             </td>
+            <td>
+             &nbsp;<apex:inputcheckbox id="Channel_Mkt_Program__c" value="{!Purchasing_Request__c.Channel_Mkt_Program__c}"/>
+            </td>
+            </tr>
+            </table>
             </div>
             </div><div class="clearfix"></div>
             </div><!--purchaseOptCon-->

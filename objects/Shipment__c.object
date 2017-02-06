@@ -267,7 +267,7 @@
         <openType>onClickJavaScript</openType>
         <protected>false</protected>
         <requireRowSelection>false</requireRowSelection>
-        <url>openPopup(&quot;/apex/POAssetsRenewal?Id={!Purchase_Order__c.Id}&quot;, &quot;VirtualPOFulfillment&quot;, 1100, 500, &quot;width=1100, height=500, toolbar=no, status=no, directories=no, menubar=no,resizable=no,scrollable=no&quot;, false);</url>
+        <url>openPopup(&quot;/apex/POAssetsRenewal?Id={!Purchase_Order__c.Id}&quot;, &quot;VirtualPOFulfillment&quot;, 800, 600, &quot;width=800, height=600, toolbar=no, status=no, directories=no, menubar=no,resizable=yes,scrollable=yes&quot;, false);</url>
     </webLinks>
     <webLinks>
         <fullName>New_Shipment</fullName>

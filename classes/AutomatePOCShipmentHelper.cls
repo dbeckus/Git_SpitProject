@@ -16,7 +16,7 @@ public class AutomatePOCShipmentHelper {
             else
             {
                 
-                /*Account custAccount=RetreiveAccount(pocContact);
+                Account custAccount=RetreiveAccount(pocContact);
                 if(custAccount!=null)
                 {
                     if(custAccount.Type=='Customer' || custAccount.Type=='Prospect')
@@ -28,9 +28,7 @@ public class AutomatePOCShipmentHelper {
                 else
                 {
                     return false;
-                }*/
-                
-                return false;
+                }
             }
             
         }
@@ -45,7 +43,7 @@ public class AutomatePOCShipmentHelper {
     {
         if(!ValidatePOCContactPartnerUser(pocContact))
         {
-            /*Account partnerAccount=RetreiveAccount(pocContact);
+            Account partnerAccount=RetreiveAccount(pocContact);
             if(partnerAccount!=null && partnerAccount.Type=='Partner')
             {
                 // Create partner user
@@ -96,9 +94,7 @@ public class AutomatePOCShipmentHelper {
             else
             {
                 return false;
-            }*/
-            
-            return false;
+            }
             
         }
         else
@@ -125,7 +121,6 @@ public class AutomatePOCShipmentHelper {
         }
         return false;
     }
-    /*
     public static boolean UpdateSelfCheckRegistration(Id pocContact)
     {
         boolean isSucess=false;
@@ -152,7 +147,7 @@ public class AutomatePOCShipmentHelper {
             
         }
         return isSucess;
-    }*/
+    }
     
     public static Account RetreiveAccount(Id pocContact)
     {

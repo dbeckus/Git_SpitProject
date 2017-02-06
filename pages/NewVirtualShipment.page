@@ -1,4 +1,6 @@
 <apex:page standardController="Shipment__c" extensions="NewVirtualShipmentController" id="page">
+      <apex:includeScript value="{!URLFOR($Resource.jQuery, 'jquery-1.4.3.min.js')}" />
+    <apex:includeScript value="{!URLFOR($Resource.jQuery, 'autoresize.jquery.js')}" />
     <style type="text/css">
         .product-select {
         width: 100%;
@@ -280,7 +282,6 @@
                                 <apex:param name="rowIndex" value="{!index}" />
                             </apex:commandLink>
                         </apex:column>                       
-                        
                         <apex:column width="40%">
                             <apex:facet name="header">
                                 <span>Product</span>
@@ -331,31 +332,127 @@
                             </select>
                         </apex:column>
                         
-                        <apex:column headerValue="End Date" width="15%">
+                        <apex:column id="EndDateCol" width="15%">
+                               <apex:facet name="header">
+                            	End Date&nbsp;<img src="/s.gif" alt="Expand" class="moreArrow" title="Expand" onclick="showDatePopup('EndDate')" style="cursor:pointer"/>
+                        	</apex:facet>
                             <span class="end-date-output"></span>
                             <span class="end-date-input">
                                 <apex:inputField id="endDate" value="{!assetInfo.Asset.Evaluation_End_Date__c}" />
-                                <apex:variable var="index" value="{!index + 1}" />
                             </span>
                         </apex:column>
-                        <apex:column headerValue="Service Support Start Date" width="10%">
+                        <apex:column id="SupportStartDateCol" width="10%">
+                             <apex:facet name="header">
+                            	Service Support Start Date&nbsp;<img src="/s.gif" alt="Expand" class="moreArrow" title="Expand" onclick="showDatePopup('ServStart')" style="cursor:pointer"/>
+                        	</apex:facet>
                             <span class="service-start-date-output"></span>
                             <span class="service-start-date-input">
                                 <apex:inputField id="servicestartDate" value="{!assetInfo.Asset.Service_Support_Start_Date__c}" />
-                                <apex:variable var="index" value="{!index + 1}" />
+                                
                             </span>
                         </apex:column>
-                        <apex:column headerValue="Service Support End Date" width="10%">
+                        <apex:column id="SupportEndDateCol" width="10%">
+                            <apex:facet name="header">
+                            	Service Support End Date&nbsp;<img src="/s.gif" alt="Expand" class="moreArrow" title="Expand" onclick="showDatePopup('ServEnd')" style="cursor:pointer"/>
+                        	</apex:facet>
                             <span class="service-end-date-output"></span>
                             <span class="service-end-date-input">
                                 <apex:inputField id="serviceendDate" value="{!assetInfo.Asset.Service_Support_End_Date__c}" />
-                                <apex:variable var="index" value="{!index + 1}" />
                             </span>
                         </apex:column>
+                       <apex:variable var="index" value="{!index + 1}" />
                     </apex:pageblockTable>
                     <apex:commandLink value="Add Row" action="{!addLine}" reRender="assetTable" oncomplete="refreshAssetTable()" styleClass="add-line-link"/>
                 </apex:outputPanel>
             </apex:pageblocksection>
         </apex:pageBlock>
+        
+         <div class="overlayBackground" style="display: none; width: 1477px; height: 1817px; "></div>
+        <div id="InlineEditDialog" class="overlayDialog inlineEditDialog" style="max-width: 500px; display: none; visibility: visible; left: 480px; top: 294px; ">
+            <div class="topRight">
+                <div class="topLeft">
+                    <img id="InlineEditDialogX" onmouseover="this.className = 'dialogCloseOn'" onmouseout="this.className = 'dialogClose'" onclick="closeDatePopup()" class="dialogClose" src="/s.gif"/>
+                    <h2 id="InlineEditDialogTitle">Set value to all rows</h2>
+                </div>
+            </div>
+            <div class="middle">
+                <div class="innerContent" id="InlineEditDialogContent">
+                    <div class="activeField">
+                        <div class="inlineEditCompoundDiv" style="width:300px;height:100px">
+                            <span id="popUpSupportStartDate">Support Start Date&nbsp;<apex:inputField value="{!TempAsset.Service_Support_Start_Date__c}" /><br/><br/></span>
+                            <span id="popUpSupportEndDate">Support End Date&nbsp;<apex:inputField value="{!TempAsset.Service_Support_End_Date__c}" /><br/><br/></span>
+                            <span id="popUpEndDate">End Date&nbsp;<apex:inputField value="{!TempAsset.Evaluation_End_Date__c}" /><br/><br/></span>
+                        </div>
+                    </div>
+                    <div></div>
+                    <div style="display: none; "></div>
+                    <div id="InlineEditDialog_buttons" class="buttons">
+                        <input class="btn" type="button" value="OK" onclick="setValueToAllRows();closeDatePopup()"/>
+                        <input class="btn" type="button" value="Cancel" onclick="closeDatePopup()"/>
+                    </div>
+                </div>
+            </div>
+            <div class="bottomRight">
+                <div class="bottomLeft"></div>
+            </div>
+        </div>
     </apex:form> 
+    
+    <script type="text/javascript">
+    function hideDateInput()
+    {
+        $(".dateInput .dateFormat").hide();
+    }
+    function setFocusOnLoad() {}
+    var popUp = "";
+    function showDatePopup(popUpType)
+    {
+        popUp = popUpType;
+        $(".overlayBackground").show();
+        $("#InlineEditDialog").show();
+        $(".datePicker").css("z-index", 200);
+        if(popUpType == "ServStart")
+        {
+            $("#popUpSupportStartDate").show();
+             $("#popUpSupportEndDate").hide();
+             $("#popUpEndDate").hide();
+            $("#datePicker").css("z-index", 50103);
+        }
+        if(popUpType == "ServEnd")
+        {
+            $("#popUpSupportEndDate").show();
+             $("#popUpSupportStartDate").hide();
+             $("#popUpEndDate").hide();
+            $("#datePicker").css("z-index", 50103);
+        }
+         if(popUpType == "EndDate")
+        {
+            $("#popUpSupportEndDate").hide();
+             $("#popUpSupportStartDate").hide();
+             $("#popUpEndDate").show();
+            $("#datePicker").css("z-index", 50103);
+        }
+    }
+    function closeDatePopup()
+    {
+        $(".overlayBackground").hide();
+        $("#InlineEditDialog").hide();
+    }
+    function setValueToAllRows()
+    {
+        if(popUp == "ServStart")
+        {
+            $('td[id$="SupportStartDateCol"] input').val($("#popUpSupportStartDate input").val());
+        }
+        if(popUp == "ServEnd")
+        {
+            $('td[id$="SupportEndDateCol"] input').val($("#popUpSupportEndDate input").val());
+        }
+         if(popUp == "EndDate")
+        {
+            $('td[id$="EndDateCol"] input').val($("#popUpEndDate input").val());
+        }
+        
+    }
+    </script>
 </apex:page>

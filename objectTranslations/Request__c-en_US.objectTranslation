@@ -332,7 +332,7 @@
     </fields>
     <fields>
         <help><!-- Input your justification and resubmit for approval --></help>
-        <label><!-- Why is an extension needed? --></label>
+        <label><!-- Extension Request --></label>
         <name>Extension_Justification__c</name>
     </fields>
     <fields>
@@ -783,7 +783,7 @@
     </fields>
     <fields>
         <help><!-- This is the date the POC request is approved to run to --></help>
-        <label><!-- Target End Date --></label>
+        <label><!-- POC Expiration Date --></label>
         <name>Target_End_Date__c</name>
     </fields>
     <fields>
@@ -963,16 +963,51 @@
     <layouts>
         <layout>Request Layout</layout>
         <sections>
-            <label><!-- Approver Section --></label>
-            <section>Approver Section</section>
+            <label><!-- Approvers --></label>
+            <section>Approvers</section>
         </sections>
         <sections>
             <label><!-- CC List --></label>
             <section>CC List</section>
         </sections>
         <sections>
+            <label><!-- Contact and Comments --></label>
+            <section>Contact and Comments</section>
+        </sections>
+        <sections>
             <label><!-- Custom Links --></label>
             <section>Custom Links</section>
+        </sections>
+        <sections>
+            <label><!-- Extension Justification --></label>
+            <section>Extension Justification</section>
+        </sections>
+        <sections>
+            <label><!-- Products and Ship To --></label>
+            <section>Products and Ship To</section>
+        </sections>
+        <sections>
+            <label><!-- Success Criteria --></label>
+            <section>Success Criteria</section>
+        </sections>
+    </layouts>
+    <layouts>
+        <layout>Sys Admin Layout</layout>
+        <sections>
+            <label><!-- CC List --></label>
+            <section>CC List</section>
+        </sections>
+        <sections>
+            <label><!-- Contact and Comments --></label>
+            <section>Contact and Comments</section>
+        </sections>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+        <sections>
+            <label><!-- POC Approvers --></label>
+            <section>POC Approvers</section>
         </sections>
         <sections>
             <label><!-- Products and Ship To --></label>

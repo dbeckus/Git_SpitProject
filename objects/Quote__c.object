@@ -400,6 +400,16 @@ AND(ISPICKVAL(Opportunity__r.Type,&apos;Training/WanStart&apos;), ConsultingDisc
         <type>Checkbox</type>
     </fields>
     <fields>
+        <fullName>IsSelectedForApproval__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>IsSelectedForApproval</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
         <fullName>Level3Required__c</fullName>
         <externalId>false</externalId>
         <formula>if(
@@ -685,10 +695,10 @@ OR((Opportunity_Amount__c - Quote_Amount_Rollup__c) &lt;100 ,(Quote_Amount_Rollu
     <fields>
         <fullName>RegPartProdDisc__c</fullName>
         <externalId>false</externalId>
-        <formula>MAX(Opportunity__r.Registered_Partner__r.Registered_Discount_Product__c ,
- Opportunity__r.Registered_Partner__r.Standard_Discount_Product__c,
- Opportunity__r.Primary_Partner__r.Registered_Discount_Product__c ,
- Opportunity__r.Primary_Partner__r.Standard_Discount_Product__c,
+        <formula>MAX(Opportunity__r.Registered_Partner__r.Registered_Discount_EdgeConnect__c ,
+ Opportunity__r.Registered_Partner__r.Standard_Discount_EdgeConnect__c,
+ Opportunity__r.Primary_Partner__r.Registered_Discount_EdgeConnect__c ,
+ Opportunity__r.Primary_Partner__r.Standard_Discount_EdgeConnect__c,
  Opportunity__r.Account.Product_Discount__c   )</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <inlineHelpText>this is maximum discount available without requiring approval for a quote on a given opportunity. It is the greater of the primary partner negotiated discount rates or the customer negotiated discount rates.</inlineHelpText>
@@ -957,6 +967,20 @@ OR((Opportunity_Amount__c - Quote_Amount_Rollup__c) &lt;100 ,(Quote_Amount_Rollu
         <type>Picklist</type>
     </fields>
     <fields>
+        <fullName>SteelBrick_Quote__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>SteelBrick Quote</label>
+        <referenceTo>SBQQ__Quote__c</referenceTo>
+        <relationshipLabel>Silver Peak Quotes</relationshipLabel>
+        <relationshipName>SteelBrickQuotes</relationshipName>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
         <fullName>TmpApprovalRequired__c</fullName>
         <externalId>false</externalId>
         <formula>IF(or( 
@@ -1076,36 +1100,51 @@ alert(&quot;Quote must be approved and primary.&quot;);
     <webLinks>
         <fullName>NewQuoteFromOpportunity</fullName>
         <availability>online</availability>
+        <description>Change Log:
+14DEC2016: Replaced with code from Production - AG
+14DEC2016: Replaced Registering_Partner__c with Primary_Partner__c</description>
         <displayType>massActionButton</displayType>
         <linkType>javascript</linkType>
         <masterLabel>New Quote</masterLabel>
         <openType>onClickJavaScript</openType>
         <protected>false</protected>
         <requireRowSelection>false</requireRowSelection>
-        <url>{!REQUIRESCRIPT(&quot;/soap/ajax/29.0/connection.js&quot;)} 
+        <url>{!REQUIRESCRIPT(&quot;/soap/ajax/37.0/connection.js&quot;)} 
 
-if(&quot;{!Opportunity.Primary_PartnerId__c}&quot; == &quot;&quot;)
-{
-    alert(&quot;Sorry, you must identify and enable the primary partner discount before you can create a quote&quot;);
-}
+/*var userId=sforce.connection.getUserInfo().userId; 
+var profileName=&apos;{!$Profile.Name}&apos; ; 
+var profileValues = [&quot;1.0 Restrict Sales Management&quot;,&quot;1.1- Regional Sales Manager&quot;,&quot;1.2- Channel Sales Manager&quot;,&quot;1.3- Inside Sales&quot;,&quot;1.4- Intl Regional Sales Manager&quot;,&quot;1.6- Sales Engineer Team&quot;]; 
+var sbUser= sforce.connection.query(&quot;SELECT UserId FROM UserPackageLicense WHERE PackageLicense.NamespacePrefix = &apos;SBQQ&apos; and userId=&apos;&quot;+userId+&quot;&apos;&quot;); 
+
+if(sbUser.records &amp;&amp; profileValues.indexOf(profileName)&gt;-1 ) 
+{ 
+alert(&apos;You are a steelbrick user. Please create a steelbrick quote.&apos;); 
+} 
+else 
+{ */
+if(&quot;{!Opportunity.Primary_Partner__c}&quot; == &quot;&quot;) 
+{ 
+alert(&quot;Sorry, you must identify and enable the primary partner discount before you can create a quote&quot;); 
+} 
 else if(&quot;{!Opportunity.Type}&quot; == &quot;Support Renewal&quot;) 
 { 
 window.location = &quot;/apex/newquote?id={!Opportunity.Id}&quot;; 
 } 
-else
-{
-    var contactRoles = sforce.connection.query(&quot;select Id from OpportunityContactRole where OpportunityId=&apos;{!Opportunity.Id}&apos;&quot;);
-    if(contactRoles.records) 
-    {
-        window.location = &quot;/apex/newquote?id={!Opportunity.Id}&quot;;
-    }
-    else {
-        if(confirm(&quot;Please identify at least one contact role before creating a new quote, i.e. Decision Maker, Budget Owner, Influencer.&quot;))
-        {
-            window.location = &quot;/p/opp/ContactRoleEditUi/e?oppid={!Opportunity.Id}&amp;retURL=%2F{!Opportunity.Id}&quot;;
-        }
-    }
-}</url>
+else 
+{ 
+var contactRoles = sforce.connection.query(&quot;select Id from OpportunityContactRole where OpportunityId=&apos;{!Opportunity.Id}&apos;&quot;); 
+if(contactRoles.records) 
+{ 
+window.location = &quot;/apex/newquote?id={!Opportunity.Id}&quot;; 
+} 
+else { 
+if(confirm(&quot;Please identify at least one contact role before creating a new quote, i.e. Decision Maker, Budget Owner, Influencer.&quot;)) 
+{ 
+window.location = &quot;/p/opp/ContactRoleEditUi/e?oppid={!Opportunity.Id}&amp;retURL=%2F{!Opportunity.Id}&quot;; 
+} 
+} 
+} 
+//}</url>
     </webLinks>
     <webLinks>
         <fullName>Oppo2Quote</fullName>

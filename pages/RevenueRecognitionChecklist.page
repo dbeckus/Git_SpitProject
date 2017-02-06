@@ -155,7 +155,7 @@
                     <apex:inputTextarea value="{!rrChecklist.Future_Features_Expected_Specifics__c}" id="ffExpectedDesc"  rows="3"  style="width:100%" />
                 </apex:pageBlockSectionItem>
                 <apex:pageBlockSectionItem id="customerTraining" >
-                    <span>Does customer expect to receive Training or WAN Start at no charge?</span>
+                    <span>Does the customer expect to receive WAN Start at no charge?</span>
                     <a title="{!$ObjectType.RevenueRecognitionChecklist__c.Fields.TrainingOrWANStartExpectations__c.inlineHelpText}" class="questionMark" href="#">
                         <img src="{!URLFOR($Resource.HelpText,'/res/pic/questionMark.gif')}" alt="" /></a>      
                     <apex:inputField value="{!rrChecklist.TrainingOrWANStartExpectations__c}" id="training" onchange="enable(this,'page:form:pageBlock:section:trainingDescItem:trainingDesc')"/>

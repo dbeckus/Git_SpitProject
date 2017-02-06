@@ -154,7 +154,7 @@
                         <apex:facet name="header">
                             Product&nbsp;<img src="/s.gif" alt="Expand" class="moreArrow" title="Expand" onclick="showDatePopup('ProList')" style="cursor:pointer"/>
                         </apex:facet>
-                        <apex:selectList id="ProList" size="1" value="{!ShipLine.SelectProductId}" rendered="{!NOT(ShipLine.AssetIsExisted)}" onchange="loadAssetsPN(this.value, {!FLOOR(index)});hideshowGMS(this.value, {!FLOOR(index)});hideshowServiceProduct(this.value, {!FLOOR(index)});">
+                        <apex:selectList id="ProList" size="1" value="{!ShipLine.SelectProductId}" rendered="{!NOT(ShipLine.AssetIsExisted)}" onchange="loadAssetsPN(this.value, {!FLOOR(index)});hideshowServiceProduct(this.value, {!FLOOR(index)});">
                             <apex:selectOptions value="{!ProductList}"/>
                         </apex:selectList>
                         <apex:outputText value="{!ShipLine.ProductCode}" rendered="{!ShipLine.AssetIsExisted}"/>
@@ -170,15 +170,16 @@ Part Number&nbsp;<img src="/s.gif" alt="Expand" class="moreArrow" title="Expand"
                         <apex:inputHidden value="{!ShipLine.PartNumber}" id="PartNumber"/>
                         <apex:outputText rendered="{!ShipLine.AssetIsExisted}">{!ShipLine.PartNumber}</apex:outputText>
                     </apex:column>
-                    <apex:column headerValue="GMS Node">
-                        <apex:inputField value="{!ShipLine.TempAsset.GMS_Nodes__c}" id="GMSNodesList"  />
-                        <apex:variable var="index" value="{!index + 1}" />
-                    </apex:column>
-                    <apex:column headerValue="Service Support Start Date" width="10%">
+                    <apex:column id="SupportStartDateCol">
+                        <apex:facet name="header">
+                            Service Support Start Date <img src="/s.gif" alt="Expand" class="moreArrow" title="Expand" onclick="showDatePopup('SupportStartDate')" style="cursor:pointer"/>
+                        </apex:facet>
                         <apex:inputField id="servicestartDate" value="{!ShipLine.TempAsset.Service_Support_Start_Date__c}" />
-                        <apex:variable var="index" value="{!index + 1}" />
                     </apex:column>
-                    <apex:column headerValue="Service Support End Date" width="10%">
+                    <apex:column id="SupportEndDateCol">
+                        <apex:facet name="header">
+                            Service Support End Date <img src="/s.gif" alt="Expand" class="moreArrow" title="Expand" onclick="showDatePopup('SupportEndDate')" style="cursor:pointer"/>
+                        </apex:facet>
                         <apex:inputField id="serviceendDate" value="{!ShipLine.TempAsset.Service_Support_End_Date__c}" />
                         <apex:variable var="index" value="{!index + 1}" />
                     </apex:column>
@@ -216,6 +217,8 @@ Part Number&nbsp;<img src="/s.gif" alt="Expand" class="moreArrow" title="Expand"
                                 </apex:selectList><br/> 
                             </span>
                             <span id="popUpPartNumber">Part Number&nbsp;<apex:inputField value="{!TempAsset.Part_Number__c}" /></span>
+                            <span id="popUpStartDate">Support Start Date&nbsp;<apex:inputField value="{!TempAsset.Service_Support_Start_Date__c}" /><br/><br/></span>
+                            <span id="popUpEndDate">Support End Date&nbsp;<apex:inputField value="{!TempAsset.Service_Support_End_Date__c}" /><br/><br/></span>
                         </div>
                     </div>
                     <div></div>
@@ -250,6 +253,8 @@ Part Number&nbsp;<img src="/s.gif" alt="Expand" class="moreArrow" title="Expand"
             $("#popUpShipDate").show();
             $("#popUpPostShip").hide();
             $("#popUpProduct").hide();
+            $("#popUpStartDate").hide();
+            $("#popUpEndDate").hide();
             $("#popUpPartNumber").hide();
             $("#datePicker").css("z-index", 50103);
         }
@@ -258,6 +263,8 @@ Part Number&nbsp;<img src="/s.gif" alt="Expand" class="moreArrow" title="Expand"
             $("#popUpShipDate").hide();
             $("#popUpPostShip").show();
             $("#popUpProduct").hide();
+            $("#popUpStartDate").hide();
+            $("#popUpEndDate").hide();
             $("#popUpPartNumber").hide();
         }
             else if(popUpType == "PartNumber")
@@ -265,6 +272,8 @@ Part Number&nbsp;<img src="/s.gif" alt="Expand" class="moreArrow" title="Expand"
                 $("#popUpShipDate").hide();
                 $("#popUpPostShip").hide();
                 $("#popUpProduct").hide();
+                $("#popUpStartDate").hide();
+                $("#popUpEndDate").hide();
                 $("#popUpPartNumber").show();
             }
                 else if(popUp == "ProList")
@@ -272,8 +281,30 @@ Part Number&nbsp;<img src="/s.gif" alt="Expand" class="moreArrow" title="Expand"
                     $("#popUpShipDate").hide();
                     $("#popUpPostShip").hide();
                     $("#popUpPartNumber").hide();
+                    $("#popUpStartDate").hide();
+                    $("#popUpEndDate").hide();
                     $("#popUpProduct").show();
                 }
+                    else if(popUp == "SupportStartDate")
+                    {
+                        $("#popUpShipDate").hide();
+                        $("#popUpPostShip").hide();
+                        $("#popUpPartNumber").hide();
+                        $("#popUpStartDate").show();
+                        $("#popUpEndDate").hide();
+                        $("#popUpProduct").hide();
+                        $("#datePicker").css("z-index", 50103);
+                    }
+                        else if(popUp == "SupportEndDate")
+                        {
+                            $("#popUpShipDate").hide();
+                            $("#popUpPostShip").hide();
+                            $("#popUpPartNumber").hide();
+                            $("#popUpStartDate").hide();
+                            $("#popUpEndDate").show();
+                            $("#popUpProduct").hide();
+                            $("#datePicker").css("z-index", 50103);
+                        }
     }
     function closeDatePopup()
     {
@@ -303,6 +334,14 @@ Part Number&nbsp;<img src="/s.gif" alt="Expand" class="moreArrow" title="Expand"
                     
                     
                 }
+                    else if(popUp == "SupportStartDate")
+                    {
+                        $('td[id$="SupportStartDateCol"] input').val($("#popUpStartDate input").val());
+                    }
+                        else if(popUp == "SupportEndDate")
+                        {
+                            $('td[id$="SupportEndDateCol"] input').val($("#popUpEndDate input").val());
+                        }
     }
     $(
         function()

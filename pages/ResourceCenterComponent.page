@@ -90,7 +90,7 @@
                         <td><a href="{!URLFOR('/_ui/knowledge/ui/KnowledgeHome')}" class="btn-link" target="_top">Search our Knowledge Base</a></td>
                     </tr>
                     <tr>
-                        <td><a href="{!$Page.Releases}" class="btn-link" target="_top">Download Software</a></td>
+                        <td><a href="{!$Page.Downloads}" class="btn-link" target="_top">Download Software</a></td>
                         <td><a href="{!$Page.PickAssetForNewRMA}" class="btn-link" target="_top">Open a Self Service RMA</a></td>
                     </tr>
                     <tr>
@@ -102,7 +102,7 @@
                         <td><a href="{!$Page.DocumentListing}" class="btn-link" target="_top">Supplemental Documents</a></td>
                     </tr>
                     <tr>
-                        <td><a href="{!$Page.AssetListView_NXToVX}" class="btn-link" target="_top">Convert NX to VX</a></td>
+                        <td><a href="{!$Page.AssetListView_NXToVX}" class="btn-link" target="_top">Convert NX/GMS to VX/GMS</a></td>
                         
                     </tr>
                 </table>

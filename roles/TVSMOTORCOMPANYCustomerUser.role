@@ -6,5 +6,5 @@
     <mayForecastManagerShare>false</mayForecastManagerShare>
     <name>TVS MOTOR COMPANY Customer User</name>
     <opportunityAccessLevel>None</opportunityAccessLevel>
-    <parentRole>EastAsiaDirector</parentRole>
+    <parentRole>AsiaSouthDirector</parentRole>
 </Role>

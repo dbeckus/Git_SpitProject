@@ -3,6 +3,7 @@ public class AttachmentCheckOnMDFTest {
     @isTest
     public static void test()
     {
+    /**
         List<User> portalUsers = [select Id from User where UserType='PowerPartner' and IsActive=true limit 1];
         if(portalUsers.size() > 0)
         {
@@ -22,5 +23,6 @@ public class AttachmentCheckOnMDFTest {
                 }
             }
         }
+        */
     }
 }

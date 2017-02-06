@@ -1,6 +1,10 @@
 public class AutomatePOCRenewalExtensions implements Schedulable, Database.Batchable<sObject>, Database.Stateful
 {
-    
+    public List<License__c> gmsLicenseIds;
+    public AutomatePOCRenewalExtensions() 
+    {
+        gmsLicenseIds= new List<License__c>();  
+    }
     public void execute(SchedulableContext context)
     {
         Database.executeBatch(new AutomatePOCRenewalExtensions(), 10);
@@ -14,7 +18,9 @@ public class AutomatePOCRenewalExtensions implements Schedulable, Database.Batch
     public void execute(Database.BatchableContext context, List<sObject> scope)
     {
         List<Request__c> lstReq=(List<Request__c>)scope;
-        
+        List<License__c> licenseIds= new List<License__c>();
+        List<License__c> virlicenseIds= new List<License__c>();
+        List<Id> virIds= new List<Id>();
         for(Request__c pocReq: lstReq)
         {
             SavePoint sp= Database.setSavepoint();
@@ -23,6 +29,7 @@ public class AutomatePOCRenewalExtensions implements Schedulable, Database.Batch
                 List<Asset> lstAssetsForRenewal=[Select Id, Name,License_End_Date__c,Renewal_Nodes__c,Product2.Name,Status,Ship_Date__c, Product2.Product_Category__c,Product2.NumberOfLicenses__c,Hosted_GMS__c,GMS_Nodes__c,Product2.Model__c,Renewal_Date__c,Licenses_Nodes__c,Bandwidth_Nodes__c from Asset where  POCRequest__c=:pocReq.Id and Product2.Family='Virtual Image' and Status='Customer Evaluation'];
                 List<Asset> assets= new List<Asset>();
                 List<Asset> ecOrchAsset= new List<Asset>();
+                
                 for(Asset item: lstAssetsForRenewal)
                 {
                     item.Renewal_Date__c=pocReq.Target_End_Date__c;
@@ -34,7 +41,7 @@ public class AutomatePOCRenewalExtensions implements Schedulable, Database.Batch
                     {
                         item.Renewal_Nodes__c= item.Bandwidth_Nodes__c;
                     }
-                    if(item.Product2.Name=='EC-ORCH')
+                    if(item.Product2.Name=='EC-ORCH' || item.Product2.Model__c=='GX-V' || item.Product2.Product_Category__c == 'GMS')
                     {
                         ecOrchAsset.add(item);
                     }
@@ -45,12 +52,15 @@ public class AutomatePOCRenewalExtensions implements Schedulable, Database.Batch
                 }
                 if(pocReq.POC_Type__c=='WAN Op')
                 {
-                    RenewalAssetsHelper.CreateNewLicenses(assets);
+                    virlicenseIds.addAll(RenewalAssetsHelper.CreateNewLicensesForBatch(assets));
                 }
                 else if(pocReq.POC_Type__c=='EdgeConnect' || pocReq.POC_Type__c=='Service Provider')
                 {
                     RenewalAssetsHelper.RenewEdgeConnectLicense(assets);
-                    RenewalAssetsHelper.CreateNewLicenses(ecOrchAsset);
+                }
+                if(ecOrchAsset.size()>0)
+                {
+                    gmsLicenseIds.addAll(RenewalAssetsHelper.CreateNewLicensesForBatch(ecOrchAsset));
                 }
                 RenewalAssetsHelper.SendEmailsForPOCRequest(pocReq);
                 RenewalAssetsHelper.ClearRenewalDate(assets);
@@ -63,13 +73,28 @@ public class AutomatePOCRenewalExtensions implements Schedulable, Database.Batch
             }   
             
         }
-        
-        
+        if(virlicenseIds.size()>0)
+        {
+            for(License__c item:virlicenseIds)
+            {
+                virIds.add(item.id);
+            }
+            AutomatePOCShipmentHelper.encryptLicenses(virIds);
+        }
         
     }
     
     public void finish(Database.BatchableContext context)
     {
+        List<Id> gmsIds= new List<Id>();
+        if(gmsLicenseIds.size()>0)
+        {
+            for(License__c item:gmsLicenseIds)
+            {
+                gmsIds.add(item.id);
+            }
+            AutomatePOCShipmentHelper.encryptLicenses(gmsIds);
+        }
         if(!Test.isRunningTest())
         {
             AutomatePOCRenewalExtensions obj= new AutomatePOCRenewalExtensions();

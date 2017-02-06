@@ -19,7 +19,7 @@
             <field>Registered_Partner_Sales_Rep__c</field>
             <type>contactLookup</type>
         </recipients>
-        <senderAddress>silverpeakinfo@silver-peak.com</senderAddress>
+        <senderAddress>channel@silver-peak.com</senderAddress>
         <senderType>OrgWideEmailAddress</senderType>
         <template>DealRegistrations/DealRegistrationApproved</template>
     </alerts>
@@ -31,6 +31,10 @@
             <field>CSM__c</field>
             <type>userLookup</type>
         </recipients>
+        <recipients>
+            <field>Patch_Owner__c</field>
+            <type>userLookup</type>
+        </recipients>
         <senderAddress>notifications@silver-peak.com</senderAddress>
         <senderType>OrgWideEmailAddress</senderType>
         <template>DealRegistrations/Deal_Registration_Denied_Reason_Required</template>
@@ -39,6 +43,10 @@
         <fullName>Deal_Registration_Submitted_Email_Alert_to_Marketing</fullName>
         <description>Deal Registration Submitted Email Alert to Marketing</description>
         <protected>false</protected>
+        <recipients>
+            <recipient>Team Owner</recipient>
+            <type>accountTeam</type>
+        </recipients>
         <recipients>
             <recipient>mchristiansen@silver-peak.com</recipient>
             <type>user</type>
@@ -57,6 +65,14 @@
         <protected>false</protected>
         <recipients>
             <field>CSM__c</field>
+            <type>userLookup</type>
+        </recipients>
+        <recipients>
+            <field>ISR__c</field>
+            <type>userLookup</type>
+        </recipients>
+        <recipients>
+            <field>Patch_Owner__c</field>
             <type>userLookup</type>
         </recipients>
         <senderAddress>silverpeakinfo@silver-peak.com</senderAddress>
@@ -101,6 +117,10 @@
         </recipients>
         <recipients>
             <field>ISR__c</field>
+            <type>userLookup</type>
+        </recipients>
+        <recipients>
+            <field>Patch_Owner__c</field>
             <type>userLookup</type>
         </recipients>
         <senderAddress>notifications@silver-peak.com</senderAddress>
@@ -216,7 +236,7 @@
             <field>Registered_Partner_Sales_Rep__c</field>
             <type>contactLookup</type>
         </recipients>
-        <senderAddress>silverpeakinfo@silver-peak.com</senderAddress>
+        <senderAddress>channel@silver-peak.com</senderAddress>
         <senderType>OrgWideEmailAddress</senderType>
         <template>DealRegistrations/DealRegistrationAcknowledged</template>
     </alerts>

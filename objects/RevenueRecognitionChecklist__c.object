@@ -322,7 +322,7 @@
     <fields>
         <fullName>TrainingOrWANStartExpectations__c</fullName>
         <externalId>false</externalId>
-        <inlineHelpText>Does customer expect to receive Training or WAN Start at no charge?If yes, Please describe the expectations set with the customer.</inlineHelpText>
+        <inlineHelpText>Does the customer expect to receive WAN Start at no charge?If yes, Please describe the expectations set with the customer.</inlineHelpText>
         <label>Does customer expect to receive Training</label>
         <picklist>
             <picklistValues>

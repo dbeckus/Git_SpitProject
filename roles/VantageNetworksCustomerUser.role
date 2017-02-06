@@ -2,9 +2,9 @@
 <Role xmlns="http://soap.sforce.com/2006/04/metadata">
     <caseAccessLevel>None</caseAccessLevel>
     <contactAccessLevel>Edit</contactAccessLevel>
-    <description>Vantage Networks Customer User</description>
+    <description>Vantage Networks Pty Ltd Customer User</description>
     <mayForecastManagerShare>false</mayForecastManagerShare>
-    <name>Vantage Networks Customer User</name>
+    <name>Vantage Networks Pty Ltd Customer User</name>
     <opportunityAccessLevel>None</opportunityAccessLevel>
     <parentRole>ANZADirector</parentRole>
 </Role>

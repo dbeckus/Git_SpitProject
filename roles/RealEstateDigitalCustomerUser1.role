@@ -6,5 +6,5 @@
     <mayForecastManagerShare>false</mayForecastManagerShare>
     <name>Real Estate Digital Customer User</name>
     <opportunityAccessLevel>None</opportunityAccessLevel>
-    <parentRole>CFO</parentRole>
+    <parentRole>SalesManagerWestern</parentRole>
 </Role>

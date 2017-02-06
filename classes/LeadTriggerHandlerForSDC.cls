@@ -12,6 +12,7 @@
  * 7/27/2015 Matt Yuan - Updated move lead off the SD Campaign logic.
  * 8/18/2015 Matt Yuan - Added 'MQL', 'SAL', 'MQC' in Lead Lifecycle Stages.
  * 2/10/2016 Andy Getz - Added condition to remove leads from campaign when Lead Status is changed (case 20160130-182792)
+ * 10/24/2016 Zhong - Removed an unnecessary SOQL
  */
 
 public class LeadTriggerHandlerForSDC extends TriggerHandler 
@@ -35,17 +36,21 @@ public class LeadTriggerHandlerForSDC extends TriggerHandler
         String sdCampaignId = SalesDevelopmentHelper.getSDCampaign();
         List<CampaignMember> newSDCampaignMembers = new List<CampaignMember>();
         Set<Id> leadIdsToBeMovedOff = new Set<Id>();
-        List<Lead> leadsToBeUpdated = new List<Lead>();
+        Map<Id, Lead> leadsToBeUpdated = new Map<Id, Lead>();
 
         Lead oldLead;
-        for(Lead newLead : [select Id, IsConverted, Lead_Lifecycle_Stage__c, Lead_Sub_Status__c, Contact_Me__c, BANT_Qualified__c, Status from Lead where Id in :trigger.newMap.keyset()])
+        for(SObject obj : Trigger.new)
         {
+            Lead newLead = (Lead)obj;
             if(Trigger.isInsert)
             {
                 if(moveToSDCampaignStages.contains(newLead.Lead_Lifecycle_Stage__c) && !excludedStatuses.contains(newLead.Status))
                 {
-                    newLead.Lead_Sub_Status__c = null;
-                    leadsToBeUpdated.add(newLead);
+                    if(!leadsToBeUpdated.containsKey(newLead.Id))
+                    {
+                        leadsToBeUpdated.put(newLead.Id, new Lead(Id=newLead.Id));
+                    }
+                    leadsToBeUpdated.get(newLead.Id).Lead_Sub_Status__c = null;
                     newSDCampaignMembers.add(new CampaignMember(LeadId = newLead.Id, CampaignId = sdCampaignId));
                 }
             }
@@ -54,8 +59,11 @@ public class LeadTriggerHandlerForSDC extends TriggerHandler
                 oldLead = (Lead)Trigger.oldMap.get(newLead.Id);
                 if(moveToSDCampaignStages.contains(newLead.Lead_Lifecycle_Stage__c) && !moveToSDCampaignStages.contains(oldLead.Lead_Lifecycle_Stage__c) && !excludedStatuses.contains(newLead.Status))
                 {
-                    newLead.Lead_Sub_Status__c = null;
-                    leadsToBeUpdated.add(newLead);
+                    if(!leadsToBeUpdated.containsKey(newLead.Id))
+                    {
+                        leadsToBeUpdated.put(newLead.Id, new Lead(Id=newLead.Id));
+                    }
+                    leadsToBeUpdated.get(newLead.Id).Lead_Sub_Status__c = null;
                     newSDCampaignMembers.add(new CampaignMember(LeadId = newLead.Id, CampaignId = sdCampaignId));
                 }
                 //preserving previous if condition
@@ -70,9 +78,12 @@ public class LeadTriggerHandlerForSDC extends TriggerHandler
                 }
                 if((rejectedStatuses.contains(newLead.Status) && !rejectedStatuses.contains(oldLead.Status)) || (newLead.IsConverted && !oldLead.IsConverted))
                 {
-                    newLead.Contact_Me__c = false;
-                    newLead.BANT_Qualified__c = false;
-                    leadsToBeUpdated.add(newLead);
+                    if(!leadsToBeUpdated.containsKey(newLead.Id))
+                    {
+                        leadsToBeUpdated.put(newLead.Id, new Lead(Id=newLead.Id));
+                    }
+                    leadsToBeUpdated.get(newLead.Id).Contact_Me__c = false;
+                    leadsToBeUpdated.get(newLead.Id).BANT_Qualified__c = false;
                     leadIdsToBeMovedOff.add(newLead.Id);
                 }
             }
@@ -94,7 +105,7 @@ public class LeadTriggerHandlerForSDC extends TriggerHandler
         if(!leadsToBeUpdated.isEmpty())
         {
             SilverPeakUtils.BypassingTriggers = true;
-            Database.update(leadsToBeUpdated, false);
+            Database.update(leadsToBeUpdated.values(), false);
             SilverPeakUtils.BypassingTriggers = false;
         }
     }

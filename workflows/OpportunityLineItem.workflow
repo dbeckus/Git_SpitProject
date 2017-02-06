@@ -20,6 +20,16 @@
         <template>Support/WANstart_order_closed</template>
     </alerts>
     <fieldUpdates>
+        <fullName>Product_Line_ACV</fullName>
+        <description>Updates ACV on Product Line</description>
+        <field>Term__c</field>
+        <formula>Product2.Term__c</formula>
+        <name>Product Line ACV</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+    </fieldUpdates>
+    <fieldUpdates>
         <fullName>SetLineDesciptiontoProductName</fullName>
         <field>Description</field>
         <formula>PricebookEntry.Product2.ProductCode</formula>
@@ -41,6 +51,16 @@
             <value>1/1/2000</value>
         </criteriaItems>
         <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>Set Term on Opportunity Product</fullName>
+        <actions>
+            <name>Product_Line_ACV</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <formula>Term__c = null</formula>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
     </rules>
     <rules>
         <fullName>training_order</fullName>

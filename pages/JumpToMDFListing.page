@@ -1,0 +1,9 @@
+<apex:page showHeader="false">
+    <apex:includeScript value="{!URLFOR($Resource.jQuery, 'jquery-1.4.3.min.js')}"/>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            window.open('/s/PartnerMDFListing');
+            window.history.back();
+        });
+    </script>
+</apex:page>

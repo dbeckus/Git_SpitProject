@@ -666,15 +666,6 @@ right(Id,4))</formula>
         <operation>Literal</operation>
         <protected>false</protected>
     </fieldUpdates>
-    <fieldUpdates>
-        <fullName>Update_Service_Support_Start_Date</fullName>
-        <field>Service_Support_Start_Date__c</field>
-        <formula>today()</formula>
-        <name>Update Service Support Start Date</name>
-        <notifyAssignee>false</notifyAssignee>
-        <operation>Formula</operation>
-        <protected>false</protected>
-    </fieldUpdates>
     <rules>
         <fullName>6Mbps WAN upgrade checked</fullName>
         <actions>
@@ -725,20 +716,17 @@ right(Id,4))</formula>
             <type>FieldUpdate</type>
         </actions>
         <active>true</active>
-        <formula>AND ( 
-OR(  BEGINS(Product2.Name,&quot;EC&quot;),  BEGINS(Product2.Name,&quot;UNITY CLOUD&quot;) ), 
-NOT(Product2.Name == &quot;EC-ORCH&quot;),  
-OR( ISPICKVAL(Status,&quot;Customer Subscription Active&quot;), ISPICKVAL(Status,&quot;Customer Subscription&quot;), ISPICKVAL(Status,&quot;Customer Evaluation&quot;), 
-ISPICKVAL(Status,&quot;Customer Owned&quot;), ISPICKVAL(Status,&quot;Loan&quot;), ISPICKVAL(Status,&quot;Conditional PO&quot;) ), 
-ISPICKVAL(Product2.Family,&quot;Virtual Image&quot;), 
-OR(ISNew(), 
-ISCHANGED(License_End_Date__c), 
-ISCHANGED(Bandwidth_Nodes__c), 
-ISCHANGED(Licenses_Nodes__c), 
-ISCHANGED( Service_Support_Start_Date__c ), 
-ISCHANGED( Service_Support_End_Date__c ), 
-ISCHANGED(Status) ) )</formula>
+        <formula>AND (  OR(  BEGINS(Product2.Name,&quot;EC&quot;),  BEGINS(Product2.Name,&quot;UNITY CLOUD&quot;) ),  NOT(Product2.Name == &quot;EC-ORCH&quot;),   OR( ISPICKVAL(Status,&quot;Customer Subscription Active&quot;), ISPICKVAL(Status,&quot;Customer Subscription&quot;), ISPICKVAL(Status,&quot;Customer Evaluation&quot;),  ISPICKVAL(Status,&quot;Customer Owned&quot;), ISPICKVAL(Status,&quot;Loan&quot;), ISPICKVAL(Status,&quot;Conditional PO&quot;) ),  ISPICKVAL(Product2.Family,&quot;Virtual Image&quot;),  OR(ISNew(),  ISCHANGED(License_End_Date__c),  ISCHANGED(Bandwidth_Nodes__c),  ISCHANGED(Licenses_Nodes__c),ISCHANGED( Service_Support_Start_Date__c ),  ISCHANGED( Service_Support_End_Date__c ),  ISCHANGED(Status) ) )</formula>
         <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>Check Account key</fullName>
+        <active>false</active>
+        <criteriaItems>
+            <field>Asset.Name</field>
+            <operation>notEqual</operation>
+        </criteriaItems>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
     </rules>
     <rules>
         <fullName>ClearGMSNodes</fullName>
@@ -786,33 +774,16 @@ ISCHANGED(Status) ) )</formula>
             <type>FieldUpdate</type>
         </actions>
         <active>true</active>
-        <formula>AND
-(
-Account.Name =&quot;Silver Peak Systems&quot;,
- Sync_With_Cloud_Portal__c =true,
- IsPICKVAL(Product2.Family ,&quot;Product&quot;),
-BEGINS( Product2.Name ,&quot;EC&quot;)
+        <formula>AND 
+( 
+OR(Account.Name =&quot;Silver Peak Systems&quot;,
+NOT(ISBLANK(SBQQ__QuoteLine__c ))
+), 
+Sync_With_Cloud_Portal__c =true, 
+IsPICKVAL(Product2.Family ,&quot;Product&quot;), 
+BEGINS( Product2.Name ,&quot;EC&quot;) 
 )</formula>
         <triggerType>onCreateOrTriggeringUpdate</triggerType>
-    </rules>
-    <rules>
-        <fullName>ECSP Update Service Support Start Date</fullName>
-        <actions>
-            <name>Update_Service_Support_Start_Date</name>
-            <type>FieldUpdate</type>
-        </actions>
-        <active>false</active>
-        <criteriaItems>
-            <field>Product2.Product_Type__c</field>
-            <operation>equals</operation>
-            <value>EC-SP</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>Product2.Family</field>
-            <operation>equals</operation>
-            <value>Virtual Image</value>
-        </criteriaItems>
-        <triggerType>onCreateOnly</triggerType>
     </rules>
     <rules>
         <fullName>FulfillmentForVelocity</fullName>
@@ -1449,16 +1420,6 @@ NOT(TriggerAutoFulfillEmail__c)
         </criteriaItems>
         <description>This is created to send out the renewal licence emails for Unity CLOUD INTELLIGENCE PRODUCT</description>
         <triggerType>onAllChanges</triggerType>
-    </rules>
-    <rules>
-        <fullName>Update Service Support Start Date</fullName>
-        <active>false</active>
-        <criteriaItems>
-            <field>Product2.Product_Type__c</field>
-            <operation>equals</operation>
-            <value>EC-SP</value>
-        </criteriaItems>
-        <triggerType>onCreateOnly</triggerType>
     </rules>
     <rules>
         <fullName>manual trigger</fullName>

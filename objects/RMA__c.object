@@ -467,6 +467,10 @@ TODAY() -  DATEVALUE(CreatedDate) ,0)</formula>
                 <default>false</default>
             </picklistValues>
             <picklistValues>
+                <fullName>Compromised</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
                 <fullName>CPU</fullName>
                 <default>false</default>
             </picklistValues>
@@ -551,11 +555,11 @@ TODAY() -  DATEVALUE(CreatedDate) ,0)</formula>
                 <default>false</default>
             </picklistValues>
             <picklistValues>
-                <fullName>USB Flash Card</fullName>
+                <fullName>Workmanship</fullName>
                 <default>false</default>
             </picklistValues>
             <picklistValues>
-                <fullName>Workmanship</fullName>
+                <fullName>USB Flash Card</fullName>
                 <default>false</default>
             </picklistValues>
             <sorted>false</sorted>
@@ -1070,7 +1074,15 @@ TODAY() -  DATEVALUE(CreatedDate) ,0)</formula>
         <picklistValues>
             <picklist>Disposition__c</picklist>
             <values>
-                <fullName>None</fullName>
+                <fullName>Engineering</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Return to Service</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Scrap</fullName>
                 <default>false</default>
             </values>
         </picklistValues>
@@ -1090,6 +1102,10 @@ TODAY() -  DATEVALUE(CreatedDate) ,0)</formula>
             </values>
             <values>
                 <fullName>Compact Flash Card</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Compromised</fullName>
                 <default>false</default>
             </values>
             <values>
@@ -1309,7 +1325,7 @@ TODAY() -  DATEVALUE(CreatedDate) ,0)</formula>
         <picklistValues>
             <picklist>Disposition__c</picklist>
             <values>
-                <fullName>None</fullName>
+                <fullName>Return to Service</fullName>
                 <default>false</default>
             </values>
         </picklistValues>
@@ -1404,11 +1420,23 @@ TODAY() -  DATEVALUE(CreatedDate) ,0)</formula>
                 <default>false</default>
             </values>
             <values>
+                <fullName>Engineering</fullName>
+                <default>false</default>
+            </values>
+            <values>
                 <fullName>LANNER FA</fullName>
                 <default>false</default>
             </values>
             <values>
                 <fullName>NO FA REQUIRED</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Return to Service</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Scrap</fullName>
                 <default>false</default>
             </values>
         </picklistValues>
@@ -1432,6 +1460,10 @@ TODAY() -  DATEVALUE(CreatedDate) ,0)</formula>
             </values>
             <values>
                 <fullName>Compact Flash Card</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Compromised</fullName>
                 <default>false</default>
             </values>
             <values>
@@ -1639,6 +1671,7 @@ TODAY() -  DATEVALUE(CreatedDate) ,0)</formula>
         <customTabListAdditionalFields>Account__c</customTabListAdditionalFields>
         <customTabListAdditionalFields>Type__c</customTabListAdditionalFields>
         <customTabListAdditionalFields>Status__c</customTabListAdditionalFields>
+        <excludedStandardButtons>New</excludedStandardButtons>
     </searchLayouts>
     <sharingModel>Private</sharingModel>
     <webLinks>

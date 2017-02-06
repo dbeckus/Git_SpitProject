@@ -6,5 +6,5 @@
     <mayForecastManagerShare>false</mayForecastManagerShare>
     <name>Silver Peak SE - Dan Cook Customer User</name>
     <opportunityAccessLevel>None</opportunityAccessLevel>
-    <parentRole>CFO</parentRole>
+    <parentRole>OperationsManager</parentRole>
 </Role>

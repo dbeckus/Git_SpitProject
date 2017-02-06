@@ -2,9 +2,9 @@
 <Role xmlns="http://soap.sforce.com/2006/04/metadata">
     <caseAccessLevel>None</caseAccessLevel>
     <contactAccessLevel>Edit</contactAccessLevel>
-    <description>Essentra Plc Customer User</description>
+    <description>Essentra PLC managed by Ecologic Systems Customer User</description>
     <mayForecastManagerShare>false</mayForecastManagerShare>
-    <name>Essentra Plc Customer User</name>
+    <name>Essentra PLC managed by Ecologic Systems Customer User</name>
     <opportunityAccessLevel>None</opportunityAccessLevel>
     <parentRole>EMEASales</parentRole>
 </Role>

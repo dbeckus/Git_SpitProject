@@ -6,5 +6,5 @@
     <mayForecastManagerShare>false</mayForecastManagerShare>
     <name>Ernst &amp; Young NJ Customer User</name>
     <opportunityAccessLevel>None</opportunityAccessLevel>
-    <parentRole>VPSalesEastern</parentRole>
+    <parentRole>SalesManagerEastern</parentRole>
 </Role>

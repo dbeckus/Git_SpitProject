@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ApprovalProcess xmlns="http://soap.sforce.com/2006/04/metadata">
-    <active>true</active>
+    <active>false</active>
     <allowRecall>false</allowRecall>
     <allowedSubmitters>
         <type>creator</type>
@@ -338,6 +338,11 @@
                 <operation>equals</operation>
                 <value>Approval 2</value>
             </criteriaItems>
+            <criteriaItems>
+                <field>MDF_Request__c.RSM__c</field>
+                <operation>notEqual</operation>
+                <value>Pierre Langlois</value>
+            </criteriaItems>
         </entryCriteria>
         <ifCriteriaNotMet>GotoNextStep</ifCriteriaNotMet>
         <label>EMEA MDF Approval for Approver 3</label>
@@ -372,6 +377,7 @@
             <whenMultipleApprovers>FirstResponse</whenMultipleApprovers>
         </assignedApprover>
         <entryCriteria>
+            <booleanFilter>(1 AND 2 AND 3) OR (4 AND 5)</booleanFilter>
             <criteriaItems>
                 <field>MDF_Request__c.GEO__c</field>
                 <operation>equals</operation>
@@ -386,6 +392,16 @@
                 <field>MDF_Request__c.Approval_Status_Hidden__c</field>
                 <operation>equals</operation>
                 <value>Approval 3</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>MDF_Request__c.RSM__c</field>
+                <operation>equals</operation>
+                <value>Pierre Langlois</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>MDF_Request__c.Approval_Status_Hidden__c</field>
+                <operation>equals</operation>
+                <value>Approval 2</value>
             </criteriaItems>
         </entryCriteria>
         <ifCriteriaNotMet>GotoNextStep</ifCriteriaNotMet>
@@ -421,6 +437,7 @@
             <whenMultipleApprovers>FirstResponse</whenMultipleApprovers>
         </assignedApprover>
         <entryCriteria>
+            <booleanFilter>(1 AND 2 AND 3) OR (4 AND 5 AND 6)</booleanFilter>
             <criteriaItems>
                 <field>MDF_Request__c.GEO__c</field>
                 <operation>equals</operation>
@@ -435,6 +452,21 @@
                 <field>MDF_Request__c.Approval_Status_Hidden__c</field>
                 <operation>equals</operation>
                 <value>Approval 4</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>MDF_Request__c.RSM__c</field>
+                <operation>equals</operation>
+                <value>Pierre Langlois</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>MDF_Request__c.Approval_Status_Hidden__c</field>
+                <operation>equals</operation>
+                <value>Approval 3</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>MDF_Request__c.GEO__c</field>
+                <operation>equals</operation>
+                <value>EMEA</value>
             </criteriaItems>
         </entryCriteria>
         <ifCriteriaNotMet>GotoNextStep</ifCriteriaNotMet>
@@ -505,7 +537,8 @@ Change Log:
 1) Removed Mike Hemes
 2) Reduced APAC to 1 step and remove Candy/Sharon; replace with Jesslyn Koh
 3) Created final EMEA step assigned to Nick Applegarth
-4) Corrected bug by adding else next step to step 9 criteria</description>
+4) Corrected bug by adding else next step to step 9 criteria
+5) Edited Step 7 &amp; 8 criteria in order to skip Step 7 when RSM is Pierre Langlois</description>
     <emailTemplate>MDF/New_MDF_Request_Submitted_for_Approval_Internal</emailTemplate>
     <enableMobileDeviceAccess>false</enableMobileDeviceAccess>
     <entryCriteria>
@@ -530,6 +563,10 @@ Change Log:
             <type>FieldUpdate</type>
         </action>
         <action>
+            <name>Funding_Request_Send_New_Funding_Request_Submitted_Template</name>
+            <type>Alert</type>
+        </action>
+        <action>
             <name>MDF_has_been_Submitted_External</name>
             <type>Alert</type>
         </action>
@@ -538,7 +575,7 @@ Change Log:
             <type>FieldUpdate</type>
         </action>
     </initialSubmissionActions>
-    <label>New MDF Requestv4</label>
+    <label>Funding Request Approval Process</label>
     <recordEditability>AdminOnly</recordEditability>
     <showApprovalHistory>true</showApprovalHistory>
 </ApprovalProcess>

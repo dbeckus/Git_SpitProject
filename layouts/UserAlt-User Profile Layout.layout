@@ -18,6 +18,10 @@
                 <behavior>Edit</behavior>
                 <field>AboutMe</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>Manager_Text_Field__c</field>
+            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>

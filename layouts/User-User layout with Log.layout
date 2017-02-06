@@ -42,6 +42,10 @@
                 <behavior>Edit</behavior>
                 <field>End_Date__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>Manager_Text_Field__c</field>
+            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>
@@ -59,10 +63,6 @@
             <layoutItems>
                 <behavior>Readonly</behavior>
                 <field>RoleGrouping__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Readonly</behavior>
-                <field>OverrideOpportunity__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>

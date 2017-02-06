@@ -4,24 +4,17 @@
 global with sharing class CustomPOCRequestController
 {       
     private String requestId;
+    
     public CustomPOCRequestController()
     {}
     
     public CustomPOCRequestController(ApexPages.StandardController controller)
     {
-        try
-        {
-            IsEdit = false;        
-            requestId = controller.getId(); 
-            refreshPage=false;
-            buildProductItems(requestId);  
-            CreateECPOCVirtualProduct(requestId);
-        }
-        catch(Exception ex)
-        {
-            System.debug(ex);
-        }
-        
+        IsEdit = false;        
+        requestId = controller.getId(); 
+        refreshPage=false;
+        buildProductItems(requestId);  
+        CreateECPOCVirtualProduct(requestId);
     }
     public Boolean refreshPage {get; set;}
     public Boolean IsEdit { get; set; }

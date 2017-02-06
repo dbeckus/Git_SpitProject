@@ -161,7 +161,7 @@
     </alerts>
     <alerts>
         <fullName>Return_Shipment_Instructions</fullName>
-        <ccEmails>notifications@silver-peak.com</ccEmails>
+        <ccEmails>notifications@silver-peak.com,returns@silver-peak.com</ccEmails>
         <description>Return Shipment Instructions</description>
         <protected>false</protected>
         <recipients>
@@ -222,7 +222,7 @@
     </alerts>
     <alerts>
         <fullName>Return_Shipment_Instructions_Non_Eval_RMA</fullName>
-        <ccEmails>cs@silver-peak.com</ccEmails>
+        <ccEmails>cs@silver-peak.com,returns@silver-peak.com</ccEmails>
         <description>Return Shipment Instructions - Non Eval RMA&apos;s</description>
         <protected>false</protected>
         <recipients>

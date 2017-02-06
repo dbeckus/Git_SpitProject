@@ -23,15 +23,18 @@ trigger SetRegisteredPartnerEqualtoPartner on Opportunity (before insert, before
             }
         }
         
-        List<User> users = [select Id, ContactId, Contact.AccountId, UserType from User where Id in :userIds and UserType='PowerPartner'];
-        for(Opportunity oppty : Trigger.new)
+        if(userIds.size() > 0)
         {
-            for(User user : users)
+            List<User> users = [select Id, ContactId, Contact.AccountId, UserType from User where Id in :userIds and UserType='PowerPartner'];
+            for(Opportunity oppty : Trigger.new)
             {
-                if(user.Id == oppty.OwnerId && user.ContactId != null)
+                for(User user : users)
                 {
-                    oppty.Registered_Partner__c = user.Contact.AccountId;
-                    break;
+                    if(user.Id == oppty.OwnerId && user.ContactId != null)
+                    {
+                        oppty.Registered_Partner__c = user.Contact.AccountId;
+                        break;
+                    }
                 }
             }
         }

@@ -37,6 +37,6 @@ trigger AddPartnerPortalUserToPublicGroup on User (after insert, after update)
         }
     }
 
-    PartnerPortalUserSharing.sharePortalUser(new List<Id>(newUserIds));
-    PartnerPortalUserSharing.removeSharingPortalUser(new List<Id>(deactivateUserIds));
+    PartnerPortalUserSharing.willSharePortalUser(new List<Id>(newUserIds));
+    PartnerPortalUserSharing.willRemoveSharingPortalUser(new List<Id>(deactivateUserIds));
 }

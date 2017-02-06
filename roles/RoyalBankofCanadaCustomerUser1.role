@@ -2,9 +2,9 @@
 <Role xmlns="http://soap.sforce.com/2006/04/metadata">
     <caseAccessLevel>None</caseAccessLevel>
     <contactAccessLevel>Edit</contactAccessLevel>
-    <description>Royal Bank of Canada Customer User</description>
+    <description>Royal Bank of Canada - Retail Customer User</description>
     <mayForecastManagerShare>false</mayForecastManagerShare>
-    <name>Royal Bank of Canada Customer User</name>
+    <name>Royal Bank of Canada - Retail Customer User</name>
     <opportunityAccessLevel>None</opportunityAccessLevel>
-    <parentRole>SalesManagerEastern</parentRole>
+    <parentRole>Sales_Manager_Central</parentRole>
 </Role>

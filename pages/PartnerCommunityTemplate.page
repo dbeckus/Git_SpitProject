@@ -55,7 +55,7 @@
             </div>
         </div>
         <div>
-        <section style="background-image:url(/s/Silver-Peak-Partners.jpg?v=2&SiteID=0DM5000000000pp);background-position: center;height:200px;background-size:auto 200px;background-repeat:no-repeat">
+        <section style="background-image:url(/s/Silver-Peak-Partners.jpg?v=2&amp;SiteID=0DM5000000000pp);background-position: center;height:200px;background-size:auto 200px;background-repeat:no-repeat">
             <div class="container partner-heading">
                 <div class="row">
                     <div class="col-lg-12" style="text-align:center"></div>
@@ -74,7 +74,8 @@
                                     <li><a href="http://www.silver-peak.com/company/tech-partners">Alliance Partners</a></li>
                                     <li><a href="/s/ChannelPartners">Channel Partners</a></li>
                                     <li><a href="/s/BecomePartner">Become a Partner</a></li>
-                                    <li><a href="/PartnerLogin">Login</a></li> 
+                                    <!--Changing Login to For Partners AG-->
+                                    <li><a href="/PartnerLogin">For Partners</a></li> 
                                 </ul>
                             </div>
                         </div>
@@ -141,9 +142,9 @@
                     <h3> Stay Connected With Us </h3>
                     
                         <div class="social-icons">
-                         <a href="http://twitter.com/SilverPeak" target="_blank"> <img src="/s/SilverPeak/images/mid-twitter-icon.png"/> </a>   
-                         <a href="http://www.linkedin.com/company/silver-peak-systems" target="_blank"> <img src="/s/SilverPeak/images/mid-linkedin-icon.png"/></a>   
-                        <a href="http://www.youtube.com/user/silverpeaksystems" target="_blank"> <img src="/s/SilverPeak/images/mid-youtube-icon.png"/> </a>   
+                         <a href="http://twitter.com/SilverPeak" target="_blank"> <img src="/s/SilverPeak/images/mid-twitter-icon.png"/> </a> &nbsp;&nbsp;
+                         <a href="http://www.linkedin.com/company/silver-peak-systems" target="_blank"> <img src="/s/SilverPeak/images/mid-linkedin-icon.png"/></a> &nbsp;&nbsp;
+                        <a href="http://www.youtube.com/user/silverpeaksystems" target="_blank"> <img src="/s/SilverPeak/images/mid-youtube-icon.png"/> </a> &nbsp;&nbsp;
                         </div>
                     
                 </div>

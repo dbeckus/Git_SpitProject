@@ -100,8 +100,9 @@ public class PatchRuleDeployController
                 deployOptions.purgeOnDelete = false;
                 deployOptions.rollbackOnError = true;
                 deployOptions.runAllTests = false;
-                deployOptions.runTests = null;
-                deployOptions.singlePackage = true;     
+                deployOptions.runTests = new List<String> { 'PatchRuleEngineTest' }; //null;
+                deployOptions.singlePackage = true;
+                deployOptions.testLevel = 'RunSpecifiedTests';
                 AsyncResult = service.deploy(ZipData, DeployOptions);
             }
             else
@@ -116,7 +117,7 @@ public class PatchRuleDeployController
     {   
         // Check the status of the retrieve request
         MetadataService.MetadataPort service = createService();
-        MetadataService.DeployResult deployResult = service.checkDeployStatus(AsyncResult.Id, false);
+        MetadataService.DeployResult deployResult = service.checkDeployStatus(AsyncResult.Id, true);
         if(deployResult != null)
         {
             if(deployResult.done)
@@ -131,7 +132,7 @@ public class PatchRuleDeployController
                 }
                 else if(deployResult.status == 'Failed')
                 {
-                    ApexPages.addMessage(new ApexPages.Message(ApexPages.Severity.Error, 'Failled to validate/deploy the patches, error message is:' + deployResult.errorMessage));
+                    ApexPages.addMessage(new ApexPages.Message(ApexPages.Severity.Error, 'Failled to validate/deploy the patches, error message is:' + getDeployResultMessage(deployResult)));
                     AsyncResult = null;
                 }
                 else if(deployResult.status == 'Canceled')
@@ -160,6 +161,36 @@ public class PatchRuleDeployController
             } 
         } 
         return null;
+    }
+    
+    private String getDeployResultMessage(MetadataService.DeployResult deployResult)
+    {
+        String message = '';
+        if(deployResult.details != null && deployResult.details.componentFailures != null)
+        {
+            for(MetadataService.DeployMessage dm : deployResult.details.componentFailures)
+            {
+                if(String.isNotBlank(dm.problem))
+                {
+                    message += dm.problem + '; ';
+                }
+            }
+        }
+        if(deployResult.details != null && deployResult.details.runTestResult != null)
+        {
+            if(deployResult.details.runTestResult.failures != null)
+            {
+                message += 'Failed to execute existing test methods. ';
+                for(MetadataService.RunTestFailure failure : deployResult.details.runTestResult.failures)
+                {
+                    message += failure.message + '[' + failure.name + '.' + failure.methodName + ']; ';
+                }
+            }
+            if(deployResult.details.runTestResult.codeCoverage != null)
+            {
+            }
+        }
+        return message;
     }
 
     private static MetadataService.MetadataPort createService()

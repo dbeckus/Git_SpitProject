@@ -21,7 +21,7 @@ private class LeadTriggerHandlerForLeadConversionTest
     {
         Lead lead = new Lead(LastName = 'acme', Company = 'acme', Trial_Request_from_Marketplace__c = false);
         insert lead;
-		LeadStatus ls = [select MasterLabel from LeadStatus where IsConverted = true limit 1];
+        LeadStatus ls = [select MasterLabel from LeadStatus where IsConverted = true limit 1];
         
         Database.LeadConvert lc = new Database.LeadConvert();
         lc.setLeadId(lead.Id);
@@ -33,6 +33,10 @@ private class LeadTriggerHandlerForLeadConversionTest
         {
             Contact contact = [select Id, Lead_Status__c from Contact where Id = :lcr.getContactId()];
             System.assertEquals(ls.MasterLabel, contact.Lead_Status__c);
+        }
+        else
+        {
+            System.assert(false, 'Failed to convert lead.');
         }
     }
 }

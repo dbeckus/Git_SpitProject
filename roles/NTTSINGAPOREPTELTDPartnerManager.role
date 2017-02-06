@@ -2,9 +2,9 @@
 <Role xmlns="http://soap.sforce.com/2006/04/metadata">
     <caseAccessLevel>None</caseAccessLevel>
     <contactAccessLevel>Edit</contactAccessLevel>
-    <description>NTT SINGAPORE PTE. LTD. Partner Manager</description>
+    <description>NTT Comm Singapore Pte. Ltd. Partner Manager</description>
     <mayForecastManagerShare>false</mayForecastManagerShare>
-    <name>NTT SINGAPORE PTE. LTD. Partner Manager</name>
+    <name>NTT Comm Singapore Pte. Ltd. Partner Manager</name>
     <opportunityAccessLevel>None</opportunityAccessLevel>
-    <parentRole>VPSalesAPAC</parentRole>
+    <parentRole>AsiaSouthDirector</parentRole>
 </Role>

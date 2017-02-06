@@ -72,13 +72,54 @@ public class RegisterAccountControllerTest {
         
         RegisterAccountController newRac = new RegisterAccountController(null);
         Account newAcct1 = new Account(Name = 'testAccount',business_is_Product_Sales__c = 10,business_is_Services_Sales__c = 30,business_is_Consulting_Sales__c = 50);
-        newAcct1.Email_Domain_Used__c = '123';
+        newAcct1.Email_Domain_Used__c = '@saa.com';
         newRac.acct = newAcct1;
-        try{
+        try
+        {
             newRac.insertAccount();
-        }catch(Exception e){
+        }
+        catch(Exception e)
+        {
             e.getMessage();
         }
         
+        Account newAcct2 = new Account(Name = 'testAccount',business_is_Product_Sales__c = 10,business_is_Services_Sales__c = 30,business_is_Consulting_Sales__c = 50);
+        newAcct2.BillingCity = '123';
+        newAcct2.BillingState = '123';
+        newAcct2.Email_Domain_Used__c = '@Test.com';
+        newAcct2.Phone = 'TestPhone';
+        newAcct2.Years_in_Business__c = 'Test';
+        newRac.acct = newAcct2;
+		newRac.dataBinding = new Map<String,String>{
+            'pcEmail' => 'pcsaa.com',
+            'scEmail' => 'scsaa.com',
+            'mcEmail' => 'mcsaa.com',
+            'outside' => '12s',
+            'inside' => '12s',
+            'engineers' => '22s',
+            'product' => '30s',
+            'services' => '20s',
+            'consulting' => '50s'
+        };
+		newRac.primaryContact.FirstName = '123';
+        newRac.pcLastName = '123';
+        newRac.primaryContact.Title = '123';
+        newRac.primaryContact.Phone = 'asda';
+        newRac.signatoryContact.FirstName = '123';
+        newRac.pcLastName = '123';
+        newRac.signatoryContact.Title = '123';
+        newRac.signatoryContact.Phone = 'Test';
+        newRac.marketingContact.FirstName = '123';
+        newRac.mcLastName = '123';
+        newRac.marketingContact.Title = '123';
+        newRac.marketingContact.Phone = 'asda';
+        try
+        {
+            newRac.insertAccount();
+        }
+        catch(Exception e)
+        {
+            system.debug(e.getMessage());
+        }
     }
 }

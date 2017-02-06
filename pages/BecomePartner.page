@@ -64,7 +64,7 @@
             }
             setTimeout(function(){
                 $("input.error, select.error:visible, textarea.error").first().focus();
-            },10);  
+            },10);
         });
     function checkSubmit(){
         //validate hereby certify
@@ -72,9 +72,11 @@
             $("#errorMessage2").empty();
             $("#errorMessage2").append("<span style = 'color:red;'>Please select the Silver Peak Partner Agreement before you submit your application.</span>");
             $("#ck2").focus();
+            $("input.submitButton").removeClass("disabledButton");
             return false;
         }
         else{
+            $("input.submitButton").addClass("disabledButton");
             return true;
         }
     }
@@ -195,6 +197,13 @@
             border: 2px solid gray;
             padding: 5px;
             overflow: scroll;
+        }
+        .disabledButton{
+        	pointer-events: none;
+        	opacity: 0.4;
+        }
+        .submitButton{
+        	cursor: pointer;
         }
     </style>
   <body id = "iframeBody">
@@ -320,7 +329,7 @@
           <!--<label style="width: 568px;text-align:justify;" for = "ck2">I hereby certify that I am authorized by my organization to submit the information above and that I have provided the correct company and signatory contact details of my organization who will be accepting </label><a href="javascript:void(0)" onclick="window.open('/SilverPeakPartnerAgreement', 'Popup', 'height=150, width=650, top=0, left=0, alwaysRaised=yes, scrollbars=yes')">Silver Peak Partner Agreement</a>-->
       </div>
       <div id = "errorMessage2"></div>
-      <div><apex:commandButton value="Submit" action="{!insertAccount}"   styleClass="submitButton" id="submit"/></div>
+      <div><apex:commandButton value="Submit" action="{!insertAccount}" styleClass="submitButton" id="submit"/></div>
   </apex:form>
   </body>
 </apex:page>

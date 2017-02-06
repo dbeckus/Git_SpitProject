@@ -4,197 +4,197 @@
     <style type="text/css">
         .componentTable
         {
-        display:none;
+            display:none;
         }
     </style>
     <script type="text/javascript">
-    function checkProduct(ck)
-    {
-        var reg = /\d/g;
-        var num = ck.id.match(reg);
-        var tableId = "page:form:block:componetSection:prdTable";
-        var table = document.getElementById(tableId);
-        var inputs = table.getElementsByTagName("input");
-        var checkboxs = new Array();
-        var n = 0;
-        for(var i = 0; i < inputs.length; i++ )
+        function checkProduct(ck)
         {
-            if(inputs[i].type == "checkbox")
+            var reg = /\d/g;
+            var num = ck.id.match(reg);
+            var tableId = "page:form:block:componetSection:prdTable";
+            var table = document.getElementById(tableId);
+            var inputs = table.getElementsByTagName("input");
+            var checkboxs = new Array();
+            var n = 0;
+            for(var i = 0; i < inputs.length; i++ )
             {
-                checkboxs[n] = inputs[i];
-                n += 1;
+                if(inputs[i].type == "checkbox")
+                {
+                    checkboxs[n] = inputs[i];
+                    n += 1;
+                }
+            }
+            
+            if(ck.checked)
+            {
+                for(var j = 0; j < checkboxs.length; j++)
+                {
+                    checkboxs[j].checked = (checkboxs[j].id != ck.id) ? false : true;
+                }
+            }
+            resetCheckboxes();
+        }
+        
+        function resetCheckboxes()
+        {
+            var tableId = "page:form:block:componetSection:prdTable";
+            var table = document.getElementById(tableId);
+            var inputs = table.getElementsByTagName("input");
+            var checkboxs = new Array();
+            var n = 0;
+            for(var i = 0; i < inputs.length; i++)
+            {
+                if(inputs[i].type == "checkbox")
+                {
+                    checkboxs[n] = inputs[i];
+                    n += 1;
+                }
+            }
+            for(var j = 0; j < checkboxs.length; j++)
+            {
+                if(!checkboxs[j].checked && document.getElementById(tableId + ":" + j + ":prdQty") != null)
+                {
+                    document.getElementById(tableId + ":" + j + ":prdQty").value = "";
+                    document.getElementById(tableId + ":" + j + ":prdQty").readonly = true;
+                }
+                else if(checkboxs[j].checked && document.getElementById(tableId + ":" + j + ":prdQty") != null)
+                {
+                    document.getElementById(tableId + ":" + j + ":prdQty").value = "1";
+                    document.getElementById(tableId + ":" + j + ":prdQty").readonly = true;
+                }
+                if(!checkboxs[j].checked && document.getElementById(tableId + ":" + j + ":slot") != null)
+                {
+                    document.getElementById(tableId + ":" + j + ":slot").value = "";
+                    document.getElementById(tableId + ":" + j + ":slot").readonly = true;
+                }
+                else if(checkboxs[j].checked && document.getElementById(tableId + ":" + j + ":slot") != null)
+                {
+                    document.getElementById(tableId + ":" + j + ":slot").readonly = false;
+                    document.getElementById(tableId + ":" + j + ":slot").focus();
+                }
             }
         }
         
-        if(ck.checked)
+        //override the SF setFocusOnLoad   
+        function setFocusOnLoad() {}
+        
+        function loadContactAddress()
         {
-            for(var j = 0; j < checkboxs.length; j++)
-            {
-                checkboxs[j].checked = (checkboxs[j].id != ck.id) ? false : true;
-            }
+            NewRMAController.loadContactFromCase("{!RMA.Case__c}", function(result, event) {
+                if(event.status == true)
+                {
+                    document.getElementById("page:form:block:contactSection:firstname").value = (result.FirstName) ? result.FirstName : "";
+                    document.getElementById("page:form:block:contactSection:lastname").value = (result.LastName) ? result.LastName : "";
+                    document.getElementById("page:form:block:contactSection:email").value = (result.Email) ? result.Email : "";
+                    document.getElementById("page:form:block:contactSection:phone").value = (result.Phone) ? result.Phone : "";
+                    var country = (result.MailingCountry) ? result.MailingCountry : "";
+                    if(country == 'USA' || country == 'US')
+                    {
+                        country = 'United States';
+                    }
+                    document.getElementById("page:form:block:contactSection:countryItem:country").value = country;
+                    var street = (result.MailingStreet) ? result.MailingStreet : "";
+                    var streets = street.split(/(\r\n)|\r|\n/);
+                    var length = streets.length;
+                    for(var i = 0; i < length; i++)
+                    {
+                        if(streets[i] == null || streets[i] == "")
+                        {
+                            streets[i] = streets[i + 1];
+                            streets[i + 1] = "";
+                        }
+                    }
+                    document.getElementById("page:form:block:contactSection:address1Item:address1").value = streets[0];
+                    document.getElementById("page:form:block:contactSection:address2Item:address2").value = (streets.length > 1) ? streets[1] : "";
+                    document.getElementById("page:form:block:contactSection:cityItem:city").value = (result.MailingCity) ? result.MailingCity : "";
+                    document.getElementById("page:form:block:contactSection:zipItem:postalCode").value = (result.MailingPostalCode) ? result.MailingPostalCode : "";
+                    document.getElementById("page:form:block:contactSection:stateItem:state").value = (result.MailingState) ? result.MailingState : "";
+                    loadStates(country);
+                }
+            });
         }
-        resetCheckboxes();
-    }
-    
-    function resetCheckboxes()
-    {
-        var tableId = "page:form:block:componetSection:prdTable";
-        var table = document.getElementById(tableId);
-        var inputs = table.getElementsByTagName("input");
-        var checkboxs = new Array();
-        var n = 0;
-        for(var i = 0; i < inputs.length; i++)
+        
+        function loadAssetAddress()
         {
-            if(inputs[i].type == "checkbox")
+            sforce.connection.sessionId = '{!$Api.Session_ID}';
+            var assetName = document.getElementById("page:form:block:infoSection:asset").value;
+            try
             {
-                checkboxs[n] = inputs[i];
-                n += 1;
-            }
-        }
-        for(var j = 0; j < checkboxs.length; j++)
-        {
-            if(!checkboxs[j].checked && document.getElementById(tableId + ":" + j + ":prdQty") != null)
-            {
-                document.getElementById(tableId + ":" + j + ":prdQty").value = "";
-                document.getElementById(tableId + ":" + j + ":prdQty").readonly = true;
-            }
-            else if(checkboxs[j].checked && document.getElementById(tableId + ":" + j + ":prdQty") != null)
-            {
-                document.getElementById(tableId + ":" + j + ":prdQty").value = "1";
-                document.getElementById(tableId + ":" + j + ":prdQty").readonly = true;
-            }
-            if(!checkboxs[j].checked && document.getElementById(tableId + ":" + j + ":slot") != null)
-            {
-                document.getElementById(tableId + ":" + j + ":slot").value = "";
-                document.getElementById(tableId + ":" + j + ":slot").readonly = true;
-            }
-            else if(checkboxs[j].checked && document.getElementById(tableId + ":" + j + ":slot") != null)
-            {
-                document.getElementById(tableId + ":" + j + ":slot").readonly = false;
-                document.getElementById(tableId + ":" + j + ":slot").focus();
-            }
-        }
-    }
-    
-    //override the SF setFocusOnLoad   
-    function setFocusOnLoad() {}
-    
-    function loadContactAddress()
-    {
-        NewRMAController.loadContactFromCase("{!RMA.Case__c}", function(result, event) {
-            if(event.status == true)
-            {
-                document.getElementById("page:form:block:contactSection:firstname").value = (result.FirstName) ? result.FirstName : "";
-                document.getElementById("page:form:block:contactSection:lastname").value = (result.LastName) ? result.LastName : "";
-                document.getElementById("page:form:block:contactSection:email").value = (result.Email) ? result.Email : "";
-                document.getElementById("page:form:block:contactSection:phone").value = (result.Phone) ? result.Phone : "";
-                var country = (result.MailingCountry) ? result.MailingCountry : "";
+                var addressResult = sforce.apex.execute("NewRMAController", "parseAssetAddress", {assetName:assetName});
+                var addressInfo = (addressResult + '').split(',');
+                document.getElementById("page:form:block:contactSection:address1Item:address1").value = addressInfo[0];
+                document.getElementById("page:form:block:contactSection:address2Item:address2").value = addressInfo[1];
+                document.getElementById("page:form:block:contactSection:cityItem:city").value = addressInfo[2];
+                document.getElementById("page:form:block:contactSection:stateItem:state").value = addressInfo[3];
+                document.getElementById("page:form:block:contactSection:zipItem:postalCode").value = addressInfo[4];
+                var country = addressInfo[5];
                 if(country == 'USA' || country == 'US')
                 {
                     country = 'United States';
                 }
                 document.getElementById("page:form:block:contactSection:countryItem:country").value = country;
-                var street = (result.MailingStreet) ? result.MailingStreet : "";
-                var streets = street.split(/(\r\n)|\r|\n/);
-                var length = streets.length;
-                for(var i = 0; i < length; i++)
+                if(country != null && country != '')
                 {
-                    if(streets[i] == null || streets[i] == "")
+                    loadStates(country);
+                }
+            }
+            catch(ex)
+            {
+                alert("Error loading the address: " + ex);
+            }
+        }
+        
+        function loadStates(country)
+        {
+            NewRMAController.getStateList(country, function(result, event) 
+            {
+                if(event.status == true)
+                {
+                    var list = document.getElementById("stateList");
+                    list.options.length = 0;
+                    list.options.add(new Option("", ""), 0);
+                    list.value = "";
+                    var foundState = false;
+                    var originalState = document.getElementById("page:form:block:contactSection:stateItem:state").value;
+                    document.getElementById("stateRequiredFlag").style.display = "none";
+                    for(var i = 0; i < result.length; i++)
                     {
-                        streets[i] = streets[i + 1];
-                        streets[i + 1] = "";
+                        var stateCode = result[i].StateCode__c;
+                        var stateName = result[i].StateName__c;
+                        list.options.add(new Option(stateName, stateCode));
+                        document.getElementById("stateRequiredFlag").style.display = "";
+                        if(stateCode.toUpperCase() == originalState.toUpperCase() || stateName.toUpperCase() == originalState.toUpperCase())
+                        {
+                            list.value = stateCode;
+                            foundState = true;
+                            fillStateCode(list.value);
+                        }
+                    }
+                    if(!foundState)
+                    {
+                        fillStateCode("");
                     }
                 }
-                document.getElementById("page:form:block:contactSection:address1Item:address1").value = streets[0];
-                document.getElementById("page:form:block:contactSection:address2Item:address2").value = (streets.length > 1) ? streets[1] : "";
-                document.getElementById("page:form:block:contactSection:cityItem:city").value = (result.MailingCity) ? result.MailingCity : "";
-                document.getElementById("page:form:block:contactSection:zipItem:postalCode").value = (result.MailingPostalCode) ? result.MailingPostalCode : "";
-                document.getElementById("page:form:block:contactSection:stateItem:state").value = (result.MailingState) ? result.MailingState : "";
-                loadStates(country);
-            }
-        });
-    }
-    
-    function loadAssetAddress()
-    {
-        sforce.connection.sessionId = '{!$Api.Session_ID}';
-        var assetName = document.getElementById("page:form:block:infoSection:asset").value;
-        try
+            }, {escape:true});
+        }
+        
+        function fillStateCode(stateCode)
         {
-            var addressResult = sforce.apex.execute("NewRMAController", "parseAssetAddress", {assetName:assetName});
-            var addressInfo = (addressResult + '').split(',');
-            document.getElementById("page:form:block:contactSection:address1Item:address1").value = addressInfo[0];
-            document.getElementById("page:form:block:contactSection:address2Item:address2").value = addressInfo[1];
-            document.getElementById("page:form:block:contactSection:cityItem:city").value = addressInfo[2];
-            document.getElementById("page:form:block:contactSection:stateItem:state").value = addressInfo[3];
-            document.getElementById("page:form:block:contactSection:zipItem:postalCode").value = addressInfo[4];
-            var country = addressInfo[5];
-            if(country == 'USA' || country == 'US')
+            document.getElementById("page:form:block:contactSection:stateItem:state").value = stateCode;
+        }
+        function refreshStateList()
+        {
+            var originalStateValue = document.getElementById("page:form:block:contactSection:stateItem:state").value;
+            var countryValue = document.getElementById("page:form:block:contactSection:countryItem:country").value;
+            if(countryValue != null && countryValue != '')
             {
-                country = 'United States';
-            }
-            document.getElementById("page:form:block:contactSection:countryItem:country").value = country;
-            if(country != null && country != '')
-            {
-                loadStates(country);
+                loadStates(countryValue);
+                
+                document.getElementById("page:form:block:contactSection:stateItem:state").value = originalStateValue;
+                document.getElementById("stateList").value = originalStateValue;
             }
         }
-        catch(ex)
-        {
-            alert("Error loading the address: " + ex);
-        }
-    }
-    
-    function loadStates(country)
-    {
-        NewRMAController.getStateList(country, function(result, event) 
-                                      {
-                                          if(event.status == true)
-                                          {
-                                              var list = document.getElementById("stateList");
-                                              list.options.length = 0;
-                                              list.options.add(new Option("", ""), 0);
-                                              list.value = "";
-                                              var foundState = false;
-                                              var originalState = document.getElementById("page:form:block:contactSection:stateItem:state").value;
-                                              document.getElementById("stateRequiredFlag").style.display = "none";
-                                              for(var i = 0; i < result.length; i++)
-                                              {
-                                                  var stateCode = result[i].StateCode__c;
-                                                  var stateName = result[i].StateName__c;
-                                                  list.options.add(new Option(stateName, stateCode));
-                                                  document.getElementById("stateRequiredFlag").style.display = "";
-                                                  if(stateCode.toUpperCase() == originalState.toUpperCase() || stateName.toUpperCase() == originalState.toUpperCase())
-                                                  {
-                                                      list.value = stateCode;
-                                                      foundState = true;
-                                                      fillStateCode(list.value);
-                                                  }
-                                              }
-                                              if(!foundState)
-                                              {
-                                                  fillStateCode("");
-                                              }
-                                          }
-                                      }, {escape:true});
-    }
-    
-    function fillStateCode(stateCode)
-    {
-        document.getElementById("page:form:block:contactSection:stateItem:state").value = stateCode;
-    }
-    function refreshStateList()
-    {
-        var originalStateValue = document.getElementById("page:form:block:contactSection:stateItem:state").value;
-        var countryValue = document.getElementById("page:form:block:contactSection:countryItem:country").value;
-        if(countryValue != null && countryValue != '')
-        {
-            loadStates(countryValue);
-            
-            document.getElementById("page:form:block:contactSection:stateItem:state").value = originalStateValue;
-            document.getElementById("stateList").value = originalStateValue;
-        }
-    }
     </script>
     <apex:form id="form">
         <apex:sectionHeader title="RMA Edit" subtitle="New RMA" />
@@ -222,28 +222,28 @@
                 <apex:outputField value="{!RMA.Account__c}"/>
                 <apex:inputField value="{!RMAItem.Asset__c}" required="true" id="asset" rendered="{!NOT(isPortalUser)}" />
                 <apex:outputField value="{!RMAItem.Asset__c}" rendered="{!isPortalUser}" />
-            </apex:pageBlockSection>
-            <apex:pageBlockSection title="Component to be replaced NOTE: You must pick one item to continue" columns="2" id="componetSection">
-                <p>Look here if you are not sure what type of drive you need:</p><apex:inputHidden />
-                <apex:outputLink style="font-size:16px;" value="http://www.silver-peak.com/static/UserDocuments/FRU_R6-2_RevF/wwhelp/wwhimpl/js/html/wwhelp.htm" target="_blank">Field Replaceable Unit Guide</apex:outputLink><apex:inputHidden />
-                <apex:pageBlockTable value="{!Products}" var="prd" width="200px" id="prdTable" headerClass="componentTable" footerClass="componentTable">
-                    <apex:column width="100px" style="text-align:right; font-weight:bold; font-size:91%;">
-                        <apex:outputLabel value="{!prd.Name}" for="prdSelect"/>
-                    </apex:column>
-                    <apex:column >
-                        <apex:inputCheckbox value="{!prd.Selected}" onchange="checkProduct(this)" id="prdSelect"/>
-                    </apex:column>
-                    <apex:column width="40px">
-                        <apex:outputLabel value="Qty"  for="prdQty" style="font-weight:bold; font-size:91%; padding:0px 10px 0px 0px;" rendered="{!prd.Name == 'Power Supply'}" />
-                        <apex:outputLabel value="Slot #" style="font-weight:bold; font-size:91%; padding:0px 10px 0px 0px;" rendered="{!Or(prd.Name == 'HDD', prd.Name == 'SSD',prd.Name == 'NVME')}" />
-                    </apex:column>
-                    <apex:column >
-                        <apex:inputText html-readonly="true" value="{!prd.Qty}" style="width:60px" rendered="{!prd.Name == 'Power Supply'}" id="prdQty" title="{!prd.Name} Qty"/>
-                        <apex:inputText html-autofocus="autofocus" value="{!prd.Slot}" id="slot" style="width:60px" rendered="{!Or(prd.Name == 'HDD', prd.Name == 'SSD',prd.Name == 'NVME')}" title="{!prd.Name} Slot #"/>
-                    </apex:column>
-                </apex:pageBlockTable>
-            </apex:pageBlockSection>
-            <apex:pageBlockSection title="Contact Information NOTE: Please carefully complete the correct address information for shipping. Invalid or incorrect information will result in shipment delays" id="contactSection">
+             </apex:pageBlockSection>
+             <apex:pageBlockSection title="Component to be replaced NOTE: You must pick one item to continue" columns="2" id="componetSection">
+             <p>Look here if you are not sure what type of drive you need:</p><apex:inputHidden />
+             <apex:outputLink style="font-size:16px;" value="http://www.silver-peak.com/static/UserDocuments/FRU_R6-2_RevF/wwhelp/wwhimpl/js/html/wwhelp.htm" target="_blank">Field Replaceable Unit Guide</apex:outputLink><apex:inputHidden />
+                 <apex:pageBlockTable value="{!Products}" var="prd" width="200px" id="prdTable" headerClass="componentTable" footerClass="componentTable">
+                     <apex:column width="100px" style="text-align:right; font-weight:bold; font-size:91%;">
+                         <apex:outputLabel value="{!prd.Name}" for="prdSelect"/>
+                     </apex:column>
+                     <apex:column >
+                         <apex:inputCheckbox value="{!prd.Selected}" onchange="checkProduct(this)" id="prdSelect"/>
+                     </apex:column>
+                     <apex:column width="40px">
+                         <apex:outputLabel value="Qty"  for="prdQty" style="font-weight:bold; font-size:91%; padding:0px 10px 0px 0px;" rendered="{!prd.Name == 'Power Supply'}" />
+                         <apex:outputLabel value="Slot #" style="font-weight:bold; font-size:91%; padding:0px 10px 0px 0px;" rendered="{!Or(prd.Name == 'HDD', prd.Name == 'SSD',prd.Name == 'NVME')}" />
+                     </apex:column>
+                     <apex:column >
+                      <apex:inputText html-readonly="true" value="{!prd.Qty}" style="width:60px" rendered="{!prd.Name == 'Power Supply'}" id="prdQty" title="{!prd.Name} Qty"/>
+                      <apex:inputText html-autofocus="autofocus" value="{!prd.Slot}" id="slot" style="width:60px" rendered="{!Or(prd.Name == 'HDD', prd.Name == 'SSD',prd.Name == 'NVME')}" title="{!prd.Name} Slot #"/>
+                     </apex:column>
+                 </apex:pageBlockTable>
+             </apex:pageBlockSection>
+             <apex:pageBlockSection title="Contact Information NOTE: Please carefully complete the correct address information for shipping. Invalid or incorrect information will result in shipment delays" id="contactSection">
                 <apex:pageBlockSectionItem rendered="{!NOT(IsPortalUser)}">
                     <input type="button" class="btn" value="Get Contact from Case" onclick="loadContactAddress()" style="margin:0px 0px 10px 37%"/>
                 </apex:pageBlockSectionItem>
@@ -298,14 +298,13 @@
                 <apex:inputField value="{!RMA.DOA__c}"/>
                 <apex:inputField value="{!RMA.FA_Report_Needed__c}" rendered="{!!isPortalUser}"/>
                 <apex:inputField value="{!RMA.Problem_Description__c}" style="width:560px"/>
-                <apex:inputField value="{!RMA.Compromised_Breached__c}" />
+                   <apex:inputField value="{!RMA.Compromised_Breached__c}" />
                 <apex:inputField value="{!RMA.Reason_for_Compromise_Breach__c}"  style="width:560px"/>
-                
             </apex:pageBlockSection>
         </apex:pageBlock>
     </apex:form>
     <script>
-    refreshStateList();
-    resetCheckboxes();
+        refreshStateList();
+        resetCheckboxes();
     </script>
 </apex:page>

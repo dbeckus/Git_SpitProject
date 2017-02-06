@@ -1,3 +1,6 @@
+/*
+ * Controller of page PartnerPortalIndividualReg
+ */
 public without sharing class PartnerPortalIndividualRegController
 {
     private Id PartnerPortalProfileId;
@@ -36,7 +39,7 @@ public without sharing class PartnerPortalIndividualRegController
     {
         if(userIsExist())
         {
-            ApexPages.addMessage(new ApexPages.Message(ApexPages.Severity.Warning, 'We found an existing user in our system. If you forgot your password, please reset it at the login page.'));
+            ApexPages.addMessage(new ApexPages.Message(ApexPages.Severity.Warning, 'Our records indicate that you already have partner portal access. Please click on the Forgot your Password link <a href="https://partners.silver-peak.com/PartnerLogin" style="font-size:100%;margin:0;text-decoration:underline">here</a>.'));
             return null;
         }
         if(PortalTC == FALSE)
@@ -93,20 +96,21 @@ public without sharing class PartnerPortalIndividualRegController
             Database.rollback(sp);
             ApexPages.addMessage(new ApexPages.Message(ApexPages.Severity.Error, 'Failed to process your request. Please contact your account manager.'));
             ApexPages.addMessages(ex);
+            System.assert(false, ex.getMessage());
         }
         return null;
     }
     
     private Boolean userIsExist()
     {
-        Integer c = [select count() from User where IsActive=true and UserType='PowerPartner' and Username=:Email limit 1];
+        String spName = Email + '.sp';
+        Integer c = [select count() from User where IsActive=true and UserType='PowerPartner' and Username=:spName limit 1];
         return c > 0;
     }
     
     private List<Contact> findContacts()
     {
-        
-        return [select Id from Contact where Account.IsPartner=true and Email=:Email];
+        return [select Id from Contact where (Account.Partner_Application_Status__c='Approved' or Account.IsPartner=true) and Email=:Email];
     }
     
     private List<Account> findAccounts()
@@ -114,7 +118,7 @@ public without sharing class PartnerPortalIndividualRegController
         String domain = getEmailDomain(Email);
         String pattern = '%' + domain + '%';
         List<Id> emailMatchedAccounts = new List<Id>();
-        for(Account acct : [select Id, Email_Domain_Used__c from Account where Email_Domain_Used__c != null and Email_Domain_Used__c like :pattern])
+        for(Account acct : [select Id, Email_Domain_Used__c from Account where Email_Domain_Used__c != null and Email_Domain_Used__c like :pattern and (Partner_Application_Status__c='Approved' or IsPartner=true)])
         {
             if(domainIsMatched(acct.Email_Domain_Used__c, domain))
             {
@@ -166,7 +170,12 @@ public without sharing class PartnerPortalIndividualRegController
                                 TimeZoneSidKey='America/Tijuana',
                                 LocaleSidKey='en_US',
                                 EmailEncodingKey='ISO-8859-1',
-                                LanguageLocaleKey='en_US'
+                                LanguageLocaleKey='en_US',
+                                Country = TemporaryAddress.Country__c,
+                                State = State,
+                                City = City,
+                                PostalCode = ZipCode,
+                                Phone = Phone
                                 );
         insert newUser;
     }

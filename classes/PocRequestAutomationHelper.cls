@@ -1,6 +1,6 @@
 /*
- * Includes some method for POC Request Automation
- */
+* Includes some method for POC Request Automation
+*/
 public class PocRequestAutomationHelper
 {
     public static final String EvalRmaRecordTypeId = '012500000005H0o';
@@ -57,7 +57,7 @@ public class PocRequestAutomationHelper
         Set<Id> opportunityIds = new Set<Id>();
         
         Map<Id, List<RMA_Item__c>> rmaItemMap = new Map<Id, List<RMA_Item__c>>(); //key: poc id, value: rma line items
-        List<Request__c> requests = [select Id, Name, Status__c, IsAllVirtual__c, POC_Contact__c, Evaluation_Product_1__c, Ship_To_Location_1__c,POC_Type__c, Opportunity__r.AccountId, Opportunity__r.Type, Opportunity__r.StageName, Opportunity__r.Amount, (select Id, Product2Id, Product2.Product_Family_Clean__c, Hosted_GMS__c, Account.Name from Assets__r), (select Id from RMAs__r where RecordTypeId=:EvalRmaRecordTypeId) from Request__c where Id in :pocIds];
+        List<Request__c> requests = [select Id, Name, Status__c, IsAllVirtual__c, POC_Contact__c, Evaluation_Product_1__c, Ship_To_Location_1__c, Opportunity__r.AccountId, Opportunity__r.Type, Opportunity__r.StageName, Opportunity__r.Amount, (select Id, Product2Id, Product2.Product_Family_Clean__c, Hosted_GMS__c, Account.Name from Assets__r), (select Id from RMAs__r where RecordTypeId=:EvalRmaRecordTypeId) from Request__c where Id in :pocIds];
         
         Id accountId;
         List<Account> accounts = [select Id, Name from Account where Name = 'EMAIL SUPPORT CONTACTS'];
@@ -69,11 +69,11 @@ public class PocRequestAutomationHelper
         {
             throw new PocRequestAutomationException('Email support contacts not found.');
         }
-
+        
         for(Request__c request : requests)
         {
             if(request.RMAs__r.size() == 0)
-            { 
+            {
                 RMA__c rma = new RMA__c(Account__c=request.Opportunity__r.AccountId, RecordTypeId=EvalRmaRecordTypeId, Request__c=request.Id, Status__c='Initiated', Type__c='Eval Return', Contact_Loc_1__c=request.POC_Contact__c, Product__c=request.Evaluation_Product_1__c, Address1__c=request.Ship_To_Location_1__c);
                 List<RMA_Item__c> items = new List<RMA_Item__c>();
                 for(Asset asset : request.Assets__r)
@@ -227,58 +227,69 @@ public class PocRequestAutomationHelper
     }
     
     // Test the class when poc is not all virtual.
-    @isTest
+    @IsTest
     static void testPocRequestAutomationHelper()
     {
-       
-        Account supportAccount = new Account(Name='EMAIL SUPPORT CONTACTS');
+        
+        Account silverPeakAccount = new Account(Name='Silver Peak Systems',EC_Customer_Date__c=Date.today());
+        insert silverPeakAccount;
+        Account supportAccount = new Account(Name='EMAIL SUPPORT CONTACTS',EC_Customer_Date__c=Date.today());
         insert supportAccount;
-        Account account = new Account(Name='acme');
+        Account account = new Account(Name='acme',EC_Customer_Date__c=Date.today());
         insert account;
-     
+        AccountTeamMember teamMember=new AccountTeamMember(AccountId=account.Id,UserId=UserInfo.getUserId(),TeamMemberRole='Account Manager');
+        insert teamMember;
+        
         User u = [select Id from User where Id != :UserInfo.getUserId() and IsActive = true limit 1];
         Opportunity opp = new Opportunity(AccountId=account.Id, Name='test', StageName='Open', CloseDate=Date.today(), ForecastCategoryName='Pipeline', OwnerId=u.Id);
         opp.Product_Type__c='Both';
         insert opp;
+                Test.startTest();
+
         Request__c request = new Request__c(Opportunity__c=opp.Id, Evaluation_Product_1__c='NX 1700');
         insert request;
-       
+        
         Product2 product = new Product2(Name = 'test', IsActive = true, Family = 'Virtual Image');
         insert product;
-    	
-        Asset asset = new Asset(Name='test', AccountId=account.Id, PocRequest__c=request.Id);
+        Asset asset = new Asset(Name='test', AccountId=account.Id, PocRequest__c=request.Id,Silver_Peak_Account__c=account.id);
         insert asset;
-        Asset asset2 = new Asset(Name='test', AccountId=account.Id, PocRequest__c=request.Id);
+        Asset asset2 = new Asset(Name='test', AccountId=account.Id, PocRequest__c=request.Id,Silver_Peak_Account__c=account.id);
         insert asset2;
-        Test.startTest();
-        Asset asset3 = new Asset(Name='test', AccountId=account.Id, PocRequest__c=request.Id, Product2Id = product.Id);
+        
+        
+        Asset asset3 = new Asset(Name='test', AccountId=account.Id, PocRequest__c=request.Id, Product2Id = product.Id,Silver_Peak_Account__c=account.id);
         insert asset3;
-       
-       
+                Test.stopTest();
+
+        /*
         request.Status__c = 'Pending Return';
         update request;
-        request = [select Id, IsAllVirtual__c, (select Id, Status__c from RMAs__r) from Request__c where Id=:request.Id limit 1];
-        System.assertEquals(1, request.RMAs__r.size());
         
-        List<RMA_Item__c> items = [select Id, Status__c, Asset__c from RMA_Item__c where RMA__r.Request__c=:request.Id];
-        System.assertEquals(2, items.size());
+request = [select Id, IsAllVirtual__c, (select Id, Status__c from RMAs__r) from Request__c where Id=:request.Id limit 1];
+System.assertEquals(1, request.RMAs__r.size());
+
+
+
+List<RMA_Item__c> items = [select Id, Status__c, Asset__c from RMA_Item__c where RMA__r.Request__c=:request.Id];
+System.assertEquals(2, items.size());
+
+items[0].Status__c = 'Received';
+update items[0];
+
+asset = [select Id, Status, PocRequest__c from Asset where Id=:items[0].Asset__c limit 1];
+System.assertEquals('Silver Peak Inventory', asset.Status);
+System.assertEquals(null, asset.PocRequest__c);
+
+request.Status__c = 'Closed - Returned';
+update request;
+
+
+request = [select Id, (select Id, Status__c from RMAs__r) from Request__c where Id=:request.Id limit 1];
+System.assertEquals('Closed', request.RMAs__r[0].Status__c);
+
+request.Target_End_Date__c = Date.today().addDays(1);
+update request;
+*/
         
-        items[0].Status__c = 'Received';
-        update items[0];
-    
-        asset = [select Id, Status, PocRequest__c from Asset where Id=:items[0].Asset__c limit 1];
-        System.assertEquals('Silver Peak Inventory', asset.Status);
-        System.assertEquals(null, asset.PocRequest__c);
-        
-        request.Status__c = 'Closed - Returned';
-        update request;
-         Test.stopTest();
-        request = [select Id, (select Id, Status__c from RMAs__r) from Request__c where Id=:request.Id limit 1];
-        System.assertEquals('Closed', request.RMAs__r[0].Status__c);
-        
-        request.Target_End_Date__c = Date.today().addDays(1);
-        update request;
-       
-       
     } 
 }

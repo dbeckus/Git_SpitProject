@@ -33,7 +33,9 @@
         <apex:pageblockButtons >
             <apex:repeat value="{!DynamicPageLayout.Buttons}" var="button">
                 <apex:outputPanel rendered="{!button.Label != 'Clone'}" layout="none"><input type="button" class="btn DetailButton" data-button-name="{!button.Name}" value="{!button.Label}" /></apex:outputPanel>
-                <apex:outputPanel rendered="{!button.Label = 'Clone'}" layout="none"><div class="menuButton DetailButton" style="position:relative"><div class="menuButtonButton" id="CloneButton"><span class="menuButtonLabel" id="CloneLabel" tabindex="0">Clone</span></div><div class="menuButtonMenu" id="CloneMenu"><a href="/{!Opportunity.Id}/e?clone=1&00N50000003L6D5=0&retURL=%2F{!Opportunity.Id}&amp;cloneli=1" class="menuButtonMenuLink firstMenuItem">Clone with Products</a><a href="/{!Opportunity.Id}/e?clone=1&00N50000003L6D5=0&retURL=%2F{!Opportunity.Id}" class="menuButtonMenuLink">Clone without Products</a></div></div></apex:outputPanel>
+                <apex:outputPanel rendered="{!button.Label = 'Clone'}" layout="none"><div class="menuButton DetailButton" style="position:relative"><div class="menuButtonButton" id="CloneButton"><span class="menuButtonLabel" id="CloneLabel" tabindex="0">Clone</span></div><div class="menuButtonMenu" id="CloneMenu">
+                    <a href="/{!Opportunity.Id}/e?clone=1&00N3800000328rB=''&00N50000002equq=''&00N50000003McmR=''&00N50000001Mr0s=''&00N500000023MAo=''&00N500000023FAE=&00N50000003L6D5=0&00N38000003Mj0q=0&00N500000023ysP=0&00N38000003Mj0n=0&retURL=%2F{!Opportunity.Id}&amp;cloneli=1" class="menuButtonMenuLink firstMenuItem">Clone with Products</a>
+                    <a href="/{!Opportunity.Id}/e?clone=1&00N3800000328rB=''&00N50000002equq=''&00N50000003McmR=''&00N50000001Mr0s=''&00N500000023MAo=''&00N500000023FAE=&00N50000003L6D5=0&00N38000003Mj0q=0&00N500000023ysP=0&00N38000003Mj0n=0&retURL=%2F{!Opportunity.Id}" class="menuButtonMenuLink">Clone without Products</a></div></div></apex:outputPanel>
             </apex:repeat>
             <input type="button" class="btn" id="SaveBtn" value="Save" onclick="spDynamicPage.activateSavingButtons();setTimeout(saveRecord)" style="display:none"/>
             <input type="button" class="btn" id="CancelBtn" value="Cancel" onclick="spDynamicPage.resetAllInlineEdit()" style="display:none"/>
@@ -62,7 +64,7 @@
                     </apex:pageblockSectionItem>
                 </apex:repeat>
             </apex:pageBlockSection>
-            <c:OpportunityChannelAndTeamList opportunity="{!Opportunity.Id}" rendered="{!section.Name = 'Sales Team/Patch/Channel Information'}"/>
+             <c:OpportunityChannelAndTeamList opportunity="{!Opportunity.Id}" rendered="{!section.Name = 'Sales Team/Patch/Channel Information'}"/> 
         </apex:repeat>
 
         <div id="stageDialog" style="display:none">

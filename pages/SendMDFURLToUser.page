@@ -1,0 +1,17 @@
+<apex:page controller="SendMdfUrlToClientController" action="{!SendMdfUrlToClient}" tabStyle="MDF_Request__c">
+     <apex:includeScript value="{!URLFOR($Resource.jQuery, 'jquery-1.4.3.min.js')}"/>
+    <!--Just use to send MDFURl Email to User-->
+   <!-- Begin Default Content REMOVE THIS -->
+   <!-- End Default Content REMOVE THIS -->
+    <script type="text/javascript">
+        $(window).ready(function(){
+            if("{!mdfId}".length > 0){
+                setTimeout("window.location.href = '/{!mdfId}'", 2000);
+            } else
+            {
+            }
+        });
+    </script>
+    <apex:sectionHeader title="Send MFR Link to User" />
+    <apex:pageMessages />
+</apex:page>

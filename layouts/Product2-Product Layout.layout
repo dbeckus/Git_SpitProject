@@ -20,6 +20,10 @@
                 <field>Family</field>
             </layoutItems>
             <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Product_Type__c</field>
+            </layoutItems>
+            <layoutItems>
                 <behavior>Readonly</behavior>
                 <field>IsPOCEnabled__c</field>
             </layoutItems>
@@ -44,8 +48,12 @@
                 <field>Term__c</field>
             </layoutItems>
             <layoutItems>
-                <behavior>Required</behavior>
+                <behavior>Edit</behavior>
                 <field>Standard_Cost__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>Steelbrick_Product_Name__c</field>
             </layoutItems>
         </layoutColumns>
         <layoutColumns>

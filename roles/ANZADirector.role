@@ -6,5 +6,5 @@
     <mayForecastManagerShare>false</mayForecastManagerShare>
     <name>ANZA Director</name>
     <opportunityAccessLevel>Edit</opportunityAccessLevel>
-    <parentRole>VPSalesAPAC</parentRole>
+    <parentRole>SVPSales</parentRole>
 </Role>

@@ -5,22 +5,39 @@ trigger SetSalesRegionEqualtoOwnerSalesRegion on Opportunity (before update, bef
 {
     if(!SilverPeakUtils.BypassingTriggers)
     {
-        Set<Id> oppIds = new Set<Id>(); 
-        for(Opportunity opp: Trigger.New)
-        {  
-            oppIds.add(opp.OwnerId);
-        }
-        
-        List<User> users = [select Id , Sales_Region__c from User where Id in :oppIds];
-        for(Opportunity opp: Trigger.New)
+        Set<Id> ownerIds = new Set<Id>(); 
+        if(Trigger.isInsert)
         {
-            for(User user: users)
-            {
-                if((user.Id == opp.OwnerId)&&(opp.Sales_Region__c != user.Sales_Region__c))
+            for(Opportunity opp: Trigger.New)
+            {  
+                ownerIds.add(opp.OwnerId);
+            }
+        }
+        else if(Trigger.isUpdate)
+        {
+            for(Opportunity opp: Trigger.New)
+            {  
+                Opportunity oldOpp = Trigger.oldMap.get(opp.Id);
+                if(oldOpp.OwnerId != opp.OwnerId)
                 {
-                    opp.Sales_Region__c = user.Sales_Region__c;
+                    ownerIds.add(opp.OwnerId);
                 }
             }
-        }   
+        }
+        
+        if(ownerIds.size() > 0)
+        {
+            List<User> users = [select Id , Sales_Region__c from User where Id in :ownerIds];
+            for(Opportunity opp: Trigger.New)
+            {
+                for(User user: users)
+                {
+                    if((user.Id == opp.OwnerId)&&(opp.Sales_Region__c != user.Sales_Region__c))
+                    {
+                        opp.Sales_Region__c = user.Sales_Region__c;
+                    }
+                }
+            } 
+        }  
     }
 }

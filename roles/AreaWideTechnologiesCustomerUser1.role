@@ -2,9 +2,9 @@
 <Role xmlns="http://soap.sforce.com/2006/04/metadata">
     <caseAccessLevel>None</caseAccessLevel>
     <contactAccessLevel>Edit</contactAccessLevel>
-    <description>Area-Wide Technologies Customer User</description>
+    <description>Area-Wide Technologies, Inc. Customer User</description>
     <mayForecastManagerShare>false</mayForecastManagerShare>
-    <name>Area-Wide Technologies Customer User</name>
+    <name>Area-Wide Technologies, Inc. Customer User</name>
     <opportunityAccessLevel>None</opportunityAccessLevel>
-    <parentRole>ChannelSalesManagerCentral</parentRole>
+    <parentRole>ChannelSalesManagerWest</parentRole>
 </Role>

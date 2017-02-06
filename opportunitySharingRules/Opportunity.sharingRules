@@ -14,6 +14,19 @@
         <opportunityAccessLevel>Edit</opportunityAccessLevel>
     </criteriaBasedRules>
     <criteriaBasedRules>
+        <fullName>All_Opportunities_but_Deleted_with_Employees</fullName>
+        <sharedTo>
+            <group>Employees</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>Type</field>
+            <operation>notEqual</operation>
+            <value>Marketplace</value>
+        </criteriaItems>
+        <name>All Opportunities but Deleted with Employees</name>
+        <opportunityAccessLevel>Edit</opportunityAccessLevel>
+    </criteriaBasedRules>
+    <criteriaBasedRules>
         <fullName>Marketplace_Shares_with_All_but_Marketo</fullName>
         <sharedTo>
             <roleAndSubordinatesInternal>CFO</roleAndSubordinatesInternal>
@@ -90,6 +103,28 @@
             <allPartnerUsers></allPartnerUsers>
         </sharedFrom>
         <name>AllInternalUsers</name>
+        <opportunityAccessLevel>Edit</opportunityAccessLevel>
+    </ownerRules>
+    <ownerRules>
+        <fullName>Contractors_Opps</fullName>
+        <sharedTo>
+            <group>Employees</group>
+        </sharedTo>
+        <sharedFrom>
+            <group>Contractors_Sales</group>
+        </sharedFrom>
+        <name>Contractors Opps</name>
+        <opportunityAccessLevel>Edit</opportunityAccessLevel>
+    </ownerRules>
+    <ownerRules>
+        <fullName>Internal_Employees</fullName>
+        <sharedTo>
+            <group>Employees</group>
+        </sharedTo>
+        <sharedFrom>
+            <group>Employees</group>
+        </sharedFrom>
+        <name>Internal Employees</name>
         <opportunityAccessLevel>Edit</opportunityAccessLevel>
     </ownerRules>
 </OpportunitySharingRules>

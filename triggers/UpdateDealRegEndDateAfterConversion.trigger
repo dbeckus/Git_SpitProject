@@ -6,14 +6,15 @@ trigger UpdateDealRegEndDateAfterConversion on Lead (after update)
 {
     if(!SilverPeakUtils.BypassingTriggers)
     {
-        List<RecordType> recordTypes = [select Id from RecordType where Name = 'Deal Registration' and SObjectType = 'Lead' and IsActive = true limit 1];
-        if(!recordTypes.isEmpty())
+        Map<String,Schema.RecordTypeInfo> leadRecordTypes = Schema.SObjectType.Lead.getRecordTypeInfosByName();
+        if(leadRecordTypes.containsKey('Deal Registration'))
         {
+            Id dealRegId = leadRecordTypes.get('Deal Registration').getRecordTypeId();
             Map<Id, Lead> oldLeads = trigger.oldMap;
             Set<Id> convertedOpportunityIds = new Set<Id>();
             for(Lead lead : trigger.new)
             {
-                if(lead.RecordTypeId == recordTypes[0].Id && lead.ConvertedOpportunityId != null && oldLeads.get(lead.Id).ConvertedOpportunityId == null)
+                if(lead.RecordTypeId == dealRegId && lead.ConvertedOpportunityId != null && oldLeads.get(lead.Id).ConvertedOpportunityId == null)
                 {
                     convertedOpportunityIds.add(lead.ConvertedOpportunityId);
                 }
@@ -21,11 +22,10 @@ trigger UpdateDealRegEndDateAfterConversion on Lead (after update)
             if(!convertedOpportunityIds.isEmpty())
             {
                 Date today = Date.today();
-                List<Opportunity> opportunities = [select Deal_Approved_Date__c, Registration_Expiration__c from Opportunity where Id in :convertedOpportunityIds];
-                for(Opportunity opportunity : opportunities)
+                List<Opportunity> opportunities = new List<Opportunity>();
+                for(Id oppId : convertedOpportunityIds)
                 {
-                    opportunity.Deal_Approved_Date__c = today;
-                    opportunity.Registration_Expiration__c = today.addDays(90);
+                    opportunities.add(new Opportunity(Id=oppId, Deal_Approved_Date__c = today, Registration_Expiration__c = today.addDays(90)));
                 }
                 SilverPeakUtils.BypassingTriggers = true;
                 update opportunities;

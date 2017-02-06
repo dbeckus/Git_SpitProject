@@ -6,7 +6,7 @@
         <customLabel>true</customLabel>
         <detailHeading>true</detailHeading>
         <editHeading>true</editHeading>
-        <label>CAP</label>
+        <label>CAP Section</label>
         <layoutColumns>
             <layoutItems>
                 <height>50</height>

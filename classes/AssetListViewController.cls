@@ -191,7 +191,7 @@ public with sharing class AssetListViewController extends AssetListViewBase
         query += String.join(fields, ',');
         query.removeEnd(',');
         query += ' from Asset';
-        query += ' where (NOT Product2.Name like \'EC%\')  and SBQQ__QuoteLine__c = null ';
+        query += ' where (NOT Product2.Name like \'EC%\') and SBQQ__QuoteLine__c = null';
         
         String sortFirstField = FieldName.split(';')[0];
         String sortAnotherField  = FieldName.split(';').size() > 1 ? FieldName.split(';')[1] : '';

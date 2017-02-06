@@ -9,6 +9,11 @@
         <value>Dynamic Layout</value>
     </caseValues>
     <fields>
+        <help><!-- &quot;1&quot; or &quot;2&quot;, related to the OverrideOpportunity field on User record. Determings which set of dynamic layout the user should see. --></help>
+        <label><!-- Layout Set --></label>
+        <name>LayoutSet__c</name>
+    </fields>
+    <fields>
         <help><!-- Object name, such as &quot;Opportunity&quot; or &quot;Lead&quot; --></help>
         <label><!-- Object --></label>
         <name>Object__c</name>

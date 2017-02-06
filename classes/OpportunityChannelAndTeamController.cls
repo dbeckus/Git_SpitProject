@@ -19,7 +19,9 @@ public class OpportunityChannelAndTeamController
         {
             if(oppRecord == null)
             {
-                List<Opportunity> opps = [select Id, OwnerId, Patch_Locked__c, Registered_Partner__c, Sales_Region__c, Patch__c, Patch__r.Patch_Name__c from Opportunity where Id=:oppId limit 1];
+                List<String> fields = describeFields();
+                fields.add('Patch__r.Patch_Name__c');
+                List<Opportunity> opps = Database.query('select ' + String.join(fields, ',') + ' from Opportunity where Id=:oppId limit 1');
                 oppRecord = (opps.size() > 0) ? oppRecord = opps[0] : new Opportunity();
             }
             return oppRecord;
@@ -71,16 +73,33 @@ public class OpportunityChannelAndTeamController
         
     }
     
+    private List<String> describeFields()
+    {
+        Map<String, Schema.SObjectField> fields = Schema.SObjectType.Opportunity.fields.getMap();
+        List<String> result = new List<String>();
+        result.addAll(fields.keyset());
+        return result;
+    }
+    
     @isTest
     static void test()
     {
-        Opportunity opp = new Opportunity(Name='acme', StageName='Discovery', CloseDate=Date.today(), OwnerId=UserInfo.getUserId(), Patch_Locked__c=false);
+        Account acc1 = new Account(Name='acme');
+        Account acc2 = new Account(name='acme');
+        insert new List<Account> { acc1, acc2 };
+        Opportunity opp = new Opportunity(AccountId=acc1.Id, Name='acme', StageName='Discovery', CloseDate=Date.today(), OwnerId=UserInfo.getUserId(), Patch_Locked__c=false);
         insert opp;
+        Partner p = new Partner(OpportunityId=opp.Id, AccountToId=acc2.Id);
+        insert p;
+        
+        Test.startTest();
         OpportunityChannelAndTeamController controller = new OpportunityChannelAndTeamController();
         controller.oppId = opp.Id;
-        System.assertEquals(0, controller.AllPartners.size());
+        opp = controller.opp;
+        System.assertEquals(1, controller.AllPartners.size());
       //System.assertEquals(0, controller.AllMembers.size()); This has to be disabled because of splits. Splits add opp owner by default.
         Boolean show1 = controller.showLockButton;
         Boolean show2 = controller.showUnlockButton;
+        Test.stopTest();
     }
 }

@@ -22,10 +22,6 @@
                 <name>ewhite@silver-peak.com</name>
                 <type>user</type>
             </approver>
-            <approver>
-                <name>jcameron@silver-peak.com</name>
-                <type>user</type>
-            </approver>
             <whenMultipleApprovers>FirstResponse</whenMultipleApprovers>
         </assignedApprover>
         <entryCriteria>
@@ -66,10 +62,6 @@
         </rejectBehavior>
         <rejectionActions>
             <action>
-                <name>Account_Partner_Application_Denied</name>
-                <type>Alert</type>
-            </action>
-            <action>
                 <name>Account_Set_Application_Status_Denied</name>
                 <type>FieldUpdate</type>
             </action>
@@ -79,7 +71,8 @@
             </action>
         </rejectionActions>
     </approvalStep>
-    <description>version 3</description>
+    <description>Change Log:
+- 8/4/2016: removed rejection email message from approval process and created standalone workflow rule. Andy Getz</description>
     <emailTemplate>Partner_Account_Templates/Approval_Assignment_Email_Template</emailTemplate>
     <enableMobileDeviceAccess>false</enableMobileDeviceAccess>
     <entryCriteria>

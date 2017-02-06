@@ -6,7 +6,8 @@
  * @version 1.0
  *
  * @changelog
- * 10/6/2015 Matt - Created.
+ * 10/6/2015 Matt - Created
+ * 10/24/2016 Zhong - Removed an unnecessary Soql
  */
 
 public class LeadTriggerHandlerForLeadConversion extends TriggerHandler
@@ -19,10 +20,13 @@ public class LeadTriggerHandlerForLeadConversion extends TriggerHandler
     private void updateLeadStatusOnContact()
     {
         List<Contact> contacts = new List<Contact>();
-        for(Lead lead : [select ConvertedContact.Id, ConvertedContact.Lead_Status__c, Status from Lead where Id in :Trigger.newMap.keySet() and IsConverted = true and Trial_Request_from_Marketplace__c = false])
+        for(Sobject obj : Trigger.new)
         {
-            lead.ConvertedContact.Lead_Status__c =  lead.Status;
-            contacts.add(lead.ConvertedContact);
+            Lead lead = (Lead)obj;
+            if(lead.IsConverted == true && lead.Trial_Request_from_Marketplace__c == false && lead.ConvertedContactId != null)
+            {
+                contacts.add(new Contact(Id=lead.ConvertedContactId, Lead_Status__c=lead.Status));
+            }
         }
         if(!contacts.isEmpty())
         {

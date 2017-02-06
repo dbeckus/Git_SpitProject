@@ -49,6 +49,10 @@
             <recipient>lquilici@silver-peak.com</recipient>
             <type>user</type>
         </recipients>
+        <recipients>
+            <recipient>nhuapaya@silver-peak.com</recipient>
+            <type>user</type>
+        </recipients>
         <senderType>CurrentUser</senderType>
         <template>Training/PRApprovedforOrdering</template>
     </alerts>

@@ -157,11 +157,9 @@ public class PatchRuleEngineBuilder
                 }
                 body += ruleLogic;
             }
-            body += ')\r\n';
+            body += ')';
             String patchName = (patch.Patch_Name__c == null) ? '' : String.escapeSingleQuotes(patch.Patch_Name__c);
-            body += '    {\r\n' +
-                    '      return \'' + patch.Id + '\';\r\n' +
-                    '    }\r\n';
+            body += 'return \'' + patch.Id + '\';\r\n';
         }
         else
         {
