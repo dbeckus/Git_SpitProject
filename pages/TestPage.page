@@ -1,7 +1,8 @@
-<apex:page controller="TestController" >
+<apex:page controller="TestDataController">
     <apex:form >
-    <apex:commandButton id="btnSave" action="{!Save}" value="Save"></apex:commandButton>
-        <marquee style="box-shadow: 0px 0px 15px black; border-radius: 5px; padding: 10px; background-color: crimson; font-weight: bolder; font-size: 14px; margin: 10px; color: white;">This account is a CP Account.</marquee>
-
-         </apex:form>
+    
+       <apex:commandButton value="Save" action="{!SaveData}" />
+    </apex:form>
+ 
+   
 </apex:page>

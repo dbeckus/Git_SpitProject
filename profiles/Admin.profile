@@ -291,6 +291,10 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>CloudPortalCaseRestAPI</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>CloudPortalCreateAccountApi</apexClass>
         <enabled>true</enabled>
     </classAccesses>
@@ -320,6 +324,10 @@
     </classAccesses>
     <classAccesses>
         <apexClass>CloudPortalProvisionAssetsJob</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>CloudPortalS3FileRestAPI</apexClass>
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
@@ -948,6 +956,10 @@
     </classAccesses>
     <classAccesses>
         <apexClass>NoDispatchForECOneYearProductTest</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>OBCloudPortalRestAPI</apexClass>
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
@@ -1772,6 +1784,10 @@
     </classAccesses>
     <classAccesses>
         <apexClass>TestCloudPortalProvisionAssetsJob</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>TestDataController</apexClass>
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
@@ -9498,6 +9514,10 @@
     </pageAccesses>
     <pageAccesses>
         <apexPage>Template_MassUpdateCustomObject</apexPage>
+        <enabled>true</enabled>
+    </pageAccesses>
+    <pageAccesses>
+        <apexPage>TestPage</apexPage>
         <enabled>true</enabled>
     </pageAccesses>
     <pageAccesses>

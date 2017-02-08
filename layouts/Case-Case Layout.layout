@@ -69,6 +69,10 @@
                 <field>ContactEmail</field>
             </layoutItems>
             <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>SuppliedEmail</field>
+            </layoutItems>
+            <layoutItems>
                 <behavior>Edit</behavior>
                 <field>Follow_Up_Date__c</field>
             </layoutItems>
@@ -200,10 +204,6 @@
         <editHeading>true</editHeading>
         <label>Web Information</label>
         <layoutColumns>
-            <layoutItems>
-                <behavior>Readonly</behavior>
-                <field>SuppliedEmail</field>
-            </layoutItems>
             <layoutItems>
                 <behavior>Readonly</behavior>
                 <field>SuppliedName</field>
