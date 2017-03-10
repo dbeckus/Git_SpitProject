@@ -22,7 +22,7 @@ public class MassAssignAssetsController
             if(Assets == null)
             {
                 Assets = new List<AssetInfo>();
-                for(Asset asset : [Select Id, Name, Product2Id, Product2.ProductCode, Product2.Name, Ship_Date__c, Status, Warranty_Start_Date__c, Warranty_End_Date__c, Evaluation_Start_Date__c, Evaluation_End_Date__c, Contract_Number__c from Asset where AccountId = :accountId and Status = 'Customer Owned' and (NOT Product2.Name like 'EC%') and Contract_Number__c = null order by Name])
+                for(Asset asset : [Select Id, Name, Product2Id, Product2.ProductCode, Product2.Name, Ship_Date__c, Status, Warranty_Start_Date__c, Warranty_End_Date__c, Evaluation_Start_Date__c, Evaluation_End_Date__c, Contract_Number__c from Asset where AccountId = :accountId and Status = 'Customer Owned' and (NOT Product2.Product_Type__c = 'EDGECONNECT') and Contract_Number__c = null order by Name])
                 {
                     Assets.add(new AssetInfo(asset));
                 }

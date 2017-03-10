@@ -68,10 +68,6 @@
             <type>userLookup</type>
         </recipients>
         <recipients>
-            <field>ISR__c</field>
-            <type>userLookup</type>
-        </recipients>
-        <recipients>
             <field>Patch_Owner__c</field>
             <type>userLookup</type>
         </recipients>
@@ -295,6 +291,27 @@
         </recipients>
         <senderType>CurrentUser</senderType>
         <template>Free_Trial_Offer/VXXKeys</template>
+    </alerts>
+    <alerts>
+        <fullName>Send_to_BDR_for_review</fullName>
+        <ccEmails>mmartin@silver-peak.com</ccEmails>
+        <description>Send to BDR for review</description>
+        <protected>false</protected>
+        <recipients>
+            <field>CSM__c</field>
+            <type>userLookup</type>
+        </recipients>
+        <recipients>
+            <field>ISR__c</field>
+            <type>userLookup</type>
+        </recipients>
+        <recipients>
+            <field>Patch_Owner__c</field>
+            <type>userLookup</type>
+        </recipients>
+        <senderAddress>noreply@silver-peak.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>DealRegistrations/DealRegistrationCreated</template>
     </alerts>
     <fieldUpdates>
         <fullName>Approved_Time_Trigger_15_mins</fullName>
@@ -948,6 +965,20 @@ Sales_Rejected_Comments__c</formula>
             <value>True</value>
         </criteriaItems>
         <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>Deal Reg Send to BDR for qualification</fullName>
+        <actions>
+            <name>Send_to_BDR_for_review</name>
+            <type>Alert</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>Lead.LeadSource</field>
+            <operation>equals</operation>
+            <value>Deal Registration</value>
+        </criteriaItems>
+        <triggerType>onCreateOnly</triggerType>
     </rules>
     <rules>
         <fullName>Flip Trial Requests to Lead</fullName>

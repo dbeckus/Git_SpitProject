@@ -243,15 +243,21 @@ public with sharing class SalesDevelopmentController
             contactSoql += ' and (OwnerId=:userId or Account.Patch__c in :patchIds)';
         }
 
-        if(String.isNotEmpty(LifeCycleStage))
+        if(String.isNotEmpty(LifeCycleStage)&& LifeCycleStage!='MQL')
         {
             leadSoql += ' and Lead_Lifecycle_Stage__c like \'%' + LifeCycleStage + '%\'';
             contactSoql += ' and Lead_Lifecycle_Stage__c like \'%' + LifeCycleStage + '%\'';
         }
+        if(String.isNotEmpty(LifeCycleStage) && LifeCycleStage=='MQL')
+        {
+            leadSoql += ' and (Lead_Lifecycle_Stage__c like \'%' + LifeCycleStage + '%\''+' or Lead_Lifecycle_Stage__c like \'%' + 'MQC' + '%\')';
+            contactSoql += ' and (Lead_Lifecycle_Stage__c like \'%' + LifeCycleStage + '%\''+' or Lead_Lifecycle_Stage__c like \'%' + 'MQC' + '%\')';
+        }
 
         leadSoql += ' limit 10000';
         contactSoql += ' limit 10000';
-
+ 		System.debug(leadSoql);
+        System.debug(contactSoql);
         List<Lead> leads = Database.query(leadSoql);
         List<Contact> contacts = Database.query(contactSoql);
         List<CampaignMemberInfo> fullset = new List<CampaignMemberInfo>();

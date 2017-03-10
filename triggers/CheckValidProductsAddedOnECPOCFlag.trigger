@@ -109,48 +109,13 @@ trigger CheckValidProductsAddedOnECPOCFlag on Request__c (before update) {
             {
                 NonECProducts.add(currRequest.PhysicalProduct5__c); 
             }
-            
-            if(currRequest.Opportunity__r.Account.Partner_Type__c=='Service Provider')
+            if(!currRequest.Opportunity__r.Account.ECSP__c)
             {
-                if(currRequest.Opportunity__r.Account.ECSP__c)  
-                {
-                    if(requestIds.get(recordId)=='WAN Op')
-                    {
-                        Trigger.New[0].POC_Type__c.addError('You cannot select this POC Type for this account. Please select Service Provider as POC Type.');
-                    }
-                    if(requestIds.get(recordId)=='Service Provider' && NonECProducts!=null && NonECProducts.size()>0 )
-                    {
-                        Trigger.New[0].POC_Type__c.addError('Service Provider and Enterprise assets cannot be mixed. Please create a new POC.');
-                    }
-                    
-                }
-                else if(!currRequest.Opportunity__r.Account.ECSP__c)
-                {
-                    if(requestIds.get(recordId)=='Service Provider')
-                    {
-                        Trigger.New[0].POC_Type__c.addError('You can only select Service Provider POC Type for Service Provider accounts.  Please check the ECSP box on the account / Please contact the Service Provider team to enable this account as a Service Provider.');
-                    }
-                    else if((requestIds.get(recordId)=='EdgeConnect' && NonECProducts!=null && NonECProducts.size()>0 ) || (requestIds.get(recordId)!='EdgeConnect' && ECProducts!=null && ECProducts.size()>0 )) 
-                    {
-                        Trigger.New[0].POC_Type__c.addError('EdgeConnect and Non-EdgeConnect products cannot be mixed.');
-                    }
-                }
-                
-            }
-            else
-            {
-                if(requestIds.get(recordId)=='Service Provider')
-                {  
-                    Trigger.New[0].POC_Type__c.addError('You can only select Service Provider POC Type for Service Provider accounts.  Please check the ECSP box on the account / Please contact the Service Provider team to enable this account as a Service Provider.');
-                }
-                else if((requestIds.get(recordId)=='EdgeConnect' && NonECProducts!=null && NonECProducts.size()>0 ) || (requestIds.get(recordId)!='EdgeConnect' && ECProducts!=null && ECProducts.size()>0 )) 
+                if((requestIds.get(recordId)=='EdgeConnect' && NonECProducts!=null && NonECProducts.size()>0 ) || (requestIds.get(recordId)=='WAN Op' && ECProducts!=null && ECProducts.size()>0 )) 
                 {
                     Trigger.New[0].POC_Type__c.addError('EdgeConnect and Non-EdgeConnect products cannot be mixed.');
                 }
-            }
-            
-            
-            
+            } 
         }
         
     }

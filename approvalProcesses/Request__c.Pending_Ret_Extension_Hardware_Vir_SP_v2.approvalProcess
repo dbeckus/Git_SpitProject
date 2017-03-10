@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ApprovalProcess xmlns="http://soap.sforce.com/2006/04/metadata">
+    <active>true</active>
+    <allowRecall>true</allowRecall>
+    <allowedSubmitters>
+        <submitter>CountryManagerLAT</submitter>
+        <type>role</type>
+    </allowedSubmitters>
+    <allowedSubmitters>
+        <submitter>Sales_Manager_Central</submitter>
+        <type>role</type>
+    </allowedSubmitters>
+    <allowedSubmitters>
+        <submitter>Sales_Manager_South_Central</submitter>
+        <type>role</type>
+    </allowedSubmitters>
+    <allowedSubmitters>
+        <submitter>SalesManagerEastern</submitter>
+        <type>role</type>
+    </allowedSubmitters>
+    <allowedSubmitters>
+        <submitter>SalesManagerFederal</submitter>
+        <type>role</type>
+    </allowedSubmitters>
+    <allowedSubmitters>
+        <submitter>SalesManagerWestern</submitter>
+        <type>role</type>
+    </allowedSubmitters>
+    <allowedSubmitters>
+        <submitter>SEAPAC</submitter>
+        <type>role</type>
+    </allowedSubmitters>
+    <allowedSubmitters>
+        <submitter>SEEMEA</submitter>
+        <type>role</type>
+    </allowedSubmitters>
+    <allowedSubmitters>
+        <submitter>SELAT</submitter>
+        <type>role</type>
+    </allowedSubmitters>
+    <allowedSubmitters>
+        <submitter>SeniorSystemEngineerEast</submitter>
+        <type>role</type>
+    </allowedSubmitters>
+    <allowedSubmitters>
+        <submitter>SeniorSystemEngineerWest</submitter>
+        <type>role</type>
+    </allowedSubmitters>
+    <approvalPageFields>
+        <field>Name</field>
+        <field>Owner</field>
+        <field>AccountName__c</field>
+        <field>Status__c</field>
+        <field>Opportunity__c</field>
+    </approvalPageFields>
+    <approvalStep>
+        <allowDelegate>true</allowDelegate>
+        <assignedApprover>
+            <approver>
+                <name>sstubbs@silver-peak.com</name>
+                <type>user</type>
+            </approver>
+            <whenMultipleApprovers>FirstResponse</whenMultipleApprovers>
+        </assignedApprover>
+        <entryCriteria>
+            <formula>OR(IsPickVal(Opportunity__r.Account.Type ,&quot;Prospect&quot;),IsPickVal(Opportunity__r.Account.Type ,&quot;Customer&quot;),IsPickVal(Opportunity__r.Account.Type ,&quot;Other&quot;))</formula>
+        </entryCriteria>
+        <ifCriteriaNotMet>GotoNextStep</ifCriteriaNotMet>
+        <label>Prospect/Customer Type: Send to Shayne Stubbs</label>
+        <name>Prospect_Customer_Type_Send_to_Shayne_Stubbs</name>
+    </approvalStep>
+    <approvalStep>
+        <allowDelegate>true</allowDelegate>
+        <assignedApprover>
+            <approver>
+                <name>dennis@silver-peak.com</name>
+                <type>user</type>
+            </approver>
+            <whenMultipleApprovers>FirstResponse</whenMultipleApprovers>
+        </assignedApprover>
+        <entryCriteria>
+            <formula>ISPICKVAL(Opportunity__r.Account.Type ,&quot;Partner&quot;)</formula>
+        </entryCriteria>
+        <ifCriteriaNotMet>GotoNextStep</ifCriteriaNotMet>
+        <label>Partner Type : Send to Damon</label>
+        <name>Partner_Type_Send_to_Damon</name>
+        <rejectBehavior>
+            <type>RejectRequest</type>
+        </rejectBehavior>
+    </approvalStep>
+    <approvalStep>
+        <allowDelegate>true</allowDelegate>
+        <assignedApprover>
+            <approver>
+                <name>eyeaman@silver-peak.com</name>
+                <type>user</type>
+            </approver>
+            <approver>
+                <name>mlear@silver-peak.com</name>
+                <type>user</type>
+            </approver>
+            <whenMultipleApprovers>FirstResponse</whenMultipleApprovers>
+        </assignedApprover>
+        <label>Send to Finance team</label>
+        <name>Send_to_Finance_team</name>
+        <rejectBehavior>
+            <type>RejectRequest</type>
+        </rejectBehavior>
+    </approvalStep>
+    <emailTemplate>POC/Extension_Requested</emailTemplate>
+    <enableMobileDeviceAccess>false</enableMobileDeviceAccess>
+    <entryCriteria>
+        <formula>AND
+(
+ISPICKVAL(Type__c,&quot;Evaluation&quot;),
+IsAllVirtual__c =0,
+OR(
+ISPICKVAL(Status__c,&quot;Pending Return&quot;),
+ISPICKVAL(Status__c,&quot;Pending Return - Invoiced&quot;)
+),
+Opportunity__r.Account.ECSP__c
+)</formula>
+    </entryCriteria>
+    <finalApprovalActions>
+        <action>
+            <name>POCExtensionApproved_PendingReturn</name>
+            <type>Alert</type>
+        </action>
+        <action>
+            <name>SetStatusExtended</name>
+            <type>FieldUpdate</type>
+        </action>
+        <action>
+            <name>Update_Target_End_Date</name>
+            <type>FieldUpdate</type>
+        </action>
+    </finalApprovalActions>
+    <finalApprovalRecordLock>false</finalApprovalRecordLock>
+    <finalRejectionActions>
+        <action>
+            <name>POCExtensionDenied</name>
+            <type>Alert</type>
+        </action>
+    </finalRejectionActions>
+    <finalRejectionRecordLock>false</finalRejectionRecordLock>
+    <initialSubmissionActions>
+        <action>
+            <name>Update_the_status_to_Pending_Approval</name>
+            <type>FieldUpdate</type>
+        </action>
+    </initialSubmissionActions>
+    <label>Pending Ret Extension Hardware Vir SP v2</label>
+    <recordEditability>AdminOnly</recordEditability>
+    <showApprovalHistory>false</showApprovalHistory>
+</ApprovalProcess>

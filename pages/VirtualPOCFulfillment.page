@@ -21,7 +21,7 @@
             var bandwidthNodes = getObj('thePage:assetsForm:assetsBlock:assetsSection:assetsTable:' + index + ':bandwidthNodes');
             var qty = getObj('thePage:assetsForm:assetsBlock:assetsSection:assetsTable:' + index + ':qty');
             
-           licenseNodes.disabled=true;
+           	licenseNodes.disabled=true;
             bandwidthNodes.disabled=true; 
             if(selectedText.indexOf('GMS') >= 0)
             {
@@ -50,7 +50,7 @@
                bandwidthNodes.disabled=false; 
                qty.disabled=true;
             }
-            if(selectedText.indexOf('EC-SP') >= 0 )
+            if(selectedText.indexOf('EC-SP') >= 0 || selectedText.indexOf('EC-SAAS') >= 0)
             {
                qty.disabled=true;
             }
@@ -109,7 +109,7 @@
                     </apex:selectList>
                 </apex:pageBlockSectionItem>
                 <apex:pageBlockSectionItem >
-                    <apex:outputLabel value="License Expriation Date" for="expriationDate" />
+                    <apex:outputLabel value="License Expiration Date" for="expriationDate" />
                     <span id="expirationDate"></span>
                 </apex:pageBlockSectionItem>
             </apex:pageBlockSection>

@@ -79,24 +79,28 @@ public class AutomatePOCRenewalExtensions implements Schedulable, Database.Batch
             {
                 virIds.add(item.id);
             }
-            AutomatePOCShipmentHelper.encryptLicenses(virIds);
+            if(!Test.isRunningTest())
+            {
+                AutomatePOCShipmentHelper.encryptLicenses(virIds);
+            }
         }
         
     }
     
     public void finish(Database.BatchableContext context)
     {
-        List<Id> gmsIds= new List<Id>();
-        if(gmsLicenseIds.size()>0)
-        {
-            for(License__c item:gmsLicenseIds)
-            {
-                gmsIds.add(item.id);
-            }
-            AutomatePOCShipmentHelper.encryptLicenses(gmsIds);
-        }
         if(!Test.isRunningTest())
         {
+            List<Id> gmsIds= new List<Id>();
+            if(gmsLicenseIds.size()>0)
+            {
+                for(License__c item:gmsLicenseIds)
+                {
+                    gmsIds.add(item.id);
+                }
+                AutomatePOCShipmentHelper.encryptLicenses(gmsIds);
+            }
+            
             AutomatePOCRenewalExtensions obj= new AutomatePOCRenewalExtensions();
             System.scheduleBatch(obj, 'Automate POC Renewals', 60, 1);
         }

@@ -81,9 +81,23 @@ public class CloudPortalPostAssetsApi extends CloudPortalApiBase {
         {
             for(CPAsset item:spAssets)
             {
-                generator.writeStartObject();   
-                generator.writeObjectField('startDate',item.startDate);
-                generator.writeObjectField('endDate',item.endDate);
+                generator.writeStartObject();
+                if(item.startDate!=null)
+                {
+                    generator.writeObjectField('startDate',item.startDate);
+                }
+                else
+                {
+                    generator.writeObjectField('startDate','');
+                }
+                if(item.endDate!=null)
+                {
+                    generator.writeObjectField('endDate',item.endDate);
+                }
+                else
+                {
+                    generator.writeObjectField('endDate','');
+                }
                 generator.writeObjectField('salesforceId',item.salesforceId);
                 generator.writeObjectField('id',item.id);
                 generator.writeObjectField('name',item.name);

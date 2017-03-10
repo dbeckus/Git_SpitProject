@@ -68,7 +68,7 @@ public class SendShipmentFulfilmentEmailTest
         insert spAccount;
         Opportunity testOpp = new Opportunity(Name='acme', CloseDate=Date.today(), StageName='Open', ForecastCategoryName ='Pipeline', AccountId=testAccount.Id);
         insert testOpp;
-        Product2 testProduct = new Product2(Name='EC-SP-BASE',Product_Type__c='EC-SP',Product_Category__c='Virtual Image', Forecast_Category__c = 'Virtual', Family='Virtual Image', IsActive=true);
+        Product2 testProduct = new Product2(Name='EC-SP-BASE',Product_Type__c='EC-SP-Perpetual',Product_Category__c='Virtual Image', Forecast_Category__c = 'Virtual', Family='Virtual Image', IsActive=true);
         insert testProduct;
         Contact testContact = new Contact(LastName='acme',AccountId=testAccount.Id,Email='abc@abc.com');
         insert testContact;
@@ -86,8 +86,6 @@ public class SendShipmentFulfilmentEmailTest
         
         controller.AssetLines[0].Asset.Product2Id = controller.ProductsList[0].Id;
         controller.AssetLines[0].Asset.Quantity = 1;
-        controller.AssetLines[0].Asset.Service_Support_Start_Date__c = Date.today();
-        controller.AssetLines[0].Asset.Service_Support_End_Date__c = Date.today().addDays(30);
         controller.AssetLines[0].Asset.Status = 'Customer Owned';
         controller.addLine();
         

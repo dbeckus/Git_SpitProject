@@ -30,7 +30,8 @@ trigger ProcessDealReg on Lead (before insert, before update, after insert, afte
             }
         }
     }
-    else if(Trigger.isAfter)
+    /*
+   else if(Trigger.isAfter)
     {
         List<Id> leadIds = new List<Id>();
         if(Trigger.isInsert)
@@ -58,6 +59,7 @@ trigger ProcessDealReg on Lead (before insert, before update, after insert, afte
         {
             submitLead(leadId);
         }
+
     }
     
     private void submitLead(Id leadId)
@@ -73,4 +75,5 @@ trigger ProcessDealReg on Lead (before insert, before update, after insert, afte
         {
         }
     }
+    */
 }

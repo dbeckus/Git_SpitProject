@@ -58,7 +58,7 @@ public class TestAssetListViewControllerSP
         Product2 product = new Product2();
         product.Name = 'EC-BASE-SP';
         product.ProductCode = 'acme';
-        product.Product_Type__c='EC-SP';
+        product.Product_Type__c='EC-SP-Perpetual';
         insert product;
 
         Asset asset = new Asset();

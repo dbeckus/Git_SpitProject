@@ -1,7 +1,9 @@
 trigger UpdateActiveAssetCount on Asset (after insert, after update,after delete,after undelete) {
     Set<Id> acctIds= new Set<Id>();
+    List<Account> updatingAccounts= new List<Account>();
     if(Trigger.isDelete)
     {
+        System.debug('Test');
         for(Asset asset : Trigger.old)
         {
             if(asset.AccountId!=null)
@@ -44,32 +46,35 @@ trigger UpdateActiveAssetCount on Asset (after insert, after update,after delete
                     acctIds.add(asset.AccountId);
                 }
             }
+            if(oldAsset.Contract_Number__c != asset.Contract_Number__c)
+            {
+                if(asset.AccountId != null)
+                {
+                    acctIds.add(asset.AccountId);
+                }
+            }
+            if(oldAsset.Service_Provider_Status__c != asset.Service_Provider_Status__c)
+            {
+                if(asset.AccountId != null)
+                {
+                    acctIds.add(asset.AccountId);
+                }
+            }
             
         }
     }
     if(acctIds.size() > 0)
     {
-        List<Account> updatingAccounts = new List<Account>();
-        List<AggregateResult> result = [select count(Id) c, AccountId a from Asset where AccountId in :acctIds and Status in ('Customer Owned','Customer Subscription Active','Customer Subscription') group by AccountId];
-        for(Id accId : acctIds)
+        for(Id counter: acctIds)
         {
-            Boolean found = false;
-            for(AggregateResult r : result)
-            {
-                Id resultAccId = (Id)r.get('a');
-                if(resultAccId == accId)
-                {
-                    Decimal assetCount = (Decimal)r.get('c');
-                    updatingAccounts.add(new Account(Id = accId, Active_Asset_Count__c = assetCount));
-                    found = true;
-                    break;
-                }
-            }
-            if(!found) 
-            {
-                updatingAccounts.add(new Account(Id = accId, Active_Asset_Count__c = 0));
-            }
+            updatingAccounts.add(new Account(Id = counter, Trigger_Active_Asset_Count__c=true));
         }
+        
+    }
+    if(updatingAccounts.size()>0)
+    {
         update updatingAccounts;
     }
+    
+    
 }

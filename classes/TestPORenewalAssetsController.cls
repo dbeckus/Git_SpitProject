@@ -87,7 +87,7 @@ public class TestPORenewalAssetsController {
         insert spAcc;
         Opportunity testOpp = new Opportunity(Name='acme', CloseDate=Date.today(), StageName='Open', ForecastCategoryName ='Pipeline', AccountId=testAccount.Id);
         insert testOpp;
-        Product2 testProduct = new Product2(Name='EC-BASE-SP',Product_Type__c='EC-SP', Family='Virtual Image', IsActive=true);
+        Product2 testProduct = new Product2(Name='EC-BASE-SP',Product_Type__c='EC-SP-Perpetual', Family='Virtual Image', IsActive=true);
         insert testProduct;
         Contact testContact = new Contact(LastName='acme',email='test@abc.com',  AccountId=testAccount.Id);
         insert testContact;

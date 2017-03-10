@@ -215,7 +215,7 @@ public class ShippingInputFormController
         }    
         List<ShipLineInfo> ShipLineInfoLists = new List<ShipLineInfo>();
         List<Asset> exitingAssets = [select Id, Product2.ProductCode, Product2.Name, Product2Id, SerialNumber, Ship_Date__c, Status, GMS_Nodes__c, Evaluation_Start_Date__c,
-                                     Evaluation_End_Date__c, Warranty_Start_Date__c, Warranty_End_Date__c, Part_Number__c,Service_Support_Start_Date__c,Service_Support_End_Date__c from Asset
+                                     Evaluation_End_Date__c, Warranty_Start_Date__c, Warranty_End_Date__c, Part_Number__c,Contract_Number__r.StartDate,Contract_Number__r.EndDate from Asset
                                      where SerialNumber in : removedDashesSno];
         for(Asset aset : exitingAssets)
         {
@@ -226,8 +226,6 @@ public class ShippingInputFormController
             shipInfo.PostShipmentStatus = aset.Status;
             shipInfo.PriorStatus = aset.Status;
             shipInfo.TempAsset.Ship_Date__c = Shipment.Ship_Date__c;
-            shipInfo.TempAsset.Service_Support_Start_Date__c = aset.Service_Support_Start_Date__c;
-            shipInfo.TempAsset.Service_Support_End_Date__c = aset.Service_Support_End_Date__c;
             shipInfo.SerialNumber = aset.SerialNumber;
             shipInfo.ProductCode = aset.Product2.Name;
             shipInfo.PartNumber = aset.Part_Number__c;
@@ -250,8 +248,6 @@ public class ShippingInputFormController
                 shipInfo.PostShipmentStatus = null;
                 shipInfo.PriorStatus = null;
                 shipInfo.TempAsset.Ship_Date__c = Shipment.Ship_Date__c;
-                shipInfo.TempAsset.Service_Support_Start_Date__c = Date.today();
-                shipInfo.TempAsset.Service_Support_End_Date__c = Date.today();
                 shipInfo.ProductCode = null;
                 shipInfo.ProductId = null; 
                 shipInfo.SelectProductId = null;
@@ -318,7 +314,7 @@ public class ShippingInputFormController
             }
             if(request.Status__c == 'Open' || request.Status__c == 'Approved to Ship')
             {
-                if(request.Opportunity__r.Account.Partner_Type__c=='Service Provider' && request.Opportunity__r.Account.ECSP__c)
+                if(request.Opportunity__r.Account.ECSP__c)
                 {request.Target_End_Date__c = (request.Target_End_Date__c == null) ? Shipment.Ship_Date__c.addDays(90) : request.Target_End_Date__c.addDays(90);}
                 else if(request.POC_Type__c=='EdgeConnect')
                 {request.Target_End_Date__c = (request.Target_End_Date__c == null) ? Shipment.Ship_Date__c.addDays(45) : request.Target_End_Date__c.addDays(45);}
@@ -420,12 +416,6 @@ public class ShippingInputFormController
             aset.Ship_Date__c = ShipInfo.TempAsset.Ship_Date__c;
             aset.SerialNumber = ShipInfo.SerialNumber;
             aset.Product2Id = ShipInfo.TempAsset.Product2Id;
-            if(!IsServiceProviderProduct(aset.Product2Id))
-            {
-                aset.Service_Support_Start_Date__c = ShipInfo.TempAsset.Service_Support_Start_Date__c;
-                aset.Service_Support_End_Date__c = ShipInfo.TempAsset.Service_Support_End_Date__c;
-            }
-            
             aset.Ship_To_Location__c = ShipToLocation+ '  ( Tracking Information:: ' + Shipment.Tracking_Information__c + ')';
             aset.Description = Comments;
         }
@@ -443,11 +433,6 @@ public class ShippingInputFormController
             aset.SerialNumber = ShipInfo.SerialNumber;
             aset.Part_Number__c = ShipInfo.PartNumber;
             aset.Product2Id = ShipInfo.SelectProductId;
-            if(!IsServiceProviderProduct(aset.Product2Id))
-            {
-                aset.Service_Support_Start_Date__c = ShipInfo.TempAsset.Service_Support_Start_Date__c;
-                aset.Service_Support_End_Date__c = ShipInfo.TempAsset.Service_Support_End_Date__c;
-            }
             aset.Ship_To_Location__c = ShipToLocation + '  ( Tracking Information:: ' + Shipment.Tracking_Information__c + ')';
             aset.Description = Comments;
             aset.Quantity = 1;

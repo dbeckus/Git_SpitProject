@@ -116,6 +116,10 @@ public with sharing class NewCaseWithArticleController
         try
         {
             cs.Status = 'Unassigned';
+            if(cs.Priority==null)
+            {
+                cs.Priority='P3 - Normal';
+            }
             updateCase();
             Database.DMLOptions options = new Database.DMLOptions();
             options.assignmentRuleHeader.useDefaultRule= true;

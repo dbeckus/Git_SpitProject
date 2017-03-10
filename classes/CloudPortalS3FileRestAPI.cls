@@ -25,7 +25,7 @@ global with sharing class CloudPortalS3FileRestAPI {
                 if(lstFilesToInsert.size()>0)
                 {
                     insert lstFilesToInsert;
-                    return 'File uploaded successfully.';
+                    return 'Files are created successfully.';
                 }
             }
             catch(Exception ex)

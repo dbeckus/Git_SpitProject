@@ -581,6 +581,15 @@ Target_End_Date__c- Today()
         <type>Checkbox</type>
     </fields>
     <fields>
+        <fullName>First_POC_on_Account__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>First POC on Account</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
         <fullName>GMS_Needed__c</fullName>
         <externalId>false</externalId>
         <label>GMS Ship To</label>
@@ -843,7 +852,19 @@ NOT(ISBLANK(TEXT( PhysicalProduct1__c )))
                 <default>false</default>
             </picklistValues>
             <picklistValues>
-                <fullName>Service Provider</fullName>
+                <fullName>Perpetual</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Metered</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Perpetual-Orchestrator SP</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Metered-Orchestrator SP</fullName>
                 <default>false</default>
             </picklistValues>
             <sorted>false</sorted>
@@ -1322,6 +1343,17 @@ NOT(ISBLANK(TEXT( PhysicalProduct1__c )))
         <trackHistory>false</trackHistory>
         <trackTrending>false</trackTrending>
         <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Service_Provider_Account_Type__c</fullName>
+        <externalId>false</externalId>
+        <formula>TEXT(Opportunity__r.Account.Service_Provider_Account_Type__c )</formula>
+        <label>Service Provider Account Type</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Ship_To_Contact__c</fullName>
@@ -1814,6 +1846,7 @@ ISPICKVAL( Opportunity__r.Account.Partner_Type__c,&quot;Service Provider&quot;)
     <label>POC Request</label>
     <listViews>
         <fullName>All</fullName>
+        <columns>AccountName__c</columns>
         <columns>NAME</columns>
         <columns>Opportunity__c</columns>
         <columns>Requested_Delivery_Date__c</columns>
@@ -1825,11 +1858,6 @@ ISPICKVAL( Opportunity__r.Account.Partner_Type__c,&quot;Service Provider&quot;)
         <columns>OWNER.ALIAS</columns>
         <columns>OWNER.LAST_NAME</columns>
         <filterScope>Everything</filterScope>
-        <filters>
-            <field>OWNER.ALIAS</field>
-            <operation>equals</operation>
-            <value>CustSrvc</value>
-        </filters>
         <label>All</label>
     </listViews>
     <listViews>
@@ -2266,7 +2294,19 @@ ISPICKVAL( Opportunity__r.Account.Partner_Type__c,&quot;Service Provider&quot;)
                 <default>false</default>
             </values>
             <values>
-                <fullName>Service Provider</fullName>
+                <fullName>Metered</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Metered-Orchestrator SP</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Perpetual</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Perpetual-Orchestrator SP</fullName>
                 <default>false</default>
             </values>
             <values>
@@ -2763,7 +2803,19 @@ ISPICKVAL( Opportunity__r.Account.Partner_Type__c,&quot;Service Provider&quot;)
                 <default>false</default>
             </values>
             <values>
-                <fullName>Service Provider</fullName>
+                <fullName>Metered</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Metered-Orchestrator SP</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Perpetual</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Perpetual-Orchestrator SP</fullName>
                 <default>false</default>
             </values>
             <values>
@@ -3010,7 +3062,7 @@ ISChanged( Number_of_Virtual_Products__c )
     </validationRules>
     <validationRules>
         <fullName>ECSP_Poc_cant_be_created_for_non_servPr</fullName>
-        <active>true</active>
+        <active>false</active>
         <errorConditionFormula>OR(
 AND
 (
@@ -3127,6 +3179,31 @@ Requested_End_Date__c - Target_End_Date__c &gt; 90</errorConditionFormula>
         <errorMessage>Requested End Date cannot be more than 90 days.</errorMessage>
     </validationRules>
     <validationRules>
+        <fullName>SP_POC_cant_be_on_Enterprise_Acc</fullName>
+        <active>true</active>
+        <errorConditionFormula>AND(
+ NOT(Opportunity__r.Account.ECSP__c),
+OR(
+ISPICKVAL( POC_Type__c,&quot;Perpetual-Orchestrator SP&quot; ),
+ISPICKVAL( POC_Type__c,&quot;Metered-Orchestrator SP&quot; ),
+ISPICKVAL( POC_Type__c,&quot;Perpetual&quot; ),
+ISPICKVAL( POC_Type__c,&quot;Metered&quot; )
+)
+)</errorConditionFormula>
+        <errorDisplayField>POC_Type__c</errorDisplayField>
+        <errorMessage>You can only select this poc type for Service Provider accounts.  Please check the ECSP box on the account  or  contact the Service Provider team to enable the same.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Service_POC_type_cannot_be_Enterprise</fullName>
+        <active>true</active>
+        <errorConditionFormula>AND(
+Opportunity__r.Account.ECSP__c,
+TEXT(POC_Type__c)!=Service_Provider_Account_Type__c
+)</errorConditionFormula>
+        <errorDisplayField>POC_Type__c</errorDisplayField>
+        <errorMessage>POC Type should match the service provider Account Type.</errorMessage>
+    </validationRules>
+    <validationRules>
         <fullName>TR_Approval_Check</fullName>
         <active>true</active>
         <description>Validate that only the TR can check the approval box</description>
@@ -3148,7 +3225,7 @@ ISPICKVAL(Status__c, &quot;Closed - Won&quot; ),
 ISPICKVAL(Status__c, &quot;Closed - Denied&quot; ),
 ISPICKVAL(Status__c, &quot;Closed - Returned&quot; ),
 ISPICKVAL(Status__c, &quot;Scheduled&quot; )),
-OR($User.Id = Opportunity__r.OwnerId, $User.Id = Opportunity__r.Technical_Responsible__r.Id),  Marketplace_Sourced_Opp__c =0
+Marketplace_Sourced_Opp__c =0
 )</errorConditionFormula>
         <errorMessage>Use the Submit for Approval button instead of changing the status to request approval</errorMessage>
     </validationRules>
@@ -3209,20 +3286,20 @@ var queueNameQueryResult = primaryQuote.getArray(&quot;records&quot;);
 
 var quoteInfo= sforce.connection.query(&quot;Select Id from Quote__C where Primary__c=true and Opportunity__c =&apos;{!Request__c.OpportunityId__c}&apos; and Id in (Select Quote__c from Quote_Line__c)&quot;); 
 var quoteInfoQueryResult = quoteInfo.getArray(&quot;records&quot;); 
-var accountInfo=sforce.connection.query(&quot;select AccountId from Opportunity where Id=&apos;{!Request__c.OpportunityId__c}&apos;&quot;); 
+var accountInfo=sforce.connection.query(&quot;select AccountId,GEO_Region__c from Opportunity where Id=&apos;{!Request__c.OpportunityId__c}&apos;&quot;); 
 var accountInfoQueryResult = accountInfo.getArray(&quot;records&quot;); 
 var accId=accountInfoQueryResult[0].AccountId; 
-
+var geoRegion=accountInfoQueryResult[0].GEO_Region__c;
 var accDtl=sforce.connection.query(&quot;select ECSP__c from Account where Id=&apos;&quot;+accId+&quot;&apos;&quot;); 
 var accDtlQueryResult = accDtl.getArray(&quot;records&quot;); 
 var ecspAcc=accDtlQueryResult[0].ECSP__c; 
  
-if(ecspAcc==&quot;false&quot; &amp;&amp; ( &apos;{!Request__c.RSM__c}&apos;== &quot;&quot; || &apos;{!Request__c.RSM_Manager__c}&apos;== &quot;&quot; || &apos;{!Request__c.RSM_VP_Sales__c}&apos;== &quot;&quot; || &apos;{!Request__c.SE__c}&apos;== &quot;&quot; || &apos;{!Request__c.SE_Manager__c}&apos;== &quot;&quot;|| &apos;{!Request__c.SE_Director__c}&apos;== &quot;&quot; )) 
+if(ecspAcc==&quot;false&quot; &amp;&amp; geoRegion!=&quot;EMEA&quot; &amp;&amp; geoRegion!=&quot;APAC&quot; &amp;&amp; ( &apos;{!Request__c.RSM__c}&apos;== &quot;&quot; || &apos;{!Request__c.RSM_Manager__c}&apos;== &quot;&quot; || &apos;{!Request__c.RSM_VP_Sales__c}&apos;== &quot;&quot; || &apos;{!Request__c.SE__c}&apos;== &quot;&quot; || &apos;{!Request__c.SE_Manager__c}&apos;== &quot;&quot;|| &apos;{!Request__c.SE_Director__c}&apos;== &quot;&quot; )) 
 { 
 alert(&quot;POC Approvers are blank. Check whether the opportunity is patched correctly or the managers are set properly on RSM and SE.&quot;); 
 } 
 else 
-{ 
+{
 
 var reqType= &apos;{!Request__c.POC_Type__c}&apos;; 
 var assetInfo=null; 
@@ -3234,7 +3311,7 @@ assetInfo=sforce.connection.query(queryData);
 } 
 if(reqType==&quot;EdgeConnect&quot;) 
 { 
-var queryData=&quot;select Id from Asset where Product2.Name like &apos;EC%&apos; and Status in(&apos;Customer Subscription Active&apos;,&apos;Customer Subscription Expired&apos;) and Product2.Family=&apos;Virtual Image&apos; and Product2.Product_Type__c=&apos;EDGECONNECT&apos; and AccountId=&apos;&quot;+ accId+&quot;&apos;&quot;; 
+var queryData=&quot;select Id from Asset where Product2.Name like &apos;EC%&apos; and Status in(&apos;Customer Subscription Active&apos;,&apos;Customer Subscription Expired&apos;,&apos;Conditional PO&apos;,&apos;Customer Subscription&apos;) and Product2.Family=&apos;Virtual Image&apos; and Product2.Product_Type__c=&apos;EDGECONNECT&apos; and AccountId=&apos;&quot;+ accId+&quot;&apos;&quot;; 
 assetInfo=sforce.connection.query(queryData); 
 } 
 if(assetInfo!=null &amp;&amp; assetInfo.size&gt;0 &amp;&amp; &apos;{!Request__c.Allow_Fulfillment__c}&apos;== false) 
@@ -3257,7 +3334,7 @@ approval.objectId = &quot;{!Request__c.Id}&quot;;
 var processRes = sforce.connection.process([approval]); 
 window.location=(&quot;/{!Request__c.Id}&quot;); 
 } 
-} 
+}
 }</url>
     </webLinks>
     <webLinks>

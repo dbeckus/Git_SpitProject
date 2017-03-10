@@ -13,6 +13,24 @@
         <template>Support/NewRMACreated</template>
     </alerts>
     <fieldUpdates>
+        <fullName>RMA_Item_Update_Email</fullName>
+        <field>Contact_Email__c</field>
+        <formula>RMA__r.Contact__r.Email</formula>
+        <name>RMA Item Update Email</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>RMA_Item_Update_Phone</fullName>
+        <field>Contact_Phone__c</field>
+        <formula>RMA__r.Contact__r.Phone</formula>
+        <name>RMA Item Update Phone</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+    </fieldUpdates>
+    <fieldUpdates>
         <fullName>SetChassisValue</fullName>
         <description>uses a formula field to determine whether a system is the replacement part number</description>
         <field>Chassis__c</field>
@@ -82,5 +100,28 @@ OR( ispickval(ShipToCountry__c, &apos;Argentina&apos;)
 , ispickval( RMA__r.Status__c , &apos;Dispatched&apos;)
  )</formula>
         <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>Update Email and Phone for Convert to Virtual RMA</fullName>
+        <actions>
+            <name>RMA_Item_Update_Email</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <actions>
+            <name>RMA_Item_Update_Phone</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>RMA__c.RecordTypeId</field>
+            <operation>equals</operation>
+            <value>CMA</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>RMA__c.Type__c</field>
+            <operation>equals</operation>
+            <value>Convert to Virtual</value>
+        </criteriaItems>
+        <triggerType>onCreateOnly</triggerType>
     </rules>
 </Workflow>

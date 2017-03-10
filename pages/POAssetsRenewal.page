@@ -70,7 +70,6 @@
                                 <apex:selectList id="assetType" style="width:20%" label="Asset Type" value="{!AssetTypeSelection}" required="false" size="1">
                                     <apex:selectOption itemvalue="1" itemLabel="Wan Op"/>
                                     <apex:selectOption itemvalue="2" itemLabel="Edge Connect"/>
-                                    <apex:selectOption itemvalue="3" itemLabel="Service Provider"/>
                                     <apex:actionSupport event="onchange" action="{!ResetFilter}" reRender="listSection,mainSection" />
                                 </apex:selectList>
                             </td>

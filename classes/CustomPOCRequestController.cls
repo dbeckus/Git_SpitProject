@@ -18,6 +18,8 @@ global with sharing class CustomPOCRequestController
     }
     public Boolean refreshPage {get; set;}
     public Boolean IsEdit { get; set; }
+    public Boolean ECSP { get; set; }
+    public Boolean FirstPOC { get; set; }
     public Boolean HasContact { get; set; }
     public List<SelectOption> VirtualProductOptions
     {
@@ -33,6 +35,8 @@ global with sharing class CustomPOCRequestController
     {
         get;set;
     }
+    
+    
     public string POCType
     {
         get;set;
@@ -166,6 +170,8 @@ global with sharing class CustomPOCRequestController
             
             try
             {
+                
+                System.debug('Save Request '+ CurrentRequest.First_POC_on_Account__c);
                 update CurrentRequest;
                 if(!isAutoSaveForEC)
                 {
@@ -264,8 +270,10 @@ global with sharing class CustomPOCRequestController
     private void CreateECPOCVirtualProduct(string requestId)
     {
         //requestId
-        Request__c pocRequest=[Select POC_Type__c from Request__c where Id=:requestId];
+        Request__c pocRequest=[Select POC_Type__c,First_POC_on_Account__c,Opportunity__r.Account.ECSP__c from Request__c where Id=:requestId];
         POCType=pocRequest.POC_Type__c;
+        ECSP=pocRequest.Opportunity__r.Account.ECSP__c;
+        FirstPOC=pocRequest.First_POC_on_Account__c;
         if(pocRequest.POC_Type__c=='EdgeConnect')
         {
             
@@ -273,6 +281,7 @@ global with sharing class CustomPOCRequestController
             boolean isProductsToBeAdded=ValidateECHasActiveLicensesorOpenPOCS(requestId,'EdgeConnect');
             if(VirtualProducts.size()==0 && !isProductsToBeAdded)
             {
+                CurrentRequest.First_POC_on_Account__c=true;
                 VirtualProducts.add(new VirtualProductInfo(VirtualProducts.size(),'EC-BASE-1Y',10));
                 VirtualProducts.add(new VirtualProductInfo(VirtualProducts.size(),'EC-PLUS-1Y',10));
                 VirtualProducts.add(new VirtualProductInfo(VirtualProducts.size(),'EC-BOOST-1Y',100));
@@ -285,22 +294,73 @@ global with sharing class CustomPOCRequestController
             }
             
         }
-        if(pocRequest.POC_Type__c=='Service Provider')
+        /* if(pocRequest.POC_Type__c=='Service Provider')
+{
+
+DisableVirtualSection=true;
+boolean isProductsToBeAdded=ValidateECHasActiveLicensesorOpenPOCS(requestId,'Service Provider');
+if(VirtualProducts.size()==0 && !isProductsToBeAdded)
+{
+CurrentRequest.First_POC_on_Account__c=true;
+VirtualProducts.add(new VirtualProductInfo(VirtualProducts.size(),'EC-SP',1));
+}
+if(VirtualProducts.size()>0)
+{
+ApexPages.Message myMsg = new ApexPages.Message(ApexPages.Severity.Info, 'EC-ORCH will be fulfilled automatically.'); 
+ApexPages.addMessage(myMsg);
+}
+
+}*/
+        if(pocRequest.POC_Type__c=='Perpetual'||pocRequest.POC_Type__c=='Perpetual-Orchestrator SP' )
         {
-            
             DisableVirtualSection=true;
-            boolean isProductsToBeAdded=ValidateECHasActiveLicensesorOpenPOCS(requestId,'Service Provider');
+            boolean isProductsToBeAdded=ValidateECHasActiveLicensesorOpenPOCS(requestId,pocRequest.POC_Type__c);
             if(VirtualProducts.size()==0 && !isProductsToBeAdded)
             {
-                VirtualProducts.add(new VirtualProductInfo(VirtualProducts.size(),'EC-SP',1));
+                CurrentRequest.First_POC_on_Account__c=true;
+                VirtualProducts.add(new VirtualProductInfo(VirtualProducts.size(),'EC-SP-50',5));
+                VirtualProducts.add(new VirtualProductInfo(VirtualProducts.size(),'EC-SP-100',5));
+                VirtualProducts.add(new VirtualProductInfo(VirtualProducts.size(),'EC-SP-200',5));
+                VirtualProducts.add(new VirtualProductInfo(VirtualProducts.size(),'EC-SP-1000',5));
             }
-            if(VirtualProducts.size()>0)
+            if(!pocRequest.First_POC_on_Account__c)
             {
-                ApexPages.Message myMsg = new ApexPages.Message(ApexPages.Severity.Info, 'EC-ORCH will be fulfilled automatically.'); 
-                ApexPages.addMessage(myMsg);
+                DisableVirtualSection=false;
+            } 
+            if(pocRequest.POC_Type__c=='Perpetual')
+            {
+                if(VirtualProducts.size()>0)
+                {
+                    ApexPages.Message myMsg = new ApexPages.Message(ApexPages.Severity.Info, 'EC-ORCH will be fulfilled automatically.'); 
+                    ApexPages.addMessage(myMsg);
+                }
             }
             
         }
+        if(pocRequest.POC_Type__c=='Metered'||pocRequest.POC_Type__c=='Metered-Orchestrator SP')
+        {
+            DisableVirtualSection=true;
+            boolean isProductsToBeAdded=ValidateECHasActiveLicensesorOpenPOCS(requestId,pocRequest.POC_Type__c);
+            if(VirtualProducts.size()==0 && !isProductsToBeAdded)
+            {
+                CurrentRequest.First_POC_on_Account__c=true;
+                VirtualProducts.add(new VirtualProductInfo(VirtualProducts.size(),'EC-SP-MET',1));
+            }
+            if(!pocRequest.First_POC_on_Account__c)
+            {
+                DisableVirtualSection=false;
+            }
+            if(pocRequest.POC_Type__c=='Metered')
+            {
+                if(VirtualProducts.size()>0)
+                {
+                    ApexPages.Message myMsg = new ApexPages.Message(ApexPages.Severity.Info, 'EC-ORCH will be fulfilled automatically.'); 
+                    ApexPages.addMessage(myMsg);
+                }
+            }
+            
+        }
+        
     }
     
     
@@ -418,7 +478,7 @@ return true;
                                      PhysicalQuantity1__c, PhysicalQuantity2__c, PhysicalQuantity3__c, PhysicalQuantity4__c, PhysicalQuantity5__c, 
                                      Ship_To_Location_1__c, PhysicalLocation1__c, PhysicalLocation2__c, PhysicalLocation3__c, PhysicalLocation4__c, PhysicalLocation5__c,
                                      EndCustomerName1__c, EndCustomerName2__c, EndCustomerName3__c, EndCustomerName4__c, EndCustomerName5__c,
-                                     Status__c, Actual_Ship_Date__c, Target_End_Date__c,POC_Type__c  from Request__c where Id = :requestId];                                                               
+                                     Status__c, Actual_Ship_Date__c, Target_End_Date__c,POC_Type__c,First_POC_on_Account__c  from Request__c where Id = :requestId];                                                               
         if(!requests.isEmpty())
         {
             CurrentRequest = requests[0];
@@ -507,22 +567,36 @@ return true;
     {
         List<SelectOption> result = new List<SelectOption>();
         List<Product2> lstProducts = new List<Product2>();
+        string productType='EC-SP-Metered';
         string productFamily= isVirtual?'Virtual Image':'Product';
+        
         List<Request__c> requests = [select Id, POC_Type__c from Request__c where Id = :requestId];                                                               
         if(!requests.isEmpty())
         {
             Request__c currRequest = requests[0];
+            if(productFamily=='Product' &&(currRequest.POC_Type__c == 'Metered'|| currRequest.POC_Type__c == 'Metered-Orchestrator SP'))
+            {
+                productType='EC-SP-Perpetual';
+            }
             if(currRequest.POC_Type__c == 'EdgeConnect')// Fetch only EC products
             { 
-                lstProducts= [Select Id,Name from Product2 where isActive=true and IsPocEnabled__c =true and Family=:productFamily and Name like 'EC-%' order by Name];
+                lstProducts= [Select Id,Name from Product2 where isActive=true and IsPocEnabled__c =true and Family=:productFamily and Product_Type__c='EDGECONNECT' order by Name];
             }
-            else if(currRequest.POC_Type__c == 'Service Provider')// Fetch only EC products
+            /* else if(currRequest.POC_Type__c == 'Service Provider')// Fetch only EC products
+{ 
+lstProducts= [Select Id,Name from Product2 where isActive=true and IsPocEnabled__c =true and Family=:productFamily and Product_Type__c='EC-SP' order by Name];
+}*/
+            else if(currRequest.POC_Type__c == 'Perpetual'|| currRequest.POC_Type__c == 'Perpetual-Orchestrator SP')// Fetch only EC products
             { 
-                lstProducts= [Select Id,Name from Product2 where isActive=true and IsPocEnabled__c =true and Family=:productFamily and Name like 'EC-%' order by Name];
+                lstProducts= [Select Id,Name from Product2 where isActive=true and IsPocEnabled__c =true and Family=:productFamily and Product_Type__c='EC-SP-Perpetual' order by Name];
+            }
+            else if(currRequest.POC_Type__c == 'Metered'|| currRequest.POC_Type__c == 'Metered-Orchestrator SP')// Fetch only EC products
+            { 
+                lstProducts= [Select Id,Name from Product2 where isActive=true and IsPocEnabled__c =true and Family=:productFamily and Product_Type__c=:productType order by Name];
             }
             else
             { 
-                lstProducts= [Select Id,Name from Product2 where isActive=true and IsPocEnabled__c =true and Family=:productFamily and (NOT Name Like 'EC-%')order by Product_Category__c,Name];
+                lstProducts= [Select Id,Name from Product2 where isActive=true and IsPocEnabled__c =true and Family=:productFamily and Product_Type__c='NX/VX' order by Product_Category__c,Name];
             }
         }
         
@@ -1083,7 +1157,7 @@ return true;
         opportunity.Solution_Type__c = 'Replication Acceleration';
         
         insert opportunity;
-        
+        Test.startTest();
         Request__c request = new Request__c(POC_Contact__c = contact.Id);
         request.POC_Type__c='EdgeConnect';
         request.Opportunity__c= opportunity.id;
@@ -1096,6 +1170,7 @@ return true;
         CustomPOCRequestController controller = new CustomPOCRequestController(stdController);
         
         controller.savePage();
+        Test.stopTest();
         Request__c updatedReq=[Select VirtualProduct1__c,VirtualProduct2__c,VirtualProduct3__c,VirtualProduct4__c,VirtualProduct5__c,VirtualQuantity1__c,VirtualQuantity2__c,VirtualQuantity3__c,VirtualQuantity4__c,VirtualQuantity5__c from Request__c where Id=:request.Id ];
         System.assertEquals(updatedReq.VirtualProduct1__c, 'EC-BASE-1Y');
         System.assertEquals(updatedReq.VirtualProduct2__c, 'EC-PLUS-1Y');
@@ -1107,11 +1182,10 @@ return true;
         System.assertEquals(updatedReq.VirtualQuantity4__c,1);
         
     }  
-    
     @isTest
-    static void testECPocRequestECPOC_NoVirtualProductsForSameAccount()
+    static void testECPocRequestECPOC_AutoPopulateVirtualProducts_Perpetual()
     {
-        Account acc = new Account(Name='testECPOC');
+        Account acc = new Account(Name='testECPOC',ECSP__c=true,Service_Provider_Account_Type__c='Perpetual',Service_Provider_Admin_User__c='abc@abc.com',Service_Provider_Domain__c='abc1323',Service_Provider_Location__c='Canada (Central)');
         insert acc;
         Contact contact = new Contact(FirstName = 'AcmeFirstname', LastName = 'AcmeLastname', Phone='123456789', Email = 'acme@acme.com' , accountId=acc.Id);
         insert contact;
@@ -1129,75 +1203,37 @@ return true;
         opportunity.Product_Type__c = 'Both';
         opportunity.Deal_Type__c = 'Replication';
         opportunity.Solution_Type__c = 'Replication Acceleration';
-        insert opportunity;
         
+        insert opportunity;
+        Test.startTest();
         Request__c request = new Request__c(POC_Contact__c = contact.Id);
-        request.POC_Type__c='EdgeConnect';
+        request.POC_Type__c='Perpetual';
         request.Opportunity__c= opportunity.id;
         insert request;
-        request.PhysicalProduct1__c = 'EC-XS';
-        request.PhysicalQuantity1__c = 2;
-        request.PhysicalLocation1__c = 'Street1' + '\r\n' + 'Street2' + '\r\n' + 'Moscow, BC 12' + '\r\n' + 'Canada' + '\r\n' + 'Kevin chong' + '\r\n' + '12111' + '\r\n' + 'company' + '\r\n' + 'finalCountry' + '\r\n' + 'finalFirstname finalLastname' + '\r\n' + '123234' + '\r\n' + 'finalCompany' + '\r\n' + 'vatId' + '\r\n' + 'vatAddress';
-        Test.startTest();
+        
         ApexPages.StandardController stdController = new ApexPages.StandardController(request);
         CustomPOCRequestController controller = new CustomPOCRequestController(stdController);
         
         controller.savePage();
-        Request__c updatedReq=[Select VirtualProduct1__c,VirtualProduct2__c,VirtualProduct3__c,VirtualProduct4__c,VirtualProduct5__c,VirtualQuantity1__c,VirtualQuantity2__c,VirtualQuantity3__c,VirtualQuantity4__c,VirtualQuantity5__c from Request__c where Id=:request.Id ];
-        System.assertEquals(updatedReq.VirtualProduct1__c, 'EC-BASE-1Y');
-        System.assertEquals(updatedReq.VirtualProduct2__c, 'EC-PLUS-1Y');
-        System.assertEquals(updatedReq.VirtualProduct3__c, 'EC-BOOST-1Y'); 
-        System.assertEquals(updatedReq.VirtualProduct4__c, 'EC-SAAS-1Y');
-        System.assertEquals(updatedReq.VirtualQuantity1__c, 10);
-        System.assertEquals(updatedReq.VirtualQuantity2__c, 10);
-        System.assertEquals(updatedReq.VirtualQuantity3__c, 100); 
-        System.assertEquals(updatedReq.VirtualQuantity4__c,1);
-        
-        Opportunity newOpp = new Opportunity();
-        newOpp.Name = 'acme';
-        newOpp.AccountId = acc.Id;
-        newOpp.Pricebook2Id = TestUtilities.getStandardPricebookId();
-        newOpp.StageName = 'Closed Dead';
-        newOpp.Dead_Reason__c = 'acme';
-        newOpp.CloseDate = Date.today().addYears(1);
-        newOpp.Type = 'New Business';
-        newOpp.Opportunity_Source__c = 'Other';
-        newOpp.POC_Type__c = 'POC';
-        newOpp.Deal_Type__c = 'Replication';
-        newOpp.Product_Type__c = 'Both';
-        newOpp.Solution_Type__c = 'Replication Acceleration';
-        insert newOpp;
-        request = new Request__c(POC_Contact__c = contact.Id);
-        request.POC_Type__c='EdgeConnect';
-        request.Opportunity__c= newOpp.id;
-        insert request;
-        stdController = new ApexPages.StandardController(request);
-        controller = new CustomPOCRequestController(stdController);
-        controller.savePage();
-        updatedReq=[Select VirtualProduct1__c,VirtualProduct2__c,VirtualProduct3__c,VirtualProduct4__c,VirtualProduct5__c,VirtualQuantity1__c,VirtualQuantity2__c,VirtualQuantity3__c,VirtualQuantity4__c,VirtualQuantity5__c from Request__c where Id=:request.Id ];
-        System.assertEquals(updatedReq.VirtualProduct1__c, null);
-        System.assertEquals(updatedReq.VirtualProduct2__c, null);
-        System.assertEquals(updatedReq.VirtualProduct3__c, null); 
-        System.assertEquals(updatedReq.VirtualProduct4__c, null);
         Test.stopTest();
+        Request__c updatedReq=[Select VirtualProduct1__c,VirtualProduct2__c,VirtualProduct3__c,VirtualProduct4__c,VirtualProduct5__c,VirtualQuantity1__c,VirtualQuantity2__c,VirtualQuantity3__c,VirtualQuantity4__c,VirtualQuantity5__c from Request__c where Id=:request.Id ];
+        System.assertEquals(updatedReq.VirtualProduct1__c, 'EC-SP-50');
+        System.assertEquals(updatedReq.VirtualProduct2__c, 'EC-SP-100');
+        System.assertEquals(updatedReq.VirtualProduct3__c, 'EC-SP-200'); 
+        System.assertEquals(updatedReq.VirtualProduct4__c, 'EC-SP-1000');
+        System.assertEquals(updatedReq.VirtualQuantity1__c, 5);
+        System.assertEquals(updatedReq.VirtualQuantity2__c, 5);
+        System.assertEquals(updatedReq.VirtualQuantity3__c, 5); 
+        System.assertEquals(updatedReq.VirtualQuantity4__c,5);
         
-        
-    }  
-    @isTest(SeeAllData=true)
-    static void testECPocRequestECPOC_NoVirtualProductsForSameAccount_AssetExists()
+    }
+    @isTest
+    static void testECPocRequestECPOC_AutoPopulateVirtualProducts_Metered()
     {
-        Account acc = new Account(Name='testECPOC');
+        Account acc = new Account(Name='testECPOC',ECSP__c=true,Service_Provider_Account_Type__c='Metered',Service_Provider_Admin_User__c='abc@abc.com',Service_Provider_Domain__c='abc1323',Service_Provider_Location__c='Canada (Central)');
         insert acc;
         Contact contact = new Contact(FirstName = 'AcmeFirstname', LastName = 'AcmeLastname', Phone='123456789', Email = 'acme@acme.com' , accountId=acc.Id);
         insert contact;
-        Profile prof = [SELECT Id FROM Profile WHERE Name='1.4- Intl Regional Sales Manager']; 
-        User techUser = new User(Alias = 'standt', Email='testUser@testtechuser.com', 
-                                 EmailEncodingKey='UTF-8', LastName='Testing', LanguageLocaleKey='en_US', 
-                                 LocaleSidKey='en_US', ProfileId = prof.Id, 
-                                 TimeZoneSidKey='America/Los_Angeles', UserName='testUser@testtechuser.com');
-        
-        techUser.IsActive =true;
-        insert techUser;
         
         Opportunity opportunity = new Opportunity();
         opportunity.Name = 'acme';
@@ -1211,68 +1247,27 @@ return true;
         opportunity.POC_Type__c = 'POC';
         opportunity.Product_Type__c = 'Both';
         opportunity.Deal_Type__c = 'Replication';
-        opportunity.Technical_Responsible__c=techUser.Id;
         opportunity.Solution_Type__c = 'Replication Acceleration';
-        insert opportunity;
         
+        insert opportunity;
+        Test.startTest();
         Request__c request = new Request__c(POC_Contact__c = contact.Id);
-        request.POC_Type__c='EdgeConnect';
+        request.POC_Type__c='Metered';
         request.Opportunity__c= opportunity.id;
         insert request;
-        request.PhysicalProduct1__c = 'EC-XS';
-        request.PhysicalQuantity1__c = 2;
-        request.PhysicalLocation1__c = 'Street1' + '\r\n' + 'Street2' + '\r\n' + 'Moscow, BC 12' + '\r\n' + 'Canada' + '\r\n' + 'Kevin chong' + '\r\n' + '12111' + '\r\n' + 'company' + '\r\n' + 'finalCountry' + '\r\n' + 'finalFirstname finalLastname' + '\r\n' + '123234' + '\r\n' + 'finalCompany' + '\r\n' + 'vatId' + '\r\n' + 'vatAddress';
-        Test.startTest();
+        
         ApexPages.StandardController stdController = new ApexPages.StandardController(request);
         CustomPOCRequestController controller = new CustomPOCRequestController(stdController);
         
         controller.savePage();
-        Request__c updatedReq=[Select VirtualProduct1__c,VirtualProduct2__c,VirtualProduct3__c,VirtualProduct4__c,VirtualProduct5__c,VirtualQuantity1__c,VirtualQuantity2__c,VirtualQuantity3__c,VirtualQuantity4__c,VirtualQuantity5__c from Request__c where Id=:request.Id ];
-        System.assertEquals(updatedReq.VirtualProduct1__c, 'EC-BASE-1Y');
-        System.assertEquals(updatedReq.VirtualProduct2__c, 'EC-PLUS-1Y');
-        System.assertEquals(updatedReq.VirtualProduct3__c, 'EC-BOOST-1Y'); 
-        System.assertEquals(updatedReq.VirtualProduct4__c, 'EC-SAAS-1Y');
-        System.assertEquals(updatedReq.VirtualQuantity1__c, 10);
-        System.assertEquals(updatedReq.VirtualQuantity2__c, 10);
-        System.assertEquals(updatedReq.VirtualQuantity3__c, 100); 
-        System.assertEquals(updatedReq.VirtualQuantity4__c,1);
-        
-        List<Product2> ecBaseProduct=[Select Id from Product2 where Name='EC-BASE-1Y'];
-        Asset asset = new Asset(Name='Test',AccountId=acc.Id,POCRequest__c=request.Id,Product2Id=ecBaseProduct[0].Id, Licenses_Nodes__c=10,Status='Customer Evaluation');
-        insert asset;
-        
-        
-        Opportunity newOpp = new Opportunity();
-        newOpp.Name = 'acme';
-        newOpp.AccountId = acc.Id;
-        newOpp.Pricebook2Id = TestUtilities.getStandardPricebookId();
-        newOpp.StageName = 'Closed Dead';
-        newOpp.Dead_Reason__c = 'acme';
-        newOpp.CloseDate = Date.today().addYears(1);
-        newOpp.Type = 'New Business';
-        newOpp.Opportunity_Source__c = 'Other';
-        newOpp.POC_Type__c = 'POC';
-        newOpp.Deal_Type__c = 'Replication';
-        newOpp.Product_Type__c = 'Both';
-        newOpp.Technical_Responsible__c=techUser.Id;
-        newOpp.Solution_Type__c = 'Replication Acceleration';
-        insert newOpp;
-        request = new Request__c(POC_Contact__c = contact.Id);
-        request.POC_Type__c='EdgeConnect';
-        
-        request.Opportunity__c= newOpp.id;
-        
-        insert request;
-        stdController = new ApexPages.StandardController(request);
-        controller = new CustomPOCRequestController(stdController);
-        controller.savePage();
-        updatedReq=[Select VirtualProduct1__c,VirtualProduct2__c,VirtualProduct3__c,VirtualProduct4__c,VirtualProduct5__c,VirtualQuantity1__c,VirtualQuantity2__c,VirtualQuantity3__c,VirtualQuantity4__c,VirtualQuantity5__c from Request__c where Id=:request.Id ];
-        System.assertEquals(updatedReq.VirtualProduct1__c, null);
-        System.assertEquals(updatedReq.VirtualProduct2__c, null);
-        System.assertEquals(updatedReq.VirtualProduct3__c, null); 
-        System.assertEquals(updatedReq.VirtualProduct4__c, null);
         Test.stopTest();
-    }  
+        Request__c updatedReq=[Select VirtualProduct1__c,VirtualProduct2__c,VirtualProduct3__c,VirtualProduct4__c,VirtualProduct5__c,VirtualQuantity1__c,VirtualQuantity2__c,VirtualQuantity3__c,VirtualQuantity4__c,VirtualQuantity5__c from Request__c where Id=:request.Id ];
+        System.assertEquals(updatedReq.VirtualProduct1__c, 'EC-SP-MET');
+        System.assertEquals(updatedReq.VirtualQuantity1__c, 1);
+        
+        
+    } 
+    
     @isTest
     static void testValidECProducts()
     {
@@ -1295,37 +1290,8 @@ return true;
         System.assertEquals('EC-XS', output.PhysicalProduct1__c);
         
     }    
-    @isTest
-    static void testValidECServiceProviderProducts()
-    {
-        Account testAcc= new Account(name='Name',Type='Prospect',Partner_Type__c='Service Provider',ECSP__c=true);
-        insert testAcc;
-        Contact contact = new Contact(FirstName = 'AcmeFirstname', LastName = 'AcmeLastname', Phone='123456789', Email = 'acme@acme.com', AccountId=testAcc.Id );
-        insert contact;
-        Opportunity newOpp = new Opportunity();
-        newOpp.Name = 'acme';
-        newOpp.AccountId = testAcc.Id;
-        newOpp.StageName = 'New';
-        newOpp.CloseDate = Date.today().addYears(1);
-        newOpp.Type = 'New Business';
-        newOpp.Deal_Type__c = 'Replication';
-        newOpp.Product_Type__c = 'Both';
-        newOpp.Solution_Type__c = 'Replication Acceleration';
-        insert newOpp;
-        Request__c request = new Request__c(POC_Contact__c = contact.Id);
-        request.POC_Type__c='Service Provider';
-        request.Opportunity__c=newOpp.id;
-        //request.VirtualProduct1__c = 'EC-SP';
-        //request.VirtualQuantity1__c = 1;
-        
-        insert request;
-        ApexPages.StandardController stdController = new ApexPages.StandardController(request);
-        CustomPOCRequestController controller = new CustomPOCRequestController(stdController);
-        controller.savePage();
-        Request__C output= [Select Id,VirtualProduct1__c from Request__c where Id=:request.Id];
-        System.assertEquals('EC-SP', output.VirtualProduct1__c);
-        
-    }    
+    
+    
     @isTest
     static void testComposeLocation()
     {        

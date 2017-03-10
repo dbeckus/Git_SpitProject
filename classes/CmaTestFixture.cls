@@ -10,6 +10,8 @@ public class CmaTestFixture
         Profile profile = [select Id from Profile where Name='12-SP Portal' limit 1];
         Account acc = new Account(Name='acme');
         insert acc;
+        Account spAcc = new Account(Name='Silver Peak Systems');
+        insert spAcc;
         Contact contact = new Contact(LastName='test user', AccountId=acc.Id);
         insert contact;
         User destinationUser = new User(FirstName='acme', LastName='acme', Email='test@test.com', Username='test@test.com', ProfileId=profile.Id, ContactId=contact.Id, Alias='test', TimeZoneSidKey='America/Los_Angeles', LocaleSidKey='en_US', EmailEncodingKey='ISO-8859-1', LanguageLocaleKey='en_US');

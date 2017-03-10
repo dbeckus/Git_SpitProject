@@ -1,5 +1,5 @@
 public class TestDataController {
-    
+    public static string caseNumber{get;set;}
     public PageReference SaveData()
     {
         HttpRequest req = new HttpRequest(); 
@@ -9,7 +9,7 @@ public class TestDataController {
                     '&client_id=' + '3MVG9PerJEe9i8iJHT36EOe.CDwodG04rDZo.EXoBfzJOIRF4lZIpmVa0omAgwrgr8fxBi.pXVUfrze3NmlYg' +
                     '&client_secret=' + '362843396604305330' +
                     '&username=' + EncodingUtil.urlEncode('prane@silver-peak.com.spit', 'UTF-8') +
-                    '&password=' + EncodingUtil.urlEncode('Fluffy1984', 'UTF-8'));
+                    '&password=' + EncodingUtil.urlEncode('Fluffy1985', 'UTF-8'));
         
         Http http = new Http();
         
@@ -22,7 +22,7 @@ public class TestDataController {
         System.debug('access_token'+data.access_token);
         //System.JSONObject jsonObj= new JsonObject(res.getBody());
         // Call the get case data
-         HttpRequest req1 = new HttpRequest(); 
+        /* HttpRequest req1 = new HttpRequest(); 
 req1.setMethod('GET');
 req1.setEndpoint('https://silverpeaksystems--spit.cs30.my.salesforce.com/services/apexrest/CPCaseInfo?caseNumber=20170125-196107');
 req1.setHeader('AUTHORIZATION', 'Bearer '+data.access_token);
@@ -33,7 +33,7 @@ HTTPResponse res1 = http1.send(req1);
 System.debug('BODY: '+res1.getBody());
 System.debug('STATUS:'+res1.getStatus());
 System.debug('STATUS_CODE:'+res1.getStatusCode());
-
+*/
         
         HttpRequest req2 = new HttpRequest(); 
         req2.setMethod('POST');
@@ -45,7 +45,7 @@ System.debug('STATUS_CODE:'+res1.getStatusCode());
         generator.writeFieldName('caseInfo');
         generator.writeStartObject();
         generator.writeObjectField('subject','Test Subject');
-        generator.writeObjectField('description','Test Description');
+        generator.writeObjectField('description','a thing\nanother thing');
         generator.writeObjectField('priority','P4 - Low');
         generator.writeObjectField('emailAddress','prane233@silver-peak.com');
         generator.writeObjectField('serialNumber','001ddd444bbb');
@@ -61,6 +61,7 @@ System.debug('STATUS_CODE:'+res1.getStatusCode());
         System.debug('BODY: '+res2.getBody());
         System.debug('STATUS:'+res2.getStatus());
         System.debug('STATUS_CODE:'+res2.getStatusCode());
+        caseNumber=res2.getBody();
         /*
         HttpRequest req3 = new HttpRequest(); 
         req3.setMethod('POST');

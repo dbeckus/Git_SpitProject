@@ -89,8 +89,10 @@ b) Virtual ( Virtual Appliance )
 c) New Business (Subscription Product for Virtual Appliance on Opp type of New Business)
 This field is to define which type this quote line need when approval.</description>
         <externalId>false</externalId>
-        <formula>IF(  IsAppliance__c =1,
-CASE( Product__r.Product_Family_Clean__c , &apos;Virtual&apos;,  IF( AND(  ISPICKVAL(Product__r.Product_Category__c , &apos;Subscription&apos;) ,  ISPICKVAL(Quote__r.Opportunity__r.Type , &apos;New Business&apos;) ) , &apos;New Business&apos;, &apos;Virtual&apos;) , &apos;Physical&apos;), &apos;Service&apos;)</formula>
+        <formula>IF(OR(ISPICKVAL(Quote__r.Opportunity__r.Type , &apos;Support Renewal&apos;),ISPICKVAL(Quote__r.Opportunity__r.Type , &apos;Subscription Renewal&apos;),ISPICKVAL(Quote__r.Opportunity__r.Type , &apos;EC Renewal&apos;)),&apos;Renewal&apos;,
+IF( IsAppliance__c =1,
+CASE( Product__r.Product_Family_Clean__c , &apos;Virtual&apos;, IF( AND( ISPICKVAL(Product__r.Product_Category__c , &apos;Subscription&apos;) , ISPICKVAL(Quote__r.Opportunity__r.Type , &apos;New Business&apos;) ) , &apos;New Business&apos;, &apos;Virtual&apos;) , &apos;Physical&apos;), &apos;Service&apos;)
+)</formula>
         <label>Approval Type</label>
         <required>false</required>
         <trackHistory>false</trackHistory>

@@ -485,6 +485,59 @@
         <senderType>OrgWideEmailAddress</senderType>
         <template>POC/Extension_Reminder</template>
     </alerts>
+    <alerts>
+        <fullName>Send_Reminder_Email_for_POC_Expiration</fullName>
+        <ccEmails>notifications@silver-peak.com</ccEmails>
+        <description>Send Reminder Email for POC Expiration</description>
+        <protected>false</protected>
+        <recipients>
+            <field>POC_Contact__c</field>
+            <type>contactLookup</type>
+        </recipients>
+        <recipients>
+            <recipient>prane@silver-peak.com</recipient>
+            <type>user</type>
+        </recipients>
+        <recipients>
+            <field>RSM_Manager__c</field>
+            <type>userLookup</type>
+        </recipients>
+        <recipients>
+            <field>RSM_VP_Sales__c</field>
+            <type>userLookup</type>
+        </recipients>
+        <recipients>
+            <field>RSM__c</field>
+            <type>userLookup</type>
+        </recipients>
+        <recipients>
+            <field>SE_Director__c</field>
+            <type>userLookup</type>
+        </recipients>
+        <recipients>
+            <field>SE_Manager__c</field>
+            <type>userLookup</type>
+        </recipients>
+        <recipients>
+            <field>SE__c</field>
+            <type>userLookup</type>
+        </recipients>
+        <senderAddress>noreply@silver-peak.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>POC/POCExpirationReminder</template>
+    </alerts>
+    <alerts>
+        <fullName>Send_email_to_POC_Team</fullName>
+        <description>Send email to POC Team</description>
+        <protected>false</protected>
+        <recipients>
+            <recipient>prane@silver-peak.com</recipient>
+            <type>user</type>
+        </recipients>
+        <senderAddress>noreply@silver-peak.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>POC/POCExpirationReminder</template>
+    </alerts>
     <fieldUpdates>
         <fullName>ClearFirstExtension</fullName>
         <field>First_Extension_Granted__c</field>
@@ -658,6 +711,15 @@
         <protected>false</protected>
     </fieldUpdates>
     <fieldUpdates>
+        <fullName>Set_POC_Trigger_value</fullName>
+        <field>Trigger_POC_Email__c</field>
+        <literalValue>1</literalValue>
+        <name>Set POC Trigger value</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+    </fieldUpdates>
+    <fieldUpdates>
         <fullName>TargetEndDateAdd60</fullName>
         <description>Add 60 days to target end date, if blank, today + 60</description>
         <field>Target_End_Date__c</field>
@@ -686,6 +748,15 @@ Requested_End_Date__c
         <name>UpdateTodayTargetEndDate</name>
         <notifyAssignee>false</notifyAssignee>
         <operation>Formula</operation>
+        <protected>false</protected>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_POC_Approver_flag</fullName>
+        <field>Trigger_POC_Approvers__c</field>
+        <literalValue>1</literalValue>
+        <name>Update POC Approver flag</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
         <protected>false</protected>
     </fieldUpdates>
     <fieldUpdates>
@@ -1001,6 +1072,49 @@ Eval RMA opened by trigger on status change to pending return (set by monitoring
         <triggerType>onAllChanges</triggerType>
     </rules>
     <rules>
+        <fullName>Service Provider Send Expiration Notice 15days</fullName>
+        <active>true</active>
+        <criteriaItems>
+            <field>Request__c.POC_Type__c</field>
+            <operation>equals</operation>
+            <value>Perpetual,Metered,Perpetual-Orchestrator SP,Metered-Orchestrator SP</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Request__c.Trigger_POC_Email__c</field>
+            <operation>equals</operation>
+            <value>True</value>
+        </criteriaItems>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+        <workflowTimeTriggers>
+            <actions>
+                <name>Reminder_for_expiring_POC_and_or_licenses</name>
+                <type>Alert</type>
+            </actions>
+            <actions>
+                <name>Clear_Trigger_POC_value</name>
+                <type>FieldUpdate</type>
+            </actions>
+            <offsetFromField>Request__c.Target_End_Date__c</offsetFromField>
+            <timeLength>-15</timeLength>
+            <workflowTimeTriggerUnit>Days</workflowTimeTriggerUnit>
+        </workflowTimeTriggers>
+    </rules>
+    <rules>
+        <fullName>Service Provider Trigger POC Email</fullName>
+        <actions>
+            <name>Set_POC_Trigger_value</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <formula>AND(
+ Opportunity__r.Account.ECSP__c,
+ISCHANGED( Target_End_Date__c ) 
+
+
+)</formula>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
         <fullName>SetSEEmailFieldValue</fullName>
         <actions>
             <name>SetSEEmailFieldValue</name>
@@ -1009,6 +1123,19 @@ Eval RMA opened by trigger on status change to pending return (set by monitoring
         <active>true</active>
         <formula>LastModifiedDate &gt; CreatedDate</formula>
         <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>Trigger POC Approvers</fullName>
+        <actions>
+            <name>Update_POC_Approver_flag</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>Request__c.Name</field>
+            <operation>notEqual</operation>
+        </criteriaItems>
+        <triggerType>onCreateOnly</triggerType>
     </rules>
     <rules>
         <fullName>TriggerVXFulfillmentEmail_POC</fullName>

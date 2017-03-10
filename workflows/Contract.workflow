@@ -130,4 +130,15 @@ ISPICKVAL( Status , &quot;Activated&quot;) &amp;&amp; ISPICKVAL( Priorvalue(Stat
         <description>Set&apos;s actions to occur when contracts are edited.</description>
         <triggerType>onAllChanges</triggerType>
     </rules>
+    <rules>
+        <fullName>Sync Contract Dates for Service Provider</fullName>
+        <active>false</active>
+        <formula>AND(
+ISPICKVAL( Contract_Type__c,&quot;Service Provider&quot; ),
+ISCHANGED( StartDate ),
+ISCHANGED( EndDate),
+ISCHANGED( Status)
+)</formula>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
 </Workflow>

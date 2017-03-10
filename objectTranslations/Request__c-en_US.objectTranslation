@@ -340,6 +340,10 @@
         <name>First_Extension_Granted__c</name>
     </fields>
     <fields>
+        <label><!-- First POC on Account --></label>
+        <name>First_POC_on_Account__c</name>
+    </fields>
+    <fields>
         <label><!-- GMS Ship To --></label>
         <name>GMS_Needed__c</name>
         <picklistValues>
@@ -448,8 +452,20 @@
             <translation><!-- EdgeConnect --></translation>
         </picklistValues>
         <picklistValues>
-            <masterLabel>Service Provider</masterLabel>
-            <translation><!-- Service Provider --></translation>
+            <masterLabel>Metered</masterLabel>
+            <translation><!-- Metered --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Metered-Orchestrator SP</masterLabel>
+            <translation><!-- Metered-Orchestrator SP --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Perpetual</masterLabel>
+            <translation><!-- Perpetual --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Perpetual-Orchestrator SP</masterLabel>
+            <translation><!-- Perpetual-Orchestrator SP --></translation>
         </picklistValues>
         <picklistValues>
             <masterLabel>WAN Op</masterLabel>
@@ -678,6 +694,10 @@
     <fields>
         <label><!-- Sending Reminder Email --></label>
         <name>Sending_Reminder_Email__c</name>
+    </fields>
+    <fields>
+        <label><!-- Service Provider Account Type --></label>
+        <name>Service_Provider_Account_Type__c</name>
     </fields>
     <fields>
         <label><!-- Ship To Contact (if different than POC) --></label>
@@ -1070,6 +1090,14 @@
     <validationRules>
         <errorMessage><!-- Requested End Date cannot be more than 90 days. --></errorMessage>
         <name>Requested_End_Date_cannot_exceed_90_days</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- You can only select this poc type for Service Provider accounts.  Please check the ECSP box on the account  or  contact the Service Provider team to enable the same. --></errorMessage>
+        <name>SP_POC_cant_be_on_Enterprise_Acc</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- POC Type should match the service provider Account Type. --></errorMessage>
+        <name>Service_POC_type_cannot_be_Enterprise</name>
     </validationRules>
     <validationRules>
         <errorMessage><!-- Only the person selected as Technical Responsibility can approve this request --></errorMessage>

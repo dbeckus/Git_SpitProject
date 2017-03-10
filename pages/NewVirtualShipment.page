@@ -97,12 +97,6 @@
                 "licensesNodes":nodeCurrentRow.find("input[id$='licensesNodes']"),
                 "bandwidthNodes":nodeCurrentRow.find("input[id$='bandwidthNodes']"),
                 "qty":nodeCurrentRow.find("input[id$='qty']"),
-                "servicestartDate":nodeCurrentRow.find("input[id$='servicestartDate']"),
-                "servicestartDateOutput": nodeCurrentRow.find(".service-start-date-output"),
-                "servicestartDateInput": nodeCurrentRow.find(".service-start-date-input"),
-                "serviceEndDate":nodeCurrentRow.find("input[id$='serviceendDate']"),
-                "serviceendDateOutput": nodeCurrentRow.find(".service-end-date-output"),
-                "serviceendDateInput": nodeCurrentRow.find(".service-end-date-input"),
             }
         };
         
@@ -158,10 +152,6 @@
                 
                 nodeLine.endDateInput.css("display", "inline-block");
                 nodeLine.endDateOutput.hide();
-                nodeLine.servicestartDateOutput.hide();
-                nodeLine.servicestartDateInput.hide();
-                nodeLine.serviceendDateOutput.hide();
-                nodeLine.serviceendDateInput.hide();
                 
                 refreshAssetEndDate(nodeLine);
             } else { //50 - Customer Owned
@@ -179,22 +169,9 @@
                 nodeLine.endDateInput.hide();
                 nodeLine.endDateOutput.css("display", "inline-block");
                 nodeLine.endDateOutput.text("");
-                //nodeLine.endDate.val("");
-                nodeLine.servicestartDateOutput.hide();
-                nodeLine.servicestartDateInput.hide();
-                //nodeLine.servicestartDate.val("");
-                nodeLine.serviceendDateOutput.hide();
-                nodeLine.serviceendDateInput.hide();
-                //nodeLine.serviceEndDate.val("");
-                if(productName.indexOf("EC-SP") == 0)
-                {
-                    nodeLine.servicestartDateInput.show();
-                    //nodeLine.servicestartDate.val(today);
-                    nodeLine.servicestartDateInput.css("display", "inline-block");
-                    nodeLine.serviceendDateInput.show();
-                    //nodeLine.serviceEndDate.val(today);
-                    nodeLine.serviceendDateInput.css("display", "inline-block");
-                }
+                nodeLine.endDate.val("");
+               
+               
             }
         };
         
@@ -341,25 +318,6 @@
                                 <apex:inputField id="endDate" value="{!assetInfo.Asset.Evaluation_End_Date__c}" />
                             </span>
                         </apex:column>
-                        <apex:column id="SupportStartDateCol" width="10%">
-                             <apex:facet name="header">
-                            	Service Support Start Date&nbsp;<img src="/s.gif" alt="Expand" class="moreArrow" title="Expand" onclick="showDatePopup('ServStart')" style="cursor:pointer"/>
-                        	</apex:facet>
-                            <span class="service-start-date-output"></span>
-                            <span class="service-start-date-input">
-                                <apex:inputField id="servicestartDate" value="{!assetInfo.Asset.Service_Support_Start_Date__c}" />
-                                
-                            </span>
-                        </apex:column>
-                        <apex:column id="SupportEndDateCol" width="10%">
-                            <apex:facet name="header">
-                            	Service Support End Date&nbsp;<img src="/s.gif" alt="Expand" class="moreArrow" title="Expand" onclick="showDatePopup('ServEnd')" style="cursor:pointer"/>
-                        	</apex:facet>
-                            <span class="service-end-date-output"></span>
-                            <span class="service-end-date-input">
-                                <apex:inputField id="serviceendDate" value="{!assetInfo.Asset.Service_Support_End_Date__c}" />
-                            </span>
-                        </apex:column>
                        <apex:variable var="index" value="{!index + 1}" />
                     </apex:pageblockTable>
                     <apex:commandLink value="Add Row" action="{!addLine}" reRender="assetTable" oncomplete="refreshAssetTable()" styleClass="add-line-link"/>
@@ -379,8 +337,6 @@
                 <div class="innerContent" id="InlineEditDialogContent">
                     <div class="activeField">
                         <div class="inlineEditCompoundDiv" style="width:300px;height:100px">
-                            <span id="popUpSupportStartDate">Support Start Date&nbsp;<apex:inputField value="{!TempAsset.Service_Support_Start_Date__c}" /><br/><br/></span>
-                            <span id="popUpSupportEndDate">Support End Date&nbsp;<apex:inputField value="{!TempAsset.Service_Support_End_Date__c}" /><br/><br/></span>
                             <span id="popUpEndDate">End Date&nbsp;<apex:inputField value="{!TempAsset.Evaluation_End_Date__c}" /><br/><br/></span>
                         </div>
                     </div>
@@ -411,24 +367,8 @@
         $(".overlayBackground").show();
         $("#InlineEditDialog").show();
         $(".datePicker").css("z-index", 200);
-        if(popUpType == "ServStart")
+		if(popUpType == "EndDate")
         {
-            $("#popUpSupportStartDate").show();
-             $("#popUpSupportEndDate").hide();
-             $("#popUpEndDate").hide();
-            $("#datePicker").css("z-index", 50103);
-        }
-        if(popUpType == "ServEnd")
-        {
-            $("#popUpSupportEndDate").show();
-             $("#popUpSupportStartDate").hide();
-             $("#popUpEndDate").hide();
-            $("#datePicker").css("z-index", 50103);
-        }
-         if(popUpType == "EndDate")
-        {
-            $("#popUpSupportEndDate").hide();
-             $("#popUpSupportStartDate").hide();
              $("#popUpEndDate").show();
             $("#datePicker").css("z-index", 50103);
         }
@@ -440,15 +380,7 @@
     }
     function setValueToAllRows()
     {
-        if(popUp == "ServStart")
-        {
-            $('td[id$="SupportStartDateCol"] input').val($("#popUpSupportStartDate input").val());
-        }
-        if(popUp == "ServEnd")
-        {
-            $('td[id$="SupportEndDateCol"] input').val($("#popUpSupportEndDate input").val());
-        }
-         if(popUp == "EndDate")
+       if(popUp == "EndDate")
         {
             $('td[id$="EndDateCol"] input').val($("#popUpEndDate input").val());
         }

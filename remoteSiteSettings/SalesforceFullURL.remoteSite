@@ -2,5 +2,5 @@
 <RemoteSiteSetting xmlns="http://soap.sforce.com/2006/04/metadata">
     <disableProtocolSecurity>false</disableProtocolSecurity>
     <isActive>true</isActive>
-    <url>https://silverpeaksystems--full.cs51.my.salesforce.com</url>
+    <url>https://silverpeaksystems--full.cs62.my.salesforce.com</url>
 </RemoteSiteSetting>

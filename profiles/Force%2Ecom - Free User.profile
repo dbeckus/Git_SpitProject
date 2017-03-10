@@ -71,6 +71,16 @@
         <visible>false</visible>
     </applicationVisibilities>
     <applicationVisibilities>
+        <application>standard__LightningSalesConsole</application>
+        <default>false</default>
+        <visible>false</visible>
+    </applicationVisibilities>
+    <applicationVisibilities>
+        <application>standard__LightningService</application>
+        <default>false</default>
+        <visible>false</visible>
+    </applicationVisibilities>
+    <applicationVisibilities>
         <application>standard__Platform</application>
         <default>true</default>
         <visible>true</visible>
@@ -216,6 +226,10 @@
     </classAccesses>
     <classAccesses>
         <apexClass>CPAsset</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>CalculateActiveAssetCountBatch</apexClass>
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
@@ -1775,6 +1789,10 @@
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>TestCloudPortalCaseRestAPI</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>TestCloudPortalGetUpdatedAccJob</apexClass>
         <enabled>false</enabled>
     </classAccesses>
@@ -1943,6 +1961,10 @@
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>TestSendEmailToDevOpsforPerpetual</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>TestSendEmailToOppOwner</apexClass>
         <enabled>false</enabled>
     </classAccesses>
@@ -1980,6 +2002,10 @@
     </classAccesses>
     <classAccesses>
         <apexClass>TestUpdateAssetCountBatch</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>TestUpdateAssetStatusWhenRMAShipped</apexClass>
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
@@ -6564,6 +6590,11 @@
         <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
+        <editable>false</editable>
+        <field>Request__c.First_POC_on_Account__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>true</editable>
         <field>Request__c.GMS_Needed__c</field>
         <readable>true</readable>
@@ -6837,6 +6868,11 @@
         <editable>false</editable>
         <field>Request__c.Sending_Reminder_Email__c</field>
         <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Request__c.Service_Provider_Account_Type__c</field>
+        <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
@@ -9303,6 +9339,10 @@
     <userPermissions>
         <enabled>true</enabled>
         <name>ShowCompanyNameAsUserBadge</name>
+    </userPermissions>
+    <userPermissions>
+        <enabled>true</enabled>
+        <name>SubscribeToLightningReports</name>
     </userPermissions>
     <userPermissions>
         <enabled>true</enabled>

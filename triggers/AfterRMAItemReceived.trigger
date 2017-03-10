@@ -34,6 +34,7 @@ trigger AfterRMAItemReceived on RMA_Item__c (after update)
             asset.End_of_Software_Support__c = null;
             asset.GMS_Nodes__c = null;
             asset.POCRequest__c = null;
+            asset.Customer_Notes__c= null;
             if(silverPeakSystemId != null)
             {
                 asset.AccountId = silverPeakSystemId;

@@ -147,7 +147,7 @@ public with sharing class AssetListViewController_SP extends AssetListViewBase
         query += String.join(fields, ',');
         query.removeEnd(',');
         query += ' from Asset';
-        query += ' where Product2.Product_Type__c = \'EC-SP\' and SBQQ__QuoteLine__c = null ';
+        query += ' where Product2.Product_Type__c = \'EC-SP-Perpetual\' and SBQQ__QuoteLine__c = null ';
         
         String sortFirstField = FieldName.split(';')[0];
         String sortAnotherField  = FieldName.split(';').size() > 1 ? FieldName.split(';')[1] : '';
@@ -175,7 +175,7 @@ public with sharing class AssetListViewController_SP extends AssetListViewBase
         query += String.join(fields, ',');
         query.removeEnd(',');
         query += ' from Asset';
-        query += ' where Product2.Product_Type__c = \'EC-SP\' and (SerialNumber=\'' + escapedKeyword + '\' or Model__c like \'' + maskKeyword + '\' or Product2.Name like \'' + maskKeyword + '\' or Customer_Notes__c like \'' + maskKeyword + '\')';
+        query += ' where Product2.Product_Type__c = \'EC-SP-Perpetual\' and (SerialNumber=\'' + escapedKeyword + '\' or Model__c like \'' + maskKeyword + '\' or Product2.Name like \'' + maskKeyword + '\' or Customer_Notes__c like \'' + maskKeyword + '\')';
         
         String sortFirstField = FieldName.split(';')[0];
         String sortAnotherField  = FieldName.split(';').size() > 1 ? FieldName.split(';')[1] : '';
@@ -267,7 +267,7 @@ public with sharing class AssetListViewController_SP extends AssetListViewBase
     
     private List<String> getFieldList(String listView, Boolean isServiceProvider)
     {
-        List<String> result = new List<String> {'Id', 'SerialNumber', 'Product2.Name', 'Product2.Model__c', 'License_End_Date__c', 'Customer_Notes__c','Status','Warranty_End_Date__c','Ship_Date__c','Bandwidth_Nodes__c','Licenses_Nodes__c','Account.Name','Renewal_Text__c','Service_Support_Start_Date__c','Service_Support_End_Date__c'};
+        List<String> result = new List<String> {'Id', 'SerialNumber', 'Product2.Name', 'Product2.Model__c', 'License_End_Date__c', 'Customer_Notes__c','Status','Warranty_End_Date__c','Ship_Date__c','Bandwidth_Nodes__c','Licenses_Nodes__c','Account.Name','Renewal_Text__c','Contract_Number__r.StartDate','Contract_Number__r.EndDate'};
             return result;
     }
     
@@ -329,12 +329,17 @@ public with sharing class AssetListViewController_SP extends AssetListViewBase
         private String originalAsset;
         public Asset AssetRecord { get; set; }
         public String ProductName { get; private set; }
+        public Date SupportStartDate { get; private set; }
+        public Date SupportEndDate { get; private set; }
         public String CustomerNotes { get; set; }
         
         public AssetInfo(Asset asset)
         {
             this.AssetRecord = asset;
+            System.debug('asset'+asset);
             this.ProductName = asset.Product2.Name;
+            this.SupportStartDate = asset.Contract_Number__r.StartDate;
+            this.SupportEndDate = asset.Contract_Number__r.EndDate;
             this.CustomerNotes = asset.Customer_Notes__c;
             
         }

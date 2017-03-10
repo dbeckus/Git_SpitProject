@@ -217,8 +217,6 @@ Part Number&nbsp;<img src="/s.gif" alt="Expand" class="moreArrow" title="Expand"
                                 </apex:selectList><br/> 
                             </span>
                             <span id="popUpPartNumber">Part Number&nbsp;<apex:inputField value="{!TempAsset.Part_Number__c}" /></span>
-                            <span id="popUpStartDate">Support Start Date&nbsp;<apex:inputField value="{!TempAsset.Service_Support_Start_Date__c}" /><br/><br/></span>
-                            <span id="popUpEndDate">Support End Date&nbsp;<apex:inputField value="{!TempAsset.Service_Support_End_Date__c}" /><br/><br/></span>
                         </div>
                     </div>
                     <div></div>
@@ -253,8 +251,6 @@ Part Number&nbsp;<img src="/s.gif" alt="Expand" class="moreArrow" title="Expand"
             $("#popUpShipDate").show();
             $("#popUpPostShip").hide();
             $("#popUpProduct").hide();
-            $("#popUpStartDate").hide();
-            $("#popUpEndDate").hide();
             $("#popUpPartNumber").hide();
             $("#datePicker").css("z-index", 50103);
         }
@@ -263,8 +259,6 @@ Part Number&nbsp;<img src="/s.gif" alt="Expand" class="moreArrow" title="Expand"
             $("#popUpShipDate").hide();
             $("#popUpPostShip").show();
             $("#popUpProduct").hide();
-            $("#popUpStartDate").hide();
-            $("#popUpEndDate").hide();
             $("#popUpPartNumber").hide();
         }
             else if(popUpType == "PartNumber")
@@ -272,8 +266,6 @@ Part Number&nbsp;<img src="/s.gif" alt="Expand" class="moreArrow" title="Expand"
                 $("#popUpShipDate").hide();
                 $("#popUpPostShip").hide();
                 $("#popUpProduct").hide();
-                $("#popUpStartDate").hide();
-                $("#popUpEndDate").hide();
                 $("#popUpPartNumber").show();
             }
                 else if(popUp == "ProList")
@@ -281,30 +273,9 @@ Part Number&nbsp;<img src="/s.gif" alt="Expand" class="moreArrow" title="Expand"
                     $("#popUpShipDate").hide();
                     $("#popUpPostShip").hide();
                     $("#popUpPartNumber").hide();
-                    $("#popUpStartDate").hide();
-                    $("#popUpEndDate").hide();
                     $("#popUpProduct").show();
                 }
-                    else if(popUp == "SupportStartDate")
-                    {
-                        $("#popUpShipDate").hide();
-                        $("#popUpPostShip").hide();
-                        $("#popUpPartNumber").hide();
-                        $("#popUpStartDate").show();
-                        $("#popUpEndDate").hide();
-                        $("#popUpProduct").hide();
-                        $("#datePicker").css("z-index", 50103);
-                    }
-                        else if(popUp == "SupportEndDate")
-                        {
-                            $("#popUpShipDate").hide();
-                            $("#popUpPostShip").hide();
-                            $("#popUpPartNumber").hide();
-                            $("#popUpStartDate").hide();
-                            $("#popUpEndDate").show();
-                            $("#popUpProduct").hide();
-                            $("#datePicker").css("z-index", 50103);
-                        }
+                    
     }
     function closeDatePopup()
     {
@@ -334,14 +305,6 @@ Part Number&nbsp;<img src="/s.gif" alt="Expand" class="moreArrow" title="Expand"
                     
                     
                 }
-                    else if(popUp == "SupportStartDate")
-                    {
-                        $('td[id$="SupportStartDateCol"] input').val($("#popUpStartDate input").val());
-                    }
-                        else if(popUp == "SupportEndDate")
-                        {
-                            $('td[id$="SupportEndDateCol"] input').val($("#popUpEndDate input").val());
-                        }
     }
     $(
         function()

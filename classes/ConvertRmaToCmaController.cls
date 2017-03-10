@@ -81,7 +81,7 @@ public without sharing class ConvertRmaToCmaController
             // Opens an RMA of CMA record type
             String cmaRecordTypeId = SilverPeakUtils.getRecordTypeId('CMA', 'RMA__c');
             String accountId = getAccountId(NxAsset);
-            RMA__c cma = new RMA__c(RecordTypeId = cmaRecordTypeId, Account__c = accountId, Contact__c = currentUser.ContactId, Status__c = 'Initiated', Type__c = 'Convert to Virtual');
+            RMA__c cma = new RMA__c(RecordTypeId = cmaRecordTypeId, Account__c = accountId, Contact__c = currentUser.ContactId, Status__c = 'Shipped', Type__c = 'Convert to Virtual');
             insert cma;
             CmaId = cma.Id;
 
@@ -103,7 +103,7 @@ public without sharing class ConvertRmaToCmaController
             insert rmaItems;
 
             Asset createdVxAsset = [select SerialNumber, Contract_Type__c, Contract_End__c, Model__c from Asset where Id = :vxAsset.Id];
-            update new Asset(Id = NxAsset.Id, Contract_Number__c = null); //sends email CmaRequestProcessedResult
+            update new Asset(Id = NxAsset.Id, Contract_Number__c = null, Status='Pending Return – Conversion'); //sends email CmaRequestProcessedResult
             System.debug('createdVxAsset: ' + createdVxAsset.Model__c);
             if(isRecycling(NxAsset))
             {

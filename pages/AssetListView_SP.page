@@ -304,26 +304,26 @@
                          <apex:column >
                              <apex:facet name="header">
                                 <apex:commandLink action="{!sortTable}" reRender="assetListBlock,errorMsg" status="loading">
-                                    <apex:param name="fieldName" value="Service_Support_Start_Date__c"/>
+                                    <apex:param name="fieldName" value="Contract_Number__r.StartDate"/>
                                     <span>Service Support Start Date</span>
-                                    <apex:outputText rendered="{!FieldName == 'Service_Support_Start_Date__c'}">
+                                    <apex:outputText rendered="{!FieldName == 'Contract_Number__r.StartDate'}">
                                         <img src="/s.gif" class="{!SortFunction}"/>
                                     </apex:outputText>
                                 </apex:commandLink>
                             </apex:facet>
-                            <apex:outputField value="{!item.AssetRecord.Service_Support_Start_Date__c}"/>
+                              <apex:outputText value="{0, date, MM/dd/yyyy}"><apex:param value="{!item.SupportStartDate}" /> </apex:outputText>
                         </apex:column>
                         <apex:column >
                              <apex:facet name="header">
                                 <apex:commandLink action="{!sortTable}" reRender="assetListBlock,errorMsg" status="loading">
-                                    <apex:param name="fieldName" value="Service_Support_End_Date__c"/>
+                                    <apex:param name="fieldName" value="Contract_Number__r.EndDate"/>
                                     <span>Service Support End Date</span>
-                                    <apex:outputText rendered="{!FieldName == 'Service_Support_End_Date__c'}">
+                                    <apex:outputText rendered="{!FieldName == 'Contract_Number__r.EndDate'}">
                                         <img src="/s.gif" class="{!SortFunction}"/>
                                     </apex:outputText>
                                 </apex:commandLink>
                             </apex:facet>
-                            <apex:outputField value="{!item.AssetRecord.Service_Support_End_Date__c}"/>
+                            <apex:outputText value="{0, date, MM/dd/yyyy}"><apex:param value="{!item.SupportEndDate}" /> </apex:outputText>
                         </apex:column>
                         <apex:column style="width: 15%;" onmouseover="showPencil(this);" onmouseout="hidePencil(this);" ondblclick="showInlineEditPopup(this, 'input-notes', 'output-notes');" id="custCell">
                             <apex:facet name="header">

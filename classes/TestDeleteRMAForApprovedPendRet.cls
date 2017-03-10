@@ -34,12 +34,12 @@ public class TestDeleteRMAForApprovedPendRet {
         request.Status__c='Pending Return';
         insert request;
         Product2 product = new Product2();
-        product.Name = 'EC-XS';
-        product.ProductCode = 'EC-XS';
-        product.Model__c = 'EC-XS';
+        product.Name = 'Test EC';
+        product.ProductCode = 'Test EC';
+        product.Model__c = 'Test EC';
         product.Family='Product';
         insert product;
-        
+        Test.startTest();
         Asset asset= new Asset();
         asset.Name = '001BBC039649_t';
         asset.SerialNumber = '001BBC039649_t';
@@ -49,7 +49,7 @@ public class TestDeleteRMAForApprovedPendRet {
         asset.Quantity = 1;
         asset.POCRequest__c=request.Id;
         insert asset;
-        Test.startTest();
+       
         NewRMAHelper.createRmaOnPOC(string.valueOf(asset.Id));
         
         

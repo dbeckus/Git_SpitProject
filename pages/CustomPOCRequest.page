@@ -554,7 +554,7 @@
                                     <table class="inlineTable" style="width:{!CASE(VirtualProducts.size, 1, '50%', 2, '30%', 3, '25%','19%')};">
                                         <tr>
                                             <td colspan="2">
-                                                <apex:commandLink action="{!removeVirtualProduct}" value="X" rendered="{! !DisableVirtualSection && (POCType!='EdgeConnect' && POCType!='Service Provider')}" reRender="virtualInfoPanel" status="deleteVirtualStatus" style="float:right;margin-right: 3px;text-decoration: none;font-size:10px" onmouseover="this.style.color = 'red';" onmouseout="this.style.color = 'black';this.style.fontSize='10px'">
+                                                <apex:commandLink action="{!removeVirtualProduct}" value="X" rendered="{! !DisableVirtualSection && POCType=='WAN Op'}" reRender="virtualInfoPanel" status="deleteVirtualStatus" style="float:right;margin-right: 3px;text-decoration: none;font-size:10px" onmouseover="this.style.color = 'red';" onmouseout="this.style.color = 'black';this.style.fontSize='10px'">
                                                     <apex:param name="index" value="{!info.Index}"/>    
                                                 </apex:commandLink>
                                                 <apex:actionStatus id="deleteVirtualStatus">
@@ -569,7 +569,7 @@
                                                 Product:<span class="requiredSpan"> |</span>
                                             </td>
                                             <td class="editTableContentTd">
-                                                <apex:selectList id="virtProducts" value="{!info.ProductName}" disabled="{!DisableVirtualSection && (POCType=='EdgeConnect'|| POCType=='Service Provider')}" onchange="selectVirtualProduct()" size="1" label="Product" styleClass="apexElementsStyle">
+                                                <apex:selectList id="virtProducts" value="{!info.ProductName}" disabled="{!DisableVirtualSection && POCType!='WAN Op'}" onchange="selectVirtualProduct()" size="1" label="Product" styleClass="apexElementsStyle">
                                                     <apex:selectOptions value="{!VirtualProductOptions}"/>
                                                 </apex:selectList>
                                             </td>
@@ -580,8 +580,8 @@
                                             </td>
                                             <td class="editTableContentTd">  
                                                 <apex:outputPanel id="nameFields">
-                                                  <apex:outputText value="{!info.Qty}" label="Quantity" styleClass="apexElementsStyle" rendered="{!POCType=='EdgeConnect'|| POCType=='Service Provider'}" />
-                                                 <apex:inputText value="{!info.Qty}" label="Quantity" styleClass="apexElementsStyle requiredField requiredQtyField" rendered="{!POCType!='EdgeConnect' && POCType!='Service Provider'}"  />
+                                                  <apex:outputText value="{!info.Qty}" label="Quantity" styleClass="apexElementsStyle" rendered="{! POCType!='WAN Op' && (ECSP && FirstPOC)}" />
+                                                 <apex:inputText value="{!info.Qty}" label="Quantity" styleClass="apexElementsStyle requiredField requiredQtyField" rendered="{!POCType=='WAN Op' ||(ECSP && !FirstPOC)}"  />
                                                 </apex:outputPanel>
                                                     
                                             </td>
@@ -793,7 +793,7 @@
                     <table class="addButtonTable" style="display:{!IF(PhysicalProducts.size = 5, 'none', 'inline-table')};">
                         <tr>
                             <td style="vertical-align:middle;text-align:center">
-                                <apex:commandButton action="{!addPhysicalProduct}" value="Add Physical Product" rendered="{!IsEdit}" reRender="physicalInfoPanel" disabled="{!POCType=='Service Provider'}" status="addStatus" style="display:{!IF(PhysicalProducts.size = 5, 'none','inline')}"/>
+                                <apex:commandButton action="{!addPhysicalProduct}" value="Add Physical Product" rendered="{!IsEdit}" reRender="physicalInfoPanel" disabled="{! POCType=='Service Provider'}" status="addStatus" style="display:{!IF(PhysicalProducts.size = 5, 'none','inline')}"/>
                                 <apex:actionStatus id="addStatus">
                                     <apex:facet name="start">
                                         <img src="/img/loading.gif" />

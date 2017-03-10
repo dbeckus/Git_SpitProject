@@ -2,6 +2,8 @@
     <apex:form >
     
        <apex:commandButton value="Save" action="{!SaveData}" />
+        <apex:outputText value="{!caseNumber}"></apex:outputText>
+        
     </apex:form>
  
    
