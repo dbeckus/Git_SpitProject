@@ -170,19 +170,6 @@ Part Number&nbsp;<img src="/s.gif" alt="Expand" class="moreArrow" title="Expand"
                         <apex:inputHidden value="{!ShipLine.PartNumber}" id="PartNumber"/>
                         <apex:outputText rendered="{!ShipLine.AssetIsExisted}">{!ShipLine.PartNumber}</apex:outputText>
                     </apex:column>
-                    <apex:column id="SupportStartDateCol">
-                        <apex:facet name="header">
-                            Service Support Start Date <img src="/s.gif" alt="Expand" class="moreArrow" title="Expand" onclick="showDatePopup('SupportStartDate')" style="cursor:pointer"/>
-                        </apex:facet>
-                        <apex:inputField id="servicestartDate" value="{!ShipLine.TempAsset.Service_Support_Start_Date__c}" />
-                    </apex:column>
-                    <apex:column id="SupportEndDateCol">
-                        <apex:facet name="header">
-                            Service Support End Date <img src="/s.gif" alt="Expand" class="moreArrow" title="Expand" onclick="showDatePopup('SupportEndDate')" style="cursor:pointer"/>
-                        </apex:facet>
-                        <apex:inputField id="serviceendDate" value="{!ShipLine.TempAsset.Service_Support_End_Date__c}" />
-                        <apex:variable var="index" value="{!index + 1}" />
-                    </apex:column>
                 </apex:pageBlockTable>
             </apex:pageBlockSection> 
             <apex:pageBlockButtons location="bottom">

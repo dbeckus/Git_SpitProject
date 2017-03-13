@@ -640,11 +640,6 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>Service_Provider__c</field>
-            <table>Account</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
             <field>qbdialer__TimeZoneSidKey__c</field>
             <table>Account</table>
         </columns>

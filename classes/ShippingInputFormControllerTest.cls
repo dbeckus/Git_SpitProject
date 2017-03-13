@@ -57,7 +57,8 @@ public class ShippingInputFormControllerTest
         
         Id standardPricebookId = TestUtilities.getStandardPricebookId();
         Id opportunityId = TestUtilities.createTestOpportunity(account.Id, standardPricebookId);
-        
+        Opportunity oppId= new Opportunity(Id=opportunityId,Sales_Region__c='APAC');
+        update oppId;
         Request__c pocRequest = new Request__c();
         pocRequest.Opportunity__c = opportunityId;
         pocRequest.POC_Contact__c = ct.id;

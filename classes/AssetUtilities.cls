@@ -5,9 +5,9 @@ public class AssetUtilities
         Boolean isServiceProvider = false;
         for(User currentUser : [select ContactId from user where Id = :UserInfo.getUserId() and ContactId != null limit 1])
         {
-            for(Contact con : [select Account.Service_Provider__c from Contact where Id = :currentUser.ContactId limit 1])
+            for(Contact con : [select Account.ECSP__c from Contact where Id = :currentUser.ContactId limit 1])
             {
-                isServiceProvider = con.Account.Service_Provider__c;
+                isServiceProvider = con.Account.ECSP__c;
             }
         }
         return isServiceProvider;
