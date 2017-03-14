@@ -554,7 +554,7 @@
                                     <table class="inlineTable" style="width:{!CASE(VirtualProducts.size, 1, '50%', 2, '30%', 3, '25%','19%')};">
                                         <tr>
                                             <td colspan="2">
-                                                <apex:commandLink action="{!removeVirtualProduct}" value="X" rendered="{! !DisableVirtualSection && POCType=='WAN Op'}" reRender="virtualInfoPanel" status="deleteVirtualStatus" style="float:right;margin-right: 3px;text-decoration: none;font-size:10px" onmouseover="this.style.color = 'red';" onmouseout="this.style.color = 'black';this.style.fontSize='10px'">
+                                                <apex:commandLink action="{!removeVirtualProduct}" value="X" rendered="{! !DisableVirtualSection && POCType!='EdgeConnect'}" reRender="virtualInfoPanel" status="deleteVirtualStatus" style="float:right;margin-right: 3px;text-decoration: none;font-size:10px" onmouseover="this.style.color = 'red';" onmouseout="this.style.color = 'black';this.style.fontSize='10px'">
                                                     <apex:param name="index" value="{!info.Index}"/>    
                                                 </apex:commandLink>
                                                 <apex:actionStatus id="deleteVirtualStatus">

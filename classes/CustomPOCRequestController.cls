@@ -173,11 +173,14 @@ global with sharing class CustomPOCRequestController
                 
                 System.debug('Save Request '+ CurrentRequest.First_POC_on_Account__c);
                 update CurrentRequest;
+                FirstPOC=CurrentRequest.First_POC_on_Account__c;
+               	CreateECPOCVirtualProduct(CurrentRequest.Id);
                 if(!isAutoSaveForEC)
                 {
                     IsEdit = false;
                     refreshPage=true;
                 }
+             
                 //return new PageReference('/apex/CustomPOCRequest?id=' + requestId);
                 
             }
@@ -193,7 +196,6 @@ global with sharing class CustomPOCRequestController
     public void editPage()
     {
         IsEdit = true; 
-        
         
     } 
     public PageReference cancelPage()
@@ -481,7 +483,9 @@ return true;
                                      Status__c, Actual_Ship_Date__c, Target_End_Date__c,POC_Type__c,First_POC_on_Account__c  from Request__c where Id = :requestId];                                                               
         if(!requests.isEmpty())
         {
+            
             CurrentRequest = requests[0];
+            System.debug('First_POC_on_Account__c'+CurrentRequest.First_POC_on_Account__c);
             HasContact = CurrentRequest.POC_Contact__c == null ? false : true;            
             VirtualQuantity = CurrentRequest.VirtualQuantity1__c;
             
