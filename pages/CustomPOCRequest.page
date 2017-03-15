@@ -580,7 +580,7 @@
                                             </td>
                                             <td class="editTableContentTd">  
                                                 <apex:outputPanel id="nameFields">
-                                                  <apex:outputText value="{!info.Qty}" label="Quantity" styleClass="apexElementsStyle" rendered="{! POCType!='WAN Op' && (ECSP && FirstPOC)}" />
+                                                  <apex:outputText value="{!info.Qty}" label="Quantity" styleClass="apexElementsStyle" rendered="{! POCType=='EdgeConnect' || (ECSP && FirstPOC)}" />
                                                  <apex:inputText value="{!info.Qty}" label="Quantity" styleClass="apexElementsStyle requiredField requiredQtyField" rendered="{!POCType=='WAN Op' ||(ECSP && !FirstPOC)}"  />
                                                 </apex:outputPanel>
                                                     

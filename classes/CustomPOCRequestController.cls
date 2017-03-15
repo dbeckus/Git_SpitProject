@@ -174,13 +174,13 @@ global with sharing class CustomPOCRequestController
                 System.debug('Save Request '+ CurrentRequest.First_POC_on_Account__c);
                 update CurrentRequest;
                 FirstPOC=CurrentRequest.First_POC_on_Account__c;
-               	CreateECPOCVirtualProduct(CurrentRequest.Id);
+                CreateECPOCVirtualProduct(CurrentRequest.Id);
                 if(!isAutoSaveForEC)
                 {
                     IsEdit = false;
                     refreshPage=true;
                 }
-             
+                
                 //return new PageReference('/apex/CustomPOCRequest?id=' + requestId);
                 
             }
