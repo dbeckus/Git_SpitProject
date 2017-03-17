@@ -403,6 +403,24 @@
         <protected>false</protected>
     </fieldUpdates>
     <fieldUpdates>
+        <fullName>Clear_Hardware_Sync_Flag</fullName>
+        <field>Sync_with_Cloud_Portal__c</field>
+        <literalValue>0</literalValue>
+        <name>Clear Hardware Sync Flag</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Clear_Virtual_Asset_Flag_for_Metered</fullName>
+        <field>Sync_Virtual_Assets_with_CP__c</field>
+        <literalValue>0</literalValue>
+        <name>Clear Virtual Asset Flag for Metered</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+    </fieldUpdates>
+    <fieldUpdates>
         <fullName>SetRecTypetoReseller</fullName>
         <field>RecordTypeId</field>
         <lookupValue>Resellers</lookupValue>
@@ -602,6 +620,35 @@
         <active>true</active>
         <formula>ISCHANGED(LastModifiedDate) &amp;&amp; BL__SyncWithBoulderLogic__c == true</formula>
         <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>Clear Cloud Portal Sync Flag for Metered</fullName>
+        <actions>
+            <name>Clear_Hardware_Sync_Flag</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <actions>
+            <name>Clear_Virtual_Asset_Flag_for_Metered</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <booleanFilter>1 AND (2 OR 3)</booleanFilter>
+        <criteriaItems>
+            <field>Account.Service_Provider_Account_Type__c</field>
+            <operation>equals</operation>
+            <value>Metered,Metered-Orchestrator SP</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Account.Sync_with_Cloud_Portal__c</field>
+            <operation>equals</operation>
+            <value>True</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Account.Sync_Virtual_Assets_with_CP__c</field>
+            <operation>equals</operation>
+            <value>True</value>
+        </criteriaItems>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
     </rules>
     <rules>
         <fullName>ClearFirstCustomerQuarter</fullName>

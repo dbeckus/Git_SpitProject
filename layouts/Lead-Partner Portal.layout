@@ -37,6 +37,10 @@
                 <behavior>Edit</behavior>
                 <field>Deal_Source__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>Actual_GEO__c</field>
+            </layoutItems>
         </layoutColumns>
         <layoutColumns/>
         <style>TwoColumnsTopToBottom</style>

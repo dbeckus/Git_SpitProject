@@ -40,6 +40,10 @@
                 <behavior>Edit</behavior>
                 <field>Existing_Account__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>Actual_GEO__c</field>
+            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>

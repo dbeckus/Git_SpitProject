@@ -1997,6 +1997,10 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>TestTruncateCaseCommentsMoreThan4000</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>TestUpdateActiveAssetCount</apexClass>
         <enabled>true</enabled>
     </classAccesses>

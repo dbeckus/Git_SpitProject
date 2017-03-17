@@ -23,6 +23,10 @@
                 <behavior>Edit</behavior>
                 <field>Partner_Lead_Status__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>Actual_GEO__c</field>
+            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>

@@ -551,6 +551,14 @@ Evaluation_Start_Date__c )</formula>
         <protected>false</protected>
     </fieldUpdates>
     <fieldUpdates>
+        <fullName>Clear_Cloud_Portal_Status_for_Metered</fullName>
+        <field>Cloud_Portal_Sync_Status__c</field>
+        <name>Clear Cloud Portal Status for Metered</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+    </fieldUpdates>
+    <fieldUpdates>
         <fullName>Clear_GMS_Upgrading</fullName>
         <field>GMS_Upgrading__c</field>
         <literalValue>0</literalValue>
@@ -564,6 +572,15 @@ Evaluation_Start_Date__c )</formula>
         <field>Sync_With_Cloud_Portal__c</field>
         <literalValue>0</literalValue>
         <name>Clear Sync Flag</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Clear_Sync_Flag_for_Metered_Assets</fullName>
+        <field>Sync_With_Cloud_Portal__c</field>
+        <literalValue>0</literalValue>
+        <name>Clear Sync Flag for Metered Assets</name>
         <notifyAssignee>false</notifyAssignee>
         <operation>Literal</operation>
         <protected>false</protected>
@@ -718,7 +735,7 @@ right(Id,4))</formula>
         <active>true</active>
         <formula>AND (  
 OR(  BEGINS(Product2.Name,&quot;EC&quot;),  BEGINS(Product2.Name,&quot;UNITY CLOUD&quot;) ), 
- NOT(Product2.Name == &quot;EC-ORCH&quot;),   
+ NOT(Product2.Name == &quot;EC-ORCH&quot;), 
  OR( ISPICKVAL(Status,&quot;Customer Subscription Active&quot;), ISPICKVAL(Status,&quot;Customer Subscription&quot;), ISPICKVAL(Status,&quot;Customer Evaluation&quot;),  ISPICKVAL(Status,&quot;Customer Owned&quot;), ISPICKVAL(Status,&quot;Loan&quot;), ISPICKVAL(Status,&quot;Conditional PO&quot;) ),  
  ISPICKVAL(Product2.Family,&quot;Virtual Image&quot;),  
  OR(ISNew(),  ISCHANGED(License_End_Date__c),  ISCHANGED(Bandwidth_Nodes__c),  ISCHANGED(Licenses_Nodes__c),ISCHANGED(Status),ISCHANGED(Contract_Number__c) ) )</formula>
@@ -730,6 +747,29 @@ OR(  BEGINS(Product2.Name,&quot;EC&quot;),  BEGINS(Product2.Name,&quot;UNITY CLO
         <criteriaItems>
             <field>Asset.Name</field>
             <operation>notEqual</operation>
+        </criteriaItems>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>Clear Sync Flag for Metered Assets</fullName>
+        <actions>
+            <name>Clear_Cloud_Portal_Status_for_Metered</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <actions>
+            <name>Clear_Sync_Flag_for_Metered_Assets</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>Account.Service_Provider_Account_Type__c</field>
+            <operation>equals</operation>
+            <value>Metered,Metered-Orchestrator SP</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Asset.Sync_With_Cloud_Portal__c</field>
+            <operation>equals</operation>
+            <value>True</value>
         </criteriaItems>
         <triggerType>onCreateOrTriggeringUpdate</triggerType>
     </rules>

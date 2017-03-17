@@ -34,29 +34,20 @@
         <routingAddresses>
             <addressType>EmailToCase</addressType>
             <caseOrigin>Email</caseOrigin>
-            <casePriority>P1 - Urgent</casePriority>
-            <createTask>false</createTask>
-            <emailAddress>prane@silver-peak.com</emailAddress>
-            <routingName>Hr Help</routingName>
-            <saveEmailHeaders>false</saveEmailHeaders>
-        </routingAddresses>
-        <routingAddresses>
-            <addressType>EmailToCase</addressType>
-            <caseOrigin>Email</caseOrigin>
-            <casePriority>P3 - Normal</casePriority>
-            <createTask>false</createTask>
-            <emailAddress>ithelp@silver-peak.com</emailAddress>
-            <routingName>ITHelpRequests</routingName>
-            <saveEmailHeaders>true</saveEmailHeaders>
-        </routingAddresses>
-        <routingAddresses>
-            <addressType>EmailToCase</addressType>
-            <caseOrigin>Email</caseOrigin>
             <casePriority>P3 - Normal</casePriority>
             <createTask>false</createTask>
             <emailAddress>support@silver-peak.com</emailAddress>
             <routingName>TechncialSupportCases</routingName>
             <saveEmailHeaders>true</saveEmailHeaders>
+        </routingAddresses>
+        <routingAddresses>
+            <addressType>EmailToCase</addressType>
+            <caseOrigin>Email</caseOrigin>
+            <casePriority>P4 - Low</casePriority>
+            <createTask>false</createTask>
+            <emailAddress>prane@silver-peak.com</emailAddress>
+            <routingName>Test Praj</routingName>
+            <saveEmailHeaders>false</saveEmailHeaders>
         </routingAddresses>
         <unauthorizedSenderAction>Discard</unauthorizedSenderAction>
     </emailToCase>

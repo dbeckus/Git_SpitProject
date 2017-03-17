@@ -35,6 +35,10 @@
                 <behavior>Edit</behavior>
                 <field>Primary_Business_Interest__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>Actual_GEO__c</field>
+            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>

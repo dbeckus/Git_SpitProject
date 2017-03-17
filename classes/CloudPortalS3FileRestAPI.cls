@@ -13,7 +13,7 @@ global with sharing class CloudPortalS3FileRestAPI {
             {
                 Ensemblestorage__EnsembleFile__c filedetail= new Ensemblestorage__EnsembleFile__c();
                 filedetail.Ensemblestorage__Case__c= item.sfCaseId;
-                filedetail.Ensemblestorage__FullName__c= item.fileName;
+                filedetail.Name= item.fileName;
                 filedetail.Ensemblestorage__S3Key__c= item.fileKey;
                 filedetail.Ensemblestorage__Size__c= item.fileSize;
                 filedetail.Ensemblestorage__S3Bucket__c='silverpeaksystemsstorage';
