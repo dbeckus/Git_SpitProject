@@ -173,13 +173,13 @@ generator.writeStringField('password', 'Yesadmin4u');
             {
                 cp.BoostNode=((integer.valueOf(item.Bandwidth_Nodes__c)*1000)*100);
             }
-            if(item.Contract_Number__r.StartDate!=null)
+            if(item.Contract_Number__r.StartDate!=null && item.Contract_Number__r.Status=='Activated')
             {
                 DateTime dt=DateTime.newInstance(item.Contract_Number__r.StartDate,Time.newInstance(0, 0, 0, 0));
                 millis=dt.getTime();
                 cp.startDate=millis;
             }
-             if(item.Contract_Number__r.EndDate!=null)
+             if(item.Contract_Number__r.EndDate!=null && item.Contract_Number__r.Status=='Activated')
             {
                 DateTime dt=DateTime.newInstance(item.Contract_Number__r.EndDate,Time.newInstance(0, 0, 0, 0));
                 millis=dt.getTime();

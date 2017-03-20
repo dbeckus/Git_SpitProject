@@ -97,13 +97,13 @@
                 "licensesNodes":nodeCurrentRow.find("input[id$='licensesNodes']"),
                 "bandwidthNodes":nodeCurrentRow.find("input[id$='bandwidthNodes']"),
                 "qty":nodeCurrentRow.find("input[id$='qty']"),
+                 
             }
         };
         
         var refreshAssetLine = function(nodeLine) {
             var productCode = nodeLine.product.find("option:selected").attr("data-product-code");
             var productName = nodeLine.product.find("option:selected").attr("data-product-name");
-            
             nodeLine.product2Id.val(nodeLine.product.val());
             
             //Refresh GMS Column

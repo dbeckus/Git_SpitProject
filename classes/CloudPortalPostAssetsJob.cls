@@ -38,7 +38,7 @@ public class CloudPortalPostAssetsJob implements Database.Batchable<sObject>,Dat
                     {
                         continue;
                     }
-                    List<Asset> lstAssetsToUpdate=[Select Id,SerialNumber,Product2.Name,Product2.Model__c,Product2.Product_Type__c,Licenses_Nodes__c,Bandwidth_Nodes__c,License_End_Date__c,Contract_Number__r.StartDate,Contract_Number__r.EndDate,Quantity from Asset where AccountId=:accId.Id and (Product2.Name like 'EC%' or Product2.Name like'UNITY CLOUD%') and Product2.Family='Virtual Image' and (NOT Product2.Name='EC-ORCH') and Status in ('Customer Subscription Active','Customer Subscription','Customer Evaluation','Loan','Conditional PO','Customer Owned') and SBQQ__QuoteLine__c = null ];
+                    List<Asset> lstAssetsToUpdate=[Select Id,SerialNumber,Product2.Name,Product2.Model__c,Product2.Product_Type__c,Licenses_Nodes__c,Bandwidth_Nodes__c,License_End_Date__c,Contract_Number__r.StartDate,Contract_Number__r.EndDate,Contract_Number__r.Status,Quantity from Asset where AccountId=:accId.Id and (Product2.Name like 'EC%' or Product2.Name like'UNITY CLOUD%') and Product2.Family='Virtual Image' and (NOT Product2.Name='EC-ORCH') and Status in ('Customer Subscription Active','Customer Subscription','Customer Evaluation','Loan','Conditional PO','Customer Owned') and SBQQ__QuoteLine__c = null ];
                     // Call the account helper to create assets in cloudportal format.
                     List<CPAsset> lstECAssets=CloudPortalAccountHelper.ConvertAssetToCpAsset(lstAssetsToUpdate, 'EC');
                     List<CPAsset> lstSaasAssets=CloudPortalAccountHelper.ConvertAssetToCpAsset(lstAssetsToUpdate, 'SAAS');
