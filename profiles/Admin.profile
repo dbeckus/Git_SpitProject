@@ -2017,7 +2017,7 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
-        <apexClass>TestUpdateECCustomerDate</apexClass>
+        <apexClass>TestUpdateCustomerDateonAccount</apexClass>
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>

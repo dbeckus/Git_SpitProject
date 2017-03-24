@@ -96,6 +96,14 @@
                 <behavior>Readonly</behavior>
                 <field>First_EC_Customer_Date__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>WAN_OP_Customer_Date__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>WAN_Op_Asset_Name__c</field>
+            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>

@@ -3318,7 +3318,7 @@ if(assetInfo!=null &amp;&amp; assetInfo.size&gt;0 &amp;&amp; &apos;{!Request__c.
 { 
 alert(&quot;You cannot fulfill this POC as the customer has existing assets. Please contact operations.&quot;); 
 } 
-else if(queueNameQueryResult!=null &amp;&amp; queueNameQueryResult[0].Type!=&quot;Marketplace&quot; &amp;&amp; (quoteInfoQueryResult== null ||quoteInfoQueryResult==&apos;&apos;)) 
+else if(ecspAcc==&quot;false&quot; &amp;&amp; queueNameQueryResult!=null &amp;&amp; queueNameQueryResult[0].Type!=&quot;Marketplace&quot; &amp;&amp; (quoteInfoQueryResult== null ||quoteInfoQueryResult==&apos;&apos;)) 
 { 
 alert(&quot;POC cannot be submitted for an approval as there is no primary quote defined for this opportunity or there are no quote lines added to the quote.&quot;); 
 } 
