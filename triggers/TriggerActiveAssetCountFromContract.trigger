@@ -5,7 +5,7 @@ trigger TriggerActiveAssetCountFromContract on Contract (after insert, after upd
     {
         for(Contract con : Trigger.old)
         {
-            if(con.AccountId!=null)
+            if(con.AccountId!=null && con.Contract_Type__c!='Evaluation')
             {
                 acctIds.add(con.AccountId);
             }
@@ -15,7 +15,7 @@ trigger TriggerActiveAssetCountFromContract on Contract (after insert, after upd
     {
         for(Contract con : Trigger.New)
         {
-            if(con.AccountId!=null)
+            if(con.AccountId!=null && con.Contract_Type__c!='Evaluation')
             {
                 acctIds.add(con.AccountId);
             }
@@ -29,18 +29,18 @@ trigger TriggerActiveAssetCountFromContract on Contract (after insert, after upd
             Contract oldContract = Trigger.oldMap.get(con.Id);
             if(oldContract.AccountId != con.AccountId)
             {
-                if(con.AccountId != null)
+                if(con.AccountId != null && con.Contract_Type__c!='Evaluation')
                 {
                     acctIds.add(con.AccountId);
                 }
-                if(oldContract.AccountId != null)
+                if(oldContract.AccountId != null && con.Contract_Type__c!='Evaluation')
                 {
                     acctIds.add(oldContract.AccountId);
                 }
             }
             if(oldContract.Status != con.Status)
             {
-                if(con.AccountId != null)
+                if(con.AccountId != null && con.Contract_Type__c!='Evaluation')
                 {
                     acctIds.add(con.AccountId);
                 }

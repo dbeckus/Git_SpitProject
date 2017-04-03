@@ -740,6 +740,7 @@ Requested_End_Date__c
         <notifyAssignee>false</notifyAssignee>
         <operation>Formula</operation>
         <protected>false</protected>
+        <reevaluateOnChange>true</reevaluateOnChange>
     </fieldUpdates>
     <fieldUpdates>
         <fullName>UpdateTodayTargetEndDate</fullName>
@@ -777,6 +778,7 @@ Requested_End_Date__c
         <notifyAssignee>false</notifyAssignee>
         <operation>Formula</operation>
         <protected>false</protected>
+        <reevaluateOnChange>true</reevaluateOnChange>
     </fieldUpdates>
     <fieldUpdates>
         <fullName>Update_the_status_to_Pending_Approval</fullName>

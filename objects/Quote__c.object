@@ -151,9 +151,9 @@ NOT(ISPICKVAL(Opportunity__r.Type,&quot;Subscription Renewal&quot;)),
 OR( 
 AND( 
 OR( AND( ApprovalLevelMax__c &gt;0, Discount_Max__c &gt; RegPartProdDisc__c ), Level3Required__c =1,
-and(Service_Discount_Max__c &gt; 0.24, MultiYearValue__c =2,Service_Discount_Max__c &gt; RegPartServDisc__c), 
+and(Service_Discount_Max__c &gt; 0.23, MultiYearValue__c =2,Service_Discount_Max__c &gt; RegPartServDisc__c), 
 and(Service_Discount_Max__c &gt; 0.27, MultiYearValue__c =3,Service_Discount_Max__c &gt; RegPartServDisc__c), 
-AND(and(Service_Discount_Max__c &gt; 0.20,MultiYearValue__c &lt;2) , Service_Discount_Max__c &gt; RegPartServDisc__c)) 
+AND(and(Service_Discount_Max__c &gt; 0.23,MultiYearValue__c &lt;2) , Service_Discount_Max__c &gt; RegPartServDisc__c)) 
 , NOT(Approval_Made__c )), 
 OR(and(ConsultingDiscountMax__c &gt;1,Opportunity__r.Account.IsAPartner__c =0) , 
 AND(ConsultingDiscountMax__c &gt;1, Opportunity__r.Account.IsAPartner__c =1) ),

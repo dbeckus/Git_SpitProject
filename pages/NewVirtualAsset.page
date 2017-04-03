@@ -31,6 +31,7 @@
                             <apex:selectOption itemLabel="Conditional PO" itemValue="Conditional PO" />
                             <apex:selectOption itemLabel="Customer Owned" itemValue="Customer Owned" />
                             <apex:selectOption itemLabel="Customer Subscription" itemValue="Customer Subscription" />
+                              <apex:selectOption itemLabel="Customer Subscription Active" itemValue="Customer Subscription Active" />
                         </apex:selectList>
                     </apex:outputPanel>
                 </apex:pageBlockSectionItem>

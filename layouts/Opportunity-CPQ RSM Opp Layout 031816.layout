@@ -172,6 +172,10 @@
                 <behavior>Edit</behavior>
                 <field>I_brought_this_deal_to_Silver_Peak__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Pricebook2Id</field>
+            </layoutItems>
         </layoutColumns>
         <style>TwoColumnsTopToBottom</style>
     </layoutSections>

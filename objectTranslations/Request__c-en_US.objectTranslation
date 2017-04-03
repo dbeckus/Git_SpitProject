@@ -78,6 +78,11 @@
         <name>CC_List_5__c</name>
     </fields>
     <fields>
+        <label><!-- Contract Number --></label>
+        <name>Contract_Number__c</name>
+        <relationshipLabel><!-- POC Requests --></relationshipLabel>
+    </fields>
+    <fields>
         <label><!-- Days Remaining to Expire --></label>
         <name>Days_Remaining_to_Expire__c</name>
     </fields>

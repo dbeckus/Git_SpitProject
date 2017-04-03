@@ -45,7 +45,7 @@ trigger AddActiveECBaseLicenseToECHardware on Asset (after insert, after update)
             for(Id assetId : hardwareECAssetIds.keySet())
             {
                 Id acctId= hardwareECAssetIds.get(assetId);
-                List<Asset> lstBaseLicenses= [Select Id from Asset where AccountId=:acctId and Product2.Family='Virtual Image' and Status in('Customer subscription Active','Customer Evaluation') and Product2.Name like 'EC-BASE-%' order by CreatedDate desc];
+                List<Asset> lstBaseLicenses= [Select Id from Asset where AccountId=:acctId and Product2.Family='Virtual Image' and Status in('Customer Subscription Active') and Product2.Name like 'EC-BASE-%' order by CreatedDate desc];
                 if(lstBaseLicenses!=null && lstBaseLicenses.size()>0)
                 {
                     hardwareAssetToUpdate = new Asset(Id=assetId,Active_EC_Base_License__c=lstBaseLicenses[0].Id);
@@ -66,7 +66,7 @@ trigger AddActiveECBaseLicenseToECHardware on Asset (after insert, after update)
             for(Id assetId : softwareECBaseAssetIds.keySet())
             {
                 Id acctId= softwareECBaseAssetIds.get(assetId);
-                Set<Id> ids = (new Map<Id, Asset>([Select Id from Asset where AccountId=:acctId and Product2.Family='Product' and Product2.Name like 'EC-%' order by CreatedDate desc])).keySet();
+                Set<Id> ids = (new Map<Id, Asset>([Select Id from Asset where AccountId=:acctId and Product2.Family='Product' and Status in('Customer Owned')  and Product2.Name like 'EC-%' order by CreatedDate desc])).keySet();
                 if(ids!=null && ids.size()>0)
                 {
                     for(Id hardWareId : ids)

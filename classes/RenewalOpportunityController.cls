@@ -23,6 +23,7 @@ public class RenewalOpportunityController
         opp.Opportunity_Source__c='';
         opp.ForecastCategoryName = 'Commit';
         opp.Probability = 50;
+        System.debug(opp.Pricebook2Id);
         try
         {
             opp.RecordTypeId = Schema.sObjectType.Opportunity.getRecordTypeInfosByName().get('Maintenance').getRecordTypeId();

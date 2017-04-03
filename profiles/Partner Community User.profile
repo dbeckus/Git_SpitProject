@@ -481,6 +481,10 @@
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>DeleteSPContractsForExpiredPOCScheduler</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>DownloadExtension</apexClass>
         <enabled>false</enabled>
     </classAccesses>
@@ -1821,6 +1825,10 @@
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>TestDeleteSPContractsForExpiredPOC</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>TestDeletionNotAllowedSyncToCp</apexClass>
         <enabled>false</enabled>
     </classAccesses>
@@ -1946,6 +1954,10 @@
     </classAccesses>
     <classAccesses>
         <apexClass>TestPopulateOpportunitySource</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>TestPopulatePOCApprovers</apexClass>
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
@@ -6516,6 +6528,11 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Request__c.CC_List_5__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Request__c.Contract_Number__c</field>
         <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>

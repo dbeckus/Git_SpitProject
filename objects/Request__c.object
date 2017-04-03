@@ -209,6 +209,19 @@ OR(
         <unique>false</unique>
     </fields>
     <fields>
+        <fullName>Contract_Number__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Contract Number</label>
+        <referenceTo>Contract</referenceTo>
+        <relationshipLabel>POC Requests</relationshipLabel>
+        <relationshipName>POC_Requests</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
         <fullName>Days_Remaining_to_Expire__c</fullName>
         <externalId>false</externalId>
         <formula>If(Target_End_Date__c &lt; TODAY(), -1,
@@ -3093,7 +3106,7 @@ ISPICKVAL( POC_Type__c,&quot;Service Provider&quot; )
     </validationRules>
     <validationRules>
         <fullName>POCApprovercanbechangedbyOps</fullName>
-        <active>true</active>
+        <active>false</active>
         <errorConditionFormula>AND
 (
 NOT( Trigger_POC_Approvers__c ),

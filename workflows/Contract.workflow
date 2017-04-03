@@ -90,11 +90,12 @@
             <type>Alert</type>
         </actions>
         <active>true</active>
-        <formula>OR(
+        <formula>AND( NOT(ISPICKVAL(Contract_Type__c,&quot;Evaluation&quot;)),
+OR(
 ISCHANGED( EndDate ) &amp;&amp;  ISPICKVAL( Status , &quot;Activated&quot;),
 ISPICKVAL( Status , &quot;Activated&quot;) &amp;&amp; ISPICKVAL( Priorvalue(Status) , &quot;Draft&quot;),
 ISPICKVAL( Status , &quot;Activated&quot;) &amp;&amp; ISPICKVAL( Priorvalue(Status) , &quot;Expired&quot;)
-)</formula>
+))</formula>
         <triggerType>onAllChanges</triggerType>
     </rules>
     <rules>

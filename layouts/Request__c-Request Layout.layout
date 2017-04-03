@@ -48,6 +48,10 @@
                 <behavior>Edit</behavior>
                 <field>First_POC_on_Account__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Contract_Number__c</field>
+            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>

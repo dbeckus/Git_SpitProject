@@ -188,10 +188,6 @@ NOT(Opportunity__r.Account.ECSP__c)
     </entryCriteria>
     <finalApprovalActions>
         <action>
-            <name>POCExtensionApproved_PendingReturn</name>
-            <type>Alert</type>
-        </action>
-        <action>
             <name>SetStatusExtended</name>
             <type>FieldUpdate</type>
         </action>

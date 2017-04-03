@@ -111,7 +111,7 @@
             <type>FieldUpdate</type>
         </actions>
         <active>true</active>
-        <booleanFilter>1 OR (2 AND (3 OR 4 OR 5 OR 6 OR 7))</booleanFilter>
+        <booleanFilter>1 OR (2 AND (3 OR 4 OR 5 OR 6 OR 7 OR 8))</booleanFilter>
         <criteriaItems>
             <field>Quote_Line__c.isMaintenance__c</field>
             <operation>equals</operation>
@@ -146,6 +146,11 @@
             <field>Quote_Line__c.Product_Code__c</field>
             <operation>equals</operation>
             <value>300013-001</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Quote_Line__c.Product_Code__c</field>
+            <operation>equals</operation>
+            <value>300148-001</value>
         </criteriaItems>
         <description>This rule will set the include flag on a quote line to one if the product is service.</description>
         <triggerType>onAllChanges</triggerType>

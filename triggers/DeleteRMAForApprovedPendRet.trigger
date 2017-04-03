@@ -1,32 +1,107 @@
 trigger DeleteRMAForApprovedPendRet on Request__c (after update) {
     Set<Id> reqIdList= new Set<Id>();
+    Map<Id,Id> mapPocContact= new Map<Id,Id>();
     for(Request__c req: Trigger.New)
     {
         Request__c oldPOC= Trigger.OldMap.get(req.Id);
         if((oldPoc.Status__c=='Shipped- Pending Extension Approval' || oldPoc.Status__c=='Pending Return' || oldPoc.Status__c=='Pending Return - Invoiced' ) && req.Status__c=='Shipped - Extended')
         {
             reqIdList.add(req.Id);
+            mapPocContact.put(req.Id,req.POC_Contact__c);
+            
         }
     }
     
     if(reqIdList.size()>0)
     {
-        List<RMA__c> rmaIds = [Select Id from RMA__c where Request__c in:reqIdList and Status__c!='Closed'];
-        if(rmaIds!=null && rmaIds.size()>0)
+        for(Id pocId:reqIdList)
         {
-            List<Asset> lstAsset=[Select Id from Asset where Id in (Select Asset__c from RMA_Item__c where RMA__c in: rmaIds)];
-            if(lstAsset!=null && lstAsset.size()>0)
+            List<RMA__c> rmaIds = [Select Id from RMA__c where Request__c =:pocId and Status__c!='Closed'];
+            if(rmaIds!=null && rmaIds.size()>0)
             {
-                for(Asset item: lstAsset)
+                List<Asset> lstAsset=[Select Id from Asset where Id in (Select Asset__c from RMA_Item__c where RMA__c in: rmaIds)];
+                if(lstAsset!=null && lstAsset.size()>0)
                 {
-                    item.Status='Customer Evaluation';
+                    for(Asset item: lstAsset)
+                    {
+                        item.Status='Customer Evaluation';
+                    }
+                    
+                    update lstAsset;
                 }
-                
-                update lstAsset;
+                SendEmailToPOCContactforRMA(pocId,mapPocContact.get(pocId));
+                delete rmaIds;
             }
-            
-            delete rmaIds;
         }
+        
+        
     }
     
+    private static void SendEmailToPOCContactforRMA(Id pocId,Id pocContact)
+    {
+        List<EmailTemplate> template = [select Id from EmailTemplate where Name='Extension Approval Pending Return' limit 1];
+        if(template.size() > 0)
+        {
+            List<String> ccs = getPOCRecipients(pocId);
+            ccs.add('notifications@silver-peak.com');
+            Messaging.SingleEmailMessage email = new Messaging.SingleEmailMessage();
+            email.setTemplateId(template[0].Id);
+            email.setTargetObjectId(pocContact);
+            email.setCcAddresses(ccs);
+            email.setWhatId(pocId);
+            email.setsaveAsActivity(false);
+            Id orgWideEmail = SilverPeakUtils.getOrganizationWideEmailId('notifications@silver-peak.com');
+            if(orgWideEmail != null)
+            {
+                email.setOrgWideEmailAddressId(orgWideEmail);
+            }
+            Messaging.sendEmail(new List<Messaging.Email> {email}, true);  
+        }
+    }
+    private List<String> getPOCRecipients(Id pocId)
+    {
+        List<Request__c> members = [select Id, SE__r.Email,SE_Manager__r.Email,RSM_Manager__r.Email,RSM__r.Email,CC_List_1__c,CC_List_2__c,CC_List_3__c,CC_List_4__c,CC_List_5__c from Request__c where Id=:pocId];
+        List<String> emails = new List<String>();
+        if(members!=null && members.size()>0)
+        {
+            if(members[0].SE__r.Email!=null)
+            {
+                emails.add(members[0].SE__r.Email);
+            }
+            if(members[0].SE_Manager__r.Email!=null)
+            {
+                emails.add(members[0].SE_Manager__r.Email);
+            }
+            if(members[0].RSM_Manager__r.Email!=null)
+            {
+                emails.add(members[0].RSM_Manager__r.Email);
+            }
+            if(members[0].RSM__r.Email!=null)
+            {
+                emails.add(members[0].RSM__r.Email);
+            }
+            if(members[0].CC_List_1__c!=null)
+            {
+                emails.add(members[0].CC_List_1__c);
+            }
+            if(members[0].CC_List_2__c!=null)
+            {
+                emails.add(members[0].CC_List_1__c);
+            }
+            if(members[0].CC_List_3__c!=null)
+            {
+                emails.add(members[0].CC_List_3__c);
+            }
+            if(members[0].CC_List_4__c!=null)
+            {
+                emails.add(members[0].CC_List_4__c);
+            }
+            if(members[0].CC_List_5__c!=null)
+            {
+                emails.add(members[0].CC_List_5__c);
+            }
+        }
+        
+        return emails;
+    }
 }

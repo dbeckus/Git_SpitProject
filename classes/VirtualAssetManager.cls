@@ -234,6 +234,18 @@ public class VirtualAssetManager
         encryptLicenses(licenseIds);
     }
     
+    public void AssignContractToPOCAssets(Id contractId)
+    {
+        List<Asset> lstAsset= new List<Asset>();
+        for(VirtualAsset virtualAsset : VirtualAssets)
+        {
+            lstAsset.add(new Asset(Id=virtualAsset.Asset.Id,Contract_Number__c=contractId));
+        }
+        if(lstAsset.size()>0)
+        {
+            update lstAsset;
+        }
+    }
     
     public  List<Id> RetreiveLicenseIdsForAutomation()
     {
