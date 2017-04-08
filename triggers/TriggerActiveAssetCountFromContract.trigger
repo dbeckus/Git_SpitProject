@@ -1,7 +1,7 @@
-trigger TriggerActiveAssetCountFromContract on Contract (after insert, after update,after delete,after undelete) {
+trigger TriggerActiveAssetCountFromContract on Contract (after update) {
     Set<Id> acctIds= new Set<Id>();
     List<Account> updatingAccounts= new List<Account>();
-    if(Trigger.isDelete)
+   /* if(Trigger.isDelete)
     {
         for(Contract con : Trigger.old)
         {
@@ -22,7 +22,7 @@ trigger TriggerActiveAssetCountFromContract on Contract (after insert, after upd
         }
     }
     else
-    {
+    {*/
         //isUpdate
         for(Contract con : Trigger.new)
         {
@@ -47,7 +47,7 @@ trigger TriggerActiveAssetCountFromContract on Contract (after insert, after upd
             }
             
         }
-    }
+   // }
     if(acctIds.size() > 0)
     {
         for(Id counter: acctIds)

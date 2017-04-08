@@ -1,4 +1,4 @@
-trigger TriggerActiveAssetCountFromAsset on Asset (before insert) {
+trigger TriggerActiveAssetCountFromAsset on Asset (after insert,after delete, after undelete, after update) {
   Set<Id> acctIds= new Set<Id>();
     List<Account> updatingAccounts= new List<Account>();
     if(Trigger.isDelete)
@@ -45,6 +45,13 @@ trigger TriggerActiveAssetCountFromAsset on Asset (before insert) {
                     acctIds.add(asset.AccountId);
                 }
             }
+            if(oldAsset.Contract_Number__c != asset.Contract_Number__c)
+            {
+                if(asset.AccountId != null)
+                {
+                    acctIds.add(asset.AccountId);
+                }
+            }
             
         }
     }
@@ -52,12 +59,14 @@ trigger TriggerActiveAssetCountFromAsset on Asset (before insert) {
     {
         for(Id counter: acctIds)
         {
+           
             updatingAccounts.add(new Account(Id = counter, Trigger_Active_Asset_Count__c=true));
         }
         
     }
     if(updatingAccounts.size()>0)
     {
+        
         update updatingAccounts;
     }
 }

@@ -1765,6 +1765,14 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>TestCalculateActiveAssetCount</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>TestCalculateAssetCountBatch</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>TestCalculateQuarterForOpp</apexClass>
         <enabled>true</enabled>
     </classAccesses>
@@ -2005,15 +2013,15 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>TestTriggerActiveAssetCountFromContract</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>TestTriggerDecomissionOnAssets</apexClass>
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
         <apexClass>TestTruncateCaseCommentsMoreThan4000</apexClass>
-        <enabled>true</enabled>
-    </classAccesses>
-    <classAccesses>
-        <apexClass>TestUpdateActiveAssetCount</apexClass>
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>

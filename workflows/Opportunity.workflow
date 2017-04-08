@@ -725,6 +725,24 @@
         <protected>false</protected>
     </fieldUpdates>
     <fieldUpdates>
+        <fullName>Stamp_Active_POC</fullName>
+        <field>Active_POC_DateStamp__c</field>
+        <formula>if( Has_Active_POCs__c,today(), Active_POC_DateStamp__c )</formula>
+        <name>Stamp Active POC</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Stamp_Inactive_Date</fullName>
+        <field>Inactive_POC_DateStamp__c</field>
+        <formula>IF( !Has_Active_POCs__c,today(), Inactive_POC_DateStamp__c  )</formula>
+        <name>Stamp Inactive Date</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+    </fieldUpdates>
+    <fieldUpdates>
         <fullName>Technical_Responsibility_Updates</fullName>
         <description>Updates to Dave Fehleisen</description>
         <field>Technical_Responsible__c</field>
@@ -1221,6 +1239,20 @@ ISCHANGED(StageName)
         </criteriaItems>
         <description>If flag isn&apos;t one, then set it</description>
         <triggerType>onCreateOnly</triggerType>
+    </rules>
+    <rules>
+        <fullName>Stamp Date on Opp for Active POC</fullName>
+        <actions>
+            <name>Stamp_Active_POC</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <actions>
+            <name>Stamp_Inactive_Date</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <formula>ISCHANGED( Has_Active_POCs__c )</formula>
+        <triggerType>onAllChanges</triggerType>
     </rules>
     <rules>
         <fullName>TempToFixRenewalStage</fullName>

@@ -237,9 +237,14 @@ public class VirtualAssetManager
     public void AssignContractToPOCAssets(Id contractId)
     {
         List<Asset> lstAsset= new List<Asset>();
+        Product2 ecOrch= [Select Id from Product2 where Name='EC-ORCH' LIMIT 1];
         for(VirtualAsset virtualAsset : VirtualAssets)
         {
-            lstAsset.add(new Asset(Id=virtualAsset.Asset.Id,Contract_Number__c=contractId));
+            if(virtualAsset.Asset.Product2Id!=ecOrch.Id)
+            {
+                 lstAsset.add(new Asset(Id=virtualAsset.Asset.Id,Contract_Number__c=contractId));
+            }
+           
         }
         if(lstAsset.size()>0)
         {

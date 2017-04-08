@@ -53,13 +53,6 @@ trigger UpdateActiveAssetCount on Asset (after insert, after update,after delete
                     acctIds.add(asset.AccountId);
                 }
             }
-            if(oldAsset.Service_Provider_Status__c != asset.Service_Provider_Status__c)
-            {
-                if(asset.AccountId != null)
-                {
-                    acctIds.add(asset.AccountId);
-                }
-            }
             
         }
     }
@@ -73,6 +66,7 @@ trigger UpdateActiveAssetCount on Asset (after insert, after update,after delete
     }
     if(updatingAccounts.size()>0)
     {
+        
         update updatingAccounts;
     }
     

@@ -348,10 +348,7 @@ ApexPages.addMessage(myMsg);
                 CurrentRequest.First_POC_on_Account__c=true;
                 VirtualProducts.add(new VirtualProductInfo(VirtualProducts.size(),'EC-SP-MET',1));
             }
-            if(!pocRequest.First_POC_on_Account__c)
-            {
-                DisableVirtualSection=false;
-            }
+            
             if(pocRequest.POC_Type__c=='Metered')
             {
                 if(VirtualProducts.size()>0)

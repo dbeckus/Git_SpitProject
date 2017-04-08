@@ -77,7 +77,7 @@ public class TestAutomatePOCRenewalExtensions {
     public static void TestPocRenewalAssets_ServiceProvider()
     {
         
-        Account acc = new Account(Name='testECPOC',Partner_Type__c='Service Provider',ECSP__c=true);
+        Account acc = new Account(Name='testECPOC',Partner_Type__c='Service Provider',ECSP__c=true,Service_Provider_Account_type__c='Perpetual',Service_Provider_Admin_User__c='abc@abc.com');
         insert acc;
         Contact contact = new Contact(FirstName = 'AcmeFirstname', LastName = 'AcmeLastname', Phone='123456789', Email = 'acme@acme.com' , accountId=acc.Id);
         insert contact;
@@ -110,6 +110,7 @@ public class TestAutomatePOCRenewalExtensions {
         Request__c request = new Request__c(POC_Contact__c = contact.Id);
         request.POC_Type__c='Service Provider';
         request.Opportunity__c= opportunity.id;
+         request.POC_Type__c= 'Perpetual';
         insert request;
         
         ApexPages.StandardController stdController = new ApexPages.StandardController(request);
