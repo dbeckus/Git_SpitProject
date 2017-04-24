@@ -63,6 +63,10 @@
                 <behavior>Readonly</behavior>
                 <field>Steelbrick_Product_Name__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>EC_Term_in_Years__c</field>
+            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>

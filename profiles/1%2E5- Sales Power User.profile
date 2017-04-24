@@ -1765,10 +1765,6 @@
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
-        <apexClass>TestCalculateActiveAssetCount</apexClass>
-        <enabled>false</enabled>
-    </classAccesses>
-    <classAccesses>
         <apexClass>TestCalculateAssetCountBatch</apexClass>
         <enabled>false</enabled>
     </classAccesses>
@@ -2022,6 +2018,10 @@
     </classAccesses>
     <classAccesses>
         <apexClass>TestTruncateCaseCommentsMoreThan4000</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>TestUpdateActiveAssetCount</apexClass>
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>

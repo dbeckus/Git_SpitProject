@@ -77,7 +77,7 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Readonly</behavior>
-                <field>Account_Customer_Date__c</field>
+                <field>Product_Category__c</field>
             </layoutItems>
         </layoutColumns>
         <layoutColumns>

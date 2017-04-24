@@ -6,7 +6,9 @@ public class TestUpdateAssetCountBatch {
     {
         Account acc = new Account(name='acme',Type='Prospect');
         insert acc;
-        Product2 testProduct = new Product2(Name='EC-BASE-1Y',Product_Category__c='Virtual Image', Forecast_Category__c = 'Virtual', Family='Virtual Image', IsActive=true);
+        Account spAcc = new Account(name='Silver Peak Systems',Type='Prospect');
+        insert spAcc;
+        Product2 testProduct = new Product2(Name='EC-BASE-1Y',Product_Type__c='EDGECONNECT',Product_Category__c='Virtual Image', Forecast_Category__c = 'Virtual', Family='Virtual Image', IsActive=true);
         insert testProduct;
         Asset assetData= new Asset();
         assetData.Name='test Account';
@@ -14,6 +16,7 @@ public class TestUpdateAssetCountBatch {
         assetData.Product2Id=testProduct.Id;
         assetData.AccountId=acc.id;
         assetData.Quantity=1;
+        assetData.Licenses_Nodes__c=10;
         assetData.SerialNumber = '001BBC039649_t';
         insert assetData;
         Test.startTest();

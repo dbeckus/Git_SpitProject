@@ -186,13 +186,11 @@ global class InternalHelpDeskEmailHandler implements Messaging.InboundEmailHandl
         {
             body = splitBodys[0];
         }
+        if(body.length()>4000)
+        {
+            body=body.substring(0,3999);
+        }
     }
-      System.debug(body.length());
-      if(body.length()>4000)
-      {
-          body=body.substring(0,3999);
-      }
-      System.debug(body.length());
     CaseComment cc = new CaseComment(ParentId=caseId, CommentBody=body, isPublished=true);
     insert cc;
     if(email.fromAddress.contains('@silver-peak.com'))

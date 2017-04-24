@@ -1,7 +1,7 @@
 @isTest
 public class UpdateWarrantyDatesForEdgeConnectTest {
     
-    @isTest(SeeAllData=true)
+    
     public static void testWarrantyDates_1year()
     {
         Test.startTest();
@@ -19,7 +19,6 @@ public class UpdateWarrantyDatesForEdgeConnectTest {
         System.assertEquals(Date.today().addYears(1), finalAsset.Warranty_End_Date__c);
         Test.stopTest();
     }
-    @isTest(SeeAllData=true)
     public static void testWarrantyDates_10year()
     {
         Test.startTest();
@@ -37,7 +36,6 @@ public class UpdateWarrantyDatesForEdgeConnectTest {
         System.assertEquals(Date.today().addYears(10), finalAsset.Warranty_End_Date__c);
         Test.stopTest();
     }
-   @isTest(SeeAllData=true)
     public static void testWarrantyDates_1yearOther()
     {
         Test.startTest();
@@ -55,7 +53,6 @@ public class UpdateWarrantyDatesForEdgeConnectTest {
         System.assertEquals(Date.today().addYears(1), finalAsset.Warranty_End_Date__c);
         Test.stopTest();
     }
-    @isTest(SeeAllData=true)
     public static void testWarrantyDates_3year()
     {
         Test.startTest();
@@ -73,8 +70,6 @@ public class UpdateWarrantyDatesForEdgeConnectTest {
         System.assertEquals(Date.today().addYears(3), finalAsset.Warranty_End_Date__c);
         Test.stopTest();
     }
-    
-   @isTest(SeeAllData=true)
     public static void testWarrantyDates_5year()
     {
         Test.startTest();

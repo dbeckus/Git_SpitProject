@@ -11,9 +11,9 @@ public class TestAddActiveECBaseLicenseToECHardware {
         insert spAccount;
         Opportunity testOpp = new Opportunity(Name='acme', CloseDate=Date.today(), StageName='New', Technical_Responsible__c =Userinfo.getUserId(), ForecastCategoryName ='Omitted', AccountId=testAccount.Id,Product_Type__c='Both');
         insert testOpp;
-        Product2 testProduct = new Product2(Name='EC-BASE-1Y',Product_Category__c='Virtual Image', Forecast_Category__c = 'Virtual', Family='Virtual Image', IsActive=true);
+        Product2 testProduct = new Product2(Name='EC-BASE-1Y',Product_Type__c='EDGECONNECT',Product_Category__c='Virtual Image', Forecast_Category__c = 'Virtual', Family='Virtual Image', IsActive=true);
         insert testProduct;
-        Product2 hardwareProd = new Product2(Name='EC-XS',Product_Category__c='Appliance', ProductCode='500210-001', Family='Product', IsActive=true);
+        Product2 hardwareProd = new Product2(Name='EC-XS',Product_Type__c='EDGECONNECT',Product_Category__c='Appliance', ProductCode='500210-001', Family='Product', IsActive=true);
         insert hardwareProd;
         Contact testContact = new Contact(LastName='acme', AccountId=testAccount.Id);
         insert testContact;
@@ -21,7 +21,7 @@ public class TestAddActiveECBaseLicenseToECHardware {
         insert testContactupdated;
         Purchase_Order__c testPO = new Purchase_Order__c(Name = 'acme', Email_Contact__c=testContact.Id, Opportunity__c=testOpp.Id);
         insert testPO;
-        Product2 prd = new Product2(Name='acme', Family='Product', IsActive=true, ProductCode='acme');
+        Product2 prd = new Product2(Name='acme', Family='Product',Product_Type__c='EDGECONNECT', IsActive=true, ProductCode='acme');
         insert prd;
         Shipment__c testShipment = new Shipment__c();  
         
@@ -89,9 +89,9 @@ public class TestAddActiveECBaseLicenseToECHardware {
         insert spAccount;
         Opportunity testOpp = new Opportunity(Name='acme', CloseDate=Date.today(), StageName='New', ForecastCategoryName ='Omitted', AccountId=testAccount.Id,Product_Type__c='Both');
         insert testOpp;
-        Product2 testProduct = new Product2(Name='EC-BASE-1Y',Product_Category__c='Subscription', Forecast_Category__c = 'Virtual', Family='Virtual Image', IsActive=true);
+        Product2 testProduct = new Product2(Name='EC-BASE-1Y',Product_Category__c='Subscription',Product_Type__c='EDGECONNECT', Forecast_Category__c = 'Virtual', Family='Virtual Image', IsActive=true);
         insert testProduct;
-        Product2 hardwareProd = new Product2(Name='EC-XS',Product_Category__c='Appliance', ProductCode='500210-001', Family='Product', IsActive=true);
+        Product2 hardwareProd = new Product2(Name='EC-XS',Product_Category__c='Appliance',Product_Type__c='EDGECONNECT', ProductCode='500210-001', Family='Product', IsActive=true);
         insert hardwareProd;
         Contact testContact = new Contact(LastName='acme', AccountId=testAccount.Id);
         insert testContact;

@@ -74,22 +74,15 @@ public class TestCalculateAssetCountBatch {
         
         Test.startTest();
         CalculateActiveAssetCountBatch obj= new CalculateActiveAssetCountBatch();
-        Database.executeBatch(obj,1);
+      	Database.executeBatch(obj);
+        Test.stopTest();
         Account acc1= [Select Id, Active_Asset_count__c from Account where Id=:acc.Id];
         System.assertEquals(5,acc1.Active_Asset_count__c);
-        Test.stopTest();
+     
         
         
         
         
     }
-    @IsTest
-    public static void TestCalculateAssetCount_EC()
-    {}
-    @IsTest
-    public static void TestCalculateAssetCount_SP()
-    {}
-    @IsTest
-    public static void TestCalculateAssetCount_VX()
-    {}
+
 }

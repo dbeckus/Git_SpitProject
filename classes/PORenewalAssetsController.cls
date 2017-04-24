@@ -54,7 +54,7 @@ public class PORenewalAssetsController {
         List<Asset> lstAssets=new List<Asset>();
         if(isEdgeConnect)
         {
-            lstAssets =[Select Id, Name,License_End_Date__c,Product2.Name,Status,Ship_Date__c, Product2.Product_Category__c,Product2.NumberOfLicenses__c,Hosted_GMS__c,GMS_Nodes__c,Product2.Model__c,Is_Selected_For_Renewal__c,Renewal_Date__c,Renewal_Nodes__c ,License_Expiration__c,Renewal_Start_Date__c,Licenses_Nodes__c,Bandwidth_Nodes__c from Asset where AccountId =:PORequest.Opportunity__r.AccountId and  Status in('Customer Subscription Active', 'Customer Subscription Expired','Customer Subscription','Conditional PO') and Product2.Family='Virtual Image' and Product2.Name like'EC%'];
+            lstAssets =[Select Id, Name,License_End_Date__c,Product2.Name,Status,Ship_Date__c, Product2.Product_Category__c,Product2.NumberOfLicenses__c,Hosted_GMS__c,GMS_Nodes__c,Product2.Model__c,Is_Selected_For_Renewal__c,Renewal_Date__c,Renewal_Nodes__c ,License_Expiration__c,Renewal_Start_Date__c,Licenses_Nodes__c,Bandwidth_Nodes__c from Asset where AccountId =:PORequest.Opportunity__r.AccountId and  Status in('Customer Subscription Active', 'Customer Subscription Expired','Customer Subscription','Conditional PO') and Product2.Family='Virtual Image' and Product2.Product_Type__c='EDGECONNECT'];
             for(Asset item: lstAssets)
             {
                 string prodName=item.Product2.Name;

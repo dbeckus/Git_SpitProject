@@ -7,7 +7,7 @@ public class CalculateActiveAssetCountBatch implements Schedulable, Database.Bat
     
     public Database.QueryLocator start(Database.BatchableContext context)
     {
-        return Database.getQueryLocator([Select Id from Account where Trigger_Active_Asset_Count__c=true LIMIT 2]);
+        return Database.getQueryLocator([Select Id from Account where Trigger_Active_Asset_Count__c=true]);
     }
     
     public void execute(Database.BatchableContext context, List<sObject> scope)

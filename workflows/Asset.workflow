@@ -437,6 +437,33 @@
         <template>DealRegistrations/X6Mbps_WAN_upgrade_authorization</template>
     </alerts>
     <fieldUpdates>
+        <fullName>Add_Software_Support_Date</fullName>
+        <field>End_of_Software_Support__c</field>
+        <formula>DATE( (YEAR( Ship_Date__c   )+ 5) ,MONTH( Ship_Date__c) , DAY( Ship_Date__c) )</formula>
+        <name>Add Software Support Date</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Add_Warranty_End_Date</fullName>
+        <field>Warranty_End_Date__c</field>
+        <formula>IF((Product2.EC_Term_in_Years__c !=null) ,DATE( (YEAR( Ship_Date__c )+ Product2.EC_Term_in_Years__c) ,MONTH( Ship_Date__c) , DAY( Ship_Date__c) ),null)</formula>
+        <name>Add Warranty End Date</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Add_Warranty_Start_Date</fullName>
+        <field>Warranty_Start_Date__c</field>
+        <formula>IF((Product2.EC_Term_in_Years__c !=null) ,Ship_Date__c,null)</formula>
+        <name>Add Warranty Start Date</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+    </fieldUpdates>
+    <fieldUpdates>
         <fullName>AssetEvalEndDate</fullName>
         <description>Sets the Eval End date to 90 from Ship Date</description>
         <field>Evaluation_End_Date__c</field>
@@ -829,6 +856,33 @@ IsPICKVAL(Product2.Family ,&quot;Product&quot;),
 BEGINS( Product2.Name ,&quot;EC&quot;) 
 )</formula>
         <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>EC Hardware Add Warranty Dates</fullName>
+        <actions>
+            <name>Add_Software_Support_Date</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <actions>
+            <name>Add_Warranty_End_Date</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <actions>
+            <name>Add_Warranty_Start_Date</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <formula>AND(
+ISPICKVAL( Product2.Family,&quot;Product&quot;),
+BEGINS(  Product_Name_And_Nodes__c,&quot;EC&quot; ),
+ISPICKVAL(Status,&quot;Customer Owned&quot;),
+OR(
+ISNEW(),
+ISCHANGED( Ship_Date__c ),
+ISCHANGED(  Product2Id )
+)
+)</formula>
+        <triggerType>onAllChanges</triggerType>
     </rules>
     <rules>
         <fullName>FulfillmentForVelocity</fullName>

@@ -177,7 +177,7 @@ public class QuoteController
         for(Quote_Line__c line : quote.Quote_Lines__r)
         {
             LineItem tmpItem = new LineItem();
-            line.Quote__r = quote;
+            //line.Quote__r = quote;
             tmpItem.record = line;
             tmpItem.NotDiscountable = line.Product__r.Not_Discountable__c;
             tmpItem.amount = line.Quantity__c * line.Unit_Price__c;

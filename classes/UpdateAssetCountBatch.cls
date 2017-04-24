@@ -7,7 +7,7 @@ public class UpdateAssetCountBatch implements Schedulable, Database.Batchable<sO
     
     public Database.QueryLocator start(Database.BatchableContext context)
     {
-        return Database.getQueryLocator([Select Id, Name,Type,Active_Asset_Count__c from Account where Active_Asset_Count__c=null]);
+        return Database.getQueryLocator([Select Id, Name,Type,Active_Asset_Count__c from Account where Active_Asset_Count__c=0]);
     }
     
     public void execute(Database.BatchableContext context, List<sObject> scope)

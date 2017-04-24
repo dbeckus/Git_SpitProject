@@ -131,6 +131,7 @@ public  class RenewalAssetsHelper
                     asset.Renewal_Nodes__c=0;
                     asset.Renewal_Date__c=null;
                     asset.Renewal_Start_Date__c=null;
+                    
                 }
                 if(prodName.startsWith('EC-BOOST')&& asset.Bandwidth_Nodes__c == asset.Renewal_Nodes__c)
                 {
@@ -138,8 +139,15 @@ public  class RenewalAssetsHelper
                     asset.Renewal_Date__c=null;
                     asset.Renewal_Start_Date__c=null;
                 }
+                if(prodName.startsWith('EC-SAAS') ||(prodName.startsWith('EC-ORCH')))
+                {
+                    asset.Renewal_Start_Date__c=null;
+                    asset.Renewal_Date__c=null;
+                    asset.Renewal_Nodes__c=0;
+                }
                 if(!prodName.startsWith('EC-'))
-                {                   
+                { 
+                    asset.Renewal_Start_Date__c=null;
                     asset.Renewal_Date__c=null;
                 }	              
                 

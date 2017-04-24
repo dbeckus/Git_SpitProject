@@ -97,7 +97,11 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Readonly</behavior>
-                <field>Account_Customer_Date__c</field>
+                <field>Product_Category__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>Product_Name_And_Nodes__c</field>
             </layoutItems>
         </layoutColumns>
         <layoutColumns>
@@ -162,6 +166,10 @@
             <layoutItems>
                 <behavior>Readonly</behavior>
                 <field>CreatedById</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Is_Selected_For_Renewal__c</field>
             </layoutItems>
         </layoutColumns>
         <style>TwoColumnsTopToBottom</style>

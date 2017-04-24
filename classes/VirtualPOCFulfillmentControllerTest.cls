@@ -127,7 +127,7 @@ public class VirtualPOCFulfillmentControllerTest
         pocRequest.VirtualQuantity1__c= 5;
         pocRequest.VirtualProduct1__c= 'EC-SP-1000';
         pocRequest.VirtualQuantity1__c= 5;
-        Test.startTest();
+      
         insert pocRequest;     
       
         ApexPages.StandardController sc = new ApexPages.StandardController(pocRequest);
@@ -140,7 +140,7 @@ public class VirtualPOCFulfillmentControllerTest
             ApexPages.currentPage().getParameters().put('rmIndex', String.valueOf(i));
             controller.removeAsset();
         }
-        Test.stopTest();
+        
         Profile p = [SELECT Id FROM Profile WHERE Name='System Administrator']; 
         User u = new User(Alias = 'standt', Email='testUser@uniquetest.com', 
                           EmailEncodingKey='UTF-8', LastName='Testing', LanguageLocaleKey='en_US', 
@@ -150,9 +150,9 @@ public class VirtualPOCFulfillmentControllerTest
         u.IsActive =true;
         System.runAs(u) {
             // The following code runs as user 'u' 
-           
+           Test.startTest();
            controller.save();
-            
+           Test.stopTest();
         }
         
         //controller.setLicenseEncryption();
@@ -186,7 +186,7 @@ public class VirtualPOCFulfillmentControllerTest
         pocRequest.Opportunity__c= opportunity.id;
         pocRequest.VirtualProduct1__c= 'EC-SP-MET';
         pocRequest.VirtualQuantity1__c= 1;
-      	Test.startTest();
+      	
         insert pocRequest;     
        
         ApexPages.StandardController sc = new ApexPages.StandardController(pocRequest);
@@ -199,7 +199,7 @@ public class VirtualPOCFulfillmentControllerTest
             ApexPages.currentPage().getParameters().put('rmIndex', String.valueOf(i));
             controller.removeAsset();
         }
-        Test.stopTest();
+        
         Profile p = [SELECT Id FROM Profile WHERE Name='System Administrator']; 
         User u = new User(Alias = 'standt', Email='testUser@uniquetest.com', 
                           EmailEncodingKey='UTF-8', LastName='Testing', LanguageLocaleKey='en_US', 
@@ -209,9 +209,9 @@ public class VirtualPOCFulfillmentControllerTest
         u.IsActive =true;
         System.runAs(u) {
             // The following code runs as user 'u' 
-           
+           Test.startTest();
            controller.save();
-            
+           Test.stopTest();
         }
         
         //controller.setLicenseEncryption();

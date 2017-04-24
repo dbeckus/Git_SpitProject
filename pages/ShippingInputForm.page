@@ -154,10 +154,11 @@
                         <apex:facet name="header">
                             Product&nbsp;<img src="/s.gif" alt="Expand" class="moreArrow" title="Expand" onclick="showDatePopup('ProList')" style="cursor:pointer"/>
                         </apex:facet>
-                        <apex:selectList id="ProList" size="1" value="{!ShipLine.SelectProductId}" rendered="{!NOT(ShipLine.AssetIsExisted)}" onchange="loadAssetsPN(this.value, {!FLOOR(index)});hideshowServiceProduct(this.value, {!FLOOR(index)});">
+                        <apex:selectList id="ProList" size="1" value="{!ShipLine.SelectProductId}" rendered="{!NOT(ShipLine.AssetIsExisted)}" onchange="loadAssetsPN(this.value, {!FLOOR(index)});">
                             <apex:selectOptions value="{!ProductList}"/>
                         </apex:selectList>
                         <apex:outputText value="{!ShipLine.ProductCode}" rendered="{!ShipLine.AssetIsExisted}"/>
+                         
                     </apex:column>
                     <apex:column id="PartNumberCol" headerValue="Part Number">
                         <!-- <apex:facet name="header">
@@ -169,7 +170,9 @@ Part Number&nbsp;<img src="/s.gif" alt="Expand" class="moreArrow" title="Expand"
                         <select id="PartNumberList{!FLOOR(index)}" onchange="setAssetPN({!FLOOR(index)}, this.value)" style="display:{!IF(ShipLine.AssetIsExisted, 'none', '')}"></select>
                         <apex:inputHidden value="{!ShipLine.PartNumber}" id="PartNumber"/>
                         <apex:outputText rendered="{!ShipLine.AssetIsExisted}">{!ShipLine.PartNumber}</apex:outputText>
+                        <apex:variable var="index" value="{!index + 1}" />
                     </apex:column>
+                   
                 </apex:pageBlockTable>
             </apex:pageBlockSection> 
             <apex:pageBlockButtons location="bottom">
