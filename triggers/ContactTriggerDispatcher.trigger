@@ -15,7 +15,8 @@ trigger ContactTriggerDispatcher on Contact (before insert, before update, befor
 {
     if(!SilverPeakUtils.BypassingTriggers)
     {
-        TriggerHandler handler = new ContactTriggerHandlerForSDC();
-        handler.execute();
+        //TriggerHandler handler = new ContactTriggerHandlerForSDC();
+        //handler.execute();
+        TriggerDispatcher.Run(new ContactTriggerHandler());
     }
 }

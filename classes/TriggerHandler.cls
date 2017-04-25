@@ -12,6 +12,8 @@
 
 public virtual class TriggerHandler implements ITrigger 
 {
+   
+   
     public void execute()
     {
         if(Trigger.isBefore)

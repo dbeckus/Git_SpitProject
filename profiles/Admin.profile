@@ -409,6 +409,10 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>ContactTriggerHandler</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>ContactTriggerHandlerForSDC</apexClass>
         <enabled>true</enabled>
     </classAccesses>
@@ -706,6 +710,10 @@
     </classAccesses>
     <classAccesses>
         <apexClass>ITrigger</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>ITriggerHandler</apexClass>
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
@@ -2050,6 +2058,10 @@
     </classAccesses>
     <classAccesses>
         <apexClass>TestUtilities</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>TriggerDispatcher</apexClass>
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
