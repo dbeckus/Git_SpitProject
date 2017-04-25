@@ -20,16 +20,19 @@ public class ContactTriggerHandler implements ITriggerHandler {
     }
     public void BeforeUpdate(Map<Id, SObject> newItems, Map<Id, SObject> oldItems) 
     {
-        for (Id conId : newItems.keyset())
+        if(newItems!=null && newItems.size()>0)
         {
-            Contact oldContact=(Contact)oldItems.get(conId);
-            Contact newContact=(Contact)newItems.get(conId);
-            if(newContact.TechnicalPresalesReady__c!=oldContact.TechnicalPresalesReady__c)
+            for (Id conId : newItems.keyset())
             {
-                newContact.TechnicalPresalesReadyCertifiedBy__c= newContact.TechnicalPresalesReady__c?UserInfo.getUserId():null;
+                Contact oldContact=(Contact)oldItems.get(conId);
+                Contact newContact=(Contact)newItems.get(conId);
+                if(newContact.TechnicalPresalesReady__c!=oldContact.TechnicalPresalesReady__c)
+                {
+                    newContact.TechnicalPresalesReadyCertifiedBy__c= newContact.TechnicalPresalesReady__c?UserInfo.getUserId():null;
+                }
+                
+                
             }
-            
-            
         }
     }
     public void BeforeDelete(Map<Id, SObject> oldItems) 
@@ -44,19 +47,22 @@ public class ContactTriggerHandler implements ITriggerHandler {
     {
         Set<Id> accountIds = new Set<Id>();
         Set<Id> contactIds = new Set<Id>();
-        for (Id conId : newItems.keyset())
+        if(newItems!=null && newItems.size()>0)
         {
-            Contact oldContact=(Contact)oldItems.get(conId);
-            Contact newContact=(Contact)newItems.get(conId);
-            if(newContact.Partner_Role__c != oldContact.Partner_Role__c && newContact.Partner_Role__c != null)
+            for (Id conId : newItems.keyset())
             {
-                accountIds.add(newContact.AccountId);
-                contactIds.add(newContact.Id);
+                Contact oldContact=(Contact)oldItems.get(conId);
+                Contact newContact=(Contact)newItems.get(conId);
+                if(newContact.Partner_Role__c != oldContact.Partner_Role__c && newContact.Partner_Role__c != null)
+                {
+                    accountIds.add(newContact.AccountId);
+                    contactIds.add(newContact.Id);
+                }
             }
-        }
-        if(!accountIds.isEmpty() && !contactIds.isEmpty())
-        {
-            UpdateUserPartnerRoleTriggerHandler.UpdateUsersRole(contactIds, accountIds);
+            if(!accountIds.isEmpty() && !contactIds.isEmpty())
+            {
+                UpdateUserPartnerRoleTriggerHandler.UpdateUsersRole(contactIds, accountIds);
+            }
         }
     }
     public void AfterDelete(Map<Id, SObject> oldItems) 
