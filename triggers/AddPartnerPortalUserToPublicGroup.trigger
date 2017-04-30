@@ -6,6 +6,8 @@ trigger AddPartnerPortalUserToPublicGroup on User (after insert, after update)
 {
     Set<Id> newUserIds = new Set<Id>();
     Set<Id> deactivateUserIds = new Set<Id>();
+    
+     if(system.isFuture()) return;
 
     if(trigger.IsInsert)
     {

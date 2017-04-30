@@ -6,18 +6,30 @@ public class TestCheckECSPEnabledonEnterAcc {
     {
         Account acc=new Account(Name='Test',Cloud_Portal_Account_Name__c='Test',ECSP__c=true,Service_Provider_Account_type__c='Perpetual',Service_Provider_Admin_User__c='abc@abc.com');
         insert acc;
-        
         acc.ECSP__c=false;
-        try
+        Profile p = [SELECT Id FROM Profile WHERE Name='9-Operations Manager']; 
+        User u = new User(Alias = 'standt', Email='testUser@uniquetest.com', 
+                          EmailEncodingKey='UTF-8', LastName='Testing', LanguageLocaleKey='en_US', 
+                          LocaleSidKey='en_US', ProfileId = p.Id, IsServiceProviderTeam__c=true,
+                          TimeZoneSidKey='America/Los_Angeles', UserName='testUser@uniquetest.com');
+        
+        u.IsActive =true;
+        System.runAs(u) 
         {
-            update acc;
+            // The following code runs as user 'u' 
+            try
+            {
+                update acc;
+            }
+            catch(Exception ex)
+            {
+                System.debug(ex.getMessage());
+                Boolean expectedExceptionThrown =  ex.getMessage().contains('You cannot modify any fields in the service provider information section. Please contact service provider team.') ? true : false;
+                System.AssertEquals(expectedExceptionThrown, true);
+            }
+            
         }
-        catch(Exception ex)
-        {
-            System.debug(ex.getMessage());
-            Boolean expectedExceptionThrown =  ex.getMessage().contains('You cannot modify any fields in the service provider information section. Please contact service provider team.') ? true : false;
-            System.AssertEquals(expectedExceptionThrown, true);
-        }
+        
     }
     @IsTest
     public static void ECSPFlag_AccountAssetsCreated()
@@ -30,34 +42,55 @@ public class TestCheckECSPEnabledonEnterAcc {
         insert product;
         Asset asset1 = new Asset(Name='T-30', AccountId=acc.Id, Product2Id=product.Id,Status='Customer Evaluation');
         insert asset1;
-        acc.ECSP__c=false;
-        try
+        Profile p = [SELECT Id FROM Profile WHERE Name='9-Operations Manager']; 
+        User u = new User(Alias = 'standt', Email='testUser@uniquetest.com', 
+                          EmailEncodingKey='UTF-8', LastName='Testing', LanguageLocaleKey='en_US', 
+                          LocaleSidKey='en_US', ProfileId = p.Id, IsServiceProviderTeam__c=true,
+                          TimeZoneSidKey='America/Los_Angeles', UserName='testUser@uniquetest.com');
+        
+        u.IsActive =true;
+        System.runAs(u) 
         {
-            update acc;
-        }
-        catch(Exception ex)
-        {
-            Boolean expectedExceptionThrown =  ex.getMessage().contains('You cannot modify any fields in the service provider information section. Please contact service provider team.') ? true : false;
-            System.AssertEquals(expectedExceptionThrown, true);
+            acc.ECSP__c=false;
+            
+            try
+            {
+                update acc;
+            }
+            catch(Exception ex)
+            {
+                Boolean expectedExceptionThrown =  ex.getMessage().contains('You cannot modify any fields in the service provider information section. Please contact service provider team.') ? true : false;
+                System.AssertEquals(expectedExceptionThrown, true);
+            }
         }
     }
     
     @IsTest
     public static void AllowECSPFlagChange()
     {
-        Account acc=new Account(Name='Test',ECSP__c=true,Service_Provider_Account_type__c='Perpetual',Service_Provider_Admin_User__c='abc@abc.com');
-        insert acc;
+         Account acc=new Account(Name='Test',ECSP__c=true,Service_Provider_Account_type__c='Perpetual',Service_Provider_Admin_User__c='abc@abc.com');
+            insert acc;
+        Profile p = [SELECT Id FROM Profile WHERE Name='9-Operations Manager']; 
+        User u = new User(Alias = 'standt', Email='testUser@uniquetest.com', 
+                          EmailEncodingKey='UTF-8', LastName='Testing', LanguageLocaleKey='en_US', 
+                          LocaleSidKey='en_US', ProfileId = p.Id, IsServiceProviderTeam__c=true,
+                          TimeZoneSidKey='America/Los_Angeles', UserName='testUser@uniquetest.com');
         
-        acc.ECSP__c=false;
-        
-        try
+        u.IsActive =true;
+        System.runAs(u) 
         {
-            update acc;
-        }
-        catch(Exception ex)
-        {
-            Boolean expectedExceptionThrown =  ex.getMessage().contains('You cannot modify ECSP flag at this point of time. Please contact operations.') ? true : false;
-            System.AssertEquals(expectedExceptionThrown, true);
+           
+            acc.ECSP__c=false;
+            try
+            {
+                update acc;
+            }
+            catch(Exception ex)
+            {
+                System.debug(ex);
+                Boolean expectedExceptionThrown =  ex.getMessage().contains('You cannot modify ECSP flag at this point of time. Please contact operations.') ? true : false;
+                System.AssertEquals(expectedExceptionThrown, true);
+            }
         }
     }
 }

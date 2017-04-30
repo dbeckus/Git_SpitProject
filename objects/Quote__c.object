@@ -499,6 +499,19 @@ OR((Opportunity_Amount__c - Quote_Amount_Rollup__c) &lt;100 ,(Quote_Amount_Rollu
         <type>Summary</type>
     </fields>
     <fields>
+        <fullName>Opp_Owner_Manager__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Opp Owner Manager</label>
+        <referenceTo>User</referenceTo>
+        <relationshipName>Silver_Peak_Quotes</relationshipName>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
         <fullName>Opportunity_Amount__c</fullName>
         <externalId>false</externalId>
         <formula>Opportunity__r.Amount</formula>

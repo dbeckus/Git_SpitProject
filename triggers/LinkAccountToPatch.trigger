@@ -5,7 +5,9 @@
 trigger LinkAccountToPatch on Account (after insert, after update) 
 {
     List<Id> accNeedsPatchAssign = new List<Id>();
-    List<Id> accNeedsTeamAssign = new List<Id>();
+    List<Id> accNeedsTeamAssign  = new List<Id>();
+    Set<Id> accPatchChanged      = new Set<Id>(); //list to get accounts for which opps should be updated. 
+    
     if(Trigger.isInsert)
     {
         for(Account acc : Trigger.new)
@@ -37,9 +39,11 @@ trigger LinkAccountToPatch on Account (after insert, after update)
             if(acc.Patch__c != oldAccount.Patch__c || acc.Trigger_Assignment__c)
             {
                 accNeedsTeamAssign.add(acc.Id);
+                accPatchChanged.add(acc.Id);   
             }
         }
     }
+   
     if(accNeedsPatchAssign.size() > 0)
     {
         PatchRuleHelper.assignPatch(accNeedsPatchAssign);
@@ -48,4 +52,26 @@ trigger LinkAccountToPatch on Account (after insert, after update)
     {
         PatchRuleHelper.assignTeamMembers(accNeedsTeamAssign);
     }
+    if(accPatchChanged.size() > 0){
+        assocOpps(); //Update associated opps patch if Account patch is changed. 
+    }
+    
+    private static void assocOpps()
+    {  
+       List<Opportunity> lstAssocOpps = [Select Id, Account.Id, StageName, Trigger_Assignment__c from Opportunity where
+                                         Patch_Locked__c=False and Account.Id =:accPatchChanged and (NOT StageName Like '%Closed%')];
+       List<Opportunity> lstFinalOpps = new List<Opportunity>();
+        if(lstAssocOpps.size()>0 && lstAssocOpps!=Null )
+        {
+             for(Opportunity o: lstAssocOpps){
+                 Opportunity accOpp = new Opportunity();
+                 accOpp.Id= o.Id;
+                 accOpp.Trigger_Assignment__c = True;
+                 lstFinalOpps.add(accOpp);
+             }
+            if(lstFinalOpps.size()>0){ 
+            update lstFinalOpps;
+            } 
+        }    
+    }   
 }

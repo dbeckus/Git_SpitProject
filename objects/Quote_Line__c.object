@@ -113,6 +113,19 @@ CASE( Product__r.Product_Family_Clean__c , &apos;Virtual&apos;, IF( AND( ISPICKV
         <type>Percent</type>
     </fields>
     <fields>
+        <fullName>Discount_field__c</fullName>
+        <externalId>false</externalId>
+        <formula>Quote__r.Opportunity__r.Primary_Partner__r.Standard_Discount_EdgeConnect__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Discount field</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
         <fullName>Include4ConsultingDisc__c</fullName>
         <defaultValue>0</defaultValue>
         <externalId>false</externalId>

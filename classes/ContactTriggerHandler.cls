@@ -1,4 +1,9 @@
 public class ContactTriggerHandler implements ITriggerHandler {
+    Map<Id,string> mapGEOUsers= new Map<Id,string>();
+    public ContactTriggerHandler()
+    {
+       
+    }
     public Boolean IsDisabled()
     {
         return false;
@@ -13,6 +18,8 @@ public class ContactTriggerHandler implements ITriggerHandler {
                 {
                     con.TechnicalPresalesReadyCertifiedBy__c = UserInfo.getUserId();
                 }
+                
+               
                 
             }
         }
@@ -31,11 +38,10 @@ public class ContactTriggerHandler implements ITriggerHandler {
                     newContact.TechnicalPresalesReadyCertifiedBy__c= newContact.TechnicalPresalesReady__c?UserInfo.getUserId():null;
                 }
                 
-                
             }
         }
     }
-    public void BeforeDelete(Map<Id, SObject> oldItems) 
+    public void BeforeDelete(Map<Id,SObject> oldItems) 
     {
         
     }
@@ -73,4 +79,6 @@ public class ContactTriggerHandler implements ITriggerHandler {
     {
         
     }
+    
+ 
 }

@@ -7,7 +7,7 @@ private class UpdateUserPartnerRoleTriggerTest
 {
     static final String PORTAL_PROFILE = '13a-SP Partner Portal';
     
-    @isTest(seeAllData=true)
+  
     static void testUpdatePartnerRole()
     {
         List<User> portalUsers = [select Id, ContactId, Contact.AccountId, Contact.Partner_Role__c from User where IsActive = true and Profile.Name = :PORTAL_PROFILE and ContactId != null and Contact.Partner_Role__c != 'Manager' limit 1];

@@ -23,15 +23,24 @@ public class RenewalOpportunityController
         opp.Opportunity_Source__c='';
         opp.ForecastCategoryName = 'Commit';
         opp.Probability = 50;
-        System.debug(opp.Pricebook2Id);
+        
+        Opportunity oldOpp = [Select Id, Pricebook2Id from Opportunity where Id =:opp.Id];
+        opp.Pricebook2Id = oldOpp.Pricebook2Id;
+        
         try
         {
             opp.RecordTypeId = Schema.sObjectType.Opportunity.getRecordTypeInfosByName().get('Maintenance').getRecordTypeId();
         }
         catch(Exception ex)
         {}
+       
+        List<Pricebook2> pricebook = [select Id from Pricebook2 where Id =:opp.Pricebook2Id];
         
-        List<Pricebook2> pricebook = [select Id from Pricebook2 where Name = 'Standard Price Book' limit 1];
+        if(pricebook.size() == 0){
+        ApexPages.addMessage(new ApexPages.Message(ApexPages.Severity.Warning, 'No Pricebook is associate with the Parent Opportunity'));
+        }
+        else
+        {  
         pricebookId = pricebook[0].Id;
         
         NewProducts = new List<ProductInfo>();
@@ -72,6 +81,7 @@ public class RenewalOpportunityController
                 }
             }
         }
+       }
     }
     
     public Opportunity opp { get; set; }
@@ -220,13 +230,13 @@ public class RenewalOpportunityController
     {
         if(line.UnitPrice >= line.ListPrice)
         {
-            return 0.8;
+            return 0.77;
         }
         else
         {
             return line.UnitPrice / line.ListPrice;
         }
-    }
+    } 
     
     public class ProductInfo
     {

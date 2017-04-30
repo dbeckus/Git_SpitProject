@@ -21,6 +21,10 @@
         <name>Discount_Percent__c</name>
     </fields>
     <fields>
+        <label><!-- Discount field --></label>
+        <name>Discount_field__c</name>
+    </fields>
+    <fields>
         <label><!-- Include4ConsultingDisc --></label>
         <name>Include4ConsultingDisc__c</name>
     </fields>

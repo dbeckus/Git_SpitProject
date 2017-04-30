@@ -261,4 +261,10 @@ ISCHANGED(  Value_At_List__c  )  , ISCHANGED(   Quote_Amount_Rollup__c   )
         </criteriaItems>
         <triggerType>onCreateOrTriggeringUpdate</triggerType>
     </rules>
+    <rules>
+        <fullName>Update Opp Owner Manager</fullName>
+        <active>false</active>
+        <formula>Opportunity__r.OwnerId !=null</formula>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
 </Workflow>

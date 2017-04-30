@@ -145,6 +145,11 @@ if( Service_Discount_Max__c &gt; RegPartServDisc__c ,3,0)
         <name>Number_of_Quote_Lines__c</name>
     </fields>
     <fields>
+        <label><!-- Opp Owner Manager --></label>
+        <name>Opp_Owner_Manager__c</name>
+        <relationshipLabel><!-- Silver Peak Quotes --></relationshipLabel>
+    </fields>
+    <fields>
         <label><!-- Opportunity Amount --></label>
         <name>Opportunity_Amount__c</name>
     </fields>

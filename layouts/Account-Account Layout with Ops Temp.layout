@@ -27,6 +27,10 @@
                 <field>Target_Account__c</field>
             </layoutItems>
             <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>IsPartner</field>
+            </layoutItems>
+            <layoutItems>
                 <behavior>Edit</behavior>
                 <field>Service_Provider_Type__c</field>
             </layoutItems>

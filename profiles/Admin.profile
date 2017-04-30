@@ -129,6 +129,10 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>AccountTriggerHandler</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>AcctWithTimelineTestClass</apexClass>
         <enabled>true</enabled>
     </classAccesses>
@@ -1757,6 +1761,10 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>TestAssignGEOFromContactOwner</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>TestAssignSBPermissionSet</apexClass>
         <enabled>true</enabled>
     </classAccesses>
@@ -1818,6 +1826,10 @@
     </classAccesses>
     <classAccesses>
         <apexClass>TestCloudPortalProvisionAssetsJob</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>TestContactTriggerHandler</apexClass>
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
@@ -5541,6 +5553,11 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
+        <editable>false</editable>
+        <field>Quote_Line__c.Discount_field__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>true</editable>
         <field>Quote_Line__c.Include4ConsultingDisc__c</field>
         <readable>true</readable>
@@ -5753,6 +5770,11 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Quote__c.Number_of_Quote_Lines__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Quote__c.Opp_Owner_Manager__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

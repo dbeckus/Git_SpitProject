@@ -59,6 +59,10 @@
                 <behavior>Readonly</behavior>
                 <field>Line_Price__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>Discount_field__c</field>
+            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>

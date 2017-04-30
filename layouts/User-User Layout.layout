@@ -50,6 +50,10 @@
                 <behavior>Readonly</behavior>
                 <field>Manager_Text_Field__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Special_Admin__c</field>
+            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>

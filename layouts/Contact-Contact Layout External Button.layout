@@ -73,6 +73,10 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
+                <field>GEO__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
                 <field>BANT_Qualified__c</field>
             </layoutItems>
             <layoutItems>
@@ -140,6 +144,14 @@
             <layoutItems>
                 <behavior>Readonly</behavior>
                 <field>ISR_Target__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>TechnicalPresalesReady__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>TechnicalPresalesReadyCertifiedBy__c</field>
             </layoutItems>
         </layoutColumns>
         <style>TwoColumnsLeftToRight</style>
