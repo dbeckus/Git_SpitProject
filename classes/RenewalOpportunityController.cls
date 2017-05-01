@@ -66,18 +66,22 @@ public class RenewalOpportunityController
             }
             productId2OpportunityLineItem.remove(null);
             Map<Id, Decimal> productId2UnitPrice = new Map<Id, Decimal>();
-            for(PricebookEntry entry : [select Id, Product2Id, UnitPrice from PricebookEntry where Pricebook2Id = :pricebookId and Product2Id in :productId2OpportunityLineItem.keySet()])
+            Map<Id, Boolean> productId2Discountable = new Map<Id, Boolean>();
+            for(PricebookEntry entry : [select Id, Product2Id,Product2.Not_Discountable__c, UnitPrice from PricebookEntry where Pricebook2Id = :pricebookId and Product2Id in :productId2OpportunityLineItem.keySet()])
             {
                 productId2UnitPrice.put(entry.Product2Id, entry.UnitPrice);
+                productId2Discountable.put(entry.Product2Id,entry.Product2.Not_Discountable__c);
             }
             
             for(Id productId : productId2OpportunityLineItem.keySet())
             {
                 OpportunityLineItem oppLineItem = productId2OpportunityLineItem.get(productId);
                 Decimal unitPrice = productId2UnitPrice.get(productId);
+                Boolean isNotDiscountable=productId2Discountable.get(productId);
                 if(unitPrice != null) 
                 {
-                    NewProducts.add(new ProductInfo(productId, oppLineItem.Quantity, (unitPrice * getDiscountFromOpportunityLineItem(oppLineItem)).setScale(2)));
+                    decimal finalAmt =!isNotDiscountable?(unitPrice * getDiscountFromOpportunityLineItem(oppLineItem)):unitPrice;
+                    NewProducts.add(new ProductInfo(productId, oppLineItem.Quantity, finalAmt.setScale(2)));
                 }
             }
         }

@@ -677,6 +677,7 @@
         <fields>Quantity</fields>
         <fields>Discount</fields>
         <fields>TotalPrice</fields>
+        <fields>DiscountPercent__c</fields>
         <relatedList>RelatedLineItemList</relatedList>
     </relatedLists>
     <relatedLists>
