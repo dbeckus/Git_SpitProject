@@ -759,7 +759,7 @@ public class TriggerTestFixtures
         }
     }
     
-    @isTest(SeeAllData = true)
+  
     static void testinitApprovalLevel()
     {
         User testUser = [select Id from User where IsActive=true and Id != :UserInfo.getUserId() limit 1];

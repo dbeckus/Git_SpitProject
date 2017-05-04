@@ -268,6 +268,7 @@ public with sharing class NewVirtualShipmentController
                 VirtualAssetManager manager = new VirtualAssetManager();
                 manager.VirtualAssets=updateAssetLines;
                 Boolean succeeded = manager.updateECAssets();
+                System.debug('Assets created');
                 if(!succeeded)
                 {
                     Database.rollback(sp);
@@ -282,6 +283,7 @@ public with sharing class NewVirtualShipmentController
             }
             catch(DmlException ex)
             {
+                System.debug(ex);
                 ApexPages.addMessages(ex);
                 Database.rollback(sp);
                 return null;

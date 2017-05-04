@@ -11,13 +11,13 @@ public class TestAutomatePOCRenewalExtensions {
         insert spAcc;
         Contact contact = new Contact(FirstName = 'AcmeFirstname', LastName = 'AcmeLastname', Phone='123456789', Email = 'acme@acme.com' , accountId=acc.Id);
         insert contact;
-        Product2 baseProd = new Product2(Name='EC-BASE-1Y',Product_Category__c='Subscription', Forecast_Category__c = 'Virtual', Family='Virtual Image', IsActive=true,Product_Type__c='EDGECONNECT');
+        Product2 baseProd = new Product2(Name='EC-BASE-1Y',Model__c='EC-BASE-1Y',Product_Category__c='Subscription', Forecast_Category__c = 'Virtual', Family='Virtual Image', IsActive=true,Product_Type__c='EDGECONNECT');
         insert baseProd;
-        Product2 plusProd = new Product2(Name='EC-PLUS-1Y',Product_Category__c='Subscription', Forecast_Category__c = 'Virtual', Family='Virtual Image', IsActive=true,Product_Type__c='EDGECONNECT');
+        Product2 plusProd = new Product2(Name='EC-PLUS-1Y',Model__c='EC-PLUS-1Y',Product_Category__c='Subscription', Forecast_Category__c = 'Virtual', Family='Virtual Image', IsActive=true,Product_Type__c='EDGECONNECT');
         insert plusProd;
-        Product2 boostProd = new Product2(Name='EC-BOOST-1Y',Product_Category__c='Subscription', Forecast_Category__c = 'Virtual', Family='Virtual Image', IsActive=true,Product_Type__c='EDGECONNECT');
+        Product2 boostProd = new Product2(Name='EC-BOOST-1Y',Model__c='EC-BOOST-1Y',Product_Category__c='Subscription', Forecast_Category__c = 'Virtual', Family='Virtual Image', IsActive=true,Product_Type__c='EDGECONNECT');
         insert boostProd;
-        Product2 ecORCH = new Product2(Name='EC-ORCH',Product_Category__c='Appliance', Forecast_Category__c = 'Virtual', Family='Virtual Image', IsActive=true,Product_Type__c='EDGECONNECT');
+        Product2 ecORCH = new Product2(Name='EC-ORCH',Model__c='EC-ORCH',Product_Category__c='Appliance', Forecast_Category__c = 'Virtual', Family='Virtual Image', IsActive=true,Product_Type__c='EDGECONNECT');
         insert ecORCH;
         
         Profile prof = [SELECT Id FROM Profile WHERE Name='System Administrator']; 

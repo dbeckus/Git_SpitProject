@@ -444,24 +444,27 @@
         <notifyAssignee>false</notifyAssignee>
         <operation>Formula</operation>
         <protected>false</protected>
+        <reevaluateOnChange>true</reevaluateOnChange>
     </fieldUpdates>
     <fieldUpdates>
         <fullName>Add_Warranty_End_Date</fullName>
         <field>Warranty_End_Date__c</field>
-        <formula>IF((Product2.EC_Term_in_Years__c !=null) ,DATE( (YEAR( Ship_Date__c )+ Product2.EC_Term_in_Years__c) ,MONTH( Ship_Date__c) , DAY( Ship_Date__c) ),null)</formula>
+        <formula>IF(!ISBLANK(Product2.Term__c),DATE( (YEAR(Ship_Date__c)+ Product2.Term__c) ,MONTH( Ship_Date__c) , DAY( Ship_Date__c) ),Ship_Date__c)</formula>
         <name>Add Warranty End Date</name>
         <notifyAssignee>false</notifyAssignee>
         <operation>Formula</operation>
         <protected>false</protected>
+        <reevaluateOnChange>true</reevaluateOnChange>
     </fieldUpdates>
     <fieldUpdates>
         <fullName>Add_Warranty_Start_Date</fullName>
         <field>Warranty_Start_Date__c</field>
-        <formula>IF((Product2.EC_Term_in_Years__c !=null) ,Ship_Date__c,null)</formula>
+        <formula>Ship_Date__c</formula>
         <name>Add Warranty Start Date</name>
         <notifyAssignee>false</notifyAssignee>
         <operation>Formula</operation>
         <protected>false</protected>
+        <reevaluateOnChange>true</reevaluateOnChange>
     </fieldUpdates>
     <fieldUpdates>
         <fullName>AssetEvalEndDate</fullName>
@@ -872,15 +875,19 @@ BEGINS( Product2.Name ,&quot;EC&quot;)
             <type>FieldUpdate</type>
         </actions>
         <active>true</active>
-        <formula>AND(
-ISPICKVAL( Product2.Family,&quot;Product&quot;),
-BEGINS(  Product_Name_And_Nodes__c,&quot;EC&quot; ),
-ISPICKVAL(Status,&quot;Customer Owned&quot;),
-OR(
-ISNEW(),
-ISCHANGED( Ship_Date__c ),
-ISCHANGED(  Product2Id )
-)
+        <formula>AND( 
+ISPICKVAL( Product2.Family,&quot;Product&quot;), 
+OR( 
+ISPICKVAL(Product2.Product_Type__c ,&quot;EDGECONNECT&quot;), 
+ISPICKVAL(Product2.Product_Type__c ,&quot;EC-SP-Perpetual&quot;), 
+ISPICKVAL(Product2.Product_Type__c ,&quot;EC-SP-Metered&quot;) 
+), 
+ISPICKVAL(Status,&quot;Customer Owned&quot;), 
+OR( 
+ISNEW(), 
+ISCHANGED( Ship_Date__c ), 
+ISCHANGED( Product2Id ) 
+) 
 )</formula>
         <triggerType>onAllChanges</triggerType>
     </rules>

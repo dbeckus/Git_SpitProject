@@ -64,7 +64,7 @@ public class NewVirtualShipmentTest
         insert spAccount;
         Opportunity testOpp = new Opportunity(Name='acme', CloseDate=Date.today(), StageName='Open', ForecastCategoryName ='Pipeline', AccountId=testAccount.Id);
         insert testOpp;
-        Product2 testProduct = new Product2(Name='EC-ORCH',Product_Category__c='GMS', Forecast_Category__c = 'Virtual', Family='Virtual Image', IsActive=true,Product_Type__c='EDGECONNECT');
+        Product2 testProduct = new Product2(Name='EC-ORCH',Model__c='EC-ORCH',Product_Category__c='GMS', Forecast_Category__c = 'Virtual', Family='Virtual Image', IsActive=true,Product_Type__c='EDGECONNECT');
         insert testProduct;
          System.debug('testProduct'+testProduct.Id);
         Contact testContact = new Contact(LastName='acme', AccountId=testAccount.Id);
@@ -108,9 +108,9 @@ public class NewVirtualShipmentTest
         insert spAccount;
         Opportunity testOpp = new Opportunity(Name='acme', CloseDate=Date.today(), StageName='Open', ForecastCategoryName ='Pipeline', AccountId=testAccount.Id);
         insert testOpp;
-        Product2 testProduct1 = new Product2(Name='EC-PLUS-1Y',Product_Category__c='Subscription', Forecast_Category__c = 'Virtual', Family='Virtual Image', IsActive=true,Product_Type__c='EDGECONNECT');
+        Product2 testProduct1 = new Product2(Name='EC-PLUS-1Y',Model__c='EC-PLUS-1Y',Product_Category__c='Subscription', Forecast_Category__c = 'Virtual', Family='Virtual Image', IsActive=true,Product_Type__c='EDGECONNECT');
         insert testProduct1;
-        Product2 testProduct2 = new Product2(Name='EC-BASE-1Y',Product_Category__c='Subscription', Forecast_Category__c = 'Virtual', Family='Virtual Image', IsActive=true,Product_Type__c='EDGECONNECT');
+        Product2 testProduct2 = new Product2(Name='EC-BASE-1Y',Model__c='EC-BASE-1Y',Product_Category__c='Subscription', Forecast_Category__c = 'Virtual', Family='Virtual Image', IsActive=true,Product_Type__c='EDGECONNECT');
         insert testProduct2;
         Contact testContact = new Contact(LastName='acme', AccountId=testAccount.Id);
         insert testContact;
@@ -151,9 +151,9 @@ public class NewVirtualShipmentTest
         insert spAccount;
         Opportunity testOpp = new Opportunity(Name='acme', CloseDate=Date.today(), StageName='Open', ForecastCategoryName ='Pipeline', AccountId=testAccount.Id);
         insert testOpp;
-        Product2 testProduct = new Product2(Name='EC-BASE-1Y',Product_Category__c='GMS', Forecast_Category__c = 'Virtual', Family='Virtual Image', IsActive=true,Product_Type__c='EDGECONNECT');
+        Product2 testProduct = new Product2(Name='EC-BASE-1Y',Model__c='EC-BASE-1Y',Product_Category__c='GMS', Forecast_Category__c = 'Virtual', Family='Virtual Image', IsActive=true,Product_Type__c='EDGECONNECT');
         insert testProduct;
-        Product2 plusProduct = new Product2(Name='EC-PLUS-1Y',Product_Category__c='GMS', Forecast_Category__c = 'Virtual', Family='Virtual Image', IsActive=true,Product_Type__c='EDGECONNECT');
+        Product2 plusProduct = new Product2(Name='EC-PLUS-1Y',Model__c='EC-PLUS-1Y',Product_Category__c='GMS', Forecast_Category__c = 'Virtual', Family='Virtual Image', IsActive=true,Product_Type__c='EDGECONNECT');
         insert plusProduct;
         Contact testContact = new Contact(LastName='acme', AccountId=testAccount.Id);
         insert testContact;
@@ -216,7 +216,7 @@ public class NewVirtualShipmentTest
         insert spAccount;
         Opportunity testOpp = new Opportunity(Name='acme', CloseDate=Date.today(), StageName='Open', ForecastCategoryName ='Pipeline', AccountId=testAccount.Id);
         insert testOpp;
-        Product2 testProduct = new Product2(Name='EC-BASE-1Y',Product_Category__c='Virtual Image', Forecast_Category__c = 'Virtual', Family='Virtual Image', IsActive=true,Product_Type__c='EDGECONNECT');
+        Product2 testProduct = new Product2(Name='EC-BASE-1Y',Model__c='EC-BASE-1Y',Product_Category__c='Virtual Image', Forecast_Category__c = 'Virtual', Family='Virtual Image', IsActive=true,Product_Type__c='EDGECONNECT');
         insert testProduct;
         Contact testContact = new Contact(LastName='acme', AccountId=testAccount.Id);
         insert testContact;
@@ -289,7 +289,7 @@ public class NewVirtualShipmentTest
         insert spAccount;
         Opportunity testOpp = new Opportunity(Name='acme', CloseDate=Date.today(), StageName='Open', ForecastCategoryName ='Pipeline', AccountId=testAccount.Id);
         insert testOpp;
-        Product2 testProduct = new Product2(Name='EC-BOOST-1Y',Product_Category__c='Virtual Image', Forecast_Category__c = 'Virtual', Family='Virtual Image', IsActive=true,Product_Type__c='EDGECONNECT');
+        Product2 testProduct = new Product2(Name='EC-BOOST-1Y',Model__c='EC-BOOST-1Y',Product_Category__c='Virtual Image', Forecast_Category__c = 'Virtual', Family='Virtual Image', IsActive=true,Product_Type__c='EDGECONNECT');
         insert testProduct;
         Contact testContact = new Contact(LastName='acme', AccountId=testAccount.Id);
         insert testContact;

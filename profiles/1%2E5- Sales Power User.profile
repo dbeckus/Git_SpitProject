@@ -2021,6 +2021,10 @@
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>TestSetApprovalLevelOnQuoteLine</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>TestSetDefaultTechResponsibility</apexClass>
         <enabled>false</enabled>
     </classAccesses>
@@ -5554,6 +5558,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Quote_Line__c.Discount_Spread__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Quote_Line__c.Discount_field__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -5594,6 +5603,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Quote_Line__c.Maint_Year_Value__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Quote_Line__c.MultiYearMaint__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -5623,8 +5637,18 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
+        <editable>false</editable>
+        <field>Quote_Line__c.Product_Quote_Type__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>true</editable>
         <field>Quote_Line__c.Product__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Quote_Line__c.Reseller_Discount__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

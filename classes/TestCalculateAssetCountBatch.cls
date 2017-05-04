@@ -14,7 +14,7 @@ public class TestCalculateAssetCountBatch {
         insert con;
         con.Status='Activated';
         update con;
-        Product2 testProduct = new Product2(Name='EC-BASE-1Y',Product_Category__c='Virtual Image', Forecast_Category__c = 'Virtual', Product_Type__c='EDGECONNECT', Family='Virtual Image', IsActive=true);
+        Product2 testProduct = new Product2(Name='EC-BASE-1Y',Model__c='EC-BASE-1Y',Product_Category__c='Virtual Image', Forecast_Category__c = 'Virtual', Product_Type__c='EDGECONNECT', Family='Virtual Image', IsActive=true);
         insert testProduct;
         Asset ecAssetData= new Asset();
         ecAssetData.Name='test Account';
@@ -60,7 +60,7 @@ public class TestCalculateAssetCountBatch {
         assetData.Contract_Number__c=con.Id;
         insert assetData;
         
-        Product2 testProduct4 = new Product2(Name='EC-L-1Y',Product_Category__c='Product', Forecast_Category__c = 'Product', Product_Type__c='EDGECONNECT',Family='Product', IsActive=true);
+        Product2 testProduct4 = new Product2(Name='EC-L-1Y',Model__c='EC-L-1Y',Product_Category__c='Product', Forecast_Category__c = 'Product', Product_Type__c='EDGECONNECT',Family='Product', IsActive=true);
         insert testProduct4;
         assetData= new Asset();
         assetData.Name='test Account';

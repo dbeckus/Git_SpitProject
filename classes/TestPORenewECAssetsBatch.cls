@@ -11,7 +11,7 @@ public class TestPORenewECAssetsBatch {
         insert spAcc;
         Opportunity testOpp = new Opportunity(Name='acme', CloseDate=Date.today(), StageName='Open', ForecastCategoryName ='Pipeline', AccountId=testAccount.Id);
         insert testOpp;
-        Product2 testProduct = new Product2(Name='EC-BASE-1Y', Family='Virtual Image', Product_Type__c='EDGECONNECT', IsActive=true);
+        Product2 testProduct = new Product2(Name='EC-BASE-1Y',Model__c='EC-BASE-1Y', Family='Virtual Image', Product_Type__c='EDGECONNECT', IsActive=true);
         insert testProduct;
         Contact testContact = new Contact(LastName='acme',email='test@abc.com',  AccountId=testAccount.Id);
         insert testContact;

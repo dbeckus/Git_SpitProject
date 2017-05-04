@@ -7,6 +7,7 @@ public class PartnerAccountSummaryController {
     public Contact LoggedinContact{get;set;}
     public List<OpportunityWrapper> OpenOppsList{get;set;}
     public List<Lead> PendingDealReg{get;set;}
+    public List<Lead> RejectedDealReg{get;set;}
     public List<Opportunity> RenewalOppsList {get;set;}
     public AccountTeamMemberInfo AcctTeamInfo {get;set;}
     public List<Contact> PartnerContacts{get;set;}
@@ -45,16 +46,18 @@ public class PartnerAccountSummaryController {
                 {
                     lstOpp=[Select Id,Name,CloseDate,Owner.Name,StageName,Amount,ForecastCategoryName,Registering_Partner__r.Name,Registering_Partner_Sales_Rep__r.Name ,(select Id from Requests__r where IsClosed__c=false) from opportunity where Registering_Partner__c=:PartnerAccount.Id and Type in ('New Business','Follow on Business')and IsClosed=false];
                     PendingDealReg=[Select Id,Name,Company,Registered_Partner__r.Name,Registered_Partner_Sales_Rep__r.Name,Status,RSM__r.Name,CSM__r.Name,Registration_Expiration__c,Deal_ID__c from Lead where Registered_Partner__c=:PartnerAccount.Id and Status in ('Draft','Submitted') and LeadSource='Deal Registration'];
+                    RejectedDealReg=[Select Id,Name,Company,Registered_Partner__r.Name,Registered_Partner_Sales_Rep__r.Name,Status,RSM__r.Name,CSM__r.Name,Registration_Expiration__c,Deal_ID__c from Lead where Registered_Partner__c=:PartnerAccount.Id and Status in ('Approved','Rejected') and LeadSource='Deal Registration'];
                     RenewalOppsList=[Select Id,Name,CloseDate,Owner.Name,StageName,Amount,ForecastCategoryName,Registering_Partner__r.Name,Registering_Partner_Sales_Rep__r.Name,Next_Step_Reporting__c from opportunity where Registering_Partner__c=:PartnerAccount.Id and Type = 'Support Renewal' and IsClosed=false];
                 }
                 else
                 {
-                     
+                    
                     lstOpp=[Select Id,Name,CloseDate,Owner.Name,StageName,Amount,ForecastCategoryName,Registering_Partner__r.Name,Registering_Partner_Sales_Rep__r.Name ,(select Id from Requests__r where IsClosed__c=false) from opportunity where Registering_Partner__c=:PartnerAccount.Id and Registering_Partner_Sales_Rep__c=:LoggedinContact.Id and Type in ('New Business','Follow on Business')and IsClosed=false];
                     PendingDealReg=[Select Id,Name,Company,Registered_Partner__r.Name,Registered_Partner_Sales_Rep__r.Name,Status,RSM__r.Name,CSM__r.Name,Registration_Expiration__c,Deal_ID__c from Lead where Registered_Partner__c=:PartnerAccount.Id and Registered_Partner_Sales_Rep__c=:LoggedinContact.Id and Status in ('Draft','Submitted') and LeadSource='Deal Registration'];
+                    RejectedDealReg=[Select Id,Name,Company,Registered_Partner__r.Name,Registered_Partner_Sales_Rep__r.Name,Status,RSM__r.Name,CSM__r.Name,Registration_Expiration__c,Deal_ID__c from Lead where Registered_Partner__c=:PartnerAccount.Id and Registered_Partner_Sales_Rep__c=:LoggedinContact.Id and Status in ('Approved','Rejected') and LeadSource='Deal Registration'];
                     RenewalOppsList=[Select Id,Name,CloseDate,Owner.Name,StageName,Amount,ForecastCategoryName,Registering_Partner__r.Name,Registering_Partner_Sales_Rep__r.Name,Next_Step_Reporting__c from opportunity where Registering_Partner__c=:PartnerAccount.Id and Registering_Partner_Sales_Rep__c=:LoggedinContact.Id and Type = 'Support Renewal' and IsClosed=false];
                 }
-               
+                
                 
                 if(lstOpp!=null && lstOpp.size()>0)
                 {

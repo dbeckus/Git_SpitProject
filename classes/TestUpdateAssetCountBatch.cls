@@ -8,7 +8,7 @@ public class TestUpdateAssetCountBatch {
         insert acc;
         Account spAcc = new Account(name='Silver Peak Systems',Type='Prospect');
         insert spAcc;
-        Product2 testProduct = new Product2(Name='EC-BASE-1Y',Product_Type__c='EDGECONNECT',Product_Category__c='Virtual Image', Forecast_Category__c = 'Virtual', Family='Virtual Image', IsActive=true);
+        Product2 testProduct = new Product2(Name='EC-BASE-1Y',Model__c='EC-BASE-1Y',Product_Type__c='EDGECONNECT',Product_Category__c='Virtual Image', Forecast_Category__c = 'Virtual', Family='Virtual Image', IsActive=true);
         insert testProduct;
         Asset assetData= new Asset();
         assetData.Name='test Account';

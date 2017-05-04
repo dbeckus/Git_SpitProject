@@ -75,25 +75,11 @@
         <fullName>Approval_Level_Needed__c</fullName>
         <description>Equals to the max approval level of the quote lines</description>
         <externalId>false</externalId>
-        <formula>if( Level3Required__c =1,3, 
-IF( OR(
-ISPICKVAL(Opportunity__r.Type,&quot;Support Renewal&quot;),
-ISPICKVAL(Opportunity__r.Type,&quot;EC Renewal&quot;),
-ISPICKVAL(Opportunity__r.Type,&quot;Subscription Renewal&quot;)
-),ApprovalLevelMax__c,
-
-MAX(ApprovalLevelMax__c, 
-
-
-if(Opportunity__r.Primary_Partner__r.CreditHold__c,2,0) , 
-
-if( 
-OR( 
-AND( (AND(Service_Discount_Max__c &gt; RegPartServDisc__c, Service_Discount_Max__c &gt; 0.20)) , MultiYearValue__c &lt;2), 
-and(Service_Discount_Max__c &gt; 0.24, MultiYearValue__c =2), 
-and(Service_Discount_Max__c &gt; 0.27, MultiYearValue__c =3)) 
-,3,0) 
-)))</formula>
+        <formula>MAX(
+if( Quote_Discount__c &lt;0,3,0),
+IF(and(ispickval( Opportunity__r.Type ,&apos;Training/WanStart&apos;), ( Opportunity__r.Account.IsAPartner__c &lt;&gt;1 )),3,0),
+ApprovalLevelMax__c
+)</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <inlineHelpText>if( Level3Required__c =1,3,
 
@@ -142,35 +128,7 @@ and( OR( and(Service_Discount_Max__c &gt; 0.21, MultiYearValue__c =2), and(Servi
 Approval_Made__c =FALSE), OR(and(ConsultingDiscountMax__c &gt;0,Opportunity__r.Account.IsAPartner__c =0) ,AND(ConsultingDiscountMax__c &gt;0.50, Opportunity__r.Account.IsAPartner__c =1))), 
 1, 0)</description>
         <externalId>false</externalId>
-        <formula>IF(
-OR(
-AND(
-NOT(ISPICKVAL(Opportunity__r.Type,&quot;Support Renewal&quot;)),
-NOT(ISPICKVAL(Opportunity__r.Type,&quot;EC Renewal&quot;)),
-NOT(ISPICKVAL(Opportunity__r.Type,&quot;Subscription Renewal&quot;)),
-OR( 
-AND( 
-OR( AND( ApprovalLevelMax__c &gt;0, Discount_Max__c &gt; RegPartProdDisc__c ), Level3Required__c =1,
-and(Service_Discount_Max__c &gt; 0.23, MultiYearValue__c =2,Service_Discount_Max__c &gt; RegPartServDisc__c), 
-and(Service_Discount_Max__c &gt; 0.27, MultiYearValue__c =3,Service_Discount_Max__c &gt; RegPartServDisc__c), 
-AND(and(Service_Discount_Max__c &gt; 0.23,MultiYearValue__c &lt;2) , Service_Discount_Max__c &gt; RegPartServDisc__c)) 
-, NOT(Approval_Made__c )), 
-OR(and(ConsultingDiscountMax__c &gt;1,Opportunity__r.Account.IsAPartner__c =0) , 
-AND(ConsultingDiscountMax__c &gt;1, Opportunity__r.Account.IsAPartner__c =1) ),
-Opportunity__r.Primary_Partner__r.CreditHold__c
-)
-),
-AND(
-ApprovalLevelMax__c &gt;0,
-OR(
-ISPICKVAL(Opportunity__r.Type,&quot;Support Renewal&quot;),
-ISPICKVAL(Opportunity__r.Type,&quot;EC Renewal&quot;),
-ISPICKVAL(Opportunity__r.Type,&quot;Subscription Renewal&quot;)
-)
-),
-AND(ISPICKVAL(Opportunity__r.Type,&apos;Training/WanStart&apos;), ConsultingDiscountMax__c &gt; RegPartServDisc__c )
-)
-,1, 0)</formula>
+        <formula>If( Approval_Level_Needed__c &gt;0,1,0)</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>Approval Required</label>
         <precision>18</precision>
@@ -1091,7 +1049,7 @@ Approval_Made__c =FALSE), OR(and(ConsultingDiscountMax__c &gt;0,Opportunity__r.A
     </validationRules>
     <validationRules>
         <fullName>Prepared_For_should_derive_from_Primary</fullName>
-        <active>true</active>
+        <active>false</active>
         <errorConditionFormula>Opportunity__r.Primary_Partner__c != PreparedFor__r.AccountId</errorConditionFormula>
         <errorMessage>Please select right prepared for</errorMessage>
     </validationRules>

@@ -1,19 +1,18 @@
 @IsTest
 public class TestAddActiveECBaseLicenseToECHardware {
     
-     @IsTest
+      @IsTest
     public static void AddHardwareECLicenseAfterEcSoftware()
     {
-        
         Account testAccount = new Account(Name='acme',EC_Customer_Date__c=Date.today());
         insert testAccount;
         Account spAccount = new Account(Name='Silver Peak Systems');
         insert spAccount;
         Opportunity testOpp = new Opportunity(Name='acme', CloseDate=Date.today(), StageName='New', Technical_Responsible__c =Userinfo.getUserId(), ForecastCategoryName ='Omitted', AccountId=testAccount.Id,Product_Type__c='Both');
         insert testOpp;
-        Product2 testProduct = new Product2(Name='EC-BASE-1Y',Product_Type__c='EDGECONNECT',Product_Category__c='Virtual Image', Forecast_Category__c = 'Virtual', Family='Virtual Image', IsActive=true);
+        Product2 testProduct = new Product2(Name='EC-BASE-1Y',Model__c='EC-BASE-1Y',Product_Type__c='EDGECONNECT',Product_Category__c='Virtual Image', Forecast_Category__c = 'Virtual', Family='Virtual Image', IsActive=true);
         insert testProduct;
-        Product2 hardwareProd = new Product2(Name='EC-XS',Product_Type__c='EDGECONNECT',Product_Category__c='Appliance', ProductCode='500210-001', Family='Product', IsActive=true);
+        Product2 hardwareProd = new Product2(Name='EC-XS',Model__c='EC-XS',Product_Type__c='EDGECONNECT',Product_Category__c='Appliance', ProductCode='500210-001', Family='Product', IsActive=true);
         insert hardwareProd;
         Contact testContact = new Contact(LastName='acme', AccountId=testAccount.Id);
         insert testContact;
@@ -21,8 +20,7 @@ public class TestAddActiveECBaseLicenseToECHardware {
         insert testContactupdated;
         Purchase_Order__c testPO = new Purchase_Order__c(Name = 'acme', Email_Contact__c=testContact.Id, Opportunity__c=testOpp.Id);
         insert testPO;
-        Product2 prd = new Product2(Name='acme', Family='Product',Product_Type__c='EDGECONNECT', IsActive=true, ProductCode='acme');
-        insert prd;
+       	Test.startTest();
         Shipment__c testShipment = new Shipment__c();  
         
         PageReference pageRef = new PageReference('/apex/NewVirtualShipment?poId=' + testPO.Id);
@@ -40,19 +38,19 @@ public class TestAddActiveECBaseLicenseToECHardware {
         
         ApexPages.currentPage().getParameters().put('rowIndex', '1');
         controller.removeLine();
-        
-        controller.save();
+        try
+        {
+        	controller.save();
+        }
+        catch(Exception ex)
+        {
+            System.debug(ex);
+        }
         System.assert(testShipment.Id != null);
-        System.assertEquals(1, [SELECT count() FROM Shipped_Line__c WHERE Shipment_Id__c = :testShipment.Id]);
-        
-        
-        //Id standardPricebookId = TestUtilities.getStandardPricebookId();
-        //Id opportunityId = TestUtilities.createTestOpportunity(testAccount.Id, standardPricebookId);
-        //System.assert(pocRequest.id!=null);
-        
+        System.assertEquals(1, [SELECT count() FROM Shipped_Line__c WHERE Shipment_Id__c = :testShipment.Id]);   
         pageRef = new PageReference('/apex/ShippingInputForm?poId=' + testPO.Id);
         Test.setCurrentPage(pageRef);
-        Test.startTest();
+        
         ShippingInputFormController shipmentController = new ShippingInputFormController();
         shipmentController.SNSets = '123456789012';
         shipmentController.Process();
@@ -80,7 +78,7 @@ public class TestAddActiveECBaseLicenseToECHardware {
         
     }
     
-    @IsTest
+      @IsTest
     public static void AddHardwareECLicenseBeforeEcSoftware()
     {
         Account testAccount = new Account(Name='acme',EC_Customer_Date__c=Date.today());
@@ -89,9 +87,9 @@ public class TestAddActiveECBaseLicenseToECHardware {
         insert spAccount;
         Opportunity testOpp = new Opportunity(Name='acme', CloseDate=Date.today(), StageName='New', ForecastCategoryName ='Omitted', AccountId=testAccount.Id,Product_Type__c='Both');
         insert testOpp;
-        Product2 testProduct = new Product2(Name='EC-BASE-1Y',Product_Category__c='Subscription',Product_Type__c='EDGECONNECT', Forecast_Category__c = 'Virtual', Family='Virtual Image', IsActive=true);
+      	Product2 testProduct = new Product2(Name='EC-BASE-1Y',Model__c='EC-BASE-1Y',Product_Type__c='EDGECONNECT',Product_Category__c='Virtual Image', Forecast_Category__c = 'Virtual', Family='Virtual Image', IsActive=true);
         insert testProduct;
-        Product2 hardwareProd = new Product2(Name='EC-XS',Product_Category__c='Appliance',Product_Type__c='EDGECONNECT', ProductCode='500210-001', Family='Product', IsActive=true);
+        Product2 hardwareProd = new Product2(Name='EC-XS',Model__c='EC-XS',Product_Type__c='EDGECONNECT',Product_Category__c='Appliance', ProductCode='500210-001', Family='Product', IsActive=true);
         insert hardwareProd;
         Contact testContact = new Contact(LastName='acme', AccountId=testAccount.Id);
         insert testContact;
@@ -157,4 +155,7 @@ public class TestAddActiveECBaseLicenseToECHardware {
         Test.stopTest();
         
     }
+    
+  
+  
 }

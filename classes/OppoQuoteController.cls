@@ -10,11 +10,11 @@ public class OppoQuoteController
         String oppoId = ((Opportunity)controller.getRecord()).Id;
         if(oppoId instanceOf Id)
         {
-            oppo = [select name, account.name, Pricebook2Id, HasOpportunityLineItem, 
+            oppo = [select name, account.name, Pricebook2Id, HasOpportunityLineItem, Owner.ManagerId,
                        (Select Id From OpportunityLineItems)
                     from opportunity where id = :oppoId];
             //oppo = new Opportunity();
-            quote = new Quote__c(Opportunity__r = oppo, Opportunity__c = oppoId, Quote_Date__c = Date.today(), PaymentTerm__c = 'Net 30', Quote_Valid_Until__c = Date.today().addDays(30));
+            quote = new Quote__c(Opportunity__r = oppo,Opp_Owner_Manager__c=oppo.Owner.ManagerId,  Opportunity__c = oppoId, Quote_Date__c = Date.today(), PaymentTerm__c = 'Net 30', Quote_Valid_Until__c = Date.today().addDays(30));
         }
         else
         {
@@ -76,6 +76,7 @@ public class OppoQuoteController
         try
         {
             PageReference returnPage;
+            
             if(!oppo.HasOpportunityLineItem)
             {
                 update oppo;

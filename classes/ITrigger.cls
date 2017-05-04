@@ -26,6 +26,6 @@ public interface ITrigger
 
     void afterUndelete();
     
-    Boolean IsDisabled();
+   
     
 }

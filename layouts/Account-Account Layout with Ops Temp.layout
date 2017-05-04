@@ -283,6 +283,10 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
+                <field>CreditHold__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
                 <field>Partner_Type__c</field>
             </layoutItems>
             <layoutItems>

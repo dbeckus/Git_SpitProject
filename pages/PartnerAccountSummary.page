@@ -48,7 +48,21 @@
                     <apex:column value="{!lead.Deal_ID__c}" headerValue="DR #"/>
                     <apex:column value="{!lead.Registration_Expiration__c}" headerValue="DR Expiration"/>               
                 </apex:pageBlockTable>
-                
+            </apex:pageBlockSection>
+            <apex:pageBlockSection columns="1" collapsible="false" title="Approved/Rejected Deal Registrations">
+                <apex:outputText value="There are no approved/rejected deal registrations." rendered="{!RejectedDealReg.size=0}"></apex:outputText>
+                <apex:pageBlockTable value="{!RejectedDealReg}" var="lead" rendered="{!RejectedDealReg.size>0}" width="100%">
+                    <apex:column value="{!lead.Company}" headerValue="Company Name"/>
+                    <apex:column value="{!lead.RSM__r.Name}" headerValue="RSM"/>
+                    <apex:column value="{!lead.CSM__r.Name}" headerValue="CAM"/>
+                    <apex:column headerValue="Registered Partner">
+                        <apex:outputLink target="_top" value="{!URLFOR($Action.Account.View,lead.Registered_Partner__c)}">{!lead.Registered_Partner__r.Name}</apex:outputLink>
+                    </apex:column>
+                    <apex:column value="{!lead.Registered_Partner_Sales_Rep__r.Name}" headerValue="Registered Partner Rep" />
+                    <apex:column value="{!lead.Status}" headerValue="Lead Status"/>
+                    <apex:column value="{!lead.Deal_ID__c}" headerValue="DR #"/>
+                    <apex:column value="{!lead.Registration_Expiration__c}" headerValue="DR Expiration"/>               
+                </apex:pageBlockTable>
             </apex:pageBlockSection>
             <apex:pageBlockSection columns="1" collapsible="false" title="Registered Opportunities">
                 <apex:pageBlock >

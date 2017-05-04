@@ -21,6 +21,10 @@
         <name>Discount_Percent__c</name>
     </fields>
     <fields>
+        <label><!-- Discount Spread --></label>
+        <name>Discount_Spread__c</name>
+    </fields>
+    <fields>
         <label><!-- Discount field --></label>
         <name>Discount_field__c</name>
     </fields>
@@ -53,6 +57,10 @@
         <name>MainDisc__c</name>
     </fields>
     <fields>
+        <label><!-- Maint Year Value --></label>
+        <name>Maint_Year_Value__c</name>
+    </fields>
+    <fields>
         <label><!-- MultiYearMaint --></label>
         <name>MultiYearMaint__c</name>
     </fields>
@@ -77,6 +85,10 @@
         <name>Product_List__c</name>
     </fields>
     <fields>
+        <label><!-- Product Quote Type --></label>
+        <name>Product_Quote_Type__c</name>
+    </fields>
+    <fields>
         <label><!-- Product --></label>
         <name>Product__c</name>
         <relationshipLabel><!-- Quote Lines --></relationshipLabel>
@@ -89,6 +101,10 @@
         <label><!-- Quote --></label>
         <name>Quote__c</name>
         <relationshipLabel><!-- Quote Lines --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Reseller Discount --></label>
+        <name>Reseller_Discount__c</name>
     </fields>
     <fields>
         <label><!-- Unit Price --></label>
