@@ -31,6 +31,18 @@
                 <behavior>Edit</behavior>
                 <field>Opp_Owner_Manager__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>Reseller_EdgeConnect_Discount__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>Reseller_NX_VX_Discount__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>Reseller_Service_Discount__c</field>
+            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>
@@ -178,8 +190,10 @@
         <fields>Product_Description__c</fields>
         <fields>Quantity__c</fields>
         <fields>Unit_Price__c</fields>
-        <fields>Discount_Percent__c</fields>
         <fields>Line_Price__c</fields>
+        <fields>Discount_Percent__c</fields>
+        <fields>Reseller_Discount__c</fields>
+        <fields>Discount_Spread__c</fields>
         <relatedList>Quote_Line__c.Quote__c</relatedList>
         <sortField>Product_Code__c</sortField>
         <sortOrder>Asc</sortOrder>

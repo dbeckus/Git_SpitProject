@@ -62,10 +62,6 @@
                 <behavior>Edit</behavior>
                 <field>Renewal_Term__c</field>
             </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>Opp_Owner_Manager__c</field>
-            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>
@@ -268,69 +264,41 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Readonly</behavior>
-                <field>ApprovalLevelMax__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Readonly</behavior>
                 <field>Approval_Required__c</field>
             </layoutItems>
             <layoutItems>
-                <behavior>Edit</behavior>
-                <field>Approval_Made__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>Quote_Discount_Percent__c</field>
+                <behavior>Readonly</behavior>
+                <field>Reseller_EdgeConnect_Discount__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Readonly</behavior>
-                <field>Average_Discount__c</field>
+                <field>Reseller_NX_VX_Discount__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Readonly</behavior>
-                <field>Quote_Discount__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Readonly</behavior>
-                <field>Value_At_List__c</field>
+                <field>Reseller_Service_Discount__c</field>
             </layoutItems>
         </layoutColumns>
         <layoutColumns>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Opp_Owner_Manager__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>ApprovalLevelMax__c</field>
+            </layoutItems>
             <layoutItems>
                 <behavior>Readonly</behavior>
                 <field>PartnerCreditHold__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Readonly</behavior>
-                <field>Partner_Discount_Level__c</field>
+                <field>Quote_Discount__c</field>
             </layoutItems>
             <layoutItems>
-                <behavior>Readonly</behavior>
-                <field>Discount_Max__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Readonly</behavior>
-                <field>RegPartProdDisc__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Readonly</behavior>
-                <field>Service_Discount_Max__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Readonly</behavior>
-                <field>RegPartServDisc__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Readonly</behavior>
-                <field>ConsultingDiscountMax__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Readonly</behavior>
-                <field>MultiYearValue__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Readonly</behavior>
-                <field>Matches_Opportunity__c</field>
+                <behavior>Edit</behavior>
+                <field>Approval_Made__c</field>
             </layoutItems>
         </layoutColumns>
         <style>TwoColumnsLeftToRight</style>
@@ -354,8 +322,10 @@
         <fields>Product_Description__c</fields>
         <fields>Quantity__c</fields>
         <fields>Unit_Price__c</fields>
-        <fields>Discount_Percent__c</fields>
         <fields>Line_Price__c</fields>
+        <fields>Discount_Percent__c</fields>
+        <fields>Reseller_Discount__c</fields>
+        <fields>Discount_Spread__c</fields>
         <relatedList>Quote_Line__c.Quote__c</relatedList>
         <sortField>Product_Code__c</sortField>
         <sortOrder>Asc</sortOrder>

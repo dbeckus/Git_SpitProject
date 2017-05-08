@@ -128,7 +128,7 @@ if( Service_Discount_Max__c &gt; RegPartServDisc__c ,3,0)
         <name>IsSelectedForApproval__c</name>
     </fields>
     <fields>
-        <label><!-- Level3Required --></label>
+        <label><!-- CreditHold/Reseller Agreement Approval --></label>
         <name>Level3Required__c</name>
     </fields>
     <fields>
@@ -264,6 +264,18 @@ if( Service_Discount_Max__c &gt; RegPartServDisc__c ,3,0)
             <masterLabel>5 Years</masterLabel>
             <translation><!-- 5 Years --></translation>
         </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Reseller EdgeConnect Discount --></label>
+        <name>Reseller_EdgeConnect_Discount__c</name>
+    </fields>
+    <fields>
+        <label><!-- Reseller NX/VX Discount --></label>
+        <name>Reseller_NX_VX_Discount__c</name>
+    </fields>
+    <fields>
+        <label><!-- Reseller Service Discount --></label>
+        <name>Reseller_Service_Discount__c</name>
     </fields>
     <fields>
         <label><!-- Service Discount Max --></label>

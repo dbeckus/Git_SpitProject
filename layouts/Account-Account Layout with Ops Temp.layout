@@ -90,6 +90,10 @@
                 <behavior>Edit</behavior>
                 <field>EC_Customer_Date__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Override_Service_Provider_Setting__c</field>
+            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>

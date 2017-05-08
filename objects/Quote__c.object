@@ -128,7 +128,9 @@ and( OR( and(Service_Discount_Max__c &gt; 0.21, MultiYearValue__c =2), and(Servi
 Approval_Made__c =FALSE), OR(and(ConsultingDiscountMax__c &gt;0,Opportunity__r.Account.IsAPartner__c =0) ,AND(ConsultingDiscountMax__c &gt;0.50, Opportunity__r.Account.IsAPartner__c =1))), 
 1, 0)</description>
         <externalId>false</externalId>
-        <formula>If( Approval_Level_Needed__c &gt;0,1,0)</formula>
+        <formula>If(
+OR(Approval_Level_Needed__c &gt;0, Level3Required__c==1)
+,1,0)</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>Approval Required</label>
         <precision>18</precision>
@@ -396,11 +398,10 @@ Approval_Made__c =FALSE), OR(and(ConsultingDiscountMax__c &gt;0,Opportunity__r.A
         <fullName>Level3Required__c</fullName>
         <externalId>false</externalId>
         <formula>if(
-Or( Quote_Discount__c &lt;0, Opportunity__r.Primary_Partner__r.CreditHold__c , not( Opportunity__r.Primary_Partner__r.Reseller_Agreement__c ), 
-and(ispickval( Opportunity__r.Type ,&apos;Training/WanStart&apos;), ( Opportunity__r.Account.IsAPartner__c &lt;&gt;1 )))
+Or(Opportunity__r.Primary_Partner__r.CreditHold__c , not( Opportunity__r.Primary_Partner__r.Reseller_Agreement__c ))
 ,1,0)</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
-        <label>Level3Required</label>
+        <label>CreditHold/Reseller Agreement Approval</label>
         <precision>18</precision>
         <required>false</required>
         <scale>0</scale>
@@ -748,6 +749,45 @@ OR((Opportunity_Amount__c - Quote_Amount_Rollup__c) &lt;100 ,(Quote_Amount_Rollu
         <trackHistory>false</trackHistory>
         <trackTrending>false</trackTrending>
         <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Reseller_EdgeConnect_Discount__c</fullName>
+        <externalId>false</externalId>
+        <formula>Opportunity__r.Primary_Partner__r.Registered_Discount_EdgeConnect__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Reseller EdgeConnect Discount</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>Reseller_NX_VX_Discount__c</fullName>
+        <externalId>false</externalId>
+        <formula>Opportunity__r.Primary_Partner__r.Registered_Discount_Product__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Reseller NX/VX Discount</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>Reseller_Service_Discount__c</fullName>
+        <externalId>false</externalId>
+        <formula>Opportunity__r.Primary_Partner__r.Registered_Discount_Service__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Reseller Service Discount</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
     </fields>
     <fields>
         <fullName>Service_Discount_Max__c</fullName>

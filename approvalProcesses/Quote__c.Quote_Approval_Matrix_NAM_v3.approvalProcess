@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ApprovalProcess xmlns="http://soap.sforce.com/2006/04/metadata">
-    <active>false</active>
+    <active>true</active>
     <allowRecall>true</allowRecall>
     <allowedSubmitters>
         <type>owner</type>
@@ -195,7 +195,7 @@
         <entryCriteria>
             <formula>Opportunity__r.Primary_Partner__r.CreditHold__c</formula>
         </entryCriteria>
-        <ifCriteriaNotMet>ApproveRecord</ifCriteriaNotMet>
+        <ifCriteriaNotMet>GotoNextStep</ifCriteriaNotMet>
         <label>Credit Hold : Require Approval</label>
         <name>Credit_Hold_Approval</name>
     </approvalStep>
@@ -211,7 +211,7 @@
         <entryCriteria>
             <formula>NOT(Opportunity__r.Primary_Partner__r.Reseller_Agreement__c )</formula>
         </entryCriteria>
-        <ifCriteriaNotMet>ApproveRecord</ifCriteriaNotMet>
+        <ifCriteriaNotMet>GotoNextStep</ifCriteriaNotMet>
         <label>Reseller Agreement Not Checked: Require Approval</label>
         <name>Reseller_Agreement_Checked</name>
         <rejectBehavior>
@@ -245,7 +245,7 @@
         <allowDelegate>true</allowDelegate>
         <assignedApprover>
             <approver>
-                <name>pgilbreath@silver-peak.com</name>
+                <name>chelfer@silver-peak.com</name>
                 <type>user</type>
             </approver>
             <whenMultipleApprovers>FirstResponse</whenMultipleApprovers>
@@ -294,7 +294,6 @@
  CONTAINS(Opportunity__r.GEO_Region__c,&quot;NAM&quot;),
  Approval_Required__c =1,
  Approval_Made__c =False,
- Approval_Level_Needed__c &gt;0,
 len( Discount_Justification__c ) &gt; 0)</formula>
     </entryCriteria>
     <finalApprovalActions>
@@ -325,7 +324,7 @@ len( Discount_Justification__c ) &gt; 0)</formula>
             <type>FieldUpdate</type>
         </action>
     </initialSubmissionActions>
-    <label>Quote Approval Matrix_NAM v2</label>
+    <label>Quote Approval Matrix_NAM v3</label>
     <nextAutomatedApprover>
         <useApproverFieldOfRecordOwner>false</useApproverFieldOfRecordOwner>
         <userHierarchyField>Manager</userHierarchyField>

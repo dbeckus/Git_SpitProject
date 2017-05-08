@@ -13,18 +13,6 @@
                 <behavior>Edit</behavior>
                 <field>Description</field>
             </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>TagCsv</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>Language</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Required</behavior>
-                <field>OwnerId</field>
-            </layoutItems>
         </layoutColumns>
         <layoutColumns/>
         <style>TwoColumnsLeftToRight</style>
@@ -39,9 +27,6 @@
     <miniLayout>
         <fields>Title</fields>
         <fields>Description</fields>
-        <fields>TagCsv</fields>
-        <fields>Language</fields>
-        <fields>OwnerId</fields>
     </miniLayout>
     <showEmailCheckbox>false</showEmailCheckbox>
     <showRunAssignmentRulesCheckbox>false</showRunAssignmentRulesCheckbox>

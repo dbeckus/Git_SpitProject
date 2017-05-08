@@ -121,6 +121,10 @@
                 <behavior>Edit</behavior>
                 <field>WAN_Op_Asset_Name__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Override_Service_Provider_Setting__c</field>
+            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>

@@ -235,7 +235,11 @@ formula with WANCHECK as a product: if( OR(Contains( Prod_Category__c , &quot;Ap
     <fields>
         <fullName>Maint_Year_Value__c</fullName>
         <externalId>false</externalId>
-        <formula>IF(AND(Include4ServiceDiscount__c ==1,ISBLANK(Product__r.Term__c)),1, Product__r.Term__c)</formula>
+        <formula>IF(
+AND(
+Include4ServiceDiscount__c==1,
+Product__r.Term__c==0),
+1, Product__r.Term__c)</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>Maint Year Value</label>
         <precision>18</precision>
@@ -377,24 +381,23 @@ formula with WANCHECK as a product: if( OR(Contains( Prod_Category__c , &quot;Ap
     <fields>
         <fullName>Reseller_Discount__c</fullName>
         <externalId>false</externalId>
-        <formula>IF( 
+        <formula>IF(
+Include4ServiceDiscount__c==1,Quote__r.Opportunity__r.Primary_Partner__r.Registered_Discount_Service__c, 
+IF(
 AND(Include4ServiceDiscount__c==0,
 OR( 
 ISPICKVAL(Product__r.Product_Type__c,&quot;EDGECONNECT&quot;), 
 ISPICKVAL(Product__r.Product_Type__c,&quot;EC-SP-Perpetual&quot;), 
 ISPICKVAL(Product__r.Product_Type__c,&quot;EC-SP-Metered&quot;) 
-)),Quote__r.Opportunity__r.Primary_Partner__r.Registered_Discount_EdgeConnect__c, 
-IF( 
-AND( 
-OR( 
-ISPICKVAL(Product__r.Product_Type__c,&quot;NX/VX&quot;), 
-ISPICKVAL(Product__r.Product_Type__c,&quot;EC-SP-Perpetual&quot;), 
-ISPICKVAL(Product__r.Product_Type__c,&quot;EC-SP-Metered&quot;) 
-), 
-Include4ServiceDiscount__c==1), 
-Quote__r.Opportunity__r.Primary_Partner__r.Registered_Discount_Service__c, 
-
-Quote__r.Opportunity__r.Primary_Partner__r.Registered_Discount_Product__c))</formula>
+)),Quote__r.Opportunity__r.Primary_Partner__r.Registered_Discount_EdgeConnect__c,
+IF(
+AND(
+Include4ServiceDiscount__c==0,
+ISPICKVAL(Product__r.Product_Type__c,&quot;NX/VX&quot;)
+),Quote__r.Opportunity__r.Primary_Partner__r.Registered_Discount_Product__c,0
+)
+)
+)</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>Reseller Discount</label>
         <precision>18</precision>
