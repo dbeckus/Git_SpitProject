@@ -154,6 +154,10 @@ if( Service_Discount_Max__c &gt; RegPartServDisc__c ,3,0)
         <name>Opportunity_Amount__c</name>
     </fields>
     <fields>
+        <label><!-- Opportunity Geo Region --></label>
+        <name>Opportunity_Geo_Region__c</name>
+    </fields>
+    <fields>
         <label><!-- Opportunity --></label>
         <name>Opportunity__c</name>
         <relationshipLabel><!-- Silver Peak Quotes --></relationshipLabel>

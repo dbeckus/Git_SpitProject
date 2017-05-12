@@ -545,6 +545,7 @@
         <fields>CONTRACT.END_DATE</fields>
         <fields>CONTRACT.STATUS</fields>
         <fields>SP_Contract_Number__c</fields>
+        <fields>Trigger_Notice__c</fields>
         <relatedList>RelatedContractList</relatedList>
     </relatedLists>
     <relatedLists>

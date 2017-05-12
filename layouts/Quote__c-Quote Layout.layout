@@ -62,6 +62,10 @@
                 <behavior>Edit</behavior>
                 <field>Renewal_Term__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>Opportunity_Geo_Region__c</field>
+            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>

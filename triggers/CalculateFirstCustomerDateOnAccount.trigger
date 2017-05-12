@@ -5,7 +5,7 @@ trigger CalculateFirstCustomerDateOnAccount on Opportunity (after update) {
     for(Opportunity opp: Trigger.New)
     {
         Opportunity oldOpp= Trigger.OldMap.get(opp.Id);
-        if(opp.StageName!=oldOpp.StageName)
+        if(opp.StageName!=oldOpp.StageName || (opp.CloseDate!=oldOpp.CloseDate && opp.StageName=='Closed Won' ))
         {
             if(opp.AccountId!=null)
             {

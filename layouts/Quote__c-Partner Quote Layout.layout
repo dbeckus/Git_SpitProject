@@ -43,6 +43,10 @@
                 <behavior>Readonly</behavior>
                 <field>Reseller_Service_Discount__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>Opportunity_Geo_Region__c</field>
+            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>

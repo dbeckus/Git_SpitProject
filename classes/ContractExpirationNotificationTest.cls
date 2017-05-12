@@ -6,6 +6,8 @@ public class ContractExpirationNotificationTest
     {
         Account acc = new Account(Name='acme');
         insert acc;
+         Account spAcc = new Account(Name='Silver Peak Systems');
+        insert spAcc;
         Contact c = new Contact(LastName='acme', Email='test@test.com', AccountId=acc.Id);
         insert c;
         Contract ct0 = new Contract(Name='acme', SP_Contract_Number__c='acme', AccountId=acc.Id, CustomerSignedId=c.Id, Status='Draft', StartDate=Date.today(), EndDate=Date.today(), Contract_Type__c='Gold');

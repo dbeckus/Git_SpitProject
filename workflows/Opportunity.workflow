@@ -727,7 +727,11 @@
     <fieldUpdates>
         <fullName>Stamp_Active_POC</fullName>
         <field>Active_POC_DateStamp__c</field>
-        <formula>if( Has_Active_POCs__c,today(), Active_POC_DateStamp__c )</formula>
+        <formula>IF(
+AND(
+ISBLANK(Active_POC_DateStamp__c),
+Has_Active_POCs__c
+),today(),Active_POC_DateStamp__c )</formula>
         <name>Stamp Active POC</name>
         <notifyAssignee>false</notifyAssignee>
         <operation>Formula</operation>

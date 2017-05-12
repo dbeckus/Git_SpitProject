@@ -29,6 +29,7 @@ trigger CalculateQuarterForOpp on Opportunity (before insert,before update) {
                 {
                     string currentFiscalQuarter = currentPeriod[0].FiscalYearSettings.Name + 'Q' + currentPeriod[0].Number;
                     opp.Fiscal_Quarter_Name__c=currentFiscalQuarter;
+                    System.debug(currentFiscalQuarter);
                     
                 }
                 else

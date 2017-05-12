@@ -245,45 +245,28 @@
         <allowDelegate>true</allowDelegate>
         <assignedApprover>
             <approver>
-                <name>pgilbreath@silver-peak.com</name>
-                <type>user</type>
-            </approver>
-            <whenMultipleApprovers>FirstResponse</whenMultipleApprovers>
-        </assignedApprover>
-        <entryCriteria>
-            <criteriaItems>
-                <field>Quote__c.Approval_Level_Needed__c</field>
-                <operation>greaterOrEqual</operation>
-                <value>2</value>
-            </criteriaItems>
-        </entryCriteria>
-        <ifCriteriaNotMet>ApproveRecord</ifCriteriaNotMet>
-        <label>Second Level Approval</label>
-        <name>Second_Level_Approval</name>
-        <rejectBehavior>
-            <type>RejectRequest</type>
-        </rejectBehavior>
-    </approvalStep>
-    <approvalStep>
-        <allowDelegate>true</allowDelegate>
-        <assignedApprover>
-            <approver>
                 <name>chelfer@silver-peak.com</name>
                 <type>user</type>
             </approver>
             <whenMultipleApprovers>FirstResponse</whenMultipleApprovers>
         </assignedApprover>
         <entryCriteria>
+            <booleanFilter>1 OR 2</booleanFilter>
+            <criteriaItems>
+                <field>Quote__c.Approval_Level_Needed__c</field>
+                <operation>greaterOrEqual</operation>
+                <value>2</value>
+            </criteriaItems>
             <criteriaItems>
                 <field>Quote__c.Approval_Level_Needed__c</field>
                 <operation>greaterOrEqual</operation>
                 <value>3</value>
             </criteriaItems>
         </entryCriteria>
-        <label>Third Level Approval</label>
-        <name>Third_Level_Approval</name>
+        <label>Second Level Approval</label>
+        <name>Second_Level_Approval</name>
         <rejectBehavior>
-            <type>BackToPrevious</type>
+            <type>RejectRequest</type>
         </rejectBehavior>
     </approvalStep>
     <description>This is Silver Peak Systems approval matrix for quoting. There are numerous fields on the quote object that drive the statuses for the steps.</description>
@@ -291,7 +274,7 @@
     <enableMobileDeviceAccess>false</enableMobileDeviceAccess>
     <entryCriteria>
         <formula>and(
- CONTAINS(Opportunity__r.GEO_Region__c,&quot;NAM&quot;),
+ CONTAINS(Opportunity__r.GEO_Region__c,&quot;APAC&quot;),
  Approval_Required__c =1,
  Approval_Made__c =False,
 len( Discount_Justification__c ) &gt; 0)</formula>
@@ -324,7 +307,7 @@ len( Discount_Justification__c ) &gt; 0)</formula>
             <type>FieldUpdate</type>
         </action>
     </initialSubmissionActions>
-    <label>Quote Approval Matrix_NAM v3</label>
+    <label>Quote Approval Matrix_APAC v3</label>
     <nextAutomatedApprover>
         <useApproverFieldOfRecordOwner>false</useApproverFieldOfRecordOwner>
         <userHierarchyField>Manager</userHierarchyField>

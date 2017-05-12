@@ -145,8 +145,9 @@ public class ShippingInputFormController
                 {
                     updateRMAExchange(Shipment.To_Be_Swapped_Asset__c, ShippedLineList[0].AssetId, Shipment.PurchaseOrderNumber__c, Shipment.Email__c, Shipment.Secondary_Email__c, Shipment.Third_Email__c);
                 }
-                
-                
+                //Create Contracts
+                CreateContractsForSmartHands(ShippedLineList);
+                System.debug('ShippedLineList' +ShippedLineList);
                 return new PageReference('/' + Shipment.Id);
             }
             catch(Exception ex)
@@ -157,7 +158,50 @@ public class ShippingInputFormController
         }
         return null;
     }
-    
+    private static void CreateContractsForSmartHands(List<ShipLineInfo> lstShipLineInfo)
+    {
+        List<ContractInfo>lstContractInfo=new List<ContractInfo>();
+        Map<string,List<Id>> mapContract=new Map<string,List<Id>>();
+        if(lstShipLineInfo!=null && lstShipLineInfo.size()>0)
+        {
+            for(ShipLineInfo obj :lstShipLineInfo)
+            {
+                ContractInfo con= new ContractInfo();
+                Asset tempAsset= obj.TempAsset;
+                Date dt=tempAsset.SH_Start_Date__c;
+                con.SmartHandsKey=tempAsset.SH_Region__c+'|'+tempAsset.SH_Start_Date__c+'|'+tempAsset.SH_End_Date__c;
+                con.Region=tempAsset.SH_Region__c;
+                con.StartDate=tempAsset.SH_Start_Date__c;
+                con.EndDate=tempAsset.SH_End_Date__c;
+                con.AssetId=obj.AssetId;
+                lstContractInfo.add(con);
+                mapContract.put(con.SmartHandsKey,null);
+            }
+        }
+        if(mapContract.size()>0)
+        {
+            for(string item:mapContract.keySet())
+            {
+                List<Id> assetIds= new List<Id>();
+                for(ContractInfo conItem:lstContractInfo)
+                {
+                    if(item==conItem.SmartHandsKey)
+                    {
+                        assetIds.add(conItem.AssetId);
+                    }
+                }
+                if(assetIds.size()>0)
+                {
+                    mapContract.put(item,assetIds);
+                }
+            }
+        }
+        if(mapContract.size()>0)
+        {
+            // Create Contracts and assign assetIds to Contracts
+            
+        }
+    }
     @RemoteAction
     public static List<String> getAssetPartNumber(String productId)
     {
@@ -215,7 +259,7 @@ public class ShippingInputFormController
         }    
         List<ShipLineInfo> ShipLineInfoLists = new List<ShipLineInfo>();
         List<Asset> exitingAssets = [select Id, Product2.ProductCode, Product2.Name, Product2Id, SerialNumber, Ship_Date__c, Status, GMS_Nodes__c, Evaluation_Start_Date__c,
-                                     Evaluation_End_Date__c, Warranty_Start_Date__c, Warranty_End_Date__c, Part_Number__c,Contract_Number__r.StartDate,Contract_Number__r.EndDate from Asset
+                                     Evaluation_End_Date__c, Warranty_Start_Date__c, Warranty_End_Date__c, Part_Number__c,Contract_Number__r.StartDate,Contract_Number__r.EndDate,SH_Region__c,SH_Start_Date__c,SH_End_Date__c from Asset
                                      where SerialNumber in : removedDashesSno];
         for(Asset aset : exitingAssets)
         {
@@ -232,7 +276,7 @@ public class ShippingInputFormController
             shipInfo.AssetIsExisted = true;
             shipInfo.TempAsset.Product2Id = aset.Product2Id;
             shipInfo.SendTrackingInfo = true;
-            shipInfo.ShipmentEmail = '';     
+            shipInfo.ShipmentEmail = '';   
             ShipLineInfoLists.add(shipInfo);                                 
         }
         removedDashesSno.removeAll(exitingSNSet);
@@ -252,7 +296,10 @@ public class ShippingInputFormController
                 shipInfo.ProductId = null; 
                 shipInfo.SelectProductId = null;
                 shipInfo.SendTrackingInfo = true;
-                shipInfo.ShipmentEmail = '';                  
+                shipInfo.ShipmentEmail = '';      
+                shipInfo.TempAsset.SH_Start_Date__c = null;
+                shipInfo.TempAsset.SH_Region__c = null;
+                shipInfo.TempAsset.SH_End_Date__c = null;
                 ShipLineInfoLists.add(shipInfo);
             }
         } 
@@ -339,6 +386,9 @@ public class ShippingInputFormController
         List<Asset> allAssetList = new List<Asset>();
         for(ShipLineInfo shippingItem : shippingItems)
         {
+            System.debug('shippingItem.TempAsset.SH_Region__c'+ shippingItem.TempAsset.SH_Region__c);
+            System.debug('shippingItem.TempAsset.SH_Start_Date__c'+ shippingItem.TempAsset.SH_Start_Date__c);
+            System.debug('shippingItem.TempAsset.SH_End_Date__c'+ shippingItem.TempAsset.SH_End_Date__c);
             Shipped_Line__c shipLine = new Shipped_Line__c();
             shipLine.GMS_Nodes__c = shippingItem.TempAsset.GMS_Nodes__c;
             shipLine.Post_Shipment_Status__c = shippingItem.TempAsset.Status;
@@ -370,11 +420,13 @@ public class ShippingInputFormController
                 createdAssetIds.add(shippingItem.AssetId);
             }
         }
+        
         List<Asset> gmsAssets = [select Id, ContactId, GMS_Nodes__c, Model__c, SerialNumber from Asset where Id in :createdAssetIds and (Product2.Model__c='GX-V' Or Product2.Product_Category__c = 'GMS')];
         if(gmsAssets.size() > 0)
         {
             VirtualAssetManager.encryptlicenses(generateLicenses(gmsAssets));
         }
+        System.debug('result'+result);
         return result;                 
     }
     
@@ -399,6 +451,7 @@ public class ShippingInputFormController
         {
             result.add(license.Id);
         }
+        
         return result;
     }
     
@@ -458,7 +511,14 @@ public class ShippingInputFormController
         }
         return options;
     }
-    
+     public List<SelectOption> getRegionList()
+    {
+        List<SelectOption> options = new List<SelectOption>();
+        options.add(new SelectOption('None', 'None'));
+        options.add(new SelectOption('ROW', 'ROW'));
+        options.add(new SelectOption('US', 'US'));
+        return options;
+    }
     public List<SelectOption> getPartNumberList()
     {
         List<SelectOption> result = new List<SelectOption>();
@@ -503,5 +563,14 @@ public class ShippingInputFormController
         public String SelectProductId {get;set;}
         public String ShipmentEmail {get; set;}
         public Boolean SendTrackingInfo {get; set;}
+        public string SmartHandsKey{get;set;}
+    }
+    public class ContractInfo
+    {
+         public string SmartHandsKey{get;set;}
+         public string Region{get;set;}
+         public Date StartDate{get;set;}
+         public Date EndDate{get;set;}
+        public Id AssetId{get;set;}
     }
 }

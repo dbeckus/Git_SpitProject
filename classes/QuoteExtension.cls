@@ -48,7 +48,7 @@ public class QuoteExtension
             // Validate the entry criteria and then send for approval
             if(quoteId!=null)
             {
-                List<Quote__c> lstQuote =[Select Id,Approval_Required__c,Approval_Made__c,Approval_Level_Needed__c,Discount_Justification__c,Opportunity__r.GEO_Region__c from Quote__c where Id=:quoteId];
+                List<Quote__c> lstQuote =[Select Id,Approval_Required__c,Approval_Made__c,Approval_Level_Needed__c,Discount_Justification__c,Opportunity__r.Geo_Region__c from Quote__c where Id=:quoteId];
                 if(lstQuote!=null && lstQuote.size()>0)
                 {
                     Quote__c quoteObj= lstQuote[0];
@@ -86,10 +86,10 @@ public class QuoteExtension
     {
         if(quoteObj.Approval_Required__c==0)
             return 'Approval process is not required. Its already approved.';
+        if(quoteObj.Approval_Required__c==1 && quoteObj.Opportunity__r.Geo_Region__c =='NONE')
+            return 'GEO is blank on the opportunity.Please populate this value or contact sales operations.';        
         if(quoteObj.Approval_Required__c==1 && string.isBlank(quoteObj.Discount_Justification__c))
             return 'Discount Justification is empty. Please provide comments.';
-          if(quoteObj.Approval_Required__c==1 && (string.isBlank(quoteObj.Opportunity__r.GEO_Region__c)|| quoteObj.Opportunity__r.GEO_Region__c=='NONE' ))
-            return 'GEO is not set correctly on the opportunity associated to this quote.Please populate this value.';
-        return '';
+        return'';  
     }
 }

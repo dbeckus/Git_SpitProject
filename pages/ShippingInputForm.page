@@ -170,9 +170,29 @@ Part Number&nbsp;<img src="/s.gif" alt="Expand" class="moreArrow" title="Expand"
                         <select id="PartNumberList{!FLOOR(index)}" onchange="setAssetPN({!FLOOR(index)}, this.value)" style="display:{!IF(ShipLine.AssetIsExisted, 'none', '')}"></select>
                         <apex:inputHidden value="{!ShipLine.PartNumber}" id="PartNumber"/>
                         <apex:outputText rendered="{!ShipLine.AssetIsExisted}">{!ShipLine.PartNumber}</apex:outputText>
-                        <apex:variable var="index" value="{!index + 1}" />
                     </apex:column>
-                   
+                   	<apex:column id="SHRegion" headerValue="Smart Hands Region">
+                        <apex:facet name="header">
+                            Region&nbsp;<img src="/s.gif" alt="Expand" class="moreArrow" title="Expand"  style="cursor:pointer"/>
+                        </apex:facet>
+                        <apex:selectList id="region" size="1" value="{!ShipLine.TempAsset.SH_Region__c}">
+                            <apex:selectOptions value="{!RegionList}"/>
+                        </apex:selectList>
+                        <apex:outputText value="{!ShipLine.TempAsset.SH_Region__c}" rendered="{!ShipLine.AssetIsExisted}"/>
+                    </apex:column>
+                    <apex:column id="SHStartDateCol">		
+                        <apex:facet name="header">		
+                            Smart Hands Start Date <img src="/s.gif" alt="Expand" class="moreArrow" title="Expand" onclick="showDatePopup('SupportStartDate')" style="cursor:pointer"/>		
+                        </apex:facet>		
+                        <apex:inputField id="servicestartDate" value="{!ShipLine.TempAsset.SH_Start_Date__c}" />		
+                    </apex:column>		
+                    <apex:column id="SHEndDateCol">		
+                        <apex:facet name="header">		
+                            Smart Hands End Date <img src="/s.gif" alt="Expand" class="moreArrow" title="Expand" onclick="showDatePopup('SupportEndDate')" style="cursor:pointer"/>		
+                        </apex:facet>		
+                        <apex:inputField id="serviceendDate" value="{!ShipLine.TempAsset.SH_End_Date__c}" />		
+                        <apex:variable var="index" value="{!index + 1}" />		
+                    </apex:column>
                 </apex:pageBlockTable>
             </apex:pageBlockSection> 
             <apex:pageBlockButtons location="bottom">

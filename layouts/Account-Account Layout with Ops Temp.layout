@@ -94,6 +94,10 @@
                 <behavior>Edit</behavior>
                 <field>Override_Service_Provider_Setting__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>SendExpirationEmail__c</field>
+            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>
@@ -766,6 +770,7 @@
         <fields>CONTRACT.END_DATE</fields>
         <fields>CONTRACT.STATUS</fields>
         <fields>SP_Contract_Number__c</fields>
+        <fields>Trigger_Notice__c</fields>
         <relatedList>RelatedContractList</relatedList>
     </relatedLists>
     <relatedLists>

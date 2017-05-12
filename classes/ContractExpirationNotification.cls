@@ -28,6 +28,7 @@ global class ContractExpirationNotification implements Schedulable, Database.Bat
         {
             Boolean sending = false;
             Account acc = (Account)objs[0];
+            System.debug(acc);
             for(Contract ct : acc.Contracts)
             {
                 if(ct.EndDate == Date.today().addDays(-1))

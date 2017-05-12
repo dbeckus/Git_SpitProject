@@ -1741,6 +1741,10 @@
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>TestAccountTriggerHandler</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>TestAddActiveECBaseLicenseToECHardware</apexClass>
         <enabled>false</enabled>
     </classAccesses>
@@ -5804,6 +5808,11 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Quote__c.Opportunity_Amount__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Quote__c.Opportunity_Geo_Region__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
