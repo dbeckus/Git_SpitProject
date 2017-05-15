@@ -148,7 +148,7 @@ public class AccountTriggerHandler implements ITriggerHandler {
                 {
                     accNeedsTeamAssign.add(newAccInfo.Id);
                 }
-                if(newAccInfo.ECSP__c && newAccInfo.Service_Provider_Account_Type__c=='Perpetual-Orchestrator SP' || newAccInfo.Service_Provider_Account_Type__c=='Metered-Orchestrator SP')
+                if(newAccInfo.ECSP__c && (newAccInfo.Service_Provider_Account_Type__c=='Perpetual-Orchestrator SP' || newAccInfo.Service_Provider_Account_Type__c=='Metered-Orchestrator SP'))
                 {
                     if(oldAccInfo.Cloud_Portal_Account_Key__c==null && newAccInfo.Cloud_Portal_Account_Key__c!=null && oldAccInfo.Cloud_Portal_Account_Name__c==null && newAccInfo.Cloud_Portal_Account_Name__c!=null)
                     {

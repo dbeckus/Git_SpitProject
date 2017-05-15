@@ -136,7 +136,6 @@
             }
             if((productName.indexOf("EC-ORCH") >= 0)|| (productName.indexOf("EC-SAAS") >= 0))
             {
-                
                 nodeLine.qty.val("1");
                 nodeLine.qty.prop("disabled",true);
             }

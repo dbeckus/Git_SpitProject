@@ -46,6 +46,10 @@
                 <behavior>Edit</behavior>
                 <field>Contract_Number__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Is_Unity_Cloud_Orchestrator__c</field>
+            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>

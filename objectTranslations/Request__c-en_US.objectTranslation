@@ -398,6 +398,10 @@
         <name>IsClosed__c</name>
     </fields>
     <fields>
+        <label><!-- Require Unity Cloud Orchestrator? --></label>
+        <name>Is_Unity_Cloud_Orchestrator__c</name>
+    </fields>
+    <fields>
         <label><!-- Latency (msecs) --></label>
         <name>Latency__c</name>
     </fields>
@@ -1107,6 +1111,18 @@
     <validationRules>
         <errorMessage><!-- Only the person selected as Technical Responsibility can approve this request --></errorMessage>
         <name>TR_Approval_Check</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- You can only request unity cloud orchestrator provided all the fields(unity orchestrator domain, unity orchestrator admin user and unity orchestrator location ) are populated in the account. Please contact operations for any assistance required. --></errorMessage>
+        <name>Unity_Cloud_Orch_cant_be_requested</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- You cannot request unity cloud orchestrator on a Service Provider account or WAN OP. --></errorMessage>
+        <name>Unity_Cloud_Orch_cant_be_requested_by_SP</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- You cannot change the flag after the POC is approved or shipped. --></errorMessage>
+        <name>Unity_Orch_cant_be_changed_after_approve</name>
     </validationRules>
     <validationRules>
         <errorMessage><!-- Use the Submit for Approval button instead of changing the status to request approval --></errorMessage>

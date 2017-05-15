@@ -52,7 +52,7 @@ public class QuoteExtension
                 if(lstQuote!=null && lstQuote.size()>0)
                 {
                     Quote__c quoteObj= lstQuote[0];
-                    if(Userinfo.getLastName()!='Christensen')
+                    if(Userinfo.getLastName()!='Beckus')
                     {
                         string errorMsg=ValidateApprovalEntryCriterias(quoteObj);
                         if(errorMsg!='')
@@ -84,6 +84,7 @@ public class QuoteExtension
     
     private static string ValidateApprovalEntryCriterias(Quote__c quoteObj)
     {
+        System.debug(quoteObj.Opportunity__r.Geo_Region__c);
         if(quoteObj.Approval_Required__c==0)
             return 'Approval process is not required. Its already approved.';
         if(quoteObj.Approval_Required__c==1 && quoteObj.Opportunity__r.Geo_Region__c =='NONE')

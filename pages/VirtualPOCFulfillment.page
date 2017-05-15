@@ -50,7 +50,7 @@
                bandwidthNodes.disabled=false; 
                qty.disabled=true;
             }
-            if(selectedText.indexOf('EC-SP') >= 0 || selectedText.indexOf('EC-SAAS') >= 0)
+            if(selectedText.indexOf('EC-SP') >= 0 || selectedText.indexOf('EC-SAAS') >= 0 || selectedText.indexOf('EC-ORCH-AAS-50-1Y') >= 0)
             {
                qty.disabled=true;
             }

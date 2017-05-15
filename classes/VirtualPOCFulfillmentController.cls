@@ -11,7 +11,7 @@ public class VirtualPOCFulfillmentController
     public VirtualPOCFulfillmentController(ApexPages.StandardController controller)
     {
         System.debug('controller.getId()'+ controller.getId());
-        List<Request__c> requests = [select Id, Opportunity__c,Opportunity__r.Account.Partner_Type__c,Opportunity__r.Account.ECSP__c, Opportunity__r.AccountId,POC_Type__c, POC_Contact__c, GMS_Needed__c, EvaluationProductHypervisor__c, Evaluation_Product_1__c, Evaluation_Product_2__c, Quantity_Location_1__c, Quantity_Location_2__c, Status__c, Actual_Ship_Date__c, Target_End_Date__c, VirtualProduct1__c, VirtualProduct2__c, VirtualProduct3__c, VirtualProduct4__c, VirtualProduct5__c, VirtualQuantity1__c, VirtualQuantity2__c, VirtualQuantity3__c, VirtualQuantity4__c, VirtualQuantity5__c from Request__c where Id = :controller.getId()];        
+        List<Request__c> requests = [select Id, Opportunity__c,Opportunity__r.Account.Partner_Type__c,Opportunity__r.Account.ECSP__c, Is_Unity_Cloud_Orchestrator__c,Opportunity__r.AccountId,POC_Type__c, POC_Contact__c, GMS_Needed__c, EvaluationProductHypervisor__c, Evaluation_Product_1__c, Evaluation_Product_2__c, Quantity_Location_1__c, Quantity_Location_2__c, Status__c, Actual_Ship_Date__c, Target_End_Date__c, VirtualProduct1__c, VirtualProduct2__c, VirtualProduct3__c, VirtualProduct4__c, VirtualProduct5__c, VirtualQuantity1__c, VirtualQuantity2__c, VirtualQuantity3__c, VirtualQuantity4__c, VirtualQuantity5__c from Request__c where Id = :controller.getId()];        
         if(!requests.isEmpty())
         {
             pocRequest = requests[0];
@@ -238,10 +238,15 @@ public class VirtualPOCFulfillmentController
         {
             addProduct(VIRTUAL_PRODUCT_NAME, 1);
         }
+        if(pocRequest.Is_Unity_Cloud_Orchestrator__c)
+        {
+          addProduct('EC-ORCH-AAS-50-1Y', 1);
+        }
         if(VirtualAssets.isEmpty())
         {
             addProduct(VIRTUAL_PRODUCT_NAME, 1);
         }
+        
     }
     
     private void initVAManager()

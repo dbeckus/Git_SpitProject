@@ -43,7 +43,7 @@ public class QuoteExtensionTest
         Profile prof = [SELECT Id FROM Profile WHERE Name='1.4- Intl Regional Sales Manager']; 
         User usr = new User(Alias = 'standt', Email='testUser@uniquetest.com', 
                             EmailEncodingKey='UTF-8', LastName='Testing', LanguageLocaleKey='en_US', 
-                            LocaleSidKey='en_US', ProfileId = prof.Id, 
+                            LocaleSidKey='en_US', ProfileId = prof.Id, GEO__c='NAM',Region__c='West',
                             TimeZoneSidKey='America/Los_Angeles', UserName='testUser@uniquetest.com');
         
         usr.IsActive =true;
@@ -58,8 +58,9 @@ public class QuoteExtensionTest
             PricebookEntry pricebookEntry = new PricebookEntry(Pricebook2Id = newPricebook.Id, Product2Id = product.Id, UnitPrice = 1.0, IsActive = true);
             insert pricebookEntry;
             
-            Opportunity opportunity = new Opportunity(Name = 'Test Opportunity', Pricebook2Id = newPricebook.Id, StageName = 'Discovery', CloseDate = Date.today().addDays(1));
+            Opportunity opportunity = new Opportunity(Name = 'Test Opportunity', Sales_Region__c='APAC',Pricebook2Id = newPricebook.Id, StageName = 'Discovery', CloseDate = Date.today().addDays(1));
             insert opportunity;
+        
             OpportunityLineItem opportunityLineItem = new OpportunityLineItem(OpportunityId = opportunity.id, PricebookEntryId = pricebookEntry.id, UnitPrice = 1.5, Quantity = 2);
             insert opportunityLineItem;
             Quote__c quote1 = new Quote__c(Opportunity__c = opportunity.Id, Quote_Valid_Until__c = Date.today(), Quote_Date__c = Date.today());
