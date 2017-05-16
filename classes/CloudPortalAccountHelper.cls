@@ -137,6 +137,8 @@ generator.writeStringField('password', 'Yesadmin4u');
         {
             string prodName=counter.Product2.Name;
             string prodType=counter.Product2.Product_Type__c;
+            if(assetType=='UNITYORCH'&& prodName.startsWith('EC-ORCH-AAS') && prodType=='EDGECONNECT')
+            {filterAssets.add(counter);}
             if(assetType=='EC'&& prodName.startsWith('EC')&& !prodName.contains('EC-SAAS')&& !prodName.contains('EC-SP') && prodType=='EDGECONNECT')
             {filterAssets.add(counter);}
             if(assetType=='SAAS' && (prodName.contains('EC-SAAS') || prodName.contains('UNITY CLOUD INTELLIGENCE')))
@@ -151,7 +153,24 @@ generator.writeStringField('password', 'Yesadmin4u');
             CPAsset cp= new CPAsset();
             string prodName=item.Product2.Name;
             cp.SerialNumber=item.SerialNumber;
+            cp.domain=item.Account.Unity_Orch_Domain__c;
+            cp.region=item.Account.Unity_Orch_Location__c;
+            cp.email=item.Account.Unity_Orch_Admin_User__c;
+          
+            cp.version='';
             long millis=0;
+            if(prodName.contains('EC-ORCH-AAS'))
+            {
+                boolean isPlusAdded;
+                if(prodName.contains('PLUS'))
+                {
+                    isPlusAdded=true;
+                }
+				String data=prodName.replaceAll('EC-ORCH-AAS-', '');
+   				data = data.replaceAll('[^-?0-9]+', ''); 
+                string[]output=data.split('-');
+             	cp.size=(isPlusAdded?1:0)+integer.valueOf(output[0]);
+            } 
             if(item.License_End_Date__c!=null)
             {
                 DateTime dt=DateTime.newInstance(item.License_End_Date__c,Time.newInstance(0, 0, 0, 0));

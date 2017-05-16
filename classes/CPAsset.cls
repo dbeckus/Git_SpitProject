@@ -15,5 +15,10 @@ public class CPAsset {
     public string id{get;set;}
     public string name{get;set;}
     public decimal quantity{get;set;}
+    public string email{get;set;}
+    public string domain{get;set;}
+    public string region{get;set;}
+    public string version{get;set;}
+    public integer size{get;set;}
     
 }

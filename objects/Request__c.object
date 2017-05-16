@@ -3243,7 +3243,7 @@ OR(
  ISBLANK(   Opportunity__r.Account.Unity_Orch_Domain__c ))
 
 )</errorConditionFormula>
-        <errorMessage>You can only request unity cloud orchestrator provided all the fields(unity orchestrator domain, unity orchestrator admin user and unity orchestrator location ) are populated in the account. Please contact operations for any assistance required.</errorMessage>
+        <errorMessage>You can only request unity cloud orchestrator provided all the fields(unity orchestrator domain, unity orchestrator admin user and unity orchestrator location ) are populated in the account. Please contact operations for any assistance.</errorMessage>
     </validationRules>
     <validationRules>
         <fullName>Unity_Cloud_Orch_cant_be_requested_by_SP</fullName>
@@ -3270,6 +3270,18 @@ ISPICKVAL( POC_Type__c ,&quot;WAN Op&quot;)
 )</errorConditionFormula>
         <errorDisplayField>Is_Unity_Cloud_Orchestrator__c</errorDisplayField>
         <errorMessage>You cannot change the flag after the POC is approved or shipped.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Unity_Orch_cant_be_requested_multiple</fullName>
+        <active>false</active>
+        <errorConditionFormula>AND(
+ NOT(First_POC_on_Account__c ), Is_Unity_Cloud_Orchestrator__c 
+
+
+
+)</errorConditionFormula>
+        <errorDisplayField>Is_Unity_Cloud_Orchestrator__c</errorDisplayField>
+        <errorMessage>You have already requested unity cloud orchestrator. Please un-check the box.</errorMessage>
     </validationRules>
     <validationRules>
         <fullName>enforce_approval_process_to_advance</fullName>

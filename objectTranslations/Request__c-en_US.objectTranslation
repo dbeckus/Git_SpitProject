@@ -1113,7 +1113,7 @@
         <name>TR_Approval_Check</name>
     </validationRules>
     <validationRules>
-        <errorMessage><!-- You can only request unity cloud orchestrator provided all the fields(unity orchestrator domain, unity orchestrator admin user and unity orchestrator location ) are populated in the account. Please contact operations for any assistance required. --></errorMessage>
+        <errorMessage><!-- You can only request unity cloud orchestrator provided all the fields(unity orchestrator domain, unity orchestrator admin user and unity orchestrator location ) are populated in the account. Please contact operations for any assistance. --></errorMessage>
         <name>Unity_Cloud_Orch_cant_be_requested</name>
     </validationRules>
     <validationRules>
@@ -1123,6 +1123,10 @@
     <validationRules>
         <errorMessage><!-- You cannot change the flag after the POC is approved or shipped. --></errorMessage>
         <name>Unity_Orch_cant_be_changed_after_approve</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- You have already requested unity cloud orchestrator. Please un-check the box. --></errorMessage>
+        <name>Unity_Orch_cant_be_requested_multiple</name>
     </validationRules>
     <validationRules>
         <errorMessage><!-- Use the Submit for Approval button instead of changing the status to request approval --></errorMessage>
