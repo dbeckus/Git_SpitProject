@@ -110,17 +110,17 @@ public class CloudPortalPostAssetsApi extends CloudPortalApiBase {
         generator.writeEndArray(); 
         generator.writeFieldName('cloudOrch');
         generator.writeStartArray();
-        if(spAssets!=null && spAssets.size()>0)
+        if(orchAssets!=null && orchAssets.size()>0)
         {
-            for(CPAsset item:spAssets)
+            for(CPAsset item:orchAssets)
             {
                 generator.writeStartObject();
-                generator.writeObjectField('serial',item.name);
+                generator.writeObjectField('serial',item.SerialNumber);
                 generator.writeObjectField('email',item.email);
                 generator.writeObjectField('domain',item.domain);
-                if(item.endDate!=null)
+                if(item.ExpiryDate!=null)
                 {
-                    generator.writeObjectField('expiry',item.endDate);
+                    generator.writeObjectField('expiry',item.ExpiryDate);
                 }
                 else
                 {

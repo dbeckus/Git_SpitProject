@@ -161,15 +161,7 @@ generator.writeStringField('password', 'Yesadmin4u');
             long millis=0;
             if(prodName.contains('EC-ORCH-AAS'))
             {
-                boolean isPlusAdded;
-                if(prodName.contains('PLUS'))
-                {
-                    isPlusAdded=true;
-                }
-				String data=prodName.replaceAll('EC-ORCH-AAS-', '');
-   				data = data.replaceAll('[^-?0-9]+', ''); 
-                string[]output=data.split('-');
-             	cp.size=(isPlusAdded?1:0)+integer.valueOf(output[0]);
+               cp.size=(integer)item.Product2.Bandwidth__c;
             } 
             if(item.License_End_Date__c!=null)
             {
