@@ -1405,6 +1405,10 @@
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>PatchRuleEngineBase</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>PatchRuleEngineBuilder</apexClass>
         <enabled>false</enabled>
     </classAccesses>
@@ -1837,6 +1841,10 @@
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>TestCopyECLicenseEndDateToAccount</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>TestDataController</apexClass>
         <enabled>false</enabled>
     </classAccesses>
@@ -2078,6 +2086,10 @@
     </classAccesses>
     <classAccesses>
         <apexClass>TestUtilities</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>TestValidateUnityOrchestrtatorCanBeAdded</apexClass>
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
@@ -3247,6 +3259,16 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>License__c.AccountId__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>License__c.Asset_Status__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>License__c.Contact_for_Notification__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -3288,6 +3310,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>License__c.Quantity__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>License__c.Quote_Type__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -5228,6 +5255,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Patch__c.Overlay_2__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Patch__c.Overlay__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

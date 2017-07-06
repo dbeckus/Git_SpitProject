@@ -41,6 +41,10 @@
         <relationshipLabel><!-- Patches (Overlay 2) --></relationshipLabel>
     </fields>
     <fields>
+        <label><!-- Overlay --></label>
+        <name>Overlay__c</name>
+    </fields>
+    <fields>
         <label><!-- Patch Owner --></label>
         <name>Owner__c</name>
         <relationshipLabel><!-- Patches (Patch Owner) --></relationshipLabel>

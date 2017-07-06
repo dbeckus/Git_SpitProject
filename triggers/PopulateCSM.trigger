@@ -9,7 +9,7 @@ trigger PopulateCSM on MDF_Request__c (before insert, before update, after inser
     {
         if(Trigger.isBefore)
         {
-            if(Trigger.isInsert || (Trigger.isUpdate && addressChanged(Trigger.new[0], Trigger.old[0])))
+            //if(Trigger.isInsert || (Trigger.isUpdate && addressChanged(Trigger.new[0], Trigger.old[0])))
             {
                 updateCSM(Trigger.new[0]);
             }   
@@ -17,7 +17,7 @@ trigger PopulateCSM on MDF_Request__c (before insert, before update, after inser
         // Share MDF Owner access to MDF CAM
         if(Trigger.isAfter)
         {
-            if(Trigger.isInsert || (Trigger.isUpdate && (Trigger.new[0].OwnerId != Trigger.old[0].OwnerId || Trigger.new[0].CSM__c != Trigger.old[0].CSM__c)))
+            if(Trigger.isInsert || (Trigger.isUpdate && (Trigger.new[0].OwnerId != Trigger.old[0].OwnerId || Trigger.new[0].CSM__c != Trigger.old[0].CSM__c || Trigger.new[0].RSM__c != Trigger.old[0].RSM__c)))
             {   
                 MDF_Request__Share mdfShare = new MDF_Request__Share(ParentId = Trigger.new[0].Id, UserOrGroupId = Trigger.new[0].CSM__c, AccessLevel = 'Edit');
                 Database.insert(mdfShare, false);
@@ -25,29 +25,29 @@ trigger PopulateCSM on MDF_Request__c (before insert, before update, after inser
         }
     }
     
-    private Boolean addressChanged(MDF_Request__c request, MDF_Request__c oldRequest)
+    /*private Boolean addressChanged(MDF_Request__c request, MDF_Request__c oldRequest)
     {
         return request.Event_Location_Country__c != oldRequest.Event_Location_Country__c || 
             request.Event_Location_State__c != oldRequest.Event_Location_State__c || 
             request.Event_Location_Zip__c != oldRequest.Event_Location_Zip__c || 
             request.Account__c != oldRequest.Account__c;
-    }
+    }*/
     
     private void updateCSM(MDF_Request__c request)
     {
-        List<Account> accs = [select Id, Name from Account where Id=:request.Account__c limit 1];
-        String accName = (accs.size() > 0) ? accs[0].Name : '';
+        List<Account> accs = [select Id, Name, Patch__r.CSM__c, Patch__r.RSM__c from Account where Id=:request.Account__c limit 1];
+        /*String accName = (accs.size() > 0) ? accs[0].Name : '';
         PatchRuleEngine.Target target = getMatchTarget(request, accName);
         Id patchId = PatchRuleEngine.match(target);
-        List<Patch__c> patch = [select Id, CSM__c, RSM__c from Patch__c where Id=:patchId limit 1];
-        if(patch.size() > 0)
+        List<Patch__c> patch = [select Id, CSM__c, RSM__c from Patch__c where Id=:patchId limit 1];*/
+        if(accs.size() > 0)
         {
-            request.CSM__c = patch[0].CSM__c;
-            request.RSM__c = patch[0].RSM__c;
+            request.CSM__c = accs[0].Patch__r.CSM__c;
+            request.RSM__c = accs[0].Patch__r.RSM__c;
         }
     }
     
-    private PatchRuleEngine.Target getMatchTarget(MDF_Request__c request, String accountName)
+    /*private PatchRuleEngine.Target getMatchTarget(MDF_Request__c request, String accountName)
     {
         PatchRuleEngine.Target target = new PatchRuleEngine.Target();
         target.Company = accountName;
@@ -55,5 +55,5 @@ trigger PopulateCSM on MDF_Request__c (before insert, before update, after inser
         target.State = request.Event_Location_State__c;
         target.ZipCode = request.Event_Location_Zip__c;
         return target;
-    }   
+    }*/
 }

@@ -9,9 +9,17 @@
         <value>Licenses</value>
     </caseValues>
     <fields>
+        <label><!-- Account ID --></label>
+        <name>AccountId__c</name>
+    </fields>
+    <fields>
         <label><!-- Serial Number --></label>
         <name>AssetId__c</name>
         <relationshipLabel><!-- Licenses --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Asset Status --></label>
+        <name>Asset_Status__c</name>
     </fields>
     <fields>
         <help><!-- Sends an email to this contact when new license keys are generated --></help>
@@ -52,6 +60,10 @@
         <help><!-- Number of GMS licenses. Always 1 for VX applinaces --></help>
         <label><!-- Quantity --></label>
         <name>Quantity__c</name>
+    </fields>
+    <fields>
+        <label><!-- Quote Type --></label>
+        <name>Quote_Type__c</name>
     </fields>
     <fields>
         <label><!-- Renewal Key Generated --></label>

@@ -54,7 +54,7 @@ public class AutomatePOCRenewalExtensions implements Schedulable, Database.Batch
                 {
                     virlicenseIds.addAll(RenewalAssetsHelper.CreateNewLicensesForBatch(assets));
                 }
-                else if(pocReq.POC_Type__c=='EdgeConnect' || pocReq.POC_Type__c=='Service Provider')
+                else if(pocReq.POC_Type__c=='EdgeConnect' || pocReq.POC_Type__c=='Service Provider' || pocReq.POC_Type__c=='Perpetual'|| pocReq.POC_Type__c=='Metered'||pocReq.POC_Type__c=='Perpetual-Orchestrator SP'||pocReq.POC_Type__c=='Metered-Orchestrator SP')
                 {
                     RenewalAssetsHelper.RenewEdgeConnectLicense(assets);
                 }

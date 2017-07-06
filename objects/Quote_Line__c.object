@@ -238,7 +238,8 @@ formula with WANCHECK as a product: if( OR(Contains( Prod_Category__c , &quot;Ap
         <formula>IF(
 AND(
 Include4ServiceDiscount__c==1,
-Product__r.Term__c==0),
+Product__r.Term__c&lt;=1
+),
 1, Product__r.Term__c)</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>Maint Year Value</label>

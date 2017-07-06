@@ -1383,6 +1383,25 @@ NOT(TriggerAutoFulfillEmail__c)
         </workflowTimeTriggers>
     </rules>
     <rules>
+        <fullName>Populate Bandwidth value for Unity Cloud ORCH</fullName>
+        <active>false</active>
+        <criteriaItems>
+            <field>Product2.Family</field>
+            <operation>equals</operation>
+            <value>Virtual Image</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Product2.Name</field>
+            <operation>startsWith</operation>
+            <value>EC-ORCH-AAS</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Asset.GMS_Nodes__c</field>
+            <operation>equals</operation>
+        </criteriaItems>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
         <fullName>SendReplacementNotice</fullName>
         <actions>
             <name>Send_Replacements_Notices</name>

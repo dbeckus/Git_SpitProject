@@ -4,7 +4,7 @@
 public with sharing class PatchRulesController 
 {
     private Long deployDateInternal;
-    private static final String AdminId = '00530000000etJsAAI'; //Curtis
+    private static final String AdminId = '005500000045fp1AAA'; //Dennis
     
     public PatchRulesController()
     {

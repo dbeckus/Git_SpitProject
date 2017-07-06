@@ -1592,6 +1592,16 @@ NOT( Contact.Testing__c )
         </workflowTimeTriggers>
     </rules>
     <rules>
+        <fullName>SetCase</fullName>
+        <active>false</active>
+        <criteriaItems>
+            <field>Case.Case_Age__c</field>
+            <operation>greaterThan</operation>
+            <value>0</value>
+        </criteriaItems>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
         <fullName>Setup Google CC</fullName>
         <actions>
             <name>Setup_Google_CC</name>

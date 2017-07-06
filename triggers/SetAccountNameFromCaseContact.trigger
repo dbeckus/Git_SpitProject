@@ -26,15 +26,20 @@ trigger SetAccountNameFromCaseContact on Case (after insert, after update) {
     
     if(caseIds.size()>0)
     {
-        List<Case> caseList=[Select Id, ContactId,AccountID from Case where Id in:caseIds];
+        List<Case> caseList=[Select Id, ContactId,AccountID,Contact.AccountId from Case  where Id in:caseIds FOR UPDATE];
         List<Case> lstCaseUpdated= new List<Case>();
         for(Case counter:caseList)
         {
-            if(counter.ContactId!=null)
+            if(counter.ContactId!=null && counter.Contact.AccountId!=null)
             {
-                Contact contactInfo= [Select Id,AccountId from Contact where Id=:counter.ContactId LIMIT 1];
-                counter.AccountId = contactInfo.AccountId;
-                lstCaseUpdated.add(counter);
+                //Contact contactInfo= [Select Id,AccountId from Contact where Id=:counter.ContactId LIMIT 1];
+                System.debug('counter.AccountID'+counter.AccountID);
+                System.debug('counter.Contact.AccountId'+counter.Contact.AccountId);
+                if(counter.AccountID!=counter.Contact.AccountId)
+                {
+                    counter.AccountId = counter.Contact.AccountId;
+                    lstCaseUpdated.add(counter);
+                }
             }
         }
         if(lstCaseUpdated.size()>0)

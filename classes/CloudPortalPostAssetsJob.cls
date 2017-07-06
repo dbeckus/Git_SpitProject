@@ -108,11 +108,11 @@ public class CloudPortalPostAssetsJob implements Database.Batchable<sObject>,Dat
     
     public void finish(Database.BatchableContext context)
     {
-      /*  if(!Test.isRunningTest())
+      if(!Test.isRunningTest())
         {
             CloudPortalPostAssetsJob obj= new CloudPortalPostAssetsJob();
             System.scheduleBatch(obj, 'CPPostAssets', 30, 1);
-        }*/
+        }
         
     }
     

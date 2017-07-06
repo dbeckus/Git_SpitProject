@@ -4,8 +4,8 @@
 public with sharing class PatchOverrideController 
 {
     private sObject obj;
-    
-    public PatchOverrideController() 
+
+    public PatchOverrideController()
     {
         Id objId = ApexPages.currentPage().getParameters().get('id');
         IsAllowed = true;
@@ -24,7 +24,7 @@ public with sharing class PatchOverrideController
             ApexPages.addMessage(new ApexPages.Message(ApexPages.Severity.Error, 'Object is not found'));
         }
     }
-    
+
     public Boolean IsAllowed { get; set; }
     public String CompanyName { get; set; }
     public String EmailDomain { get; set; }
@@ -33,19 +33,22 @@ public with sharing class PatchOverrideController
     public String ZipCode { get; set; }
     public String Industry { get; set; }
     public String ObjectName { get; set; }
-    
+
     public PageReference reassign()
     {
-        PatchRuleEngine.Target target = getPatchTarget();
+        PatchRuleEngineBase.Target target = getPatchTarget();
         try
         {
-            Id patchId = PatchRuleEngine.match(target);
+            PatchRuleEngine engine = new PatchRuleEngine();
+            PatchRuleEngineBase.Match match = engine.match(target);
+            Id patchId = match.PatchId;
+            PatchRuleHelper.OverlayHolder.put(obj.Id, match.OverlayMatches);
             if(patchId == null)
             {
                 ApexPages.addMessage(new ApexPages.Message(ApexPages.Severity.Error, 'No match found. Please try with another values.'));
                 return null;
             }
-            List<Patch__c> patchs = [select Id, Patch_Name__c, Catchall__c, Type__c, Owner__c, Owner__r.GEO__c, RSM__c, CSM__c, SE__c, ISR__c, Active__c from Patch__c where Id=:patchId limit 1];
+            List<Patch__c> patchs = [select Id, Patch_Name__c, Catchall__c, Type__c, Owner__c, Owner__r.GEO__c, RSM__c, CSM__c, SE__c, ISR__c, Active__c, Overlay_1__c, Overlay_2__c from Patch__c where Id=:patchId limit 1];
             if(patchs.size() == 0)
             {
                 ApexPages.addMessage(new ApexPages.Message(ApexPages.Severity.Error, 'Error occured. Patch Rules need re-deployment'));
@@ -54,7 +57,7 @@ public with sharing class PatchOverrideController
             PatchRuleHelper.assignPatch(obj, patchs[0]);
             obj.put('Patch_Locked__c', true);
             update obj;
-            PatchRuleHelper.willAssignTeamMembers(new List<Id> { obj.Id });
+            PatchRuleHelper.AssignTeamMembers(new List<Id> { obj.Id });
             ApexPages.addMessage(new ApexPages.Message(ApexPages.Severity.Info, 'Patch reassigned.<script>opener.location=\'/'+obj.Id+'\';setTimeout("window.close()", 3000);</script>'));
         }
         catch(Exception ex)
@@ -63,10 +66,10 @@ public with sharing class PatchOverrideController
         }
         return null;
     }
-    
-    private PatchRuleEngine.Target getPatchTarget()
+
+    private PatchRuleEngineBase.Target getPatchTarget()
     {
-        PatchRuleEngine.Target target = new PatchRuleEngine.Target();
+        PatchRuleEngineBase.Target target = new PatchRuleEngineBase.Target();
         target.Company = CompanyName;
         target.EmailDomain = PatchRuleHelper.getEmailDomain(EmailDomain);
         target.Country = Country;

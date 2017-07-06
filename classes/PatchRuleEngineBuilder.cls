@@ -7,24 +7,22 @@ public class PatchRuleEngineBuilder
     private String classHeader;
     private List<String> methods;
     private List<String> subclasses;
-    
+
     public PatchRuleEngineBuilder()
     {
         headerComment = '/*\r\n' +
                          '* This class is generated dynamically from Patch Rules.\r\n' +
                          '*/\r\n';
-        classHeader = 'public class PatchRuleEngine\r\n';
+        classHeader = 'public class PatchRuleEngine extends PatchRuleEngineBase\r\n';
         methods = new List<String>();
         subclasses = new List<String>();
     }
-    
+
     public String build()
     {
         registerMainMethod();
-        registerOpMethods();
-        registerSubClasses();
-        String result = headerComment + 
-                        classHeader + 
+        String result = headerComment +
+                        classHeader +
                         '{\r\n';
         for(String methodBody : methods)
         {
@@ -41,21 +39,31 @@ public class PatchRuleEngineBuilder
     private void registerMainMethod()
     {
         String methodHeader = '  //returns the matched patch\r\n' +
-                              '  public static Id match(Target t)\r\n' +
+                              '  public override Match match(Target t)\r\n' +
                               '  {\r\n';
-        String methodBody = '    Id result = null;\r\n';
+        String methodBody = '    Match result = null;\r\n    Id patchId = null;\r\n    List<Id> overlays = new List<Id>();\r\n';
         Integer groupIndex = 0;
-        for(List<Patch__c> patchGroup : [select Id, Active__c, Patch_Name__c, Catchall__c , CSM__c, ISR__c, Owner__c, ProcessingSequence__c, RSM__c, Rule_Logic__c, SE__c, Type__c, (select Id, Patch__r.Patch_Name__c, Type__c, Value__c, Operation__c, Range_Low__c, Range_High__c, ProcessingSequence__c from Patch_Rules__r order by ProcessingSequence__c) from Patch__c where Active__c=true order by ProcessingSequence__c])
+        List<Patch__c> patchGroup = new List<Patch__c>();
+        for(Patch__c patch : [select Id, Active__c, Patch_Name__c, Catchall__c, Overlay__c, CSM__c, ISR__c, Owner__c, ProcessingSequence__c, RSM__c, Rule_Logic__c, SE__c, Type__c, (select Id, Patch__r.Patch_Name__c, Type__c, Value__c, Operation__c, Range_Low__c, Range_High__c, ProcessingSequence__c from Patch_Rules__r order by ProcessingSequence__c) from Patch__c where Active__c=true order by ProcessingSequence__c])
+        {
+            patchGroup.add(patch);
+            if(patchGroup.size() >= 20)
+            {
+                methodBody += buildPatchGroup(patchGroup, ++groupIndex);
+                patchGroup = new List<Patch__c>();
+            }
+        }
+        if(patchGroup.size() > 0)
         {
             methodBody += buildPatchGroup(patchGroup, ++groupIndex);
         }
         String methodFooter = '    return result;\r\n  }\r\n';
         methods.add(methodHeader + methodBody + methodFooter);
     }
-    
+
     private void registerGroupMatchMethod(List<Patch__c> patches, Integer groupNumber)
     {
-        String body = '  private static Id matchGroup' + groupNumber + '(Target t)\r\n' +
+        String body = '  private Id matchGroup' + groupNumber + '(Target t, List<Id> overlays)\r\n' +
                       '  {\r\n';
         Integer i = 0;
         for(Patch__c patch : patches)
@@ -65,21 +73,21 @@ public class PatchRuleEngineBuilder
         body += '    return null;\r\n  }\r\n';
         methods.add(body);
     }
-    
+
     private String buildPatchGroup(List<Patch__c> patches, Integer groupNumber)
     {
-        String methodBody = '    result = matchGroup'+groupNumber+'(t);\r\n' +
-                            '    if(result != null)\r\n' +
+        String methodBody = '    patchId = matchGroup'+groupNumber+'(t, overlays);\r\n' +
+                            '    if(patchId != null)\r\n' +
                             '    {\r\n' +
-                            '      return result;\r\n' +
+                            '      return new Match(patchId, overlays);\r\n' +
                             '    }\r\n';
         registerGroupMatchMethod(patches, groupNumber);
         return methodBody;
     }
-    
+
     private String buildPatch(Patch__c patch, Integer patchNumber)
     {
-        String comment = '    //Patch ' + patch.Patch_Name__c + '\r\n';
+        String comment = '    //' + patch.Patch_Name__c + '\r\n';
         String body = '';
         Map<Integer, String> rules = new Map<Integer, String>();
         for(Integer j = 0; j < patch.Patch_Rules__r.size(); j++)
@@ -96,9 +104,9 @@ public class PatchRuleEngineBuilder
             rules.put(rule.ProcessingSequence__c.intValue(), buildRule(rule));
         }
         body += buildCriteria(patch, rules, patchNumber);
-        return comment + body;
+        return body + comment;
     }
-    
+
     private String buildCriteria(Patch__c patch, Map<Integer, String> rules, Integer patchNumber)
     {
         String body = '';
@@ -158,21 +166,37 @@ public class PatchRuleEngineBuilder
                 body += ruleLogic;
             }
             body += ')';
-            String patchName = (patch.Patch_Name__c == null) ? '' : String.escapeSingleQuotes(patch.Patch_Name__c);
-            body += 'return \'' + patch.Id + '\';\r\n';
+            if(patch.Overlay__c)
+            {
+                String patchName = (patch.Patch_Name__c == null) ? '' : String.escapeSingleQuotes(patch.Patch_Name__c);
+                body += 'overlays.add(\'' + patch.Id + '\');';
+            }
+            else
+            {
+                String patchName = (patch.Patch_Name__c == null) ? '' : String.escapeSingleQuotes(patch.Patch_Name__c);
+                body += 'return \'' + patch.Id + '\';';
+            }
         }
         else
         {
-            body += '    //Empty rule criteria';
+            if(patch.Catchall__c)
+            {
+                body += '    return \'' + patch.Id + '\'; ';
+            }
+            else
+            {
+                body += '    //Empty rule criteria ';
+            }
         }
         return body;
     }
-    
+
     private String buildValueList(PatchCriteriaRule__c rule)
     {
         String result = 'new Set<String> { ';
         String notNullValue = (rule.Value__c == null) ? '' : rule.Value__c;
         String[] valueParts = PatchRuleHelper.splitCsv(notNullValue);
+        Set<String> values = new Set<String>();
         for(Integer i = 0; i < valueParts.size(); i++)
         {
             String value = valueParts[i];
@@ -181,7 +205,11 @@ public class PatchRuleEngineBuilder
                 value += ',' + valueParts[++i];
             }
             value = value.trim();
-            result += '\'' + String.escapeSingleQuotes(value).toLowerCase() + '\', ';
+            values.add(String.escapeSingleQuotes(value).toLowerCase());
+        }
+        for(String value : values)
+        {
+            result += '\'' + value + '\', ';
         }
         if(result.endsWith(', '))
         {
@@ -190,14 +218,19 @@ public class PatchRuleEngineBuilder
         result += ' }';
         return result;
     }
-    
+
     private String buildMatchList(PatchCriteriaRule__c rule)
     {
-        List<PatchMatchList__c> matchList = [select Id, Name from PatchMatchList__c where Patch_Criteria_Rule__c=:rule.Id];
+        List<PatchMatchList__c> matchList = [select Id, Name from PatchMatchList__c where Patch_Criteria_Rule__c=:rule.Id order by Name];
         String result = 'new Set<String> { ';
+        Set<String> values = new Set<String>();
         for(PatchMatchList__c pml : matchList)
         {
-            result += '\'' + String.escapeSingleQuotes(pml.Name).toLowerCase() + '\', ';
+            values.add(String.escapeSingleQuotes(pml.Name).toLowerCase());
+        }
+        for(String value : values)
+        {
+            result += '\'' + value + '\', ';
         }
         if(result.endsWith(', '))
         {
@@ -206,7 +239,54 @@ public class PatchRuleEngineBuilder
         result += ' }';
         return result;
     }
-    
+
+    private String buildZipcodeList(PatchCriteriaRule__c rule)
+    {
+        Set<String> values = new Set<String>();
+        if(rule.Operation__c == 'in match list')
+        {
+            for(PatchMatchList__c pml : [select Id, Name from PatchMatchList__c where Patch_Criteria_Rule__c=:rule.Id order by Name])
+            {
+                values.add(pml.Name);
+            }
+        }
+        else
+        {
+            String entry = rule.Value__c;
+            entry = (entry == null) ? '' : entry;
+            values.addAll(entry.split('\\s*,\\s*'));
+        }
+        List<String> altValues = new List<String>(values);
+        altValues.sort();
+        String result = '';
+        String low = '', high = '';
+        for(String value : altValues)
+        {
+            if(!value.isNumeric())
+            {
+                result += value + ',';
+                continue;
+            }
+            if(String.isBlank(low))
+            {
+                low = value;
+                high = value;
+            }
+            else if(Integer.valueOf(high) + 1 == Integer.valueOf(value))
+            {
+                high = value;
+            }
+            else
+            {
+                result += (low == high) ? low + ',' : low + '~' + high + ',';
+                low = high = value;
+            }
+        }
+        result += (low == high) ? low + ',' : low + '~' + high + ',';
+        result = result.removeEnd(',');
+        return result;
+    }
+
     private String buildRule(PatchCriteriaRule__c rule)
     {
         Map<String, String> opMap = new Map<String, String> {
@@ -234,14 +314,15 @@ public class PatchRuleEngineBuilder
         {
             throw new SilverPeakException('Rule Criteria cannot be recognized: ' + rule.Type__c + '. Patch[' + rule.Patch__c + ']');
         }
-        
+
         String field = fieldMap.get(rule.Type__c);
         String methodName = opMap.get(rule.Operation__c);
         if(rule.Type__c == 'Zip Code' && (rule.Operation__c == 'in' || rule.Operation__c == 'not in' || rule.Operation__c == 'in match list'))
         {
-            methodName = methodName.replace('opIn', 'opStart');
+            methodName = (rule.Operation__c == 'not in') ? '!opZipcode' : 'opZipcode';
+            return methodName + '(' + field + ', \'' + buildZipcodeList(rule) + '\')';
         }
-        
+
         if(rule.Operation__c == 'in range')
         {
             String valueLow = (rule.Range_Low__c == null) ? 'null' : String.escapeSingleQuotes(rule.Range_Low__c);
@@ -262,96 +343,12 @@ public class PatchRuleEngineBuilder
             return methodName + '(' + field + ', \'' + value + '\')';
         }
     }
-    
-    private void registerSubClasses()
-    {
-        subclasses.add(
-            '  public class Target\r\n' +
-            '  {\r\n' +
-            '    public String Company { get; set; }\r\n' +
-            '    public String EmailDomain { get; set; }\r\n' +
-            '    public String Country { get; set; }\r\n' +
-            '    public String ZipCode { get; set; }\r\n' +
-            '    public String State { get; set; }\r\n' +
-            '    public String Industry { get; set; }\r\n' +
-            '    public Boolean Locked { get; set; }\r\n' +
-            '  }\r\n');
-    }
-    
-    private void registerOpMethods()
-    {
-        methods.add( 
-               '  @testvisible\r\n' +
-               '  private static Boolean opIn(String value, Set<String> targetSet) \r\n' +
-               '  {\r\n' +
-               '    value = (value == null) ? null : value.toLowerCase();\r\n' +
-               '    return targetSet.contains(value);\r\n' +
-               '  }\r\n');
-        methods.add(
-               '  @testvisible\r\n' +
-               '  private static Boolean opInRange(String value, String targetLow, String targetHigh)\r\n' +
-               '  {\r\n' +
-               '    value = (value == null) ? \'\' : value.toLowerCase();\r\n' +
-               '    targetLow = (targetLow == null) ? \'\' : targetLow.toLowerCase();\r\n' +
-               '    targetHigh = (targetHigh == null) ? \'\' : targetHigh.toLowerCase();\r\n' +
-               '    if(value.length() < targetLow.length() || value.length() < targetHigh.length())\r\n' +
-               '    {\r\n' +
-               '      return false;\r\n' +
-               '    }\r\n' +
-               '    else\r\n' +
-               '    {\r\n' +
-               '      return value.substring(0, targetLow.length()) >= targetLow && value.substring(0, targetHigh.length()) <= targetHigh;\r\n' +
-               '    }\r\n' +
-               '  }\r\n');
-        methods.add(
-               '  @testvisible\r\n' +
-               '  private static Boolean opEqual(String value, String target)\r\n' +
-               '  {\r\n' +
-               '    return value == target || (String.IsBlank(target) && String.isBlank(value));\r\n' +
-               '  }\r\n');
-        methods.add(
-               '  @testvisible\r\n' +
-               '  private static Boolean opStart(String value, Set<String> targetSet)\r\n' +
-               '  {\r\n' +
-               '    value = (value == null) ? \'\' : value.toLowerCase();\r\n' +
-               '    for(String t : targetSet)\r\n' +
-               '    {\r\n' +
-               '      if(value.startsWith(t))\r\n' +
-               '      {\r\n' +
-               '         return true;\r\n' +
-               '      }\r\n' +
-               '    }\r\n' +
-               '    return false;\r\n' +
-               '  }\r\n');
-        methods.add(
-               '  @testvisible\r\n' +
-               '  private static Boolean opEnd(String value, Set<String> targetSet)\r\n' +
-               '  {\r\n' +
-               '    value = (value == null) ? \'\' : value.toLowerCase();\r\n' +
-               '    for(String t : targetSet)\r\n' +
-               '    {\r\n' +
-               '      if(value.endsWith(t))\r\n' +
-               '      {\r\n' +
-               '         return true;\r\n' +
-               '      }\r\n' +
-               '    }\r\n' +
-               '    return false;\r\n' +
-               '  }\r\n');
-        methods.add(
-               '  @testvisible\r\n' +
-               '  private static Boolean opContain(String value, String target)\r\n' +
-               '  {\r\n' +
-               '    value = (value == null) ? \'\' : value.toLowerCase();\r\n' +
-               '    target = (target == null) ? \'\' : target.toLowerCase();\r\n' +
-               '    return value.contains(target);\r\n' +
-               '  }\r\n');       
-    }
-    
+
     private String wrapId(Id value)
     {
         return (value == null) ? 'null' : '\'' + value + '\'';
     }
-    
+
     private Boolean isListOperation(String op)
     {
         return op == 'in' || op == 'not in' || op == 'starts with' || op == 'not starts with' || op == 'ends with' || op == 'not ends with';

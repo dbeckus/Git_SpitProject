@@ -4,18 +4,20 @@
 public class PatchRuleHelper
 {
     public static List<Id> leadsNeedAssignment;
-    
-    static 
+    public static Map<Id, List<Id>> overlayHolder; //this map temporarily holds the result after patch match. because assignPatch and assignTeamMember are in different method call. assignPatch puts result to the map so that assignTeamMember will read it
+
+    static
     {
         leadsNeedAssignment = new List<Id>();
+        overlayHolder = new Map<Id, List<Id>>();
     }
-    
+
     @future
     public static void willAssignPatch(List<Id> recordIds)
     {
         assignPatch(recordIds);
     }
-    
+
     public static void assignPatch(List<Id> recordIds)
     {
         if(recordIds == null || recordIds.size() == 0)
@@ -30,7 +32,7 @@ public class PatchRuleHelper
             SilverPeakUtils.logDatabaseError(objs, saveResults);
         }
     }
-    
+
     public static void assignPatches(List<sObject> objs)
     {
         Map<Id, Patch__c> patches = new Map<Id, Patch__c>();
@@ -49,8 +51,14 @@ public class PatchRuleHelper
             }
             else
             {
-                PatchRuleEngine.Target target = getTarget(obj);
-                patchId = PatchRuleEngine.match(target);
+                PatchRuleEngineBase.Target target = getTarget(obj);
+                PatchRuleEngine engine = new PatchRuleEngine();
+                PatchRuleEngineBase.Match match = engine.match(target);
+                if(match != null)
+                {
+                    patchId = match.PatchId;
+                    overlayHolder.put(obj.Id, match.OverlayMatches);
+                }
             }
             Patch__c patch = patches.get(patchId);
             assignPatch(obj, patch);
@@ -72,7 +80,7 @@ public class PatchRuleHelper
             }
         }
     }
-    
+
     public static void assignPatch(sObject obj, Patch__c patch)
     {
         Boolean locked = (Boolean)obj.get('Patch_Locked__c');
@@ -143,7 +151,7 @@ public class PatchRuleHelper
                     opportunity.OwnerId = patch.RSM__c;
                     opportunity.Technical_Responsible__c = patch.SE__c;
                 }
-                
+
                 */
             }
         }
@@ -161,7 +169,7 @@ public class PatchRuleHelper
         }
         obj.put('Trigger_Assignment__c', false);
     }
-    
+
     public static List<sObject> getPatchSharings(List<sObject> objs)
     {
         Set<Id> patchIds = new Set<Id>();
@@ -169,11 +177,14 @@ public class PatchRuleHelper
         {
             patchIds.add((Id)obj.get('Patch__c'));
         }
-        Map<Id, Patch__c> patchMap = new Map<Id, Patch__c>();
-        for(Patch__c patch : [select Id, CSM__c, SE__c, ISR__c, RSM__c, Overlay_1__c, Overlay_2__c, Owner__c from Patch__c where Id in :patchIds])
+        for(Id tempId : OverlayHolder.keyset())
         {
-            patchMap.put(patch.Id, patch);
+            List<Id> overlayPatches = OverlayHolder.get(tempId);
+            patchIds.addAll(overlayPatches);
         }
+
+        Map<Id, Patch__c> patchMap = new Map<Id, Patch__c>([select Id, CSM__c, SE__c, ISR__c, RSM__c, Overlay_1__c, Overlay_2__c, Owner__c from Patch__c where Id in :patchIds]);
+
         List<sObject> result = new List<sObject>();
         for(sObject obj : objs)
         {
@@ -185,13 +196,13 @@ public class PatchRuleHelper
         }
         return result;
     }
-    
-    @future
+
+    /*@future
     public static void willAssignTeamMembers(List<Id> objIds)
     {
         assignTeamMembers(objIds);
-    }
-    
+    }*/
+
     public static void assignTeamMembers(List<Id> objIds)
     {
         if(objIds == null || objIds.size() == 0)
@@ -221,7 +232,7 @@ public class PatchRuleHelper
                     {
                         Database.delete([select Id from LeadShare where LeadId in :effectiveObjs], false);
                         Database.insert(getPatchSharings(effectiveObjs), false);
-                        ShareLeadAndOpportunityToPartnerHelper.shareLeads(leadIds);
+                        ShareLeadAndOpportunityToPartnerHelper.willShareLeads(leadIds);
                     }
                 }
                 else if(objs[0] instanceOf Opportunity)
@@ -248,7 +259,7 @@ public class PatchRuleHelper
                         }
                         Database.SaveResult[] result = Database.insert(teamMembers, false);
                         //SilverPeakUtils.logDatabaseError(teamMembers, result);
-                        ShareLeadAndOpportunityToPartnerHelper.shareOpportunities(oppIds);
+                        ShareLeadAndOpportunityToPartnerHelper.willShareOpportunities(oppIds);
                     }
                 }
                 else if(objs[0] instanceOf Account)
@@ -272,7 +283,7 @@ public class PatchRuleHelper
             SilverPeakUtils.logException(ex);
         }
     }
-    
+
     @future
     public static void refreshPatchTimestamp(Set<Id> patchIds)
     {
@@ -290,7 +301,7 @@ public class PatchRuleHelper
             SilverPeakUtils.logException(ex);
         }
     }
-    
+
     public static Long LastDeploymentDate
     {
         get
@@ -303,7 +314,7 @@ public class PatchRuleHelper
             return 0;
         }
     }
-    
+
     //supports acc/opp/lead Id
     public static sObject getSObject(Id recordId)
     {
@@ -314,7 +325,7 @@ public class PatchRuleHelper
         }
         return null;
     }
-    
+
     //supports acc/opp/lead Id
     public static List<sObject> getSObjects(List<Id> recordIds)
     {
@@ -350,11 +361,11 @@ public class PatchRuleHelper
         }
         return result;
     }
-    
+
     //supports acc/opp/lead object
-    public static PatchRuleEngine.Target getTarget(sObject obj)
+    public static PatchRuleEngineBase.Target getTarget(sObject obj)
     {
-        PatchRuleEngine.Target target = new PatchRuleEngine.Target();
+        PatchRuleEngineBase.Target target = new PatchRuleEngineBase.Target();
         if(obj instanceOf Account)
         {
             Account acc = (Account)obj;
@@ -390,18 +401,18 @@ public class PatchRuleHelper
         }
         return target;
     }
-    
-    public static Boolean isSameTarget(PatchRuleEngine.Target a, PatchRuleEngine.Target b)
+
+    public static Boolean isSameTarget(PatchRuleEngineBase.Target a, PatchRuleEngineBase.Target b)
     {
         return a.Company == b.Company && a.EmailDomain == b.EmailDomain && a.Country == b.Country && a.ZipCode == b.ZipCode && a.State == b.State && a.Industry == b.Industry;
     }
-    
+
     public static String getEmailDomain(String email)
     {
         email = (email == null) ? '' : email;
         return (email.indexOf('@') >= 0) ? email.substring(email.indexOf('@') + 1) : email;
     }
-    
+
     public static List<String> splitCsv(String line)
     {
         List<String> result = new List<String>();
@@ -456,7 +467,7 @@ public class PatchRuleHelper
         result.add(tempValue.trim());
         return result;
     }
-    
+
     @testvisible
     private static List<sObject> getPatchSharing(sObject obj, Patch__c patch)
     {
@@ -486,6 +497,10 @@ public class PatchRuleHelper
                 {
                     result.add(new LeadShare(LeadId=ld.Id, UserOrGroupId=patch.SE__c, LeadAccessLevel='Edit'));
                 }
+                /*if(patch.FCMM__c != null && patch.FCMM__c != ld.OwnerId)
+                {
+                    result.add(new LeadShare(LeadId=ld.Id, UserOrGroupId=patch.FCMM__c, LeadAccessLevel='Edit'));
+                }*/
                 if(patch.Overlay_1__c != null && patch.Overlay_1__c != ld.OwnerId)
                 {
                     result.add(new LeadShare(LeadId=ld.Id, UserOrGroupId=patch.Overlay_1__c, LeadAccessLevel='Edit'));
@@ -514,6 +529,10 @@ public class PatchRuleHelper
                 {
                     result.add(new AccountTeamMember(AccountId=acc.Id, UserId=patch.SE__c, TeamMemberRole='Systems Engineer'));
                 }
+                /*if(patch.FCMM__c != null)
+                {
+                    result.add(new AccountTeamMember(AccountId=acc.Id, UserId=patch.FCMM__c, TeamMemberRole='Field and Channel Marketing Manager'));
+                }*/
             }
             else if(obj instanceOf Opportunity)
             {
@@ -534,6 +553,10 @@ public class PatchRuleHelper
                 {
                     result.add(new OpportunityTeamMember(OpportunityId=opp.Id, UserId=patch.SE__c, TeamMemberRole='Systems Engineer'));
                 }
+                /*if(patch.FCMM__c != null && !IsPartOfCoreTeam(patch,patch.FCMM__c))
+                {
+                    result.add(new OpportunityTeamMember(OpportunityId=opp.Id, UserId=patch.FCMM__c, TeamMemberRole='Field and Channel Marketing Manager'));
+                }*/
                 if(patch.Owner__c != null && !IsPartOfCoreTeam(patch,patch.Owner__c))
                 {
                     result.add(new OpportunityTeamMember(OpportunityId=opp.Id, UserId=patch.Owner__c, TeamMemberRole='Team Owner'));
@@ -550,7 +573,7 @@ public class PatchRuleHelper
         }
         return result;
     }
-    
+
     private static boolean IsPartOfCoreTeam(Patch__c patch,Id userId)
     {
         if(userId== patch.RSM__c)

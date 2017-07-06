@@ -25,9 +25,49 @@ public class AccountTriggerHandler implements ITriggerHandler {
         {
             for (Id accId : newItems.keyset())
             {
-                
-                
+                Account newAccInfo= (Account)newItems.get(accId);
+                Account oldAccInfo= (Account)oldItems.get(accId);
+                if(!newAccInfo.Override_Service_Provider_Setting__c)
+                {
+                    if((oldAccInfo.ECSP__c!=newAccInfo.ECSP__c) || (oldAccInfo.Service_Provider_Account_Type__c !=newAccInfo.Service_Provider_Account_Type__c ||oldAccInfo.Service_Provider_Location__c!=newAccInfo.Service_Provider_Location__c || oldAccInfo.Service_Provider_Domain__c!=newAccInfo.Service_Provider_Domain__c||oldAccInfo.Service_Provider_Admin_User__c!=newAccInfo.Service_Provider_Admin_User__c))
+                    {
+                        if(newAccInfo.Cloud_Portal_Account_Id__c!=null || newAccInfo.Cloud_Portal_Account_Key__c!=null || newAccInfo.Cloud_Portal_Account_Name__c !=null || newAccInfo.Service_Provider_Contracted__c )
+                        {
+                            newAccInfo.addError('You cannot modify any fields in the service provider information section. Please contact service provider team.');
+                        }
+                        else
+                        {
+                            List<Asset> lstAssets=[Select Id from Asset where AccountId=:newAccInfo.Id and Status in ('Customer Evaluation')];
+                            List<Request__c> lstPOCs =[Select Id from Request__c where Opportunity__r.AccountId=:newAccInfo.Id];
+                            if((lstAssets!=null && lstAssets.size()>0) || (lstPOCs!=null && lstPOCs.size()>0) )
+                            {
+                                newAccInfo.addError('You cannot modify any fields in the service provider information section. Please contact service provider team.');
+                            }
+                            
+                        }
+                    }
+                }
+                if(!newAccInfo.Override_Service_Provider_Setting__c)
+                {
+                    if(!newAccInfo.ECSP__c && (oldAccInfo.Unity_Orch_Admin_User__c!=newAccInfo.Unity_Orch_Admin_User__c || oldAccInfo.Unity_Orch_Domain__c !=newAccInfo.Unity_Orch_Domain__c ||oldAccInfo.Unity_Orch_Location__c!=newAccInfo.Unity_Orch_Location__c))
+                    {
+                        if(newAccInfo.Cloud_Portal_Account_Id__c!=null || newAccInfo.Cloud_Portal_Account_Key__c!=null || newAccInfo.Cloud_Portal_Account_Name__c !=null)
+                        {
+                            newAccInfo.addError('You cannot modify any fields in the unity cloud orchestrator section. Please contact operations team.');
+                        }
+                        else
+                        {
+                            List<Asset> lstAssets=[Select Id from Asset where AccountId=:newAccInfo.Id and Status in ('Customer Evaluation','Customer Subscription Active') and Product2.Name like 'EC-ORCH-AAS%'];
+                            List<Request__c> lstPOCs =[Select Id from Request__c where Opportunity__r.AccountId=:newAccInfo.Id and Is_Unity_Cloud_Orchestrator__c=true];
+                            if((lstAssets!=null && lstAssets.size()>0) || (lstPOCs!=null && lstPOCs.size()>0) )
+                            {
+                                newAccInfo.addError('You cannot modify any fields in the unity cloud orchestrator section. Please contact operations team.');
+                            }
+                        }
+                    }
+                }
             }
+            
         }
     }
     public void BeforeDelete(Map<Id,SObject> oldItems) 
@@ -97,28 +137,8 @@ public class AccountTriggerHandler implements ITriggerHandler {
             for (Id accId : newItems.keyset())
             {
                 Account newAccInfo= (Account)newItems.get(accId);
-                Account oldAccInfo= (Account)oldItems.get(accId);
-                
-                if(!newAccInfo.Override_Service_Provider_Setting__c)
-                {
-                    if((oldAccInfo.ECSP__c!=newAccInfo.ECSP__c) || (oldAccInfo.Service_Provider_Account_Type__c !=newAccInfo.Service_Provider_Account_Type__c ||oldAccInfo.Service_Provider_Location__c!=newAccInfo.Service_Provider_Location__c || oldAccInfo.Service_Provider_Domain__c!=newAccInfo.Service_Provider_Domain__c||oldAccInfo.Service_Provider_Admin_User__c!=newAccInfo.Service_Provider_Admin_User__c))
-                    {
-                        if(newAccInfo.Cloud_Portal_Account_Id__c!=null || newAccInfo.Cloud_Portal_Account_Key__c!=null || newAccInfo.Cloud_Portal_Account_Name__c !=null || newAccInfo.Service_Provider_Contracted__c )
-                        {
-                            newAccInfo.addError('You cannot modify any fields in the service provider information section. Please contact service provider team.');
-                        }
-                        else
-                        {
-                            List<Asset> lstAssets=[Select Id from Asset where AccountId=:newAccInfo.Id and Status in ('Customer Evaluation')];
-                            List<Request__c> lstPOCs =[Select Id from Request__c where Opportunity__r.AccountId=:newAccInfo.Id];
-                            if((lstAssets!=null && lstAssets.size()>0) || (lstPOCs!=null && lstPOCs.size()>0) )
-                            {
-                                newAccInfo.addError('You cannot modify any fields in the service provider information section. Please contact service provider team.');
-                            }
-                            
-                        }
-                    }
-                }
+                Account oldAccInfo= (Account)oldItems.get(accId);               
+               
                 if(newAccInfo.Partner_Application_Status__c == 'Approved' && oldAccInfo.Partner_Application_Status__c != 'Approved')
                 {
                     lstPartnerAcctIds.add(new Account(Id=newAccInfo.Id,IsPartner=true));
@@ -137,8 +157,8 @@ public class AccountTriggerHandler implements ITriggerHandler {
                 }
                 if(newAccInfo.Patch_Locked__c == false)
                 {
-                    PatchRuleEngine.Target target = PatchRuleHelper.getTarget(newAccInfo);
-                    PatchRuleEngine.Target oldTarget = PatchRuleHelper.getTarget(oldAccInfo);
+                    PatchRuleEngineBase.Target target = PatchRuleHelper.getTarget(newAccInfo);
+                    PatchRuleEngineBase.Target oldTarget = PatchRuleHelper.getTarget(oldAccInfo);
                     if(newAccInfo.Trigger_Assignment__c || !PatchRuleHelper.isSameTarget(target, oldTarget))
                     {
                         accNeedsPatchAssign.add(newAccInfo.Id);
@@ -188,7 +208,7 @@ public class AccountTriggerHandler implements ITriggerHandler {
                 string bodyText= string.format(templateString,arguments);
             //Send Email to DevOps Team
             Messaging.SingleEmailMessage message = new Messaging.SingleEmailMessage();
-            message.toAddresses = new String[] {'devopshelp@silver-peak.com','notifications@silver-peak.com'};
+            message.toAddresses = new String[] {'devopshelp@silver-peak.com','notifications@silver-peak.com','prane@silver-peak.com'};
                 message.subject = 'Please create MTO instance for this account '+ newAccInfo.Cloud_Portal_Account_Name__c;
             message.plainTextBody = bodyText;
             Messaging.SingleEmailMessage[] messages = 

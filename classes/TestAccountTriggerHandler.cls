@@ -203,6 +203,59 @@ public class TestAccountTriggerHandler {
             }
         }
     }
-    
+     @IsTest(SeeAllData=true)
+    public static void test1_Account_UnityCloudCP_Assets()
+    {
+        Account acc=new Account(Name='Test',Unity_Orch_Admin_User__c='abc@abc.com',Unity_Orch_Domain__c='test123',Unity_Orch_Location__c='US East (Ohio)');
+        insert acc;
+        Account spacc=new Account(Name='Silver Peak Systems');
+        insert spacc;
+        Product2 product = new Product2(Name='EC-ORCH-AAS-50-1Y',Model__c='EC-ORCH-AAS-50-1Y', Product_Type__c='EdgeConnect', Family='Virtual Image', Product_Category__c='Subscription', IsActive=true);
+        insert product;
+        Asset asset1 = new Asset(Name='T-30', AccountId=acc.Id, Product2Id=product.Id,Status='Customer Evaluation');
+        insert asset1;
+        
+        acc.Unity_Orch_Domain__c='abc123';
+        
+        try
+        {
+            update acc;
+        }
+        catch(Exception ex)
+        {
+            Boolean expectedExceptionThrown =  ex.getMessage().contains('You cannot modify any fields in the unity cloud orchestrator section. Please contact operations team.') ? true : false;
+            System.AssertEquals(expectedExceptionThrown, true);
+        }
+        
+    }
+    @IsTest(SeeAllData=true)
+    public static void test1_Account_UnityCloudSyncedinCP()
+    {
+        Account acc=new Account(Name='Test',Cloud_Portal_Account_Name__c='Test',Unity_Orch_Admin_User__c='abc@abc.com',Unity_Orch_Domain__c='test123',Unity_Orch_Location__c='US East (Ohio)');
+        insert acc;
+        acc.Unity_Orch_Domain__c='abc123';
+        Profile p = [SELECT Id FROM Profile WHERE Name='9-Operations Manager']; 
+        User u = new User(Alias = 'standt', Email='testUser@uniquetest.com', 
+                          EmailEncodingKey='UTF-8', LastName='Testing', LanguageLocaleKey='en_US', 
+                          LocaleSidKey='en_US', ProfileId = p.Id, IsServiceProviderTeam__c=true,
+                          TimeZoneSidKey='America/Los_Angeles', UserName='testUser@uniquetest.com');
+        
+        u.IsActive =true;
+        System.runAs(u) 
+        {
+            // The following code runs as user 'u' 
+            try
+            {
+                update acc;
+            }
+            catch(Exception ex)
+            {
+                System.debug(ex.getMessage());
+                Boolean expectedExceptionThrown =  ex.getMessage().contains('You cannot modify any fields in the unity cloud orchestrator section. Please contact operations team.') ? true : false;
+                System.AssertEquals(expectedExceptionThrown, true);
+            }
+            
+        }
+    }
    
 }

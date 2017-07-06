@@ -12,7 +12,6 @@
         <editor>simple</editor>
         <enableArticleCreation>true</enableArticleCreation>
         <enableArticlePublicSharingSites>false</enableArticlePublicSharingSites>
-        <enableCaseDataCategoryMapping>true</enableCaseDataCategoryMapping>
         <useProfileForPDFCreation>true</useProfileForPDFCreation>
     </cases>
     <defaultLanguage>en_US</defaultLanguage>
@@ -20,7 +19,6 @@
     <enableCreateEditOnArticlesTab>true</enableCreateEditOnArticlesTab>
     <enableExternalMediaContent>true</enableExternalMediaContent>
     <enableKnowledge>true</enableKnowledge>
-    <enableLightningKnowledge>false</enableLightningKnowledge>
     <showArticleSummariesCustomerPortal>true</showArticleSummariesCustomerPortal>
     <showArticleSummariesInternalApp>true</showArticleSummariesInternalApp>
     <showArticleSummariesPartnerPortal>true</showArticleSummariesPartnerPortal>
