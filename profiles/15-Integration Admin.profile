@@ -1561,6 +1561,10 @@
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>RequeueCaseController</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>RevenueRecognitionChecklistController</apexClass>
         <enabled>false</enabled>
     </classAccesses>
@@ -2006,6 +2010,10 @@
     </classAccesses>
     <classAccesses>
         <apexClass>TestReSyncDeletedAssetsInCP</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>TestRequeueCaseController</apexClass>
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
@@ -9527,6 +9535,10 @@
     </pageAccesses>
     <pageAccesses>
         <apexPage>RenewalOpportunity</apexPage>
+        <enabled>false</enabled>
+    </pageAccesses>
+    <pageAccesses>
+        <apexPage>RequeueCase</apexPage>
         <enabled>false</enabled>
     </pageAccesses>
     <pageAccesses>

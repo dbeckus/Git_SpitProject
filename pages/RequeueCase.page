@@ -1,0 +1,6 @@
+<apex:page standardController="Case" extensions="RequeueCaseController" action="{!AutoSave}" >
+    <apex:pageBlock >
+    <apex:pageMessages ></apex:pageMessages>
+    
+    </apex:pageBlock>
+</apex:page>
