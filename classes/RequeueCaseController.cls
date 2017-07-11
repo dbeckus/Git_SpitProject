@@ -45,7 +45,11 @@ global class RequeueCaseController {
         String formattedString = String.format('Case {0} Initiate Case Transfer Request Notification.', new String[]{caseInfo.CaseNumber});
         mail.setSubject(formattedString);
         string datastring= 'Hello,\r\n\r\n This is to notify that the customer has initiated a request to requeue the case. It has been assigned to csr answer1. \r\n\r\n  Thank you,\r\n\r\n Silver Peak Support';
-        
+        Id orgWideEmail = SilverPeakUtils.getOrganizationWideEmailId('notifications@silver-peak.com');
+        if(orgWideEmail != null)
+        {
+            mail.setOrgWideEmailAddressId(orgWideEmail);
+        }
         mail.setPlainTextBody(string.valueof(datastring));
         mail.setToAddresses(ccs);
         Messaging.sendEmail(new Messaging.SingleEmailMessage[] { mail });
@@ -58,7 +62,6 @@ global class RequeueCaseController {
         if(template.size() > 0)
         {
             List<String> ccs = new List<String>();
-            ccs.add('prane@silver-peak.com');
             if(caseInfo.CC1__c!=null)
                 ccs.add(caseInfo.CC1__c);
             if(caseInfo.CC2__c!=null)
