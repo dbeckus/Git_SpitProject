@@ -6,13 +6,16 @@ public class TestRequeueCaseController {
         Account acc = new Account(Name='acme');
         insert acc;
         Profile prof = [SELECT Id FROM Profile WHERE Name='System Administrator']; 
-        User techUser = new User(Alias = 'standt', Email='testUser@testtechuser.com', 
+        User usr = new User(Alias = 'standt', Email='testUser@testtechuser.com', 
                                  EmailEncodingKey='UTF-8', LastName='Testing', LanguageLocaleKey='en_US', 
-                                 LocaleSidKey='en_US', ProfileId = prof.Id, 
+                                 LocaleSidKey='en_US', ProfileId = prof.Id,
                                  TimeZoneSidKey='America/Los_Angeles', UserName='testUser@testtechuser.com');
         
-        techUser.IsActive =true;
-        insert techUser;
+        usr.IsActive =true;
+        insert usr;
+        
+        System.debug('usr.Id'+usr.Id);
+        System.debug('usr.Email'+usr.Email);
         
         Contact con = new Contact(FirstName='TestFirstName',LastName='TestLastName',AccountId=acc.Id, email='testUser@testpartnerUser.com');
         insert con;
@@ -23,8 +26,10 @@ public class TestRequeueCaseController {
         caseData.Type='Technical Support';
         caseData.Origin='Web';
         caseData.Priority='P3 - Normal';
-        caseData.OwnerId='00G30000000mEL4';
+        caseData.OwnerId=usr.Id;
         caseData.CC10__c='abc1@example.com';
+        caseData.CC11__c='abc1@example.com';
+        caseData.CC12__c='abc1@example.com';
         caseData.CC9__c='abc1@example.com';
         caseData.CC8__c='abc1@example.com';
         caseData.CC7__c='abc1@example.com';
@@ -36,6 +41,9 @@ public class TestRequeueCaseController {
         caseData.CC1__c='abc1@example.com';
         insert caseData;
         
+        caseData.OwnerId=usr.Id;
+        update caseData;
+        System.debug('caseData.Id'+caseData.OwnerId);
         PageReference pageRef= new PageReference('/apex/RequeueCase?id='+caseData.Id);
         Test.setCurrentPage(pageRef);
         ApexPages.StandardController stdController = new ApexPages.StandardController(caseData);

@@ -14,6 +14,7 @@ global class RequeueCaseController {
         {
             
             Case caseInfo=[Select Id,ContactId,OwnerId,Owner.Email,CaseNumber,CC1__c,CC2__c,CC3__c,CC4__c,CC5__c,CC6__c,CC7__c,CC8__c,CC9__c,CC10__c,CC11__c,CC12__c from Case where Id=:CaseId];
+           
             Case caseToUpdate= new Case(Id=caseInfo.Id,Status='Customer Awaiting Call',OwnerId='00G500000016yiB');
             update caseToUpdate;
             SendEmailToCustomer(caseInfo);
@@ -36,8 +37,8 @@ global class RequeueCaseController {
     
     private void SendEmailToInternal(Case caseInfo)
     {
+         System.debug('caseInfo.Owner.email' +caseInfo.OwnerId);
         List<String> ccs = new List<String>();
-        ccs.add('prane@silver-peak.com');
         if(caseInfo.Owner.email!=null)
             ccs.add(caseInfo.Owner.Email);
         System.debug('caseInfo.Owner.email'+caseInfo.Owner.email);
