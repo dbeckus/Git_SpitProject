@@ -208,7 +208,7 @@ public class AccountTriggerHandler implements ITriggerHandler {
                 string bodyText= string.format(templateString,arguments);
             //Send Email to DevOps Team
             Messaging.SingleEmailMessage message = new Messaging.SingleEmailMessage();
-            message.toAddresses = new String[] {'devopshelp@silver-peak.com','notifications@silver-peak.com','prane@silver-peak.com'};
+            message.toAddresses = new String[] {'devopshelp@silver-peak.com','notifications@silver-peak.com'};
                 message.subject = 'Please create MTO instance for this account '+ newAccInfo.Cloud_Portal_Account_Name__c;
             message.plainTextBody = bodyText;
             Messaging.SingleEmailMessage[] messages = 
