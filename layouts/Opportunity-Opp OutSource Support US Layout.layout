@@ -115,7 +115,7 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Readonly</behavior>
-                <field>NCV__c</field>
+                <field>NTCV__c</field>
             </layoutItems>
         </layoutColumns>
         <layoutColumns>
