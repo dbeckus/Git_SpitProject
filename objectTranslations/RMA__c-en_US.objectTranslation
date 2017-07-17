@@ -414,6 +414,10 @@
         <name>Reason_for_Compromise_Breach__c</name>
     </fields>
     <fields>
+        <label><!-- Received Count --></label>
+        <name>Received_Count__c</name>
+    </fields>
+    <fields>
         <label><!-- POC Request --></label>
         <name>Request__c</name>
         <relationshipLabel><!-- RMA&apos;s --></relationshipLabel>

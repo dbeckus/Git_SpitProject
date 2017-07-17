@@ -45,7 +45,7 @@ public class TestDeleteRMAForApprovedPendRet {
         asset.SerialNumber = '001BBC039649_t';
         asset.AccountId = acc.Id;
         asset.Product2Id = product.Id;
-        asset.Status = 'Customer Owned';
+        asset.Status = 'Customer Evaluation';
         asset.Quantity = 1;
         asset.POCRequest__c=request.Id;
         insert asset;
@@ -55,6 +55,8 @@ public class TestDeleteRMAForApprovedPendRet {
         
         List<RMA__c> rmaItem=[Select Id from RMA__C where Request__c=:request.Id];
         System.assert(rmaItem!=null && rmaItem.size()>0);
+        rmaItem[0].Status__c='Received';
+        update rmaItem[0];
         Profile prof = [SELECT Id FROM Profile WHERE Name='9-Operations Manager']; 
         User usr = new User(Alias = 'standt', Email='testUser@uniquetest.com', 
                             EmailEncodingKey='UTF-8', LastName='Testing', LanguageLocaleKey='en_US', 

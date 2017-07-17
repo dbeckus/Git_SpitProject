@@ -830,6 +830,21 @@ TODAY() -  DATEVALUE(CreatedDate) ,0)</formula>
         <visibleLines>10</visibleLines>
     </fields>
     <fields>
+        <fullName>Received_Count__c</fullName>
+        <externalId>false</externalId>
+        <label>Received Count</label>
+        <summaryFilterItems>
+            <field>RMA_Item__c.Status__c</field>
+            <operation>equals</operation>
+            <value>Received</value>
+        </summaryFilterItems>
+        <summaryForeignKey>RMA_Item__c.RMA__c</summaryForeignKey>
+        <summaryOperation>count</summaryOperation>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Summary</type>
+    </fields>
+    <fields>
         <fullName>Request__c</fullName>
         <deleteConstraint>SetNull</deleteConstraint>
         <externalId>false</externalId>

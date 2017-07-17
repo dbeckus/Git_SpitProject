@@ -237,6 +237,10 @@
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>CalculateCustomerDateonAccountBatch</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>CalculateServiceProviderOppAmount</apexClass>
         <enabled>false</enabled>
     </classAccesses>
@@ -6517,6 +6521,11 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>RMA__c.Reason_for_Compromise_Breach__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>RMA__c.Received_Count__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

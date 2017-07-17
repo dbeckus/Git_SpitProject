@@ -17,10 +17,8 @@ trigger TriggerProvisionDecomissionOnAssets on Asset (after insert,after update)
         if(spAccount!=null)
         {
             silverpeakSystemsId=spAccount[0].Id;
-            
         }
     }
-    
     for(Asset toUpdateAsset:Trigger.New)
     {
         if(Trigger.isInsert)
@@ -28,12 +26,15 @@ trigger TriggerProvisionDecomissionOnAssets on Asset (after insert,after update)
             if(toUpdateAsset.AccountId!=null)
             {
                 string acctId=toUpdateAsset.AccountId;
-                if(acctId!=silverpeakSystemsId)
+                if(acctId!=silverpeakSystemsId && (toUpdateAsset.Product_Quote_Type__c=='EDGECONNECT'|| toUpdateAsset.Product_Quote_Type__c=='EC-SP-Perpetual'|| toUpdateAsset.Product_Quote_Type__c=='EC-SP-Metered') && toUpdateAsset.Product_Family__c=='Product')
                 {
-                    oldAcctIds.add(toUpdateAsset.AccountId);
+                    if(toUpdateAsset.status !='Silver Peak Inventory' && toUpdateAsset.status !='Write-Off'&& toUpdateAsset.status !='Obsolete RMA Unit–Supp Transferred–WO')
+                    { 
+                        assetIds.add(new Asset(Id=toUpdateAsset.Id,Cloud_Portal_Sync_Status__c='Pending',Sync_With_Cloud_Portal__c=true));
+                        oldAcctIdsToUpdate.add(acctId);
+                    }
                 }
             }
-            
         }
         else if(Trigger.isUpdate)
         {
@@ -51,31 +52,21 @@ trigger TriggerProvisionDecomissionOnAssets on Asset (after insert,after update)
             //provision an existing asset to another account
             if(oldAsset.AccountId != toUpdateAsset.AccountId && oldAsset.AccountId == silverpeakSystemsId && oldAsset.Status =='Silver Peak Inventory')
             {
-                if(toUpdateAsset.AccountId!=null)
+                if(toUpdateAsset.AccountId!=null && (toUpdateAsset.Product_Quote_Type__c=='EDGECONNECT'|| toUpdateAsset.Product_Quote_Type__c=='EC-SP-Perpetual'|| toUpdateAsset.Product_Quote_Type__c=='EC-SP-Metered') && toUpdateAsset.Product_Family__c=='Product')
                 {
-                    oldAcctIds.add(toUpdateAsset.AccountId);
+                    if(toUpdateAsset.status !='Silver Peak Inventory' && toUpdateAsset.status !='Write-Off'&& toUpdateAsset.status !='Obsolete RMA Unit–Supp Transferred–WO')
+                    { 
+                        assetIds.add(new Asset(Id=toUpdateAsset.Id,Cloud_Portal_Sync_Status__c='Pending',Sync_With_Cloud_Portal__c=true));
+                        oldAcctIdsToUpdate.add(toUpdateAsset.AccountId);
+                    }
                 }
                 
             }
-            
-            
         }
     }
-    
-    
-    if(oldAcctIds.size()>0)
-    {
-        assetIds.addAll([select Id,AccountId from Asset where AccountId in:oldAcctIds and Product2.family='Product' and (not Account.Name like '%silver peak%') and Product2.Name like 'EC%' and status not in ('Silver Peak Inventory','Write-Off','Obsolete RMA Unit–Supp Transferred–WO')]);
-    }
+   
     if(assetIds.size()>0)
     {
-        for(Asset item: assetIds)
-        {
-            item.Cloud_Portal_Sync_Status__c='Pending';
-            item.Sync_With_Cloud_Portal__c=true;
-            oldAcctIdsToUpdate.add(item.AccountId);
-        }
-        
         update assetIds;
     }
     if(oldAcctIdsToUpdate.size()>0)

@@ -1,18 +1,19 @@
 @IsTest
 public class TestUpdateCustomerDateonAccount {
-    @IsTest(SeeAllData=true)
+    @IsTest
     public static void TestUpdateECCustomerDate_EC()
     {
-        Test.startTest();
+        
         Account acc= new Account(Name='acme');
         insert acc;
-        
+        Account spAcc= new Account(Name='Silver Peak Systems');
+        insert spAcc;
         Product2 product = new Product2();
         product.Name = 'EC-BASE-1Y';
         product.ProductCode = 'EC-BASE-1Y';
         product.Model__c = 'EC-BASE-1Y';
         product.Family = 'Virtual Image';
-        
+        product.Product_Type__c='EDGECONNECT';
         insert product;
         
         Asset asset= new Asset();
@@ -23,19 +24,21 @@ public class TestUpdateCustomerDateonAccount {
         asset.Status = 'Customer Subscription Active';
         asset.Quantity = 1;
         asset.Ship_Date__c = Date.today();
+        Test.startTest();
         insert asset;
         
         Account actualAcc=[Select Id,EC_Customer_Date__c from Account where Id=:acc.Id];
         System.assert(actualAcc.EC_Customer_Date__c!=null);
         Test.stopTest();
     }
-    
-    @IsTest(SeeAllData=true)
+    @IsTest
     public static void TestUpdateECCustomerDate_EC_ChangeAcctId()
     {
-        Test.startTest();
+       
         Account acc= new Account(Name='acme');
         insert acc;
+        Account spAcc= new Account(Name='Silver Peak Systems');
+        insert spAcc;
         Account newacc= new Account(Name='new acme');
         insert newacc;
         
@@ -44,6 +47,7 @@ public class TestUpdateCustomerDateonAccount {
         product.ProductCode = 'EC-BASE-1Y';
         product.Model__c = 'EC-BASE-1Y';
         product.Family = 'Virtual Image';
+        product.Product_Type__c='EDGECONNECT';
         insert product;
         
         Asset asset= new Asset();
@@ -54,6 +58,7 @@ public class TestUpdateCustomerDateonAccount {
         asset.Status = 'Customer Subscription Active';
         asset.Quantity = 1;
         asset.Ship_Date__c = Date.today();
+        Test.startTest();
         insert asset;
         
         asset.AccountId=newacc.Id;
@@ -64,19 +69,20 @@ public class TestUpdateCustomerDateonAccount {
         Test.stopTest();
     }
     
-    @IsTest(SeeAllData=true)
+    @IsTest
     public static void TestUpdateECCustomerDate_VX()
     {
-        Test.startTest();
+       
         Account acc= new Account(Name='acme');
         insert acc;
-        
+        Account spAcc= new Account(Name='Silver Peak Systems');
+        insert spAcc;
         Product2 product = new Product2();
         product.Name = 'VX-2000';
         product.ProductCode = 'VX-2000';
         product.Model__c = 'VX-2000';
         product.Product_Type__c = 'NX/VX';
-        
+        product.Family='Virtual Image';
         insert product;
         
         Asset asset= new Asset();
@@ -87,6 +93,7 @@ public class TestUpdateCustomerDateonAccount {
         asset.Status = 'Customer Subscription';
         asset.Ship_Date__c = Date.today();
         asset.Quantity = 1;
+         Test.startTest();
         insert asset;
         
         Account actualAcc=[Select Id,EC_Customer_Date__c from Account where Id=:acc.Id];

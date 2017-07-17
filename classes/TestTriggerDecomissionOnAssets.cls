@@ -12,6 +12,7 @@ public class TestTriggerDecomissionOnAssets {
         product.ProductCode = 'EC-XS';
         product.Model__c = 'EC-XS';
         product.Family='Product';
+        product.Product_Type__c='EDGECONNECT';
         insert product;
         
         Asset asset= new Asset();

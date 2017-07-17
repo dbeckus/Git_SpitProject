@@ -11,31 +11,53 @@ trigger DeleteRMAForApprovedPendRet on Request__c (after update) {
             
         }
     }
-    
-    if(reqIdList.size()>0)
+    List<RMA__c> rmaIdsToDelete= new List<RMA__c>();
+    List<Asset> lstAssetToUpdate= new List<Asset>();
+    System.Savepoint sp= Database.setSavepoint();
+    try
     {
-        for(Id pocId:reqIdList)
+        if(reqIdList.size()>0)
         {
-            List<RMA__c> rmaIds = [Select Id from RMA__c where Request__c =:pocId and Status__c!='Closed'];
-            if(rmaIds!=null && rmaIds.size()>0)
+            for(Id pocId:reqIdList)
             {
-                List<Asset> lstAsset=[Select Id from Asset where Id in (Select Asset__c from RMA_Item__c where RMA__c in: rmaIds)];
-                if(lstAsset!=null && lstAsset.size()>0)
+                List<RMA__c> rmaIds = [Select Id,LineCount__c,Received_Count__c from RMA__c where Request__c =:pocId and Status__c!='Closed'];
+                if(rmaIds!=null && rmaIds.size()>0)
                 {
-                    for(Asset item: lstAsset)
+                    List<Asset> lstAsset=[Select Id from Asset where Id in (Select Asset__c from RMA_Item__c where RMA__c in: rmaIds) and status='Pending Return – Eval'];
+                    if(lstAsset!=null && lstAsset.size()>0)
                     {
-                        item.Status='Customer Evaluation';
+                        for(Asset item: lstAsset)
+                        {
+                            item.Status='Customer Evaluation';
+                            lstAssetToUpdate.add(item);
+                        }
+                    }
+                    SendEmailToPOCContactforRMA(pocId,mapPocContact.get(pocId));
+                    for(RMA__c counter:rmaIds)
+                    {
+                        if(counter.LineCount__c==counter.Received_Count__c)
+                        {
+                            rmaIdsToDelete.add(counter);
+                        }
                     }
                     
-                    update lstAsset;
                 }
-                SendEmailToPOCContactforRMA(pocId,mapPocContact.get(pocId));
-                delete rmaIds;
+            }
+            if(lstAssetToUpdate.size()>0)
+            {
+                update lstAssetToUpdate;
+            }
+            if(rmaIdsToDelete.size()>0)
+            {
+                delete rmaIdsToDelete;
             }
         }
-        
-        
     }
+    catch(Exception ex)
+    {
+        Database.rollback(sp);
+    }
+    
     
     private static void SendEmailToPOCContactforRMA(Id pocId,Id pocContact)
     {
