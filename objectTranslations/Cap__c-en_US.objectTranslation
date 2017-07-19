@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Cap</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Cap</value>
+    </caseValues>
+    <fields>
+        <label><!-- Account Name --></label>
+        <name>Account_Name__c</name>
+        <relationshipLabel><!-- Cap --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Cap Comments Recipients --></label>
+        <name>Cap_Comments_Recipients__c</name>
+    </fields>
+    <fields>
+        <label><!-- Cap Comments --></label>
+        <name>Cap_Comments__c</name>
+    </fields>
+    <fields>
+        <label><!-- Closed By --></label>
+        <name>Closed_By__c</name>
+        <relationshipLabel><!-- Cap --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Closed Date --></label>
+        <name>Closed_Date__c</name>
+    </fields>
+    <fields>
+        <label><!-- Status --></label>
+        <name>Status__c</name>
+        <picklistValues>
+            <masterLabel>Closed</masterLabel>
+            <translation><!-- Closed --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Open</masterLabel>
+            <translation><!-- Open --></translation>
+        </picklistValues>
+    </fields>
+    <layouts>
+        <layout>Cap Layout</layout>
+        <sections>
+            <label><!-- Cap Comments --></label>
+            <section>Cap Comments</section>
+        </sections>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+    </layouts>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

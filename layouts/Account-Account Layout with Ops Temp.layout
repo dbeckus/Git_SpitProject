@@ -773,6 +773,8 @@
         <fields>End_of_Maintenance__c</fields>
         <fields>License_End_Date__c</fields>
         <relatedList>RelatedAssetList</relatedList>
+        <sortField>Product_Name_And_Nodes__c</sortField>
+        <sortOrder>Desc</sortOrder>
     </relatedLists>
     <relatedLists>
         <fields>CONTRACT.CONTRACT_NUMBER</fields>

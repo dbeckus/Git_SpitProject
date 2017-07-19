@@ -20,7 +20,7 @@ trigger DeleteRMAForApprovedPendRet on Request__c (after update) {
         {
             for(Id pocId:reqIdList)
             {
-                List<RMA__c> rmaIds = [Select Id,LineCount__c,Received_Count__c,Account__c from RMA__c where Request__c =:pocId];
+                List<RMA__c> rmaIds = [Select Id,LineCount__c,Received_Count__c,Account__c from RMA__c where Request__c =:pocId and status__c!='Closed'];
                 System.debug('rmaIds.Id'+rmaIds[0].Id);
                 if(rmaIds!=null && rmaIds.size()>0)
                 {

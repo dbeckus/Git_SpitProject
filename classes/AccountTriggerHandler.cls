@@ -130,6 +130,7 @@ public class AccountTriggerHandler implements ITriggerHandler {
         Map<Id,Account> mapContractAccIds = new Map<Id,Account>();
         Set<Id> ownerIds = new Set<Id>();
         List<Account> lstDevOps= new List<Account>();
+        /* List<Id> capCreationAcctId= new List<Id>(); Cap Project */
         if(newItems!=null && newItems.size()>0)
         {
             lstOpportunity=[Select Id,AccountId,CloseDate,Fiscal_Quarter_Name__c,StageName,Type,Trigger_Assignment__c,Patch_Locked__c  from Opportunity where AccountId in:newItems.keyset()]; // Fetch All Opps 
@@ -180,6 +181,10 @@ public class AccountTriggerHandler implements ITriggerHandler {
                 {
                     mapContractAccIds.put(newAccInfo.Id,newAccInfo);
                 }
+               /*  if(newAccInfo.IsCap__c!= oldAccInfo.IsCap__c && newAccInfo.IsCap__c== TRUE )
+                {
+                    capCreationAcctId.add(newAccInfo.Id);
+                }  Cap Project */
             }
             LinkAccountToPatch(accNeedsPatchAssign, accNeedsTeamAssign, lstOpportunity);
             UpdateOppTypeforAccount(oppTypeAccIds,lstOpportunity);
@@ -188,6 +193,7 @@ public class AccountTriggerHandler implements ITriggerHandler {
             DisableSelfRegForAccount(setSelfRegAcctIds);
             SendEmailToDevOps(lstDevOps);
             SendEmailsForContractExpiration(mapContractAccIds,ownerIds,lstContract);
+            /* CreateCapAndCapCases(capCreationAcctId); Cap Project */
         }
     }
     public void AfterDelete(Map<Id, SObject> oldItems) 
@@ -222,26 +228,37 @@ public class AccountTriggerHandler implements ITriggerHandler {
             }
         }
     }
-    /* private void CreateCapRecord(Set<Id> setAcctIds)
-{
-List<Cap__c> lstCap= new List<Cap__c>();
-List<Cap_Case__c> lstCapCases= new List<Cap_Case__c>();
-List<Case> lstAscCases = [Select Id, ClosedDate, CaseNumber, LastUpdateNote__c  from Case where 
-RecordtypeId IN ('012500000005AuO','012500000005Aui') AND ClosedDate = NULL
-AND AccountId in:setAcctIds];
+    
+ /* private void CreateCapAndCapCases(List<Id> setAcctIds)
+ {
+   Cap__c cap = new Cap__c();
+   List<Cap_Case__c> lstCapCase = new List<cap_Case__c>();
+   List<Case> lstAscCases = [Select Id, ClosedDate, CaseNumber, LastUpdateNote__c  from Case where 
+                                       RecordtypeId IN ('012500000005AuO','012500000005Aui') AND ClosedDate = NULL
+                                       AND AccountId =:setAcctIds]; 
+  if(setAcctIds!=null && setAcctIds.size()>0)
+  {
+  for(Id item: setAcctIds)
+   {
+    cap.Account_Name__c = setAcctIds[0]; 
+    cap.Status__c       = 'Open';
+   }
+    insert cap;
 
-if(setAcctIds!=null && setAcctIds.size()>0)
-{
-for(Id item: setAcctIds)
-{
-lstCap.Add(new Cap__c(Account_Name__c=item,Status__c='Open'));
-}
-}
-if(lstCap.size()>0)
-{
-insert lstCap;
-}
-}*/
+  if(lstAscCases.size()>0)
+  {
+     for(Case c : lstAscCases)
+     {    
+       Cap_Case__c cCase    = new Cap_Case__c();
+       cCase.Cap_Name__c    = cap.Id;
+       cCase.Case_Number__c = c.Id;       
+       lstCapCase.add(cCase); 
+     }
+   }
+       if (lstCapCase.size()> 0)  
+       insert lstCapCase; 
+  } 
+ } Cap Project */
     
     private void SendEmailsForContractExpiration(Map<Id,Account> mapAcct,Set<Id> ownerIds,List<Contract> lstContracts)
     {

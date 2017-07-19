@@ -33,8 +33,8 @@
         </sharedTo>
         <criteriaItems>
             <field>Type</field>
-            <operation>equals</operation>
-            <value>Marketplace</value>
+            <operation>notEqual</operation>
+            <value>Follow on Business,New Business</value>
         </criteriaItems>
         <name>CFO &amp; Subordinates</name>
         <opportunityAccessLevel>Edit</opportunityAccessLevel>
@@ -46,8 +46,8 @@
         </sharedTo>
         <criteriaItems>
             <field>Type</field>
-            <operation>equals</operation>
-            <value>Marketplace</value>
+            <operation>notEqual</operation>
+            <value>Follow on Business,New Business</value>
         </criteriaItems>
         <description>Marketplace Shares with VP Operations and Below</description>
         <name>Marketplace Shares with VP Operations and Below</name>
@@ -73,8 +73,8 @@
         </sharedTo>
         <criteriaItems>
             <field>Type</field>
-            <operation>equals</operation>
-            <value>Marketplace</value>
+            <operation>notEqual</operation>
+            <value>Follow on Business,New Business</value>
         </criteriaItems>
         <description>Marketplace shares with VP of Business Development and below</description>
         <name>Marketplace Shares with VP of Business Development and Below</name>
@@ -87,8 +87,8 @@
         </sharedTo>
         <criteriaItems>
             <field>Type</field>
-            <operation>equals</operation>
-            <value>Marketplace</value>
+            <operation>notEqual</operation>
+            <value>Follow on Business,New Business</value>
         </criteriaItems>
         <description>Marketplace shares with VP of Engineering and below</description>
         <name>Marketplace shares with VP of Engineering and below</name>

@@ -1,0 +1,99 @@
+<apex:page showHeader="false" controller="EditCapCasesController">
+    <apex:form >
+    <apex:pageBlock >
+        <apex:pageMessages ></apex:pageMessages>
+    <style>
+     body .bPageBlock .pbBody .blue .pbSubheader{
+          background-color:#87CEEB;
+        } 
+    </style>  
+        <script type="text/javascript">
+            function selectAllCheckboxes(obj,receivedInputID){
+            var inputCheckBox = document.getElementsByTagName("input");                  
+            for(var i=0; i<inputCheckBox.length; i++){          
+                if(inputCheckBox[i].id.indexOf(receivedInputID)!=-1){                                     
+                    inputCheckBox[i].checked = obj.checked;
+                }
+            }
+        }
+    </script>  
+        
+    <apex:outputPanel styleClass="blue" layout="block">
+        <apex:pageblocksection title="Cap Details" columns="2" id="section1">
+       
+    <apex:pageBlockSectionItem >
+           <apex:outputLabel >Cap Name</apex:outputLabel>
+            <apex:outputText value="{!OpenCap.Name}" />
+    </apex:pageBlockSectionItem>
+     <apex:pageBlockSectionItem >
+           <apex:outputLabel >Status</apex:outputLabel>
+            <apex:outputText value="{!OpenCap.Status__c}" />
+    </apex:pageBlockSectionItem>
+        <apex:pageBlockSectionItem >
+        <apex:outputLabel >Account Name</apex:outputLabel>
+            <apex:outputText value="{!OpenCap.Account_Name__r.Name}" />
+    </apex:pageBlockSectionItem>
+    <apex:pageBlockSectionItem >
+           <apex:outputLabel >Created Date</apex:outputLabel>
+            <apex:outputText value="{0,date,MM'/'dd'/'yyyy}" >
+           <apex:param value="{!OpenCap.CreatedDate}" />
+        </apex:outputText>
+    </apex:pageBlockSectionItem>
+    </apex:pageblocksection> 
+    </apex:outputPanel>
+    
+    <apex:outputPanel styleClass="blue" layout="block">
+    <apex:pageblocksection title="Related Cap Cases" columns="1"> 
+    </apex:pageblocksection>
+        </apex:outputPanel>
+    <apex:pageBlockTable style="width:100%" value="{!lstWrapperCapCases }" var="cc" > 
+         <apex:column style="width:5%">
+             <apex:facet name="header">
+                 <apex:inputCheckbox onclick="selectAllCheckboxes(this,'inputId')"/>
+             </apex:facet>
+             <apex:inputcheckbox value="{!cc.selected}" id="inputId"/>
+             </apex:column>
+                <apex:column style="width:5%" value="{!cc.ccase.Name}"/>
+        <apex:column style="width:20%" value="{!cc.ccase.Case_Number__r.CaseNumber}"/>
+        <apex:column style="width:5%" value="{!cc.ccase.Defect__c }"/>
+        <apex:column headerValue="Dupe">
+        <apex:inputField value="{!cc.ccase.Dupe__c}" style="width:60px"/> 
+        </apex:column>
+        <apex:column headerValue="Engineer">
+        <apex:inputField value="{!cc.ccase.Engineer__c}" style="width:80px"/>
+        </apex:column>
+        <apex:column headerValue="ETA for Fix">
+        <apex:inputField value="{!cc.ccase.ETA__c}" style="width:60px"/>
+        </apex:column>
+        <apex:column style="width:40%" value="{!cc.ccase.Comments__c }"/>
+        <apex:column headerValue="Issue Identified">
+        <apex:inputField value="{!cc.ccase.Issue_Identified__c}" style="width:75px"/>
+        </apex:column>
+        <apex:column headerValue="Engg Assigned">
+        <apex:inputField value="{!cc.ccase.Engineer_Assigned__c}" style="width:75px"/> 
+        </apex:column>
+        <apex:column headerValue="Analysis">
+        <apex:inputField value="{!cc.ccase.Analysis__c}"  style="width:85px"/>
+        </apex:column>
+        <apex:column headerValue="Evaluating Fix">
+        <apex:inputField value="{!cc.ccase.Evaluating_Fix__c}" style="width:85px"/>
+        </apex:column>
+        <apex:column headerValue="Fix">
+        <apex:inputField value="{!cc.ccase.Fix__c}" style="width:85px"/>
+        </apex:column>
+        <apex:column headerValue="QA'd">
+        <apex:inputField value="{!cc.ccase.QA_d__c}" style="width:85px"/>   
+        </apex:column> 
+        <apex:column headerValue="Released">
+        <apex:inputField value="{!cc.ccase.Released__c}" style="width:70px"/>   
+        </apex:column>
+        <apex:column style="width:10%" value="{!cc.ccase.Case_Status__c}"/>
+        </apex:pageBlockTable>
+        <apex:pageBlockButtons location="bottom" >
+         <apex:commandButton action="{!save}" value="Save"/>
+         <apex:commandButton value="Cancel" onclick="window.close()" />
+         </apex:pageBlockButtons> 
+        
+    </apex:pageBlock>
+       </apex:form>
+</apex:page>

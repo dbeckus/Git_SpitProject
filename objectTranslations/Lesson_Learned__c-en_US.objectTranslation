@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Lesson Learned</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Lessons Learned</value>
+    </caseValues>
+    <fields>
+        <label><!-- Cap Name --></label>
+        <name>Cap_Name__c</name>
+        <relationshipLabel><!-- Lessons Learned --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Impact --></label>
+        <name>Impact__c</name>
+    </fields>
+    <fields>
+        <label><!-- Phase --></label>
+        <name>Phase__c</name>
+        <picklistValues>
+            <masterLabel>Execution and Tracking</masterLabel>
+            <translation><!-- Execution and Tracking --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Scoping and Discovery</masterLabel>
+            <translation><!-- Scoping and Discovery --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Validation and Closure</masterLabel>
+            <translation><!-- Validation and Closure --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Problem/Success --></label>
+        <name>Problem_Success__c</name>
+    </fields>
+    <fields>
+        <label><!-- Recommendation --></label>
+        <name>Recommendation__c</name>
+    </fields>
+    <layouts>
+        <layout>Lesson Learned Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+    </layouts>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>
