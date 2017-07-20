@@ -1,27 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <OpportunitySharingRules xmlns="http://soap.sforce.com/2006/04/metadata">
     <criteriaBasedRules>
-        <fullName>All_Opportunities_but_Deleted_Shared_with_All_Internal_Users</fullName>
-        <sharedTo>
-            <allInternalUsers></allInternalUsers>
-        </sharedTo>
-        <criteriaItems>
-            <field>Type</field>
-            <operation>notEqual</operation>
-            <value>Marketplace</value>
-        </criteriaItems>
-        <name>All Opportunities but Deleted Shared with All Internal Users</name>
-        <opportunityAccessLevel>Edit</opportunityAccessLevel>
-    </criteriaBasedRules>
-    <criteriaBasedRules>
         <fullName>All_Opportunities_but_Deleted_with_Employees</fullName>
         <sharedTo>
             <group>Employees</group>
         </sharedTo>
         <criteriaItems>
             <field>Type</field>
-            <operation>notEqual</operation>
-            <value>Marketplace</value>
+            <operation>equals</operation>
+            <value>Follow on Business,New Business</value>
         </criteriaItems>
         <name>All Opportunities but Deleted with Employees</name>
         <opportunityAccessLevel>Edit</opportunityAccessLevel>
@@ -60,8 +47,8 @@
         </sharedTo>
         <criteriaItems>
             <field>Type</field>
-            <operation>equals</operation>
-            <value>Marketplace</value>
+            <operation>notEqual</operation>
+            <value>Follow on Business,New Business</value>
         </criteriaItems>
         <name>Marketplace Shares with VP Product M &amp; Below</name>
         <opportunityAccessLevel>Edit</opportunityAccessLevel>
@@ -94,37 +81,50 @@
         <name>Marketplace shares with VP of Engineering and below</name>
         <opportunityAccessLevel>Edit</opportunityAccessLevel>
     </criteriaBasedRules>
+    <criteriaBasedRules>
+        <fullName>Sharing_Rule_Internal_User</fullName>
+        <sharedTo>
+            <group>Internal_Users_Only</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>Type</field>
+            <operation>equals</operation>
+            <value>Follow on Business,New Business</value>
+        </criteriaItems>
+        <name>Sharing Rule Internal User</name>
+        <opportunityAccessLevel>Edit</opportunityAccessLevel>
+    </criteriaBasedRules>
     <ownerRules>
-        <fullName>AllInternalUsers737553</fullName>
+        <fullName>Owner_in_All_Partner_Users</fullName>
         <sharedTo>
             <allInternalUsers></allInternalUsers>
         </sharedTo>
         <sharedFrom>
             <allPartnerUsers></allPartnerUsers>
         </sharedFrom>
-        <name>AllInternalUsers</name>
+        <name>Owner in All Partner Users</name>
         <opportunityAccessLevel>Edit</opportunityAccessLevel>
     </ownerRules>
     <ownerRules>
-        <fullName>Contractors_Opps</fullName>
+        <fullName>Owner_in_Group_Contractors_Sales</fullName>
         <sharedTo>
             <group>Employees</group>
         </sharedTo>
         <sharedFrom>
             <group>Contractors_Sales</group>
         </sharedFrom>
-        <name>Contractors Opps</name>
+        <name>Owner in Group: Contractors-Sales</name>
         <opportunityAccessLevel>Edit</opportunityAccessLevel>
     </ownerRules>
     <ownerRules>
-        <fullName>Internal_Employees</fullName>
+        <fullName>Owner_in_Group_Employees</fullName>
         <sharedTo>
             <group>Employees</group>
         </sharedTo>
         <sharedFrom>
             <group>Employees</group>
         </sharedFrom>
-        <name>Internal Employees</name>
+        <name>Owner in Group: Employees</name>
         <opportunityAccessLevel>Edit</opportunityAccessLevel>
     </ownerRules>
 </OpportunitySharingRules>
