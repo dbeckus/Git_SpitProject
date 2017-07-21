@@ -1,0 +1,28 @@
+<apex:page controller="Pagination" sidebar="false" showHeader="false">
+    <script type="text/javascript">
+    function selectAllCheckboxes(obj,receivedInputID){
+        var inputCheckBox = document.getElementsByTagName("input");
+        for(var i=0; i<inputCheckBox.length; i++){
+            if(inputCheckBox[i].id.indexOf(receivedInputID)!=-1){
+                inputCheckBox[i].checked = obj.checked;
+            }
+        }
+    }
+    </script>
+    <apex:form >
+        <apex:pageBlock id="details">
+            <apex:pageblockTable value="{!accInnerObj}" var="inner">
+                <apex:column >
+                    <apex:inputCheckbox value="{!inner.isSelected}"/>
+                </apex:column> 
+                <apex:column headerValue="Account"> 
+                    <apex:outputText value="{!inner.acc.Name}" />
+                </apex:column>    
+            </apex:pageblockTable>
+            <br/>
+            <apex:commandButton value="<<Previous" action="{!previous}" rendered="{!hasPrevious}"/>
+            <apex:commandButton value="Next >>" action="{!next}" rendered="{!hasNext}"/>
+            <apex:commandButton value="Save" action="{!save}"/>
+            
+        </apex:pageBlock>
+    </apex:form></apex:page>

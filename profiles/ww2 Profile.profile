@@ -465,6 +465,10 @@
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>CustomIterable</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>CustomPOCRequestController</apexClass>
         <enabled>false</enabled>
     </classAccesses>
@@ -1102,6 +1106,10 @@
     </classAccesses>
     <classAccesses>
         <apexClass>POStatusController</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>Pagination</apexClass>
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
@@ -8955,6 +8963,10 @@
     <pageAccesses>
         <apexPage>POStatus</apexPage>
         <enabled>true</enabled>
+    </pageAccesses>
+    <pageAccesses>
+        <apexPage>Pagination</apexPage>
+        <enabled>false</enabled>
     </pageAccesses>
     <pageAccesses>
         <apexPage>PartnerAccountSummary</apexPage>

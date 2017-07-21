@@ -52,7 +52,7 @@ trigger PopulatePOCApprovers on Request__c (after insert,after update) {
             Request__c pocToUpdate= new Request__c(Id=reqId);
             pocToUpdate.RSM__c=finalOpp.OwnerId!=null?finalOpp.OwnerId:null;
             pocToUpdate.SE__c=finalOpp.Technical_Responsible__c!=null?finalOpp.Technical_Responsible__c:null;
-            if(finalOpp.Account.ECSP__c || finalOpp.GEO_Region__c.startsWith('APAC') || finalOpp.GEO_Region__c.startsWith('EMEA'))
+            if(finalOpp.Account.ECSP__c || finalOpp.GEO_Region__c.startsWith('APAC') || finalOpp.GEO_Region__c.startsWith('EMEA') || finalOpp.GEO_Region__c.startsWith('ANZ'))
             {
                 pocToUpdate.RSM_Manager__c=(finalOpp.Owner.ManagerId!=null && !removeUsers.contains(finalOpp.Owner.ManagerId) )?finalOpp.Owner.ManagerId:null;
                 pocToUpdate.RSM_VP_Sales__c=(finalOpp.Owner.Manager.ManagerId!=null && !removeUsers.contains(finalOpp.Owner.Manager.ManagerId))?finalOpp.Owner.Manager.ManagerId:null;
