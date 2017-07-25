@@ -11,9 +11,9 @@ public class TestCalculateContractedAmounts {
         insert spAccount;
         Opportunity testOpp = new Opportunity(Name='acme', CloseDate=Date.today(), StageName='Open', ForecastCategoryName ='Pipeline',Finance_Reviewed__c=true);
         insert testOpp;
-        Product2 testsfProduct = new Product2(Name='EC-BASE-3Y', Forecast_Category__c = 'Virtual',Term__c=3, Family='Virtual Image', IsActive=true,Product_Type__c='EDGECONNECT',isQuotable__c=true);
+        Product2 testsfProduct = new Product2(Name='EC-BASE-3Y', Forecast_Category__c = 'Virtual',Term__c=3, Family='Virtual Image', IsActive=true,Product_Type__c='EDGECONNECT',isQuotable__c=true,TCV_Enabled__c=true,ACV_Enabled__c=true,NTCV_Enabled__c=true);
         insert testsfProduct;
-        Product2 testhdProduct = new Product2(Name='EC-L-SP', Forecast_Category__c = 'Product', Family='Product', IsActive=true,Product_Type__c='EDGECONNECT',isQuotable__c=true);
+        Product2 testhdProduct = new Product2(Name='EC-L-SP', Forecast_Category__c = 'Product', Family='Product', IsActive=true,Product_Type__c='EDGECONNECT',isQuotable__c=true,TCV_Enabled__c=true,ACV_Enabled__c=true,NTCV_Enabled__c=true);
         insert testhdProduct;
         Contact testContact = new Contact(LastName='acme', AccountId=testAccount.Id);
         insert testContact;
@@ -23,18 +23,21 @@ public class TestCalculateContractedAmounts {
         PricebookEntry entry2= new PricebookEntry(pricebook2id = stdPb.id, product2id = testhdProduct.id, unitprice=2.0, isActive=true);
         insert entry2;
       
-        OpportunityLineItem lineItem1= new OpportunityLineItem(OpportunityId=testOpp.Id, pricebookentryid=entry1.id,Quantity=2,UnitPrice=3000);
+        OpportunityLineItem lineItem1= new OpportunityLineItem(OpportunityId=testOpp.Id, pricebookentryid=entry1.id,Quantity=2,UnitPrice=2000);
         insert lineItem1;
-        OpportunityLineItem lineItem2= new OpportunityLineItem(OpportunityId=testOpp.Id, pricebookentryid=entry2.id,Quantity=2,UnitPrice=3000);
+        lineItem1.UnitPrice=3000;
+        update lineItem1;
+        OpportunityLineItem lineItem2= new OpportunityLineItem(OpportunityId=testOpp.Id, pricebookentryid=entry2.id,Quantity=2,UnitPrice=2000);
         insert lineItem2;
-      	
+      	lineItem2.UnitPrice=3000;
+        update lineItem2;
         Opportunity output=[Select ACV__c,NTCV__c,TCV__c from Opportunity where Id=:testOpp.Id];
         System.assertEquals(2000, output.ACV__c);
         System.assertEquals(6000, output.TCV__c);
         System.assertEquals(4000, output.NTCV__c);
         Test.stopTest();
     }
-   	@isTest(SeeAllData=true)
+   
     public static void TestCalculateContractedAmounts_NX()
     {
         Test.startTest();
@@ -44,9 +47,9 @@ public class TestCalculateContractedAmounts {
         insert spAccount;
         Opportunity testOpp = new Opportunity(Name='acme', CloseDate=Date.today(), StageName='Open', ForecastCategoryName ='Pipeline',Finance_Reviewed__c=true);
         insert testOpp;
-        Product2 testsfProduct = new Product2(Name='VX-3000', Forecast_Category__c = 'Virtual',Term__c=3, Family='Virtual Image', IsActive=true,Product_Type__c='NX/VX',isQuotable__c=true);
+        Product2 testsfProduct = new Product2(Name='VX-3000', Forecast_Category__c = 'Virtual',Term__c=3, Family='Virtual Image', IsActive=true,Product_Type__c='NX/VX',isQuotable__c=true,TCV_Enabled__c=true,ACV_Enabled__c=true,NTCV_Enabled__c=true);
         insert testsfProduct;
-        Product2 testhdProduct = new Product2(Name='NX-5000', Forecast_Category__c = 'Product', Family='Product', IsActive=true,Product_Type__c='NX/VX',isQuotable__c=true);
+        Product2 testhdProduct = new Product2(Name='NX-5000', Forecast_Category__c = 'Product', Family='Product', IsActive=true,Product_Type__c='NX/VX',isQuotable__c=true,TCV_Enabled__c=true,ACV_Enabled__c=true,NTCV_Enabled__c=true);
         insert testhdProduct;
         Contact testContact = new Contact(LastName='acme', AccountId=testAccount.Id);
         insert testContact;

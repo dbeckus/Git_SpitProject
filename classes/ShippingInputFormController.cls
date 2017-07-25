@@ -5,12 +5,12 @@
 public class ShippingInputFormController
 {    
     private static final String SP_Account_Id = '00130000007mEjX';  //"Silver Peak Systems" account for the internal shipment page.
-    
+    String accountId=null;
     public ShippingInputFormController()
     {
         Shipment = new Shipment__c();
         ShippedLineList = new List<ShipLineInfo>();
-        String accountId = ApexPages.currentPage().getParameters().get('accountId');
+        accountId = ApexPages.currentPage().getParameters().get('accountId');
         String pocId = ApexPages.currentPage().getParameters().get('pocId');
         String poId = ApexPages.currentPage().getParameters().get('poId');
         String currentUrl = ApexPages.currentPage().getUrl().toLowerCase();
@@ -146,7 +146,7 @@ public class ShippingInputFormController
                     updateRMAExchange(Shipment.To_Be_Swapped_Asset__c, ShippedLineList[0].AssetId, Shipment.PurchaseOrderNumber__c, Shipment.Email__c, Shipment.Secondary_Email__c, Shipment.Third_Email__c);
                 }
                 //Create Contracts
-                CreateContractsForSmartHands(ShippedLineList);
+                CreateContractsForSmartHands(ShippedLineList,Shipment.Shipment_Account__c);
                 System.debug('ShippedLineList' +ShippedLineList);
                 return new PageReference('/' + Shipment.Id);
             }
@@ -158,30 +158,48 @@ public class ShippingInputFormController
         }
         return null;
     }
-    private static void CreateContractsForSmartHands(List<ShipLineInfo> lstShipLineInfo)
+    private static void CreateContractsForSmartHands(List<ShipLineInfo> lstShipLineInfo,Id accId)
     {
         List<ContractInfo>lstContractInfo=new List<ContractInfo>();
         Map<string,List<Id>> mapContract=new Map<string,List<Id>>();
+        Map<string,Contract> mapContractInsert=new Map<string,Contract>();
+        List<Contract> lstContractToInsert= new List<Contract>();
         if(lstShipLineInfo!=null && lstShipLineInfo.size()>0)
         {
             for(ShipLineInfo obj :lstShipLineInfo)
             {
                 ContractInfo con= new ContractInfo();
                 Asset tempAsset= obj.TempAsset;
-                Date dt=tempAsset.SH_Start_Date__c;
-                con.SmartHandsKey=tempAsset.SH_Region__c+'|'+tempAsset.SH_Start_Date__c+'|'+tempAsset.SH_End_Date__c;
                 con.Region=tempAsset.SH_Region__c;
                 con.StartDate=tempAsset.SH_Start_Date__c;
-                con.EndDate=tempAsset.SH_End_Date__c;
+                con.EndDate= tempAsset.SH_End_Date__c;
                 con.AssetId=obj.AssetId;
+                con.SmartHandsKey=con.Region+','+con.StartDate+','+con.EndDate+','+accId;
                 lstContractInfo.add(con);
-                mapContract.put(con.SmartHandsKey,null);
+                if(!mapContract.containsKey(con.SmartHandsKey))
+                {
+                    mapContract.put(con.SmartHandsKey,null);
+                    mapContractInsert.put(con.SmartHandsKey,null);
+                }
             }
         }
+       
         if(mapContract.size()>0)
         {
             for(string item:mapContract.keySet())
             {
+                System.debug(item);
+                string[] splitData= item.split(',');
+                
+                Contract conToInsert= new Contract();
+                conToInsert.AccountId=splitData[3];
+                conToInsert.StartDate= Date.valueOf(splitData[1]);
+                conToInsert.EndDate=Date.valueOf(splitData[2]);
+                conToInsert.Smart_Hands_Region__c=splitData[0];
+                conToInsert.Contract_Type__c='Smart Hands';
+                conToInsert.Status='Draft';
+                lstContractToInsert.add(conToInsert);
+                mapContractInsert.put(item,conToInsert);
                 List<Id> assetIds= new List<Id>();
                 for(ContractInfo conItem:lstContractInfo)
                 {
@@ -196,9 +214,18 @@ public class ShippingInputFormController
                 }
             }
         }
+       
         if(mapContract.size()>0)
         {
+            insert lstContractToInsert;
+            for(Contract con:lstContractToInsert)
+            {   
+            }
             // Create Contracts and assign assetIds to Contracts
+            // Create Contracts
+            // Activate contract
+            // Assign asset to contract
+            // 
             
         }
     }

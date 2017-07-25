@@ -44,7 +44,7 @@ trigger CalculateContractedAmounts on OpportunityLineItem (before update) {
             else if(lineItem.Quote_Type__c=='NX/VX' )
             {
                 lineItem.Total_Contract_Value_TCV__c=lineItem.IS_TCV_Enabled__c?totalPrice:0;
-                lineItem.Annual_Contract_Value_ACV__c =0;
+                lineItem.Annual_Contract_Value_ACV__c =lineItem.IS_ACV_Enabled__c?0:0;
                 lineItem.Net_Contract_Value_NCV__c=lineItem.Is_NTCV_Enabled__c?(totalPrice-lineItem.Annual_Contract_Value_ACV__c):0;
             }
             
