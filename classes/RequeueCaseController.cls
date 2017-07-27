@@ -40,7 +40,12 @@ global class RequeueCaseController {
          System.debug('caseInfo.Owner.email' +caseInfo.OwnerId);
         List<String> ccs = new List<String>();
         if(caseInfo.Owner.email!=null)
-            ccs.add(caseInfo.Owner.Email);
+        {
+             ccs.add(caseInfo.Owner.Email);
+             ccs.add('customerresponse@answer1.com');
+        }
+           
+        
         System.debug('caseInfo.Owner.email'+caseInfo.Owner.email);
         Messaging.SingleEmailMessage mail = new Messaging.SingleEmailMessage();
         String formattedString = String.format('Case {0} Initiate Case Transfer Request Notification.', new String[]{caseInfo.CaseNumber});

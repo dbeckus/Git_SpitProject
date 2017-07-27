@@ -5,12 +5,12 @@
 public class ShippingInputFormController
 {    
     private static final String SP_Account_Id = '00130000007mEjX';  //"Silver Peak Systems" account for the internal shipment page.
-    String accountId=null;
+    
     public ShippingInputFormController()
     {
         Shipment = new Shipment__c();
         ShippedLineList = new List<ShipLineInfo>();
-        accountId = ApexPages.currentPage().getParameters().get('accountId');
+        string accountId = ApexPages.currentPage().getParameters().get('accountId');
         String pocId = ApexPages.currentPage().getParameters().get('pocId');
         String poId = ApexPages.currentPage().getParameters().get('poId');
         String currentUrl = ApexPages.currentPage().getUrl().toLowerCase();
@@ -128,10 +128,15 @@ public class ShippingInputFormController
             SavePoint sp = Database.setSavepoint();
             try
             {
-                List<Account> accounts = [select Id, Owner.Email from Account where Id=:Shipment.Shipment_Account__c];
+                List<Account> accounts = [select Id, Owner.Email, (Select Id,User.Email from AccountTeamMembers where TeamMemberRole='Systems Engineer') from Account where Id=:Shipment.Shipment_Account__c];
                 if(accounts.size() > 0)
                 {
                     Shipment.AccountOwnerEmail__c = accounts[0].Owner.Email;
+                    List<AccountTeamMember> accTeamData= accounts[0].AccountTeamMembers;
+                    if(accTeamData!=null && accTeamData.size()>0)
+                    {
+                        Shipment.Third_Email__c= accTeamData[0].User.Email;
+                    }
                 }
                 upsert Shipment;
                 if(Shipment.PurchaseOrder__c != null)
@@ -146,7 +151,7 @@ public class ShippingInputFormController
                     updateRMAExchange(Shipment.To_Be_Swapped_Asset__c, ShippedLineList[0].AssetId, Shipment.PurchaseOrderNumber__c, Shipment.Email__c, Shipment.Secondary_Email__c, Shipment.Third_Email__c);
                 }
                 //Create Contracts
-                CreateContractsForSmartHands(ShippedLineList,Shipment.Shipment_Account__c);
+                //CreateContractsForSmartHands(ShippedLineList,Shipment.Shipment_Account__c);
                 System.debug('ShippedLineList' +ShippedLineList);
                 return new PageReference('/' + Shipment.Id);
             }

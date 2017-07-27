@@ -12,6 +12,9 @@
                 </div>
                 <div class="pbSubsection" style="padding: 8px;">
                     <apex:pageBlockTable value="{!assets}" var="a" id="assetTable">
+                         <apex:column >
+                          <apex:inputCheckbox id="chkSelect"/>
+                        </apex:column>
                         <apex:column headerValue="Asset Name">
                             <a href="/{!a.Id}">{!a.Name}</a>
                         </apex:column>

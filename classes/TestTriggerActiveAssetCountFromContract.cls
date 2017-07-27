@@ -18,7 +18,7 @@ public class TestTriggerActiveAssetCountFromContract {
         
     }
     
-    @IsTest
+   @IsTest
     public static void TriggerAssetCountContractAccountChange()
     {
         Account acc = new Account(name='acme',Type='Prospect');

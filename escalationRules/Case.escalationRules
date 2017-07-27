@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <EscalationRules xmlns="http://soap.sforce.com/2006/04/metadata">
     <escalationRule>
+        <fullName>Requeue Case Tier1</fullName>
+        <active>false</active>
+    </escalationRule>
+    <escalationRule>
         <fullName>Tier1</fullName>
         <active>true</active>
         <ruleEntry>
@@ -14,7 +18,7 @@
             <criteriaItems>
                 <field>Case.Status</field>
                 <operation>equals</operation>
-                <value>Qualifying</value>
+                <value>Qualifying,Customer Awaiting Call</value>
             </criteriaItems>
             <criteriaItems>
                 <field>Case.IsClosed</field>

@@ -24,7 +24,7 @@ public class OpenRMAController
         {
             if(Assets == null)
             {
-                Assets = [select Id, Name, Product2Id, Product2.ProductCode, Product2.Name, Ship_Date__c, Status, Evaluation_End_Date__c, Warranty_End_Date__c, Contract_Number__c, Contract_Type__c, Contract_End__c from Asset where Id in :assetIds];
+                Assets = [select Id, Name, Product2Id, Product2.ProductCode, Product2.Name, Ship_Date__c, Status, Evaluation_End_Date__c, Warranty_End_Date__c, Contract_Number__c, Contract_Type__c, Contract_End__c from Asset where AccountID=:accountId and Product2.Family='Product' ];
             }
             return Assets;
         }

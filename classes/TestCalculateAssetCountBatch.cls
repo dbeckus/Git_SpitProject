@@ -1,6 +1,6 @@
-@IsTest
+//@IsTest
 public class TestCalculateAssetCountBatch {
-    @IsTest
+    //@IsTest
     public static void TestCalculateAssetCount()
     {
       

@@ -7758,6 +7758,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Shipment__c.System_Engineer_Email__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Shipment__c.Third_Email__c</field>
         <readable>false</readable>
     </fieldPermissions>
