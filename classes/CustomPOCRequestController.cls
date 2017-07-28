@@ -320,10 +320,10 @@ ApexPages.addMessage(myMsg);
             if(VirtualProducts.size()==0 && !isProductsToBeAdded)
             {
                 CurrentRequest.First_POC_on_Account__c=true;
-                VirtualProducts.add(new VirtualProductInfo(VirtualProducts.size(),'EC-SP-50',5));
-                VirtualProducts.add(new VirtualProductInfo(VirtualProducts.size(),'EC-SP-100',5));
-                VirtualProducts.add(new VirtualProductInfo(VirtualProducts.size(),'EC-SP-200',5));
-                VirtualProducts.add(new VirtualProductInfo(VirtualProducts.size(),'EC-SP-1000',5));
+                VirtualProducts.add(new VirtualProductInfo(VirtualProducts.size(),'EC-SP-50-B50-1Y',5));
+                VirtualProducts.add(new VirtualProductInfo(VirtualProducts.size(),'EC-SP-100-B100-1Y',5));
+                VirtualProducts.add(new VirtualProductInfo(VirtualProducts.size(),'EC-SP-200-B200-1Y',5));
+                VirtualProducts.add(new VirtualProductInfo(VirtualProducts.size(),'EC-SP-1G-B1G-1Y',5));
             }
             if(!pocRequest.First_POC_on_Account__c)
             {

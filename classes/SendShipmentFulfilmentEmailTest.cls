@@ -18,7 +18,7 @@ public class SendShipmentFulfilmentEmailTest
     @isTest
     static void test_EC_Renewal()
     {
-        Account testAccount = new Account(Name='acme');
+        Account testAccount = new Account(Name='acme',EC_Customer_Date__c=Date.today());
         insert testAccount;
         Account spAccount = new Account(Name = 'Silver Peak Systems');
         insert spAccount;
@@ -62,7 +62,7 @@ public class SendShipmentFulfilmentEmailTest
     @isTest
     static void test_EC_ServiceProvider()
     {
-        Account testAccount = new Account(Name='acme');
+        Account testAccount = new Account(Name='acme',EC_Customer_Date__c=Date.today());
         insert testAccount;
         Account spAccount = new Account(Name = 'Silver Peak Systems');
         insert spAccount;
@@ -104,7 +104,7 @@ public class SendShipmentFulfilmentEmailTest
         @isTest
     static void test_EC_Addon()
     {
-        Account testAccount = new Account(Name='acme');
+        Account testAccount = new Account(Name='acme', EC_Customer_Date__c=Date.today());
         insert testAccount;
         Account spAccount = new Account(Name = 'Silver Peak Systems');
         insert spAccount;

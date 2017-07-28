@@ -37,7 +37,7 @@ public class AccountTriggerHandler implements ITriggerHandler {
                         }
                         else
                         {
-                            List<Asset> lstAssets=[Select Id from Asset where AccountId=:newAccInfo.Id and Status in ('Customer Evaluation')];
+                            List<Asset> lstAssets=[Select Id from Asset where AccountId=:newAccInfo.Id and Status in ('Customer Evaluation','Customer Subscription Active')];
                             List<Request__c> lstPOCs =[Select Id from Request__c where Opportunity__r.AccountId=:newAccInfo.Id];
                             if((lstAssets!=null && lstAssets.size()>0) || (lstPOCs!=null && lstPOCs.size()>0) )
                             {

@@ -66,6 +66,10 @@
                 <behavior>Readonly</behavior>
                 <field>IS_TCV_Enabled__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>EC_Hardware_Amount__c</field>
+            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>

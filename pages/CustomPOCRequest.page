@@ -405,7 +405,7 @@
                             <apex:repeat value="{!VirtualProducts}" var="info">
                                     <table class="inlineTable" style="width:{!CASE(VirtualProducts.size, 1, '50%', 2, '30%', 3, '25%','19%')};">                                        
                                         <tr>
-                                            <td class="editVirtualTitleTd" style="width:50%;font-weight:bold;vertical-align:middle">
+                                            <td class="editVirtualTitleTd" style="width:40%;font-weight:bold;vertical-align:middle">
                                                 Product: 
                                             </td>        
                                             <td style="vertical-align:middle">
@@ -413,7 +413,7 @@
                                             </td>   
                                         </tr>
                                         <tr>
-                                            <td class="editVirtualTitleTd" style="width:50%;font-weight:bold;">
+                                            <td class="editVirtualTitleTd" style="width:40%;font-weight:bold;">
                                              Qty: 
                                             </td>
                                             <td>

@@ -1,5 +1,6 @@
+@IsTest
 public class TestUpdateCustomerDateonAccount {
-    //@IsTest
+    @IsTest
     public static void TestUpdateECCustomerDate_EC()
     {
         
@@ -30,7 +31,7 @@ public class TestUpdateCustomerDateonAccount {
         System.assert(actualAcc.EC_Customer_Date__c!=null);
         
     }
-    //@IsTest
+    @IsTest
     public static void TestUpdateECCustomerDate_EC_ChangeAcctId()
     {
         
@@ -68,7 +69,7 @@ public class TestUpdateCustomerDateonAccount {
         
     }
     
-    //@IsTest
+    @IsTest
     public static void TestUpdateECCustomerDate_VX()
     {
         

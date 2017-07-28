@@ -1880,6 +1880,7 @@ ISPICKVAL( Opportunity__r.Account.Partner_Type__c,&quot;Service Provider&quot;)
     <label>POC Request</label>
     <listViews>
         <fullName>All</fullName>
+        <columns>POC_Type__c</columns>
         <columns>AccountName__c</columns>
         <columns>NAME</columns>
         <columns>Opportunity__c</columns>
@@ -1901,6 +1902,7 @@ ISPICKVAL( Opportunity__r.Account.Partner_Type__c,&quot;Service Provider&quot;)
         <columns>Opportunity__c</columns>
         <columns>Status__c</columns>
         <columns>CREATEDBY_USER</columns>
+        <columns>POC_Type__c</columns>
         <filterScope>Everything</filterScope>
         <filters>
             <field>Status__c</field>
@@ -1991,6 +1993,7 @@ ISPICKVAL( Opportunity__r.Account.Partner_Type__c,&quot;Service Provider&quot;)
         <columns>OWNER.ALIAS</columns>
         <columns>OWNER.LAST_NAME</columns>
         <columns>AccountName__c</columns>
+        <columns>POC_Type__c</columns>
         <filterScope>Everything</filterScope>
         <filters>
             <field>Status__c</field>
