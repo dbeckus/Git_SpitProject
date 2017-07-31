@@ -40,7 +40,7 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>Net_Contract_Value_NCV__c</field>
+                <field>Net_Contract_Value_NTCV__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>

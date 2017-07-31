@@ -1,11 +1,11 @@
 trigger TriggerActiveAssetCountFromAsset on Asset (after insert,after delete, after undelete, after update) {
     Set<Id> acctIds= new Set<Id>();
-   
+    
     if(Trigger.isDelete)
     {
         for(Asset asset : Trigger.old)
         {
-            if(asset.AccountId!=null && asset.Status!='Customer Evaluation')
+            if(asset.AccountId!=null && asset.Status!='Customer Evaluation' && !asset.Trigger_Asset_Count_Status_on_Account__c)
             {
                 acctIds.add(asset.AccountId);
             }
@@ -15,7 +15,7 @@ trigger TriggerActiveAssetCountFromAsset on Asset (after insert,after delete, af
     {
         for(Asset asset : Trigger.New)
         {
-            if(asset.AccountId!=null && asset.Status!='Customer Evaluation')
+            if(asset.AccountId!=null && asset.Status!='Customer Evaluation' && !asset.Trigger_Asset_Count_Status_on_Account__c)
             {
                 acctIds.add(asset.AccountId);
             }
@@ -27,32 +27,27 @@ trigger TriggerActiveAssetCountFromAsset on Asset (after insert,after delete, af
         for(Asset asset : Trigger.new)
         {
             Asset oldAsset = Trigger.oldMap.get(asset.Id);
-            if(oldAsset.AccountId != asset.AccountId && asset.Status!='Customer Evaluation')
+            if(asset.Status!='Customer Evaluation' )
             {
-                if(asset.AccountId != null && !acctIds.contains(asset.AccountId) )
+                if(!asset.Trigger_Asset_Count_Status_on_Account__c && (oldAsset.Contract_Number__c != asset.Contract_Number__c || oldAsset.Status != asset.Status ))
                 {
-                    acctIds.add(asset.AccountId);
+                    if( asset.AccountId != null && !acctIds.contains(asset.AccountId))
+                    {
+                        acctIds.add(asset.AccountId);
+                    }
                 }
-                if(oldAsset.AccountId != null && !acctIds.contains(asset.AccountId) && oldAsset.Status!='Customer Evaluation' )
+                if(oldAsset.AccountId!=asset.AccountId )
                 {
-                    acctIds.add(oldAsset.AccountId);
+                    if(asset.AccountId != null && !acctIds.contains(asset.AccountId) && !asset.Trigger_Asset_Count_Status_on_Account__c)
+                    {
+                        acctIds.add(asset.AccountId);
+                    }
+                    if(oldAsset.AccountId != null && !acctIds.contains(oldAsset.AccountId) && !oldAsset.Trigger_Asset_Count_Status_on_Account__c)
+                    {
+                        acctIds.add(oldAsset.AccountId);
+                    }
                 }
-            }
-            if(oldAsset.Status != asset.Status && asset.Status!='Customer Evaluation')
-            {
-                if(asset.AccountId != null && !acctIds.contains(asset.AccountId) )
-                {
-                    acctIds.add(asset.AccountId);
-                }
-            }
-            if(oldAsset.Contract_Number__c != asset.Contract_Number__c && asset.Status!='Customer Evaluation')
-            {
-                if(asset.AccountId != null && !acctIds.contains(asset.AccountId) )
-                {
-                    acctIds.add(asset.AccountId);
-                }
-            }
-            
+            } 
         }
     }
     
@@ -61,5 +56,5 @@ trigger TriggerActiveAssetCountFromAsset on Asset (after insert,after delete, af
         AssetHelper.TriggerActiveAssetCount(acctIds);
     }
     
-  
+    
 }

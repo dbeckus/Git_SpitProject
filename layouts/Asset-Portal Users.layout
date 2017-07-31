@@ -64,6 +64,10 @@
                 <behavior>Readonly</behavior>
                 <field>EC_Customer_Date__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>Trigger_Asset_Count_Status_on_Account__c</field>
+            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>
