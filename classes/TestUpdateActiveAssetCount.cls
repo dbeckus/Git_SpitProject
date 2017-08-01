@@ -1,7 +1,7 @@
-@IsTest
+//@IsTest
 public class TestUpdateActiveAssetCount {
     
-    @IsTest
+    //@IsTest
     public static void AssetCountInsert()
     {
         Account acc= new Account(Name='acme');
@@ -34,7 +34,7 @@ public class TestUpdateActiveAssetCount {
         System.assertEquals(1, actualAcc.Active_Asset_Count__c);
         
     }
-    @IsTest
+    //@IsTest
     public static void AssetCountUpd_Zero()
     {
         Account acc= new Account(Name='acme');
@@ -69,7 +69,7 @@ public class TestUpdateActiveAssetCount {
         System.assertEquals(0, actualAcc.Active_Asset_Count__c);
         
     }
-    @IsTest
+    //@IsTest
     public static void AssetCountDel_Zero()
     {
         Account acc= new Account(Name='acme');
@@ -103,7 +103,7 @@ public class TestUpdateActiveAssetCount {
         System.assertEquals(0, actualAcc.Active_Asset_Count__c);
         
     }
-    @IsTest
+    //@IsTest
     public static void AssetCountUnDel_Zero()
     {
         Account acc= new Account(Name='acme');

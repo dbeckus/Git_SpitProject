@@ -76,7 +76,7 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>Annual_Commission_Value_AC__c</field>
+                <field>Annual_Commission_Value_ACV__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>

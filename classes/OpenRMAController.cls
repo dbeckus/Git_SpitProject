@@ -1,32 +1,54 @@
 /**
- * Controller of VF page OpenRMA.
- */
+* Controller of VF page OpenRMA.
+*/
 
 public class OpenRMAController
 {
     private String accountId;
     private String retURL;
     private Set<String> assetIds;
-    
+    public string AssetStatus {get;set;}
     public OpenRMAController(ApexPages.StandardSetController controller)
     {
         accountId = ApexPages.currentPage().getParameters().get('parent');
         retURL = ApexPages.currentPage().getParameters().get('retURL');
         String assetIdsStr = ApexPages.currentPage().getParameters().get('sa');
         assetIds = NewRMAHelper.splitAssetIds(assetIdsStr);
+        AssetStatus='Pending Return – Eval';
+       
     }
     
     public String ContactId { get; set; }
     
-    public List<Asset> Assets
+    public List<AssetWrapper> Assets
     {
         get
         {
+            List<AssetWrapper> lstAssetWrapper=new List<AssetWrapper>();
             if(Assets == null)
             {
-                Assets = [select Id, Name, Product2Id, Product2.ProductCode, Product2.Name, Ship_Date__c, Status, Evaluation_End_Date__c, Warranty_End_Date__c, Contract_Number__c, Contract_Type__c, Contract_End__c from Asset where AccountID=:accountId and Product2.Family='Product' ];
+                System.debug('assetIds'+assetIds);
+                List<Asset> lstAssets = [select Id, Name, Product2Id, Product2.ProductCode, Product2.Name, Ship_Date__c, Status, Evaluation_End_Date__c, Warranty_End_Date__c, Contract_Number__c, Contract_Type__c, Contract_End__c from Asset where AccountID=:accountId and Product2.Family='Product' ];
+                if(lstAssets!=null && lstAssets.size()>0)
+                {
+                    for(Asset item:lstAssets)
+                    {
+                        string assetId=String.valueOf(item.id);
+                        if(assetIds.contains(assetId.substring(0,15)))
+                        {
+                            System.debug('true');
+                            lstAssetWrapper.add(new AssetWrapper(true,item));
+                        }
+                        else
+                        {
+                            lstAssetWrapper.add(new AssetWrapper(false,item));
+                        }
+                        
+                    }
+                    
+                }
             }
-            return Assets;
+            return lstAssetWrapper;
         }
         private set;
     }
@@ -48,8 +70,24 @@ public class OpenRMAController
     {
         try
         {
-            Boolean isSucceeded = NewRMAHelper.createRmaWithAssetStatus(assetIds, ContactId, 'Pending Return – CPO');
+            Set<String> selectedAssetIds= new Set<String>();
+            if(Assets!=null && Assets.size()>0)
+            {
+                for(AssetWrapper item: Assets)
+                {
+                    if(item.IsSelected)
+                    {
+                        selectedAssetIds.add(item.AssetData.Id);
+                    }
+                    
+                }
+            }
+            
+            System.debug('AssetStatus'+AssetStatus);
+            //Boolean isSucceeded = NewRMAHelper.createRmaWithAssetStatus(selectedAssetIds, ContactId, AssetStatus);
             return new PageReference(retURL);
+            
+            
         }
         catch(Exception ex)
         {
@@ -63,6 +101,17 @@ public class OpenRMAController
         return new PageReference(retURL);
     }
     
+    public class AssetWrapper 
+    {
+        public Boolean IsSelected {get;set;}
+        public Asset AssetData{get;set;}
+        
+        public AssetWrapper(boolean isCheck, Asset assetInfo)
+        {
+            IsSelected=isCheck;
+            AssetData=assetInfo;
+        }
+    }
     @isTest
     static void testOpenRMAController()
     {
@@ -83,4 +132,6 @@ public class OpenRMAController
         controller.openRMA();
         controller.cancel();
     }
+    
+    
 }

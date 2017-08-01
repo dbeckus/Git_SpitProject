@@ -1,4 +1,18 @@
 <apex:page standardController="Asset" extensions="OpenRMAController" recordSetVar="unused" tabStyle="RMA__c" id="thePage">
+      <apex:includeScript value="{!URLFOR($Resource.jQuery, 'jquery-1.4.3.min.js')}" />
+    <apex:includeScript value="{!URLFOR($Resource.jQuery, 'autoresize.jquery.js')}" />
+     <script type="text/javascript">
+    function checkAll(cb,cbid)
+    {
+        var inputElem = document.getElementsByTagName("input");                     
+        for(var i=0; i<inputElem.length; i++)
+        {             
+            if(inputElem[i].id.indexOf(cbid)!=-1){                                        
+                inputElem[i].checked = cb.checked;
+            }
+        }
+    }
+    </script>
     <apex:form id="theForm">
         <apex:sectionHeader title="Open RMA" />
         <apex:pageBlock id="pageBlock">
@@ -12,24 +26,27 @@
                 </div>
                 <div class="pbSubsection" style="padding: 8px;">
                     <apex:pageBlockTable value="{!assets}" var="a" id="assetTable">
-                         <apex:column >
-                          <apex:inputCheckbox id="chkSelect"/>
+                        <apex:column >
+                            <apex:facet name="header">
+                                <apex:inputCheckbox onclick="checkAll(this,'checkedone')"/>
+                            </apex:facet>
+                            <apex:inputCheckbox value="{!a.IsSelected}" id="checkedone"/>
                         </apex:column>
                         <apex:column headerValue="Asset Name">
-                            <a href="/{!a.Id}">{!a.Name}</a>
+                            <a href="/{!a.AssetData.Id}">{!a.AssetData.Name}</a>
                         </apex:column>
                         <apex:column headerValue="Product Code">
-                            <a href="/{!a.Product2Id}">{!a.Product2.ProductCode}</a>
+                            <a href="/{!a.AssetData.Product2Id}">{!a.AssetData.Product2.ProductCode}</a>
                         </apex:column>
                         <apex:column headerValue="Product Name">
-                            <a href="/{!a.Product2Id}">{!a.Product2.Name}</a>
+                            <a href="/{!a.AssetData.Product2Id}">{!a.AssetData.Product2.Name}</a>
                         </apex:column>
-                        <apex:column value="{!a.Ship_Date__c}" />
-                        <apex:column value="{!a.Evaluation_End_Date__c}" />
-                        <apex:column value="{!a.Warranty_End_Date__c}" />
-                        <apex:column value="{!a.Contract_Number__c}" />
-                        <apex:column value="{!a.Contract_Type__c}" />
-                        <apex:column value="{!a.Contract_End__c}" />
+                        <apex:column value="{!a.AssetData.Ship_Date__c}" />
+                        <apex:column value="{!a.AssetData.Evaluation_End_Date__c}" />
+                        <apex:column value="{!a.AssetData.Warranty_End_Date__c}" />
+                        <apex:column value="{!a.AssetData.Contract_Number__c}" />
+                        <apex:column value="{!a.AssetData.Contract_Type__c}" />
+                        <apex:column value="{!a.AssetData.Contract_End__c}" />
                     </apex:pageBlockTable>
                 </div>
             </div>
@@ -44,36 +61,46 @@
                         </apex:column>
                         <apex:column value="{!contact.Name}" />
                         <apex:column value="{!contact.Email}" />
+                        <apex:column headerValue="Asset Status">
+                         <apex:selectList id="assetStatus" style="width:35%" label="Asset Status" value="{!AssetStatus}" required="false" size="1">
+                             <apex:selectOption itemvalue="Pending Return – Eval" itemLabel="Pending Return – Eval"/>
+                             <apex:selectOption itemvalue="Pending Return – Trade In" itemLabel="Pending Return – Trade In"/>
+                             <apex:selectOption itemvalue="Pending Return – Conversion" itemLabel="Pending Return – Conversion"/>
+                             <apex:selectOption itemvalue="Pending Return – Trade In" itemLabel="Pending Return – Trade In"/>
+                             <apex:selectOption itemvalue="Pending Return – CPO" itemLabel="Pending Return – CPO"/>
+                             <apex:selectOption itemvalue="Pending Return – Support" itemLabel="Pending Return – Support"/>
+                         </apex:selectList>
+                        </apex:column>
                     </apex:pageBlockTable>
                 </div>
             </div>
         </apex:pageBlock>
         <apex:inputHidden value="{!contactId}" id="contactId" />
     </apex:form>
-
+    
     <script type="text/javascript">
-        window.onload = function() {
-            document.getElementById('thePage:theForm:pageBlock:pageBlockButtons:openRMABtn').onclick = function() {
-                var contactId = document.getElementById('thePage:theForm:contactId').value;
-                if(contactId == '' || contactId == null) {
-                    alert('Please select one contact.');
-                    return false;
-               }
-            }
-            
-            var radioBtns = new Array();
-            var elems = document.getElementById('thePage:theForm:pageBlock:contactTable').getElementsByTagName('input');
-            for(var i = 0, elem; elem = elems[i]; i++) {
-                if(elem.type == 'radio') {
-                    radioBtns.push(elem);
-                }
-            }
-            
-            for(var i = 0, radioBtn; radioBtn = radioBtns[i]; i++) {
-                radioBtn.onclick = function() {
-                    document.getElementById('thePage:theForm:contactId').value = this.value;
-                }
+    window.onload = function() {
+        document.getElementById('thePage:theForm:pageBlock:pageBlockButtons:openRMABtn').onclick = function() {
+            var contactId = document.getElementById('thePage:theForm:contactId').value;
+            if(contactId == '' || contactId == null) {
+                alert('Please select one contact.');
+                return false;
             }
         }
+        
+        var radioBtns = new Array();
+        var elems = document.getElementById('thePage:theForm:pageBlock:contactTable').getElementsByTagName('input');
+        for(var i = 0, elem; elem = elems[i]; i++) {
+            if(elem.type == 'radio') {
+                radioBtns.push(elem);
+            }
+        }
+        
+        for(var i = 0, radioBtn; radioBtn = radioBtns[i]; i++) {
+            radioBtn.onclick = function() {
+                document.getElementById('thePage:theForm:contactId').value = this.value;
+            }
+        }
+    }
     </script>
 </apex:page>

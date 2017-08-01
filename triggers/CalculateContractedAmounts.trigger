@@ -23,14 +23,15 @@ trigger CalculateContractedAmounts on OpportunityLineItem (before update) {
                 lineItem.Net_Contract_Value_NTCV__c=lineItem.Is_NTCV_Enabled__c?(totalPrice-lineItem.Annual_Contract_Value_ACV__c):0;
                 
                 lineItem.Total_Commission_Value_TC__c=lineItem.IS_TCV_Enabled__c?totalPrice:0;
-                lineItem.Annual_Commission_Value_AC__c= lineItem.Is_ACV_Enabled__c?(lineItem.Term__c>1?(totalPrice/lineitem.Term__c):totalPrice):0;
-                lineItem.Net_Commission_Value_NCV__c=lineItem.Is_NTCV_Enabled__c?(totalPrice-lineItem.Annual_Contract_Value_ACV__c):0;
+                lineItem.Annual_Commission_Value_ACV__c= lineItem.Is_ACV_Enabled__c?(lineItem.Term__c>1?(totalPrice/lineitem.Term__c):totalPrice):0;
+                lineItem.Net_Commission_Value_NCV__c=lineItem.Is_NTCV_Enabled__c?(totalPrice-lineItem.Annual_Commission_Value_ACV__c):0;
                
             }
             else if(lineItem.Quote_Type__c=='EDGECONNECT'&& lineitem.Product_Family__c=='Product')
             {
-                decimal discount42PercentPrice= lineItem.ListPrice -(lineItem.ListPrice*0.42);
-                System.debug('discount42PercentPrice'+ discount42PercentPrice);
+                decimal discount42PercentPrice= lineItem.Quantity >1?(lineItem.ListPrice -(lineItem.ListPrice*0.42))*lineItem.Quantity:lineItem.ListPrice -(lineItem.ListPrice*0.42);
+                System.debug('lineItem.Quantity '+lineItem.Quantity);
+                System.debug('discount42PercentPrice '+ discount42PercentPrice);
                 decimal finalValue= lineItem.DiscountPercent__c>42?(totalPrice-discount42PercentPrice):totalPrice;
                 System.debug('finalValue'+ finalValue);
                 
@@ -38,10 +39,16 @@ trigger CalculateContractedAmounts on OpportunityLineItem (before update) {
                 lineItem.Annual_Contract_Value_ACV__c= lineItem.Is_ACV_Enabled__c?(lineItem.Term__c>1?(totalPrice/lineitem.Term__c):totalPrice):0;
                 lineItem.Net_Contract_Value_NTCV__c=lineItem.Is_NTCV_Enabled__c?(totalPrice-lineItem.Annual_Contract_Value_ACV__c):0;
                 lineItem.EC_Hardware_Amount__c =totalPrice;
+                lineItem.Total_Commission_Value_TC__c=0;
+                lineItem.Annual_Commission_Value_ACV__c=0;
+                lineItem.Net_Commission_Value_NCV__c=0;
+                if(lineItem.DiscountPercent__c>42)
+                {
+                    lineItem.Total_Commission_Value_TC__c=finalValue;
+                    lineItem.Annual_Commission_Value_ACV__c=lineItem.Term__c>1?(finalValue/lineitem.Term__c):finalValue;
+                    lineItem.Net_Commission_Value_NCV__c=finalValue-lineItem.Annual_Commission_Value_ACV__c;
+                }
                 
-                lineItem.Total_Commission_Value_TC__c=lineItem.DiscountPercent__c>42?finalValue:0;
-                lineItem.Annual_Commission_Value_AC__c=lineItem.Term__c>1?(finalValue/lineitem.Term__c):finalValue;
-                lineItem.Net_Commission_Value_NCV__c=finalValue-lineItem.Annual_Contract_Value_ACV__c;
             }
             else if(lineItem.Quote_Type__c=='EDGECONNECT'&& lineitem.Product_Family__c!='Product' && lineitem.Product_Family__c!='Virtual Image' )
             {
@@ -50,8 +57,8 @@ trigger CalculateContractedAmounts on OpportunityLineItem (before update) {
                 lineItem.Net_Contract_Value_NTCV__c=lineItem.Is_NTCV_Enabled__c?(totalPrice-lineItem.Annual_Contract_Value_ACV__c):0;
                 
                 lineItem.Total_Commission_Value_TC__c=lineItem.IS_TCV_Enabled__c?totalPrice:0;
-                lineItem.Annual_Commission_Value_AC__c=lineItem.Is_ACV_Enabled__c?(lineItem.Term__c>1?(totalPrice/lineitem.Term__c):totalPrice):0;
-                lineItem.Net_Commission_Value_NCV__c=lineItem.Is_NTCV_Enabled__c?(totalPrice-lineItem.Annual_Contract_Value_ACV__c):0;
+                lineItem.Annual_Commission_Value_ACV__c=lineItem.Is_ACV_Enabled__c?(lineItem.Term__c>1?(totalPrice/lineitem.Term__c):totalPrice):0;
+                lineItem.Net_Commission_Value_NCV__c=lineItem.Is_NTCV_Enabled__c?(totalPrice-lineItem.Annual_Commission_Value_ACV__c):0;
                
                
             }
@@ -62,8 +69,8 @@ trigger CalculateContractedAmounts on OpportunityLineItem (before update) {
                 lineItem.Net_Contract_Value_NTCV__c=lineItem.Is_NTCV_Enabled__c?(totalPrice-lineItem.Annual_Contract_Value_ACV__c):0;
                 
                 lineItem.Total_Commission_Value_TC__c=lineItem.IS_TCV_Enabled__c?totalPrice:0;
-                lineItem.Annual_Commission_Value_AC__c= lineItem.Is_ACV_Enabled__c?0:0;
-                lineItem.Net_Commission_Value_NCV__c=lineItem.Is_NTCV_Enabled__c?(totalPrice-lineItem.Annual_Contract_Value_ACV__c):0;
+                lineItem.Annual_Commission_Value_ACV__c= lineItem.Is_ACV_Enabled__c?0:0;
+                lineItem.Net_Commission_Value_NCV__c=lineItem.Is_NTCV_Enabled__c?(totalPrice-lineItem.Annual_Commission_Value_ACV__c):0;
             }
             
         }
