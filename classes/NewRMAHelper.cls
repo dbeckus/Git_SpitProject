@@ -63,6 +63,7 @@ global class NewRMAHelper
             }
             catch(Exception ex)
             {
+                System.debug(ex);
                 Database.rollback(sp); 
                 throw(ex);
             }
@@ -176,7 +177,7 @@ global class NewRMAHelper
         insert acc;
         Contact con = new Contact(LastName = 'acme', AccountId = acc.Id, Email = 'acme@acme.com');
         insert con;
-        Product2 prd = new Product2(Name = 'acme');
+        Product2 prd = new Product2(Name = 'acme',Product_Type__c='NX/VX', Family='Product');
         insert prd;
         List<Asset> assets = new List<Asset>();
         Asset asset1 = new Asset(Name = 'acme1', SerialNumber = 'acme1', Quantity = 1.00, Status = 'Conditional PO', Product2Id = prd.Id, AccountId = acc.Id, ContactId = con.Id);

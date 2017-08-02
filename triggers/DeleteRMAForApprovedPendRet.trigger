@@ -26,11 +26,12 @@ trigger DeleteRMAForApprovedPendRet on Request__c (after update) {
                 {
                     for(RMA__c counter:rmaIds)
                     {
-                        if(counter.LineCount__c==counter.Received_Count__c)
+                        if(counter.Received_Count__c==0)
                         {
                             rmaIdsToDelete.add(counter);
                         }
-                        List<Asset> lstAsset=[Select Id from Asset where Id in (Select Asset__c from RMA_Item__c where RMA__c =: counter.Id) and status='Pending Return – Eval' and AccountId=:counter.Account__c];
+                        List<Asset> lstAsset=[Select Id from Asset where Id in (Select Asset__c from RMA_Item__c where RMA__c =: counter.Id and status__c!='Received')];
+                        System.debug('lstAsset'+lstAsset);
                         if(lstAsset!=null && lstAsset.size()>0)
                         {
                             for(Asset item: lstAsset)

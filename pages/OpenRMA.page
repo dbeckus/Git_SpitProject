@@ -12,10 +12,26 @@
             }
         }
     }
+     function singleChecked(oCheckbox)
+        {
+            //var sName=this;
+            var oTable=document.getElementById("page:form:block:table");
+            var oInputs=oTable.getElementsByTagName("input");
+            for(var i=0,j=oInputs.length; i < j ; i++)
+            {
+                if(oInputs[i].type=="checkbox")
+                {
+                    
+                 	oInputs[i].checked=true;
+                    
+                }
+            }
+        }
     </script>
     <apex:form id="theForm">
         <apex:sectionHeader title="Open RMA" />
         <apex:pageBlock id="pageBlock">
+            <apex:pageMessages />
             <apex:pageBlockButtons id="pageBlockButtons">
                 <apex:commandButton value="Open RMA" id="openRMABtn" action="{!openRMA}"/>
                 <apex:commandButton value="Cancel" id="cancelBtn" action="{!cancel}"/>
@@ -25,7 +41,7 @@
                     <h3>Selected Assets</h3>
                 </div>
                 <div class="pbSubsection" style="padding: 8px;">
-                    <apex:pageBlockTable value="{!assets}" var="a" id="assetTable">
+                    <apex:pageBlockTable value="{!Assets}" var="a" id="assetTable" rendered="{!Assets.size>0}">
                         <apex:column >
                             <apex:facet name="header">
                                 <apex:inputCheckbox onclick="checkAll(this,'checkedone')"/>
@@ -50,6 +66,21 @@
                     </apex:pageBlockTable>
                 </div>
             </div>
+            <div id="Asset Status Selection">
+                <h3>
+                    Please select the Asset Status
+                </h3>
+                <br/>
+                <apex:selectList id="assetStatus" style="width:35%" label="Asset Status" value="{!AssetStatus}" rendered="true" required="true" size="1">
+                    		 <apex:selectOption itemvalue="None" itemLabel="--None--"/>	
+                             <apex:selectOption itemvalue="Pending Return – Eval" itemLabel="Pending Return – Eval"/>
+                             <apex:selectOption itemvalue="Pending Return – Trade In" itemLabel="Pending Return – Trade In"/>
+                             <apex:selectOption itemvalue="Pending Return – Conversion" itemLabel="Pending Return – Conversion"/>
+                             <apex:selectOption itemvalue="Pending Return – Trade In" itemLabel="Pending Return – Trade In"/>
+                             <apex:selectOption itemvalue="Pending Return – CPO" itemLabel="Pending Return – CPO"/>
+                             <apex:selectOption itemvalue="Pending Return – Support" itemLabel="Pending Return – Support"/>
+                 </apex:selectList>
+            </div>
             <div id="contactSection">
                 <div class="pbSubheader tertiaryPalette" style="padding-left: 8px;">
                     <h3>Please select the contact for the RMA:</h3>
@@ -61,16 +92,6 @@
                         </apex:column>
                         <apex:column value="{!contact.Name}" />
                         <apex:column value="{!contact.Email}" />
-                        <apex:column headerValue="Asset Status">
-                         <apex:selectList id="assetStatus" style="width:35%" label="Asset Status" value="{!AssetStatus}" required="false" size="1">
-                             <apex:selectOption itemvalue="Pending Return – Eval" itemLabel="Pending Return – Eval"/>
-                             <apex:selectOption itemvalue="Pending Return – Trade In" itemLabel="Pending Return – Trade In"/>
-                             <apex:selectOption itemvalue="Pending Return – Conversion" itemLabel="Pending Return – Conversion"/>
-                             <apex:selectOption itemvalue="Pending Return – Trade In" itemLabel="Pending Return – Trade In"/>
-                             <apex:selectOption itemvalue="Pending Return – CPO" itemLabel="Pending Return – CPO"/>
-                             <apex:selectOption itemvalue="Pending Return – Support" itemLabel="Pending Return – Support"/>
-                         </apex:selectList>
-                        </apex:column>
                     </apex:pageBlockTable>
                 </div>
             </div>
@@ -80,13 +101,13 @@
     
     <script type="text/javascript">
     window.onload = function() {
-        document.getElementById('thePage:theForm:pageBlock:pageBlockButtons:openRMABtn').onclick = function() {
+        /*document.getElementById('thePage:theForm:pageBlock:pageBlockButtons:openRMABtn').onclick = function() {
             var contactId = document.getElementById('thePage:theForm:contactId').value;
             if(contactId == '' || contactId == null) {
                 alert('Please select one contact.');
                 return false;
             }
-        }
+        }*/
         
         var radioBtns = new Array();
         var elems = document.getElementById('thePage:theForm:pageBlock:contactTable').getElementsByTagName('input');

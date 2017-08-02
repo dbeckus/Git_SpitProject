@@ -184,7 +184,6 @@ Number_of_Appliances__c &gt;2
  IsAllVirtual__c =0,
  ISPICKVAL(Status__c,&quot;Open&quot;),
 ISPICKVAL(Type__c,&quot;Evaluation&quot;),
- RSM_Approved__c , TR_Approved__c ,
  Submission_Condition_Satisfied__c ,
 NOT(Opportunity__r.Account.ECSP__c )
 
