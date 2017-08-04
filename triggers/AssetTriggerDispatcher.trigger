@@ -1,5 +1,5 @@
 trigger AssetTriggerDispatcher on Asset (before insert, before update, before delete, after insert, after update, after delete, after undelete) {
     
-    TriggerDispatcher.Run(new AccountTriggerHandler());
+    TriggerDispatcher.Run(new AssetTriggerHandler());
 
 }

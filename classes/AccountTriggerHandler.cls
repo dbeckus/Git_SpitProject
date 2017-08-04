@@ -200,7 +200,7 @@ public class AccountTriggerHandler implements ITriggerHandler {
     {
         
     }
-    public void AfterUndelete(Map<Id, SObject> oldItems) 
+    public void AfterUndelete(Map<Id, SObject> newItems) 
     {
         
     }

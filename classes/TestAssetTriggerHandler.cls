@@ -1,0 +1,6 @@
+@IsTest
+public class TestAssetTriggerHandler {
+    
+    
+
+}

@@ -38,7 +38,7 @@ public class TriggerDispatcher
                 handler.AfterDelete(trigger.oldMap);
  
             if (trigger.isUndelete)
-                handler.AfterUndelete(trigger.oldMap);
+                handler.AfterUndelete(trigger.newMap);
         }
     }
 }

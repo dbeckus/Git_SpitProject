@@ -1809,6 +1809,10 @@
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>TestAssetTriggerHandler</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>TestAssignGEOFromContactOwner</apexClass>
         <enabled>false</enabled>
     </classAccesses>
