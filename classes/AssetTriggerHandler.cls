@@ -17,6 +17,7 @@ public class AssetTriggerHandler implements ITriggerHandler {
                 silverpeakSystemsId=spAccount[0].Id;
             }
         }
+        System.debug('silverpeakSystemsId'+silverpeakSystemsId);
         lstHWCPAccount= new Set<Id>();
         lstSWCPAccount= new Set<Id>();
         lstTACAccount= new Set<Id>();
@@ -150,14 +151,14 @@ public class AssetTriggerHandler implements ITriggerHandler {
                 {
                     if(((newAsset.Product_Quote_Type__c=='EDGECONNECT'|| newAsset.Product_Quote_Type__c=='EC-SP-Perpetual' || newAsset.Product_Quote_Type__c=='EC-SP-Metered') && newAsset.Product_Family__c=='Virtual Image' ) || newAsset.Product_Quote_Type__c=='NX/VX' )
                     { 
-                        if(newAsset.Product_Quote_Type__c=='NX/VX' && (newAsset.Wan_Op_Customer_Date__c ==null ||  (newAsset.Wan_Op_Customer_Date__c!=null && newAsset.Ship_Date__c < newAsset.Wan_Op_Customer_Date__c)))
+                        if(newAsset.Product_Quote_Type__c=='NX/VX')
                             setWanOpAcctIds.add(newAsset.AccountId);
-                        else if((newAsset.EC_Customer_Date__c ==null ||  (newAsset.EC_Customer_Date__c!=null && newAsset.Ship_Date__c < newAsset.EC_Customer_Date__c)))
+                        else
                             setECAcctIds.add(newAsset.AccountId); 
                     }
                 }
             }
-            lstCustomerDateAccount=AssetHelper.CalculateCustomerDate(setECAcctIds, setWanOpAcctIds);
+            lstCustomerDateAccount=AssetHelper.CalculateCustomerDate_NoGroup(setECAcctIds, setWanOpAcctIds);
             AddActiveECBaseLicense(hardwareECAssetIds,softwareECBaseAssetIds,setAccIds);
             MakeFinalUpdateToAccount();
         }
@@ -188,42 +189,42 @@ public class AssetTriggerHandler implements ITriggerHandler {
                         softwareECBaseAssetIds.put(newAsset.Id,newAsset);
                         setAccIds.add(newAsset.AccountId);
                     }
-                    if(newAsset.Status!='Customer Evaluation' )
+                }
+                if(newAsset.Status!='Customer Evaluation' )
+                {
+                    if(oldAsset.Contract_Number__c != newAsset.Contract_Number__c || oldAsset.Status != newAsset.Status)
                     {
-                        if(oldAsset.Contract_Number__c != newAsset.Contract_Number__c || oldAsset.Status != newAsset.Status)
+                        if(newAsset.AccountId != null && !lstTACAccount.contains(newAsset.AccountId))
                         {
-                            if(newAsset.AccountId != null && !lstTACAccount.contains(newAsset.AccountId))
-                            {
-                                lstTACAccount.add(newAsset.AccountId);
-                            }
-                           
+                            lstTACAccount.add(newAsset.AccountId);
                         }
-                        if(oldAsset.AccountId!=newAsset.AccountId )
+                        
+                    }
+                    if(oldAsset.AccountId!=newAsset.AccountId )
+                    {
+                        if( newAsset.AccountId != null && !lstTACAccount.contains(newAsset.AccountId))
                         {
-                            if( newAsset.AccountId != null && !lstTACAccount.contains(newAsset.AccountId))
-                            {
-                                lstTACAccount.add(newAsset.AccountId);
-                            }
-                            if( oldAsset.AccountId != null && !lstTACAccount.contains(oldAsset.AccountId))
-                            {
-                                lstTACAccount.add(oldAsset.AccountId);
-                            }
+                            lstTACAccount.add(newAsset.AccountId);
                         }
-                        if(oldAsset.Ship_Date__c!=newAsset.Ship_Date__c)
+                        if( oldAsset.AccountId != null && !lstTACAccount.contains(oldAsset.AccountId))
                         {
-                            if(((newAsset.Product_Quote_Type__c=='EDGECONNECT'|| newAsset.Product_Quote_Type__c=='EC-SP-Perpetual' || newAsset.Product_Quote_Type__c=='EC-SP-Metered') && newAsset.Product_Family__c=='Virtual Image' ) || newAsset.Product_Quote_Type__c=='NX/VX' )
-                            {
-                                if(newAsset.Product_Quote_Type__c=='NX/VX' && (newAsset.Wan_Op_Customer_Date__c ==null ||  (newAsset.Wan_Op_Customer_Date__c!=null && newAsset.Ship_Date__c < newAsset.Wan_Op_Customer_Date__c)))
-                                    setWanOpAcctIds.add(newAsset.AccountId);
-                                else if((newAsset.EC_Customer_Date__c ==null ||  (newAsset.EC_Customer_Date__c!=null && newAsset.Ship_Date__c < newAsset.EC_Customer_Date__c)))
-                                    setECAcctIds.add(newAsset.AccountId); 
-                            }
-                        } 
+                            lstTACAccount.add(oldAsset.AccountId);
+                        }
+                    }
+                    if(oldAsset.Ship_Date__c!=newAsset.Ship_Date__c || oldAsset.AccountId!=newAsset.AccountId)
+                    {
+                        if(((newAsset.Product_Quote_Type__c=='EDGECONNECT'|| newAsset.Product_Quote_Type__c=='EC-SP-Perpetual' || newAsset.Product_Quote_Type__c=='EC-SP-Metered') && newAsset.Product_Family__c=='Virtual Image' ) || newAsset.Product_Quote_Type__c=='NX/VX' )
+                        {
+                            if(newAsset.Product_Quote_Type__c=='NX/VX')
+                                setWanOpAcctIds.add(newAsset.AccountId);
+                            else 
+                                setECAcctIds.add(newAsset.AccountId); 
+                        }
                     } 
                 } 
                 
             }
-            lstCustomerDateAccount=AssetHelper.CalculateCustomerDate(setECAcctIds, setWanOpAcctIds);
+            lstCustomerDateAccount=AssetHelper.CalculateCustomerDate_NoGroup(setECAcctIds, setWanOpAcctIds);
             AddActiveECBaseLicense(hardwareECAssetIds,softwareECBaseAssetIds,setAccIds);
             MakeFinalUpdateToAccount();
         }
@@ -238,7 +239,7 @@ public class AssetTriggerHandler implements ITriggerHandler {
             {
                 if(!lstSWCPAccount.contains(oldAsset.AccountId))
                 {
-                    lstSWCPAccount.add(oldAsset.Id);
+                    lstSWCPAccount.add(oldAsset.AccountId);
                 }
             }  
             if(oldAsset.AccountId!=null && oldAsset.Status!='Customer Evaluation' && !oldAsset.Trigger_Asset_Count_Status_on_Account__c)
@@ -253,7 +254,7 @@ public class AssetTriggerHandler implements ITriggerHandler {
     }
     public void AfterUndelete(Map<Id, SObject> newItems) 
     {
-     
+        
         if(newItems!=null)
         {
             for(Id assetId : newItems.keySet())
@@ -261,14 +262,14 @@ public class AssetTriggerHandler implements ITriggerHandler {
                 Asset newAsset=(Asset)newItems.get(assetId);
                 if(newAsset.AccountId!=null && newAsset.Status!='Customer Evaluation' && !newAsset.Trigger_Asset_Count_Status_on_Account__c)
                 {
-                     if(!lstTACAccount.contains(newAsset.AccountId))
+                    if(!lstTACAccount.contains(newAsset.AccountId))
                     {
                         lstTACAccount.add(newAsset.AccountId);
                     }
                 }
             }
         }
-       MakeFinalUpdateToAccount(); 
+        MakeFinalUpdateToAccount(); 
     }
     
     private void MakeFinalUpdateToAccount()
@@ -277,6 +278,7 @@ public class AssetTriggerHandler implements ITriggerHandler {
         acctIds.addAll(lstHWCPAccount);
         acctIds.addAll(lstSWCPAccount);
         acctIds.addAll(lstTACAccount);
+        acctIds.addAll(lstCustomerDateAccount.keySet());
         List<Account> lstAccountToUpdate = new List<Account>();
         if(acctIds.size()>0)
         {
@@ -298,8 +300,15 @@ public class AssetTriggerHandler implements ITriggerHandler {
                 if(lstCustomerDateAccount!=null && lstCustomerDateAccount.containsKey(accountId))
                 {
                     Account accData= lstCustomerDateAccount.get(accountId);
-                    accountInfo.EC_Customer_Date__c=accData.EC_Customer_Date__c;
-                    accountInfo.WAN_OP_Customer_Date__c=accData.WAN_OP_Customer_Date__c;
+                    System.debug('accData'+accData);
+                    if(accData.EC_Customer_Date__c!=null)
+                    {
+                        accountInfo.EC_Customer_Date__c=accData.EC_Customer_Date__c;
+                    }
+                    if(accData.WAN_OP_Customer_Date__c!=null)
+                    {
+                        accountInfo.WAN_OP_Customer_Date__c=accData.WAN_OP_Customer_Date__c;
+                    }
                 }
                 lstAccountToUpdate.add(accountInfo);
             }
