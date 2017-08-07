@@ -1,7 +1,7 @@
 @IsTest
 public class TestReSyncDeletedAssetsInCP {
     
-    @IsTest
+    
     public static void CheckSyncFlag()
     {
         Account testAccount = new Account(Name='acme',EC_Customer_Date__c=Date.today());

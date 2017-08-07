@@ -816,44 +816,6 @@ public class TriggerTestFixtures
     }
     
     @isTest
-    static void testUpdateEOM()
-    {
-        //ready for testing data
-        EOMDate__c date1 = new EOMDate__c(Name='acme',Model__c='NX-2500', ShipDate__c=Date.parse('9/1/2012'), EOMDate__c=Date.parse('10/1/2012'));
-        EOMDate__c date2 = new EOMDate__c(Name='acme2',Model__c='NX-5600', ShipDate__c=Date.parse('9/1/2012'), EOMDate__c=Date.parse('7/1/2016'));        
-        EOMDate__c date3 = new EOMDate__c(Name='acme3',Model__c='NX-2700', ShipDate__c=Date.parse('9/1/2012'), EOMDate__c=Date.parse('2/1/2018'));
-        EOMDate__c date4 = new EOMDate__c(Name='acme4',Model__c='NX-2700', ShipDate__c=Date.parse('9/1/2012'), EOMDate__c=Date.parse('2/1/2017'));
-        EOMDate__c date5 = new EOMDate__c(Name='acme5',Model__c='NX-8504', ShipDate__c=Date.parse('9/1/2012'), EOMDate__c=Date.parse('10/1/2012'));
-        insert new EOMDate__c[]{ date1, date2, date3, date4, date5 };
-                
-        Account testAccount = new Account(Name='acme');
-        insert testAccount;    
-        Contact testContact = new Contact(LastName = 'acme', AccountId = testAccount.Id);
-        insert testContact;        
-        Product2 product1 = new Product2(IsActive=true, Name='acme', Forecast_Category__c='Virtual', Family = 'Virtual Image', Model__c = 'NX-2500');
-        Product2 product2 = new Product2(IsActive=true, Name='acme', Forecast_Category__c='Virtual', Family = 'Virtual Image', Model__c = 'NX-5600');
-        Product2 product3 = new Product2(IsActive=true, Name='acme', Forecast_Category__c='Virtual', Family = 'Virtual Image', Model__c = 'NX-2700');
-        Product2 product4 = new Product2(IsActive=true, Name='acme', Forecast_Category__c='Virtual', Family = 'Virtual Image', Model__c = 'NX-8504');
-        insert new Product2[]{ product1, product2, product3, product4 };
-
-        //execute test
-        Asset asset1 = new Asset(Name='acme', Ship_Date__c = Date.newInstance(2000,01,01), SerialNumber='acme', Quantity=1.00, Status='Conditional PO', Product2Id=product1.Id, AccountId=testAccount.Id, ContactId=testContact.Id);
-        Asset asset2 = new Asset(Name='acme', Ship_Date__c = Date.newInstance(2000,01,01), SerialNumber='acme', Quantity=1.00, Status='Conditional PO', Product2Id=product2.Id, AccountId=testAccount.Id, ContactId=testContact.Id);
-        insert new Asset[]{ asset1, asset2 };        
-
-        system.assertEquals(Date.newInstance(2012, 10, 1), [select End_of_Maintenance__c from Asset where id = :asset1.id][0].End_of_Maintenance__c);
-        system.assertEquals(Date.newInstance(2016, 7, 1), [select End_of_Maintenance__c from Asset where id = :asset2.id][0].End_of_Maintenance__c);        
-                
-        asset1.Product2Id = product3.Id;
-        asset1.Ship_Date__c = Date.newInstance(2001,01,01);
-        asset2.Product2Id = product4.Id;        
-        asset2.Ship_Date__c = Date.newInstance(2001,01,01);        
-        update new Asset[]{ asset1, asset2 };
-        system.assertEquals(Date.newInstance(2017, 2, 1), [select End_of_Maintenance__c from Asset where id = :asset1.id][0].End_of_Maintenance__c);
-        system.assertEquals(Date.newInstance(2012, 10, 1), [select End_of_Maintenance__c from Asset where id = :asset2.id][0].End_of_Maintenance__c);                
-    }
-    
-    @isTest
     static void testCopyAccountTeamEmailOnPOCAndRMA()
     {
         Account account = new Account(Name='acme');

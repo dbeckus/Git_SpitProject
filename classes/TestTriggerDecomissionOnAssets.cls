@@ -1,6 +1,6 @@
 @IsTest
 public class TestTriggerDecomissionOnAssets {
-    @IsTest
+   
     public static void DecomissionAsset()
     {
         Account acc= new Account(Name='acme');
@@ -42,8 +42,6 @@ public class TestTriggerDecomissionOnAssets {
         
         
     }
-    
-    @IsTest
     public static void ProvisionAsset()
     {
         Account acc= new Account(Name='acme');

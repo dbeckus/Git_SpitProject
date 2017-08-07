@@ -1,7 +1,5 @@
 @IsTest
 public class TestAddActiveECBaseLicenseToECHardware {
-    
-      @IsTest
     public static void AddHardwareECLicenseAfterEcSoftware()
     {
         Account testAccount = new Account(Name='acme',EC_Customer_Date__c=Date.today());
@@ -77,8 +75,6 @@ public class TestAddActiveECBaseLicenseToECHardware {
         Test.StopTest();
         
     }
-    
-      @IsTest
     public static void AddHardwareECLicenseBeforeEcSoftware()
     {
         Account testAccount = new Account(Name='acme',EC_Customer_Date__c=Date.today());
