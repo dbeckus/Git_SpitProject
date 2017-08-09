@@ -40,6 +40,10 @@ if( Service_Discount_Max__c &gt; RegPartServDisc__c ,3,0)
             <translation><!-- Approved --></translation>
         </picklistValues>
         <picklistValues>
+            <masterLabel>Pending Approval</masterLabel>
+            <translation><!-- Pending Approval --></translation>
+        </picklistValues>
+        <picklistValues>
             <masterLabel>Rejected</masterLabel>
             <translation><!-- Rejected --></translation>
         </picklistValues>

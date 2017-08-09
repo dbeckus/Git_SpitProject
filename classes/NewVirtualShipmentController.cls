@@ -200,7 +200,7 @@ public with sharing class NewVirtualShipmentController
                 
                 vasset.Asset.ContactId = TempAsset.ContactId;
                 
-                if(currAsset.Product2.Name.contains('EC-BASE')|| currAsset.Product2.Name.contains('EC-PLUS'))
+                if(currAsset.Product2.Name.contains('EC-BASE')|| currAsset.Product2.Name.contains('EC-PLUS')|| currAsset.Product2.Name.contains('EC-MINI'))
                 {
                     vasset.Asset.EC_Old_Node_Count__c=currAsset.Licenses_Nodes__c;
                     vasset.Asset.Licenses_Nodes__c = (currAsset.Licenses_Nodes__c + virtualAsset.Asset.Licenses_Nodes__c) ;

@@ -45,6 +45,7 @@ public class CloudPortalPostAssetsApi extends CloudPortalApiBase {
                 generator.writeObjectField('base',item.BaseNode);
                 generator.writeObjectField('plus',item.PlusNode);
                 generator.writeObjectField('boost',item.BoostNode);
+                generator.writeObjectField('mini',item.MiniNode);
                 generator.writeEndObject();
             }
             

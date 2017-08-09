@@ -36,7 +36,7 @@ public class PatchRuleHelper
     public static void assignPatches(List<sObject> objs)
     {
         Map<Id, Patch__c> patches = new Map<Id, Patch__c>();
-        for(Patch__c patch : [select Id, Patch_Name__c, Catchall__c, Type__c, Owner__c, Owner__r.GEO__c, RSM__c, CSM__c, SE__c, ISR__c, Overlay_1__c, Overlay_2__c, Active__c from Patch__c])
+        for(Patch__c patch : [select Id,Patch_Name__c, Catchall__c, Type__c, Owner__c, Owner__r.GEO__c, RSM__c, CSM__c, SE__c, ISR__c, Overlay_1__c, Overlay_2__c, Active__c,SP_RSM__c,SP_BDR__c,SP_CAM__c,SP_SE__c from Patch__c])
         {
             patches.put(patch.Id, patch);
         }
@@ -90,15 +90,32 @@ public class PatchRuleHelper
             {
                 Lead ld = (Lead)obj;
                 ld.Patch__c = patch.Id;
-                ld.CSM__c = patch.CSM__c;
-                ld.ISR__c = patch.ISR__c;
-                ld.Patch_Owner__c = patch.Owner__c;
-                ld.RSM__c = patch.RSM__c;
-                ld.SE__c = patch.SE__c;
-                if(patch.ISR__c != null)
+                if(ld.Service_Provider__c)
                 {
-                    ld.OwnerId = patch.ISR__c;
+                    ld.CSM__c = patch.SP_CAM__c;
+                    ld.ISR__c = patch.SP_BDR__c;
+                    ld.Patch_Owner__c = patch.Owner__c;
+                    ld.RSM__c = patch.SP_RSM__c;
+                    ld.SE__c = patch.SP_SE__c;
+                    if(patch.ISR__c != null)
+                    {
+                        ld.OwnerId = patch.ISR__c;
+                    }
                 }
+                else
+                {
+                    ld.CSM__c = patch.CSM__c;
+                    ld.ISR__c = patch.ISR__c;
+                    ld.Patch_Owner__c = patch.Owner__c;
+                    ld.RSM__c = patch.RSM__c;
+                    ld.SE__c = patch.SE__c;
+                    if(patch.ISR__c != null)
+                    {
+                        ld.OwnerId = patch.ISR__c;
+                    }
+                }
+               
+               
                 if(ld.LeadSource == 'Deal Registration')
                 {
                     Map<String, Schema.RecordTypeInfo> leadRecordTypes = Schema.SObjectType.Lead.getRecordTypeInfosByName();
@@ -477,57 +494,106 @@ public class PatchRuleHelper
             if(obj instanceOf Lead)
             {
                 Lead ld = (Lead)obj;
-                if(patch.CSM__c != null && patch.CSM__c != ld.OwnerId)
+                if(ld.Service_Provider__c)
                 {
-                    result.add(new LeadShare(LeadId=ld.Id, UserOrGroupId=patch.CSM__c, LeadAccessLevel='Edit'));
+                    if(patch.SP_CAM__c != null && patch.SP_CAM__c != ld.OwnerId)
+                    {
+                        result.add(new LeadShare(LeadId=ld.Id, UserOrGroupId=patch.SP_CAM__c, LeadAccessLevel='Edit'));
+                    }
+                    if(patch.SP_BDR__c != null && patch.SP_BDR__c != ld.OwnerId)
+                    {
+                        result.add(new LeadShare(LeadId=ld.Id, UserOrGroupId=patch.SP_BDR__c, LeadAccessLevel='Edit'));
+                    }
+                    if(patch.Owner__c != null && patch.Owner__c != ld.OwnerId)
+                    {
+                        result.add(new LeadShare(LeadId=ld.Id, UserOrGroupId=patch.Owner__c, LeadAccessLevel='Edit'));
+                    }
+                    if(patch.SP_SE__c != null && patch.SP_SE__c != ld.OwnerId)
+                    {
+                        result.add(new LeadShare(LeadId=ld.Id, UserOrGroupId=patch.SP_SE__c, LeadAccessLevel='Edit'));
+                    }
+                    if(patch.SP_RSM__c != null && patch.SP_RSM__c != ld.OwnerId)
+                    {
+                        result.add(new LeadShare(LeadId=ld.Id, UserOrGroupId=patch.SP_RSM__c, LeadAccessLevel='Edit'));
+                    }
                 }
-                if(patch.ISR__c != null && patch.ISR__c != ld.OwnerId)
+                else
                 {
-                    result.add(new LeadShare(LeadId=ld.Id, UserOrGroupId=patch.ISR__c, LeadAccessLevel='Edit'));
+                    if(patch.CSM__c != null && patch.CSM__c != ld.OwnerId)
+                    {
+                        result.add(new LeadShare(LeadId=ld.Id, UserOrGroupId=patch.CSM__c, LeadAccessLevel='Edit'));
+                    }
+                    if(patch.ISR__c != null && patch.ISR__c != ld.OwnerId)
+                    {
+                        result.add(new LeadShare(LeadId=ld.Id, UserOrGroupId=patch.ISR__c, LeadAccessLevel='Edit'));
+                    }
+                    if(patch.Owner__c != null && patch.Owner__c != ld.OwnerId)
+                    {
+                        result.add(new LeadShare(LeadId=ld.Id, UserOrGroupId=patch.Owner__c, LeadAccessLevel='Edit'));
+                    }
+                    if(patch.RSM__c != null && patch.RSM__c != ld.OwnerId)
+                    {
+                        result.add(new LeadShare(LeadId=ld.Id, UserOrGroupId=patch.RSM__c, LeadAccessLevel='Edit'));
+                    }
+                    if(patch.SE__c != null && patch.SE__c != ld.OwnerId)
+                    {
+                        result.add(new LeadShare(LeadId=ld.Id, UserOrGroupId=patch.SE__c, LeadAccessLevel='Edit'));
+                    }
+                    /*if(patch.FCMM__c != null && patch.FCMM__c != ld.OwnerId)
+{
+result.add(new LeadShare(LeadId=ld.Id, UserOrGroupId=patch.FCMM__c, LeadAccessLevel='Edit'));
+}*/
+                    if(patch.Overlay_1__c != null && patch.Overlay_1__c != ld.OwnerId)
+                    {
+                        result.add(new LeadShare(LeadId=ld.Id, UserOrGroupId=patch.Overlay_1__c, LeadAccessLevel='Edit'));
+                    }
+                    if(patch.Overlay_2__c != null && patch.Overlay_2__c != ld.OwnerId)
+                    {
+                        result.add(new LeadShare(LeadId=ld.Id, UserOrGroupId=patch.Overlay_2__c, LeadAccessLevel='Edit'));
+                    }
                 }
-                if(patch.Owner__c != null && patch.Owner__c != ld.OwnerId)
-                {
-                    result.add(new LeadShare(LeadId=ld.Id, UserOrGroupId=patch.Owner__c, LeadAccessLevel='Edit'));
-                }
-                if(patch.RSM__c != null && patch.RSM__c != ld.OwnerId)
-                {
-                    result.add(new LeadShare(LeadId=ld.Id, UserOrGroupId=patch.RSM__c, LeadAccessLevel='Edit'));
-                }
-                if(patch.SE__c != null && patch.SE__c != ld.OwnerId)
-                {
-                    result.add(new LeadShare(LeadId=ld.Id, UserOrGroupId=patch.SE__c, LeadAccessLevel='Edit'));
-                }
-                /*if(patch.FCMM__c != null && patch.FCMM__c != ld.OwnerId)
-                {
-                    result.add(new LeadShare(LeadId=ld.Id, UserOrGroupId=patch.FCMM__c, LeadAccessLevel='Edit'));
-                }*/
-                if(patch.Overlay_1__c != null && patch.Overlay_1__c != ld.OwnerId)
-                {
-                    result.add(new LeadShare(LeadId=ld.Id, UserOrGroupId=patch.Overlay_1__c, LeadAccessLevel='Edit'));
-                }
-                if(patch.Overlay_2__c != null && patch.Overlay_2__c != ld.OwnerId)
-                {
-                    result.add(new LeadShare(LeadId=ld.Id, UserOrGroupId=patch.Overlay_2__c, LeadAccessLevel='Edit'));
-                }
+                
             }
             else if(obj instanceOf Account)
             {
                 Account acc = (Account)obj;
-                if(patch.CSM__c != null)
+                if(acc.ECSP__c)
                 {
-                    result.add(new AccountTeamMember(AccountId=acc.Id, UserId=patch.CSM__c, TeamMemberRole='Channel Manager'));
+                    if(patch.SP_CAM__c != null)
+                    {
+                        result.add(new AccountTeamMember(AccountId=acc.Id, UserId=patch.SP_CAM__c, TeamMemberRole='Channel Manager'));
+                    }
+                    if(patch.SP_BDR__c != null)
+                    {
+                        result.add(new AccountTeamMember(AccountId=acc.Id, UserId=patch.SP_BDR__c, TeamMemberRole='Inside Sale Representative'));
+                    }
+                    if(patch.SP_RSM__c != null)
+                    {
+                        result.add(new AccountTeamMember(AccountId=acc.Id, UserId=patch.SP_RSM__c, TeamMemberRole='Account Manager'));
+                    }
+                    if(patch.SP_SE__c != null)
+                    {
+                        result.add(new AccountTeamMember(AccountId=acc.Id, UserId=patch.SP_SE__c, TeamMemberRole='Systems Engineer'));
+                    }
                 }
-                if(patch.ISR__c != null)
+                else
                 {
-                    result.add(new AccountTeamMember(AccountId=acc.Id, UserId=patch.ISR__c, TeamMemberRole='Inside Sale Representative'));
-                }
-                if(patch.RSM__c != null)
-                {
-                    result.add(new AccountTeamMember(AccountId=acc.Id, UserId=patch.RSM__c, TeamMemberRole='Account Manager'));
-                }
-                if(patch.SE__c != null)
-                {
-                    result.add(new AccountTeamMember(AccountId=acc.Id, UserId=patch.SE__c, TeamMemberRole='Systems Engineer'));
+                    if(patch.CSM__c != null)
+                    {
+                        result.add(new AccountTeamMember(AccountId=acc.Id, UserId=patch.CSM__c, TeamMemberRole='Channel Manager'));
+                    }
+                    if(patch.ISR__c != null)
+                    {
+                        result.add(new AccountTeamMember(AccountId=acc.Id, UserId=patch.ISR__c, TeamMemberRole='Inside Sale Representative'));
+                    }
+                    if(patch.RSM__c != null)
+                    {
+                        result.add(new AccountTeamMember(AccountId=acc.Id, UserId=patch.RSM__c, TeamMemberRole='Account Manager'));
+                    }
+                    if(patch.SE__c != null)
+                    {
+                        result.add(new AccountTeamMember(AccountId=acc.Id, UserId=patch.SE__c, TeamMemberRole='Systems Engineer'));
+                    }
                 }
                 /*if(patch.FCMM__c != null)
                 {
@@ -537,38 +603,61 @@ public class PatchRuleHelper
             else if(obj instanceOf Opportunity)
             {
                 Opportunity opp = (Opportunity)obj;
-                if(patch.CSM__c != null)
+                if(opp.Account.ECSP__c)
                 {
-                    result.add(new OpportunityTeamMember(OpportunityId=opp.Id, UserId=patch.CSM__c, TeamMemberRole='Channel Manager'));
+                    if(patch.SP_CAM__c != null)
+                    {
+                        result.add(new OpportunityTeamMember(OpportunityId=opp.Id, UserId=patch.SP_CAM__c, TeamMemberRole='Channel Manager'));
+                    }
+                    if(patch.SP_BDR__c != null)
+                    {
+                        result.add(new OpportunityTeamMember(OpportunityId=opp.Id, UserId=patch.SP_BDR__c, TeamMemberRole='Inside Sale Representative'));
+                    }
+                    if(patch.SP_RSM__c != null)
+                    {
+                        result.add(new OpportunityTeamMember(OpportunityId=opp.Id, UserId=patch.SP_RSM__c, TeamMemberRole='Account Manager'));
+                    }
+                    if(patch.SP_SE__c != null)
+                    {
+                        result.add(new OpportunityTeamMember(OpportunityId=opp.Id, UserId=patch.SP_SE__c, TeamMemberRole='Systems Engineer'));
+                    }
                 }
-                if(patch.ISR__c != null)
+                else
                 {
-                    result.add(new OpportunityTeamMember(OpportunityId=opp.Id, UserId=patch.ISR__c, TeamMemberRole='Inside Sale Representative'));
+                    if(patch.CSM__c != null)
+                    {
+                        result.add(new OpportunityTeamMember(OpportunityId=opp.Id, UserId=patch.CSM__c, TeamMemberRole='Channel Manager'));
+                    }
+                    if(patch.ISR__c != null)
+                    {
+                        result.add(new OpportunityTeamMember(OpportunityId=opp.Id, UserId=patch.ISR__c, TeamMemberRole='Inside Sale Representative'));
+                    }
+                    if(patch.RSM__c != null)
+                    {
+                        result.add(new OpportunityTeamMember(OpportunityId=opp.Id, UserId=patch.RSM__c, TeamMemberRole='Account Manager'));
+                    }
+                    if(patch.SE__c != null)
+                    {
+                        result.add(new OpportunityTeamMember(OpportunityId=opp.Id, UserId=patch.SE__c, TeamMemberRole='Systems Engineer'));
+                    }
+                    /*if(patch.FCMM__c != null && !IsPartOfCoreTeam(patch,patch.FCMM__c))
+{
+result.add(new OpportunityTeamMember(OpportunityId=opp.Id, UserId=patch.FCMM__c, TeamMemberRole='Field and Channel Marketing Manager'));
+}*/
+                    if(patch.Owner__c != null && !IsPartOfCoreTeam(patch,patch.Owner__c))
+                    {
+                        result.add(new OpportunityTeamMember(OpportunityId=opp.Id, UserId=patch.Owner__c, TeamMemberRole='Team Owner'));
+                    }
+                    if(patch.Overlay_1__c != null && !IsPartOfCoreTeam(patch,patch.Overlay_1__c))
+                    {
+                        result.add(new OpportunityTeamMember(OpportunityId=opp.Id, UserId=patch.Overlay_1__c, TeamMemberRole='Team Member'));
+                    }
+                    if(patch.Overlay_2__c != null && !IsPartOfCoreTeam(patch,patch.Overlay_2__c))
+                    {
+                        result.add(new OpportunityTeamMember(OpportunityId=opp.Id, UserId=patch.Overlay_2__c, TeamMemberRole='Team Member'));
+                    }
                 }
-                if(patch.RSM__c != null)
-                {
-                    result.add(new OpportunityTeamMember(OpportunityId=opp.Id, UserId=patch.RSM__c, TeamMemberRole='Account Manager'));
-                }
-                if(patch.SE__c != null)
-                {
-                    result.add(new OpportunityTeamMember(OpportunityId=opp.Id, UserId=patch.SE__c, TeamMemberRole='Systems Engineer'));
-                }
-                /*if(patch.FCMM__c != null && !IsPartOfCoreTeam(patch,patch.FCMM__c))
-                {
-                    result.add(new OpportunityTeamMember(OpportunityId=opp.Id, UserId=patch.FCMM__c, TeamMemberRole='Field and Channel Marketing Manager'));
-                }*/
-                if(patch.Owner__c != null && !IsPartOfCoreTeam(patch,patch.Owner__c))
-                {
-                    result.add(new OpportunityTeamMember(OpportunityId=opp.Id, UserId=patch.Owner__c, TeamMemberRole='Team Owner'));
-                }
-                if(patch.Overlay_1__c != null && !IsPartOfCoreTeam(patch,patch.Overlay_1__c))
-                {
-                    result.add(new OpportunityTeamMember(OpportunityId=opp.Id, UserId=patch.Overlay_1__c, TeamMemberRole='Team Member'));
-                }
-                if(patch.Overlay_2__c != null && !IsPartOfCoreTeam(patch,patch.Overlay_2__c))
-                {
-                    result.add(new OpportunityTeamMember(OpportunityId=opp.Id, UserId=patch.Overlay_2__c, TeamMemberRole='Team Member'));
-                }
+                
             }
         }
         return result;

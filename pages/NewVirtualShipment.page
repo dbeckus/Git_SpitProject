@@ -119,7 +119,7 @@
             nodeLine.qty.prop("disabled",false);
             
             
-            if((productName.indexOf("EC-BASE") >= 0)||(productName.indexOf("EC-PLUS")>=0))
+            if((productName.indexOf("EC-BASE") >= 0)||(productName.indexOf("EC-PLUS")>=0)|| (productName.indexOf("EC-MINI")>=0))
             {
                 
                 nodeLine.licensesNodes.prop("disabled", false);

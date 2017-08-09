@@ -159,6 +159,10 @@ OR(Approval_Level_Needed__c &gt;0, Level3Required__c==1)
                 <fullName>Rejected</fullName>
                 <default>false</default>
             </picklistValues>
+            <picklistValues>
+                <fullName>Pending Approval</fullName>
+                <default>false</default>
+            </picklistValues>
             <sorted>false</sorted>
         </picklist>
         <required>false</required>

@@ -494,7 +494,7 @@ ISPICKVAL(Product__r.Product_Type__c,&quot;NX/VX&quot;)
         <openType>onClickJavaScript</openType>
         <protected>false</protected>
         <requireRowSelection>false</requireRowSelection>
-        <url>if(&quot;{!Quote__c.Approval_Made__c}&quot; == &quot;1&quot; || &quot;{!Quote__c.Approval_Made__c}&quot; == &quot;true&quot; || &quot;{!Quote__c.Approval_Made__c}&quot; == &quot;True&quot;)
+        <url>if(&quot;{!Quote__c.Approval_Status__c}&quot;==&quot;Submitted&quot;||&quot;{!Quote__c.Approval_Made__c}&quot; == &quot;1&quot; || &quot;{!Quote__c.Approval_Made__c}&quot; == &quot;true&quot; || &quot;{!Quote__c.Approval_Made__c}&quot; == &quot;True&quot;)
 {
   alert(&quot;Quote is locked and can not be edited&quot;);
 }

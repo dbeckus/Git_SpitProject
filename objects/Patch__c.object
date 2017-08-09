@@ -212,6 +212,54 @@
         <type>Lookup</type>
     </fields>
     <fields>
+        <fullName>SP_BDR__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Service Provider BDR</label>
+        <referenceTo>User</referenceTo>
+        <relationshipName>Patches2</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>SP_CAM__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Service Provider CAM</label>
+        <referenceTo>User</referenceTo>
+        <relationshipName>Patches</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>SP_RSM__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Service Provider_RSM</label>
+        <referenceTo>User</referenceTo>
+        <relationshipName>PatchesRSM</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>SP_SE__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Service Provider SE</label>
+        <referenceTo>User</referenceTo>
+        <relationshipName>Patches1</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
         <fullName>Timestamp__c</fullName>
         <defaultValue>NOW()</defaultValue>
         <description>The time this patch or rule/matchList gets updated or deleted</description>

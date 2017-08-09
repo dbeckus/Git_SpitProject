@@ -21,6 +21,15 @@
         <template>Sales/DiscountApproved</template>
     </alerts>
     <fieldUpdates>
+        <fullName>Change_Quote_Status_To_Pending</fullName>
+        <field>Approval_Status__c</field>
+        <literalValue>Pending Approval</literalValue>
+        <name>Change Quote Status To Pending</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+    </fieldUpdates>
+    <fieldUpdates>
         <fullName>CheckECApprovalFlag</fullName>
         <field>EC_Approval__c</field>
         <literalValue>1</literalValue>
