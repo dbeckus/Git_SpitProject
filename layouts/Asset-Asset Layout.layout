@@ -107,6 +107,10 @@
                 <behavior>Readonly</behavior>
                 <field>Trigger_Asset_Count_Status_on_Account__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Is_Customer_Asset__c</field>
+            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>

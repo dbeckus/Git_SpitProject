@@ -269,23 +269,23 @@ public class AccountTriggerHandler implements ITriggerHandler {
     {
         List<Contract> lstContractToUpdate= new List<Contract>();
         List<Account> lstAccountToUpdate= new List<Account>();
-        if(ownerIds!=null && ownerIds.size()>0)
-        {
-            for(User usr : [select Id, Default_TR__c, Default_TR__r.Email from User where Id in :ownerIds and IsActive=true])
-            {
-                if(usr.Default_TR__c != null)
-                {
-                    user2TREmail.put(usr.Id, usr.Default_TR__r.Email);
-                }
-            }
-            for(User usr :[select Id, Email from User where UserRole.Name='Director of Customer Service' and UserType='Standard' and IsActive=true])
-            {
-                directorEmails.add(usr.Email);
-            }
-        }
+        
         if(mapAcct!=null && mapAcct.size()>0)
         {
-            
+            if(ownerIds!=null && ownerIds.size()>0)
+            {
+                for(User usr : [select Id, Default_TR__c, Default_TR__r.Email from User where Id in :ownerIds and IsActive=true])
+                {
+                    if(usr.Default_TR__c != null)
+                    {
+                        user2TREmail.put(usr.Id, usr.Default_TR__r.Email);
+                    }
+                }
+                for(User usr :[select Id, Email from User where UserRole.Name='Director of Customer Service' and UserType='Standard' and IsActive=true])
+                {
+                    directorEmails.add(usr.Email);
+                }
+            }
             for(Id item:mapAcct.keySet())
             {
                 Boolean t90Sent = false, t60Sent = false, t0Sent = false;
