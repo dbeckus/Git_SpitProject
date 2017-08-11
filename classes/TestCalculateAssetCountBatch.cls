@@ -1,6 +1,6 @@
-//@IsTest
+@IsTest
 public class TestCalculateAssetCountBatch {
-    //@IsTest
+    @IsTest
     public static void TestCalculateAssetCount()
     {
       
@@ -71,7 +71,8 @@ public class TestCalculateAssetCountBatch {
         assetData.SerialNumber = '001BBC039649_t';
         assetData.Active_EC_Base_License__c = ecAssetData.Id;
         insert assetData;
-        
+        acc.Trigger_Active_Asset_Count__c=true;
+        update acc;
         Test.startTest();
         CalculateActiveAssetCountBatch obj= new CalculateActiveAssetCountBatch();
       	Database.executeBatch(obj);

@@ -7,7 +7,7 @@ public class CalculateActiveAssetCountBatch implements Schedulable, Database.Bat
     
     public Database.QueryLocator start(Database.BatchableContext context)
     {
-        return Database.getQueryLocator([Select Id from Account where Trigger_Active_Asset_Count__c=true]);
+        return Database.getQueryLocator([Select Id from Account where Trigger_Active_Asset_Count__c=true ]);
     }
     
     public void execute(Database.BatchableContext context, List<sObject> scope)
@@ -15,34 +15,15 @@ public class CalculateActiveAssetCountBatch implements Schedulable, Database.Bat
        
         List<Account> lstAccount= (List<Account>)scope;
         List<Account> lstAccountToUpdate= new List<Account>();
+        Set<Id> accIds= new Set<Id>();
         System.debug('execute');
         for(Account item: lstAccount)
         {
+            accIds.add(item.Id);
             // Fetch virtual assets
             // Fetch virtual assets where contract is active
             decimal assetCount=0;
-            List<Asset> lstVirtualAssets=[Select Id from Asset where AccountId=:item.Id and Status in('Customer Subscription','Customer Subscription Active')and Product2.Family='Virtual Image' and (not Product2.Name='EC-ORCH')];
-            List<Asset> lstVirtualOwnedAssets=[Select Id from Asset where AccountId=:item.Id and Status ='Customer Owned' and Product2.Family='Virtual Image' and Contract_Number__r.Status='Activated'];
-            List<Asset> lstHdwrECAssets=[Select Id from Asset where AccountId=:item.Id and Status ='Customer Owned' and Product2.Family='Product' and Product2.Product_Type__c='EDGECONNECT' and Active_EC_Base_License__c!=null and Active_EC_Base_License__r.Status='Customer Subscription Active'];
-            List<Asset> lstHdwrAssets=[Select Id from Asset where AccountId=:item.Id and Status ='Customer Owned' and Product2.Family='Product' and Product2.Product_Type__c not in ('EDGECONNECT') and Contract_Number__c!=null and Contract_Number__r.Status='Activated'];
-            if(lstVirtualAssets!=null && lstVirtualAssets.size()>0)
-            {
-                assetCount +=lstVirtualAssets.size();
-            }
-            if(lstVirtualOwnedAssets!=null && lstVirtualOwnedAssets.size()>0)
-            {
-                assetCount +=lstVirtualOwnedAssets.size();
-            }
-            if(lstHdwrECAssets!=null && lstHdwrECAssets.size()>0)
-            {
-                assetCount +=lstHdwrECAssets.size();
-            }
-            if(lstHdwrAssets!=null && lstHdwrAssets.size()>0)
-            {
-                assetCount +=lstHdwrAssets.size();
-            }
-            System.debug(item.Id+'   '+ assetCount);
-            lstAccountToUpdate.add(new Account(Id=item.Id,Active_Asset_Count__c=assetCount,Trigger_Active_Asset_Count__c=false));
+            
         }
         if(lstAccountToUpdate.size()>0)
         {
@@ -60,4 +41,36 @@ public class CalculateActiveAssetCountBatch implements Schedulable, Database.Bat
         
     }
     
+    
+    private static Map<Id,Account> CalculateAssetCount(Set<Id> setAccIds)
+    {
+        	integer assetCount=0;
+        	List<Asset> lstVirtualAssets=[Select Id from Asset where AccountId in:setAccIds and Status in('Customer Subscription','Customer Subscription Active')and Product2.Family='Virtual Image' and (not Product2.Name='EC-ORCH')];
+            List<Asset> lstVirtualOwnedAssets=[Select Id from Asset where AccountId in:setAccIds and Status ='Customer Owned' and Product2.Family='Virtual Image' and Contract_Number__r.Status='Activated'];
+            List<Asset> lstHdwrECAssets=[Select Id from Asset where AccountId in:setAccIds and Status ='Customer Owned' and Product2.Family='Product' and Product2.Product_Type__c='EDGECONNECT' and Active_EC_Base_License__c!=null and Active_EC_Base_License__r.Status='Customer Subscription Active'];
+            List<Asset> lstHdwrAssets=[Select Id from Asset where AccountId in:setAccIds and Status ='Customer Owned' and Product2.Family='Product' and Product2.Product_Type__c not in ('EDGECONNECT') and Contract_Number__c!=null and Contract_Number__r.Status='Activated'];
+           /* if(lstVirtualAssets!=null && lstVirtualAssets.size()>0)
+            {
+                assetCount +=lstVirtualAssets.size();
+            }
+            if(lstVirtualOwnedAssets!=null && lstVirtualOwnedAssets.size()>0)
+            {
+                assetCount +=lstVirtualOwnedAssets.size();
+            }
+            if(lstHdwrECAssets!=null && lstHdwrECAssets.size()>0)
+            {
+                assetCount +=lstHdwrECAssets.size();
+            }
+            if(lstHdwrAssets!=null && lstHdwrAssets.size()>0)
+            {
+                assetCount +=lstHdwrAssets.size();
+            }
+            System.debug(item.Id+'   '+ assetCount);
+            //lstAccountToUpdate.add(new Account(Id=item.Id,Active_Asset_Count__c=assetCount,Trigger_Active_Asset_Count__c=false));*/
+        	return null;
+    }
+    private static Map<Id,Account> CalculateCustomerDate(Account acc)
+    {
+        return null;
+    }
 }

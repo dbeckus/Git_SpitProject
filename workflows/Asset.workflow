@@ -762,7 +762,7 @@ right(Id,4))</formula>
             <name>CPSyncStatus</name>
             <type>FieldUpdate</type>
         </actions>
-        <active>false</active>
+        <active>true</active>
         <formula>AND (  
 OR(  BEGINS(Product2.Name,&quot;EC&quot;),  BEGINS(Product2.Name,&quot;UNITY CLOUD&quot;) ), 
  NOT(Product2.Name == &quot;EC-ORCH&quot;), 

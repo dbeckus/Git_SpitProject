@@ -4,7 +4,7 @@ public class AssetTriggerHandler implements ITriggerHandler {
     Set<Id> lstSWCPAccount {get;set;} //Provision Decommission Account
     Set<Id> lstTACAccount {get;set;}//ActiveAssetCount
     Map<Id,Account> lstCustomerDateAccount {get;set;} // Customer Date Account
-    Set<String> swStatus= null;
+   
     
     public AssetTriggerHandler()
     {
@@ -22,12 +22,7 @@ public class AssetTriggerHandler implements ITriggerHandler {
         lstSWCPAccount= new Set<Id>();
         lstTACAccount= new Set<Id>();
         lstCustomerDateAccount= new Map<Id,Account>();
-        swStatus= new Set<String>();
-        swStatus.add('Customer Subscription Active');
-        swStatus.add('Customer Subscription');
-        swStatus.add('Customer Evaluation');
-        swStatus.add('Loan');
-        swStatus.add('Conditional PO');
+       
     }
     public Boolean IsDisabled()
     {
@@ -59,10 +54,6 @@ public class AssetTriggerHandler implements ITriggerHandler {
                     { 
                         newAsset.Cloud_Portal_Sync_Status__c='Pending';
                         newAsset.Sync_With_Cloud_Portal__c=true;
-                        if(!lstHWCPAccount.contains(newAsset.AccountId))
-                        {
-                            lstHWCPAccount.add(newAsset.AccountId);
-                        }
                     }
                 }
             }
@@ -104,17 +95,12 @@ public class AssetTriggerHandler implements ITriggerHandler {
                     if(oldAsset.Contract_Number__c != newAsset.Contract_Number__c || oldAsset.Status != newAsset.Status)
                     {
                       	newAsset.Is_Customer_Asset__c=true;
-                        
                     }
                     if(oldAsset.AccountId!=newAsset.AccountId )
                     {
                         if( newAsset.AccountId != null)
                         {
                             newAsset.Is_Customer_Asset__c=true;
-                        }
-                        if( oldAsset.AccountId != null)
-                        {
-                            oldAsset.Is_Customer_Asset__c=true;
                         }
                     }
                 } 
@@ -127,10 +113,6 @@ public class AssetTriggerHandler implements ITriggerHandler {
                         { 
                             newAsset.Cloud_Portal_Sync_Status__c='Pending';
                             newAsset.Sync_With_Cloud_Portal__c=true;
-                            if(!lstHWCPAccount.contains(newAsset.AccountId))
-                            {
-                                lstHWCPAccount.add(newAsset.AccountId);
-                            }
                         }
                     }
                 }
@@ -235,11 +217,6 @@ public class AssetTriggerHandler implements ITriggerHandler {
         {
             for(Id assetId : newItems.keySet())
             {
-                Asset newAsset=(Asset)newItems.get(assetId);
-                if(newAsset.AccountId!=null && newAsset.Status!='Customer Evaluation' && !newAsset.Trigger_Asset_Count_Status_on_Account__c)
-                {
-                    newAsset.Is_Customer_Asset__c=true;
-                }
             }
         }
         MakeFinalUpdateToAccount(); 
@@ -275,7 +252,6 @@ public class AssetTriggerHandler implements ITriggerHandler {
                 if(lstCustomerDateAccount!=null && lstCustomerDateAccount.containsKey(accountId))
                 {
                     Account accData= lstCustomerDateAccount.get(accountId);
-                    System.debug('accData'+accData);
                     if(accData.EC_Customer_Date__c!=null)
                     {
                         accountInfo.EC_Customer_Date__c=accData.EC_Customer_Date__c;
