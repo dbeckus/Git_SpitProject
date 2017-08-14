@@ -137,6 +137,10 @@
                 <behavior>Readonly</behavior>
                 <field>NTCV__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Regional_Sales_Manager__c</field>
+            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>

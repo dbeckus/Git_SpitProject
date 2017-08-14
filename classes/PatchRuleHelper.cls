@@ -374,7 +374,7 @@ public class PatchRuleHelper
         }
         if(oppIds.size() > 0)
         {
-            result.addAll((List<sObject>)[select Id, Name, OwnerId, Patch__c, Type, IsClosed, IsWon, StageName, Transactional_Opportunity__c, AccountId, Account.Name, Account.BillingCountry, Account.BillingPostalCode, Account.BillingState, Account.Industry, Account.Patch__c, Account.Patch__r.Id, Account.Patch__r.RSM__c, Account.Patch_Locked__c, Patch_Locked__c from Opportunity where Id in :oppIds]);
+            result.addAll((List<sObject>)[select Id, Name, OwnerId,Account.ECSP__c, Patch__c, Type, IsClosed, IsWon, StageName, Transactional_Opportunity__c, AccountId, Account.Name, Account.BillingCountry, Account.BillingPostalCode, Account.BillingState, Account.Industry, Account.Patch__c, Account.Patch__r.Id, Account.Patch__r.RSM__c, Account.Patch_Locked__c, Patch_Locked__c from Opportunity where Id in :oppIds]);
         }
         return result;
     }

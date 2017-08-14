@@ -326,7 +326,7 @@ public class TriggerTestFixtures
         system.assertEquals(user.Sales_Region__c, opp.Sales_Region__c);  
     }
     
-    @isTest 
+    @isTest(SeeAllData=true)
     static void testSetGEOEqualtoOwnerGEORegion()
     { 
       List<RecordType> recordTypes = [select Id from RecordType where Name = 'Lead' and SObjectType = 'Lead' and IsActive = true];
