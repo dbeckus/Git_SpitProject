@@ -60,7 +60,7 @@ trigger UpdateActiveAssetCount on Asset (after insert, after update,after delete
     {
         for(Id counter: acctIds)
         {
-            updatingAccounts.add(new Account(Id = counter, Trigger_Active_Asset_Count__c=true));
+            //updatingAccounts.add(new Account(Id = counter, Trigger_Active_Asset_Count__c=true));
         }
         
     }
