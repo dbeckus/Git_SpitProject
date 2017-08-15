@@ -1,65 +1,65 @@
 /*
- * Test the triggers
- * SetRegisteredPartnerEqualtoPartner
- * ShareOppToRegisteredPartner
- * CopyDiscussionToCase
- * UpdateRMACountOnCase
- * AddDefaultCompetitorName
- * SetOppOwnerOnPOC
- * SendEmailUponPublicCaseComment
- * SetLeadSourceOnOpp
- * SetSalesRegionEqualtoOwnerSalesRegion
- * UpdateRMATrackingInfoToCase
- * UpdateRMAStatus
- * ChangeRMAItemProduct
- * SendEmailOnAssetExpiration
- * ValidateSPContractNumber
- * AfterRMAItemReceived
- * AfterAssetInsert
- * LinkRVMemberToContact
- * LinkContactToRVMember
- * SetTechinicalResponsibility
- * PreventDuplicateISOReleases
- * RemoveOrphanedPOC
- * UpdateDealRegEndDateAfterConversion
- * initApprovalLevel
- * CopyCampaignTypeToLead
- * EOMUpdate
- * CreateDefaultLead 
- * PopulateFieldsToContract
- */
+* Test the triggers
+* SetRegisteredPartnerEqualtoPartner
+* ShareOppToRegisteredPartner
+* CopyDiscussionToCase
+* UpdateRMACountOnCase
+* AddDefaultCompetitorName
+* SetOppOwnerOnPOC
+* SendEmailUponPublicCaseComment
+* SetLeadSourceOnOpp
+* SetSalesRegionEqualtoOwnerSalesRegion
+* UpdateRMATrackingInfoToCase
+* UpdateRMAStatus
+* ChangeRMAItemProduct
+* SendEmailOnAssetExpiration
+* ValidateSPContractNumber
+* AfterRMAItemReceived
+* AfterAssetInsert
+* LinkRVMemberToContact
+* LinkContactToRVMember
+* SetTechinicalResponsibility
+* PreventDuplicateISOReleases
+* RemoveOrphanedPOC
+* UpdateDealRegEndDateAfterConversion
+* initApprovalLevel
+* CopyCampaignTypeToLead
+* EOMUpdate
+* CreateDefaultLead 
+* PopulateFieldsToContract
+*/
 @isTest
 public class TriggerTestFixtures 
 {
     //This trigger hasn't been deployed to the production.
     /*@isTest
-    static void testRollUpAmount2RVAccount()
-    {
-        rvpe__RVAccount__c rvaccount1 = new rvpe__RVAccount__c(Name = 'LuffyTest1', rvpe__ExtAccountId__c = 111);
-        insert rvaccount1;
-        rvpe__RVAccount__c rvaccount2 = new rvpe__RVAccount__c(Name = 'LuffyTest2', rvpe__ExtAccountId__c = 222);
-        insert rvaccount2;
-        Account account = new Account(Name = 'acme', Type = 'beta');
-        insert account;
-        Opportunity opp = new Opportunity(Name = 'acme', AccountId = account.Id, CloseDate = System.today(), StageName = 'Discovery',
-                                          Amount = 100, rvpe__RVAccount__c = rvaccount1.Id, Secondary_RV_Account__c = rvaccount2.Id);
-        insert opp;
-        rvaccount1 = [select Id, Total_Opportunity_Amount__c, Won_Amount__c from rvpe__RVAccount__c where Id = :rvaccount1.Id limit 1];
-        rvaccount2 = [select Id, Total_Opportunity_Amount__c, Won_Amount__c from rvpe__RVAccount__c where Id = :rvaccount2.Id limit 1];
-        System.assertEquals(100, rvaccount1.Total_Opportunity_Amount__c);
-        System.assertEquals(0, rvaccount1.Won_Amount__c);
-        System.assertEquals(100, rvaccount2.Total_Opportunity_Amount__c);
-        System.assertEquals(0, rvaccount2.Won_Amount__c);
-        
-        delete opp;
-        rvaccount1 = [select Id, Total_Opportunity_Amount__c, Won_Amount__c from rvpe__RVAccount__c where Id = :rvaccount1.Id limit 1];
-        rvaccount2 = [select Id, Total_Opportunity_Amount__c, Won_Amount__c from rvpe__RVAccount__c where Id = :rvaccount2.Id limit 1];
-        System.assertEquals(0, rvaccount1.Total_Opportunity_Amount__c);
-        System.assertEquals(0, rvaccount1.Won_Amount__c);
-        System.assertEquals(0, rvaccount2.Total_Opportunity_Amount__c);
-        System.assertEquals(0, rvaccount2.Won_Amount__c);
-    }*/
+static void testRollUpAmount2RVAccount()
+{
+rvpe__RVAccount__c rvaccount1 = new rvpe__RVAccount__c(Name = 'LuffyTest1', rvpe__ExtAccountId__c = 111);
+insert rvaccount1;
+rvpe__RVAccount__c rvaccount2 = new rvpe__RVAccount__c(Name = 'LuffyTest2', rvpe__ExtAccountId__c = 222);
+insert rvaccount2;
+Account account = new Account(Name = 'acme', Type = 'beta');
+insert account;
+Opportunity opp = new Opportunity(Name = 'acme', AccountId = account.Id, CloseDate = System.today(), StageName = 'Discovery',
+Amount = 100, rvpe__RVAccount__c = rvaccount1.Id, Secondary_RV_Account__c = rvaccount2.Id);
+insert opp;
+rvaccount1 = [select Id, Total_Opportunity_Amount__c, Won_Amount__c from rvpe__RVAccount__c where Id = :rvaccount1.Id limit 1];
+rvaccount2 = [select Id, Total_Opportunity_Amount__c, Won_Amount__c from rvpe__RVAccount__c where Id = :rvaccount2.Id limit 1];
+System.assertEquals(100, rvaccount1.Total_Opportunity_Amount__c);
+System.assertEquals(0, rvaccount1.Won_Amount__c);
+System.assertEquals(100, rvaccount2.Total_Opportunity_Amount__c);
+System.assertEquals(0, rvaccount2.Won_Amount__c);
 
+delete opp;
+rvaccount1 = [select Id, Total_Opportunity_Amount__c, Won_Amount__c from rvpe__RVAccount__c where Id = :rvaccount1.Id limit 1];
+rvaccount2 = [select Id, Total_Opportunity_Amount__c, Won_Amount__c from rvpe__RVAccount__c where Id = :rvaccount2.Id limit 1];
+System.assertEquals(0, rvaccount1.Total_Opportunity_Amount__c);
+System.assertEquals(0, rvaccount1.Won_Amount__c);
+System.assertEquals(0, rvaccount2.Total_Opportunity_Amount__c);
+System.assertEquals(0, rvaccount2.Won_Amount__c);
+}*/
+    
     @isTest
     static void testUncheckTriggerAssignmentWhenOwnerChanged()
     {
@@ -197,7 +197,7 @@ public class TriggerTestFixtures
         System.assertEquals(testUser.Email, po.Owner_Email__c);
         System.assertEquals(testUser.Email, po.Technical_Resposible_Email__c);
     }
-
+    
     @isTest
     static void testTriggersOnOpportunity()
     {
@@ -326,24 +326,7 @@ public class TriggerTestFixtures
         system.assertEquals(user.Sales_Region__c, opp.Sales_Region__c);  
     }
     
-    @isTest(SeeAllData=true)
-    static void testSetGEOEqualtoOwnerGEORegion()
-    { 
-      List<RecordType> recordTypes = [select Id from RecordType where Name = 'Lead' and SObjectType = 'Lead' and IsActive = true];
-        if(!recordTypes.isEmpty())
-        {
-        User user=[select Id, GEO_Region__c, Region__c, Geo__c from User where Id = :UserInfo.getUserId() limit 1];
-        User testUser = [select Id from User where IsActive = true and Id != :UserInfo.getUserId() limit 1];
- 
-        Lead ld = new Lead(LastName = 'test1', Company = 'test', RecordTypeId = recordTypes[0].Id, OwnerId=testUser.Id, Trigger_Assignment__c = false);
-        insert ld;
-        ld.LeadSource='Dell';
-        ld.OwnerId=user.Id;
-        update ld;
-        ld = [select GEO__c from Lead where Id=:ld.Id limit 1];
-        system.assertEquals(user.GEO_Region__c, ld.GEO__c);  
-       }
-    }
+    
     
     @isTest
     static void testUpdateRMATrackingInfoToCase()
@@ -380,13 +363,15 @@ public class TriggerTestFixtures
     static void testChangeRMAItemProductAndUpdateRMAStatus()
     {
         List<Product2> prods = new List<Product2> { 
-                                                new Product2(Name='acme1', ProductCode='pcode1'),
-                                                new Product2(Name='acme2') };
-        insert prods;
+            new Product2(Name='acme1', ProductCode='pcode1'),
+                new Product2(Name='acme2') };
+                    insert prods;
         Product2 prod = new Product2(Name='acme', ProductCode='pcode', RMA_Alternate_1__c=prods[0].Id, RMA_Alternate_2__c=prods[1].Id);
         insert prod;
         Account acc = new Account(Name='acme', Type='Eval');
         insert acc;
+        Account spAccount= new Account(Name='Silver Peak Systems');
+        insert spAccount;
         Contact con = new Contact(LastName='acme', AccountId=acc.Id);
         insert con;
         Asset asset = new Asset(Name='acme', SerialNumber='acme', Quantity=1.00, Status='Conditional PO', Product2Id=prod.Id, AccountId=acc.Id, ContactId=con.Id);
@@ -406,6 +391,8 @@ public class TriggerTestFixtures
     @isTest
     static void testChangeRMAItemProduct()
     {
+        Account spAccount= new Account(Name='Silver Peak Systems');
+        insert spAccount;
         Product2 productA = new Product2(Name='A', ProductCode='A', IsActive=true);
         Product2 productB = new Product2(Name='B', ProductCode='B', IsActive=true);
         Product2 productC = new Product2(Name='C', ProductCode='C', IsActive=true);
@@ -415,7 +402,7 @@ public class TriggerTestFixtures
         Product2 productG = new Product2(Name='G', ProductCode='G', IsActive=true);
         Product2 productH = new Product2(Name='H', ProductCode='H', IsActive=true);
         List<Product2> products = new List<Product2> { productA, productB, productC, productD, productE, productF, productG, productH };
-        insert products;
+            insert products;
         //productA.ReplaceableHDD__c = productB.Id;
         productB.RMA_Primary_Replacement__c = productC.Id;
         productB.RMA_Alternate_1__c = productD.Id;
@@ -455,6 +442,8 @@ public class TriggerTestFixtures
     @isTest
     static void testChangeRMAItemProduct2()
     {
+        Account spAccount= new Account(Name='Silver Peak Systems');
+        insert spAccount;
         Product2 productA = new Product2(Name='A', ProductCode='A', IsActive=true);
         Product2 productB = new Product2(Name='B', ProductCode='B', IsActive=true);
         Product2 productC = new Product2(Name='C', ProductCode='C', IsActive=true);
@@ -464,7 +453,7 @@ public class TriggerTestFixtures
         Product2 productG = new Product2(Name='G', ProductCode='G', IsActive=true);
         Product2 productH = new Product2(Name='H', ProductCode='H', IsActive=true);
         List<Product2> products = new List<Product2> { productA, productB, productC, productD, productE, productF, productG, productH };
-        insert products;
+            insert products;
         //productA.ReplaceableHDD__c = productB.Id;
         productB.Family = 'Accessory';
         productB.Use_System_Alternative__c = true;
@@ -512,6 +501,8 @@ public class TriggerTestFixtures
     @isTest
     static void testChangeRMAItemProduct3()
     {
+        Account spAccount= new Account(Name='Silver Peak Systems');
+        insert spAccount;
         Product2 productA = new Product2(Name='A', ProductCode='A', IsActive=true);
         Product2 productB = new Product2(Name='B', ProductCode='B', IsActive=true);
         Product2 productC = new Product2(Name='C', ProductCode='C', IsActive=true);
@@ -521,7 +512,7 @@ public class TriggerTestFixtures
         Product2 productG = new Product2(Name='G', ProductCode='G', IsActive=true);
         Product2 productH = new Product2(Name='H', ProductCode='H', IsActive=true);
         List<Product2> products = new List<Product2> { productA, productB, productC, productD, productE, productF, productG, productH };
-        insert products;
+            insert products;
         //productA.ReplaceableHDD__c = productB.Id;
         productB.Family = 'Accessory';
         productB.Use_System_Alternative__c = true;
@@ -639,6 +630,8 @@ public class TriggerTestFixtures
     static void testAfterRMAItemReceived()
     {
         Id accountId = TestUtilities.createTestAccount();
+        Account spAccount= new Account(Name='Silver Peak Systems');
+        insert spAccount;
         Product2 testProduct = TestUtilities.createTestProduct();
         testProduct.Product_Category__c = 'Appliance';
         update testProduct;
@@ -659,6 +652,8 @@ public class TriggerTestFixtures
         User testUser = [select Id from User where IsActive=true and Id != :UserInfo.getUserId() limit 1];
         Account account = new Account(Name='acme', ownerId = testUser.Id);
         insert account;
+        Account spAccount= new Account(Name='Silver Peak Systems');
+        insert spAccount;
         Product2 product = new Product2(Name='acme', Product_Category__c='Subscription');
         insert product;
         Opportunity opp = new Opportunity(OwnerId = testUser.Id, Technical_Responsible__c = testUser.Id, Name='acme', Registered_Partner__c=account.Id, AccountId=account.Id, StageName='Discovery', CloseDate=System.today(),Product_Type__c='Both');
@@ -675,13 +670,13 @@ public class TriggerTestFixtures
         Contact contact1 = new Contact(LastName = 'contact acme 1', Email = 'rvmembertest@silverpeak.acme');
         Contact contact2 = new Contact(LastName = 'contact acme 2', Email = 'rvmembertest@silverpeak.acme');
         insert new List<Contact> { contact1, contact2 };
-        
-        rvpe__RVMember__c rvMember1 = new rvpe__RVMember__c(Name = 'rv member acme 1', rvpe__UserName__c = 'rv member acme 1', rvpe__ExtMemberId__c = 999991, rvpe__Email__c = 'rvmembertest@silverpeak.acme');
+            
+            rvpe__RVMember__c rvMember1 = new rvpe__RVMember__c(Name = 'rv member acme 1', rvpe__UserName__c = 'rv member acme 1', rvpe__ExtMemberId__c = 999991, rvpe__Email__c = 'rvmembertest@silverpeak.acme');
         rvpe__RVMember__c rvMember2 = new rvpe__RVMember__c(Name = 'rv member acme 2', rvpe__UserName__c = 'rv member acme 2', rvpe__ExtMemberId__c = 999992, rvpe__Email__c = 'rvmembertest@silverpeak.acme');
         rvpe__RVMember__c rvMember3 = new rvpe__RVMember__c(Name = 'rv member acme 3', rvpe__UserName__c = 'rv member acme 3', rvpe__ExtMemberId__c = 999993, rvpe__Email__c = 'rvmembertest2@silverpeak.acme');
         insert new List<rvpe__RVMember__c> { rvMember1, rvMember2, rvMember3 };
-        
-        system.assertEquals(rvMember2.Id, [select RV_Member__c from Contact where Id = :contact1.Id limit 1].RV_Member__c);
+            
+            system.assertEquals(rvMember2.Id, [select RV_Member__c from Contact where Id = :contact1.Id limit 1].RV_Member__c);
         List<Contact> newContacts = [select Id, RV_Member__c from Contact where Email = 'rvmembertest2@silverpeak.acme'];
         system.assertEquals(rvMember3.Id, newContacts[0].RV_Member__c);
         system.assertEquals(newContacts[0].Id, [select rvpe__SFContact__c from rvpe__RVMember__c where Id = :rvMember3.Id limit 1].rvpe__SFContact__c);
@@ -703,7 +698,7 @@ public class TriggerTestFixtures
         Releases__c release1 = new Releases__c(Name = 'acme release 1', Release__c = '1.0', Type__c = 'ISO Image');
         Releases__c release2 = new Releases__c(Name = 'acme release 2', Release__c = '1.0', Type__c = 'ISO Image');
         Releases__c[]  releases = new Releases__c[] { release1, release2 };
-        try
+            try
         {
             insert releases;
         }
@@ -759,27 +754,6 @@ public class TriggerTestFixtures
         }
     }
     
-  
-    static void testinitApprovalLevel()
-    {
-        User testUser = [select Id from User where IsActive=true and Id != :UserInfo.getUserId() limit 1];
-        Account account = new Account(Name='acme', ownerId = testUser.Id);
-        insert account;
-        Product2 product = new Product2(Name='acme', Product_Category__c='Subscription', Family = 'Virtual Image');
-        insert product;
-        Opportunity opp = new Opportunity(OwnerId = testUser.Id, Technical_Responsible__c = testUser.Id, Name='acme', Registered_Partner__c=account.Id, AccountId=account.Id, StageName='Discovery', CloseDate=System.today());
-        insert opp;
-        PricebookEntry entry = [select Id, Product2Id, UnitPrice from PricebookEntry where isActive = true limit 1];
-        OpportunityLineItem oppLineItem = new OpportunityLineItem(OpportunityId = opp.Id, PricebookEntryId = entry.Id, Quantity = 123, TotalPrice = 1300);//, Product2Id = product.Id);
-        insert oppLineItem;
-        Quote__c quote = new Quote__c(Opportunity__c = opp.Id, Quote_Date__c = date.Today(), Quote_Valid_Until__c = date.Today()+10);
-        insert quote;
-        Quote_Line__c quoteLine = new Quote_Line__c(Quote__c = quote.Id, Product__c = product.Id, Unit_Price__c = 234, Quantity__c = 123, Discount_Percent__c = 35);
-        insert quoteLine;
-        Quote_Line__c quoteLinetest = [select ApprovalLevel__c, Id from Quote_Line__c where Id =: quoteLine.Id];
-        system.assertEquals(quoteLinetest.ApprovalLevel__c, 1);   
-    }
-    
     @isTest(SeeAllData = true)
     static void testUpdateForecastCategoryToOpportunity()
     {
@@ -821,19 +795,19 @@ public class TriggerTestFixtures
         Account account = new Account(Name='acme');
         Account account2 = new Account(Name='acme2');        
         insert new Account[] { account, account2};
-        Opportunity opp = new Opportunity(Name = 'acme', AccountId = account.Id, StageName = 'Discovery', CloseDate = system.today(), Amount = 100,Product_Type__c='Both');
+            Opportunity opp = new Opportunity(Name = 'acme', AccountId = account.Id, StageName = 'Discovery', CloseDate = system.today(), Amount = 100,Product_Type__c='Both');
         Opportunity opp2 = new Opportunity(Name = 'acme2', AccountId = account2.Id, StageName = 'Discovery', CloseDate = system.today(), Amount = 100,Product_Type__c='Both');        
         insert new Opportunity[] { opp, opp2 };        
-        AccountTeamMember member = new AccountTeamMember(AccountId = account.Id, UserId = UserInfo.getUserId(), TeamMemberRole = 'Account Manager');        
+            AccountTeamMember member = new AccountTeamMember(AccountId = account.Id, UserId = UserInfo.getUserId(), TeamMemberRole = 'Account Manager');        
         AccountTeamMember member2 = new AccountTeamMember(AccountId = account2.Id, UserId = UserInfo.getUserId(), TeamMemberRole = 'Systems Engineer');
         insert new AccountTeamMember[]{ member, member2 };                      
-        Request__c request = new Request__c(Opportunity__c = opp.Id);
+            Request__c request = new Request__c(Opportunity__c = opp.Id);
         Request__c request2 = new Request__c(Opportunity__c = opp2.Id);        
         insert new Request__c[]{ request, request2 };
         RMA__c rma = new RMA__c(Account__c = account.Id);
         RMA__c rma2 = new RMA__c(Account__c = account2.Id);        
         insert new RMA__c[]{ rma, rma2 };
-        
+            
         system.assertEquals(Userinfo.getUserEmail(), [SELECT Account_Manager_Email_1__c, System_Engineer_Email_1__c FROM Request__c WHERE id = :request.Id][0].Account_Manager_Email_1__c);
         system.assertEquals(Userinfo.getUserEmail(), [SELECT Account_Manager_Email_1__c, System_Engineer_Email_1__c FROM Request__c WHERE id = :request2.Id][0].System_Engineer_Email_1__c);
         system.assertEquals(Userinfo.getUserEmail(), [SELECT Account_Manager_Email_1__c, System_Engineer_Email_1__c FROM RMA__c WHERE id = :rma.Id][0].Account_Manager_Email_1__c);
@@ -846,24 +820,24 @@ public class TriggerTestFixtures
         system.assertEquals(Userinfo.getUserEmail(), [SELECT Account_Manager_Email_1__c, System_Engineer_Email_1__c FROM RMA__c WHERE id = :rma.Id][0].System_Engineer_Email_1__c);
     }
     
-    @isTest
+    //@isTest
     static void testPreventContactLinkedToCampaign()
     {
         /*Account acc = new Account(Name='acme');
-        insert acc;
-        Contact ct = new Contact(LastName='acme', AccountId=acc.Id);
-        insert ct;
-        Campaign campaign = new Campaign(Name = 'test', Type = 'Email', Status = 'Planned', Do_Not_Tele_Qualify__c=true);
-        insert campaign;
-        CampaignMember campaignMember = new CampaignMember(ContactId=ct.Id, CampaignId=campaign.Id);
-        insert campaignMember;
-        
-        campaignMember = [select Id, LeadId, ContactId from CampaignMember where Id=:campaignMember.Id limit 1];
-        System.assert(campaignMember.ContactId == null);
-        System.assert(campaignMember.LeadId != null);
-        
-        ct = [select Id, Campaign_Lead__c from Contact where id=:ct.Id limit 1];
-        System.assertEquals(campaignMember.LeadId, ct.Campaign_Lead__c);*/
+insert acc;
+Contact ct = new Contact(LastName='acme', AccountId=acc.Id);
+insert ct;
+Campaign campaign = new Campaign(Name = 'test', Type = 'Email', Status = 'Planned', Do_Not_Tele_Qualify__c=true);
+insert campaign;
+CampaignMember campaignMember = new CampaignMember(ContactId=ct.Id, CampaignId=campaign.Id);
+insert campaignMember;
+
+campaignMember = [select Id, LeadId, ContactId from CampaignMember where Id=:campaignMember.Id limit 1];
+System.assert(campaignMember.ContactId == null);
+System.assert(campaignMember.LeadId != null);
+
+ct = [select Id, Campaign_Lead__c from Contact where id=:ct.Id limit 1];
+System.assertEquals(campaignMember.LeadId, ct.Campaign_Lead__c);*/
     }
     
     @isTest
@@ -944,7 +918,7 @@ public class TriggerTestFixtures
                                 EmailEncodingKey='ISO-8859-1',
                                 LanguageLocaleKey='en_US',
                                 IsActive=true
-                                );
+                               );
         insert newUser;
         Test.stopTest();
         //System.assert([select count() from GroupMember where UserOrGroupId=:newUser.Id] > 0); //error thrown in trigger: mixed DML (bug of sfdc?)

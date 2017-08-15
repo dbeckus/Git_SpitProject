@@ -139,8 +139,9 @@
                 nodeLine.qty.val("1");
                 nodeLine.qty.prop("disabled",true);
             }
+            alert(productName.indexOf("EC-SP"));
             //Refresh Other(Start Date,End Date, Duration) Columns
-            if(productCode.indexOf("VX") >= 0 || productCode.indexOf("30") == 0 ||(productName!='EC-ORCH' && productName.indexOf("EC-SP-") != 0 && productName.indexOf("EC-") >= 0) ||(productCode=="500188-001" && productName.indexOf("VX") >= 0 )) {  //30 - Customer Subscription
+            if(productCode.indexOf("VX") >= 0 || productCode.indexOf("30") == 0 ||(productName!='EC-ORCH' && productName.indexOf("EC-SP")!=0) ||(productCode=="500188-001" && productName.indexOf("VX") >= 0 )) {  //30 - Customer Subscription
                 nodeLine.status.val("Customer Subscription");
                 
                 nodeLine.ownerDurationSelect.hide();

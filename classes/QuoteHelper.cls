@@ -20,7 +20,7 @@ public  class QuoteHelper {
         integer ecProduct=0;
         integer spProduct=0;
         integer nonEcProduct=0;
-        List<Quote_Line__c> quoteLineLst = [Select Id, Product__r.Name, Product__r.Product_Type__c From Quote_Line__c where quote__c = :quoteDtl.Id and Product__r.Family in ('Product','Virtual Image','Upgrade')];
+        List<Quote_Line__c> quoteLineLst = [Select Id, Product__r.Name, Product__r.Product_Type__c From Quote_Line__c where quote__c = :quoteDtl.Id];
         if(quoteLineLst!=null && quoteLineLst.size()>0)
         {
             for(Quote_Line__c item: quoteLineLst)

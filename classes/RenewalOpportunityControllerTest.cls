@@ -25,7 +25,7 @@ public class RenewalOpportunityControllerTest
         
         List<PriceBook2> pricebook = [select Id from Pricebook2 where Name = 'Standard Price Book' limit 1];
         List<PriceBookEntry> entry = [select Id, Product2Id, ProductCode, UnitPrice from PricebookEntry where PriceBook2Id = :pricebook[0].Id and Product2.Family='Service' 
-                                      and IsActive = true limit 1];
+                                      and IsActive = true and ProductCode='300005-201' limit 1];
         OpportunityLineItem oppLine = new OpportunityLineItem(OpportunityId = opp.Id, PriceBookEntryId = entry[0].Id, Quantity = 1, UnitPrice = 10);
         insert oppLine;
         
