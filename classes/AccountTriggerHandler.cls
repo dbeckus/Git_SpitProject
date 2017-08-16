@@ -214,7 +214,7 @@ public class AccountTriggerHandler implements ITriggerHandler {
                 string bodyText= string.format(templateString,arguments);
             //Send Email to DevOps Team
             Messaging.SingleEmailMessage message = new Messaging.SingleEmailMessage();
-            List<OrgWideEmailAddress> addresses = [select Id from OrgWideEmailAddress where Address='noreply@silver-peak.com' limit 1];
+            List<OrgWideEmailAddress> addresses = [select Id from OrgWideEmailAddress where Address='notifications@silver-peak.com' limit 1];
             if(addresses.size() > 0)
             {
                 message.setOrgWideEmailAddressId(addresses[0].Id);
