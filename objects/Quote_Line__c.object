@@ -389,6 +389,7 @@ AND(Include4ServiceDiscount__c==0,
 OR( 
 ISPICKVAL(Product__r.Product_Type__c,&quot;EDGECONNECT&quot;), 
 ISPICKVAL(Product__r.Product_Type__c,&quot;EC-SP-Perpetual&quot;), 
+ISPICKVAL(Product__r.Product_Type__c,&quot;EC-SP-Term&quot;) ,
 ISPICKVAL(Product__r.Product_Type__c,&quot;EC-SP-Metered&quot;) 
 )),Quote__r.Opportunity__r.Primary_Partner__r.Registered_Discount_EdgeConnect__c,
 IF(

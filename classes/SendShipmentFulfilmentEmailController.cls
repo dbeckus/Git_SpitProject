@@ -92,7 +92,7 @@ public class SendShipmentFulfilmentEmailController
         Set<Id> shipmentIdList = new Set<Id>();
         List<Shipped_Line__c> lstShipment = new List<Shipped_Line__c>();
         
-        lstShipment= [Select Shipment_Id__c from Shipped_Line__c where Asset__r.Product2.Name like 'EC-%' and Asset__r.Status='Customer Owned' and Asset__r.Product2.Product_Type__c in('EC-SP-Perpetual') and Shipment_Id__c=:shipmentId];
+        lstShipment= [Select Shipment_Id__c from Shipped_Line__c where Asset__r.Product2.Name like 'EC-%' and Asset__r.Status='Customer Owned' and Asset__r.Product2.Product_Type__c in('EC-SP-Perpetual','EC-SP-Term') and Shipment_Id__c=:shipmentId];
         if(lstShipment.size()>0)
         {
             isServiceProvider=true;

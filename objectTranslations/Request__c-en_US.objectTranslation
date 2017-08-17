@@ -473,12 +473,8 @@
             <translation><!-- Metered-Orchestrator SP --></translation>
         </picklistValues>
         <picklistValues>
-            <masterLabel>Perpetual</masterLabel>
-            <translation><!-- Perpetual --></translation>
-        </picklistValues>
-        <picklistValues>
-            <masterLabel>Perpetual-Orchestrator SP</masterLabel>
-            <translation><!-- Perpetual-Orchestrator SP --></translation>
+            <masterLabel>Term Based</masterLabel>
+            <translation><!-- Term Based --></translation>
         </picklistValues>
         <picklistValues>
             <masterLabel>WAN Op</masterLabel>

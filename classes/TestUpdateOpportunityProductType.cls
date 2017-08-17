@@ -267,10 +267,10 @@ public class TestUpdateOpportunityProductType {
     @isTest(SeeAllData=true)
     public static void TestOppTypeWhenMadePrimary_SP()
     {
-        Product2 prod = new product2(name='EC-SP-PLUS',Product_Type__c='EC-SP-Perpetual', Product_Category__c = 'Subscription', isActive = true, isQuotable__c = true,Family='Virtual Image');
+        Product2 prod = new product2(name='EC-SP-PLUS',Product_Type__c='EC-SP-Term', Product_Category__c = 'Subscription', isActive = true, isQuotable__c = true,Family='Virtual Image');
         insert prod;
         SYSTEM.debug('prod.Id'+prod.Id);
-        Product2 prod2 = new product2(name='EC-BASE-PLUS',Product_Type__c='EC-SP-Perpetual', Product_Category__c = 'Subscription', isActive = true, isQuotable__c = true,Family='Virtual Image');
+        Product2 prod2 = new product2(name='EC-BASE-PLUS',Product_Type__c='EC-SP-Term', Product_Category__c = 'Subscription', isActive = true, isQuotable__c = true,Family='Virtual Image');
         insert prod2;
         SYSTEM.debug('prod2.Id'+prod2.Id);
         Pricebook2 stdPb = [select Id from Pricebook2 where IsStandard=true limit 1];

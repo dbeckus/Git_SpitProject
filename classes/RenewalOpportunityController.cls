@@ -16,9 +16,9 @@ public class RenewalOpportunityController
         else if(oldOpp.Product_Type__c=='EDGECONNECT')
             products = [select Id, Name, ProductCode from Product2 where Is_Renewal__c=1 and Product_Type__c='EDGECONNECT' and IsActive = true];
         else if(oldOpp.Product_Type__c=='EC-SP')
-            products = [select Id, Name, ProductCode from Product2 where Is_Renewal__c=1 and Product_Type__c in('EC-SP-Perpetual','EC-SP-Metered') and IsActive = true];
+            products = [select Id, Name, ProductCode from Product2 where Is_Renewal__c=1 and Product_Type__c in('EC-SP-Perpetual','EC-SP-Metered','EC-SP-Term') and IsActive = true];
         else if(oldOpp.Account.ECSP__c)
-            products = [select Id, Name, ProductCode from Product2 where Is_Renewal__c=1 and IsActive = true and Product_Type__c in('EC-SP-Perpetual','EC-SP-Metered')];
+            products = [select Id, Name, ProductCode from Product2 where Is_Renewal__c=1 and IsActive = true and Product_Type__c in('EC-SP-Perpetual','EC-SP-Metered','EC-SP-Term')];
         else
             products = [select Id, Name, ProductCode from Product2 where Is_Renewal__c=1 and IsActive = true and Product_Type__c in('NX/VX','EDGECONNECT')];
         Map<String, Id> prdCode2prdId = new Map<String, Id>();

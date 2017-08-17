@@ -114,7 +114,6 @@
  IsAllVirtual__c =1,
 ISPICKVAL(Status__c,&quot;Open&quot;),
 ISPICKVAL(Type__c,&quot;Evaluation&quot;),
- TR_Approved__c ,
 Opportunity__r.Account.ECSP__c
 )</formula>
     </entryCriteria>

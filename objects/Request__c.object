@@ -886,15 +886,11 @@ NOT(ISBLANK(TEXT( PhysicalProduct1__c )))
                 <default>false</default>
             </picklistValues>
             <picklistValues>
-                <fullName>Perpetual</fullName>
+                <fullName>Term Based</fullName>
                 <default>false</default>
             </picklistValues>
             <picklistValues>
                 <fullName>Metered</fullName>
-                <default>false</default>
-            </picklistValues>
-            <picklistValues>
-                <fullName>Perpetual-Orchestrator SP</fullName>
                 <default>false</default>
             </picklistValues>
             <picklistValues>
@@ -2339,11 +2335,7 @@ ISPICKVAL( Opportunity__r.Account.Partner_Type__c,&quot;Service Provider&quot;)
                 <default>false</default>
             </values>
             <values>
-                <fullName>Perpetual</fullName>
-                <default>false</default>
-            </values>
-            <values>
-                <fullName>Perpetual-Orchestrator SP</fullName>
+                <fullName>Term Based</fullName>
                 <default>false</default>
             </values>
             <values>
@@ -2848,11 +2840,7 @@ ISPICKVAL( Opportunity__r.Account.Partner_Type__c,&quot;Service Provider&quot;)
                 <default>false</default>
             </values>
             <values>
-                <fullName>Perpetual</fullName>
-                <default>false</default>
-            </values>
-            <values>
-                <fullName>Perpetual-Orchestrator SP</fullName>
+                <fullName>Term Based</fullName>
                 <default>false</default>
             </values>
             <values>

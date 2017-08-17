@@ -119,13 +119,13 @@ public class VirtualPOCFulfillmentControllerTest
         Request__c pocRequest = new Request__c(POC_Contact__c = contact.Id);
         pocRequest.POC_Type__c='Perpetual';
         pocRequest.Opportunity__c= opportunity.id;
-        pocRequest.VirtualProduct1__c= 'EC-SP-50';
+        pocRequest.VirtualProduct1__c= 'EC-SP-50-B';
         pocRequest.VirtualQuantity1__c= 5;
-        pocRequest.VirtualProduct1__c= 'EC-SP-100';
+        pocRequest.VirtualProduct1__c= 'EC-SP-100-B';
         pocRequest.VirtualQuantity1__c= 5;
-        pocRequest.VirtualProduct1__c= 'EC-SP-200';
+        pocRequest.VirtualProduct1__c= 'EC-SP-200-B';
         pocRequest.VirtualQuantity1__c= 5;
-        pocRequest.VirtualProduct1__c= 'EC-SP-1000';
+        pocRequest.VirtualProduct1__c= 'EC-SP-1000-B';
         pocRequest.VirtualQuantity1__c= 5;
       
         insert pocRequest;     
@@ -186,6 +186,71 @@ public class VirtualPOCFulfillmentControllerTest
         pocRequest.Opportunity__c= opportunity.id;
         pocRequest.VirtualProduct1__c= 'EC-SP-MET';
         pocRequest.VirtualQuantity1__c= 1;
+      	
+        insert pocRequest;     
+       
+        ApexPages.StandardController sc = new ApexPages.StandardController(pocRequest);
+        VirtualPOCFulfillmentController controller = new VirtualPOCFulfillmentController(sc);
+        controller.addAsset();
+        Integer maxIndex = controller.VirtualAssets.size() - 1;
+        //system.debug(controller.ProductOptions);
+        for(Integer i = maxIndex; i >= 0; i--)
+        {
+            ApexPages.currentPage().getParameters().put('rmIndex', String.valueOf(i));
+            controller.removeAsset();
+        }
+        
+        Profile p = [SELECT Id FROM Profile WHERE Name='System Administrator']; 
+        User u = new User(Alias = 'standt', Email='testUser@uniquetest.com', 
+                          EmailEncodingKey='UTF-8', LastName='Testing', LanguageLocaleKey='en_US', 
+                          LocaleSidKey='en_US', ProfileId = p.Id, 
+                          TimeZoneSidKey='America/Los_Angeles', UserName='testUser@uniquetest.com');
+    
+        u.IsActive =true;
+        System.runAs(u) {
+            // The following code runs as user 'u' 
+           Test.startTest();
+           controller.save();
+           Test.stopTest();
+        }
+        
+        //controller.setLicenseEncryption();
+    }
+     @IsTest
+    static void testVirtualECOrchFulfillmentController_TermBased()
+    {
+        Account acc = new Account(Name='testECPOC',ECSP__c=true,Service_Provider_Account_Type__c='Term Based',Service_Provider_Admin_User__c='abc@abc.com',Service_Provider_Domain__c='abc1323',Service_Provider_Location__c='Canada (Central)');
+        insert acc;
+        Contact contact = new Contact(FirstName = 'AcmeFirstname', LastName = 'AcmeLastname', Phone='123456789', Email = 'acme@acme.com' , accountId=acc.Id);
+        insert contact;
+        
+        Opportunity opportunity = new Opportunity();
+        opportunity.Name = 'acme';
+        opportunity.AccountId = acc.Id;
+        opportunity.Pricebook2Id = TestUtilities.getStandardPricebookId();
+        opportunity.StageName = 'Closed Dead';
+        opportunity.Dead_Reason__c = 'acme';
+        opportunity.CloseDate = Date.today().addYears(1);
+        opportunity.Type = 'New Business';
+        opportunity.Opportunity_Source__c = 'Other';
+        opportunity.POC_Type__c = 'POC';
+        opportunity.Product_Type__c = 'Both';
+        opportunity.Deal_Type__c = 'Replication';
+        opportunity.Solution_Type__c = 'Replication Acceleration';
+        
+        insert opportunity;
+       
+        Request__c pocRequest = new Request__c(POC_Contact__c = contact.Id);
+        pocRequest.POC_Type__c='Term-Based';
+        pocRequest.Opportunity__c= opportunity.id;
+       	pocRequest.VirtualProduct1__c= 'EC-SP-50-B50-1Y';
+        pocRequest.VirtualQuantity1__c= 5;
+        pocRequest.VirtualProduct1__c= 'EC-SP-100-B100-1Y';
+        pocRequest.VirtualQuantity1__c= 5;
+        pocRequest.VirtualProduct1__c= 'EC-SP-200-B200-1Y';
+        pocRequest.VirtualQuantity1__c= 5;
+        pocRequest.VirtualProduct1__c= 'EC-SP-1G-B1G-1Y';
+        pocRequest.VirtualQuantity1__c= 5;
       	
         insert pocRequest;     
        

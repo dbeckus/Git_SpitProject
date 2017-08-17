@@ -90,7 +90,7 @@ public class PORenewalAssetsController {
             }
             if(AssetTypeSelection=='3')
             {
-                lstAssets =[Select Id, Name,License_End_Date__c,Product2.Name,Status,Ship_Date__c,Service_Support_End_Date__c, Product2.Product_Category__c,Product2.NumberOfLicenses__c,Hosted_GMS__c,GMS_Nodes__c,Product2.Model__c,Is_Selected_For_Renewal__c,Renewal_Date__c,License_Expiration__c,Renewal_Nodes__c,Renewal_Start_Date__c  from Asset where AccountId =:PORequest.Opportunity__r.AccountId and  Status in('Customer Owned') and Product2.Product_Type__c in('EC-SP-Perpetual')];
+                lstAssets =[Select Id, Name,License_End_Date__c,Product2.Name,Status,Ship_Date__c,Service_Support_End_Date__c, Product2.Product_Category__c,Product2.NumberOfLicenses__c,Hosted_GMS__c,GMS_Nodes__c,Product2.Model__c,Is_Selected_For_Renewal__c,Renewal_Date__c,License_Expiration__c,Renewal_Nodes__c,Renewal_Start_Date__c  from Asset where AccountId =:PORequest.Opportunity__r.AccountId and  Status in('Customer Owned') and Product2.Product_Type__c in('EC-SP-Perpetual','EC-SP-TERM')];
                 for(Asset item: lstAssets)
                 {
                     item.Renewal_Start_Date__c=Date.today();

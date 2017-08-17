@@ -147,7 +147,7 @@ public with sharing class AssetListViewController_SP extends AssetListViewBase
         query += String.join(fields, ',');
         query.removeEnd(',');
         query += ' from Asset';
-        query += ' where Product2.Product_Type__c = \'EC-SP-Perpetual\' and SBQQ__QuoteLine__c = null ';
+        query += ' where Product2.Product_Type__c in (\'EC-SP-Perpetual\',\'EC-SP-Term\') and SBQQ__QuoteLine__c = null ';
         
         String sortFirstField = FieldName.split(';')[0];
         String sortAnotherField  = FieldName.split(';').size() > 1 ? FieldName.split(';')[1] : '';
@@ -175,7 +175,7 @@ public with sharing class AssetListViewController_SP extends AssetListViewBase
         query += String.join(fields, ',');
         query.removeEnd(',');
         query += ' from Asset';
-        query += ' where Product2.Product_Type__c = \'EC-SP-Perpetual\' and (SerialNumber=\'' + escapedKeyword + '\' or Model__c like \'' + maskKeyword + '\' or Product2.Name like \'' + maskKeyword + '\' or Customer_Notes__c like \'' + maskKeyword + '\')';
+        query += ' where Product2.Product_Type__c in (\'EC-SP-Perpetual\',\'EC-SP-Term\') and (SerialNumber=\'' + escapedKeyword + '\' or Model__c like \'' + maskKeyword + '\' or Product2.Name like \'' + maskKeyword + '\' or Customer_Notes__c like \'' + maskKeyword + '\')';
         
         String sortFirstField = FieldName.split(';')[0];
         String sortAnotherField  = FieldName.split(';').size() > 1 ? FieldName.split(';')[1] : '';

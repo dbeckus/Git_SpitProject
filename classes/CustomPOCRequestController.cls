@@ -296,24 +296,33 @@ global with sharing class CustomPOCRequestController
             }
             
         }
-        /* if(pocRequest.POC_Type__c=='Service Provider')
-{
-
-DisableVirtualSection=true;
-boolean isProductsToBeAdded=ValidateECHasActiveLicensesorOpenPOCS(requestId,'Service Provider');
-if(VirtualProducts.size()==0 && !isProductsToBeAdded)
-{
-CurrentRequest.First_POC_on_Account__c=true;
-VirtualProducts.add(new VirtualProductInfo(VirtualProducts.size(),'EC-SP',1));
-}
-if(VirtualProducts.size()>0)
-{
-ApexPages.Message myMsg = new ApexPages.Message(ApexPages.Severity.Info, 'EC-ORCH will be fulfilled automatically.'); 
-ApexPages.addMessage(myMsg);
-}
-
-}*/
         if(pocRequest.POC_Type__c=='Perpetual'||pocRequest.POC_Type__c=='Perpetual-Orchestrator SP' )
+        {
+            DisableVirtualSection=true;
+            boolean isProductsToBeAdded=ValidateECHasActiveLicensesorOpenPOCS(requestId,pocRequest.POC_Type__c);
+            if(VirtualProducts.size()==0 && !isProductsToBeAdded)
+            {
+                CurrentRequest.First_POC_on_Account__c=true;
+               VirtualProducts.add(new VirtualProductInfo(VirtualProducts.size(),'EC-SP-50-B',5));
+                VirtualProducts.add(new VirtualProductInfo(VirtualProducts.size(),'EC-SP-100-B',5));
+                VirtualProducts.add(new VirtualProductInfo(VirtualProducts.size(),'EC-SP-200-B',5));
+                VirtualProducts.add(new VirtualProductInfo(VirtualProducts.size(),'EC-SP-1000-B',5));
+            }
+            if(!pocRequest.First_POC_on_Account__c)
+            {
+                DisableVirtualSection=false;
+            } 
+            if(pocRequest.POC_Type__c=='Perpetual')
+            {
+                if(VirtualProducts.size()>0)
+                {
+                    ApexPages.Message myMsg = new ApexPages.Message(ApexPages.Severity.Info, 'EC-ORCH will be fulfilled automatically.'); 
+                    ApexPages.addMessage(myMsg);
+                }
+            }
+            
+        }
+        if(pocRequest.POC_Type__c=='Term Based')
         {
             DisableVirtualSection=true;
             boolean isProductsToBeAdded=ValidateECHasActiveLicensesorOpenPOCS(requestId,pocRequest.POC_Type__c);
@@ -329,7 +338,7 @@ ApexPages.addMessage(myMsg);
             {
                 DisableVirtualSection=false;
             } 
-            if(pocRequest.POC_Type__c=='Perpetual')
+            if(pocRequest.POC_Type__c=='Term Based')
             {
                 if(VirtualProducts.size()>0)
                 {
@@ -432,40 +441,7 @@ ApexPages.addMessage(myMsg);
         }
         return false;
     }
-    /*
-private boolean ValidateECBaseandHardwareProductNodesMatch()    
-{
-decimal sumOfHardwareQuantity =0;
-decimal sumOfECBaseQuantity =0;
-
-if(PhysicalProducts!=null && PhysicalProducts.size()>0)
-{
-for (Integer i = 0; i < PhysicalProducts.size() ; i++ ) 
-{
-sumOfHardwareQuantity =sumOfHardwareQuantity+ PhysicalProducts[i].Qty;
-}
-if(VirtualProducts!=null && VirtualProducts.size()>0)
-{
-for (Integer i = 0; i < VirtualProducts.size() ; i++ ) 
-{
-if(VirtualProducts[i].ProductName == 'EC-BASE-1Y')
-{
-sumOfECBaseQuantity =sumOfECBaseQuantity+ VirtualProducts[i].Qty;
-}
-}
-
-}
-
-if(sumOfECBaseQuantity<sumOfHardwareQuantity)
-{
-ApexPages.Message myMsg = new ApexPages.Message(ApexPages.Severity.ERROR, 'EC Base licenses must be equal or exceed number of hardware units requested.'); 
-ApexPages.addMessage(myMsg);
-return false;    
-}
-}
-return true;
-}
-*/
+  
     private void buildProductItems(String requestId)
     {
         PhysicalProducts = new List<PhysicalProductInfo>(); 
@@ -575,23 +551,27 @@ return true;
         if(!requests.isEmpty())
         {
             Request__c currRequest = requests[0];
-            if(productFamily=='Product' &&(currRequest.POC_Type__c == 'Metered'|| currRequest.POC_Type__c == 'Metered-Orchestrator SP'))
+            if(productFamily=='Product' &&(currRequest.POC_Type__c == 'Term Based' || currRequest.POC_Type__c == 'Metered'|| currRequest.POC_Type__c == 'Metered-Orchestrator SP'))
             {
                 productType='EC-SP-Perpetual';
+            }
+            else if(productFamily=='Virtual Image' && currRequest.POC_Type__c == 'Term Based' )
+            {
+                productType='EC-SP-Term';
             }
             if(currRequest.POC_Type__c == 'EdgeConnect')// Fetch only EC products
             { 
                 lstProducts= [Select Id,Name from Product2 where isActive=true and IsPocEnabled__c =true and Family=:productFamily and Product_Type__c='EDGECONNECT' order by Name];
             }
-            /* else if(currRequest.POC_Type__c == 'Service Provider')// Fetch only EC products
-{ 
-lstProducts= [Select Id,Name from Product2 where isActive=true and IsPocEnabled__c =true and Family=:productFamily and Product_Type__c='EC-SP' order by Name];
-}*/
             else if(currRequest.POC_Type__c == 'Perpetual'|| currRequest.POC_Type__c == 'Perpetual-Orchestrator SP')// Fetch only EC products
             { 
                 lstProducts= [Select Id,Name from Product2 where isActive=true and IsPocEnabled__c =true and Family=:productFamily and Product_Type__c='EC-SP-Perpetual' order by Name];
             }
             else if(currRequest.POC_Type__c == 'Metered'|| currRequest.POC_Type__c == 'Metered-Orchestrator SP')// Fetch only EC products
+            { 
+                lstProducts= [Select Id,Name from Product2 where isActive=true and IsPocEnabled__c =true and Family=:productFamily and Product_Type__c=:productType order by Name];
+            }
+            else if(currRequest.POC_Type__c == 'Term Based')// Fetch only EC products
             { 
                 lstProducts= [Select Id,Name from Product2 where isActive=true and IsPocEnabled__c =true and Family=:productFamily and Product_Type__c=:productType order by Name];
             }
@@ -1218,10 +1198,10 @@ lstProducts= [Select Id,Name from Product2 where isActive=true and IsPocEnabled_
         controller.savePage();
         Test.stopTest();
         Request__c updatedReq=[Select VirtualProduct1__c,VirtualProduct2__c,VirtualProduct3__c,VirtualProduct4__c,VirtualProduct5__c,VirtualQuantity1__c,VirtualQuantity2__c,VirtualQuantity3__c,VirtualQuantity4__c,VirtualQuantity5__c from Request__c where Id=:request.Id ];
-        System.assertEquals(updatedReq.VirtualProduct1__c, 'EC-SP-50');
-        System.assertEquals(updatedReq.VirtualProduct2__c, 'EC-SP-100');
-        System.assertEquals(updatedReq.VirtualProduct3__c, 'EC-SP-200'); 
-        System.assertEquals(updatedReq.VirtualProduct4__c, 'EC-SP-1000');
+        System.assertEquals(updatedReq.VirtualProduct1__c, 'EC-SP-50-BB');
+        System.assertEquals(updatedReq.VirtualProduct2__c, 'EC-SP-100-B');
+        System.assertEquals(updatedReq.VirtualProduct3__c, 'EC-SP-200-B'); 
+        System.assertEquals(updatedReq.VirtualProduct4__c, 'EC-SP-1000-B');
         System.assertEquals(updatedReq.VirtualQuantity1__c, 5);
         System.assertEquals(updatedReq.VirtualQuantity2__c, 5);
         System.assertEquals(updatedReq.VirtualQuantity3__c, 5); 
@@ -1268,7 +1248,52 @@ lstProducts= [Select Id,Name from Product2 where isActive=true and IsPocEnabled_
         
         
     } 
-    
+     @isTest
+    static void testECPocRequestECPOC_AutoPopulateVirtualProducts_TermBased()
+    {
+        Account acc = new Account(Name='testECPOC',ECSP__c=true,Service_Provider_Account_Type__c='Term Based',Service_Provider_Admin_User__c='abc@abc.com',Service_Provider_Domain__c='abc1323',Service_Provider_Location__c='Canada (Central)');
+        insert acc;
+        Contact contact = new Contact(FirstName = 'AcmeFirstname', LastName = 'AcmeLastname', Phone='123456789', Email = 'acme@acme.com' , accountId=acc.Id);
+        insert contact;
+        
+        Opportunity opportunity = new Opportunity();
+        opportunity.Name = 'acme';
+        opportunity.AccountId = acc.Id;
+        opportunity.Pricebook2Id = TestUtilities.getStandardPricebookId();
+        opportunity.StageName = 'Closed Dead';
+        opportunity.Dead_Reason__c = 'acme';
+        opportunity.CloseDate = Date.today().addYears(1);
+        opportunity.Type = 'New Business';
+        opportunity.Opportunity_Source__c = 'Other';
+        opportunity.POC_Type__c = 'POC';
+        opportunity.Product_Type__c = 'Both';
+        opportunity.Deal_Type__c = 'Replication';
+        opportunity.Solution_Type__c = 'Replication Acceleration';
+        
+        insert opportunity;
+        Test.startTest();
+        Request__c request = new Request__c(POC_Contact__c = contact.Id);
+        request.POC_Type__c='Term Based';
+        request.Opportunity__c= opportunity.id;
+        insert request;
+        
+        ApexPages.StandardController stdController = new ApexPages.StandardController(request);
+        CustomPOCRequestController controller = new CustomPOCRequestController(stdController);
+        
+        controller.savePage();
+        Test.stopTest();
+        Request__c updatedReq=[Select VirtualProduct1__c,VirtualProduct2__c,VirtualProduct3__c,VirtualProduct4__c,VirtualProduct5__c,VirtualQuantity1__c,VirtualQuantity2__c,VirtualQuantity3__c,VirtualQuantity4__c,VirtualQuantity5__c from Request__c where Id=:request.Id ];
+        System.assertEquals(updatedReq.VirtualProduct1__c, 'EC-SP-50-B50-1Y');
+        System.assertEquals(updatedReq.VirtualProduct2__c, 'EC-SP-100-B100-1Y');
+        System.assertEquals(updatedReq.VirtualProduct3__c, 'EC-SP-200-B200-1Y'); 
+        System.assertEquals(updatedReq.VirtualProduct4__c, 'EC-SP-1G-B1G-1Y');
+        System.assertEquals(updatedReq.VirtualQuantity1__c, 5);
+        System.assertEquals(updatedReq.VirtualQuantity2__c, 5);
+        System.assertEquals(updatedReq.VirtualQuantity3__c, 5); 
+        System.assertEquals(updatedReq.VirtualQuantity4__c,5);
+        
+        
+    } 
     @isTest
     static void testValidECProducts()
     {

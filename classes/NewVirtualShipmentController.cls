@@ -80,7 +80,7 @@ public with sharing class NewVirtualShipmentController
             Map<Id,String> spProdIds= new Map<Id,String>();
             try
             {
-                List<Product2> productList=[Select Id,Name from Product2 where Name like 'EC%' and Family='Virtual Image' and Product2.Product_Type__c in('EC-SP-Perpetual') ];
+                List<Product2> productList=[Select Id,Name from Product2 where Name like 'EC%' and Family='Virtual Image' and Product2.Product_Type__c in('EC-SP-Perpetual','EC-SP-Term') ];
                 for(Product2 prod : productList)
                 {
                     spProdIds.put(prod.Id,prod.Name);

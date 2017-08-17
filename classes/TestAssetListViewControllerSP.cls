@@ -51,14 +51,14 @@ public class TestAssetListViewControllerSP
 
     private static Asset createTestData()
     {
-        Account account = new Account(Name = 'acme');
+        Account account = new Account(Name = 'acme',ECSP__C=true,Service_Provider_Account_Type__c='Term Based',Service_Provider_Admin_User__c='abc@abc.com');
         insert account;
 		Account spAccount = new Account(Name = 'Silver Peak Systems');
         insert spAccount;
         Product2 product = new Product2();
         product.Name = 'EC-BASE-SP';
         product.ProductCode = 'acme';
-        product.Product_Type__c='EC-SP-Perpetual';
+        product.Product_Type__c='EC-SP-Term';
         insert product;
 
         Asset asset = new Asset();

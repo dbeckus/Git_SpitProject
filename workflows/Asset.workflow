@@ -880,7 +880,8 @@ ISPICKVAL( Product2.Family,&quot;Product&quot;),
 OR( 
 ISPICKVAL(Product2.Product_Type__c ,&quot;EDGECONNECT&quot;), 
 ISPICKVAL(Product2.Product_Type__c ,&quot;EC-SP-Perpetual&quot;), 
-ISPICKVAL(Product2.Product_Type__c ,&quot;EC-SP-Metered&quot;) 
+ISPICKVAL(Product2.Product_Type__c ,&quot;EC-SP-Metered&quot;),
+ISPICKVAL(Product2.Product_Type__c ,&quot;EC-SP-Term&quot;)
 ), 
 ISPICKVAL(Status,&quot;Customer Owned&quot;), 
 OR( 

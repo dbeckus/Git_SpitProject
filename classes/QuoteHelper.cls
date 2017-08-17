@@ -28,7 +28,7 @@ public  class QuoteHelper {
                 string prodName= item.Product__r.Name;
                 if(prodName.startsWith('EC') && item.Product__r.Product_Type__c=='EDGECONNECT')
                 {ecProduct++;}
-              	else if(prodName.startsWith('EC')&& (item.Product__r.Product_Type__c=='EC-SP-Perpetual'||item.Product__r.Product_Type__c=='EC-SP-Metered'))
+              	else if(prodName.startsWith('EC')&& (item.Product__r.Product_Type__c=='EC-SP-Term'|| item.Product__r.Product_Type__c=='EC-SP-Perpetual'||item.Product__r.Product_Type__c=='EC-SP-Metered'))
                 {spProduct++;}
                 else if(!prodName.startsWith('EC'))
                 {nonEcProduct++;}
