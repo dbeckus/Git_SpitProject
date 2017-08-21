@@ -145,7 +145,7 @@ generator.writeStringField('password', 'Yesadmin4u');
             {filterAssets.add(counter);}
             if(assetType=='CPX' && prodName=='EC-SP')
             {filterAssets.add(counter);}
-            if(assetType=='SP' && prodName.startsWith('EC-SP-')&& prodType=='EC-SP-Perpetual')
+            if(assetType=='SP' && prodName.startsWith('EC-SP-')&& (prodType=='EC-SP-Perpetual' || prodType=='EC-SP-Term'))
             {filterAssets.add(counter);}
         }
         for(Asset item:filterAssets)
@@ -153,16 +153,17 @@ generator.writeStringField('password', 'Yesadmin4u');
             CPAsset cp= new CPAsset();
             string prodName=item.Product2.Name;
             cp.SerialNumber=item.SerialNumber;
+           /* 
             cp.domain=item.Account.Unity_Orch_Domain__c;
             cp.region=item.Account.Unity_Orch_Location__c;
-            cp.email=item.Account.Unity_Orch_Admin_User__c;
-          
+            cp.email=item.Account.Unity_Orch_Admin_User__c;       
             cp.version='';
+			*/
             long millis=0;
-            if(prodName.contains('EC-ORCH-AAS'))
+            /*if(prodName.contains('EC-ORCH-AAS'))
             {
                cp.size=(integer)item.Product2.Bandwidth__c;
-            } 
+            } */
             if(item.License_End_Date__c!=null)
             {
                 DateTime dt=DateTime.newInstance(item.License_End_Date__c,Time.newInstance(0, 0, 0, 0));
@@ -172,15 +173,15 @@ generator.writeStringField('password', 'Yesadmin4u');
             cp.BaseNode=0;
             cp.PlusNode=0;
             cp.BoostNode=0;
-            cp.MiniNode=0;
+            //cp.MiniNode=0;
             if(prodName.contains('BASE') && item.Licenses_Nodes__c!=null)
             {
                 cp.BaseNode=integer.valueOf(item.Licenses_Nodes__c);
             } 
-            if(prodName.contains('MINI') && item.Licenses_Nodes__c!=null)
+            /*if(prodName.contains('MINI') && item.Licenses_Nodes__c!=null)
             {
                 cp.MiniNode=integer.valueOf(item.Licenses_Nodes__c);
-            } 
+            }*/
             if(prodName.contains('PLUS')&& item.Licenses_Nodes__c!=null)
             {
                 cp.PlusNode=integer.valueOf(item.Licenses_Nodes__c);

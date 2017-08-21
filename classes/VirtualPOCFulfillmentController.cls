@@ -238,7 +238,7 @@ public class VirtualPOCFulfillmentController
         {
             addProduct(VIRTUAL_PRODUCT_NAME, 1);
         }
-        if(pocRequest.Is_Unity_Cloud_Orchestrator__c)
+       	if(pocRequest.Is_Unity_Cloud_Orchestrator__c)
         {
           addProduct('EC-ORCH-AAS-50-1Y', 1);
         }

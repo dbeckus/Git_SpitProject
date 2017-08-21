@@ -1198,7 +1198,7 @@ global with sharing class CustomPOCRequestController
         controller.savePage();
         Test.stopTest();
         Request__c updatedReq=[Select VirtualProduct1__c,VirtualProduct2__c,VirtualProduct3__c,VirtualProduct4__c,VirtualProduct5__c,VirtualQuantity1__c,VirtualQuantity2__c,VirtualQuantity3__c,VirtualQuantity4__c,VirtualQuantity5__c from Request__c where Id=:request.Id ];
-        System.assertEquals(updatedReq.VirtualProduct1__c, 'EC-SP-50-BB');
+        System.assertEquals(updatedReq.VirtualProduct1__c, 'EC-SP-50-B');
         System.assertEquals(updatedReq.VirtualProduct2__c, 'EC-SP-100-B');
         System.assertEquals(updatedReq.VirtualProduct3__c, 'EC-SP-200-B'); 
         System.assertEquals(updatedReq.VirtualProduct4__c, 'EC-SP-1000-B');

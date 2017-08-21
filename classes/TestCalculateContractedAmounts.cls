@@ -1,7 +1,7 @@
 @IsTest
 public class TestCalculateContractedAmounts {
     
-     @isTest(SeeAllData=true)
+    @isTest(SeeAllData=true)
     public static void TestCalculateContractedAmounts_EC()
     {
         Test.startTest();
@@ -31,13 +31,18 @@ public class TestCalculateContractedAmounts {
         insert lineItem2;
       	lineItem2.UnitPrice=3000;
         update lineItem2;
-        Opportunity output=[Select ACV__c,NTCV__c,TCV__c,ECSP_HDWR_Amount__c from Opportunity where Id=:testOpp.Id];
-        System.assertEquals(2000, output.ACV__c);
-        System.assertEquals(6000, output.TCV__c);
-        System.assertEquals(4000, output.NTCV__c);
+        Opportunity output=[Select Comp_Rate1__c,Total_Comp_Rate__c,Comp_Rate2__c,Annual_Contract_Value__c,Net_Contract_Value__c,Total_Contract_Value__c,ECSP_HDWR_Amount__c from Opportunity where Id=:testOpp.Id];
+        System.assertEquals(2000, output.Annual_Contract_Value__c);
+        System.assertEquals(6000, output.Total_Contract_Value__c);
+        System.assertEquals(4000, output.Net_Contract_Value__c);
+        
+        System.assertEquals(2000, output.Comp_Rate1__c);
+        System.assertEquals(6000, output.Total_Comp_Rate__c);
+        System.assertEquals(4000, output.Comp_Rate2__c);
         Test.stopTest();
     }
-     @isTest(SeeAllData=true)
+   
+    @isTest(SeeAllData=true)
     public static void TestCalculateContractedAmounts_NX()
     {
         Test.startTest();
@@ -68,10 +73,14 @@ public class TestCalculateContractedAmounts {
       	lineItem2.UnitPrice=3000;
         update lineItem2;
             
-        Opportunity output=[Select ACV__c,NTCV__c,TCV__c from Opportunity where Id=:testOpp.Id];
-        System.assertEquals(0, output.ACV__c);
-        System.assertEquals(12000, output.TCV__c);
-        System.assertEquals(12000, output.NTCV__c);
+        Opportunity output=[Select Comp_Rate1__c,Total_Comp_Rate__c,Comp_Rate2__c,Annual_Contract_Value__c,Net_Contract_Value__c,Total_Contract_Value__c,ECSP_HDWR_Amount__c from Opportunity where Id=:testOpp.Id];
+        System.assertEquals(0, output.Annual_Contract_Value__c);
+        System.assertEquals(0, output.Total_Contract_Value__c);
+        System.assertEquals(0, output.Net_Contract_Value__c);
+        
+        System.assertEquals(0, output.Comp_Rate1__c);
+        System.assertEquals(12000, output.Total_Comp_Rate__c);
+        System.assertEquals(12000, output.Comp_Rate2__c);
         Test.stopTest();
     }
     
