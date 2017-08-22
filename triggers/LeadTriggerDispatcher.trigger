@@ -13,12 +13,13 @@
 
 trigger LeadTriggerDispatcher on Lead (before insert, before update, before delete, after insert, after update, after delete, after undelete)
 {
-    if(!SilverPeakUtils.BypassingTriggers)
+    TriggerDispatcher.Run(new LeadTriggerHandler());
+    /*if(!SilverPeakUtils.BypassingTriggers)
     {
         TriggerHandler handler = new LeadTriggerHandlerForSDC();
         handler.execute();
         
         handler = new LeadTriggerHandlerForLeadConversion();
         handler.execute();
-    }
+    }*/
 }

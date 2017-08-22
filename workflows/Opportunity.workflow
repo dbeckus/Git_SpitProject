@@ -568,6 +568,14 @@
         <protected>false</protected>
     </fieldUpdates>
     <fieldUpdates>
+        <fullName>Clear_the_other_competitor_text</fullName>
+        <field>Other_Competitor_Value__c</field>
+        <name>Clear the other competitor text</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Null</operation>
+        <protected>false</protected>
+    </fieldUpdates>
+    <fieldUpdates>
         <fullName>Close_Date_Updates_to_120_Days</fullName>
         <field>CloseDate</field>
         <formula>Today() + 120</formula>
@@ -919,6 +927,20 @@ New_Business__c
             <value>True</value>
         </criteriaItems>
         <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>Clear Other Competitor Value</fullName>
+        <actions>
+            <name>Clear_the_other_competitor_text</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>Opportunity.primary_competitor__c</field>
+            <operation>notEqual</operation>
+            <value>Other</value>
+        </criteriaItems>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
     </rules>
     <rules>
         <fullName>Clear out opp source for renewal</fullName>

@@ -853,6 +853,10 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>LeadTriggerHandler</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>LeadTriggerHandlerForLeadConversion</apexClass>
         <enabled>true</enabled>
     </classAccesses>
@@ -1046,6 +1050,10 @@
     </classAccesses>
     <classAccesses>
         <apexClass>OpportunityChooseForMergeController</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>OpportunityCompetitionController</apexClass>
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
@@ -9559,6 +9567,10 @@
     </pageAccesses>
     <pageAccesses>
         <apexPage>OpportunityChooseForMerge</apexPage>
+        <enabled>true</enabled>
+    </pageAccesses>
+    <pageAccesses>
+        <apexPage>OpportunityCompetition</apexPage>
         <enabled>true</enabled>
     </pageAccesses>
     <pageAccesses>

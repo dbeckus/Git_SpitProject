@@ -1,0 +1,26 @@
+<apex:page standardController="Opportunity">
+      <apex:form >
+          <apex:pageBlock title="Enter Opportunity Information">
+              <apex:pageBlockButtons location="bottom">
+                  <apex:commandButton value="Save" action="{!Save}"/>
+                  <apex:commandButton value="Cancel" action="{!Cancel}" immediate="true"/>                                
+              </apex:pageBlockButtons>
+              <apex:PageblockSection columns="1" >
+                      <apex:outputField value="{!Opportunity.Name}"/>
+                     <apex:PageBlockSectionItem >
+                         <apex:outputLabel value="Primary Competitor"/>
+                         <apex:actionRegion >
+                          <apex:inputField value="{!Opportunity.primary_competitor__c}">
+                          <apex:actionSupport event="onchange" reRender="ajaxrequest" />
+                          </apex:inputField>
+                         </apex:actionRegion>
+                      </apex:PageBlockSectionItem>
+                  </apex:PageblockSection>
+              <apex:outputPanel id="ajaxrequest">   
+                  <apex:pageBlockSection rendered="{!Opportunity.primary_competitor__c=='Other'}" >
+                      <apex:inputField value="{!Opportunity.Other_Competitor_Value__c}"/>
+                  </apex:pageBlockSection>
+              </apex:outputPanel> 
+          </apex:pageBlock>
+      </apex:form>
+    </apex:page>

@@ -146,6 +146,10 @@
                 <behavior>Readonly</behavior>
                 <field>Total_Comp_Rate__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Other_Competitor_Value__c</field>
+            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>
@@ -215,6 +219,10 @@
             <layoutItems>
                 <behavior>Edit</behavior>
                 <field>Pricebook2Id</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>primary_competitor__c</field>
             </layoutItems>
         </layoutColumns>
         <style>TwoColumnsTopToBottom</style>
