@@ -322,7 +322,7 @@ global with sharing class CustomPOCRequestController
             }
             
         }
-        if(pocRequest.POC_Type__c=='Term Based')
+        if(pocRequest.POC_Type__c=='EC-SP-Term' || pocRequest.POC_Type__c=='EC-SP-Term +Orch-SP' )
         {
             DisableVirtualSection=true;
             boolean isProductsToBeAdded=ValidateECHasActiveLicensesorOpenPOCS(requestId,pocRequest.POC_Type__c);
@@ -338,7 +338,7 @@ global with sharing class CustomPOCRequestController
             {
                 DisableVirtualSection=false;
             } 
-            if(pocRequest.POC_Type__c=='Term Based')
+            if(pocRequest.POC_Type__c=='EC-SP-Term')
             {
                 if(VirtualProducts.size()>0)
                 {
@@ -348,7 +348,7 @@ global with sharing class CustomPOCRequestController
             }
             
         }
-        if(pocRequest.POC_Type__c=='Metered'||pocRequest.POC_Type__c=='Metered-Orchestrator SP')
+        if(pocRequest.POC_Type__c=='EC-SP-Metered'||pocRequest.POC_Type__c=='EC-SP-Metered +Orch-SP')
         {
             DisableVirtualSection=true;
             boolean isProductsToBeAdded=ValidateECHasActiveLicensesorOpenPOCS(requestId,pocRequest.POC_Type__c);
@@ -358,7 +358,7 @@ global with sharing class CustomPOCRequestController
                 VirtualProducts.add(new VirtualProductInfo(VirtualProducts.size(),'EC-SP-MET',1));
             }
             
-            if(pocRequest.POC_Type__c=='Metered')
+            if(pocRequest.POC_Type__c=='EC-SP-Metered')
             {
                 if(VirtualProducts.size()>0)
                 {
@@ -551,11 +551,11 @@ global with sharing class CustomPOCRequestController
         if(!requests.isEmpty())
         {
             Request__c currRequest = requests[0];
-            if(productFamily=='Product' &&(currRequest.POC_Type__c == 'Term Based' || currRequest.POC_Type__c == 'Metered'|| currRequest.POC_Type__c == 'Metered-Orchestrator SP'))
+            if(productFamily=='Product' &&(currRequest.POC_Type__c == 'EC-SP-Term' ||currRequest.POC_Type__c == 'EC-SP-Term +Orch-SP' || currRequest.POC_Type__c == 'EC-SP-Metered'|| currRequest.POC_Type__c == 'EC-SP-Metered +Orch-SP'))
             {
                 productType='EC-SP-Perpetual';
             }
-            else if(productFamily=='Virtual Image' && currRequest.POC_Type__c == 'Term Based' )
+            else if(productFamily=='Virtual Image' && (currRequest.POC_Type__c == 'EC-SP-Term'|| currRequest.POC_Type__c == 'EC-SP-Term +Orch-SP'))
             {
                 productType='EC-SP-Term';
             }
@@ -567,11 +567,11 @@ global with sharing class CustomPOCRequestController
             { 
                 lstProducts= [Select Id,Name from Product2 where isActive=true and IsPocEnabled__c =true and Family=:productFamily and Product_Type__c='EC-SP-Perpetual' order by Name];
             }
-            else if(currRequest.POC_Type__c == 'Metered'|| currRequest.POC_Type__c == 'Metered-Orchestrator SP')// Fetch only EC products
+            else if(currRequest.POC_Type__c == 'EC-SP-Metered'|| currRequest.POC_Type__c == 'EC-SP-Metered +Orch-SP')// Fetch only EC products
             { 
                 lstProducts= [Select Id,Name from Product2 where isActive=true and IsPocEnabled__c =true and Family=:productFamily and Product_Type__c=:productType order by Name];
             }
-            else if(currRequest.POC_Type__c == 'Term Based')// Fetch only EC products
+            else if(currRequest.POC_Type__c == 'EC-SP-Term'|| currRequest.POC_Type__c=='EC-SP-Term +Orch-SP')// Fetch only EC products
             { 
                 lstProducts= [Select Id,Name from Product2 where isActive=true and IsPocEnabled__c =true and Family=:productFamily and Product_Type__c=:productType order by Name];
             }
@@ -1211,7 +1211,7 @@ global with sharing class CustomPOCRequestController
     @isTest
     static void testECPocRequestECPOC_AutoPopulateVirtualProducts_Metered()
     {
-        Account acc = new Account(Name='testECPOC',ECSP__c=true,Service_Provider_Account_Type__c='Metered',Service_Provider_Admin_User__c='abc@abc.com',Service_Provider_Domain__c='abc1323',Service_Provider_Location__c='Canada (Central)');
+        Account acc = new Account(Name='testECPOC',ECSP__c=true,Service_Provider_Account_Type__c='EC-SP-Metered',Service_Provider_Admin_User__c='abc@abc.com',Service_Provider_Domain__c='abc1323',Service_Provider_Location__c='Canada (Central)');
         insert acc;
         Contact contact = new Contact(FirstName = 'AcmeFirstname', LastName = 'AcmeLastname', Phone='123456789', Email = 'acme@acme.com' , accountId=acc.Id);
         insert contact;
@@ -1233,7 +1233,7 @@ global with sharing class CustomPOCRequestController
         insert opportunity;
         Test.startTest();
         Request__c request = new Request__c(POC_Contact__c = contact.Id);
-        request.POC_Type__c='Metered';
+        request.POC_Type__c='EC-SP-Metered';
         request.Opportunity__c= opportunity.id;
         insert request;
         
@@ -1251,7 +1251,7 @@ global with sharing class CustomPOCRequestController
      @isTest
     static void testECPocRequestECPOC_AutoPopulateVirtualProducts_TermBased()
     {
-        Account acc = new Account(Name='testECPOC',ECSP__c=true,Service_Provider_Account_Type__c='Term Based',Service_Provider_Admin_User__c='abc@abc.com',Service_Provider_Domain__c='abc1323',Service_Provider_Location__c='Canada (Central)');
+        Account acc = new Account(Name='testECPOC',ECSP__c=true,Service_Provider_Account_Type__c='EC-SP-Term',Service_Provider_Admin_User__c='abc@abc.com',Service_Provider_Domain__c='abc1323',Service_Provider_Location__c='Canada (Central)');
         insert acc;
         Contact contact = new Contact(FirstName = 'AcmeFirstname', LastName = 'AcmeLastname', Phone='123456789', Email = 'acme@acme.com' , accountId=acc.Id);
         insert contact;
@@ -1273,7 +1273,7 @@ global with sharing class CustomPOCRequestController
         insert opportunity;
         Test.startTest();
         Request__c request = new Request__c(POC_Contact__c = contact.Id);
-        request.POC_Type__c='Term Based';
+        request.POC_Type__c='EC-SP-Term';
         request.Opportunity__c= opportunity.id;
         insert request;
         

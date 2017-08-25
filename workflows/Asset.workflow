@@ -794,7 +794,7 @@ OR(  BEGINS(Product2.Name,&quot;EC&quot;),  BEGINS(Product2.Name,&quot;UNITY CLO
         <criteriaItems>
             <field>Account.Service_Provider_Account_Type__c</field>
             <operation>equals</operation>
-            <value>Metered,Metered-Orchestrator SP</value>
+            <value>EC-SP-Metered,EC-SP-Metered +Orch-SP</value>
         </criteriaItems>
         <criteriaItems>
             <field>Asset.Sync_With_Cloud_Portal__c</field>

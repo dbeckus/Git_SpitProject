@@ -461,20 +461,24 @@
         <label><!-- POC Type --></label>
         <name>POC_Type__c</name>
         <picklistValues>
+            <masterLabel>EC-SP-Metered</masterLabel>
+            <translation><!-- EC-SP-Metered --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>EC-SP-Metered +Orch-SP</masterLabel>
+            <translation><!-- EC-SP-Metered +Orch-SP --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>EC-SP-Term</masterLabel>
+            <translation><!-- EC-SP-Term --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>EC-SP-Term +Orch-SP</masterLabel>
+            <translation><!-- EC-SP-Term +Orch-SP --></translation>
+        </picklistValues>
+        <picklistValues>
             <masterLabel>EdgeConnect</masterLabel>
             <translation><!-- EdgeConnect --></translation>
-        </picklistValues>
-        <picklistValues>
-            <masterLabel>Metered</masterLabel>
-            <translation><!-- Metered --></translation>
-        </picklistValues>
-        <picklistValues>
-            <masterLabel>Metered-Orchestrator SP</masterLabel>
-            <translation><!-- Metered-Orchestrator SP --></translation>
-        </picklistValues>
-        <picklistValues>
-            <masterLabel>Term Based</masterLabel>
-            <translation><!-- Term Based --></translation>
         </picklistValues>
         <picklistValues>
             <masterLabel>WAN Op</masterLabel>

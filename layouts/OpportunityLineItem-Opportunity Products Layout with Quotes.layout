@@ -94,6 +94,10 @@
                 <behavior>Edit</behavior>
                 <field>Total_Comp_Rate__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>NX_VX_Amount__c</field>
+            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>

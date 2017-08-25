@@ -173,15 +173,15 @@ generator.writeStringField('password', 'Yesadmin4u');
             cp.BaseNode=0;
             cp.PlusNode=0;
             cp.BoostNode=0;
-            //cp.MiniNode=0;
+            cp.MiniNode=0;
             if(prodName.contains('BASE') && item.Licenses_Nodes__c!=null)
             {
                 cp.BaseNode=integer.valueOf(item.Licenses_Nodes__c);
             } 
-            /*if(prodName.contains('MINI') && item.Licenses_Nodes__c!=null)
+            if(prodName.contains('MINI') && item.Licenses_Nodes__c!=null)
             {
                 cp.MiniNode=integer.valueOf(item.Licenses_Nodes__c);
-            }*/
+            }
             if(prodName.contains('PLUS')&& item.Licenses_Nodes__c!=null)
             {
                 cp.PlusNode=integer.valueOf(item.Licenses_Nodes__c);

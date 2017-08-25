@@ -15,7 +15,7 @@ public with sharing class NewVirtualShipmentController
     private Asset_mac__c am;        
     private Shipment__c shipmentRecord;
     private List<Product2> products;     
-    
+    public Boolean IsServiceProvider {get;set;}
     public NewVirtualShipmentController(ApexPages.StandardController std)
     {
         String poId = ApexPages.currentPage().getParameters().get('poId');
@@ -35,6 +35,8 @@ public with sharing class NewVirtualShipmentController
             shipmentRecord.Shipment_Contact__c = PO.Email_Contact__c;
             shipmentRecord.PurchaseOrder__c = PO.Id;
             shipmentRecord.IsVirtualShipment__c=true;
+            Account acc=[Select ECSP__c from Account where Id=:PO.Opportunity__r.AccountId];
+            IsServiceProvider=acc.ECSP__c;
             if(PO.Opportunity__c != null && !Test.isRunningTest())
             {
                 PoOpp = [select Id, Contract_Activation_Date__c, SBQQ__Contracted__c from Opportunity where Id = :PO.Opportunity__c];
@@ -101,7 +103,16 @@ public with sharing class NewVirtualShipmentController
             if(products == null)
             {
                 products = new List<Product2>();
-                for(Product2 product : [SELECT Id, Name, ProductCode FROM Product2 WHERE Name != null AND Forecast_Category__c = 'Virtual' AND Family in ('Virtual Image', 'Service') AND IsActive = true ORDER BY Name])
+                List<Product2> lstProd= new List<Product2>();
+                if(IsServiceProvider)
+                {
+                    lstProd=[SELECT Id, Name, ProductCode FROM Product2 WHERE Name != null AND Forecast_Category__c = 'Virtual' AND Family in ('Virtual Image', 'Service') and Product_Type__c in('EC-SP-Perpetual','EC-SP-Metered','EC-SP-Term') AND IsActive = true ORDER BY Name];
+                }
+                else
+                {
+                    lstProd=[SELECT Id, Name, ProductCode FROM Product2 WHERE Name != null AND Forecast_Category__c = 'Virtual' AND Family in ('Virtual Image', 'Service') and (NOT Product_Type__c in('EC-SP-Perpetual','EC-SP-Metered','EC-SP-Term')) AND IsActive = true ORDER BY Name];
+                }
+                for(Product2 product : lstProd)
                 {
                     if(!product.Name.containsIgnoreCase('renewal'))
                     {

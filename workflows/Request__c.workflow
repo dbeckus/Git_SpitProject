@@ -1079,7 +1079,7 @@ Eval RMA opened by trigger on status change to pending return (set by monitoring
         <criteriaItems>
             <field>Request__c.POC_Type__c</field>
             <operation>equals</operation>
-            <value>Perpetual,Metered,Perpetual-Orchestrator SP,Metered-Orchestrator SP</value>
+            <value>EC-SP-Term,EC-SP-Term +Orch-SP,EC-SP-Metered,EC-SP-Metered +Orch-SP</value>
         </criteriaItems>
         <criteriaItems>
             <field>Request__c.Trigger_POC_Email__c</field>

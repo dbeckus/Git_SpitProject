@@ -886,15 +886,19 @@ NOT(ISBLANK(TEXT( PhysicalProduct1__c )))
                 <default>false</default>
             </picklistValues>
             <picklistValues>
-                <fullName>Term Based</fullName>
+                <fullName>EC-SP-Term</fullName>
                 <default>false</default>
             </picklistValues>
             <picklistValues>
-                <fullName>Metered</fullName>
+                <fullName>EC-SP-Term +Orch-SP</fullName>
                 <default>false</default>
             </picklistValues>
             <picklistValues>
-                <fullName>Metered-Orchestrator SP</fullName>
+                <fullName>EC-SP-Metered</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>EC-SP-Metered +Orch-SP</fullName>
                 <default>false</default>
             </picklistValues>
             <sorted>false</sorted>
@@ -2323,19 +2327,23 @@ ISPICKVAL( Opportunity__r.Account.Partner_Type__c,&quot;Service Provider&quot;)
         <picklistValues>
             <picklist>POC_Type__c</picklist>
             <values>
+                <fullName>EC-SP-Metered</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>EC-SP-Metered %2BOrch-SP</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>EC-SP-Term</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>EC-SP-Term %2BOrch-SP</fullName>
+                <default>false</default>
+            </values>
+            <values>
                 <fullName>EdgeConnect</fullName>
-                <default>false</default>
-            </values>
-            <values>
-                <fullName>Metered</fullName>
-                <default>false</default>
-            </values>
-            <values>
-                <fullName>Metered-Orchestrator SP</fullName>
-                <default>false</default>
-            </values>
-            <values>
-                <fullName>Term Based</fullName>
                 <default>false</default>
             </values>
             <values>
@@ -2828,19 +2836,23 @@ ISPICKVAL( Opportunity__r.Account.Partner_Type__c,&quot;Service Provider&quot;)
         <picklistValues>
             <picklist>POC_Type__c</picklist>
             <values>
+                <fullName>EC-SP-Metered</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>EC-SP-Metered %2BOrch-SP</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>EC-SP-Term</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>EC-SP-Term %2BOrch-SP</fullName>
+                <default>false</default>
+            </values>
+            <values>
                 <fullName>EdgeConnect</fullName>
-                <default>false</default>
-            </values>
-            <values>
-                <fullName>Metered</fullName>
-                <default>false</default>
-            </values>
-            <values>
-                <fullName>Metered-Orchestrator SP</fullName>
-                <default>false</default>
-            </values>
-            <values>
-                <fullName>Term Based</fullName>
                 <default>false</default>
             </values>
             <values>
@@ -3210,9 +3222,11 @@ Requested_End_Date__c - Target_End_Date__c &gt; 90</errorConditionFormula>
  NOT(Opportunity__r.Account.ECSP__c),
 OR(
 ISPICKVAL( POC_Type__c,&quot;Perpetual-Orchestrator SP&quot; ),
-ISPICKVAL( POC_Type__c,&quot;Metered-Orchestrator SP&quot; ),
+ISPICKVAL( POC_Type__c,&quot;EC-SP-Metered +Orch-SP&quot; ),
 ISPICKVAL( POC_Type__c,&quot;Perpetual&quot; ),
-ISPICKVAL( POC_Type__c,&quot;Metered&quot; )
+ISPICKVAL( POC_Type__c,&quot;EC-SP-Metered&quot; ),
+ISPICKVAL( POC_Type__c,&quot;EC-SP-Term&quot; ),
+ISPICKVAL( POC_Type__c,&quot;EC-SP-Term +Orch-SP&quot; )
 )
 )</errorConditionFormula>
         <errorDisplayField>POC_Type__c</errorDisplayField>

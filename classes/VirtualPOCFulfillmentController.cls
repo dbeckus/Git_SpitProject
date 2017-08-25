@@ -340,11 +340,11 @@ public class VirtualPOCFulfillmentController
         List<EmailTemplate> template =null;
         if(pocRequest.Opportunity__r.Account.ECSP__c)
         {
-            if(pocRequest!=null && (pocRequest.POC_Type__c=='Perpetual'|| pocRequest.POC_Type__c=='Perpetual-Orchestrator SP'||pocRequest.POC_Type__c=='Term Based' ))
+            if(pocRequest!=null && (pocRequest.POC_Type__c=='Perpetual'|| pocRequest.POC_Type__c=='Perpetual-Orchestrator SP'||pocRequest.POC_Type__c=='EC-SP-Term' || pocRequest.POC_Type__c=='EC-SP-Term +Orch-SP' ))
             {
                 template = [select Id from EmailTemplate where Name=:'POC Perpetual Virtual Fulfillment Email' limit 1];
             }
-            else if(pocRequest!=null && (pocRequest.POC_Type__c=='Metered'|| pocRequest.POC_Type__c=='Metered-Orchestrator SP'))
+            else if(pocRequest!=null && (pocRequest.POC_Type__c=='EC-SP-Metered'|| pocRequest.POC_Type__c=='EC-SP-Metered +Orch-SP'))
             {
                 template = [select Id from EmailTemplate where Name=:'POC Metered Virtual Fulfillment Email' limit 1];
             }    

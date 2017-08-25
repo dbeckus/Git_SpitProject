@@ -160,7 +160,7 @@ public class VirtualPOCFulfillmentControllerTest
     @IsTest
     static void testVirtualECOrchFulfillmentController_Metered()
     {
-        Account acc = new Account(Name='testECPOC',ECSP__c=true,Service_Provider_Account_Type__c='Metered',Service_Provider_Admin_User__c='abc@abc.com',Service_Provider_Domain__c='abc1323',Service_Provider_Location__c='Canada (Central)');
+        Account acc = new Account(Name='testECPOC',ECSP__c=true,Service_Provider_Account_Type__c='EC-SP-Metered',Service_Provider_Admin_User__c='abc@abc.com',Service_Provider_Domain__c='abc1323',Service_Provider_Location__c='Canada (Central)');
         insert acc;
         Contact contact = new Contact(FirstName = 'AcmeFirstname', LastName = 'AcmeLastname', Phone='123456789', Email = 'acme@acme.com' , accountId=acc.Id);
         insert contact;
@@ -182,7 +182,7 @@ public class VirtualPOCFulfillmentControllerTest
         insert opportunity;
        
         Request__c pocRequest = new Request__c(POC_Contact__c = contact.Id);
-        pocRequest.POC_Type__c='Metered';
+        pocRequest.POC_Type__c='EC-SP-Metered';
         pocRequest.Opportunity__c= opportunity.id;
         pocRequest.VirtualProduct1__c= 'EC-SP-MET';
         pocRequest.VirtualQuantity1__c= 1;
@@ -219,7 +219,7 @@ public class VirtualPOCFulfillmentControllerTest
      @IsTest
     static void testVirtualECOrchFulfillmentController_TermBased()
     {
-        Account acc = new Account(Name='testECPOC',ECSP__c=true,Service_Provider_Account_Type__c='Term Based',Service_Provider_Admin_User__c='abc@abc.com',Service_Provider_Domain__c='abc1323',Service_Provider_Location__c='Canada (Central)');
+        Account acc = new Account(Name='testECPOC',ECSP__c=true,Service_Provider_Account_Type__c='EC-SP-Term',Service_Provider_Admin_User__c='abc@abc.com',Service_Provider_Domain__c='abc1323',Service_Provider_Location__c='Canada (Central)');
         insert acc;
         Contact contact = new Contact(FirstName = 'AcmeFirstname', LastName = 'AcmeLastname', Phone='123456789', Email = 'acme@acme.com' , accountId=acc.Id);
         insert contact;
@@ -241,7 +241,7 @@ public class VirtualPOCFulfillmentControllerTest
         insert opportunity;
        
         Request__c pocRequest = new Request__c(POC_Contact__c = contact.Id);
-        pocRequest.POC_Type__c='Term-Based';
+        pocRequest.POC_Type__c='EC-SP-Term';
         pocRequest.Opportunity__c= opportunity.id;
        	pocRequest.VirtualProduct1__c= 'EC-SP-50-B50-1Y';
         pocRequest.VirtualQuantity1__c= 5;
