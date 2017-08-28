@@ -47,7 +47,7 @@ trigger CalculateContractedAmounts on OpportunityLineItem (before update) {
                 if(lineItem.DiscountPercent__c>42)
                 {
                     lineItem.Total_Comp_Rate__c=finalValue;
-                    lineItem.Comp_Rate1__c=lineItem.Term__c>1?(finalValue/lineitem.Term__c):finalValue;
+                    lineItem.Comp_Rate1__c=finalValue;
                     lineItem.Comp_Rate2__c=finalValue-lineItem.Comp_Rate1__c;
                 }
                 
