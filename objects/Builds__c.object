@@ -95,6 +95,26 @@
         <unique>false</unique>
     </fields>
     <fields>
+        <fullName>FIPS_Compliant__c</fullName>
+        <externalId>false</externalId>
+        <label>FIPS Compliant</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <restrictedPicklist>true</restrictedPicklist>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
         <fullName>ISO_Model__c</fullName>
         <externalId>false</externalId>
         <label>ISO Model</label>

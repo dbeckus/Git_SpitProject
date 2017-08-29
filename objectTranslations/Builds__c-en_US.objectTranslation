@@ -27,6 +27,18 @@
         <name>EULA_Agreement__c</name>
     </fields>
     <fields>
+        <label><!-- FIPS Compliant --></label>
+        <name>FIPS_Compliant__c</name>
+        <picklistValues>
+            <masterLabel>No</masterLabel>
+            <translation><!-- No --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Yes</masterLabel>
+            <translation><!-- Yes --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
         <label><!-- ISO Model --></label>
         <name>ISO_Model__c</name>
         <picklistValues>

@@ -2549,6 +2549,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Builds__c.FIPS_Compliant__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Builds__c.ISO_Model__c</field>
         <readable>true</readable>
     </fieldPermissions>

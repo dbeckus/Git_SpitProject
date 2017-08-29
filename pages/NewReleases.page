@@ -93,6 +93,13 @@
                                             <apex:param value="{!build.ECO_Date__c}" />
                                         </apex:outputText>
                                     </apex:column>
+                                    <apex:column width="12%">
+                                        <apex:facet name="header" >
+                                            <apex:outputText >FIPS Compliant▼▲</apex:outputText>
+                                        </apex:facet>
+                                        <apex:outputText value="{!build.FIPS_Compliant__c}">
+                                        </apex:outputText>
+                                    </apex:column>
                                 </apex:pageBlockTable>
                             </apex:pageBlock>
                             <apex:pageBlock rendered="{!NOT(ISNULL(GAOtherBuilds)) && GAOtherBuilds.size > 0}">
@@ -101,7 +108,7 @@
                                         <apex:outputText value="Archived"  style="color:blue;" />
                                     </apex:column>
                                     <apex:column width="12%">
-                                         <apex:facet name="header">
+                                        <apex:facet name="header">
                                             <apex:outputText >Release Number▼▲</apex:outputText>
                                         </apex:facet>
                                         <apex:outputLink style="text-decoration:none; color:#015BA7;" value="/apex/NewBuildDetail?id={!buildb.Id}&relName={!ReleaseType}">{!buildb.ReleaseCode__c}</apex:outputLink>
@@ -114,7 +121,13 @@
                                             <apex:param value="{!buildb.ECO_Date__c}" />
                                         </apex:outputText>
                                     </apex:column>
-                                    
+                                    <apex:column width="12%">
+                                        <apex:facet name="header" >
+                                            <apex:outputText >FIPS Compliant▼▲</apex:outputText>
+                                        </apex:facet>
+                                        <apex:outputText value="{!buildb.FIPS_Compliant__c}">
+                                        </apex:outputText>
+                                    </apex:column>
                                 </apex:pageBlockTable>
                             </apex:pageBlock>
                         </div>
@@ -128,7 +141,7 @@
                                         <apex:outputText value="Recommended" style="color:green;" rendered="{!build.IsRecommended__c}"/>
                                     </apex:column>
                                     <apex:column width="12%">
-                                           <apex:facet name="header">
+                                        <apex:facet name="header">
                                             <apex:outputText >Release Number▼▲</apex:outputText>
                                         </apex:facet>
                                         <apex:outputLink style="text-decoration:none; color:#015BA7;" value="/apex/NewBuildDetail?id={!build.Id}&relName={!ReleaseType}">{!build.ReleaseCode__c}</apex:outputLink>
@@ -141,6 +154,13 @@
                                             <apex:param value="{!build.ECO_Date__c}" />
                                         </apex:outputText>
                                     </apex:column>
+                                    <apex:column width="12%">
+                                        <apex:facet name="header" >
+                                            <apex:outputText >FIPS Compliant▼▲</apex:outputText>
+                                        </apex:facet>
+                                        <apex:outputText value="{!build.FIPS_Compliant__c}">
+                                        </apex:outputText>
+                                    </apex:column>
                                 </apex:pageBlockTable>
                             </apex:pageBlock>
                             <apex:pageBlock rendered="{!NOT(ISNULL(FCSOtherBuilds)) && FCSOtherBuilds.size > 0}">
@@ -149,7 +169,7 @@
                                         <apex:outputText value="Archived" style="color:blue;" />
                                     </apex:column>
                                     <apex:column width="12%">
-                                           <apex:facet name="header">
+                                        <apex:facet name="header">
                                             <apex:outputText >Release Number▼▲</apex:outputText>
                                         </apex:facet>
                                         <apex:outputLink style="text-decoration:none; color:#015BA7;" value="/apex/NewBuildDetail?id={!buildb.Id}&relName={!ReleaseType}">{!buildb.ReleaseCode__c}</apex:outputLink>
@@ -160,6 +180,13 @@
                                         </apex:facet>
                                         <apex:outputText value="{0, date, MM/dd/yyyy}">
                                             <apex:param value="{!buildb.ECO_Date__c}" />
+                                        </apex:outputText>
+                                    </apex:column>
+                                    <apex:column width="12%">
+                                        <apex:facet name="header" >
+                                            <apex:outputText >FIPS Compliant▼▲</apex:outputText>
+                                        </apex:facet>
+                                        <apex:outputText value="{!buildb.FIPS_Compliant__c}">
                                         </apex:outputText>
                                     </apex:column>
                                 </apex:pageBlockTable>
@@ -173,7 +200,7 @@
                                         <apex:outputText value="Recommended" style="color:green;" rendered="{!build.IsRecommended__c}"/>
                                     </apex:column>
                                     <apex:column width="12%">
-                                           <apex:facet name="header">
+                                        <apex:facet name="header">
                                             <apex:outputText >Release Number▼▲</apex:outputText>
                                         </apex:facet>
                                         <apex:outputLink style="text-decoration:none; color:#015BA7;" value="/apex/NewBuildDetail?id={!build.Id}&relName={!ReleaseType}">{!build.ReleaseCode__c}</apex:outputLink>
@@ -186,7 +213,13 @@
                                             <apex:param value="{!build.ECO_Date__c}" />
                                         </apex:outputText>
                                     </apex:column>
-                                    
+                                    <apex:column width="12%">
+                                        <apex:facet name="header" >
+                                            <apex:outputText >FIPS Compliant▼▲</apex:outputText>
+                                        </apex:facet>
+                                        <apex:outputText value="{!build.FIPS_Compliant__c}">
+                                        </apex:outputText>
+                                    </apex:column>
                                 </apex:pageBlockTable>
                             </apex:pageBlock>
                             <apex:pageBlock rendered="{!NOT(ISNULL(PatchOtherBuilds)) && PatchOtherBuilds.size > 0}">
@@ -195,7 +228,7 @@
                                         <apex:outputText value="Archived" style="color:blue;" />
                                     </apex:column>
                                     <apex:column width="12%">
-                                           <apex:facet name="header">
+                                        <apex:facet name="header">
                                             <apex:outputText >Release Number▼▲</apex:outputText>
                                         </apex:facet>
                                         <apex:outputLink style="text-decoration:none; color:#015BA7;" value="/apex/NewBuildDetail?id={!buildb.Id}&relName={!ReleaseType}">{!buildb.ReleaseCode__c}</apex:outputLink>
@@ -208,7 +241,13 @@
                                             <apex:param value="{!buildb.ECO_Date__c}" />
                                         </apex:outputText>
                                     </apex:column>
-                                    
+                                    <apex:column width="12%">
+                                        <apex:facet name="header" >
+                                            <apex:outputText >FIPS Compliant▼▲</apex:outputText>
+                                        </apex:facet>
+                                        <apex:outputText value="{!buildb.FIPS_Compliant__c}">
+                                        </apex:outputText>
+                                    </apex:column>
                                 </apex:pageBlockTable>
                             </apex:pageBlock>
                         </div>
@@ -221,7 +260,7 @@
                                         <apex:outputText value="Recommended" style="color:green;" rendered="{!build.IsRecommended__c}"/>
                                     </apex:column>
                                     <apex:column width="12%" >
-                                           <apex:facet name="header">
+                                        <apex:facet name="header">
                                             <apex:outputText >Release Number▼▲</apex:outputText>
                                         </apex:facet>
                                         <apex:outputLink style="text-decoration:none; color:#015BA7;" value="/apex/NewBuildDetail?id={!build.Id}&relName={!ReleaseType}">{!build.ReleaseCode__c}</apex:outputLink>
@@ -234,6 +273,13 @@
                                             <apex:param value="{!build.ECO_Date__c}" />
                                         </apex:outputText>
                                     </apex:column>
+                                    <apex:column width="12%">
+                                        <apex:facet name="header" >
+                                            <apex:outputText >FIPS Compliant▼▲</apex:outputText>
+                                        </apex:facet>
+                                        <apex:outputText value="{!build.FIPS_Compliant__c}">
+                                        </apex:outputText>
+                                    </apex:column>
                                 </apex:pageBlockTable>
                             </apex:pageBlock>
                             <apex:pageBlock rendered="{!NOT(ISNULL(BetaOtherBuilds)) && BetaOtherBuilds.size > 0}">
@@ -242,7 +288,7 @@
                                         <apex:outputText value="Archived" style="color:blue;" />
                                     </apex:column>
                                     <apex:column width="12%">
-                                           <apex:facet name="header">
+                                        <apex:facet name="header">
                                             <apex:outputText >Release Number▼▲</apex:outputText>
                                         </apex:facet>
                                         <apex:outputLink style="text-decoration:none; color:#015BA7;" value="/apex/NewBuildDetail?id={!buildb.Id}&relName={!ReleaseType}">{!buildb.ReleaseCode__c}</apex:outputLink>
@@ -253,6 +299,13 @@
                                         </apex:facet>
                                         <apex:outputText value="{0, date, MM/dd/yyyy}">
                                             <apex:param value="{!buildb.ECO_Date__c}" />
+                                        </apex:outputText>
+                                    </apex:column>
+                                    <apex:column width="12%">
+                                        <apex:facet name="header" >
+                                            <apex:outputText >FIPS Compliant▼▲</apex:outputText>
+                                        </apex:facet>
+                                        <apex:outputText value="{!buildb.FIPS_Compliant__c}">
                                         </apex:outputText>
                                     </apex:column>
                                 </apex:pageBlockTable>

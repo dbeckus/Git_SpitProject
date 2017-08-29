@@ -10,7 +10,6 @@
     <customButtons>Merge</customButtons>
     <customButtons>BL__Find_Reference</customButtons>
     <customButtons>Define_Channel</customButtons>
-    <excludeButtons>Clone</excludeButtons>
     <excludeButtons>Submit</excludeButtons>
     <layoutSections>
         <customLabel>true</customLabel>
