@@ -93,7 +93,7 @@
                                             <apex:param value="{!build.ECO_Date__c}" />
                                         </apex:outputText>
                                     </apex:column>
-                                    <apex:column width="12%">
+                                    <apex:column width="5%">
                                         <apex:facet name="header" >
                                             <apex:outputText >FIPS Compliant▼▲</apex:outputText>
                                         </apex:facet>
@@ -121,7 +121,7 @@
                                             <apex:param value="{!buildb.ECO_Date__c}" />
                                         </apex:outputText>
                                     </apex:column>
-                                    <apex:column width="12%">
+                                    <apex:column width="5%">
                                         <apex:facet name="header" >
                                             <apex:outputText >FIPS Compliant▼▲</apex:outputText>
                                         </apex:facet>
@@ -154,7 +154,7 @@
                                             <apex:param value="{!build.ECO_Date__c}" />
                                         </apex:outputText>
                                     </apex:column>
-                                    <apex:column width="12%">
+                                    <apex:column width="5%">
                                         <apex:facet name="header" >
                                             <apex:outputText >FIPS Compliant▼▲</apex:outputText>
                                         </apex:facet>
@@ -182,7 +182,7 @@
                                             <apex:param value="{!buildb.ECO_Date__c}" />
                                         </apex:outputText>
                                     </apex:column>
-                                    <apex:column width="12%">
+                                    <apex:column width="5%">
                                         <apex:facet name="header" >
                                             <apex:outputText >FIPS Compliant▼▲</apex:outputText>
                                         </apex:facet>
@@ -213,7 +213,7 @@
                                             <apex:param value="{!build.ECO_Date__c}" />
                                         </apex:outputText>
                                     </apex:column>
-                                    <apex:column width="12%">
+                                    <apex:column width="5%">
                                         <apex:facet name="header" >
                                             <apex:outputText >FIPS Compliant▼▲</apex:outputText>
                                         </apex:facet>
@@ -241,7 +241,7 @@
                                             <apex:param value="{!buildb.ECO_Date__c}" />
                                         </apex:outputText>
                                     </apex:column>
-                                    <apex:column width="12%">
+                                    <apex:column width="5%">
                                         <apex:facet name="header" >
                                             <apex:outputText >FIPS Compliant▼▲</apex:outputText>
                                         </apex:facet>
@@ -273,7 +273,7 @@
                                             <apex:param value="{!build.ECO_Date__c}" />
                                         </apex:outputText>
                                     </apex:column>
-                                    <apex:column width="12%">
+                                    <apex:column width="5%">
                                         <apex:facet name="header" >
                                             <apex:outputText >FIPS Compliant▼▲</apex:outputText>
                                         </apex:facet>
@@ -301,7 +301,7 @@
                                             <apex:param value="{!buildb.ECO_Date__c}" />
                                         </apex:outputText>
                                     </apex:column>
-                                    <apex:column width="12%">
+                                    <apex:column width="5%">
                                         <apex:facet name="header" >
                                             <apex:outputText >FIPS Compliant▼▲</apex:outputText>
                                         </apex:facet>
