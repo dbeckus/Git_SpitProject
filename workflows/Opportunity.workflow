@@ -484,6 +484,36 @@
         <template>Support/OptyClosedWon</template>
     </alerts>
     <alerts>
+        <fullName>Sales_Win_Send_to_Opp_Owner</fullName>
+        <description>Sales Win Send to Opp Owner</description>
+        <protected>false</protected>
+        <recipients>
+            <recipient>Account Manager</recipient>
+            <type>opportunityTeam</type>
+        </recipients>
+        <recipients>
+            <recipient>Channel Manager</recipient>
+            <type>opportunityTeam</type>
+        </recipients>
+        <recipients>
+            <recipient>Inside Sale Representative</recipient>
+            <type>opportunityTeam</type>
+        </recipients>
+        <recipients>
+            <recipient>Systems Engineer</recipient>
+            <type>opportunityTeam</type>
+        </recipients>
+        <recipients>
+            <type>owner</type>
+        </recipients>
+        <recipients>
+            <recipient>ddalponte@silver-peak.com</recipient>
+            <type>user</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>unfiled$public/Sales_Win_Email</template>
+    </alerts>
+    <alerts>
         <fullName>Send_email_to_registering_partner_sales_rep</fullName>
         <ccEmails>notifications@silver-peak.com</ccEmails>
         <description>Send email to registering partner sales rep</description>
@@ -1163,6 +1193,20 @@ ISCHANGED(StageName)
             <value>True</value>
         </criteriaItems>
         <description>when the RSM signs the rev rec checklist, email to Kiellie and Richard</description>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>Send Competition Data</fullName>
+        <actions>
+            <name>Sales_Win_Send_to_Opp_Owner</name>
+            <type>Alert</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>Opportunity.StageName</field>
+            <operation>equals</operation>
+            <value>Closed Won,Closed Lost</value>
+        </criteriaItems>
         <triggerType>onCreateOrTriggeringUpdate</triggerType>
     </rules>
     <rules>

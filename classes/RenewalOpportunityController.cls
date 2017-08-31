@@ -34,7 +34,7 @@ public class RenewalOpportunityController
         opp.Type = 'Support Renewal';
         opp.StageName = 'Renewal';
         opp.Opportunity_Source__c='';
-        opp.ForecastCategoryName = 'Commit';
+        opp.ForecastCategoryName = 'Pipeline';
         opp.Probability = 50;
         
         
@@ -132,11 +132,7 @@ public class RenewalOpportunityController
             try
             {
                 NewOpp = opp.clone(false, false, false, false);
-                if(NewOpp.Type=='Subscription Renewal' || NewOpp.Type=='EC Renewal' )
-                {
-                    NewOpp.RecordTypeId='012500000005bUb';
-                }
-                if(NewOpp.Type=='Support Renewal')
+                if(NewOpp.Type=='Support Renewal' || NewOpp.Type=='EC Renewal'|| NewOpp.Type=='Subscription Renewal')
                 {
                     NewOpp.RecordTypeId='012500000005bUg';
                 }
