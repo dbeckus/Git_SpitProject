@@ -123,7 +123,7 @@
                 </apex:pageBlockSectionItem>
                                       
                 <apex:pageBlockSectionItem id="foreignGovernorItem">
-                    <span id="foreignGovernorLabel" style="display:{!IF(rrChecklist.UnitsGoingAbroad__c == 'Yes', '', 'none')}"><span>Is the end user a foreign government entity?</span>
+                    <span id="foreignGovernorLabel" style="display:{!IF(rrChecklist.UnitsGoingAbroad__c == 'Yes', '', 'none')}"><span>Is any party in this transaction a foreign government entity?</span>
                     <a title="{!$ObjectType.RevenueRecognitionChecklist__c.Fields.Is_Foreign_Governor_Entity__c.inlineHelpText}" class="questionMark" href="#">
                         <img src="{!URLFOR($Resource.HelpText,'/res/pic/questionMark.gif')}" alt="" /></a>
                     </span>                 

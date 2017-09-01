@@ -62,7 +62,7 @@ public class SendShipmentFulfilmentEmailTest
     @isTest
     static void test_EC_ServiceProvider()
     {
-        Account testAccount = new Account(Name='acme',EC_Customer_Date__c=Date.today());
+        Account testAccount = new Account(Name='acme',EC_Customer_Date__c=Date.today(),ECSP__c=true,Service_Provider_Account_Type__c='EC-SP-Term',Service_Provider_Admin_User__c='abc@abc.com');
         insert testAccount;
         Account spAccount = new Account(Name = 'Silver Peak Systems');
         insert spAccount;
