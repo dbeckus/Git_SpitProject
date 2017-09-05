@@ -1,5 +1,19 @@
 public class CloudPortalAccountHelper {
     
+    private static Map<String, String> regionMap = new Map<String, String>
+    {
+        	'US East (N. Virginia)'=>'us-east-1',
+            'US East (Ohio)'=>'us-east-2',
+            'US West (N. California)'=>'us-west-1',	
+            'US West (Oregon)'=>'us-west-2',
+            'Canada (Central)'=>'ca-central-1',
+            'EU (Ireland)'=>'eu-west-1',
+            'EU (Frankfurt)'=>'eu-central-1',
+            'EU (london)'=>'eu-west-2',
+            'Asia Pacific (Singapore)'=>'ap-southeast-1',
+            'Asia Pacific (Sydney)'=>'ap-southeast-2',
+            'Asia Pacific (Tokyo)'=>'ap-northeast-1'
+            };
     
     public static string  GetTokenFromPortal()
     {
@@ -153,17 +167,16 @@ generator.writeStringField('password', 'Yesadmin4u');
             CPAsset cp= new CPAsset();
             string prodName=item.Product2.Name;
             cp.SerialNumber=item.SerialNumber;
-           /* 
             cp.domain=item.Account.Unity_Orch_Domain__c;
             cp.region=item.Account.Unity_Orch_Location__c;
             cp.email=item.Account.Unity_Orch_Admin_User__c;       
             cp.version='';
-			*/
+			
             long millis=0;
-            /*if(prodName.contains('EC-ORCH-AAS'))
+            if(prodName.contains('EC-ORCH-AAS'))
             {
-               cp.size=(integer)item.Product2.Bandwidth__c;
-            } */
+               cp.region=regionMap.get(item.Account.Unity_Orch_Location__c);
+            }
             if(item.License_End_Date__c!=null)
             {
                 DateTime dt=DateTime.newInstance(item.License_End_Date__c,Time.newInstance(0, 0, 0, 0));

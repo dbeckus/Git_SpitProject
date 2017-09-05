@@ -109,7 +109,7 @@ public class CloudPortalPostAssetsApi extends CloudPortalApiBase {
             
         }
         generator.writeEndArray(); 
-       /* generator.writeFieldName('cloudOrch');
+        generator.writeFieldName('cloudOrch');
         generator.writeStartArray();
         if(orchAssets!=null && orchAssets.size()>0)
         {
@@ -117,6 +117,7 @@ public class CloudPortalPostAssetsApi extends CloudPortalApiBase {
             {
                 generator.writeStartObject();
                 generator.writeObjectField('serial',item.SerialNumber);
+                generator.writeObjectField('name',item.Name);
                 generator.writeObjectField('email',item.email);
                 generator.writeObjectField('domain',item.domain);
                 if(item.ExpiryDate!=null)
@@ -127,14 +128,14 @@ public class CloudPortalPostAssetsApi extends CloudPortalApiBase {
                 {
                     generator.writeObjectField('expiry','');
                 }
-                generator.writeObjectField('size',item.size);
+                //generator.writeObjectField('size',item.size);
                 generator.writeObjectField('region',item.region);
                 generator.writeObjectField('version','');
                 generator.writeEndObject();
             }
             
         }
-        generator.writeEndArray(); */
+        generator.writeEndArray();
         generator.writeEndObject();
         String parameters = generator.getAsString();
         System.debug(parameters);

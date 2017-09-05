@@ -102,6 +102,18 @@
                 <behavior>Edit</behavior>
                 <field>NX_VX_Amount__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>Is_Comp_Rate1_Enabled__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>Is_Comp_Rate2_Enabled__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>Is_Total_Comp_Rate_Enabled__c</field>
+            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>
