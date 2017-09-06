@@ -44,7 +44,7 @@ public class CloudPortalPostAssetsJob implements Database.Batchable<sObject>,Dat
                     List<CPAsset> lstSaasAssets=CloudPortalAccountHelper.ConvertAssetToCpAsset(lstAssetsToUpdate, 'SAAS');
                     List<CPAsset> lstCPXAssets=CloudPortalAccountHelper.ConvertAssetToCpAsset(lstAssetsToUpdate, 'CPX');
                     List<CPAsset> lstSPAssets=CloudPortalAccountHelper.ConvertAssetToCpAsset(lstAssetsToUpdate, 'SP');
-                    //List<CPAsset> lstCloudOrchAssets=CloudPortalAccountHelper.ConvertAssetToCpAsset(lstAssetsToUpdate, 'UNITYORCH');
+                    List<CPAsset> lstCloudOrchAssets=CloudPortalAccountHelper.ConvertAssetToCpAsset(lstAssetsToUpdate, 'UNITYORCH');
                     string currToken= CloudPortalAccountHelper.GetTokenFromPortal();
                     CloudPortalPostAssetsApi obj= new CloudPortalPostAssetsApi(cloudPortalId);
                     obj.token=currToken;
@@ -52,7 +52,7 @@ public class CloudPortalPostAssetsJob implements Database.Batchable<sObject>,Dat
                     obj.ecAssets=lstECAssets;
                     obj.saasAssets=lstSaasAssets;
                     obj.spAssets=lstSPAssets;
-                    //obj.orchAssets=lstCloudOrchAssets;
+                    obj.orchAssets=lstCloudOrchAssets;
                     obj.execute();
                     if(obj.isSucceed)
                     {

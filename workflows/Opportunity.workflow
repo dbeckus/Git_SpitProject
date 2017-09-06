@@ -1201,7 +1201,7 @@ ISCHANGED(StageName)
             <name>Sales_Win_Send_to_Opp_Owner</name>
             <type>Alert</type>
         </actions>
-        <active>true</active>
+        <active>false</active>
         <criteriaItems>
             <field>Opportunity.StageName</field>
             <operation>equals</operation>
