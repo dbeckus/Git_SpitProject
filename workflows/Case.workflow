@@ -946,6 +946,15 @@
         <protected>false</protected>
     </fieldUpdates>
     <fieldUpdates>
+        <fullName>Update_Case_Status_to_In_Process</fullName>
+        <field>Status</field>
+        <literalValue>In Process</literalValue>
+        <name>Update Case Status to In Process</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+    </fieldUpdates>
+    <fieldUpdates>
         <fullName>expire_wanstart_case</fullName>
         <field>Status</field>
         <literalValue>Expired</literalValue>
@@ -1717,6 +1726,30 @@ NOT( Contact.Testing__c )
             <field>Case.UpdatedBy__c</field>
             <operation>equals</operation>
             <value>Owner</value>
+        </criteriaItems>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>Update Case Status to In Process</fullName>
+        <actions>
+            <name>Update_Case_Status_to_In_Process</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>Case.Status</field>
+            <operation>equals</operation>
+            <value>Pending Customer Feedback,Pending Customer Verification</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Case.RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Incoming Email,WANstart,Technical Support</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Case.UpdatedBy__c</field>
+            <operation>equals</operation>
+            <value>Customer</value>
         </criteriaItems>
         <triggerType>onAllChanges</triggerType>
     </rules>

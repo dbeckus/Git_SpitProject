@@ -1605,11 +1605,6 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>EmailMessage</field>
-            <table>Opportunity.Activities</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
             <field>IsVisibleInSelfService</field>
             <table>Opportunity.Activities</table>
         </columns>

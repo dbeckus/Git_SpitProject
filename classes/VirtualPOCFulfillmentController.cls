@@ -240,7 +240,7 @@ public class VirtualPOCFulfillmentController
         }
        	if(pocRequest.Is_Unity_Cloud_Orchestrator__c)
         {
-          addProduct('EC-ORCH-AAS-50-1Y', 1);
+          addProduct('EC-ORCH-AAS-S-1Y', 1);
         }
         if(VirtualAssets.isEmpty())
         {

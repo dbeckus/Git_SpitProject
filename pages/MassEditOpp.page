@@ -52,8 +52,8 @@
                 <apex:column headerValue="Initial Solution Interest">
                 <apex:inputField value="{!opp.Deal_Type__c}" required="false"/>
                 </apex:column>
-                <apex:column headerValue="Solution Type">
-                <apex:inputField value="{!opp.Solution_Type__c}" required="false"/>
+                <apex:column headerValue="Probability">
+                <apex:inputField value="{!opp.Probability}" required="false"/>
                 </apex:column>
                 <apex:column headerValue="Forecast Category">
                 <apex:inputField value="{!opp.ForecastCategoryName}"/>
