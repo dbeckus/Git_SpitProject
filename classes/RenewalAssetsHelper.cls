@@ -150,7 +150,6 @@ public  class RenewalAssetsHelper
                     asset.Renewal_Start_Date__c=null;
                     asset.Renewal_Date__c=null;
                 }	              
-                
             }
             try
             {
@@ -176,9 +175,45 @@ public  class RenewalAssetsHelper
         
         License__c License =null;
         List<License__c> concretLicenses = new List<License__c>();
+        Set<Id> setAssets= new Set<Id>();
+        List<Asset> lstAssetswithLicense= new List<Asset>();
         Savepoint sp = Database.setSavePoint();
+        Map<Id,List<License__c>> mapAssetId= new  Map<Id,List<License__c>>();
         try
         { 
+            
+            if(lstAssets!=null && lstAssets.size()>0)
+            {
+                for(Asset asset: lstAssets)
+                {
+                    mapAssetId.put(asset.Id,null);
+                }
+            }
+            if(mapAssetId.size()>0)
+            {
+               lstAssetswithLicense=[Select Id,Product2.NumberOfLicenses__c,(select Id, Model__c, SerialNumber__c from Licenses__r order by CreatedDate asc) from Asset where Id in:mapAssetId.keySet()];
+            }
+            if(lstAssetswithLicense.size()>0)
+            {
+                for(Asset item:lstAssetswithLicense)
+                {
+                    List<License__c> lstLicense= item.Licenses__r;
+                    System.debug('lstLicense'+lstLicense);
+                    List<License__c> finalLicList= new List<License__c>();
+                    if(item.Product2.NumberOfLicenses__c!=null && item.Product2.NumberOfLicenses__c >1)
+                    {
+                       for(integer counter=0;counter<item.Product2.NumberOfLicenses__c;counter++)
+                       {
+                           finalLicList.add(lstLicense[counter]);
+                       }
+                    }
+                    else
+                    {
+                        finalLicList.add(lstLicense[0]);
+                    }
+                    mapAssetId.put(item.Id,finalLicList);
+                }
+            }
             if(lstAssets!=null && lstAssets.size()>0)
             {
                 for(Asset asset: lstAssets)
@@ -196,22 +231,24 @@ public  class RenewalAssetsHelper
                     }
                     License.Start_Date__c = Date.today();
                     //License.RenewalKeyGenerated__c = true;
-                    Integer numberOfLicenses = (asset.Product2.NumberOfLicenses__c == null) ? 1 : asset.Product2.NumberOfLicenses__c.intValue();
-                    List<License__c> existingLicenses = [select Id, Model__c, SerialNumber__c from License__c where AssetId__c=:asset.Id order by CreatedDate desc limit :numberOfLicenses];
-                    for(License__c existingLicense : existingLicenses)
+                    //Integer numberOfLicenses = (asset.Product2.NumberOfLicenses__c == null) ? 1 : asset.Product2.NumberOfLicenses__c.intValue();
+                    if(mapAssetId.containsKey(asset.Id))
                     {
-                        License__c newLicense = License.clone(false, false, false, false);
-                        newLicense.Model__c = existingLicense.Model__c;
-                        newLicense.License_Expiration__c= asset.Renewal_Date__c;
-                        newLicense.SerialNumber__c = existingLicense.SerialNumber__c;
-                        concretLicenses.add(newLicense);
+                        List<License__c>existingLicenses=mapAssetId.get(asset.Id);
+                        for(License__c existingLicense : existingLicenses)
+                        {
+                            License__c newLicense = License.clone(false, false, false, false);
+                            newLicense.Model__c = existingLicense.Model__c;
+                            newLicense.License_Expiration__c= asset.Renewal_Date__c;
+                            newLicense.SerialNumber__c = existingLicense.SerialNumber__c;
+                            concretLicenses.add(newLicense);
+                        }
                     }
                 }
             }
             
             if(concretLicenses!=null && concretLicenses.size()>0)
             {
-                
                 insert concretLicenses;
                 List<Id> licenseIds = new List<Id>();
                 for(License__c item : concretLicenses)
@@ -229,8 +266,6 @@ public  class RenewalAssetsHelper
             SilverPeakutils.logException(ex);
             return false;
         }
-        
-        
         return true;
     }
     

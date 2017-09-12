@@ -448,6 +448,10 @@
             <recipient>mmartin@silver-peak.com</recipient>
             <type>user</type>
         </recipients>
+        <recipients>
+            <recipient>prane@silver-peak.com</recipient>
+            <type>user</type>
+        </recipients>
         <senderType>CurrentUser</senderType>
         <template>Support/oppty_closed_stage</template>
     </alerts>
@@ -474,7 +478,6 @@
     </alerts>
     <alerts>
         <fullName>Opportunityhasbeenclosedandwon</fullName>
-        <ccEmails>opptywon@silver-peak.com</ccEmails>
         <description>Opportunity has been closed and won</description>
         <protected>false</protected>
         <recipients>
@@ -1103,6 +1106,10 @@ ISCHANGED(StageName)
             <operation>equals</operation>
             <value>Closed Won</value>
         </criteriaItems>
+        <criteriaItems>
+            <field>Opportunity.Win_Description__c</field>
+            <operation>notEqual</operation>
+        </criteriaItems>
         <description>Sends an email when an opportunity is closed/won</description>
         <triggerType>onCreateOrTriggeringUpdate</triggerType>
     </rules>
@@ -1201,7 +1208,7 @@ ISCHANGED(StageName)
             <name>Sales_Win_Send_to_Opp_Owner</name>
             <type>Alert</type>
         </actions>
-        <active>false</active>
+        <active>true</active>
         <criteriaItems>
             <field>Opportunity.StageName</field>
             <operation>equals</operation>
@@ -1565,16 +1572,25 @@ IF(ISPICKVAL (LeadSource, &quot;Customer Referral.&quot;), 1,0), &quot;Used&quot
             <type>Alert</type>
         </actions>
         <active>true</active>
-        <booleanFilter>1 AND 2</booleanFilter>
+        <booleanFilter>1 OR(3 AND 4) AND 2</booleanFilter>
         <criteriaItems>
             <field>Opportunity.StageName</field>
             <operation>equals</operation>
-            <value>Closed Lost,Closed Dead</value>
+            <value>Closed Dead</value>
         </criteriaItems>
         <criteriaItems>
             <field>Opportunity.Type</field>
             <operation>notEqual</operation>
             <value>Marketplace</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Opportunity.StageName</field>
+            <operation>equals</operation>
+            <value>Closed Lost</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Opportunity.Loss_Description__c</field>
+            <operation>notEqual</operation>
         </criteriaItems>
         <description>oppty-closed and not won under 100k</description>
         <triggerType>onCreateOrTriggeringUpdate</triggerType>
