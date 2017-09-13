@@ -298,9 +298,10 @@ public class LeadTriggerHandler implements ITriggerHandler {
     
     private void ProcessDealReg(Set<Id> userIds,List<Lead> lstLeads)
     {
+        userIds.add('005W0000001KS8w');
         if(userIds.size()>0)        
         {
-            userIds.add('005W0000001KS8w');
+            
             Map<Id, User> portalUsers = new Map<Id, User>([select Id, ContactId, Contact.AccountId from User where Id in :userIds and ContactId!=null]);
             for(Lead newLead : lstLeads)
             {

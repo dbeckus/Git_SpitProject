@@ -37,6 +37,10 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
+                <field>Deal_Reg_By_Partner_Id__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
                 <field>Trigger_Assignment__c</field>
             </layoutItems>
             <layoutItems>
@@ -62,6 +66,14 @@
             <layoutItems>
                 <behavior>Edit</behavior>
                 <field>Number_of_Employees__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Registered_Partner__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Registered_Partner_Sales_Rep__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
@@ -130,6 +142,10 @@
             <layoutItems>
                 <behavior>Edit</behavior>
                 <field>Service_Provider__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Last_Status_Change__c</field>
             </layoutItems>
         </layoutColumns>
         <layoutColumns>
