@@ -28,7 +28,7 @@ trigger LinkLeadToPatch on Lead (before insert, after insert, before update, aft
                     Lead oldLead = Trigger.oldMap.get(lead.Id);
                     PatchRuleEngineBase.Target target = PatchRuleHelper.getTarget(lead);
                     PatchRuleEngineBase.Target oldTarget = PatchRuleHelper.getTarget(oldLead);
-                    if(lead.Trigger_Assignment__c || !PatchRuleHelper.isSameTarget(target, oldTarget))
+                    if(lead.Trigger_Assignment__c || !PatchRuleHelper.isSameTarget(target, oldTarget)||lead.ECSP__c!=oldLead.ECSP__c)
                     {
                         leadsNeedAssignment.add(lead);
                         PatchRuleHelper.leadsNeedAssignment.add(lead.Id);

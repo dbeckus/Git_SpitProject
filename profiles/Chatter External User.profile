@@ -2000,6 +2000,10 @@
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>TestLeadTriggerHandler</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>TestNewReleasesController</apexClass>
         <enabled>false</enabled>
     </classAccesses>

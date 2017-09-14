@@ -13,6 +13,10 @@
             <type>user</type>
         </recipients>
         <recipients>
+            <recipient>prane@silver-peak.com</recipient>
+            <type>user</type>
+        </recipients>
+        <recipients>
             <recipient>rbooth@silver-peak.com</recipient>
             <type>user</type>
         </recipients>
@@ -491,27 +495,7 @@
         <description>Sales Win Send to Opp Owner</description>
         <protected>false</protected>
         <recipients>
-            <recipient>Account Manager</recipient>
-            <type>opportunityTeam</type>
-        </recipients>
-        <recipients>
-            <recipient>Channel Manager</recipient>
-            <type>opportunityTeam</type>
-        </recipients>
-        <recipients>
-            <recipient>Inside Sale Representative</recipient>
-            <type>opportunityTeam</type>
-        </recipients>
-        <recipients>
-            <recipient>Systems Engineer</recipient>
-            <type>opportunityTeam</type>
-        </recipients>
-        <recipients>
             <type>owner</type>
-        </recipients>
-        <recipients>
-            <recipient>ddalponte@silver-peak.com</recipient>
-            <type>user</type>
         </recipients>
         <senderType>CurrentUser</senderType>
         <template>unfiled$public/Sales_Win_Email</template>
@@ -1106,10 +1090,6 @@ ISCHANGED(StageName)
             <operation>equals</operation>
             <value>Closed Won</value>
         </criteriaItems>
-        <criteriaItems>
-            <field>Opportunity.Win_Description__c</field>
-            <operation>notEqual</operation>
-        </criteriaItems>
         <description>Sends an email when an opportunity is closed/won</description>
         <triggerType>onCreateOrTriggeringUpdate</triggerType>
     </rules>
@@ -1128,7 +1108,11 @@ ISCHANGED(StageName)
         <criteriaItems>
             <field>Opportunity.Type</field>
             <operation>equals</operation>
-            <value>Follow on Business,New Business</value>
+            <value>New Business</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Opportunity.Win_Description__c</field>
+            <operation>notEqual</operation>
         </criteriaItems>
         <description>Sends an email when a new and follow on  opportunity is closed/won</description>
         <triggerType>onCreateOrTriggeringUpdate</triggerType>

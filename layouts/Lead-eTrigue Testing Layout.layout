@@ -147,6 +147,10 @@
                 <behavior>Edit</behavior>
                 <field>Last_Status_Change__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>ECSP__c</field>
+            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>

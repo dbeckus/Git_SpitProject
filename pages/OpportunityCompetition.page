@@ -7,14 +7,14 @@
             </apex:pageBlockButtons>
             <apex:PageblockSection columns="1">
                 <apex:outputField value="{!Opportunity.Name}"/>
-                <apex:inputField label="Number of Sites" value="{!Opportunity.Number_of_branches__c}" rendered="{!Opportunity.StageName=='Closed Won'}"/>
-                <apex:inputField style="width:360px;height:40px" label="Win Description" value="{!Opportunity.Win_Description__c}" rendered="{!Opportunity.StageName=='Closed Won'}"/>
-                <apex:inputField style="width:360px;height:40px" label="Loss Description" value="{!Opportunity.Loss_Description__c}" rendered="{!Opportunity.StageName=='Closed Lost'}"/>
-                <apex:inputField label="Lost Reason" value="{!Opportunity.Loss_Reason__c}" rendered="{!Opportunity.StageName=='Closed Lost'}"/>
+                <apex:inputField label="Number of Sites" value="{!Opportunity.Number_of_branches__c}" required="{!Opportunity.StageName=='Closed Won'}" rendered="{!Opportunity.StageName=='Closed Won'}"/>
+                <apex:inputField style="width:360px;height:40px" label="Win Description" required="{!Opportunity.StageName=='Closed Won'}" value="{!Opportunity.Win_Description__c}" rendered="{!Opportunity.StageName=='Closed Won'}"/>
+                <apex:inputField style="width:360px;height:40px" label="Loss Description" required="{!Opportunity.StageName=='Closed Lost'}" value="{!Opportunity.Loss_Description__c}" rendered="{!Opportunity.StageName=='Closed Lost'}"/>
+                <apex:inputField label="Lost Reason" value="{!Opportunity.Loss_Reason__c}" required="{!Opportunity.StageName=='Closed Lost'}" rendered="{!Opportunity.StageName=='Closed Lost'}"/>
                 <apex:PageBlockSectionItem >
                     <apex:outputLabel value="Primary Competitor"/>
                     <apex:actionRegion >
-                        <apex:inputField value="{!Opportunity.primary_competitor__c}">
+                        <apex:inputField value="{!Opportunity.primary_competitor__c}" required="true">
                             <apex:actionSupport event="onchange" reRender="ajaxrequest" />
                         </apex:inputField>
                     </apex:actionRegion>
@@ -22,7 +22,7 @@
                 <apex:pageBlockSectionItem >
                     <apex:outputPanel id="ajaxrequest">   
                         <apex:pageBlockSection rendered="{!Opportunity.primary_competitor__c=='Other'}" >
-                            <apex:inputField label="Other Value" value="{!Opportunity.Other_Competitor_Value__c}"/>
+                            <apex:inputField label="Other Value" value="{!Opportunity.Other_Competitor_Value__c}" required="{!Opportunity.primary_competitor__c=='Other'}"/>
                         </apex:pageBlockSection>
                     </apex:outputPanel> 
                     

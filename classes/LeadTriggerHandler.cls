@@ -66,7 +66,7 @@ public class LeadTriggerHandler implements ITriggerHandler {
                     {
                         PatchRuleEngineBase.Target target = PatchRuleHelper.getTarget(newLead);
                         PatchRuleEngineBase.Target oldTarget = PatchRuleHelper.getTarget(oldLead);
-                        if(newLead.Trigger_Assignment__c || !PatchRuleHelper.isSameTarget(target, oldTarget))
+                        if(newLead.Trigger_Assignment__c || !PatchRuleHelper.isSameTarget(target, oldTarget)|| newLead.ECSP__c!=oldLead.ECSP__c)
                         {
                             leadsNeedAssignment.add(newLead);
                             PatchRuleHelper.leadsNeedAssignment.add(newLead.Id);
@@ -105,6 +105,8 @@ public class LeadTriggerHandler implements ITriggerHandler {
             {
                 ProcessDealReg(userIds,dealRegLeads);
             }
+            
+            LinkRegisteredPartner(marketplaceCodes,processingLeads);
         }
     }
     public void BeforeDelete(Map<Id,SObject> oldItems) 
@@ -122,9 +124,9 @@ public class LeadTriggerHandler implements ITriggerHandler {
         List<Id> needToShareLeadIds = new List<Id>();
         
         Set<String> moveToSDCampaignStages = new Set<String> { '03 MQL', '04 SAL', '13 MQC', '14 SAC', 'MQL', 'SAL', 'MQC' };
-        Set<String> excludedStatuses = new Set<String> {'Submitted', 'Approved', 'Rejected' };
-        Set<String> rejectedStatuses = new Set<String> { 'Sales Rejected', 'Rejected' };
-        String sdCampaignId = SalesDevelopmentHelper.getSDCampaign();
+            Set<String> excludedStatuses = new Set<String> {'Submitted', 'Approved', 'Rejected' };
+                Set<String> rejectedStatuses = new Set<String> { 'Sales Rejected', 'Rejected' };
+                    String sdCampaignId = SalesDevelopmentHelper.getSDCampaign();
         
         List<CampaignMember> newSDCampaignMembers = new List<CampaignMember>();
         Set<Id> leadIdsToBeMovedOff = new Set<Id>();
@@ -180,10 +182,10 @@ public class LeadTriggerHandler implements ITriggerHandler {
         List<Lead> needToShareLeads = new List<Lead>();
         List<Id> needToShareLeadIds = new List<Id>();
         List<Contact> contacts = new List<Contact>();
-       	Set<String> moveToSDCampaignStages = new Set<String> { '03 MQL', '04 SAL', '13 MQC', '14 SAC', 'MQL', 'SAL', 'MQC' };
-        Set<String> excludedStatuses = new Set<String> {'Submitted', 'Approved', 'Rejected' };
-        Set<String> rejectedStatuses = new Set<String> { 'Sales Rejected', 'Rejected' };
-        String sdCampaignId = SalesDevelopmentHelper.getSDCampaign();
+        Set<String> moveToSDCampaignStages = new Set<String> { '03 MQL', '04 SAL', '13 MQC', '14 SAC', 'MQL', 'SAL', 'MQC' };
+            Set<String> excludedStatuses = new Set<String> {'Submitted', 'Approved', 'Rejected' };
+                Set<String> rejectedStatuses = new Set<String> { 'Sales Rejected', 'Rejected' };
+                    String sdCampaignId = SalesDevelopmentHelper.getSDCampaign();
         
         List<CampaignMember> newSDCampaignMembers = new List<CampaignMember>();
         Set<Id> leadIdsToBeMovedOff = new Set<Id>();
@@ -212,15 +214,8 @@ public class LeadTriggerHandler implements ITriggerHandler {
             }
             if(needToShareLeads.size() > 0)
             {
-                if(System.isFuture())
-                {
-                    ShareLeadAndOpportunityToPartnerHelper.shareLeads(needToShareLeads);
-                }
-                else
-                {
-                    //owner change in assignment rule may remove the sharing, making the sharing in async assures.
-                    ShareLeadAndOpportunityToPartnerHelper.willShareLeads(needToShareLeadIds);
-                }
+                //owner change in assignment rule may remove the sharing, making the sharing in async assures.
+                ShareLeadAndOpportunityToPartnerHelper.willShareLeads(needToShareLeadIds);
             }
             if(!contacts.isEmpty())
             {
@@ -301,7 +296,6 @@ public class LeadTriggerHandler implements ITriggerHandler {
         userIds.add('005W0000001KS8w');
         if(userIds.size()>0)        
         {
-            
             Map<Id, User> portalUsers = new Map<Id, User>([select Id, ContactId, Contact.AccountId from User where Id in :userIds and ContactId!=null]);
             for(Lead newLead : lstLeads)
             {
@@ -341,13 +335,13 @@ public class LeadTriggerHandler implements ITriggerHandler {
         {
             Database.insert(newSDCampaignMembers, false);
         }
-
+        
         //Move leads off SD campaign
         if(!leadIdsToBeMovedOff.isEmpty())
         {
             delete [select Id from CampaignMember where CampaignId = :sdCampaignId and LeadId in :leadIdsToBeMovedOff];
         }
-
+        
         //Update leads
         if(!leadsToBeUpdated.isEmpty())
         {
