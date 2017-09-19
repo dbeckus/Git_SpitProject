@@ -348,10 +348,10 @@ public class TestAssetTriggerHandler {
         insert testAccount;    
         Contact testContact = new Contact(LastName = 'acme', AccountId = testAccount.Id);
         insert testContact;        
-        Product2 product1 = new Product2(IsActive=true, Name='acme', Forecast_Category__c='Virtual', Family = 'Virtual Image', Model__c = 'NX-2500');
-        Product2 product2 = new Product2(IsActive=true, Name='acme', Forecast_Category__c='Virtual', Family = 'Virtual Image', Model__c = 'NX-5600');
-        Product2 product3 = new Product2(IsActive=true, Name='acme', Forecast_Category__c='Virtual', Family = 'Virtual Image', Model__c = 'NX-2700');
-        Product2 product4 = new Product2(IsActive=true, Name='acme', Forecast_Category__c='Virtual', Family = 'Virtual Image', Model__c = 'NX-8504');
+        Product2 product1 = new Product2(IsActive=true, Name='acme',Product_Type__c='NX/VX', Forecast_Category__c='Virtual', Family = 'Virtual Image', Model__c = 'NX-2500');
+        Product2 product2 = new Product2(IsActive=true, Name='acme',Product_Type__c='NX/VX', Forecast_Category__c='Virtual', Family = 'Virtual Image', Model__c = 'NX-5600');
+        Product2 product3 = new Product2(IsActive=true, Name='acme',Product_Type__c='NX/VX', Forecast_Category__c='Virtual', Family = 'Virtual Image', Model__c = 'NX-2700');
+        Product2 product4 = new Product2(IsActive=true, Name='acme',Product_Type__c='NX/VX', Forecast_Category__c='Virtual', Family = 'Virtual Image', Model__c = 'NX-8504');
         insert new Product2[]{ product1, product2, product3, product4 };
             
             //execute test

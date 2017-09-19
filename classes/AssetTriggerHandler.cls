@@ -38,7 +38,7 @@ public class AssetTriggerHandler implements ITriggerHandler {
             List<Asset> lstNewAssets=(List<Asset>)newItems;
             for(Asset newAsset:lstNewAssets)
             {
-                if(newAsset.End_of_Maintenance__c== null)
+                if(newAsset.End_of_Maintenance__c== null && newAsset.Product_Quote_Type__c=='NX/VX')
                 {
                     lstAsset.add(newAsset);
                 }
@@ -74,7 +74,7 @@ public class AssetTriggerHandler implements ITriggerHandler {
             {
                 Asset newAsset=(Asset)newItems.get(assetId);
                 Asset oldAsset=(Asset)oldItems.get(assetId);
-                if(oldAsset.Ship_Date__c!=newAsset.Ship_Date__c)
+                if(oldAsset.Ship_Date__c!=newAsset.Ship_Date__c && newAsset.Product_Quote_Type__c=='NX/VX')
                 {
                     lstAsset.add(newAsset);
                 }

@@ -1,5 +1,14 @@
 public class LeadTriggerHandler implements ITriggerHandler {
     
+    Set<String> moveToSDCampaignStages = new Set<String> { '03 MQL', '04 SAL', '13 MQC', '14 SAC', 'MQL', 'SAL', 'MQC' };
+        Set<String> excludedStatuses = new Set<String> {'Submitted', 'Approved', 'Rejected' };
+            Set<String> rejectedStatuses = new Set<String> { 'Sales Rejected', 'Rejected' };
+                
+                String sdCampaignId = SalesDevelopmentHelper.getSDCampaign();
+    List<CampaignMember> newSDCampaignMembers = new List<CampaignMember>();
+    Set<Id> leadIdsToBeMovedOff = new Set<Id>();
+    Map<Id, Lead> leadsToBeUpdated = new Map<Id, Lead>();
+    Id cloudingoUserId=getCloudingoUserId();
     public LeadTriggerHandler()
     {
         
@@ -123,14 +132,7 @@ public class LeadTriggerHandler implements ITriggerHandler {
         List<Lead> needToShareLeads = new List<Lead>();
         List<Id> needToShareLeadIds = new List<Id>();
         
-        Set<String> moveToSDCampaignStages = new Set<String> { '03 MQL', '04 SAL', '13 MQC', '14 SAC', 'MQL', 'SAL', 'MQC' };
-            Set<String> excludedStatuses = new Set<String> {'Submitted', 'Approved', 'Rejected' };
-                Set<String> rejectedStatuses = new Set<String> { 'Sales Rejected', 'Rejected' };
-                    String sdCampaignId = SalesDevelopmentHelper.getSDCampaign();
         
-        List<CampaignMember> newSDCampaignMembers = new List<CampaignMember>();
-        Set<Id> leadIdsToBeMovedOff = new Set<Id>();
-        Map<Id, Lead> leadsToBeUpdated = new Map<Id, Lead>();
         if(newItems!=null && newItems.size()>0)
         {
             for (Id leadId : newItems.keyset())
@@ -172,7 +174,7 @@ public class LeadTriggerHandler implements ITriggerHandler {
                     ShareLeadAndOpportunityToPartnerHelper.willShareLeads(needToShareLeadIds);
                 }
             }
-            MoveLeadsOnOffCampaign(newSDCampaignMembers, leadIdsToBeMovedOff, leadsToBeUpdated);
+            MoveLeadsOnOffCampaign();
         }
     }
     public void AfterUpdate(Map<Id, SObject> newItems, Map<Id, SObject> oldItems) 
@@ -182,26 +184,44 @@ public class LeadTriggerHandler implements ITriggerHandler {
         List<Lead> needToShareLeads = new List<Lead>();
         List<Id> needToShareLeadIds = new List<Id>();
         List<Contact> contacts = new List<Contact>();
-        Set<String> moveToSDCampaignStages = new Set<String> { '03 MQL', '04 SAL', '13 MQC', '14 SAC', 'MQL', 'SAL', 'MQC' };
-            Set<String> excludedStatuses = new Set<String> {'Submitted', 'Approved', 'Rejected' };
-                Set<String> rejectedStatuses = new Set<String> { 'Sales Rejected', 'Rejected' };
-                    String sdCampaignId = SalesDevelopmentHelper.getSDCampaign();
         
-        List<CampaignMember> newSDCampaignMembers = new List<CampaignMember>();
-        Set<Id> leadIdsToBeMovedOff = new Set<Id>();
-        Map<Id, Lead> leadsToBeUpdated = new Map<Id, Lead>();
         if(newItems!=null && newItems.size()>0)
         {
             for (Id leadId : newItems.keyset())
             {
                 Lead newLead= (Lead)newItems.get(leadId);
-                Lead oldLead= (Lead)oldItems.get(leadId);  
+                Lead oldLead= (Lead)oldItems.get(leadId); 
+                
+                if(moveToSDCampaignStages.contains(newLead.Lead_Lifecycle_Stage__c) && !moveToSDCampaignStages.contains(oldLead.Lead_Lifecycle_Stage__c) && !excludedStatuses.contains(newLead.Status))
+                {
+                    if(!leadsToBeUpdated.containsKey(newLead.Id))
+                    {
+                        leadsToBeUpdated.put(newLead.Id, new Lead(Id=newLead.Id));
+                    }
+                    leadsToBeUpdated.get(newLead.Id).Lead_Sub_Status__c = null;
+                    newSDCampaignMembers.add(new CampaignMember(LeadId = newLead.Id, CampaignId = sdCampaignId));
+                }
+                if((!moveToSDCampaignStages.contains(newLead.Lead_Lifecycle_Stage__c) && moveToSDCampaignStages.contains(oldLead.Lead_Lifecycle_Stage__c)) || (excludedStatuses.contains(newLead.Status) && !excludedStatuses.contains(oldLead.Status)))
+                {
+                    leadIdsToBeMovedOff.add(newLead.Id);
+                }
+                if((rejectedStatuses.contains(newLead.Status) && !rejectedStatuses.contains(oldLead.Status)) || (newLead.IsConverted && !oldLead.IsConverted))
+                {
+                    if(!leadsToBeUpdated.containsKey(newLead.Id))
+                    {
+                        leadsToBeUpdated.put(newLead.Id, new Lead(Id=newLead.Id));
+                    }
+                    leadsToBeUpdated.get(newLead.Id).Contact_Me__c = false;
+                    leadsToBeUpdated.get(newLead.Id).BANT_Qualified__c = false;
+                    leadIdsToBeMovedOff.add(newLead.Id);
+                }
                 if(isChanged(oldLead, newLead, new String[] {'Registered_Distributor_Contact__c', 'Registered_Partner_Sales_Rep__c', 'Registered_Distributor__c', 'Registered_Partner__c'}))
                 {
                     needToShareLeads.add(newLead);
                     needToShareLeadIds.add(newLead.Id);
                 }
-                if(newLead.IsConverted == true && newLead.Trial_Request_from_Marketplace__c == false && newLead.ConvertedContactId != null)
+             
+                if(newLead.IsConverted == true && newLead.Trial_Request_from_Marketplace__c == false && newLead.ConvertedContactId != null && cloudingoUserId!=null && userinfo.getUserId() !=cloudingoUserId)
                 {
                     contacts.add(new Contact(Id=newLead.ConvertedContactId, Lead_Status__c=newLead.Status));
                 }
@@ -221,7 +241,7 @@ public class LeadTriggerHandler implements ITriggerHandler {
             {
                 update contacts;
             }
-            MoveLeadsOnOffCampaign(newSDCampaignMembers, leadIdsToBeMovedOff, leadsToBeUpdated);
+            MoveLeadsOnOffCampaign();
         }
         
     }
@@ -327,9 +347,9 @@ public class LeadTriggerHandler implements ITriggerHandler {
         }
         return false;
     }
-    private void MoveLeadsOnOffCampaign(List<CampaignMember>newSDCampaignMembers,Set<Id>leadIdsToBeMovedOff, Map<Id, Lead>leadsToBeUpdated)
+    private void MoveLeadsOnOffCampaign()
     {
-        String sdCampaignId = SalesDevelopmentHelper.getSDCampaign();
+        
         //Move leads to SD campaign
         if(!newSDCampaignMembers.isEmpty())
         {
@@ -348,6 +368,23 @@ public class LeadTriggerHandler implements ITriggerHandler {
             SilverPeakUtils.BypassingTriggers = true;
             Database.update(leadsToBeUpdated.values(), false);
             SilverPeakUtils.BypassingTriggers = false;
+        }
+    }
+    
+    private static Id getCloudingoUserId()
+    {
+        if(SilverPeakUtils.IsProduction())
+        {
+            return '005380000057EOB';     
+        }
+        else
+        {
+            User cloudingoUser = [Select Id, Name from User where Name = 'Cloudingo Integration'];
+            if(cloudingoUser!=null)
+            {
+                return cloudingoUser.Id;
+            }
+            return null;
         }
     }
 }
