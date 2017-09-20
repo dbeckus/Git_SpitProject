@@ -7667,6 +7667,11 @@
         <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
+        <editable>false</editable>
+        <field>Sample_Data__c.Sample1__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>true</editable>
         <field>Scrum_Team__c.Active__c</field>
         <readable>true</readable>
@@ -8378,6 +8383,9 @@
     </layoutAssignments>
     <layoutAssignments>
         <layout>Sales_Funnel__c-Sales Funnel Layout</layout>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Sample_Data__c-Sample Data Layout</layout>
     </layoutAssignments>
     <layoutAssignments>
         <layout>Scorecard-Scorecard Layout</layout>

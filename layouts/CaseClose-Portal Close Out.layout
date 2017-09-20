@@ -22,6 +22,10 @@
                 <behavior>Edit</behavior>
                 <field>Customer_Closing_Comments__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>Is_Asset_Warranty_Expired__c</field>
+            </layoutItems>
         </layoutColumns>
         <style>OneColumn</style>
     </layoutSections>

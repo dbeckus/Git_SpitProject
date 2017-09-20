@@ -7649,6 +7649,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Sample_Data__c.Sample1__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Scrum_Team__c.Active__c</field>
         <readable>false</readable>
     </fieldPermissions>
