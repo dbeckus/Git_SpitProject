@@ -31,9 +31,26 @@ global class NewRMAController
         
         initializeRMA();
         initializeRMAItem();
-        
+        if(IsThisAnExpiredAsset(RMAItem.Asset__c))
+        {
+            ApexPages.addMessage(new ApexPages.Message(ApexPages.Severity.Error, 'You cannot open RMA for the expired warranty/contract asset.'));
+        }
+       	
     }
     
+    private boolean IsThisAnExpiredAsset(Id assetId)
+    {
+        List<Asset> lstAssetInfo=[Select Id,Contract_Number__c,Contract_End__c,Warranty_End_Date__c  from Asset where Id=:assetId and Product2.Name like'EC%' and Product2.Family='Product'];
+        if(lstAssetInfo!=null && lstAssetInfo.size()>0)
+        {
+            Asset assetInfo=lstAssetInfo[0];
+            if(assetInfo.Contract_Number__c!=null && assetInfo.Contract_End__c< Date.today())
+                return true;
+            else if(assetInfo.Warranty_End_Date__c!=null && assetInfo.Warranty_End_Date__c<Date.today())
+                return true;
+        }
+        return false;
+    }
     public List<ProductInfo> Products { get; set; }
     public List<ProductInfo> SelectedProducts
     {
@@ -125,6 +142,7 @@ global class NewRMAController
     
     public PageReference save()
     {
+        
         SavePoint sp = Database.setSavePoint();
         Boolean isSystemSelected = false;
         for(ProductInfo p : Products)
@@ -216,8 +234,14 @@ global class NewRMAController
     
     public PageReference next()
     {
+        
         if(Disabled == true)
         {
+            return null;
+        }
+        if(IsThisAnExpiredAsset(RMAItem.Asset__c))
+        {
+            ApexPages.addMessage(new ApexPages.Message(ApexPages.Severity.Error, 'You cannot open RMA for the expired warranty/contract asset.'));
             return null;
         }
         Boolean productsSelected = false;

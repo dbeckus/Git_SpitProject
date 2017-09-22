@@ -4,7 +4,7 @@
     <script>
     function loadAssetsPN(productId, index)
     {
-        
+        alert(productId);
         ShippingInputFormController.getAssetPartNumber(productId, function(result, event) {
             if(event.status == true)
             {
@@ -154,10 +154,10 @@
                         <apex:facet name="header">
                             Product&nbsp;<img src="/s.gif" alt="Expand" class="moreArrow" title="Expand" onclick="showDatePopup('ProList')" style="cursor:pointer"/>
                         </apex:facet>
-                        <apex:selectList id="ProList" size="1" value="{!ShipLine.SelectProductId}" rendered="{!NOT(ShipLine.AssetIsExisted)}" onchange="loadAssetsPN(this.value, {!FLOOR(index)});">
+                        <apex:selectList id="ProList" size="1" value="{!ShipLine.SelectProductId}"  onchange="loadAssetsPN(this.value, {!FLOOR(index)});">
                             <apex:selectOptions value="{!ProductList}"/>
                         </apex:selectList>
-                        <apex:outputText value="{!ShipLine.ProductCode}" rendered="{!ShipLine.AssetIsExisted}"/>
+                        <!--<apex:outputText value="{!ShipLine.ProductCode}" rendered="{!ShipLine.AssetIsExisted}"/>-->
                          
                     </apex:column>
                     <apex:column id="PartNumberCol" headerValue="Part Number">
@@ -167,9 +167,9 @@ Part Number&nbsp;<img src="/s.gif" alt="Expand" class="moreArrow" title="Expand"
                         <!--<apex:selectList size="1" value="{!ShipLine.PartNumber}" id="PartNumber" rendered="{!NOT(ShipLine.AssetIsExisted)}">
 <apex:selectOptions value="{!PartNumberList}" />
 </apex:selectList>-->
-                        <select id="PartNumberList{!FLOOR(index)}" onchange="setAssetPN({!FLOOR(index)}, this.value)" style="display:{!IF(ShipLine.AssetIsExisted, 'none', '')}"></select>
+                        <select  id="PartNumberList{!FLOOR(index)}" onload="loadAssetsPN({!ShipLine.SelectProductId}, {!FLOOR(index)});" onchange="setAssetPN({!FLOOR(index)}, this.value)"></select>
                         <apex:inputHidden value="{!ShipLine.PartNumber}" id="PartNumber"/>
-                        <apex:outputText rendered="{!ShipLine.AssetIsExisted}">{!ShipLine.PartNumber}</apex:outputText>
+                        <!--<apex:outputText rendered="{!ShipLine.AssetIsExisted}">{!ShipLine.PartNumber}</apex:outputText>-->
                     </apex:column>
                    	<apex:column id="SHRegion" headerValue="Smart Hands Region">
                         <apex:facet name="header">

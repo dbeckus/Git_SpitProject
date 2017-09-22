@@ -1,6 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Workflow xmlns="http://soap.sforce.com/2006/04/metadata">
     <alerts>
+        <fullName>Closed_Won_Less_Than_100_K_Email_Template</fullName>
+        <description>Closed Won Less Than 100 K Email Template</description>
+        <protected>false</protected>
+        <recipients>
+            <recipient>ewhite@silver-peak.com</recipient>
+            <type>user</type>
+        </recipients>
+        <recipients>
+            <recipient>prane@silver-peak.com</recipient>
+            <type>user</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>Sales/Opportunity_Won_New</template>
+    </alerts>
+    <alerts>
         <fullName>Closed_Won_New_and_FO</fullName>
         <description>Closed Won New and FO</description>
         <protected>false</protected>
@@ -22,7 +37,7 @@
         </recipients>
         <senderAddress>silverpeakinfo@silver-peak.com</senderAddress>
         <senderType>OrgWideEmailAddress</senderType>
-        <template>Sales/Opportunity_Won_New</template>
+        <template>Sales/Greater_Than_100_k_Opportunity_Won_New</template>
     </alerts>
     <alerts>
         <fullName>Commit_Changed</fullName>
@@ -532,6 +547,18 @@
             <recipient>ISR_Team</recipient>
             <type>role</type>
         </recipients>
+        <recipients>
+            <recipient>InsideSalesMgr</recipient>
+            <type>role</type>
+        </recipients>
+        <recipients>
+            <recipient>ewhite@silver-peak.com</recipient>
+            <type>user</type>
+        </recipients>
+        <recipients>
+            <recipient>prane@silver-peak.com</recipient>
+            <type>user</type>
+        </recipients>
         <senderType>CurrentUser</senderType>
         <template>unfiled$public/oppty_closed_stage_dead</template>
     </alerts>
@@ -1012,6 +1039,54 @@ ISCHANGED(StageName)
         <triggerType>onAllChanges</triggerType>
     </rules>
     <rules>
+        <fullName>Closed Lost oppty</fullName>
+        <actions>
+            <name>OpportunityStageChangeEvalORClosedNotWon</name>
+            <type>Alert</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>Opportunity.StageName</field>
+            <operation>equals</operation>
+            <value>Closed Lost</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Opportunity.Type</field>
+            <operation>equals</operation>
+            <value>Follow on Business,New Business,Support Renewal,Subscription Renewal,EC Renewal</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Opportunity.Loss_Description__c</field>
+            <operation>notEqual</operation>
+        </criteriaItems>
+        <description>oppty-closed</description>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>Closed-Dead Oppty</fullName>
+        <actions>
+            <name>Send_to_BDR_for_closed_dead</name>
+            <type>Alert</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>Opportunity.StageName</field>
+            <operation>equals</operation>
+            <value>Closed Dead</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Opportunity.Type</field>
+            <operation>equals</operation>
+            <value>Follow on Business,New Business,Support Renewal,Subscription Renewal,EC Renewal</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Opportunity.Dead_Reason__c</field>
+            <operation>notEqual</operation>
+        </criteriaItems>
+        <description>Oppty that are closed, send an email to BDR</description>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
         <fullName>Eval Stage Change</fullName>
         <actions>
             <name>EvalStageChange</name>
@@ -1033,6 +1108,30 @@ ISCHANGED(StageName)
         <triggerType>onCreateOrTriggeringUpdate</triggerType>
     </rules>
     <rules>
+        <fullName>Generic-Opportunity Closed Won</fullName>
+        <actions>
+            <name>Opportunityhasbeenclosedandwon</name>
+            <type>Alert</type>
+        </actions>
+        <actions>
+            <name>SetFinanceId</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>Opportunity.StageName</field>
+            <operation>equals</operation>
+            <value>Closed Won</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Opportunity.Type</field>
+            <operation>equals</operation>
+            <value>Follow on Business,New Business,Support Renewal,Subscription Renewal,EC Renewal</value>
+        </criteriaItems>
+        <description>Sends an email when an opportunity is closed/won</description>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
         <fullName>ISR Credit Approval</fullName>
         <actions>
             <name>NotifyVPMarketingtoauthorizeISRcreditonOpportunity</name>
@@ -1045,6 +1144,64 @@ ISCHANGED(StageName)
             <value>True</value>
         </criteriaItems>
         <description>Fires and email to VP Marketing to authorize credit for an opportunity be given to an ISR</description>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>Lessthan100KOpportunity Closed Won%28New%26FO%29</fullName>
+        <actions>
+            <name>Closed_Won_Less_Than_100_K_Email_Template</name>
+            <type>Alert</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>Opportunity.StageName</field>
+            <operation>equals</operation>
+            <value>Closed Won</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Opportunity.Type</field>
+            <operation>equals</operation>
+            <value>New Business</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Opportunity.Win_Description__c</field>
+            <operation>notEqual</operation>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Opportunity.Amount</field>
+            <operation>lessOrEqual</operation>
+            <value>100000</value>
+        </criteriaItems>
+        <description>Sends an email when a new and follow on  opportunity is closed/won</description>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>Morethan100KOpportunity Closed Won%28New%26FO%29</fullName>
+        <actions>
+            <name>Closed_Won_New_and_FO</name>
+            <type>Alert</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>Opportunity.StageName</field>
+            <operation>equals</operation>
+            <value>Closed Won</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Opportunity.Type</field>
+            <operation>equals</operation>
+            <value>Follow on Business,New Business,Support Renewal,Subscription Renewal,EC Renewal</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Opportunity.Win_Description__c</field>
+            <operation>notEqual</operation>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Opportunity.Amount</field>
+            <operation>greaterThan</operation>
+            <value>100000</value>
+        </criteriaItems>
+        <description>Sends an email when a new and follow on  opportunity is closed/won</description>
         <triggerType>onCreateOrTriggeringUpdate</triggerType>
     </rules>
     <rules>
@@ -1084,49 +1241,6 @@ ISCHANGED(StageName)
         <active>true</active>
         <formula>AND( NOT(ISPICKVAL(LeadSource,&quot;Deal Registration&quot;)),  OR( IsPICKVAL(Type,&quot;New Business&quot;), IsPICKVAL(Type,&quot;Follow on Business&quot;) ), NOT(ISBLANK(Registering_Partner__c)), NOT(ISBLANK(Registering_Partner_Sales_Rep__c)),  ISCHANGED(Registering_Partner_Sales_Rep__c) )</formula>
         <triggerType>onAllChanges</triggerType>
-    </rules>
-    <rules>
-        <fullName>Opportunity Closed Won</fullName>
-        <actions>
-            <name>Opportunityhasbeenclosedandwon</name>
-            <type>Alert</type>
-        </actions>
-        <actions>
-            <name>SetFinanceId</name>
-            <type>FieldUpdate</type>
-        </actions>
-        <active>true</active>
-        <criteriaItems>
-            <field>Opportunity.StageName</field>
-            <operation>equals</operation>
-            <value>Closed Won</value>
-        </criteriaItems>
-        <description>Sends an email when an opportunity is closed/won</description>
-        <triggerType>onCreateOrTriggeringUpdate</triggerType>
-    </rules>
-    <rules>
-        <fullName>Opportunity Closed Won%28New%26FO%29</fullName>
-        <actions>
-            <name>Closed_Won_New_and_FO</name>
-            <type>Alert</type>
-        </actions>
-        <active>true</active>
-        <criteriaItems>
-            <field>Opportunity.StageName</field>
-            <operation>equals</operation>
-            <value>Closed Won</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>Opportunity.Type</field>
-            <operation>equals</operation>
-            <value>New Business</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>Opportunity.Win_Description__c</field>
-            <operation>notEqual</operation>
-        </criteriaItems>
-        <description>Sends an email when a new and follow on  opportunity is closed/won</description>
-        <triggerType>onCreateOrTriggeringUpdate</triggerType>
     </rules>
     <rules>
         <fullName>Opportunity Registration Converted</fullName>
@@ -1558,54 +1672,6 @@ IF(ISPICKVAL (LeadSource, &quot;Customer Referral.&quot;), 1,0), &quot;Used&quot
             <value>Marketplace</value>
         </criteriaItems>
         <description>oppty-closed and not won over 100K add exec staff to notices</description>
-        <triggerType>onCreateOrTriggeringUpdate</triggerType>
-    </rules>
-    <rules>
-        <fullName>oppty-closed-Dead</fullName>
-        <actions>
-            <name>Send_to_BDR_for_closed_dead</name>
-            <type>Alert</type>
-        </actions>
-        <active>true</active>
-        <criteriaItems>
-            <field>Opportunity.StageName</field>
-            <operation>equals</operation>
-            <value>Closed Dead</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>Opportunity.Type</field>
-            <operation>notEqual</operation>
-            <value>Marketplace</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>Opportunity.Dead_Reason__c</field>
-            <operation>notEqual</operation>
-        </criteriaItems>
-        <description>Oppty that are closed, send an email to BDR</description>
-        <triggerType>onCreateOrTriggeringUpdate</triggerType>
-    </rules>
-    <rules>
-        <fullName>oppty-closed-under100k</fullName>
-        <actions>
-            <name>OpportunityStageChangeEvalORClosedNotWon</name>
-            <type>Alert</type>
-        </actions>
-        <active>true</active>
-        <criteriaItems>
-            <field>Opportunity.StageName</field>
-            <operation>equals</operation>
-            <value>Closed Lost</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>Opportunity.Type</field>
-            <operation>notEqual</operation>
-            <value>Marketplace</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>Opportunity.Loss_Description__c</field>
-            <operation>notEqual</operation>
-        </criteriaItems>
-        <description>oppty-closed and not won under 100k</description>
         <triggerType>onCreateOrTriggeringUpdate</triggerType>
     </rules>
     <rules>

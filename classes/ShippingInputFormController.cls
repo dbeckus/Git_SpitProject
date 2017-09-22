@@ -298,6 +298,7 @@ public class ShippingInputFormController
             exitingSNSet.add(aset.SerialNumber);
             shipInfo= new ShipLineInfo();
             shipInfo.AssetId = aset.Id;
+            shipInfo.SelectProductId = aset.Product2.Id;
             shipInfo.TempAsset.GMS_Nodes__c = aset.GMS_Nodes__c;
             shipInfo.PostShipmentStatus = aset.Status;
             shipInfo.PriorStatus = aset.Status;

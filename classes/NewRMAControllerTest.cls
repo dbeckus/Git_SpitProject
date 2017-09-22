@@ -20,6 +20,8 @@ public class NewRMAControllerTest
     @isTest
     static void testSystemProduct()
     {
+        Account spAcc= new Account(Name='Silver Peak Systems');
+        insert spAcc;
         Account acc = new Account(Name='acme', Type='Eval');
         insert acc;
         Contact con = new Contact(LastName='acme', AccountId=acc.Id);
@@ -92,6 +94,8 @@ public class NewRMAControllerTest
     @isTest
     static void testHDD()
     {
+        Account spAcc= new Account(Name='Silver Peak Systems');
+        insert spAcc;
         Account acc = new Account(Name='acme', Type='Eval');
         insert acc;
         Contact con = new Contact(LastName='acme', AccountId=acc.Id);
@@ -173,6 +177,8 @@ public class NewRMAControllerTest
     @isTest
     static void testSSD()
     {
+        Account spAcc= new Account(Name='Silver Peak Systems');
+        insert spAcc;
         Account acc = new Account(Name='acme', Type='Eval');
         insert acc;
         Contact con = new Contact(LastName='acme', AccountId=acc.Id);
@@ -241,6 +247,8 @@ public class NewRMAControllerTest
      @isTest
     static void testNVME()
     {
+        Account spAcc= new Account(Name='Silver Peak Systems');
+        insert spAcc;
         Account acc = new Account(Name='acme', Type='Eval');
         insert acc;
         Contact con = new Contact(LastName='acme', AccountId=acc.Id);
