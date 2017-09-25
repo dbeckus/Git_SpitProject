@@ -92,6 +92,84 @@ public class NewRMAControllerTest
     }
     
     @isTest
+    static void testSystemProduct_RMA_ExpiredAsset()
+    {
+        Account spAcc= new Account(Name='Silver Peak Systems');
+        insert spAcc;
+        Account acc = new Account(Name='acme', Type='Eval');
+        insert acc;
+        Contact con = new Contact(LastName='acme', AccountId=acc.Id);
+        con.MailingStreet='address1 \r\n address2';
+        insert con;
+        List<Product2> pros = new List<Product2> { 
+                                                new Product2(Name='acme1', ProductCode='acme1'),
+                                                new Product2(Name='acme2', ProductCode='acme2'),
+                                                new Product2(Name='acme3', ProductCode='acme3') };
+        insert pros;
+        Product2 pro = new Product2(Name='acme',Family='Product', ProductCode='acme', Model__c='acme', RMA_Primary_Replacement__c=pros[0].Id);
+        insert pro;
+        Asset asset = new Asset(Name='acme', SerialNumber='acme', Quantity=1.00, Status='Conditional PO', Product2Id=pro.Id, AccountId=acc.Id, ContactId=con.Id);
+        insert asset;
+        asset.Warranty_End_Date__c=Date.today().addDays(-1);
+        update asset;
+        Case caseInfo = new Case(Subject='acme', Status='On Hold', Origin='Email', AssetId=asset.Id, AccountId=acc.Id, ContactId=con.Id);
+        //caseInfo.Type = controller.getRecordTypeId('System Change Request', 'Case');
+        insert caseInfo;
+        System.debug('caseInfo.Id'+ caseInfo.Id);
+        PageReference page = new PageReference('/newrma?id=' + caseInfo.Id);
+        Test.setCurrentPageReference(page);
+        NewRMAController controller = new NewRMAController();
+        
+        ApexPages.Message[] pageMessages = ApexPages.getMessages();
+        System.assertNotEquals(0, pageMessages.size());
+        
+        // Check that the error message you are expecting is in pageMessages
+        Boolean messageFound = false;
+        
+        for(ApexPages.Message message : pageMessages) {
+            System.debug(message.getDetail());
+            if(message.getDetail() == 'You cannot open RMA for the expired warranty/contract asset.') {
+                   messageFound = true;        
+               }
+        }
+        
+        System.assert(messageFound);
+    }
+    @isTest
+    static void testSystemProduct_AllowRMA_ExpiredAsset()
+    {
+        Account spAcc= new Account(Name='Silver Peak Systems');
+        insert spAcc;
+        Account acc = new Account(Name='acme', Type='Eval');
+        insert acc;
+        Contact con = new Contact(LastName='acme', AccountId=acc.Id);
+        con.MailingStreet='address1 \r\n address2';
+        insert con;
+        List<Product2> pros = new List<Product2> { 
+                                                new Product2(Name='acme1', ProductCode='acme1'),
+                                                new Product2(Name='acme2', ProductCode='acme2'),
+                                                new Product2(Name='acme3', ProductCode='acme3') };
+        insert pros;
+        Product2 pro = new Product2(Name='acme',Family='Product', ProductCode='acme', Model__c='acme', RMA_Primary_Replacement__c=pros[0].Id);
+        insert pro;
+        Asset asset = new Asset(Name='acme', SerialNumber='acme', Quantity=1.00, Status='Conditional PO', Product2Id=pro.Id, AccountId=acc.Id, ContactId=con.Id);
+        insert asset;
+        asset.Warranty_End_Date__c=Date.today().addDays(-1);
+        update asset;
+        Case caseInfo = new Case(Subject='acme', Status='On Hold', Origin='Email', AssetId=asset.Id, AccountId=acc.Id, ContactId=con.Id);
+        //caseInfo.Type = controller.getRecordTypeId('System Change Request', 'Case');
+        insert caseInfo;
+        caseInfo.Allow_RMA__c=true;
+        update caseInfo;
+        System.debug('caseInfo.Id'+ caseInfo.Id);
+        PageReference page = new PageReference('/newrma?id=' + caseInfo.Id);
+        Test.setCurrentPageReference(page);
+        NewRMAController controller = new NewRMAController();
+        
+        ApexPages.Message[] pageMessages = ApexPages.getMessages();
+        System.assertEquals(0, pageMessages.size());
+    }
+    @isTest
     static void testHDD()
     {
         Account spAcc= new Account(Name='Silver Peak Systems');
@@ -244,7 +322,7 @@ public class NewRMAControllerTest
         Test.stopTest();
     }
     
-     @isTest
+    @isTest
     static void testNVME()
     {
         Account spAcc= new Account(Name='Silver Peak Systems');

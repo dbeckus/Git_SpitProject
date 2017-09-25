@@ -22,30 +22,33 @@ global class NewRMAController
         
         Products = new List<ProductInfo> { new ProductInfo('System'), new ProductInfo('HDD', 1), new ProductInfo('SSD', 1), new ProductInfo('Power Supply'), new ProductInfo('NVME',1) };
             
-            User user = [select UserType, ContactId, Contact.AccountId from User where Id = :UserInfo.getUserId()];
+        User user = [select UserType, ContactId, Contact.AccountId from User where Id = :UserInfo.getUserId()];
         if(user.UserType == 'CustomerSuccess' || user.UserType == 'PowerCustomerSuccess')
         {
             AccountId = user.Contact.AccountId;
         }
         id = ApexPages.currentPage().getParameters().get('id'); //case ID or account ID or asset ID.
-        
+        System.debug('myId'+id);
         initializeRMA();
         initializeRMAItem();
-        if(IsThisAnExpiredAsset(RMAItem.Asset__c))
+        
+        if(IsThisAnExpiredAsset(RMAItem.Asset__c) && !caseInfo.Allow_RMA__c)
         {
             ApexPages.addMessage(new ApexPages.Message(ApexPages.Severity.Error, 'You cannot open RMA for the expired warranty/contract asset.'));
         }
-       	
     }
     
     private boolean IsThisAnExpiredAsset(Id assetId)
     {
-        List<Asset> lstAssetInfo=[Select Id,Contract_Number__c,Contract_End__c,Warranty_End_Date__c  from Asset where Id=:assetId and Product2.Name like'EC%' and Product2.Family='Product'];
+        List<Asset> lstAssetInfo=[Select Id,Contract_Number__c,Contract_End__c,Warranty_End_Date__c  from Asset where Id=:assetId and Product2.Family='Product'];
         if(lstAssetInfo!=null && lstAssetInfo.size()>0)
         {
             Asset assetInfo=lstAssetInfo[0];
-            if(assetInfo.Contract_Number__c!=null && assetInfo.Contract_End__c< Date.today())
-                return true;
+            if(assetInfo.Contract_Number__c!=null)
+            {
+                if(assetInfo.Contract_End__c< Date.today())
+                    return true;
+            }
             else if(assetInfo.Warranty_End_Date__c!=null && assetInfo.Warranty_End_Date__c<Date.today())
                 return true;
         }
@@ -239,7 +242,7 @@ global class NewRMAController
         {
             return null;
         }
-        if(IsThisAnExpiredAsset(RMAItem.Asset__c))
+        if(IsThisAnExpiredAsset(RMAItem.Asset__c) && !caseInfo.Allow_RMA__c)
         {
             ApexPages.addMessage(new ApexPages.Message(ApexPages.Severity.Error, 'You cannot open RMA for the expired warranty/contract asset.'));
             return null;
@@ -277,6 +280,7 @@ global class NewRMAController
             ApexPages.addMessage(new ApexPages.Message(ApexPages.Severity.Error, 'Slot number is invalid.'));
             return null;
         }
+        System.debug('RMAItem.Asset__c'+ RMAItem.Asset__c);
         if(!isEntitledAsset(RMAItem.Asset__c))
         {
             ApexPages.addMessage(new ApexPages.Message(ApexPages.Severity.Info, ERROR_NoEntitled));
@@ -533,8 +537,8 @@ global class NewRMAController
         RMA.Requested_By__c = getPicklistDefaultValue(RMA__c.Requested_By__c.getDescribe());
         RMA.Next_Recipient__c = getPicklistDefaultValue(RMA__c.Next_Recipient__c.getDescribe());
         RMA.Status__c = IsPortalUser ? 'Dispatched' : getPicklistDefaultValue(RMA__c.Status__c.getDescribe());
-        
-        if(Id instanceof ID)
+        System.debug(id);
+        if(id instanceof ID)
         {
             if(id.startsWith('001'))  //is Account
             {
@@ -542,9 +546,10 @@ global class NewRMAController
             }
             else if(id.startsWith('500')) // is Case
             {
-                caseInfo = [select AssetId, Asset.AccountId, ContactId from Case where Id = :id];
+                caseInfo = [select AssetId, Asset.AccountId, ContactId,Allow_RMA__c from Case where Id = :id];
                 RMA.Case__c = id;
                 accountId = caseInfo.Asset.AccountId;
+                System.debug('accountIdNew'+accountId);
             }
         }
         else
