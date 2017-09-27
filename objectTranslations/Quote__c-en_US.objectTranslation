@@ -428,6 +428,10 @@ if( Service_Discount_Max__c &gt; RegPartServDisc__c ,3,0)
         <name>Prepared_For_should_derive_from_Primary</name>
     </validationRules>
     <validationRules>
+        <errorMessage><!-- You are not allowed to create quote on renewal opportunity. Please contact Finance or renewal specialist team. --></errorMessage>
+        <name>Renew_Quotes_can_be_create_fr_spec_prof</name>
+    </validationRules>
+    <validationRules>
         <errorMessage><!-- There is no pricebook for the specified opportunity. --></errorMessage>
         <name>check_Opportunity_Pricebook</name>
     </validationRules>

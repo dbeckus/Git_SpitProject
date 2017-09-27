@@ -15,7 +15,14 @@ public class AccountTriggerHandler implements ITriggerHandler {
     {
         if(newItems!=null && newItems.size()>0)
         {
-            
+            List<Account> lstAccount=(List<Account>) newItems;
+            for(Account newAcc :lstAccount)
+            {
+                if(!string.isBlank(newAcc.Unity_Orch_Domain__c) && CheckforDuplicateDomain(newAcc.Unity_Orch_Domain__c))
+                {
+                    newAcc.addError('Unity Orch Domain entered is used in another account. Kindly enter another domain name.');
+                }
+            }
         }
         
     }
@@ -27,6 +34,10 @@ public class AccountTriggerHandler implements ITriggerHandler {
             {
                 Account newAccInfo= (Account)newItems.get(accId);
                 Account oldAccInfo= (Account)oldItems.get(accId);
+                if(!string.isBlank(newAccInfo.Unity_Orch_Domain__c) && newAccInfo.Unity_Orch_Domain__c!=oldAccInfo.Unity_Orch_Domain__c && CheckforDuplicateDomain(newAccInfo.Unity_Orch_Domain__c))
+                {
+                    newAccInfo.addError('Unity Orch Domain entered is used in another account. Kindly enter another domain name.');
+                }
                 if(!newAccInfo.Override_Service_Provider_Setting__c)
                 {
                     if((oldAccInfo.ECSP__c!=newAccInfo.ECSP__c) || (oldAccInfo.Service_Provider_Account_Type__c !=newAccInfo.Service_Provider_Account_Type__c ||oldAccInfo.Service_Provider_Location__c!=newAccInfo.Service_Provider_Location__c || oldAccInfo.Service_Provider_Domain__c!=newAccInfo.Service_Provider_Domain__c||oldAccInfo.Service_Provider_Admin_User__c!=newAccInfo.Service_Provider_Admin_User__c))
@@ -205,6 +216,15 @@ public class AccountTriggerHandler implements ITriggerHandler {
         
     }
     
+    private boolean CheckforDuplicateDomain(string inputDomain)
+    {
+       	List<Account> lstAccount= [Select Id from Account where ECSP__c=false and Unity_Orch_Domain__c=:inputDomain];
+        if(lstAccount!=null && lstAccount.size()>0)
+        {
+            return true;
+        }
+        return false;
+    }
     private void SendEmailToDevOps(List<Account> lstAcct )
     {
         for(Account newAccInfo: lstAcct)

@@ -1,7 +1,7 @@
 @IsTest
 public class TestSetDefaultTechResponsibility {
     
-    @Istest(SeeAllData=true)
+   /* @Istest(SeeAllData=true)
     public static void SetTechResponsibilityWhenNullAndNotNew()
     {
         Profile prof = [SELECT Id FROM Profile WHERE Name='1.4- Intl Regional Sales Manager']; 
@@ -94,5 +94,5 @@ public class TestSetDefaultTechResponsibility {
         
         Opportunity outputOpp=[Select Id,Technical_Responsible__c from Opportunity where Id=:opp.Id];
         System.assertEquals(outputOpp.Technical_Responsible__c, null);
-    }
+    }*/
 }

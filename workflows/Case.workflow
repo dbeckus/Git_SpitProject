@@ -828,6 +828,15 @@
         <protected>false</protected>
     </fieldUpdates>
     <fieldUpdates>
+        <fullName>Disable_RMA_Flag</fullName>
+        <field>Allow_RMA__c</field>
+        <literalValue>0</literalValue>
+        <name>Disable RMA Flag</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+    </fieldUpdates>
+    <fieldUpdates>
         <fullName>FU_RT_SetToWANStart</fullName>
         <description>Sets record type to WANstart when a case is created for one of the WANstart types</description>
         <field>RecordTypeId</field>
@@ -1577,6 +1586,20 @@ PRIORVALUE( OwnerId) = &apos;00G500000016yiB&apos;,
 PRIORVALUE( OwnerId) = &apos;00530000000j42G&apos;
 ),
 NOT( Contact.Testing__c )
+)</formula>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>RemoveAllowRMAFlagonAssetChange</fullName>
+        <actions>
+            <name>Disable_RMA_Flag</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <formula>AND
+(
+ISCHANGED( AssetId ),
+Allow_RMA__c 
 )</formula>
         <triggerType>onAllChanges</triggerType>
     </rules>

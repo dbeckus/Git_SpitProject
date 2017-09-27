@@ -721,18 +721,7 @@ System.assertEquals(0, rvaccount2.Won_Amount__c);
         }
     }
     
-    @isTest
-    static void testRemoveOrphanedPOC()
-    {
-        Account account = new Account(Name='acme');
-        insert account;
-        Opportunity opp = new Opportunity(Name='acme', Registered_Partner__c=account.Id, AccountId=account.Id, StageName='Discovery', CloseDate=System.today(),Product_Type__c='Both');
-        insert opp;
-        Request__c request = new Request__c(Opportunity__c=opp.Id);
-        insert request;
-        
-        delete opp;
-    }
+   
     
     @isTest
     static void testUpdateDealRegEndDateAfterConversion()

@@ -40,7 +40,7 @@ global class NewRMAController
     
     private boolean IsThisAnExpiredAsset(Id assetId)
     {
-        List<Asset> lstAssetInfo=[Select Id,Contract_Number__c,Contract_End__c,Warranty_End_Date__c  from Asset where Id=:assetId and Product2.Family='Product'];
+        List<Asset> lstAssetInfo=[Select Id,Contract_Number__c,Contract_End__c,Warranty_End_Date__c  from Asset where Id=:assetId];
         if(lstAssetInfo!=null && lstAssetInfo.size()>0)
         {
             Asset assetInfo=lstAssetInfo[0];

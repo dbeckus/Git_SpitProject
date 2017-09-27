@@ -1109,6 +1109,22 @@ Approval_Made__c =FALSE), OR(and(ConsultingDiscountMax__c &gt;0,Opportunity__r.A
         <errorMessage>Please select right prepared for</errorMessage>
     </validationRules>
     <validationRules>
+        <fullName>Renew_Quotes_can_be_create_fr_spec_prof</fullName>
+        <active>true</active>
+        <errorConditionFormula>AND(
+ISNEW(),
+OR( 
+ISPICKVAL(Opportunity__r.Type,&quot;Support Renewal&quot;),
+ISPICKVAL(Opportunity__r.Type,&quot;Subscription Renewal&quot;),
+ISPICKVAL(Opportunity__r.Type,&quot;EC Renewal&quot;)
+),
+NOT($Profile.Name ==&quot;1.5- Sales Power User&quot; ),
+NOT($Profile.Name ==&quot;1.7- Renewal Specialist&quot; ),
+NOT($Profile.Name ==&quot;5-SP Contract Mgr&quot; )
+)</errorConditionFormula>
+        <errorMessage>You are not allowed to create quote on renewal opportunity. Please contact Finance or renewal specialist team.</errorMessage>
+    </validationRules>
+    <validationRules>
         <fullName>check_Opportunity_Pricebook</fullName>
         <active>true</active>
         <errorConditionFormula>Opportunity__r.Pricebook2Id = NULL</errorConditionFormula>

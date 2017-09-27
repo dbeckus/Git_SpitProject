@@ -1,7 +1,7 @@
 @IsTest
 public class TestAccountTriggerHandler {
     
-     @IsTest
+    @IsTest
     public static void CloudPortalAccountNotDelete()
     {
         Account acc = new Account(Name='test', Cloud_Portal_Account_Key__c='Test CloudPortal',Cloud_Portal_Account_Name__c='Name');
@@ -17,7 +17,48 @@ public class TestAccountTriggerHandler {
         } 
         
     }
-     @IsTest
+    
+    @IsTest
+    public static void OrchDomainDuplicate_Insert()
+    {
+        
+        try
+        {
+            Account acc = new Account(Name='test', Unity_Orch_Admin_User__c='abc@abc.com',Unity_Orch_Domain__c='testabc6',Unity_Orch_Location__c='Canada (Central)');
+            insert acc;
+            Account acc1 = new Account(Name='test1', Unity_Orch_Admin_User__c='abc@abc.com',Unity_Orch_Domain__c='testabc6',Unity_Orch_Location__c='Canada (Central)');
+            insert acc1;
+        }
+        catch(Exception e)
+        {
+            System.debug(e.getMessage());
+            Boolean expectedExceptionThrown =  e.getMessage().contains('Unity Orch Domain entered is used in another account. Kindly enter another domain name.') ? true : false;
+            System.AssertEquals(expectedExceptionThrown, true);
+        } 
+        
+    }
+      @IsTest
+    public static void OrchDomainDuplicate_Update()
+    {
+        
+        try
+        {
+            Account acc = new Account(Name='test', Unity_Orch_Admin_User__c='abc@abc.com',Unity_Orch_Domain__c='testabc6',Unity_Orch_Location__c='Canada (Central)');
+            insert acc;
+            Account acc1 = new Account(Name='test1', Unity_Orch_Admin_User__c='abc@abc.com',Unity_Orch_Domain__c='testabc7',Unity_Orch_Location__c='Canada (Central)');
+            insert acc1;
+            acc1.Unity_Orch_Domain__c='testabc6';
+            update acc1;
+        }
+        catch(Exception e)
+        {
+            System.debug(e.getMessage());
+            Boolean expectedExceptionThrown =  e.getMessage().contains('Unity Orch Domain entered is used in another account. Kindly enter another domain name.') ? true : false;
+            System.AssertEquals(expectedExceptionThrown, true);
+        } 
+        
+    }
+    @IsTest
     public static void CloudPortalAccountAssetsNotDelete()
     {
         Account acc = new Account(Name='test');
@@ -45,7 +86,7 @@ public class TestAccountTriggerHandler {
         } 
         
     }
-	 @IsTest(SeeAllData=true)
+    @IsTest(SeeAllData=true)
     public static void test1_Contact()
     {
         Test.startTest();
@@ -70,7 +111,7 @@ public class TestAccountTriggerHandler {
         Contact con1 =[Select Id,CanAllowPortalSelfReg from Contact where id=:con.Id];
         System.assertEquals(false, con1.CanAllowPortalSelfReg);
     }
-     @IsTest(SeeAllData=true)
+    @IsTest(SeeAllData=true)
     public static void test1_Account()
     {
         Test.startTest();
@@ -87,14 +128,14 @@ public class TestAccountTriggerHandler {
         insert u1;
         User thisUser = [ select Id from User where Id = :UserInfo.getUserId() ];
         System.runAs ( thisUser ) {
-           acc.IsCustomerPortal=false;
-           update acc;
+            acc.IsCustomerPortal=false;
+            update acc;
         }
         Test.stopTest();
         Contact con1 =[Select Id,CanAllowPortalSelfReg from Contact where id=:con.Id];
         System.assertEquals(false, con1.CanAllowPortalSelfReg);
     }
-     @IsTest
+    @IsTest
     public static void TestSendEmailToDevOpsforMTO()
     {
         Account acc= new Account(Name='Test Data',ECSP__c=true,Service_Provider_Account_Type__c='Perpetual-Orchestrator SP',Service_Provider_Admin_User__c='abc@abc.com',Service_Provider_Domain__c='test',Service_Provider_Location__c='EU (London)');
@@ -104,7 +145,7 @@ public class TestAccountTriggerHandler {
         acc.Cloud_Portal_Account_Name__c='test';
         update acc;
     }
-     @IsTest
+    @IsTest
     public static void ECSPFlag_AccountSyncedinCP()
     {
         Account acc=new Account(Name='Test',Cloud_Portal_Account_Name__c='Test',ECSP__c=true,Service_Provider_Account_type__c='Perpetual',Service_Provider_Admin_User__c='abc@abc.com');
@@ -167,7 +208,7 @@ public class TestAccountTriggerHandler {
             }
         }
     }
-      @IsTest
+    @IsTest
     public static void TestUpdateAccountIsPartner()
     {
         Account acc=new Account(Name='Test',Partner_Application_Status__c='Pending');
@@ -175,11 +216,11 @@ public class TestAccountTriggerHandler {
         acc.Partner_Application_Status__c='Approved';
         update acc;
     }
-    @IsTest
+   @IsTest
     public static void AllowECSPFlagChange()
     {
-         Account acc=new Account(Name='Test',ECSP__c=true,Service_Provider_Account_type__c='Perpetual',Service_Provider_Admin_User__c='abc@abc.com');
-            insert acc;
+        Account acc=new Account(Name='Test',ECSP__c=true,Service_Provider_Account_type__c='Perpetual',Service_Provider_Admin_User__c='abc@abc.com');
+        insert acc;
         Profile p = [SELECT Id FROM Profile WHERE Name='9-Operations Manager']; 
         User u = new User(Alias = 'standt', Email='testUser@uniquetest.com', 
                           EmailEncodingKey='UTF-8', LastName='Testing', LanguageLocaleKey='en_US', 
@@ -189,7 +230,7 @@ public class TestAccountTriggerHandler {
         u.IsActive =true;
         System.runAs(u) 
         {
-           
+            
             acc.ECSP__c=false;
             try
             {
@@ -203,7 +244,7 @@ public class TestAccountTriggerHandler {
             }
         }
     }
-     @IsTest(SeeAllData=true)
+    @IsTest(SeeAllData=true)
     public static void test1_Account_UnityCloudCP_Assets()
     {
         Account acc=new Account(Name='Test',Unity_Orch_Admin_User__c='abc@abc.com',Unity_Orch_Domain__c='test123',Unity_Orch_Location__c='US East (Ohio)');
@@ -257,5 +298,5 @@ public class TestAccountTriggerHandler {
             
         }
     }
-   
+    
 }
