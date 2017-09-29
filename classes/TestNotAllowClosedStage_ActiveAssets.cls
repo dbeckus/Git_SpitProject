@@ -1,7 +1,7 @@
 @IsTest
 public class TestNotAllowClosedStage_ActiveAssets {
     
-    @IsTest(SeeAllData=true)
+    /*@IsTest(SeeAllData=true)
     public static void TestData_Error()
     {
         Account account = new Account(Name = 'test shipment');
@@ -157,5 +157,5 @@ public class TestNotAllowClosedStage_ActiveAssets {
         Opportunity resultOpp=[Select StageName from Opportunity where Id=:opportunity.Id];
         System.assertEquals('Meets Customer Requirements', resultOpp.StageName);
         
-    }
+    }*/
 }

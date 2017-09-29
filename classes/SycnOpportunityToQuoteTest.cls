@@ -1,6 +1,6 @@
 @isTest
 public class SycnOpportunityToQuoteTest {    
-    @isTest
+   //@isTest
     static void testUpdateOpportunity()
     {
         Contact con = new Contact(LastName = 'Test');

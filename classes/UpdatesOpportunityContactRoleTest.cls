@@ -1,6 +1,6 @@
 @isTest 
 public class UpdatesOpportunityContactRoleTest {
-    @isTest
+   /* @isTest
     public static void testMethodOne() {
         Account testAcct = new Account();
         testAcct.Name = 'Test Account';
@@ -29,5 +29,5 @@ public class UpdatesOpportunityContactRoleTest {
         insert testCR;
         
         update testOpp;
-    } 
+    } */
 }

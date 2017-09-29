@@ -1,7 +1,7 @@
 @IsTest
 public class TestPopulateOpportunitySource {
     
-    @IsTest(SeeAllData=true)
+    /*@IsTest(SeeAllData=true)
     public static void TestPopulateOpportunitySource_RSM()
     {
         
@@ -184,5 +184,5 @@ public class TestPopulateOpportunitySource {
             System.assertEquals('PIO', output.Opportunity_Source__c);
             
         }
-    }
+    }*/
 }

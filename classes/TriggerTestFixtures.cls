@@ -248,7 +248,7 @@ System.assertEquals(0, rvaccount2.Won_Amount__c);
         System.assertEquals(0, theCase.RMA_count__c);
     }
     
-    @isTest
+   /* @isTest
     static void testAddDefaultCompetitorName()
     {    
         Account acc = new Account(Name = 'acme');
@@ -263,7 +263,7 @@ System.assertEquals(0, rvaccount2.Won_Amount__c);
         opp = [select Id, (select OpportunityId, CompetitorName from OpportunityCompetitors limit 1) from Opportunity where Id = :opp.Id limit 1];
         System.assertEquals('Not Specified', opp.OpportunityCompetitors[0].CompetitorName);
     }
-    
+    */
     @isTest
     static void testSetOppOwnerOnPOC()
     {
@@ -301,16 +301,7 @@ System.assertEquals(0, rvaccount2.Won_Amount__c);
         update oppty;
     }
     
-    @isTest
-    static void testSetLeadSourceOnOpp()
-    {
-        Account acc = new Account(Name='acme');
-        insert acc;
-        Opportunity opp = new Opportunity(Name = 'Acme', AccountId = acc.Id, Opportunity_Source__c = 'EMC', Type = 'Fpllow on Business', CloseDate = System.today() + 1, StageName = 'Discovery', Probability = 5, ForecastCategoryName = 'Commit');
-        insert opp;
-        opp.Opportunity_Source__c = 'Dell';
-        update opp;
-    }
+   
     
     @isTest 
     static void testSetSalesRegionEqualtoOwnerSalesRegion()
@@ -347,17 +338,7 @@ System.assertEquals(0, rvaccount2.Won_Amount__c);
         System.assertEquals('acme', theCase.RMATrackingInfo__c);
     }
     
-    @isTest(SeeAllData = true)
-    static void testCreateWanStartCase()
-    {
-        Account acc = new Account(Name='acme');
-        insert acc;
-        Opportunity opp = new Opportunity(Name='acme', CloseDate=Date.today(), StageName='Closed Won', AccountId=acc.Id, POC_Type__c='POC', Win_Description__c='test', Finance_Reviewed__c=true);
-        insert opp;
-        Product2 prod = [select Id, (select Id from PriceBookEntries limit 1) from Product2 where IsActive=true and Name like 'wanstart%' limit 1];
-        OpportunityLineItem line = new OpportunityLineItem(OpportunityId=opp.Id, TotalPrice=1, Quantity=1, PriceBookEntryId=prod.PriceBookEntries[0].Id, Description='WANSTART test');
-        insert line;
-    }
+    
     
     @isTest
     static void testChangeRMAItemProductAndUpdateRMAStatus()

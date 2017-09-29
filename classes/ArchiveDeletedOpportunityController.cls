@@ -59,21 +59,5 @@ public with sharing class ArchiveDeletedOpportunityController
         System.assertEquals('Deleted', opp.RecordType.Name);
     }
     
-    @isTest
-    static void testTriggerPreventOpportunityDeletion()
-    {
-        Opportunity opp = new Opportunity(Name='acme', CloseDate=Date.today(), StageName='Discovery');
-        insert opp;
-        
-        User mockUser = [select Id from User where IsActive=true and Profile.PermissionsModifyAllData=false limit 1];
-        System.runAs(mockUser)
-        {
-            try
-            {
-                delete opp;
-                System.assert(false, 'Non-admin user shouldn\'t be able to delete opp.');
-            }
-            catch(Exception ex) { /* Supposed to throw an exception */ }
-        }
-    }
+    
 }

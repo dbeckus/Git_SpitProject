@@ -40,7 +40,7 @@ public class CloudPortalProvisionAssetsJob  implements Database.Batchable<sObjec
                         continue;
                     }
                     lstAsset=[Select Id from Asset where AccountId=:accId.Id and Sync_With_Cloud_Portal__c=true and Product2.Name like 'EC%' and Cloud_Portal_Sync_Status__c='Pending' and Product2.Family='Product'];
-                    List<Asset> lstAssetsToUpdate=[Select Id,SerialNumber,Product2.Model__c,Product2.Name from Asset where AccountId=:accId.Id and Product2.name like 'EC%' and status not in ('Silver Peak Inventory','Write-Off','Obsolete RMA Unit–Supp Transferred–WO') and Product2.Family='Product' and SBQQ__QuoteLine__c = null ];
+                    List<Asset> lstAssetsToUpdate=[Select Id,SerialNumber,Product2.Model__c,Product2.Name from Asset where AccountId=:accId.Id and Product2.name like 'EC%' and status not in ('Silver Peak Inventory','Write-Off','Obsolete RMA Unit–Supp Transferred–WO','Owned Eval/NFR') and Product2.Family='Product' and SBQQ__QuoteLine__c = null ];
                     Map<string,string> lstSerialNumber= new Map<string,string>();
                     if(lstAssetsToUpdate!=null && lstAssetsToUpdate.size()>0)
                     {
