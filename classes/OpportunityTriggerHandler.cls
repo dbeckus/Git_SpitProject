@@ -81,10 +81,6 @@ public class OpportunityTriggerHandler implements ITriggerHandler {
                 }
                 else if(newOpp.IsClosed && !oldOpp.IsClosed)
                 {
-                    if(newOpp.Has_Active_POCs__c)
-                    {
-                        newOpp.POC_End_Date__c = Date.today();
-                    } 
                     if(newOpp.StageName=='Closed Dead'|| newOpp.StageName=='Closed Lost' || newOpp.StageName=='Closed Deleted') 
                     {
                         if(notAllowClosedStageOpps!=null && notAllowClosedStageOpps.size()>0 && notAllowClosedStageOpps.contains(newOpp.Id))
@@ -92,7 +88,10 @@ public class OpportunityTriggerHandler implements ITriggerHandler {
                             newOpp.addError('This selected stage cannot be updated as it has active physical assets.');
                         }
                     }
-                    
+                    if(newOpp.Has_Active_POCs__c)
+                    {
+                        newOpp.POC_End_Date__c = Date.today();
+                    } 
                 }
             }
             
@@ -198,7 +197,7 @@ public class OpportunityTriggerHandler implements ITriggerHandler {
                         oppNeedsTeamAssign.add(newOpp.Id);
                     }
                 }
-                if(newOpp.StageName!=oldOpp.StageName || (newOpp.CloseDate!=oldOpp.CloseDate && newOpp.StageName=='Closed Won' ))
+                if(newOpp.StageName!=oldOpp.StageName)
                 {
                     if(newOpp.AccountId!=null)
                     {
@@ -265,14 +264,9 @@ public class OpportunityTriggerHandler implements ITriggerHandler {
     {
         if(opps.size() > 0)
         {
-            if(System.isFuture())
-            {
-                ShareLeadAndOpportunityToPartnerHelper.shareOpportunities(opps);
-            }
-            else
-            {
-                ShareLeadAndOpportunityToPartnerHelper.willShareOpportunities(oppIds);
-            }
+            
+            ShareLeadAndOpportunityToPartnerHelper.willShareOpportunities(oppIds);
+            
         }
     }
     private  void CalculateFirstCustomerDate(Set<Id> acctIds)

@@ -37,14 +37,7 @@ trigger ShareOppToRegisteredPartner on Opportunity (after insert, after update)
         
         if(oppsNeedSharing.size() > 0)
         {
-            if(System.isFuture())
-            {
-                ShareLeadAndOpportunityToPartnerHelper.shareOpportunities(oppsNeedSharing);
-            }
-            else
-            {
-                ShareLeadAndOpportunityToPartnerHelper.willShareOpportunities(oppIdsNeedSharing);
-            }
+            ShareLeadAndOpportunityToPartnerHelper.willShareOpportunities(oppIdsNeedSharing);
         }
     }
     
