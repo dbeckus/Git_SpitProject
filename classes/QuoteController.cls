@@ -299,7 +299,7 @@ and down to get the primary contact role. */
                 {
                     soql += ' and Product_Category__c = \'' + filterValue + '\''; // + ' = ' + filterKeyword;
                 }
-                soql += ' limit 1000';
+                soql += ' order by Name limit 1000';
                 searchResults = Database.query(soql);
                 
                 return null;
@@ -314,7 +314,7 @@ and down to get the primary contact role. */
                     {
                         sosl += ' and Product_Category__c = \'' + filterValue + '\'';// + ' = ' + filterKeyword;                
                     }
-                    sosl += ')';
+                    sosl += ' order by Name)';
                     System.debug(sosl);
                     List<List<Sobject>> tmpResults = search.query(sosl);
                     if(tmpResults != null && tmpResults.size() > 0)

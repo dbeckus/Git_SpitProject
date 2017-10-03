@@ -8,7 +8,7 @@ public class RevenueRecognitionChecklistController
     public RevenueRecognitionChecklistController()
     {
         String oppId = ApexPages.currentPage().getParameters().get('id');
-        List<opportunity> opps = [Select Id, Name, AccountId, OwnerId, Finance_Id__c, Signed_By__c, Signed_At__c, Signature_of_Opportunity_Owner__c, ProdRoadmap__c, RightOfReturn__c, Rev_Rec_Reminders__c, Other_Promises_Made__c, 
+        List<opportunity> opps = [Select Id, Name,Owner.ManagerId, AccountId, OwnerId, Finance_Id__c, Signed_By__c, Signed_At__c, Signature_of_Opportunity_Owner__c, ProdRoadmap__c, RightOfReturn__c, Rev_Rec_Reminders__c, Other_Promises_Made__c, 
                                                     Other_Promises_Made_Diclosed__c, Installation_Notes__c, Installation_Date__c, InstallationExpectations__c, Future_Features_Expected__c, Future_Features_Expected_Specifics__c, Finance_Reviewed__c,
                                                     Finance_Review_Notes__c, Finance_Released_At__c, Describe_Contingencies__c, Contingencies_of_Sale__c,   TrainingOrWANStartExpectations__c, DescribeExpectations__c, UnitsGoingAbroad__c, Is_Foreign_Governor_Entity__c From Opportunity Where id=:oppId];
         
@@ -87,7 +87,7 @@ public class RevenueRecognitionChecklistController
         String userId = UserInfo.getUserId();
         //only when current user is opp owner or who in finance team group, he is accessible to the revenue checklist fields.
         Set<String> accessibleUsers = finaceUser();
-        isAccessible = (userId.equals(opp.OwnerId) || accessibleUsers.contains(userId));
+        isAccessible = (userId.equals(opp.OwnerId) || userId.equals(opp.Owner.ManagerId) || accessibleUsers.contains(userId));
     }
     
     private Boolean isFinaceUser()

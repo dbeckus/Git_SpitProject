@@ -5,6 +5,8 @@ public class ContactTriggerHandler implements ITriggerHandler {
     String sdCampaignId = SalesDevelopmentHelper.getSDCampaign();
     Set<Id> contactIdsToBeMovedOff = new Set<Id>();
     List<Contact> contactsToBeUpdated = new List<Contact>();
+    Set<Id> rejectedContacts= new Set<Id>();
+    Set<Id> inValidLifeCycleContacts= new Set<Id>();
     List<CampaignMember> newSDCampaignMembers = new List<CampaignMember>();
     public ContactTriggerHandler()
     {
@@ -85,7 +87,7 @@ public class ContactTriggerHandler implements ITriggerHandler {
                 }
                 if(moveToSDCampaignStages.contains(newContact.Lead_Lifecycle_Stage__c) && !moveToSDCampaignStages.contains(oldContact.Lead_Lifecycle_Stage__c) && newContact.Account.Type != 'Partner')
                 {
-                    contactsToBeUpdated.add(new Contact(Id=conId,Lead_Sub_Status__c=null));
+                    inValidLifeCycleContacts.add(newContact.Id);
                     newSDCampaignMembers.add(new CampaignMember(ContactId = newContact.Id, CampaignId = sdCampaignId));
                 }
                 if(!moveToSDCampaignStages.contains(newContact.Lead_Lifecycle_Stage__c) && moveToSDCampaignStages.contains(oldContact.Lead_Lifecycle_Stage__c))
@@ -93,8 +95,8 @@ public class ContactTriggerHandler implements ITriggerHandler {
                     contactIdsToBeMovedOff.add(newContact.Id);
                 }
                 if(rejectStatuses.contains(newContact.Lead_Status__c) && !rejectStatuses.contains(oldContact.Lead_Status__c))
-                {
-                    contactsToBeUpdated.add(new Contact(Id=conId,Contact_BANT_Qualified__c = false,Contact_Me__c = false));
+                { 
+                    rejectedContacts.add(newContact.Id);
                     contactIdsToBeMovedOff.add(newContact.Id);
                 }
             }
@@ -130,6 +132,26 @@ public class ContactTriggerHandler implements ITriggerHandler {
         }
         
         //Update contacts
+        Set<Id> mergeContacts= new Set<Id>();
+        if(inValidLifeCycleContacts!=null && inValidLifeCycleContacts.size()>0)
+            mergeContacts.addAll(inValidLifeCycleContacts);
+        if(rejectedContacts!=null && rejectedContacts.size()>0)
+        	mergeContacts.addAll(rejectedContacts);
+        if(mergeContacts!=null && mergeContacts.size()>0)
+        {
+            for(Id conId:mergeContacts)
+            {
+                Contact con= new Contact(Id=conId);
+                if(inValidLifeCycleContacts.contains(conId))
+                    con.Lead_Sub_Status__c=null;
+                if(rejectedContacts.contains(conId))
+                {
+                    con.Contact_BANT_Qualified__c = false;
+                    con.Contact_Me__c = false;
+                }
+                contactsToBeUpdated.add(con);
+            }
+        }
         if(!contactsToBeUpdated.isEmpty())
         {
             SilverPeakUtils.BypassingTriggers = true;
