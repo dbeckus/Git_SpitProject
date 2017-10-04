@@ -36,6 +36,10 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
+                <field>Lead_Sub_Status__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
                 <field>Lead_Lifecycle_Stage__c</field>
             </layoutItems>
             <layoutItems>
@@ -80,7 +84,7 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>Contact_BANT_Qualified__c</field>
+                <field>BANT_Qualified__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>

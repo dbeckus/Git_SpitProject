@@ -19,6 +19,7 @@
     <tab>standard-Dashboard</tab>
     <tab>Request__c</tab>
     <tab>standard-Workspace</tab>
+    <tab>standard-JigsawSearch</tab>
     <tab>standard-ContentSubscriptions</tab>
     <tab>standard-Chatter</tab>
     <tab>Internal_Discussion__c</tab>
