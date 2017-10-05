@@ -3,7 +3,7 @@
  */
 public with sharing class ArchiveDeletedOpportunityController 
 {
-    private static Id AdminId = '00530000000etJs'; //Curtis Christensen
+   	private static Id AdminId = '005500000045fp1';// Dennis Beckus
     private static Id DeletedOppRecordTypeId = '012500000005X67'; //Record type 'Deleted'
     private Opportunity opp;
     

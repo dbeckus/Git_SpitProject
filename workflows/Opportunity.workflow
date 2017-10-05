@@ -5,11 +5,15 @@
         <description>Closed Won Less Than 100 K Email Template</description>
         <protected>false</protected>
         <recipients>
+            <recipient>ddalponte@silver-peak.com</recipient>
+            <type>user</type>
+        </recipients>
+        <recipients>
             <recipient>ewhite@silver-peak.com</recipient>
             <type>user</type>
         </recipients>
         <recipients>
-            <recipient>prane@silver-peak.com</recipient>
+            <recipient>rbooth@silver-peak.com</recipient>
             <type>user</type>
         </recipients>
         <senderType>CurrentUser</senderType>
@@ -25,10 +29,6 @@
         </recipients>
         <recipients>
             <recipient>ewhite@silver-peak.com</recipient>
-            <type>user</type>
-        </recipients>
-        <recipients>
-            <recipient>prane@silver-peak.com</recipient>
             <type>user</type>
         </recipients>
         <recipients>
@@ -497,6 +497,7 @@
     </alerts>
     <alerts>
         <fullName>Opportunityhasbeenclosedandwon</fullName>
+        <ccEmails>opptywon@silver-peak.com</ccEmails>
         <description>Opportunity has been closed and won</description>
         <protected>false</protected>
         <recipients>
@@ -510,7 +511,16 @@
         <description>Sales Win Send to Opp Owner</description>
         <protected>false</protected>
         <recipients>
-            <type>owner</type>
+            <recipient>ddalponte@silver-peak.com</recipient>
+            <type>user</type>
+        </recipients>
+        <recipients>
+            <recipient>ewhite@silver-peak.com</recipient>
+            <type>user</type>
+        </recipients>
+        <recipients>
+            <recipient>rbooth@silver-peak.com</recipient>
+            <type>user</type>
         </recipients>
         <senderType>CurrentUser</senderType>
         <template>unfiled$public/Sales_Win_Email</template>
@@ -553,10 +563,6 @@
         </recipients>
         <recipients>
             <recipient>ewhite@silver-peak.com</recipient>
-            <type>user</type>
-        </recipients>
-        <recipients>
-            <recipient>prane@silver-peak.com</recipient>
             <type>user</type>
         </recipients>
         <senderType>CurrentUser</senderType>

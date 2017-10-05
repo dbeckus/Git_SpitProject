@@ -23,6 +23,7 @@ public class OpportunityTriggerHandler implements ITriggerHandler {
                         newOpp.LeadSource=newOpp.Opportunity_Source__c;
                     }
                 }
+                System.debug('newOpp.CloseDate'+newOpp.CloseDate);
                 newOpp.Fiscal_Quarter_Name__c=RetrieveQuarterName(newOpp.CloseDate);
             }
         }
@@ -88,6 +89,7 @@ public class OpportunityTriggerHandler implements ITriggerHandler {
                             newOpp.addError('This selected stage cannot be updated as it has active physical assets.');
                         }
                     }
+                   
                     if(newOpp.Has_Active_POCs__c)
                     {
                         newOpp.POC_End_Date__c = Date.today();
@@ -95,7 +97,6 @@ public class OpportunityTriggerHandler implements ITriggerHandler {
                 }
             }
             
-            //
         }
     }
     public void BeforeDelete(Map<Id,SObject> oldItems) 
@@ -215,6 +216,7 @@ public class OpportunityTriggerHandler implements ITriggerHandler {
             }
             ShareOppToRegisteredPartner(oppsNeedSharing,oppIdsNeedSharing);
             LinkOpportunityToPatch(oppNeedsPatchAssign, oppNeedsTeamAssign);
+            CalculateFirstCustomerDate(setAccIds);
             SetContactRole(newItems.keyset());
             CreateWANStartCase(wanStartOpps);
             SycnOpportunityToQuoteHandler.sycnOpportunityDateToQuoteDateOnUpdate((Map<Id,Opportunity>)oldItems,(Map<Id,Opportunity>)newItems);
@@ -269,47 +271,41 @@ public class OpportunityTriggerHandler implements ITriggerHandler {
             
         }
     }
+    
+    
     private  void CalculateFirstCustomerDate(Set<Id> acctIds)
     {
         List<Account> lstAccToUpdate= new List<Account>();
         if(acctIds!=null && acctIds.size()>0)
         {
-            List<Opportunity> lstAllOpp =[Select AccountId,Account.First_Asset_Quarter__c,Account.Is_Partner_Initiated_Account__c ,Id, CloseDate,Deal_Reg__c from Opportunity where AccountId in:acctIds and StageName='Closed Won' order by AccountId,CloseDate asc];
-            for(Id item: acctIds)
+            List<Account> lstAccounts =[Select Id,First_Asset_Quarter__c,Is_Partner_Initiated_Account__c ,(Select Id, CloseDate,Deal_Reg__c from Opportunities where StageName='Closed Won' order by CloseDate asc) from Account where Id in:acctIds ];
+            for(Account item: lstAccounts)
             {
-                List<Opportunity> lstCurrOpp=new List<Opportunity>();
+                System.debug('AcctIds');
                 Date minDate=null;
                 boolean partnerInitated;
-                if(lstAllOpp!=null &&lstAllOpp.size()>0)
+                
+                List<Opportunity> lstCurrOpp=item.Opportunities;
+                
+                if(lstCurrOpp!=null && lstCurrOpp.size()>0)
                 {
-                    for(Opportunity opp:lstAllOpp)
+                    minDate= lstCurrOpp[0].CloseDate;
+                    partnerInitated=lstCurrOpp[0].Deal_Reg__c;
+                    string currentFiscalQuarter =RetrieveQuarterName(minDate);
+                    if(item.First_Asset_Quarter__c!=currentFiscalQuarter || item.Is_Partner_Initiated_Account__c!=partnerInitated)
                     {
-                        if(opp.AccountId==item)
-                        {
-                            lstCurrOpp.add(opp); // take the opps for the current account.
-                        }
-                    } 
-                    
-                    if(lstCurrOpp!=null && lstCurrOpp.size()>0)
-                    {
-                        minDate= lstCurrOpp[0].CloseDate;
-                        partnerInitated=lstCurrOpp[0].Deal_Reg__c;
-                        string currentFiscalQuarter =RetrieveQuarterName(minDate);
-                        if(lstCurrOpp[0].Account.First_Asset_Quarter__c!=currentFiscalQuarter || lstCurrOpp[0].Account.Is_Partner_Initiated_Account__c!=partnerInitated)
-                        {
-                            lstAccToUpdate.add(new Account(Id=item,First_Asset_Quarter__c=currentFiscalQuarter,Is_Partner_Initiated_Account__c=partnerInitated));
-                        }
-                    }
-                    else
-                    {
-                        lstAccToUpdate.add(new Account(Id=item,First_Asset_Quarter__c='',Is_Partner_Initiated_Account__c=false));
+                        lstAccToUpdate.add(new Account(Id=item.Id,First_Asset_Quarter__c=currentFiscalQuarter,Is_Partner_Initiated_Account__c=partnerInitated));
                     }
                 }
                 else
                 {
-                    lstAccToUpdate.add(new Account(Id=item,First_Asset_Quarter__c='',Is_Partner_Initiated_Account__c=false));
+                    lstAccToUpdate.add(new Account(Id=item.Id,First_Asset_Quarter__c='',Is_Partner_Initiated_Account__c=false));
                 }
-                
+            }
+            
+            if(lstAccToUpdate.size()>0)
+            {
+                update lstAccToUpdate;
             }
         }
     }
@@ -320,7 +316,8 @@ public class OpportunityTriggerHandler implements ITriggerHandler {
         {
             for(Period item: lstPeriod)
             {
-                if(item.StartDate<=closeDate && closeDate>=item.EndDate)
+               
+                if(item.StartDate<=closeDate && closeDate<=item.EndDate)
                 {
                     return item.FiscalYearSettings.Name + 'Q' + item.Number;
                 }
