@@ -60,6 +60,10 @@
                 <behavior>Readonly</behavior>
                 <field>Account_ID__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Requested_End_Date__c</field>
+            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>
@@ -105,6 +109,10 @@
             <layoutItems>
                 <behavior>Edit</behavior>
                 <field>Trigger_POC_Approvers__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Opportunity_Owner__c</field>
             </layoutItems>
         </layoutColumns>
         <style>TwoColumnsTopToBottom</style>
