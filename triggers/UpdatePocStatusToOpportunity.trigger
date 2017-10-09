@@ -45,7 +45,7 @@ trigger UpdatePocStatusToOpportunity on Request__c (after insert, after update, 
     opportunityIds.remove(null);
     if(opportunityIds.size() > 0)
     {
-        List<Opportunity> opps = [select Id, Has_Active_POCs__c, AccountId, Account.Has_Active_POCs__c, Account.POC_Request_Date__c, (select Id from Requests__r where IsClosed__c=false limit 1) from Opportunity where Id in :opportunityIds and StageName!='Closed Deleted'];
+        List<Opportunity> opps = [select Id, Has_Active_POCs__c, AccountId, Account.Has_Active_POCs__c, Account.POC_Request_Date__c, (select Id from Requests__r where IsClosed__c=false and Status__c !='Open' limit 1) from Opportunity where Id in :opportunityIds and StageName!='Closed Deleted'];
         Set<Id> accIds = new Set<Id>();
         for(Opportunity opp : opps)
         {

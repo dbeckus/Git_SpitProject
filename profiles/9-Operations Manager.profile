@@ -1132,6 +1132,10 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>POCRequestTriggerHandler</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>PORenewECAssetsBatch</apexClass>
         <enabled>false</enabled>
     </classAccesses>
