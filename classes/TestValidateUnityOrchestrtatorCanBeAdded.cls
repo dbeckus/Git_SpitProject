@@ -1,6 +1,6 @@
 @IsTest
 public class TestValidateUnityOrchestrtatorCanBeAdded {
-    @IsTest
+   /* @IsTest
     public static void TestOrchCannotBeAddedonPOC()
     {
         Test.startTest();
@@ -50,6 +50,6 @@ public class TestValidateUnityOrchestrtatorCanBeAdded {
             Boolean expectedExceptionThrown =  e.getMessage().contains('Unity Cloud Orchestrator cannot be requested as there is an existing active cloud orch asset or POC on this account.') ? true : false;
             System.AssertEquals(expectedExceptionThrown, true);
         } 
-    }
+    }*/
      
 }

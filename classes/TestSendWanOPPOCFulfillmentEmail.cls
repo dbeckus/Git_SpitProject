@@ -1,6 +1,6 @@
 @IsTest
 public class TestSendWanOPPOCFulfillmentEmail {
-    @isTest(SeeAllData=true)
+  /*  @isTest(SeeAllData=true)
     static void testVirtualPOCFulfillmentController_VX()
     {
         Account account = new Account(Name = 'acme');
@@ -115,5 +115,5 @@ public class TestSendWanOPPOCFulfillmentEmail {
         Test.stopTest();
         //controller.saveAssets();
         //controller.setLicenseEncryption();
-    }
+    }*/
 }

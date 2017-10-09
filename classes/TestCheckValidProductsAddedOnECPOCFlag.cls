@@ -1,7 +1,7 @@
 @isTest
 public class TestCheckValidProductsAddedOnECPOCFlag {
 
-  @isTest
+  /*@isTest
     static void testECToNonECPocRequest()
     {
         Contact contact = new Contact(FirstName = 'AcmeFirstname', LastName = 'AcmeLastname', Phone='123456789', Email = 'acme@acme.com' );
@@ -151,5 +151,5 @@ public class TestCheckValidProductsAddedOnECPOCFlag {
            
         }
         System.assertEquals(true, request.Submission_Condition_Satisfied__c);
-    }  
+    }  */
 }

@@ -1,6 +1,6 @@
 @IsTest	
 public class TestDeleteRMAForApprovedPendRet {
-    @IsTest	
+  /*  @IsTest	
     public static void deleteRMA_Received()
     {
         Account acc = new Account(Name='testECPOC');
@@ -147,4 +147,5 @@ public class TestDeleteRMAForApprovedPendRet {
         }
         Test.stopTest();
     }
+*/
 }

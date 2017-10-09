@@ -2068,6 +2068,10 @@
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>TestPOCRequestTriggerHandler</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>TestPORenewECAssetsBatch</apexClass>
         <enabled>false</enabled>
     </classAccesses>

@@ -86,6 +86,7 @@ public class TestPopulatePOCApprovers {
         System.assert(output.SE__c!=null);
     }
     */
+    /*
     @IsTest
     public static void TestApprovers_NAM()
     {
@@ -345,5 +346,5 @@ public class TestPopulatePOCApprovers {
         System.assert(output.SE_Director__c!=null);
         System.assert(output.SE__c!=null);
         
-    }
+    }*/
 }
