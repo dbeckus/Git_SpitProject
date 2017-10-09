@@ -105,6 +105,10 @@
                 <behavior>Readonly</behavior>
                 <field>EC_Term__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Customer_Price_Book__c</field>
+            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>

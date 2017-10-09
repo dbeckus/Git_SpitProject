@@ -814,7 +814,7 @@ Requested_End_Date__c
         <triggerType>onAllChanges</triggerType>
     </rules>
     <rules>
-        <fullName>Clear Request End Date</fullName>
+        <fullName>Clear Extension Date after POC extended</fullName>
         <actions>
             <name>Clear_Extend_To_Date</name>
             <type>FieldUpdate</type>
@@ -1212,7 +1212,7 @@ ISCHANGED( Target_End_Date__c )
         </actions>
         <active>true</active>
         <formula>NOT(ISBLANK(Opportunity__c ))</formula>
-        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+        <triggerType>onAllChanges</triggerType>
     </rules>
     <rules>
         <fullName>Update the POC Record Type</fullName>

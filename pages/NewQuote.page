@@ -14,7 +14,7 @@
                 </apex:pageBlockSectionItem>
                 <apex:pageBlockSectionItem >
                     <apex:outputLabel value="Price Book"></apex:outputLabel>
-                    <apex:selectList value="{!oppo.Pricebook2Id}" size="1" disabled="{!oppo.OpportunityLineItems.size > 0}">
+                    <apex:selectList value="{!oppo.Pricebook2Id}" size="1" disabled="true">
                         <apex:selectOptions value="{!priceBooks}"></apex:selectOptions>
                     </apex:selectList>
                 </apex:pageBlockSectionItem> 
