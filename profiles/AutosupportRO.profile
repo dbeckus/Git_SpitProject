@@ -6291,6 +6291,21 @@
         <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
+        <editable>true</editable>
+        <field>Quote__c.Tier_1_Partner__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Quote__c.Tier_2_Partner__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Quote__c.Tier_3_Partner__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>false</editable>
         <field>Quote__c.TmpApprovalRequired__c</field>
         <readable>true</readable>
@@ -8758,6 +8773,10 @@
     </pageAccesses>
     <pageAccesses>
         <apexPage>AssetAdditionalFields</apexPage>
+        <enabled>false</enabled>
+    </pageAccesses>
+    <pageAccesses>
+        <apexPage>AssetHistory</apexPage>
         <enabled>false</enabled>
     </pageAccesses>
     <pageAccesses>

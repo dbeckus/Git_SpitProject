@@ -206,6 +206,9 @@ if( Service_Discount_Max__c &gt; RegPartServDisc__c ,3,0)
     </fields>
     <fields>
         <label><!-- Prepared For --></label>
+        <lookupFilter>
+            <errorMessage><!-- Prepared for must be a contact in tier 1 , tier2 or tier3 account. --></errorMessage>
+        </lookupFilter>
         <name>PreparedFor__c</name>
         <relationshipLabel><!-- Silver Peak Quotes --></relationshipLabel>
     </fields>
@@ -371,6 +374,21 @@ if( Service_Discount_Max__c &gt; RegPartServDisc__c ,3,0)
         <label><!-- SteelBrick Quote --></label>
         <name>SteelBrick_Quote__c</name>
         <relationshipLabel><!-- Silver Peak Quotes --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Tier 1 Partner --></label>
+        <name>Tier_1_Partner__c</name>
+        <relationshipLabel><!-- Silver Peak Quotes --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Tier 2 Partner --></label>
+        <name>Tier_2_Partner__c</name>
+        <relationshipLabel><!-- Silver Peak Quotes (Tier 2 Partner) --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Tier 3  Partner --></label>
+        <name>Tier_3_Partner__c</name>
+        <relationshipLabel><!-- Silver Peak Quotes (Tier3  Partner) --></relationshipLabel>
     </fields>
     <fields>
         <label><!-- TmpApprovalRequired --></label>

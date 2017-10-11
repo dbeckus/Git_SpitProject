@@ -911,6 +911,27 @@
         <fields>NAME</fields>
         <relatedList>T3chAccelerator__Instance__c.T3chAccelerator__account_id__c</relatedList>
     </relatedLists>
+    <relatedLists>
+        <fields>NAME</fields>
+        <fields>Opportunity__c</fields>
+        <fields>Quote_Date__c</fields>
+        <fields>Quote_Valid_Until__c</fields>
+        <relatedList>Quote__c.Tier_1_Partner__c</relatedList>
+    </relatedLists>
+    <relatedLists>
+        <fields>NAME</fields>
+        <fields>Opportunity__c</fields>
+        <fields>Quote_Date__c</fields>
+        <fields>Quote_Valid_Until__c</fields>
+        <relatedList>Quote__c.Tier_2_Partner__c</relatedList>
+    </relatedLists>
+    <relatedLists>
+        <fields>NAME</fields>
+        <fields>Opportunity__c</fields>
+        <fields>Quote_Date__c</fields>
+        <fields>Quote_Valid_Until__c</fields>
+        <relatedList>Quote__c.Tier_3_Partner__c</relatedList>
+    </relatedLists>
     <relatedObjects>ParentId</relatedObjects>
     <showEmailCheckbox>false</showEmailCheckbox>
     <showHighlightsPanel>true</showHighlightsPanel>

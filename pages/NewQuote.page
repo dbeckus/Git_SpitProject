@@ -64,6 +64,27 @@
                     <apex:outputLabel value="Payment Term" for="paymentterm"></apex:outputLabel>
                     <apex:inputField value="{!quote.PaymentTerm__c}" id="paymentterm"/>
                 </apex:pageBlockSectionItem>
+                  <apex:pageBlockSectionItem > 
+                   <apex:outputLabel ></apex:outputLabel>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem > 
+                    <apex:outputLabel value="Tier 1 Partner" for="tier1partner"></apex:outputLabel>
+                    <apex:inputField value="{!quote.Tier_1_Partner__c}" id="tier1partner" required="true"/>
+                </apex:pageBlockSectionItem>
+                   <apex:pageBlockSectionItem > 
+                   <apex:outputLabel ></apex:outputLabel>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem > 
+                    <apex:outputLabel value="Tier 2 Partner" for="tier2partner"></apex:outputLabel>
+                    <apex:inputField value="{!quote.Tier_2_Partner__c}" id="tier2partner" />
+                </apex:pageBlockSectionItem>
+                 <apex:pageBlockSectionItem > 
+                   <apex:outputLabel ></apex:outputLabel>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem > 
+                    <apex:outputLabel value="Tier 3 Partner" for="tier3partner"></apex:outputLabel>
+                    <apex:inputField value="{!quote.Tier_3_Partner__c}" id="tier3partner"/>
+                </apex:pageBlockSectionItem>
             </apex:pageBlockSection>
             <!-- debug panel <apex:outputPanel id="panel">
             a{!stage}a
