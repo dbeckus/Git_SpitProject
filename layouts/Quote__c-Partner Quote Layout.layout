@@ -59,6 +59,10 @@
                 <behavior>Edit</behavior>
                 <field>Tier_3_Partner__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>Reseller_AccountId__c</field>
+            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>

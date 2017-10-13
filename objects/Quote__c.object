@@ -602,7 +602,7 @@ OR((Opportunity_Amount__c - Quote_Amount_Rollup__c) &lt;100 ,(Quote_Amount_Rollu
         <externalId>false</externalId>
         <label>Prepared For</label>
         <lookupFilter>
-            <active>true</active>
+            <active>false</active>
             <booleanFilter>(1 AND 4) OR (2 AND 5) OR (3 AND 6)</booleanFilter>
             <errorMessage>Prepared for must be a contact in tier 1 , tier2 or tier3 account.</errorMessage>
             <filterItems>
@@ -801,6 +801,22 @@ OR((Opportunity_Amount__c - Quote_Amount_Rollup__c) &lt;100 ,(Quote_Amount_Rollu
         <trackHistory>false</trackHistory>
         <trackTrending>false</trackTrending>
         <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Reseller_AccountId__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(NOT(ISBLANK(Tier_3_Partner__c)),Tier_3_Partner__c,
+IF(NOT(ISBLANK(Tier_2_Partner__c)),Tier_2_Partner__c,
+Tier_1_Partner__c
+)
+)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Reseller AccountId</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Reseller_EdgeConnect_Discount__c</fullName>
@@ -1209,6 +1225,17 @@ Approval_Made__c =FALSE), OR(and(ConsultingDiscountMax__c &gt;0,Opportunity__r.A
         <errorMessage>In order to hide pricing you must disable show discounts too</errorMessage>
     </validationRules>
     <validationRules>
+        <fullName>Check_Prepared_For_belonging_to_account</fullName>
+        <active>true</active>
+        <errorConditionFormula>AND(
+NOT(ISBLANK( PreparedFor__c )),
+NOT(ISBLANK( Reseller_AccountId__c)),
+Reseller_AccountId__c!= PreparedFor__r.AccountId 
+)</errorConditionFormula>
+        <errorDisplayField>PreparedFor__c</errorDisplayField>
+        <errorMessage>Prepared For doesn&apos;t belong to the Tier1 or, Tier 2 or Tier 3 account</errorMessage>
+    </validationRules>
+    <validationRules>
         <fullName>Prepared_For_should_derive_from_Primary</fullName>
         <active>false</active>
         <errorConditionFormula>Opportunity__r.Primary_Partner__c != PreparedFor__r.AccountId</errorConditionFormula>
@@ -1290,6 +1317,7 @@ alert(&quot;Quote must be approved and primary.&quot;);
         <requireRowSelection>false</requireRowSelection>
         <url>{!REQUIRESCRIPT(&quot;/soap/ajax/37.0/connection.js&quot;)} 
 
+window.location = &quot;/apex/newquote?id={!Opportunity.Id}&quot;; 
 /*var userId=sforce.connection.getUserInfo().userId; 
 var profileName=&apos;{!$Profile.Name}&apos; ; 
 var profileValues = [&quot;1.0 Restrict Sales Management&quot;,&quot;1.1- Regional Sales Manager&quot;,&quot;1.2- Channel Sales Manager&quot;,&quot;1.3- Inside Sales&quot;,&quot;1.4- Intl Regional Sales Manager&quot;,&quot;1.6- Sales Engineer Team&quot;]; 
@@ -1300,7 +1328,7 @@ if(sbUser.records &amp;&amp; profileValues.indexOf(profileName)&gt;-1 )
 alert(&apos;You are a steelbrick user. Please create a steelbrick quote.&apos;); 
 } 
 else 
-{ */
+{ 
 if(&quot;{!Opportunity.Primary_Partner__c}&quot; == &quot;&quot;) 
 { 
 alert(&quot;Sorry, you must identify and enable the primary partner discount before you can create a quote&quot;); 
@@ -1322,7 +1350,7 @@ if(confirm(&quot;Please identify at least one contact role before creating a new
 window.location = &quot;/p/opp/ContactRoleEditUi/e?oppid={!Opportunity.Id}&amp;retURL=%2F{!Opportunity.Id}&quot;; 
 } 
 } 
-} 
+} */
 //}</url>
     </webLinks>
     <webLinks>

@@ -6192,6 +6192,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Quote__c.Reseller_AccountId__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Quote__c.Reseller_EdgeConnect_Discount__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -9977,6 +9982,10 @@
         <enabled>true</enabled>
     </pageAccesses>
     <pageAccesses>
+        <apexPage>ResellerDiscountPage</apexPage>
+        <enabled>true</enabled>
+    </pageAccesses>
+    <pageAccesses>
         <apexPage>ResourceCenterComponent</apexPage>
         <enabled>true</enabled>
     </pageAccesses>
@@ -10396,6 +10405,10 @@
     <userPermissions>
         <enabled>true</enabled>
         <name>ActivateOrder</name>
+    </userPermissions>
+    <userPermissions>
+        <enabled>true</enabled>
+        <name>AddDirectMessageMembers</name>
     </userPermissions>
     <userPermissions>
         <enabled>true</enabled>
@@ -10852,6 +10865,10 @@
     <userPermissions>
         <enabled>true</enabled>
         <name>PublishPackaging</name>
+    </userPermissions>
+    <userPermissions>
+        <enabled>true</enabled>
+        <name>RemoveDirectMessageMembers</name>
     </userPermissions>
     <userPermissions>
         <enabled>true</enabled>

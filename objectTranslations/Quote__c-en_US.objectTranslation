@@ -206,9 +206,6 @@ if( Service_Discount_Max__c &gt; RegPartServDisc__c ,3,0)
     </fields>
     <fields>
         <label><!-- Prepared For --></label>
-        <lookupFilter>
-            <errorMessage><!-- Prepared for must be a contact in tier 1 , tier2 or tier3 account. --></errorMessage>
-        </lookupFilter>
         <name>PreparedFor__c</name>
         <relationshipLabel><!-- Silver Peak Quotes --></relationshipLabel>
     </fields>
@@ -275,6 +272,10 @@ if( Service_Discount_Max__c &gt; RegPartServDisc__c ,3,0)
             <masterLabel>5 Years</masterLabel>
             <translation><!-- 5 Years --></translation>
         </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Reseller AccountId --></label>
+        <name>Reseller_AccountId__c</name>
     </fields>
     <fields>
         <label><!-- Reseller EdgeConnect Discount --></label>
@@ -424,6 +425,10 @@ if( Service_Discount_Max__c &gt; RegPartServDisc__c ,3,0)
             <section>Custom Links</section>
         </sections>
         <sections>
+            <label><!-- Discount Section --></label>
+            <section>Discount Section</section>
+        </sections>
+        <sections>
             <label><!-- Override Address --></label>
             <section>Override Address</section>
         </sections>
@@ -440,6 +445,10 @@ if( Service_Discount_Max__c &gt; RegPartServDisc__c ,3,0)
     <validationRules>
         <errorMessage><!-- In order to hide pricing you must disable show discounts too --></errorMessage>
         <name>Cant_Show_Discounts_and_Hide_Prices</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Prepared For doesn&apos;t belong to the Tier1 or, Tier 2 or Tier 3 account --></errorMessage>
+        <name>Check_Prepared_For_belonging_to_account</name>
     </validationRules>
     <validationRules>
         <errorMessage><!-- Please select right prepared for --></errorMessage>

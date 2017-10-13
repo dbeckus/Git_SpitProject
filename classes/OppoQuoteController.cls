@@ -76,28 +76,12 @@ public class OppoQuoteController
         try
         {
             PageReference returnPage;
-            string resellerPartner=quote.Tier_1_Partner__c +'|'+ 'Tier1';
-            if(quote.Tier_3_Partner__c!=null) 
-                resellerPartner=quote.Tier_3_Partner__c +'|'+ 'Tier2';
-            else if(quote.Tier_2_Partner__c!=null) 
-                resellerPartner=quote.Tier_2_Partner__c +'|'+ 'Tier3';
-            
-            if(quote.PreparedFor__c!=null)
-            {
-                Contact contactData=[Select AccountId,Account.Name from Contact where Id=:quote.PreparedFor__c];
-                string[] tierdata= resellerPartner.split('|');
-                if(contactData.AccountId!=tierdata[0])
-                {
-                    ApexPages.addMessage(new ApexPages.message(ApexPages.Severity.ERROR,'Prepared For must be a contact from this reseller account '+ tierdata[1] ));
-                    return null;
-                }
-            }
-            
+           
             if(!oppo.HasOpportunityLineItem)
             {
                 update oppo;
                 upsert quote;
-                returnPage = new PageReference('/' + quote.Id);
+                returnPage = new PageReference('/apex/Quote?Id=' + quote.Id); 
             }
             else
             {
@@ -109,7 +93,7 @@ public class OppoQuoteController
                 }
                 else
                 {
-                    returnPage = new PageReference('/apex/Quote?Id=' + quote.Id);
+                    returnPage = new PageReference('/' + quote.Id);
                     if(stage == CopyStage.CopyOnly.ordinal())
                     {
                         copyItemsToQuote();                         

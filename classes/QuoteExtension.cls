@@ -2,35 +2,41 @@
  *  The extension class for Quote page, overriding Submit for Approval button.
  */
 
-public class QuoteExtension
+global class QuoteExtension
 {
     static final String MESSAGE_SUCCEEDED = 'Succeeded';
-    
+     Quote__c DiscountQuote{get;set;}
     public QuoteExtension(ApexPages.StandardController ctrl)
     {
-    
+     	Id quoteId=(Id)ctrl.getRecord().id;
+        DiscountQuote= [Select Id,Tier_1_Partner__r.Payment_Terms__c,Tier_1_Partner__r.Partner_Level__c,Tier_1_Partner__r.Partner_Type__c,Tier_1_Partner__r.Reseller_Agreement__c,Tier_1_Partner__r.Standard_Discount_Product__c,Tier_1_Partner__r.Standard_Discount_Service__c,Tier_1_Partner__r.Standard_Discount_EdgeConnect__c,Tier_1_Partner__r.Registered_Discount_EdgeConnect__c,Tier_1_Partner__r.Registered_Discount_Product__c,Tier_1_Partner__r.Registered_Discount_Service__c ,Tier_2_Partner__r.Payment_Terms__c,Tier_2_Partner__r.Partner_Level__c,Tier_2_Partner__r.Partner_Type__c,Tier_2_Partner__r.Reseller_Agreement__c,Tier_2_Partner__r.Standard_Discount_Product__c,Tier_2_Partner__r.Standard_Discount_Service__c,Tier_2_Partner__r.Standard_Discount_EdgeConnect__c,Tier_2_Partner__r.Registered_Discount_EdgeConnect__c,Tier_2_Partner__r.Registered_Discount_Product__c,Tier_2_Partner__r.Registered_Discount_Service__c from Quote__c where Id=:quoteId];
+
     }
     
     @RemoteAction
-    public static Boolean CheckQuote(String quoteId, String opportunityId)
+    global static Boolean CheckQuote(String quoteId, String opportunityId)
     {
         Integer quoteCount = [select count() from Quote__c where Opportunity__c = :opportunityId and Id != :quoteId];
         return quoteCount > 0;
     }
     
     @RemoteAction
-    public static String SetPrimaryQuoteAndSubmit(String quoteId, String opportunityId)
+    global static String SetPrimaryQuoteAndSubmit(String quoteId, String opportunityId)
     {
-        List<Quote__c> quotes = [select Id, Primary__c from Quote__c where Opportunity__c = :opportunityId];
+        Opportunity resultOpp=null;
+        List<Quote__c> quotes = [select Id, Primary__c,Reseller_AccountId__c,Tier_1_Partner__c,Tier_2_Partner__c,Tier_3_Partner__c from Quote__c where Opportunity__c = :opportunityId];
         if(!quotes.isEmpty())
         {
             for(Quote__c quote : quotes)
             {
                 quote.Primary__c = (quote.Id == quoteId) ? true : false;
+                if(quote.Primary__c)
+                     resultOpp= new Opportunity(Id=quote.Opportunity__c,Primary_Partner__c=quote.Reseller_AccountId__c,Tier1_Partner__c=quote.Tier_1_Partner__c,Tier2_Partner__c=quote.Tier_2_Partner__c,Tier3_Partner__c=quote.Tier_3_Partner__c);
             }
             try
             {
                 update quotes;
+                update resultOpp;
             }
             catch(Exception ex)
             {
@@ -41,7 +47,7 @@ public class QuoteExtension
     }
     
     @RemoteAction
-    public static String SubmitForApproval(String quoteId)
+    global static String SubmitForApproval(String quoteId)
     {
         try
         {

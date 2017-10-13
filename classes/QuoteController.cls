@@ -489,7 +489,7 @@ and down to get the primary contact role. */
             System.debug('Opp Id'+ quote.Opportunity__r.Id);
             
             init();
-           
+            
             
         }
         catch (Exception exc) 
@@ -510,9 +510,9 @@ and down to get the primary contact role. */
     }
     
     public PageReference closePopup() {        
-      /*  ECApprovalRequired = false; 
-        //PageReference result = new PageReference('/apex/editQuoteLines?id=' + quote.Id + '&reloadOppo=1');
-        //result.setRedirect(true);*/
+        /*  ECApprovalRequired = false; 
+//PageReference result = new PageReference('/apex/editQuoteLines?id=' + quote.Id + '&reloadOppo=1');
+//result.setRedirect(true);*/
         return quotePage();
         
     }     
@@ -521,17 +521,17 @@ and down to get the primary contact role. */
     public PageReference attachQuote()
     {
         
-       /* Quote__c quoteDtl=[Select Id,Name,EC_Approval__c,PreparedFor__c,PreparedFor__r.Email,Approval_Required__c,Approval_Made__c from Quote__c where Id=:quote.Id ];
-        if(quoteDtl!=null && !quoteDtl.EC_Approval__c  && !quoteDtl.Approval_Made__c  && QuoteEmailReviewHelper.IsECApprovalRequired(quoteDtl))
-        {
-            if(quoteDtl.Approval_Required__c==0)
-            {
-                
-                ECApprovalRequired=true;
-                SendEmailForECApproval(quoteDtl);
-            }
-            return null;
-        }*/
+        /* Quote__c quoteDtl=[Select Id,Name,EC_Approval__c,PreparedFor__c,PreparedFor__r.Email,Approval_Required__c,Approval_Made__c from Quote__c where Id=:quote.Id ];
+if(quoteDtl!=null && !quoteDtl.EC_Approval__c  && !quoteDtl.Approval_Made__c  && QuoteEmailReviewHelper.IsECApprovalRequired(quoteDtl))
+{
+if(quoteDtl.Approval_Required__c==0)
+{
+
+ECApprovalRequired=true;
+SendEmailForECApproval(quoteDtl);
+}
+return null;
+}*/
         
         
         String aName = 'Quotation for ' + oppo.Account.Name + ' ' + quote.name + '.pdf';
@@ -570,19 +570,19 @@ and down to get the primary contact role. */
         
     }
     
-/*
-    private void SendEmailForECApproval(Quote__c quoteDtl)
-    {
-        try
-        {
-            QuoteEmailReviewHelper.SendEmailForECApproval(quoteDtl);
-            ApexPages.addMessage(new ApexPages.Message(ApexPages.Severity.Info, 'An email has been sent to "Sales Operations" for EC Approval review. <script>setTimeout("top.close()", 3000)</script>'));
-        }
-        catch(Exception ex)
-        {
-            ApexPages.addMessages(ex);
-        }
-    }*/
+    /*
+private void SendEmailForECApproval(Quote__c quoteDtl)
+{
+try
+{
+QuoteEmailReviewHelper.SendEmailForECApproval(quoteDtl);
+ApexPages.addMessage(new ApexPages.Message(ApexPages.Severity.Info, 'An email has been sent to "Sales Operations" for EC Approval review. <script>setTimeout("top.close()", 3000)</script>'));
+}
+catch(Exception ex)
+{
+ApexPages.addMessages(ex);
+}
+}*/
     //clone current quote
     public PageReference cloneQuoteWithProducts()
     {
@@ -665,15 +665,19 @@ convertResult += '.00';
     //set current quote as primary quote of the opportunity
     void setPrimaryQuote()
     {
-        List<Quote__c> quotes = [select Opportunity__c, Id, Name from Quote__c where Opportunity__c = :quote.Opportunity__c];
+        Opportunity opp=null;
+        List<Quote__c> quotes = [select Opportunity__c, Id, Name,Reseller_AccountId__c,Tier_1_Partner__c,Tier_2_Partner__c,Tier_3_Partner__c from Quote__c where Opportunity__c = :quote.Opportunity__c];
         for(Quote__c q : quotes)
-        {            
-            if(q.Id == quote.Id)
-            {
-                q.Primary__c = true;
-                update q;
-            }
+        {   
+            q.Primary__c = (q.Id == quoteId) ? true : false;
+            if(q.Primary__c)
+                opp= new Opportunity(Id=q.Opportunity__c,Primary_Partner__c=q.Reseller_AccountId__c,Tier1_Partner__c=q.Tier_1_Partner__c,Tier2_Partner__c=q.Tier_2_Partner__c,Tier3_Partner__c=q.Tier_3_Partner__c);
+            
         }
+        if(quotes!=null && quotes.size()>0)
+            update quotes;
+        if(opp!=null)
+            update opp;
     }
     
     //copy LineItems To Opportunity
@@ -733,7 +737,7 @@ convertResult += '.00';
         return true;
     }
     
-   
+    
     //copy LineItems To Quote
     public void copyLineItemsToQuote()
     {

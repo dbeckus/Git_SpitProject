@@ -6192,6 +6192,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Quote__c.Reseller_AccountId__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Quote__c.Reseller_EdgeConnect_Discount__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -9487,6 +9492,10 @@
     </pageAccesses>
     <pageAccesses>
         <apexPage>RequeueCase</apexPage>
+        <enabled>false</enabled>
+    </pageAccesses>
+    <pageAccesses>
+        <apexPage>ResellerDiscountPage</apexPage>
         <enabled>false</enabled>
     </pageAccesses>
     <pageAccesses>

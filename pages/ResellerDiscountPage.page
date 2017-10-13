@@ -1,0 +1,155 @@
+<apex:page standardController="Quote__c" showHeader="false" extensions="QuoteExtension">	
+    <style>
+        .labelClass{
+        border-bottom:1px solid #ECECEC;
+        font-family:Arial,Helvetica,sans-serif;
+        font-size:10.92px;
+        font-weight:bold; 
+        text-align:right;
+        padding-top:3px;
+        padding-bottom:3px;
+        padding-right:2px;
+        }
+        .dataClass{
+        border-bottom:1px solid #ECECEC;
+        font-family:Arial,Helvetica,sans-serif;
+        font-size:12px;
+        padding-top:3px;
+        padding-bottom:3px;
+        padding-left:2px;
+        }
+        
+    </style>
+    <table width="100%"  border="0" cellpadding="0" cellspacing="0" >
+        <tr>
+            <td colspan="4">
+                <h1>
+                    Reseller Discount 
+                    <br/><br/>
+                </h1>          
+            </td>
+        </tr>
+        <tr >
+            <td width="16%" class="labelClass">  Partner Level  &nbsp;&nbsp;</td>
+            <td width="30%"  class="dataClass">
+                <apex:outputField value="{!Quote__c.Tier_1_Partner__r.Partner_Level__c}"/>
+            </td>
+            <td width="20%"  class="labelClass">Payment Terms &nbsp;&nbsp;</td>
+            <td  class="dataClass">
+                <apex:outputField value="{!Quote__c.Tier_1_Partner__r.Payment_Terms__c}"/>
+            </td>
+        </tr>
+        
+        <tr >
+            <td width="16%"   class="labelClass">  Reseller Agreement  &nbsp;&nbsp;</td>
+            <td width="30%"  class="dataClass">
+                <apex:outputField value="{!Quote__c.Tier_1_Partner__r.Reseller_Agreement__c}"/>
+            </td>
+            <td width="20%"  class="labelClass">Partner Type &nbsp;&nbsp;</td>
+            <td  class="dataClass">
+                <apex:outputField value="{!Quote__c.Tier_1_Partner__r.Partner_Type__c}"/>
+            </td>
+        </tr>
+        
+        <tr >
+            <td width="16%"   class="labelClass">  Standard Discount EdgeConnect  &nbsp;&nbsp;</td>
+            <td width="30%"  class="dataClass">
+                <apex:outputField value="{!Quote__c.Tier_1_Partner__r.Standard_Discount_EdgeConnect__c}"/>
+            </td>
+            <td width="20%"  class="labelClass">Registered Discount EdgeConnect &nbsp;&nbsp;</td>
+            <td  class="dataClass">
+                <apex:outputField value="{!Quote__c.Tier_1_Partner__r.Registered_Discount_EdgeConnect__c}"/>
+            </td>
+        </tr>
+        
+        <tr >
+            <td width="16%"  class="labelClass">  Standard Discount NX/VX  &nbsp;&nbsp;</td>
+            <td width="30%"  class="dataClass">
+                <apex:outputField value="{!Quote__c.Tier_1_Partner__r.Standard_Discount_Product__c}"/>
+            </td>
+            <td width="20%"  class="labelClass">Registered Discount NX/VX &nbsp;&nbsp;</td>
+            <td  class="dataClass">
+                <apex:outputField value="{!Quote__c.Tier_1_Partner__r.Registered_Discount_Product__c}"/>
+            </td>
+        </tr>
+        
+        <tr >
+            
+            <td width="16%"  class="labelClass">  Standard Discount Services  &nbsp;&nbsp;</td>
+            <td width="30%"  class="dataClass">
+                <apex:outputField value="{!Quote__c.Tier_1_Partner__r.Standard_Discount_Service__c}"/>
+            </td>
+            <td width="20%"  class="labelClass">Registered Discount Services &nbsp;&nbsp;</td>
+            <td  class="dataClass">
+                <apex:outputField value="{!Quote__c.Tier_1_Partner__r.Registered_Discount_Service__c}"/>
+            </td> 
+        </tr>
+    </table>
+    <br/><br/>
+    <table width="100%"  border="0" cellpadding="0" cellspacing="0" >
+        <tr>
+            <td colspan="4">
+                <h4>
+                    Distributor Discount 
+                    <br/><br/>
+                </h4>          
+            </td>
+        </tr>
+        <tr >
+            <td width="16%"  class="labelClass">  Partner Level  &nbsp;&nbsp;</td>
+            <td width="30%" class="dataClass">
+                <apex:outputField value="{!Quote__c.Tier_2_Partner__r.Partner_Level__c}"/>
+            </td>
+            <td width="20%" class="labelClass">Payment Terms &nbsp;&nbsp;</td>
+            <td class="dataClass">
+                <apex:outputField value="{!Quote__c.Tier_2_Partner__r.Payment_Terms__c}"/>
+            </td>
+        </tr>
+        
+        <tr >
+            <td width="16%"  class="labelClass">  Reseller Agreement  &nbsp;&nbsp;</td>
+            <td width="30%" class="dataClass">
+                <apex:outputField value="{!Quote__c.Tier_2_Partner__r.Reseller_Agreement__c}"/>
+            </td>
+            <td width="20%" class="labelClass">Partner Type &nbsp;&nbsp;</td>
+            <td class="dataClass">
+                <apex:outputField value="{!Quote__c.Tier_2_Partner__r.Partner_Type__c}"/>
+            </td>
+        </tr>
+        
+        <tr >
+            <td width="16%"  class="labelClass">  Standard Discount EdgeConnect  &nbsp;&nbsp;</td>
+            <td width="30%" class="dataClass">
+                <apex:outputField value="{!Quote__c.Tier_2_Partner__r.Standard_Discount_EdgeConnect__c}"/>
+            </td>
+            <td width="20%" class="labelClass">Registered Discount EdgeConnect &nbsp;&nbsp;</td>
+            <td class="dataClass">
+                <apex:outputField value="{!Quote__c.Tier_2_Partner__r.Registered_Discount_EdgeConnect__c}"/>
+            </td>
+        </tr>
+        
+        <tr >
+            <td width="16%"  class="labelClass">  Standard Discount NX/VX  &nbsp;&nbsp;</td>
+            <td width="30%" class="dataClass">
+                <apex:outputField value="{!Quote__c.Tier_2_Partner__r.Standard_Discount_Product__c}"/>
+            </td>
+            <td width="20%" class="labelClass">Registered Discount NX/VX &nbsp;&nbsp;</td>
+            <td class="dataClass">
+                <apex:outputField value="{!Quote__c.Tier_2_Partner__r.Registered_Discount_Product__c}"/>
+            </td>
+        </tr>
+        
+        <tr >
+            
+            <td width="16%"  class="labelClass">  Standard Discount Services  &nbsp;&nbsp;</td>
+            <td width="30%" class="dataClass">
+                <apex:outputField value="{!Quote__c.Tier_2_Partner__r.Standard_Discount_Service__c}"/>
+            </td>
+            <td width="20%" class="labelClass">Registered Discount Services &nbsp;&nbsp;</td>
+            <td class="dataClass">
+                <apex:outputField value="{!Quote__c.Tier_2_Partner__r.Registered_Discount_Service__c}"/>
+            </td> 
+        </tr>
+    </table>
+    
+</apex:page>

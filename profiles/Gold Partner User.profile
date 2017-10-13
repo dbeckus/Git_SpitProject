@@ -6192,6 +6192,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Quote__c.Reseller_AccountId__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Quote__c.Reseller_EdgeConnect_Discount__c</field>
         <readable>false</readable>
     </fieldPermissions>
@@ -9331,6 +9336,10 @@
         <enabled>false</enabled>
     </pageAccesses>
     <pageAccesses>
+        <apexPage>ResellerDiscountPage</apexPage>
+        <enabled>false</enabled>
+    </pageAccesses>
+    <pageAccesses>
         <apexPage>ResourceCenterComponent</apexPage>
         <enabled>false</enabled>
     </pageAccesses>
@@ -9586,6 +9595,10 @@
     <userLicense>Gold Partner</userLicense>
     <userPermissions>
         <enabled>true</enabled>
+        <name>AddDirectMessageMembers</name>
+    </userPermissions>
+    <userPermissions>
+        <enabled>true</enabled>
         <name>ApiEnabled</name>
     </userPermissions>
     <userPermissions>
@@ -9631,6 +9644,10 @@
     <userPermissions>
         <enabled>true</enabled>
         <name>IPRestrictRequests</name>
+    </userPermissions>
+    <userPermissions>
+        <enabled>true</enabled>
+        <name>RemoveDirectMessageMembers</name>
     </userPermissions>
     <userPermissions>
         <enabled>true</enabled>
