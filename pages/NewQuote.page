@@ -18,12 +18,11 @@
                         <apex:selectOptions value="{!priceBooks}"></apex:selectOptions>
                     </apex:selectList>
                 </apex:pageBlockSectionItem>
-                
-                <apex:pageBlockSectionItem > 
-                    <apex:outputLabel value="Tier 1 Partner" for="tier1partner"></apex:outputLabel>
-                    <apex:inputField value="{!quote.Tier_1_Partner__c}" id="tier1partner" required="true"/>
+                  <apex:pageBlockSectionItem > 
+                    <apex:outputLabel value="Quote Name" for="quoteName"></apex:outputLabel>
+                    <apex:inputField value="{!quote.Quote_Name__c}" id="quoteName" required="true"/>
                 </apex:pageBlockSectionItem>
-                <apex:pageBlockSectionItem >
+                 <apex:pageBlockSectionItem >
                     <apex:outputLabel value="Quote Product"></apex:outputLabel>
                     <apex:selectList value="{!stage}" size="1" disabled="{!Not(oppo.OpportunityLineItems.size > 0)}">
                         <!-- <apex:selectOptions value="{!stages}"></apex:selectOptions> -->
@@ -32,51 +31,39 @@
                         <apex:selectOption itemlabel="Do not copy Opp Producs" itemValue="2"></apex:selectOption>
                         
                     </apex:selectList>
-                </apex:pageBlockSectionItem>    
-                   <apex:pageBlockSectionItem > 
-                   <apex:outputLabel ></apex:outputLabel>
+                </apex:pageBlockSectionItem>  
+                      <apex:pageBlockSectionItem > 
+                    <apex:outputLabel value="Presented" for="presented"></apex:outputLabel>
+                    <apex:inputField id="presented" value="{!quote.Quote_Date__c}"/>
+                </apex:pageBlockSectionItem>   
+                <apex:pageBlockSectionItem > 
+                    <apex:outputLabel value="Tier 1 Partner" for="tier1partner"></apex:outputLabel>
+                    <apex:inputField value="{!quote.Tier_1_Partner__c}" id="tier1partner" required="true"/>
                 </apex:pageBlockSectionItem>
                  <apex:pageBlockSectionItem > 
-                   <apex:outputLabel ></apex:outputLabel>
+                    <apex:outputLabel value="Valid Until" for="validunitl"></apex:outputLabel>
+                    <apex:inputField value="{!quote.Quote_Valid_Until__c}" id="validuntil"/>
                 </apex:pageBlockSectionItem>
                 <apex:pageBlockSectionItem > 
                     <apex:outputLabel value="Tier 2 Partner" for="tier2partner"></apex:outputLabel>
                     <apex:inputField value="{!quote.Tier_2_Partner__c}" id="tier2partner" />
                 </apex:pageBlockSectionItem>
-                 <apex:pageBlockSectionItem > 
-                   <apex:outputLabel ></apex:outputLabel>
+              
+             <apex:pageBlockSectionItem > 
+                    <apex:outputLabel value="Payment Term" for="paymentterm"></apex:outputLabel>
+                    <apex:inputField value="{!quote.PaymentTerm__c}" id="paymentterm"/>
                 </apex:pageBlockSectionItem>
                 <apex:pageBlockSectionItem > 
                     <apex:outputLabel value="Tier 3 Partner" for="tier3partner"></apex:outputLabel>
                     <apex:inputField value="{!quote.Tier_3_Partner__c}" id="tier3partner"/>
                 </apex:pageBlockSectionItem>
-                 <apex:pageBlockSectionItem > 
-                   <apex:outputLabel ></apex:outputLabel>
-                </apex:pageBlockSectionItem>
-                <apex:pageBlockSectionItem > 
-                    <apex:outputLabel value="Prepared For" for="preparedfor"></apex:outputLabel>
-                    <apex:inputField value="{!quote.PreparedFor__c}" id="preparedfor"  />
-                </apex:pageBlockSectionItem>                
-                <!--                <apex:pageBlockSectionItem id="primarySection" >
-                    <apex:outputLabel value="Primary"></apex:outputLabel>
-                    <apex:inputField value="{!quote.Primary__c}" id="primaryBox"/>
-                </apex:pageBlockSectionItem>
-                 -->
-                 <apex:pageBlockSectionItem > 
-                   <apex:outputLabel ></apex:outputLabel>
-                </apex:pageBlockSectionItem>            
-                <apex:pageBlockSectionItem > 
-                    <apex:outputLabel value="Presented" for="presented"></apex:outputLabel>
-                    <apex:inputField id="presented" value="{!quote.Quote_Date__c}"/>
-                </apex:pageBlockSectionItem>               
-                
                 <apex:pageBlockSectionItem > 
                     <apex:inputHidden />
                 </apex:pageBlockSectionItem>
                 <apex:pageBlockSectionItem > 
-                    <apex:outputLabel value="Valid Until" for="validunitl"></apex:outputLabel>
-                    <apex:inputField value="{!quote.Quote_Valid_Until__c}" id="validuntil"/>
-                </apex:pageBlockSectionItem>
+                    <apex:outputLabel value="Prepared For" for="preparedfor"></apex:outputLabel>
+                    <apex:inputField value="{!quote.PreparedFor__c}" id="preparedfor"  />
+                </apex:pageBlockSectionItem>                        
                 <apex:pageBlockSectionItem > 
                     <apex:inputHidden />
                 </apex:pageBlockSectionItem>
@@ -87,10 +74,7 @@
                 <apex:pageBlockSectionItem > 
                     <apex:inputHidden />
                 </apex:pageBlockSectionItem>-->
-                <apex:pageBlockSectionItem > 
-                    <apex:outputLabel value="Payment Term" for="paymentterm"></apex:outputLabel>
-                    <apex:inputField value="{!quote.PaymentTerm__c}" id="paymentterm"/>
-                </apex:pageBlockSectionItem>
+               
                  
             </apex:pageBlockSection>
             <!-- debug panel <apex:outputPanel id="panel">

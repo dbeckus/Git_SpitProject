@@ -731,6 +731,18 @@ OR((Opportunity_Amount__c - Quote_Amount_Rollup__c) &lt;100 ,(Quote_Amount_Rollu
         <type>Summary</type>
     </fields>
     <fields>
+        <fullName>Quote_Name__c</fullName>
+        <externalId>false</externalId>
+        <label>Quote Name</label>
+        <length>40</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
         <fullName>Quote_Valid_Until__c</fullName>
         <description>Quote Valid Until</description>
         <externalId>false</externalId>
@@ -1233,7 +1245,7 @@ NOT(ISBLANK( Reseller_AccountId__c)),
 Reseller_AccountId__c!= PreparedFor__r.AccountId 
 )</errorConditionFormula>
         <errorDisplayField>PreparedFor__c</errorDisplayField>
-        <errorMessage>Prepared For doesn&apos;t belong to the Tier1 or, Tier 2 or Tier 3 account</errorMessage>
+        <errorMessage>This contact must belong to the highest tier partner account defined in the quote (Tier1,Tier2,Tier3).</errorMessage>
     </validationRules>
     <validationRules>
         <fullName>Prepared_For_should_derive_from_Primary</fullName>

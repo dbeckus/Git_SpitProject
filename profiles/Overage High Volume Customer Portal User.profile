@@ -6177,6 +6177,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Quote__c.Quote_Name__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Quote__c.RegPartProdDisc__c</field>
         <readable>false</readable>
     </fieldPermissions>

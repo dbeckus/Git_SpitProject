@@ -114,6 +114,10 @@
                 <behavior>Edit</behavior>
                 <field>Opportunity_Owner__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Send_Email__c</field>
+            </layoutItems>
         </layoutColumns>
         <style>TwoColumnsTopToBottom</style>
     </layoutSections>

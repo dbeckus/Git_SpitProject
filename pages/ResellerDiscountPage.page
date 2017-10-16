@@ -32,44 +32,52 @@
         <tr >
             <td width="16%" class="labelClass">  Partner Level  &nbsp;&nbsp;</td>
             <td width="30%"  class="dataClass">
-                <apex:outputField value="{!Quote__c.Tier_1_Partner__r.Partner_Level__c}"/>
+                <apex:outputText value="{!DiscountQuote.RP_PartnerLevel}"/>
             </td>
             <td width="20%"  class="labelClass">Payment Terms &nbsp;&nbsp;</td>
             <td  class="dataClass">
-                <apex:outputField value="{!Quote__c.Tier_1_Partner__r.Payment_Terms__c}"/>
+                <apex:outputText value="{!DiscountQuote.RP_PaymentTerms}"/>
             </td>
         </tr>
         
         <tr >
             <td width="16%"   class="labelClass">  Reseller Agreement  &nbsp;&nbsp;</td>
             <td width="30%"  class="dataClass">
-                <apex:outputField value="{!Quote__c.Tier_1_Partner__r.Reseller_Agreement__c}"/>
+                <apex:outputText value="{!DiscountQuote.RP_ResellerAgreement}"/>
             </td>
             <td width="20%"  class="labelClass">Partner Type &nbsp;&nbsp;</td>
             <td  class="dataClass">
-                <apex:outputField value="{!Quote__c.Tier_1_Partner__r.Partner_Type__c}"/>
+                <apex:outputText value="{!DiscountQuote.RP_PartnerType}"/>
             </td>
         </tr>
         
         <tr >
             <td width="16%"   class="labelClass">  Standard Discount EdgeConnect  &nbsp;&nbsp;</td>
             <td width="30%"  class="dataClass">
-                <apex:outputField value="{!Quote__c.Tier_1_Partner__r.Standard_Discount_EdgeConnect__c}"/>
+                <apex:outputText value="{0,number,0}%">
+                    <apex:param value="{!DiscountQuote.RP_StandECDiscount}" />
+                </apex:outputText>   
             </td>
             <td width="20%"  class="labelClass">Registered Discount EdgeConnect &nbsp;&nbsp;</td>
             <td  class="dataClass">
-                <apex:outputField value="{!Quote__c.Tier_1_Partner__r.Registered_Discount_EdgeConnect__c}"/>
+                <apex:outputText value="{0,number,0}%">
+                    <apex:param value="{!DiscountQuote.RP_RegECDiscount}" />
+                </apex:outputText>   
             </td>
         </tr>
         
         <tr >
             <td width="16%"  class="labelClass">  Standard Discount NX/VX  &nbsp;&nbsp;</td>
             <td width="30%"  class="dataClass">
-                <apex:outputField value="{!Quote__c.Tier_1_Partner__r.Standard_Discount_Product__c}"/>
+                <apex:outputText value="{0,number,0}%">
+                    <apex:param value="{!DiscountQuote.RP_StandNXVXDiscount}" />
+                </apex:outputText>  
             </td>
             <td width="20%"  class="labelClass">Registered Discount NX/VX &nbsp;&nbsp;</td>
             <td  class="dataClass">
-                <apex:outputField value="{!Quote__c.Tier_1_Partner__r.Registered_Discount_Product__c}"/>
+                <apex:outputText value="{0,number,0}%">
+                    <apex:param value="{!DiscountQuote.RP_RegNXVXDiscount}" />
+                </apex:outputText> 
             </td>
         </tr>
         
@@ -77,11 +85,15 @@
             
             <td width="16%"  class="labelClass">  Standard Discount Services  &nbsp;&nbsp;</td>
             <td width="30%"  class="dataClass">
-                <apex:outputField value="{!Quote__c.Tier_1_Partner__r.Standard_Discount_Service__c}"/>
+                <apex:outputText value="{0,number,0}%">
+                    <apex:param value="{!DiscountQuote.RP_StandServiceDiscount}" />
+                </apex:outputText>  
             </td>
             <td width="20%"  class="labelClass">Registered Discount Services &nbsp;&nbsp;</td>
             <td  class="dataClass">
-                <apex:outputField value="{!Quote__c.Tier_1_Partner__r.Registered_Discount_Service__c}"/>
+                <apex:outputText value="{0,number,0}%">
+                    <apex:param value="{!DiscountQuote.RP_RegServiceDiscount}" />
+                </apex:outputText> 
             </td> 
         </tr>
     </table>
@@ -90,7 +102,7 @@
         <tr>
             <td colspan="4">
                 <h4>
-                    Distributor Discount 
+                    Primary Partner Discount 
                     <br/><br/>
                 </h4>          
             </td>
@@ -98,44 +110,52 @@
         <tr >
             <td width="16%"  class="labelClass">  Partner Level  &nbsp;&nbsp;</td>
             <td width="30%" class="dataClass">
-                <apex:outputField value="{!Quote__c.Tier_2_Partner__r.Partner_Level__c}"/>
+                <apex:outputText value="{!DiscountQuote.PP_PartnerLevel}"/>
             </td>
             <td width="20%" class="labelClass">Payment Terms &nbsp;&nbsp;</td>
             <td class="dataClass">
-                <apex:outputField value="{!Quote__c.Tier_2_Partner__r.Payment_Terms__c}"/>
+                <apex:outputText value="{!DiscountQuote.PP_PaymentTerms}"/>
             </td>
         </tr>
         
         <tr >
             <td width="16%"  class="labelClass">  Reseller Agreement  &nbsp;&nbsp;</td>
             <td width="30%" class="dataClass">
-                <apex:outputField value="{!Quote__c.Tier_2_Partner__r.Reseller_Agreement__c}"/>
+                <apex:outputText value="{!DiscountQuote.PP_ResellerAgreement}"/>
             </td>
             <td width="20%" class="labelClass">Partner Type &nbsp;&nbsp;</td>
             <td class="dataClass">
-                <apex:outputField value="{!Quote__c.Tier_2_Partner__r.Partner_Type__c}"/>
+                <apex:outputText value="{!DiscountQuote.PP_PartnerType}"/>
             </td>
         </tr>
         
         <tr >
             <td width="16%"  class="labelClass">  Standard Discount EdgeConnect  &nbsp;&nbsp;</td>
             <td width="30%" class="dataClass">
-                <apex:outputField value="{!Quote__c.Tier_2_Partner__r.Standard_Discount_EdgeConnect__c}"/>
+                <apex:outputText value="{0,number,0}%">
+                    <apex:param value="{!DiscountQuote.PP_StandECDiscount}" />
+                </apex:outputText>  
             </td>
             <td width="20%" class="labelClass">Registered Discount EdgeConnect &nbsp;&nbsp;</td>
             <td class="dataClass">
-                <apex:outputField value="{!Quote__c.Tier_2_Partner__r.Registered_Discount_EdgeConnect__c}"/>
+                <apex:outputText value="{0,number,0}%">
+                    <apex:param value="{!DiscountQuote.PP_RegECDiscount}" />
+                </apex:outputText>  
             </td>
         </tr>
         
         <tr >
             <td width="16%"  class="labelClass">  Standard Discount NX/VX  &nbsp;&nbsp;</td>
             <td width="30%" class="dataClass">
-                <apex:outputField value="{!Quote__c.Tier_2_Partner__r.Standard_Discount_Product__c}"/>
+                <apex:outputText value="{0,number,0}%">
+                    <apex:param value="{!DiscountQuote.PP_StandNXVXDiscount}" />
+                </apex:outputText>  
             </td>
             <td width="20%" class="labelClass">Registered Discount NX/VX &nbsp;&nbsp;</td>
             <td class="dataClass">
-                <apex:outputField value="{!Quote__c.Tier_2_Partner__r.Registered_Discount_Product__c}"/>
+                <apex:outputText value="{0,number,0}%">
+                    <apex:param value="{!DiscountQuote.PP_RegNXVXDiscount}" />
+                </apex:outputText> 
             </td>
         </tr>
         
@@ -143,11 +163,15 @@
             
             <td width="16%"  class="labelClass">  Standard Discount Services  &nbsp;&nbsp;</td>
             <td width="30%" class="dataClass">
-                <apex:outputField value="{!Quote__c.Tier_2_Partner__r.Standard_Discount_Service__c}"/>
+                <apex:outputText value="{0,number,0}%">
+                    <apex:param value="{!DiscountQuote.PP_StandServiceDiscount}" />
+                </apex:outputText> 
             </td>
             <td width="20%" class="labelClass">Registered Discount Services &nbsp;&nbsp;</td>
             <td class="dataClass">
-                <apex:outputField value="{!Quote__c.Tier_2_Partner__r.Registered_Discount_Service__c}"/>
+                <apex:outputText value="{0,number,0}%">
+                    <apex:param value="{!DiscountQuote.PP_RegServiceDiscount}" />
+                </apex:outputText> 
             </td> 
         </tr>
     </table>

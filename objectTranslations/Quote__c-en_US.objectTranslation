@@ -244,6 +244,10 @@ if( Service_Discount_Max__c &gt; RegPartServDisc__c ,3,0)
         <name>Quote_Discount__c</name>
     </fields>
     <fields>
+        <label><!-- Quote Name --></label>
+        <name>Quote_Name__c</name>
+    </fields>
+    <fields>
         <label><!-- Quote Valid Until --></label>
         <name>Quote_Valid_Until__c</name>
     </fields>
@@ -447,7 +451,7 @@ if( Service_Discount_Max__c &gt; RegPartServDisc__c ,3,0)
         <name>Cant_Show_Discounts_and_Hide_Prices</name>
     </validationRules>
     <validationRules>
-        <errorMessage><!-- Prepared For doesn&apos;t belong to the Tier1 or, Tier 2 or Tier 3 account --></errorMessage>
+        <errorMessage><!-- This contact must belong to the highest tier partner account defined in the quote (Tier1,Tier2,Tier3). --></errorMessage>
         <name>Check_Prepared_For_belonging_to_account</name>
     </validationRules>
     <validationRules>

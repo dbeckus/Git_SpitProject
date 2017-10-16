@@ -55,10 +55,11 @@ public class POCRequestTriggerHandler implements ITriggerHandler {
                     {
                         setPOCRequests.add(newPOC);
                     }
-                    if(newPOC.POC_Type__c!= oldPOC.POC_Type__c)
-                    {
-                        requestIds.put(newPOC.Id,newPOC.POC_Type__c);
-                    }
+                    
+                }
+                if(newPOC.POC_Type__c!= oldPOC.POC_Type__c)
+                {
+                    requestIds.put(reqId,newPOC.POC_Type__c);
                 }
                 
             }
@@ -489,7 +490,7 @@ public class POCRequestTriggerHandler implements ITriggerHandler {
                 {
                     if((requestIds.get(recordId)=='EdgeConnect' && NonECProducts!=null && NonECProducts.size()>0 ) || (requestIds.get(recordId)=='WAN Op' && ECProducts!=null && ECProducts.size()>0 )) 
                     {
-                        setResult.add(requestIds.get(recordId));
+                        setResult.add(recordId);
                     }
                 } 
             }

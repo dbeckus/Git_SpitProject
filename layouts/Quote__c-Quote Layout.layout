@@ -82,6 +82,10 @@
                 <behavior>Readonly</behavior>
                 <field>Reseller_AccountId__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Quote_Name__c</field>
+            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>
