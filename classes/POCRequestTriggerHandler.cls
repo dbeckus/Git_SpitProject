@@ -6,6 +6,9 @@ public class POCRequestTriggerHandler implements ITriggerHandler {
     Set<Id> returnedPocs = new Set<Id>();
     Set<Id> datesChangedPocs = new Set<Id>();
     Set<Id> opportunityIds = new Set<Id>();
+    
+    Map<Id,List<AccountTeamMember>> managerMembers = null;
+    Map<Id,List<AccountTeamMember>> engineerMembers = null;
     public POCRequestTriggerHandler()
     {
         
@@ -18,22 +21,30 @@ public class POCRequestTriggerHandler implements ITriggerHandler {
     public void BeforeInsert(List<SObject> newItems) 
     {
         Set<Request__c> setPOCRequests= new Set<Request__c>();
+        managerMembers = new Map<Id,List<AccountTeamMember>>();
+        engineerMembers = new Map<Id,List<AccountTeamMember>>();
+        
         if(newItems!=null && newItems.size()>0)
         {
+            Set<Id> setPOCAssets= ValidateUnityOrchestrtatorCanBeAdded(newItems);
+            ClassifyAccountTeamMember((List<Request__c>)newItems, managerMembers, engineerMembers);
             for(Request__c newPOC:(List<Request__c>)newItems)
             {
                 if(newPOC.POC_Type__c=='EdgeConnect' && newPOC.Is_Unity_Cloud_Orchestrator__c)
-                    setPOCRequests.add(newPOC);
-                
-            }
-            
-            Set<Id> setPOCAssets= ValidateUnityOrchestrtatorCanBeAdded(setPOCRequests);
-            for(Request__c req: (List<Request__c>)newItems)
-            {
-                if(setPOCAssets!=null && setPOCAssets.size()>0 && setPOCAssets.contains(req.Id))
                 {
-                    req.addError('Unity Cloud Orchestrator cannot be requested as there is an existing active cloud orch asset or POC on this account.');
+                    if(setPOCAssets!=null && setPOCAssets.size()>0 && setPOCAssets.contains(newPOC.Id))
+                    {
+                        newPOC.addError('Unity Cloud Orchestrator cannot be requested as there is an existing active cloud orch asset or POC on this account.');
+                    }
                 }
+                
+                List<AccountTeamMember> lstManager=null;
+                lstManager=managerMembers.get(newPOC.Account_ID__c);
+                List<AccountTeamMember> lstSE=null;
+                lstSE=engineerMembers.get(newPOC.Account_ID__c);
+                CopyAccountTeamEmailToPOC(newPOC,lstManager,lstSE);
+                
+                
             }
         }
         
@@ -42,38 +53,41 @@ public class POCRequestTriggerHandler implements ITriggerHandler {
     {
         Map<Id,String> requestIds= new Map<Id,String>();
         Set<Request__c> setPOCRequests= new Set<Request__c>();
+        managerMembers = new Map<Id,List<AccountTeamMember>>();
+        engineerMembers = new Map<Id,List<AccountTeamMember>>();
         if(newItems!=null && newItems.size()>0)
         {
+            Set<Id> setPOCAssets= ValidateUnityOrchestrtatorCanBeAdded(newItems.values());
+            Set<Id> setPOC= CheckValidProductsAddedOnECPOCFlag((Map<Id, Request__c>)newItems,(Map<Id, Request__c>)oldItems);
+            ClassifyAccountTeamMember((List<Request__c>)newItems.values(), managerMembers, engineerMembers);
             for (Id reqId : newItems.keyset())
             {
                 Request__c newPOC=(Request__c)newItems.get(reqId);
                 Request__c oldPOC=(Request__c)oldItems.get(reqId);
                 if(newPOC.POC_Type__c=='EdgeConnect' && newPOC.Is_Unity_Cloud_Orchestrator__c && (oldPOC==null || (oldPOC!=null && oldPoc.Is_Unity_Cloud_Orchestrator__c!=newPOC.Is_Unity_Cloud_Orchestrator__c)))
                 {
-                    
                     if(newPOC.POC_Type__c=='EdgeConnect' && newPOC.Is_Unity_Cloud_Orchestrator__c && oldPoc.Is_Unity_Cloud_Orchestrator__c!=newPOC.Is_Unity_Cloud_Orchestrator__c)
                     {
-                        setPOCRequests.add(newPOC);
+                        if(setPOCAssets!=null && setPOCAssets.size()>0 && setPOCAssets.contains(newPOC.Id))
+                        {
+                            newPOC.addError('Unity Cloud Orchestrator cannot be requested as there is an existing active cloud orch asset or POC on this account.');
+                        }
                     }
                     
                 }
                 if(newPOC.POC_Type__c!= oldPOC.POC_Type__c)
                 {
-                    requestIds.put(reqId,newPOC.POC_Type__c);
+                    if(setPOC!=null && setPOC.size()>0 && setPOC.contains(newPOC.Id))
+                        newPOC.POC_Type__c.addError('EdgeConnect and Non-EdgeConnect products cannot be mixed.');
                 }
                 
-            }
-            
-            Set<Id> setPOC= CheckValidProductsAddedOnECPOCFlag(requestIds);
-            Set<Id> setPOCAssets= ValidateUnityOrchestrtatorCanBeAdded(setPOCRequests);
-            for(Request__c req: (List<Request__c>)newItems.values())
-            {
-                if(setPOCAssets!=null && setPOCAssets.size()>0 && setPOCAssets.contains(req.Id))
-                {
-                    req.addError('Unity Cloud Orchestrator cannot be requested as there is an existing active cloud orch asset or POC on this account.');
-                }
-                if(setPOC!=null && setPOC.size()>0 && setPOC.contains(req.Id))
-                    req.POC_Type__c.addError('EdgeConnect and Non-EdgeConnect products cannot be mixed.');
+                List<AccountTeamMember> lstManager=null;
+                lstManager=managerMembers.get(newPOC.Account_ID__c);
+                List<AccountTeamMember> lstSE=null;
+                lstSE=engineerMembers.get(newPOC.Account_ID__c);
+                CopyAccountTeamEmailToPOC(newPOC,lstManager,lstSE);
+                
+                
             }
         }
     }
@@ -195,7 +209,33 @@ public class POCRequestTriggerHandler implements ITriggerHandler {
             UpdatePocStatusToOpportunity();
         }
     }
-    
+    private void CopyAccountTeamEmailToPOC(Request__c newPOC, List<AccountTeamMember> acctManager, List<AccountTeamMember> seManager )
+    {
+        newPOC.Account_Manager_Email_1__c=null;
+        newPOC.Account_Manager_Email_2__c=null;
+        newPOC.System_Engineer_Email_1__c=null;
+        newPOC.System_Engineer_Email_2__c=null;
+        if(acctManager!=null && acctManager.size()>0 )
+        {
+            
+            newPOC.Account_Manager_Email_1__c=acctManager[0].User.Email;
+            if(acctManager.size()>1)
+            {
+                newPOC.Account_Manager_Email_2__c=acctManager[1].User.Email;
+            }
+        }
+        
+        
+        if(seManager!=null && seManager.size()>0 )
+        {
+            newPOC.System_Engineer_Email_1__c =seManager[0].User.Email;
+            if(seManager.size()>1)
+            {
+                newPOC.System_Engineer_Email_2__c =seManager[1].User.Email;
+            }
+        }
+        
+    }
     private void UpdatePocStatusToOpportunity()
     {
         if(opportunityIds.size() > 0)
@@ -372,7 +412,7 @@ public class POCRequestTriggerHandler implements ITriggerHandler {
             update lstPOCToUpdate;
         }
     }
-    private Set<Id> ValidateUnityOrchestrtatorCanBeAdded (Set<Request__c> setPOCRequests)
+    private Set<Id> ValidateUnityOrchestrtatorCanBeAdded (List<Request__c> setPOCRequests)
     {
         Set<Id> setResult= new Set<Id>();
         for(Request__c req: setPOCRequests)
@@ -386,114 +426,111 @@ public class POCRequestTriggerHandler implements ITriggerHandler {
         }
         return setResult;
     }
-    private Set<Id> CheckValidProductsAddedOnECPOCFlag(Map<Id,string> requestIds)
+    private Set<Id> CheckValidProductsAddedOnECPOCFlag(Map<Id,Request__c> lstNewPOC,Map<Id,Request__c> lstoldPOC)
     {
         Set<string> ECProducts= new Set<string>();
         Set<string> NonECProducts= new Set<string>();
         Set<Id> setResult= new Set<Id>();
-        for(Id recordId: requestIds.keyset())
+        for(Id pocId: lstNewPOC.keySet())
         {
-            List<Request__c> requestData =[Select Id,POC_Type__c,VirtualProduct1__c,VirtualProduct2__c,VirtualProduct3__c,VirtualProduct4__c,VirtualProduct5__c,
-                                           PhysicalProduct1__c,PhysicalProduct2__c,PhysicalProduct3__c,PhysicalProduct4__c,PhysicalProduct5__c,Opportunity__r.Account.Partner_Type__c,Opportunity__r.Account.ECSP__c from Request__c where Id=:recordId ];
-            if(requestData!=null && requestData.size()>0 && requestData.size()==1)
-            {
-                Request__c currRequest=requestData[0];
-                if(currRequest.VirtualProduct1__c!=null && currRequest.VirtualProduct1__c.startsWith('EC-') )
-                { 
-                    ECProducts.add(currRequest.VirtualProduct1__c);
-                }
-                else if(currRequest.VirtualProduct1__c!=null && !currRequest.VirtualProduct1__c.startsWith('EC-') )
-                {
-                    NonECProducts.add(currRequest.VirtualProduct1__c); 
-                }
-                if(currRequest.VirtualProduct2__c!=null && currRequest.VirtualProduct2__c.startsWith('EC-') )
-                { 
-                    ECProducts.add(currRequest.VirtualProduct2__c);
-                }
-                else if(currRequest.VirtualProduct2__c!=null && !currRequest.VirtualProduct2__c.startsWith('EC-') )
-                {
-                    NonECProducts.add(currRequest.VirtualProduct2__c); 
-                }
-                
-                if(currRequest.VirtualProduct3__c!=null && currRequest.VirtualProduct3__c.startsWith('EC-') )
-                { 
-                    ECProducts.add(currRequest.VirtualProduct3__c);
-                }
-                else if(currRequest.VirtualProduct3__c!=null && !currRequest.VirtualProduct3__c.startsWith('EC-') )
-                {
-                    NonECProducts.add(currRequest.VirtualProduct3__c); 
-                }
-                
-                if(currRequest.VirtualProduct4__c!=null && currRequest.VirtualProduct4__c.startsWith('EC-') )
-                { 
-                    ECProducts.add(currRequest.VirtualProduct4__c);
-                }
-                else if(currRequest.VirtualProduct4__c!=null && !currRequest.VirtualProduct4__c.startsWith('EC-') )
-                {
-                    NonECProducts.add(currRequest.VirtualProduct4__c); 
-                }
-                
-                if(currRequest.VirtualProduct5__c!=null && currRequest.VirtualProduct5__c.startsWith('EC-') )
-                { 
-                    ECProducts.add(currRequest.VirtualProduct5__c);
-                }
-                else if(currRequest.VirtualProduct5__c!=null && !currRequest.VirtualProduct5__c.startsWith('EC-') )
-                {
-                    NonECProducts.add(currRequest.VirtualProduct5__c); 
-                }
-                
-                // Add the Physical Products
-                if(currRequest.PhysicalProduct1__c!=null && currRequest.PhysicalProduct1__c.startsWith('EC-') )
-                { 
-                    ECProducts.add(currRequest.PhysicalProduct1__c);
-                }
-                else if(currRequest.PhysicalProduct1__c!=null && !currRequest.PhysicalProduct1__c.startsWith('EC-') )
-                {
-                    NonECProducts.add(currRequest.PhysicalProduct1__c); 
-                }
-                if(currRequest.PhysicalProduct2__c!=null && currRequest.PhysicalProduct2__c.startsWith('EC-') )
-                { 
-                    ECProducts.add(currRequest.PhysicalProduct2__c);
-                }
-                else if(currRequest.PhysicalProduct2__c!=null && !currRequest.PhysicalProduct2__c.startsWith('EC-') )
-                {
-                    NonECProducts.add(currRequest.PhysicalProduct2__c); 
-                }
-                
-                if(currRequest.PhysicalProduct3__c!=null && currRequest.PhysicalProduct3__c.startsWith('EC-') )
-                { 
-                    ECProducts.add(currRequest.PhysicalProduct3__c);
-                }
-                else if(currRequest.PhysicalProduct3__c!=null && !currRequest.PhysicalProduct3__c.startsWith('EC-') )
-                {
-                    NonECProducts.add(currRequest.PhysicalProduct3__c); 
-                }
-                
-                if(currRequest.PhysicalProduct4__c!=null && currRequest.PhysicalProduct4__c.startsWith('EC-') )
-                { 
-                    ECProducts.add(currRequest.PhysicalProduct4__c);
-                }
-                else if(currRequest.PhysicalProduct4__c!=null && !currRequest.PhysicalProduct4__c.startsWith('EC-') )
-                {
-                    NonECProducts.add(currRequest.PhysicalProduct4__c); 
-                }
-                
-                if(currRequest.PhysicalProduct5__c!=null && currRequest.PhysicalProduct5__c.startsWith('EC-') )
-                { 
-                    ECProducts.add(currRequest.PhysicalProduct5__c);
-                }
-                else if(currRequest.PhysicalProduct5__c!=null && !currRequest.PhysicalProduct5__c.startsWith('EC-') )
-                {
-                    NonECProducts.add(currRequest.PhysicalProduct5__c); 
-                }
-                if(!currRequest.Opportunity__r.Account.ECSP__c)
-                {
-                    if((requestIds.get(recordId)=='EdgeConnect' && NonECProducts!=null && NonECProducts.size()>0 ) || (requestIds.get(recordId)=='WAN Op' && ECProducts!=null && ECProducts.size()>0 )) 
-                    {
-                        setResult.add(recordId);
-                    }
-                } 
+            Request__c currRequest=lstNewPOC.get(pocId);
+            Request__c oldRequest=lstoldPOC.get(pocId);
+            if(oldRequest.VirtualProduct1__c!=null && oldRequest.VirtualProduct1__c.startsWith('EC-') )
+            { 
+                ECProducts.add(oldRequest.VirtualProduct1__c);
             }
+            else if(oldRequest.VirtualProduct1__c!=null && !oldRequest.VirtualProduct1__c.startsWith('EC-') )
+            {
+                NonECProducts.add(oldRequest.VirtualProduct1__c); 
+            }
+            if(oldRequest.VirtualProduct2__c!=null && oldRequest.VirtualProduct2__c.startsWith('EC-') )
+            { 
+                ECProducts.add(oldRequest.VirtualProduct2__c);
+            }
+            else if(oldRequest.VirtualProduct2__c!=null && !oldRequest.VirtualProduct2__c.startsWith('EC-') )
+            {
+                NonECProducts.add(oldRequest.VirtualProduct2__c); 
+            }
+            
+            if(oldRequest.VirtualProduct3__c!=null && oldRequest.VirtualProduct3__c.startsWith('EC-') )
+            { 
+                ECProducts.add(oldRequest.VirtualProduct3__c);
+            }
+            else if(oldRequest.VirtualProduct3__c!=null && !oldRequest.VirtualProduct3__c.startsWith('EC-') )
+            {
+                NonECProducts.add(oldRequest.VirtualProduct3__c); 
+            }
+            
+            if(oldRequest.VirtualProduct4__c!=null && oldRequest.VirtualProduct4__c.startsWith('EC-') )
+            { 
+                ECProducts.add(oldRequest.VirtualProduct4__c);
+            }
+            else if(oldRequest.VirtualProduct4__c!=null && !oldRequest.VirtualProduct4__c.startsWith('EC-') )
+            {
+                NonECProducts.add(oldRequest.VirtualProduct4__c); 
+            }
+            
+            if(oldRequest.VirtualProduct5__c!=null && oldRequest.VirtualProduct5__c.startsWith('EC-') )
+            { 
+                ECProducts.add(oldRequest.VirtualProduct5__c);
+            }
+            else if(oldRequest.VirtualProduct5__c!=null && !oldRequest.VirtualProduct5__c.startsWith('EC-') )
+            {
+                NonECProducts.add(oldRequest.VirtualProduct5__c); 
+            }
+            
+            // Add the Physical Products
+            if(oldRequest.PhysicalProduct1__c!=null && oldRequest.PhysicalProduct1__c.startsWith('EC-') )
+            { 
+                ECProducts.add(oldRequest.PhysicalProduct1__c);
+            }
+            else if(oldRequest.PhysicalProduct1__c!=null && !oldRequest.PhysicalProduct1__c.startsWith('EC-') )
+            {
+                NonECProducts.add(oldRequest.PhysicalProduct1__c); 
+            }
+            if(oldRequest.PhysicalProduct2__c!=null && oldRequest.PhysicalProduct2__c.startsWith('EC-') )
+            { 
+                ECProducts.add(oldRequest.PhysicalProduct2__c);
+            }
+            else if(oldRequest.PhysicalProduct2__c!=null && !oldRequest.PhysicalProduct2__c.startsWith('EC-') )
+            {
+                NonECProducts.add(oldRequest.PhysicalProduct2__c); 
+            }
+            
+            if(oldRequest.PhysicalProduct3__c!=null && oldRequest.PhysicalProduct3__c.startsWith('EC-') )
+            { 
+                ECProducts.add(oldRequest.PhysicalProduct3__c);
+            }
+            else if(oldRequest.PhysicalProduct3__c!=null && !oldRequest.PhysicalProduct3__c.startsWith('EC-') )
+            {
+                NonECProducts.add(oldRequest.PhysicalProduct3__c); 
+            }
+            
+            if(oldRequest.PhysicalProduct4__c!=null && oldRequest.PhysicalProduct4__c.startsWith('EC-') )
+            { 
+                ECProducts.add(oldRequest.PhysicalProduct4__c);
+            }
+            else if(oldRequest.PhysicalProduct4__c!=null && !oldRequest.PhysicalProduct4__c.startsWith('EC-') )
+            {
+                NonECProducts.add(oldRequest.PhysicalProduct4__c); 
+            }
+            
+            if(oldRequest.PhysicalProduct5__c!=null && oldRequest.PhysicalProduct5__c.startsWith('EC-') )
+            { 
+                ECProducts.add(oldRequest.PhysicalProduct5__c);
+            }
+            else if(oldRequest.PhysicalProduct5__c!=null && !oldRequest.PhysicalProduct5__c.startsWith('EC-') )
+            {
+                NonECProducts.add(oldRequest.PhysicalProduct5__c); 
+            }
+            if(!currRequest.Opportunity__r.Account.ECSP__c)
+            {
+                if((currRequest.POC_Type__c=='EdgeConnect' && NonECProducts!=null && NonECProducts.size()>0 ) || (currRequest.POC_Type__c=='WAN Op' && ECProducts!=null && ECProducts.size()>0 )) 
+                {
+                    setResult.add(currRequest.Id);
+                }
+            } 
+            
         }
         return setResult;
     }
@@ -643,6 +680,35 @@ request.addError(ex.getMessage());
 }*/
         }
     }
+    private void ClassifyAccountTeamMember(List<Request__c> lstReq, Map<Id,List<AccountTeamMember>> managerTM, Map<Id,List<AccountTeamMember>> engineerTM )
+    {
+        Set<Id> accIds= new Set<Id>();
+        
+        for(Request__c req: lstReq)
+        {
+            accIds.add(req.Account_ID__c);
+        }
+        List<AccountTeamMember> lstData= [SELECT Id, AccountId, User.Email, TeamMemberRole FROM AccountTeamMember WHERE AccountId in :accIds AND (TeamMemberRole = 'Account Manager' OR TeamMemberRole = 'Systems Engineer')];
+        for(Id acctId: accIds)
+        {
+            List<AccountTeamMember> lstManager=new List<AccountTeamMember>();
+            List<AccountTeamMember> lstSE=new List<AccountTeamMember>();
+            for(AccountTeamMember member : lstData)
+            {
+                if(member.TeamMemberRole == 'Account Manager' && member.AccountId== acctId)
+                {
+                    lstManager.add(member);            
+                }
+                else if(member.TeamMemberRole == 'Systems Engineer' && member.AccountId== acctId)
+                {          
+                    lstSE.add(member);
+                }
+            }
+            managerTM.put(acctId,lstManager);
+            engineerTM.put(acctId,lstSE);
+        }
+        
+    }  
     private void PopulatePOCApprovers(Map<Id,Id> mapReqId)
     {
         Map<Id,Opportunity> mapOppId= new Map<Id,Opportunity>(); 
@@ -687,4 +753,6 @@ request.addError(ex.getMessage());
         }
         
     }
+    
+    
 }

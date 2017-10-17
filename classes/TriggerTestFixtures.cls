@@ -760,7 +760,7 @@ System.assertEquals(0, rvaccount2.Won_Amount__c);
     }
     
     @isTest
-    static void testCopyAccountTeamEmailOnPOCAndRMA()
+    static void testCopyAccountTeamEmailOnRMA()
     {
         Account account = new Account(Name='acme');
         Account account2 = new Account(Name='acme2');        
@@ -771,22 +771,14 @@ System.assertEquals(0, rvaccount2.Won_Amount__c);
             AccountTeamMember member = new AccountTeamMember(AccountId = account.Id, UserId = UserInfo.getUserId(), TeamMemberRole = 'Account Manager');        
         AccountTeamMember member2 = new AccountTeamMember(AccountId = account2.Id, UserId = UserInfo.getUserId(), TeamMemberRole = 'Systems Engineer');
         insert new AccountTeamMember[]{ member, member2 };                      
-            Request__c request = new Request__c(Opportunity__c = opp.Id);
-        Request__c request2 = new Request__c(Opportunity__c = opp2.Id);        
-        insert new Request__c[]{ request, request2 };
         RMA__c rma = new RMA__c(Account__c = account.Id);
         RMA__c rma2 = new RMA__c(Account__c = account2.Id);        
-        insert new RMA__c[]{ rma, rma2 };
-            
-        system.assertEquals(Userinfo.getUserEmail(), [SELECT Account_Manager_Email_1__c, System_Engineer_Email_1__c FROM Request__c WHERE id = :request.Id][0].Account_Manager_Email_1__c);
-        system.assertEquals(Userinfo.getUserEmail(), [SELECT Account_Manager_Email_1__c, System_Engineer_Email_1__c FROM Request__c WHERE id = :request2.Id][0].System_Engineer_Email_1__c);
+        insert new RMA__c[]{ rma, rma2 };       
         system.assertEquals(Userinfo.getUserEmail(), [SELECT Account_Manager_Email_1__c, System_Engineer_Email_1__c FROM RMA__c WHERE id = :rma.Id][0].Account_Manager_Email_1__c);
         system.assertEquals(Userinfo.getUserEmail(), [SELECT Account_Manager_Email_1__c, System_Engineer_Email_1__c FROM RMA__c WHERE id = :rma2.Id][0].System_Engineer_Email_1__c);        
         member.TeamMemberRole = 'Systems Engineer';
         update member;        
-        update request;
         update rma;
-        system.assertEquals(Userinfo.getUserEmail(), [SELECT Account_Manager_Email_1__c, System_Engineer_Email_1__c FROM Request__c WHERE id = :request.Id][0].System_Engineer_Email_1__c);
         system.assertEquals(Userinfo.getUserEmail(), [SELECT Account_Manager_Email_1__c, System_Engineer_Email_1__c FROM RMA__c WHERE id = :rma.Id][0].System_Engineer_Email_1__c);
     }
     

@@ -31,7 +31,7 @@ global class QuoteExtension
             {
                 quote.Primary__c = (quote.Id == quoteId) ? true : false;
                 if(quote.Primary__c)
-                    resultOpp= new Opportunity(Id=quote.Opportunity__c,Primary_Partner__c=quote.Reseller_AccountId__c,Tier1_Partner__c=quote.Tier_1_Partner__c,Tier2_Partner__c=quote.Tier_2_Partner__c,Tier3_Partner__c=quote.Tier_3_Partner__c);
+                    resultOpp= new Opportunity(Id=opportunityId,Primary_Partner__c=quote.Reseller_AccountId__c,Tier1_Partner__c=quote.Tier_1_Partner__c,Tier2_Partner__c=quote.Tier_2_Partner__c,Tier3_Partner__c=quote.Tier_3_Partner__c);
             }
             try
             {

@@ -123,7 +123,7 @@
                 <emptySpace>true</emptySpace>
             </layoutItems>
             <layoutItems>
-                <behavior>Edit</behavior>
+                <behavior>Readonly</behavior>
                 <field>Discount_Justification__c</field>
             </layoutItems>
         </layoutColumns>

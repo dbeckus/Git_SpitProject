@@ -80,5 +80,5 @@ trigger CopyAccountTeamEmailToPOC on Request__c (before update, before insert)
                 engineerTM.add(member);
             }
         }    
-    }                
+    }
 }

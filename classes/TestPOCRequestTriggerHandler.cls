@@ -1,5 +1,29 @@
 @IsTest
 public class TestPOCRequestTriggerHandler {
+     @isTest
+    static void testCopyAccountTeamEmailOnPOC()
+    {
+        Account account = new Account(Name='acme');
+        Account account2 = new Account(Name='acme2');        
+        insert new Account[] { account, account2};
+            Opportunity opp = new Opportunity(Name = 'acme', AccountId = account.Id, StageName = 'Discovery', CloseDate = system.today(), Amount = 100,Product_Type__c='Both');
+        Opportunity opp2 = new Opportunity(Name = 'acme2', AccountId = account2.Id, StageName = 'Discovery', CloseDate = system.today(), Amount = 100,Product_Type__c='Both');        
+        insert new Opportunity[] { opp, opp2 };        
+            AccountTeamMember member = new AccountTeamMember(AccountId = account.Id, UserId = UserInfo.getUserId(), TeamMemberRole = 'Account Manager');        
+        AccountTeamMember member2 = new AccountTeamMember(AccountId = account2.Id, UserId = UserInfo.getUserId(), TeamMemberRole = 'Systems Engineer');
+        insert new AccountTeamMember[]{ member, member2 };                      
+            Request__c request = new Request__c(Opportunity__c = opp.Id);
+        Request__c request2 = new Request__c(Opportunity__c = opp2.Id);        
+        insert new Request__c[]{ request, request2 };
+        system.assertEquals(Userinfo.getUserEmail(), [SELECT Account_Manager_Email_1__c, System_Engineer_Email_1__c FROM Request__c WHERE id = :request.Id][0].Account_Manager_Email_1__c);
+        system.assertEquals(Userinfo.getUserEmail(), [SELECT Account_Manager_Email_1__c, System_Engineer_Email_1__c FROM Request__c WHERE id = :request2.Id][0].System_Engineer_Email_1__c);
+        member.TeamMemberRole = 'Systems Engineer';
+        update member;        
+        update request;
+       
+        system.assertEquals(Userinfo.getUserEmail(), [SELECT Account_Manager_Email_1__c, System_Engineer_Email_1__c FROM Request__c WHERE id = :request.Id][0].System_Engineer_Email_1__c);
+        
+    }
     @isTest
     public  static void testUpdatePocStatusToOpportunity_Open ()
     {

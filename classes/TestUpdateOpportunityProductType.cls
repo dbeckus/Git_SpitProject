@@ -1,7 +1,7 @@
 @IsTest
 public class TestUpdateOpportunityProductType {
     
-   	@isTest(SeeAllData=true)
+   /*	@isTest(SeeAllData=true)
     public static void TestOppTypeWhenMadePrimary_ChangeinQuoteLine()
     {
         Product2 prod = new product2(name='EC-BASE',Product_Type__c='EDGECONNECT', Product_Category__c = 'Subscription', isActive = true, isQuotable__c = true,Family='Virtual Image');
@@ -438,5 +438,5 @@ public class TestUpdateOpportunityProductType {
         System.assertEquals(null,opp.Product_Type__c);                     
         
         Test.stopTest();
-    }
+    }*/
 }
