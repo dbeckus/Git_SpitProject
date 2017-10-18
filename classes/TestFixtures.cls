@@ -43,20 +43,26 @@ public class TestFixtures {
 
 	static testMethod void triggerTest()
 	{
+        
 		Opportunity opportunity = new Opportunity(name = 'test opp', OwnerId = userInfo.getUserId(), StageName = 'Discovery', CloseDate = Date.Today(),Product_Type__c='Both');
 		insert opportunity;
+       
 		List<request__c> requests = new List<request__c>();
 		for(Integer i = 0; i < 10; i++)
 		{
 			Request__c request = new Request__c(Opportunity__c = opportunity.Id);
 			requests.add(request);
 		}
+         Test.startTest();
 		insert requests;
+       
 		request__c tmprequest = [select Opportunity_Owner__c from Request__c where Id = : requests[5].Id];
+        Test.stopTest();
 		System.assertEquals(userInfo.getName(), tmprequest.Opportunity_Owner__c);
 		System.debug(tmprequest.Opportunity_Owner__c);
 		delete requests;
 		delete opportunity; 
+       
 	} 
 
 	static testMethod void testTriggerTroubleshootAidOnCase()

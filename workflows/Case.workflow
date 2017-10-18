@@ -947,6 +947,15 @@
         <protected>false</protected>
     </fieldUpdates>
     <fieldUpdates>
+        <fullName>Update_Case_CC_10_Email</fullName>
+        <field>CC10__c</field>
+        <formula>Contact.Account.Customer_CC_Email__c</formula>
+        <name>Update Case CC 10 Email</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+    </fieldUpdates>
+    <fieldUpdates>
         <fullName>Update_Case_Field</fullName>
         <field>UpdatedBy__c</field>
         <name>Update Case Field</name>
@@ -1750,6 +1759,34 @@ Allow_RMA__c
             <operation>equals</operation>
             <value>Owner</value>
         </criteriaItems>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>Update AccountID on Case</fullName>
+        <active>false</active>
+        <criteriaItems>
+            <field>Case.CaseNumber</field>
+            <operation>notEqual</operation>
+        </criteriaItems>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>Update Case CC Email</fullName>
+        <actions>
+            <name>Update_Case_CC_10_Email</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <formula>AND(
+OR(
+ISBLANK( CC10__c ),
+ISCHANGED( ContactId )
+),
+NOT(ISBLANK( Contact.AccountId ))
+
+
+
+)</formula>
         <triggerType>onAllChanges</triggerType>
     </rules>
     <rules>

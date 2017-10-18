@@ -1,5 +1,5 @@
 public class SPQuoteTriggerHandler implements ITriggerHandler {
-    
+    Map<Id,ID> mapQuoteOpp= null;
     public SPQuoteTriggerHandler()
     {
         
@@ -11,10 +11,9 @@ public class SPQuoteTriggerHandler implements ITriggerHandler {
     }
     public void BeforeInsert(List<SObject> newItems) 
     {
-        
+       
         if(newItems!=null && newItems.size()>0)
         {
-            
         }
         
     }
@@ -32,14 +31,26 @@ public class SPQuoteTriggerHandler implements ITriggerHandler {
     }
     public void AfterInsert(Map<Id, SObject> newItems) 
     {
+         mapQuoteOpp= new Map<Id,Id>();
         if(newItems!=null && newItems.size()>0)
         {
+            for(Id quoteId:newItems.keyset())
+            {
+                Quote__c quoteInfo=(Quote__c)newItems.get(quoteId);
+                if(quoteInfo.Primary__c && quoteInfo.Opportunity__c!=null)
+                {
+                    mapQuoteOpp.put(quoteInfo.Id,quoteInfo.Opportunity__c);
+                }
+            }
+            
+            CheckPrimaryFlag();
         }
     }
     public void AfterUpdate(Map<Id, SObject> newItems, Map<Id, SObject> oldItems) 
     {     
         List<Quote__c> lstPrimaryQuotes= new List<Quote__c>();
         List<Quote__c> lstNotPrimaryQuotes= new List<Quote__c>();
+        mapQuoteOpp= new Map<Id,Id>();
         if(newItems!=null && newItems.size()>0)
         {
             for (Id quoteId : newItems.keyset())
@@ -52,7 +63,8 @@ public class SPQuoteTriggerHandler implements ITriggerHandler {
                     if(newQuote.Primary__c)
                     {
                         lstPrimaryQuotes.add(newQuote);
-                        
+                        if(newQuote.Opportunity__c!=null)
+                            mapQuoteOpp.put(newQuote.Id,newQuote.Opportunity__c);                        
                     }
                     else
                     {
@@ -72,6 +84,7 @@ public class SPQuoteTriggerHandler implements ITriggerHandler {
                 }
                 
             }
+            CheckPrimaryFlag();
             SetProductType(lstPrimaryQuotes,lstNotPrimaryQuotes);
         }
         
@@ -83,6 +96,29 @@ public class SPQuoteTriggerHandler implements ITriggerHandler {
     public void AfterUndelete(Map<Id, SObject> newItems) 
     {
         
+    }
+    
+    private void CheckPrimaryFlag()
+    {
+        if(mapQuoteOpp!=null && mapQuoteOpp.size()>0)
+        {
+            List<Quote__c> existingPrimaryQuotes = [Select Id from Quote__c where Opportunity__c in :mapQuoteOpp.values() and Id not in:mapQuoteOpp.keySet() and Primary__c=true];
+            if(existingPrimaryQuotes!=null && existingPrimaryQuotes.size()>0)
+            {
+                for(Quote__c existingPrimaryQuote : existingPrimaryQuotes)
+                {
+                    existingPrimaryQuote.Primary__c = false;
+                }
+                try
+                {
+                    update existingPrimaryQuotes;
+                }
+                catch(Exception ex)
+                {
+                    Trigger.new[0].addError(ex.getMessage());
+                }
+            }
+        }
     }
     private void SetProductType(List<Quote__c> lstPrimaryQuotes, List<Quote__c> lstNotPrimaryQuotes)
     {

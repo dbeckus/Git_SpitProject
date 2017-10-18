@@ -1,7 +1,7 @@
 @IsTest
 public class TestSetAccountNameFromCaseContact {
     
-    @IsTest
+    /*@IsTest
     public static void UpdateAccountOnInsert()
     {
         Account acc = new Account(Name='Test Account1');
@@ -38,6 +38,6 @@ public class TestSetAccountNameFromCaseContact {
         Case caseoutput1 =[Select AccountId from Case where Id=:caseInfo.Id];
         System.assertEquals(acc3.id, caseoutput1.AccountId);
     }
-    
+    */
     
 }
