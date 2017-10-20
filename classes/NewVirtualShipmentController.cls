@@ -60,10 +60,10 @@ public with sharing class NewVirtualShipmentController
             Map<Id,String> ecProdIds= new Map<Id,String>();
             try
             {
-                List<Product2> productList=[Select Id,Name from Product2 where Name like 'EC%' and Family='Virtual Image' and Product2.Product_Type__c ='EDGECONNECT' ];
+                List<Product2> productList=[Select Id,SteelBrick_Category__c from Product2 where Name like 'EC%' and Family='Virtual Image' and Product2.Product_Type__c ='EDGECONNECT' ];
                 for(Product2 prod : productList)
                 {
-                    ecProdIds.put(prod.Id,prod.Name);
+                    ecProdIds.put(prod.Id,prod.SteelBrick_Category__c);
                 }
             }
             catch(Exception ex)
@@ -74,25 +74,7 @@ public with sharing class NewVirtualShipmentController
             return ecProdIds;            
         }
     }
-    private Map<Id,String> SPProductIds {
-        get{
-            Map<Id,String> spProdIds= new Map<Id,String>();
-            try
-            {
-                List<Product2> productList=[Select Id,Name from Product2 where Name like 'EC%' and Family='Virtual Image' and Product2.Product_Type__c in('EC-SP-Perpetual','EC-SP-Term') ];
-                for(Product2 prod : productList)
-                {
-                    spProdIds.put(prod.Id,prod.Name);
-                }
-            }
-            catch(Exception ex)
-            {
-                ApexPages.addMessages(ex);
-                return null;
-            }
-            return spProdIds;            
-        }
-    }
+  
     public List<Product2> ProductsList
     {
         get
@@ -185,7 +167,7 @@ public with sharing class NewVirtualShipmentController
             
             // If the Product selected is in the lstExistingECAssets, then we dont have to create a new asset. Simply add it to the existing assets.
             // for an Add o
-            string updatedECProductName=ExcludeYearFromProduct(ECProductIds.get(virtualAsset.Asset.Product2Id));
+            string updatedECProductName=ECProductIds.get(virtualAsset.Asset.Product2Id);
             //string tobeUpdatedECProductName=lstExistingECAssets.c(virtualAsset.Asset.Product2Id);
             if(lstExistingECAssets!=null && lstExistingECAssets.containsKey(updatedECProductName))
             {
@@ -226,7 +208,7 @@ public with sharing class NewVirtualShipmentController
                 if(ECProductIds!=null && ECProductIds.size()>0 && ECProductIds.containsKey(virtualAsset.Asset.Product2Id))
                 {
                     virtualAsset.Asset.Status='Customer Subscription Active';
-                    virtualAsset.Asset.EC_Product_Name__c=ExcludeYearFromProduct(ECProductIds.get(virtualAsset.Asset.Product2Id));
+                    virtualAsset.Asset.EC_Product_Name__c=ECProductIds.get(virtualAsset.Asset.Product2Id);
                 }
                 //If the EC Orchestrator is selected, then hardcode the GMS Nodes to 10000
                 if(ECProductIds!=null && ECProductIds.size()>0 && ECProductIds.containsKey(virtualAsset.Asset.Product2Id) &&  ECProductIds.get(virtualAsset.Asset.Product2Id) =='EC-ORCH' )
@@ -473,47 +455,16 @@ public with sharing class NewVirtualShipmentController
         {
             assetIds.Add(shippedLineItem.Asset__c);
         } 
-        List<Asset> lstAssets= [Select Id,Product2Id,Product2.Name,Quantity,Bandwidth_Nodes__c,Licenses_Nodes__c,Status from Asset where Id in :assetIds and status='Customer Subscription Active' and Product2Id in :productIds];
+        List<Asset> lstAssets= [Select Id,Product2Id,Product2.Name,Product2.SteelBrick_Category__c,Quantity,Bandwidth_Nodes__c,Licenses_Nodes__c,Status from Asset where Id in :assetIds and status='Customer Subscription Active' and Product2Id in :productIds];
         for(Asset assetItem :lstAssets)
         {
-            mapAssetItems.put(ExcludeYearFromProduct(assetItem.Product2.Name), assetItem);
+            mapAssetItems.put(assetItem.Product2.SteelBrick_Category__c, assetItem);
         }
         // }
         
         return mapAssetItems;
     }
-    
-    public static string ExcludeYearFromProduct(string inputData)
-    {
-        if(inputData!=null)
-        {
-            integer idx= inputData.lastIndexOf('-');
-            string text=inputData.substring(idx+1,inputData.length());
-            if(GetYearsFromString(text)>0)
-                return inputData.substring(0,idx);
-            else
-                return inputData;
-        }  
         
-        return '';
-    }
-    
-    public static integer GetYearsFromString(string inputData)
-    {
-        integer outputNumber=0;
-        
-        Pattern p = Pattern.compile('(\\d+)Y');
-        Matcher pm = p.matcher( inputData );
-        
-        if(pm!=null && pm.matches() ){
-            if(pm.groupCount()>0)
-            {
-                outputNumber =integer.valueOf(pm.group(1));
-            }
-        }
-        return outputNumber;
-    }
-    
     public PageReference cancel()
     {
         PageReference pageResult = new PageReference('/' + PO.Id);

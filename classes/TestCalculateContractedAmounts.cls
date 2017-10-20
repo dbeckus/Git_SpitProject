@@ -11,9 +11,9 @@ public class TestCalculateContractedAmounts {
         insert spAccount;
         Opportunity testOpp = new Opportunity(Name='acme', CloseDate=Date.today(), StageName='Open', ForecastCategoryName ='Pipeline',Finance_Reviewed__c=true);
         insert testOpp;
-        Product2 testsfProduct = new Product2(Name='EC-BASE-3Y', Forecast_Category__c = 'Virtual',Term__c=3, Family='Virtual Image', IsActive=true,Product_Type__c='EDGECONNECT',isQuotable__c=true,TCV_Enabled__c=true,ACV_Enabled__c=true,NTCV_Enabled__c=true,Total_Comp_Rate_Enabled__c=true,Comp_Rate1_Enabled__c=true,Comp_Rate2_Enabled__c=true);
+        Product2 testsfProduct = new Product2(Name='EC-BASE-3Y',Forecast_Category__c = 'Virtual',SteelBrick_Category__c='EC-BASE',Term__c=3, Family='Virtual Image', IsActive=true,Product_Type__c='EDGECONNECT',isQuotable__c=true,TCV_Enabled__c=true,ACV_Enabled__c=true,NTCV_Enabled__c=true,Total_Comp_Rate_Enabled__c=true,Comp_Rate1_Enabled__c=true,Comp_Rate2_Enabled__c=true);
         insert testsfProduct;
-        Product2 testhdProduct = new Product2(Name='EC-L-SP', Forecast_Category__c = 'Product',Term__c=3, Family='Product', IsActive=true,Product_Type__c='EDGECONNECT',isQuotable__c=true,Total_Comp_Rate_Enabled__c=false,Comp_Rate1_Enabled__c=false,Comp_Rate2_Enabled__c=false,TCV_Enabled__c=false,ACV_Enabled__c=false,NTCV_Enabled__c=false);
+        Product2 testhdProduct = new Product2(Name='EC-L-SP',SteelBrick_Category__c='EC-HARDWARE', Forecast_Category__c = 'Product',Term__c=3, Family='Product', IsActive=true,Product_Type__c='EDGECONNECT',isQuotable__c=true,Total_Comp_Rate_Enabled__c=false,Comp_Rate1_Enabled__c=false,Comp_Rate2_Enabled__c=false,TCV_Enabled__c=false,ACV_Enabled__c=false,NTCV_Enabled__c=false);
         insert testhdProduct;
         Contact testContact = new Contact(LastName='acme', AccountId=testAccount.Id);
         insert testContact;
@@ -52,9 +52,9 @@ public class TestCalculateContractedAmounts {
         insert spAccount;
         Opportunity testOpp = new Opportunity(Name='acme', CloseDate=Date.today(), StageName='Open', ForecastCategoryName ='Pipeline',Finance_Reviewed__c=true);
         insert testOpp;
-        Product2 testsfProduct = new Product2(Name='WANSTART EC 10 HRS BUNDLED', Forecast_Category__c = 'Virtual',Term__c=3, Family='Service', IsActive=true,Product_Type__c='EDGECONNECT',isQuotable__c=true,TCV_Enabled__c=true,ACV_Enabled__c=false,NTCV_Enabled__c=true,Total_Comp_Rate_Enabled__c=true,Comp_Rate1_Enabled__c=false,Comp_Rate2_Enabled__c=true);
+        Product2 testsfProduct = new Product2(Name='WANSTART EC 10 HRS BUNDLED',SteelBrick_Category__c='EC-HARDWARE', Forecast_Category__c = 'Virtual',Term__c=3, Family='Service', IsActive=true,Product_Type__c='EDGECONNECT',isQuotable__c=true,TCV_Enabled__c=true,ACV_Enabled__c=false,NTCV_Enabled__c=true,Total_Comp_Rate_Enabled__c=true,Comp_Rate1_Enabled__c=false,Comp_Rate2_Enabled__c=true);
         insert testsfProduct;
-        Product2 testhdProduct = new Product2(Name='EC-L-SP', Forecast_Category__c = 'Product',Term__c=3, Family='Product', IsActive=true,Product_Type__c='EDGECONNECT',isQuotable__c=true,TCV_Enabled__c=false,ACV_Enabled__c=false,NTCV_Enabled__c=false,Total_Comp_Rate_Enabled__c=false,Comp_Rate1_Enabled__c=false,Comp_Rate2_Enabled__c=false);
+        Product2 testhdProduct = new Product2(Name='EC-L-SP', SteelBrick_Category__c='EC-HARDWARE',Forecast_Category__c = 'Product',Term__c=3, Family='Product', IsActive=true,Product_Type__c='EDGECONNECT',isQuotable__c=true,TCV_Enabled__c=false,ACV_Enabled__c=false,NTCV_Enabled__c=false,Total_Comp_Rate_Enabled__c=false,Comp_Rate1_Enabled__c=false,Comp_Rate2_Enabled__c=false);
         insert testhdProduct;
         Contact testContact = new Contact(LastName='acme', AccountId=testAccount.Id);
         insert testContact;
@@ -93,9 +93,9 @@ public class TestCalculateContractedAmounts {
         insert spAccount;
         Opportunity testOpp = new Opportunity(Name='acme', CloseDate=Date.today(), StageName='Open', ForecastCategoryName ='Pipeline',Finance_Reviewed__c=true);
         insert testOpp;
-        Product2 testsfProduct = new Product2(Name='VX-3000', Forecast_Category__c = 'Virtual',Term__c=3, Family='Virtual Image', IsActive=true,Product_Type__c='NX/VX',isQuotable__c=true,TCV_Enabled__c=true,ACV_Enabled__c=true,NTCV_Enabled__c=true,Total_Comp_Rate_Enabled__c=true,Comp_Rate1_Enabled__c=true,Comp_Rate2_Enabled__c=true);
+        Product2 testsfProduct = new Product2(Name='VX-3000', SteelBrick_Category__c='NX/VX',Forecast_Category__c = 'Virtual',Term__c=3, Family='Virtual Image', IsActive=true,Product_Type__c='NX/VX',isQuotable__c=true,TCV_Enabled__c=true,ACV_Enabled__c=true,NTCV_Enabled__c=true,Total_Comp_Rate_Enabled__c=true,Comp_Rate1_Enabled__c=true,Comp_Rate2_Enabled__c=true);
         insert testsfProduct;
-        Product2 testhdProduct = new Product2(Name='NX-5000', Forecast_Category__c = 'Product', Family='Product', IsActive=true,Product_Type__c='NX/VX',isQuotable__c=true,TCV_Enabled__c=true,ACV_Enabled__c=true,NTCV_Enabled__c=true,Total_Comp_Rate_Enabled__c=true,Comp_Rate1_Enabled__c=true,Comp_Rate2_Enabled__c=true);
+        Product2 testhdProduct = new Product2(Name='NX-5000', SteelBrick_Category__c='NX/VX',Forecast_Category__c = 'Product', Family='Product', IsActive=true,Product_Type__c='NX/VX',isQuotable__c=true,TCV_Enabled__c=true,ACV_Enabled__c=true,NTCV_Enabled__c=true,Total_Comp_Rate_Enabled__c=true,Comp_Rate1_Enabled__c=true,Comp_Rate2_Enabled__c=true);
         insert testhdProduct;
         Contact testContact = new Contact(LastName='acme', AccountId=testAccount.Id);
         insert testContact;

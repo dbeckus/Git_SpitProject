@@ -10,7 +10,7 @@ public class ShippingInputFormController
     {
         Shipment = new Shipment__c();
         ShippedLineList = new List<ShipLineInfo>();
-        string accountId = ApexPages.currentPage().getParameters().get('accountId');
+        String accountId = ApexPages.currentPage().getParameters().get('accountId');
         String pocId = ApexPages.currentPage().getParameters().get('pocId');
         String poId = ApexPages.currentPage().getParameters().get('poId');
         String currentUrl = ApexPages.currentPage().getUrl().toLowerCase();
@@ -115,6 +115,7 @@ public class ShippingInputFormController
         {
             for(ShipLineInfo lineInfo : ShippedLineList)
             {
+                System.debug('lineInfo.PartNumber'+lineInfo.PartNumber);
                 if(lineInfo.SelectProductId == null && !lineInfo.AssetIsExisted)
                 {    
                     hasNullProd  = true;
@@ -150,9 +151,6 @@ public class ShippingInputFormController
                 {
                     updateRMAExchange(Shipment.To_Be_Swapped_Asset__c, ShippedLineList[0].AssetId, Shipment.PurchaseOrderNumber__c, Shipment.Email__c, Shipment.Secondary_Email__c, Shipment.Third_Email__c);
                 }
-                //Create Contracts
-                //CreateContractsForSmartHands(ShippedLineList,Shipment.Shipment_Account__c);
-                System.debug('ShippedLineList' +ShippedLineList);
                 return new PageReference('/' + Shipment.Id);
             }
             catch(Exception ex)
@@ -163,77 +161,7 @@ public class ShippingInputFormController
         }
         return null;
     }
-    private static void CreateContractsForSmartHands(List<ShipLineInfo> lstShipLineInfo,Id accId)
-    {
-        List<ContractInfo>lstContractInfo=new List<ContractInfo>();
-        Map<string,List<Id>> mapContract=new Map<string,List<Id>>();
-        Map<string,Contract> mapContractInsert=new Map<string,Contract>();
-        List<Contract> lstContractToInsert= new List<Contract>();
-        if(lstShipLineInfo!=null && lstShipLineInfo.size()>0)
-        {
-            for(ShipLineInfo obj :lstShipLineInfo)
-            {
-                ContractInfo con= new ContractInfo();
-                Asset tempAsset= obj.TempAsset;
-                con.Region=tempAsset.SH_Region__c;
-                con.StartDate=tempAsset.SH_Start_Date__c;
-                con.EndDate= tempAsset.SH_End_Date__c;
-                con.AssetId=obj.AssetId;
-                con.SmartHandsKey=con.Region+','+con.StartDate+','+con.EndDate+','+accId;
-                lstContractInfo.add(con);
-                if(!mapContract.containsKey(con.SmartHandsKey))
-                {
-                    mapContract.put(con.SmartHandsKey,null);
-                    mapContractInsert.put(con.SmartHandsKey,null);
-                }
-            }
-        }
-       
-        if(mapContract.size()>0)
-        {
-            for(string item:mapContract.keySet())
-            {
-                System.debug(item);
-                string[] splitData= item.split(',');
-                
-                Contract conToInsert= new Contract();
-                conToInsert.AccountId=splitData[3];
-                conToInsert.StartDate= Date.valueOf(splitData[1]);
-                conToInsert.EndDate=Date.valueOf(splitData[2]);
-                conToInsert.Smart_Hands_Region__c=splitData[0];
-                conToInsert.Contract_Type__c='Smart Hands';
-                conToInsert.Status='Draft';
-                lstContractToInsert.add(conToInsert);
-                mapContractInsert.put(item,conToInsert);
-                List<Id> assetIds= new List<Id>();
-                for(ContractInfo conItem:lstContractInfo)
-                {
-                    if(item==conItem.SmartHandsKey)
-                    {
-                        assetIds.add(conItem.AssetId);
-                    }
-                }
-                if(assetIds.size()>0)
-                {
-                    mapContract.put(item,assetIds);
-                }
-            }
-        }
-       
-        if(mapContract.size()>0)
-        {
-            insert lstContractToInsert;
-            for(Contract con:lstContractToInsert)
-            {   
-            }
-            // Create Contracts and assign assetIds to Contracts
-            // Create Contracts
-            // Activate contract
-            // Assign asset to contract
-            // 
-            
-        }
-    }
+    
     @RemoteAction
     public static List<String> getAssetPartNumber(String productId)
     {
@@ -291,15 +219,15 @@ public class ShippingInputFormController
         }    
         List<ShipLineInfo> ShipLineInfoLists = new List<ShipLineInfo>();
         List<Asset> exitingAssets = [select Id, Product2.ProductCode, Product2.Name, Product2Id, SerialNumber, Ship_Date__c, Status, GMS_Nodes__c, Evaluation_Start_Date__c,
-                                     Evaluation_End_Date__c, Warranty_Start_Date__c, Warranty_End_Date__c, Part_Number__c,Contract_Number__r.StartDate,Contract_Number__r.EndDate,SH_Region__c,SH_Start_Date__c,SH_End_Date__c from Asset
+                                     Evaluation_End_Date__c, Warranty_Start_Date__c, Warranty_End_Date__c, Part_Number__c,Contract_Number__r.StartDate,Contract_Number__r.EndDate from Asset
                                      where SerialNumber in : removedDashesSno];
         for(Asset aset : exitingAssets)
         {
             exitingSNSet.add(aset.SerialNumber);
             shipInfo= new ShipLineInfo();
             shipInfo.AssetId = aset.Id;
-            shipInfo.SelectProductId = aset.Product2.Id;
             shipInfo.TempAsset.GMS_Nodes__c = aset.GMS_Nodes__c;
+            shipInfo.SelectProductId = aset.Product2Id;
             shipInfo.PostShipmentStatus = aset.Status;
             shipInfo.PriorStatus = aset.Status;
             shipInfo.TempAsset.Ship_Date__c = Shipment.Ship_Date__c;
@@ -309,7 +237,7 @@ public class ShippingInputFormController
             shipInfo.AssetIsExisted = true;
             shipInfo.TempAsset.Product2Id = aset.Product2Id;
             shipInfo.SendTrackingInfo = true;
-            shipInfo.ShipmentEmail = '';   
+            shipInfo.ShipmentEmail = '';     
             ShipLineInfoLists.add(shipInfo);                                 
         }
         removedDashesSno.removeAll(exitingSNSet);
@@ -329,10 +257,7 @@ public class ShippingInputFormController
                 shipInfo.ProductId = null; 
                 shipInfo.SelectProductId = null;
                 shipInfo.SendTrackingInfo = true;
-                shipInfo.ShipmentEmail = '';      
-                shipInfo.TempAsset.SH_Start_Date__c = null;
-                shipInfo.TempAsset.SH_Region__c = null;
-                shipInfo.TempAsset.SH_End_Date__c = null;
+                shipInfo.ShipmentEmail = '';                  
                 ShipLineInfoLists.add(shipInfo);
             }
         } 
@@ -419,9 +344,6 @@ public class ShippingInputFormController
         List<Asset> allAssetList = new List<Asset>();
         for(ShipLineInfo shippingItem : shippingItems)
         {
-            System.debug('shippingItem.TempAsset.SH_Region__c'+ shippingItem.TempAsset.SH_Region__c);
-            System.debug('shippingItem.TempAsset.SH_Start_Date__c'+ shippingItem.TempAsset.SH_Start_Date__c);
-            System.debug('shippingItem.TempAsset.SH_End_Date__c'+ shippingItem.TempAsset.SH_End_Date__c);
             Shipped_Line__c shipLine = new Shipped_Line__c();
             shipLine.GMS_Nodes__c = shippingItem.TempAsset.GMS_Nodes__c;
             shipLine.Post_Shipment_Status__c = shippingItem.TempAsset.Status;
@@ -453,13 +375,11 @@ public class ShippingInputFormController
                 createdAssetIds.add(shippingItem.AssetId);
             }
         }
-        
         List<Asset> gmsAssets = [select Id, ContactId, GMS_Nodes__c, Model__c, SerialNumber from Asset where Id in :createdAssetIds and (Product2.Model__c='GX-V' Or Product2.Product_Category__c = 'GMS')];
         if(gmsAssets.size() > 0)
         {
             VirtualAssetManager.encryptlicenses(generateLicenses(gmsAssets));
         }
-        System.debug('result'+result);
         return result;                 
     }
     
@@ -484,7 +404,6 @@ public class ShippingInputFormController
         {
             result.add(license.Id);
         }
-        
         return result;
     }
     
@@ -501,9 +420,12 @@ public class ShippingInputFormController
             aset.Status = ShipInfo.TempAsset.Status;
             aset.Ship_Date__c = ShipInfo.TempAsset.Ship_Date__c;
             aset.SerialNumber = ShipInfo.SerialNumber;
-            aset.Product2Id = ShipInfo.TempAsset.Product2Id;
+            if(ShipInfo.PartNumber!=null)
+                aset.Part_Number__c=ShipInfo.PartNumber;
+            aset.Product2Id = ShipInfo.AssetIsExisted?ShipInfo.SelectProductId:ShipInfo.TempAsset.Product2Id;
             aset.Ship_To_Location__c = ShipToLocation+ '  ( Tracking Information:: ' + Shipment.Tracking_Information__c + ')';
             aset.Description = Comments;
+            aset.Customer_Notes__c='';
         }
         else
         {
@@ -544,14 +466,7 @@ public class ShippingInputFormController
         }
         return options;
     }
-     public List<SelectOption> getRegionList()
-    {
-        List<SelectOption> options = new List<SelectOption>();
-        options.add(new SelectOption('None', 'None'));
-        options.add(new SelectOption('ROW', 'ROW'));
-        options.add(new SelectOption('US', 'US'));
-        return options;
-    }
+    
     public List<SelectOption> getPartNumberList()
     {
         List<SelectOption> result = new List<SelectOption>();
@@ -596,14 +511,5 @@ public class ShippingInputFormController
         public String SelectProductId {get;set;}
         public String ShipmentEmail {get; set;}
         public Boolean SendTrackingInfo {get; set;}
-        public string SmartHandsKey{get;set;}
-    }
-    public class ContractInfo
-    {
-         public string SmartHandsKey{get;set;}
-         public string Region{get;set;}
-         public Date StartDate{get;set;}
-         public Date EndDate{get;set;}
-        public Id AssetId{get;set;}
     }
 }

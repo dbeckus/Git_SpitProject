@@ -64,7 +64,7 @@ public class NewVirtualShipmentTest
         insert spAccount;
         Opportunity testOpp = new Opportunity(Name='acme', CloseDate=Date.today(), StageName='Open', ForecastCategoryName ='Pipeline', AccountId=testAccount.Id);
         insert testOpp;
-        Product2 testProduct = new Product2(Name='EC-ORCH',Model__c='EC-ORCH',Product_Category__c='GMS', Forecast_Category__c = 'Virtual', Family='Virtual Image', IsActive=true,Product_Type__c='EDGECONNECT');
+        Product2 testProduct = new Product2(Name='EC-ORCH',Model__c='EC-ORCH',Product_Category__c='GMS',SteelBrick_Category__c='EC-ORCH', Forecast_Category__c = 'Virtual', Family='Virtual Image', IsActive=true,Product_Type__c='EDGECONNECT');
         insert testProduct;
          System.debug('testProduct'+testProduct.Id);
         Contact testContact = new Contact(LastName='acme', AccountId=testAccount.Id);

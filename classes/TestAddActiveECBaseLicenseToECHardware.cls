@@ -1,6 +1,6 @@
 @IsTest
 public class TestAddActiveECBaseLicenseToECHardware {
-    public static void AddHardwareECLicenseAfterEcSoftware()
+   /* public static void AddHardwareECLicenseAfterEcSoftware()
     {
         Account testAccount = new Account(Name='acme',EC_Customer_Date__c=Date.today());
         insert testAccount;
@@ -152,6 +152,6 @@ public class TestAddActiveECBaseLicenseToECHardware {
         
     }
     
-  
+  */
   
 }

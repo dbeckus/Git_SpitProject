@@ -81,6 +81,10 @@
         <relationshipLabel><!-- RMA Items --></relationshipLabel>
     </fields>
     <fields>
+        <label><!-- Product Category --></label>
+        <name>Product_Category__c</name>
+    </fields>
+    <fields>
         <label><!-- Replacement Part # --></label>
         <name>Product_Code__c</name>
     </fields>

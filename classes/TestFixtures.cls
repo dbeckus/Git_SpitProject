@@ -65,7 +65,7 @@ public class TestFixtures {
        
 	} 
 
-	static testMethod void testTriggerTroubleshootAidOnCase()
+	static void testTriggerTroubleshootAidOnCase()
 	{		
 		Troubleshoot_Aids__c troubleshootAid = new Troubleshoot_Aids__c(
 			Field_Linked__c = 'DoesNotExist',

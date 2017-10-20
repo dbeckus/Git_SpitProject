@@ -4,6 +4,7 @@
     <script>
     function loadAssetsPN(productId, index)
     {
+        
         ShippingInputFormController.getAssetPartNumber(productId, function(result, event) {
             if(event.status == true)
             {
@@ -130,7 +131,7 @@
             </table>
             <apex:pageBlockSection columns="1" id="listSection">
                 <apex:variable var="index" value="{!0}" />
-                <apex:pageBlockTable value="{!ShippedLineList}"  var="ShipLine" id="lineItemTable" rendered="{!ShippedLineList.size>0}">
+                <apex:pageBlockTable value="{!ShippedLineList}" var="ShipLine" id="lineItemTable" rendered="{!ShippedLineList.size>0}">
                     <apex:column headerValue="Existing" style="text-align:center">
                         <apex:image value="/img/checkbox_unchecked.gif" rendered="{!NOT(ShipLine.AssetIsExisted)}" alt="False" />
                         <apex:image value="/img/checkbox_checked.gif" rendered="{!ShipLine.AssetIsExisted}" alt="False" />
@@ -157,7 +158,6 @@
                             <apex:selectOptions value="{!ProductList}"/>
                         </apex:selectList>
                         <!--<apex:outputText value="{!ShipLine.ProductCode}" rendered="{!ShipLine.AssetIsExisted}"/>-->
-                         
                     </apex:column>
                     <apex:column id="PartNumberCol" headerValue="Part Number">
                         <!-- <apex:facet name="header">
@@ -166,32 +166,10 @@ Part Number&nbsp;<img src="/s.gif" alt="Expand" class="moreArrow" title="Expand"
                         <!--<apex:selectList size="1" value="{!ShipLine.PartNumber}" id="PartNumber" rendered="{!NOT(ShipLine.AssetIsExisted)}">
 <apex:selectOptions value="{!PartNumberList}" />
 </apex:selectList>-->
-                        
-                        <select  id="PartNumberList{!FLOOR(index)}" onchange="setAssetPN({!FLOOR(index)}, this.value)"></select>
+                        <select id="PartNumberList{!FLOOR(index)}" onchange="setAssetPN({!FLOOR(index)}, this.value)"></select>
                         <apex:inputHidden value="{!ShipLine.PartNumber}" id="PartNumber"/>
                         <!--<apex:outputText rendered="{!ShipLine.AssetIsExisted}">{!ShipLine.PartNumber}</apex:outputText>-->
-                    </apex:column>
-                   	<apex:column id="SHRegion" headerValue="Smart Hands Region">
-                        <apex:facet name="header">
-                            Region&nbsp;<img src="/s.gif" alt="Expand" class="moreArrow" title="Expand"  style="cursor:pointer"/>
-                        </apex:facet>
-                        <apex:selectList id="region" size="1" value="{!ShipLine.TempAsset.SH_Region__c}">
-                            <apex:selectOptions value="{!RegionList}"/>
-                        </apex:selectList>
-                        <apex:outputText value="{!ShipLine.TempAsset.SH_Region__c}" rendered="{!ShipLine.AssetIsExisted}"/>
-                    </apex:column>
-                    <apex:column id="SHStartDateCol">		
-                        <apex:facet name="header">		
-                            Smart Hands Start Date <img src="/s.gif" alt="Expand" class="moreArrow" title="Expand" onclick="showDatePopup('SupportStartDate')" style="cursor:pointer"/>		
-                        </apex:facet>		
-                        <apex:inputField id="servicestartDate" value="{!ShipLine.TempAsset.SH_Start_Date__c}" />		
-                    </apex:column>		
-                    <apex:column id="SHEndDateCol">		
-                        <apex:facet name="header">		
-                            Smart Hands End Date <img src="/s.gif" alt="Expand" class="moreArrow" title="Expand" onclick="showDatePopup('SupportEndDate')" style="cursor:pointer"/>		
-                        </apex:facet>		
-                        <apex:inputField id="serviceendDate" value="{!ShipLine.TempAsset.SH_End_Date__c}" />		
-                        <apex:variable var="index" value="{!index + 1}" />		
+                        <apex:variable var="index" value="{!index + 1}" />
                     </apex:column>
                 </apex:pageBlockTable>
             </apex:pageBlockSection> 

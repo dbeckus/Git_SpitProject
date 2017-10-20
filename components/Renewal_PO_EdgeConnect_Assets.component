@@ -13,6 +13,6 @@
 
 </apex:repeat>    
  <br/>
-<apex:outputText rendered="{!!IsEdgeConnectReduction}" value="New term effective Date:"></apex:outputText><b> <apex:outputText rendered="{!!IsEdgeConnectReduction}" value="{0, date, MMMM d','  yyyy}"><apex:param value="{!startvalue}" /> </apex:outputText> </b> <br/>
-New term expiration Date:<b> <apex:outputText value="{0, date, MMMM d','  yyyy}"><apex:param value="{!termvalue}" /> </apex:outputText> </b> 
+<apex:outputText rendered="{!!IsEdgeConnectReduction}" value="Your new term will start on:"></apex:outputText><b> <apex:outputText rendered="{!!IsEdgeConnectReduction}" value="{0, date, MMMM d','  yyyy}"><apex:param value="{!startvalue}" /> </apex:outputText> </b> <br/>
+Your term will now expire on:<b> <apex:outputText value="{0, date, MMMM d','  yyyy}"><apex:param value="{!termvalue}" /> </apex:outputText> </b> 
 </apex:component>
