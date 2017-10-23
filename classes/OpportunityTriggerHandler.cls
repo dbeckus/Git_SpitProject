@@ -2,8 +2,7 @@ public class OpportunityTriggerHandler implements ITriggerHandler {
     private List<Period> lstPeriod=null;
     public OpportunityTriggerHandler()
     {
-        if(lstPeriod==null)
-            lstPeriod =[Select Type, StartDate, EndDate, QuarterLabel, PeriodLabel, Number, FiscalYearSettings.Name From Period  where Type ='Quarter' order by StartDate];
+      
     }
     
     public Boolean IsDisabled()
@@ -152,7 +151,7 @@ public class OpportunityTriggerHandler implements ITriggerHandler {
             ShareOppToRegisteredPartner(oppsNeedSharing,oppIdsNeedSharing);
             LinkOpportunityToPatch(oppNeedsPatchAssign, oppNeedsTeamAssign);
             ResetPrimaryCampaignSource(lstOpps);
-            SetContactRole(newItems.keyset());
+            //SetContactRole(newItems.keyset());
         }
     }
     public void AfterUpdate(Map<Id, SObject> newItems, Map<Id, SObject> oldItems) 
@@ -217,7 +216,7 @@ public class OpportunityTriggerHandler implements ITriggerHandler {
             ShareOppToRegisteredPartner(oppsNeedSharing,oppIdsNeedSharing);
             LinkOpportunityToPatch(oppNeedsPatchAssign, oppNeedsTeamAssign);
             CalculateFirstCustomerDate(setAccIds);
-            SetContactRole(newItems.keyset());
+            //SetContactRole(newItems.keyset());
             CreateWANStartCase(wanStartOpps);
             SycnOpportunityToQuoteHandler.sycnOpportunityDateToQuoteDateOnUpdate((Map<Id,Opportunity>)oldItems,(Map<Id,Opportunity>)newItems);
         }
@@ -312,11 +311,12 @@ public class OpportunityTriggerHandler implements ITriggerHandler {
     
     private  string RetrieveQuarterName(Date closeDate)
     {
+        lstPeriod =[Select Type, StartDate, EndDate, QuarterLabel, PeriodLabel, Number, FiscalYearSettings.Name From Period  where Type ='Quarter' order by StartDate];
         if(lstPeriod!=null && lstPeriod.size()>0)
         {
             for(Period item: lstPeriod)
             {
-               
+                
                 if(item.StartDate<=closeDate && closeDate<=item.EndDate)
                 {
                     return item.FiscalYearSettings.Name + 'Q' + item.Number;

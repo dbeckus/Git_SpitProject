@@ -204,6 +204,10 @@
                 <behavior>Readonly</behavior>
                 <field>Created_By_Profile_Name__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Industry__c</field>
+            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>

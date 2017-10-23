@@ -2,6 +2,7 @@
 <Workflow xmlns="http://soap.sforce.com/2006/04/metadata">
     <alerts>
         <fullName>Closed_Won_Less_Than_100_K_Email_Template</fullName>
+        <ccEmails>prane@silver-peak.com</ccEmails>
         <description>Closed Won Less Than 100 K Email Template</description>
         <protected>false</protected>
         <recipients>
@@ -17,10 +18,11 @@
             <type>user</type>
         </recipients>
         <senderType>CurrentUser</senderType>
-        <template>Sales/Opportunity_Won_New</template>
+        <template>Sales/LatestLess_Than_100_k_Opportunity</template>
     </alerts>
     <alerts>
         <fullName>Closed_Won_New_and_FO</fullName>
+        <ccEmails>prane@silver-peak.com</ccEmails>
         <description>Closed Won New and FO</description>
         <protected>false</protected>
         <recipients>
@@ -37,7 +39,7 @@
         </recipients>
         <senderAddress>silverpeakinfo@silver-peak.com</senderAddress>
         <senderType>OrgWideEmailAddress</senderType>
-        <template>Sales/Greater_Than_100_k_Opportunity_Won_New</template>
+        <template>Sales/LatestGreater_Than_100_k_Opportunity</template>
     </alerts>
     <alerts>
         <fullName>Commit_Changed</fullName>
