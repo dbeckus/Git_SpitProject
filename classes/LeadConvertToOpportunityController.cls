@@ -31,7 +31,7 @@ public with sharing class LeadConvertToOpportunityController
         Contact = new Contact();
         Contact.OwnerId = lead.OwnerId;
         LeadConvertedStatus = 'Converted into Existing Opportunity';        
-        OCR = new OpportunityContactRole(ContactId = contact.Id);
+        OCR = new OpportunityContactRole(ContactId = contact.Id, Role='');
     }
 
     public List<SelectOption> ContactOptions

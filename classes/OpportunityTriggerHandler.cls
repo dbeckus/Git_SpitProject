@@ -350,7 +350,7 @@ public class OpportunityTriggerHandler implements ITriggerHandler {
             PatchRuleHelper.assignTeamMembers(new List<Id>(setTeamAssign));
         }
     }
-    private void SetContactRole(Set<Id> oppIds)
+   /* private void SetContactRole(Set<Id> oppIds)
     {
         List<OpportunityContactRole>lstContactRole= new List<OpportunityContactRole>();
         List<OpportunityContactRole> oppCR = [select id, role from OpportunityContactRole where 
@@ -369,7 +369,7 @@ public class OpportunityTriggerHandler implements ITriggerHandler {
         {
             update lstContactRole;
         }
-    }
+    }*/
     private Set<Id> CheckIfAssetsCreatedForClosedOpp(List<Asset> lstAssets)
     {
         Set<Id> setOppIds= new Set<Id>();

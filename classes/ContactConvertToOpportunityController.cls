@@ -29,7 +29,7 @@ public without sharing class ContactConvertToOpportunityController
         Opportunity.AccountId = contact.AccountId;
         Opportunity.OwnerId = contact.Account.OwnerId;
         Opportunity.Name = contact.Account.Name;
-        OCR = new OpportunityContactRole(ContactId = contact.Id);
+        OCR = new OpportunityContactRole(ContactId = contact.Id,Role='');
     }
 
     public List<SelectOption> OpportunityOptions

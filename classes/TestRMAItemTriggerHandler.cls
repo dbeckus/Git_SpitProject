@@ -7,7 +7,7 @@ public class TestRMAItemTriggerHandler {
             new Product2(Name='acme1', ProductCode='pcode1'),
                 new Product2(Name='acme2') };
                     insert prods;
-        Product2 prod = new Product2(Name='acme', ProductCode='pcode', RMA_Alternate_1__c=prods[0].Id, RMA_Alternate_2__c=prods[1].Id);
+        Product2 prod = new Product2(Name='acme', ProductCode='pcode', RMA_Alternate_1__c=prods[0].Id, RMA_Alternate_2__c=prods[1].Id,Product_Category__c='Appliance');
         insert prod;
         Account acc = new Account(Name='acme', Type='Eval');
         insert acc;
@@ -34,14 +34,14 @@ public class TestRMAItemTriggerHandler {
     {
         Account spAccount= new Account(Name='Silver Peak Systems');
         insert spAccount;
-        Product2 productA = new Product2(Name='A', ProductCode='A', IsActive=true);
-        Product2 productB = new Product2(Name='B', ProductCode='B', IsActive=true);
-        Product2 productC = new Product2(Name='C', ProductCode='C', IsActive=true);
-        Product2 productD = new Product2(Name='D', ProductCode='D', IsActive=true);
-        Product2 productE = new Product2(Name='E', ProductCode='E', IsActive=true);
-        Product2 productF = new Product2(Name='F', ProductCode='F', IsActive=true);
-        Product2 productG = new Product2(Name='G', ProductCode='G', IsActive=true);
-        Product2 productH = new Product2(Name='H', ProductCode='H', IsActive=true);
+        Product2 productA = new Product2(Name='A', ProductCode='A', IsActive=true,Product_Category__c='Appliance');
+        Product2 productB = new Product2(Name='B', ProductCode='B', IsActive=true,Product_Category__c='Appliance');
+        Product2 productC = new Product2(Name='C', ProductCode='C', IsActive=true,Product_Category__c='Appliance');
+        Product2 productD = new Product2(Name='D', ProductCode='D', IsActive=true,Product_Category__c='Appliance');
+        Product2 productE = new Product2(Name='E', ProductCode='E', IsActive=true,Product_Category__c='Appliance');
+        Product2 productF = new Product2(Name='F', ProductCode='F', IsActive=true,Product_Category__c='Appliance');
+        Product2 productG = new Product2(Name='G', ProductCode='G', IsActive=true,Product_Category__c='Appliance');
+        Product2 productH = new Product2(Name='H', ProductCode='H', IsActive=true,Product_Category__c='Appliance');
         List<Product2> products = new List<Product2> { productA, productB, productC, productD, productE, productF, productG, productH };
             insert products;
         //productA.ReplaceableHDD__c = productB.Id;
@@ -85,14 +85,14 @@ public class TestRMAItemTriggerHandler {
     {
         Account spAccount= new Account(Name='Silver Peak Systems');
         insert spAccount;
-        Product2 productA = new Product2(Name='A', ProductCode='A', IsActive=true);
-        Product2 productB = new Product2(Name='B', ProductCode='B', IsActive=true);
-        Product2 productC = new Product2(Name='C', ProductCode='C', IsActive=true);
-        Product2 productD = new Product2(Name='D', ProductCode='D', IsActive=true);
-        Product2 productE = new Product2(Name='E', ProductCode='E', IsActive=true);
-        Product2 productF = new Product2(Name='F', ProductCode='F', IsActive=true);
-        Product2 productG = new Product2(Name='G', ProductCode='G', IsActive=true);
-        Product2 productH = new Product2(Name='H', ProductCode='H', IsActive=true);
+        Product2 productA = new Product2(Name='A', ProductCode='A', IsActive=true,Product_Category__c='Appliance');
+        Product2 productB = new Product2(Name='B', ProductCode='B', IsActive=true,Product_Category__c='Appliance');
+        Product2 productC = new Product2(Name='C', ProductCode='C', IsActive=true,Product_Category__c='Appliance');
+        Product2 productD = new Product2(Name='D', ProductCode='D', IsActive=true,Product_Category__c='Appliance');
+        Product2 productE = new Product2(Name='E', ProductCode='E', IsActive=true,Product_Category__c='Appliance');
+        Product2 productF = new Product2(Name='F', ProductCode='F', IsActive=true,Product_Category__c='Appliance');
+        Product2 productG = new Product2(Name='G', ProductCode='G', IsActive=true,Product_Category__c='Appliance');
+        Product2 productH = new Product2(Name='H', ProductCode='H', IsActive=true,Product_Category__c='Appliance');
         List<Product2> products = new List<Product2> { productA, productB, productC, productD, productE, productF, productG, productH };
             insert products;
         //productA.ReplaceableHDD__c = productB.Id;
@@ -144,14 +144,14 @@ public class TestRMAItemTriggerHandler {
     {
         Account spAccount= new Account(Name='Silver Peak Systems');
         insert spAccount;
-        Product2 productA = new Product2(Name='A', ProductCode='A', IsActive=true);
-        Product2 productB = new Product2(Name='B', ProductCode='B', IsActive=true);
-        Product2 productC = new Product2(Name='C', ProductCode='C', IsActive=true);
-        Product2 productD = new Product2(Name='D', ProductCode='D', IsActive=true);
-        Product2 productE = new Product2(Name='E', ProductCode='E', IsActive=true);
-        Product2 productF = new Product2(Name='F', ProductCode='F', IsActive=true);
-        Product2 productG = new Product2(Name='G', ProductCode='G', IsActive=true);
-        Product2 productH = new Product2(Name='H', ProductCode='H', IsActive=true);
+        Product2 productA = new Product2(Name='A', ProductCode='A', IsActive=true,Product_Category__c='Appliance');
+        Product2 productB = new Product2(Name='B', ProductCode='B', IsActive=true,Product_Category__c='Appliance');
+        Product2 productC = new Product2(Name='C', ProductCode='C', IsActive=true,Product_Category__c='Appliance');
+        Product2 productD = new Product2(Name='D', ProductCode='D', IsActive=true,Product_Category__c='Appliance');
+        Product2 productE = new Product2(Name='E', ProductCode='E', IsActive=true,Product_Category__c='Appliance');
+        Product2 productF = new Product2(Name='F', ProductCode='F', IsActive=true,Product_Category__c='Appliance');
+        Product2 productG = new Product2(Name='G', ProductCode='G', IsActive=true,Product_Category__c='Appliance');
+        Product2 productH = new Product2(Name='H', ProductCode='H', IsActive=true,Product_Category__c='Appliance');
         List<Product2> products = new List<Product2> { productA, productB, productC, productD, productE, productF, productG, productH };
             insert products;
         //productA.ReplaceableHDD__c = productB.Id;

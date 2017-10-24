@@ -1,7 +1,8 @@
 <apex:page standardController="Contact" extensions="ContactConvertToOpportunityController" tabStyle="Opportunity">
     <apex:sectionHeader title="New Opportunity" subtitle="{!Contact.Name}" />
-    <apex:pageMessages />
+    
     <apex:form >
+        <apex:pageMessages />
         <apex:pageBlock mode="edit">
             <apex:pageBlockButtons >
                 <apex:commandButton value=" Save " action="{!ConvertToNewOpportunity}" />
@@ -23,7 +24,17 @@
                 <apex:inputField value="{!Opportunity.Deal_Type__c}" required="true" />
                 <apex:pageBlockSectionItem >
                     <apex:outputLabel value="Contact Role" for="contactRole" />
-                    <apex:inputField value="{!OCR.Role}" id="contactRole" required="true"/>
+                    <apex:outputPanel styleClass="requiredInput" layout="block">
+    				<apex:outputPanel styleClass="requiredBlock" layout="block"/>
+                        <apex:selectList value="{!OCR.Role}" size="1" required="true" multiselect="false">
+                            <apex:selectOption />
+                            <apex:selectOption itemLabel="Decision Maker" itemValue="Decision Maker" />
+                            <apex:selectOption itemLabel="Evaluator" itemValue="Evaluator" />
+                            <apex:selectOption itemLabel="Executive Sponsor" itemValue="Executive Sponsor" />
+                            <apex:selectOption itemLabel="Influencer" itemValue="Influencer" />
+                            <apex:selectOption itemLabel="Technical Buyer" itemValue="Technical Buyer" />
+                        </apex:selectList>
+                    </apex:outputPanel>
                 </apex:pageBlockSectionItem>
                 
             </apex:pageBlockSection>

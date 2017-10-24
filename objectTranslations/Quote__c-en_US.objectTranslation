@@ -455,12 +455,20 @@ if( Service_Discount_Max__c &gt; RegPartServDisc__c ,3,0)
         <name>Check_Prepared_For_belonging_to_account</name>
     </validationRules>
     <validationRules>
+        <errorMessage><!-- Tier 2 Partner is required if, Tier1 partner&apos;s reseller agreement is not checked. --></errorMessage>
+        <name>Distributor_reqd_Tier1_rese_agg_blank</name>
+    </validationRules>
+    <validationRules>
         <errorMessage><!-- Please select right prepared for --></errorMessage>
         <name>Prepared_For_should_derive_from_Primary</name>
     </validationRules>
     <validationRules>
         <errorMessage><!-- You are not allowed to create quote on renewal opportunity. Please contact Finance or renewal specialist team. --></errorMessage>
         <name>Renew_Quotes_can_be_create_fr_spec_prof</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Special Instruction is required if Tier 2 or Tier 3 is not blank. --></errorMessage>
+        <name>Special_Instructions_reqd_after_Tier2</name>
     </validationRules>
     <validationRules>
         <errorMessage><!-- There is no pricebook for the specified opportunity. --></errorMessage>

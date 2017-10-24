@@ -1248,6 +1248,16 @@ Reseller_AccountId__c!= PreparedFor__r.AccountId
         <errorMessage>This contact must belong to the highest tier partner account defined in the quote (Tier1,Tier2,Tier3).</errorMessage>
     </validationRules>
     <validationRules>
+        <fullName>Distributor_reqd_Tier1_rese_agg_blank</fullName>
+        <active>true</active>
+        <errorConditionFormula>AND(
+ISBLANK(Tier_2_Partner__c ),
+Tier_1_Partner__r.Reseller_Agreement__c==False
+)</errorConditionFormula>
+        <errorDisplayField>Tier_2_Partner__c</errorDisplayField>
+        <errorMessage>Tier 2 Partner is required if, Tier1 partner&apos;s reseller agreement is not checked.</errorMessage>
+    </validationRules>
+    <validationRules>
         <fullName>Prepared_For_should_derive_from_Primary</fullName>
         <active>false</active>
         <errorConditionFormula>Opportunity__r.Primary_Partner__c != PreparedFor__r.AccountId</errorConditionFormula>
@@ -1268,6 +1278,19 @@ NOT($Profile.Name ==&quot;1.7- Renewal Specialist&quot; ),
 NOT($Profile.Name ==&quot;5-SP Contract Mgr&quot; )
 )</errorConditionFormula>
         <errorMessage>You are not allowed to create quote on renewal opportunity. Please contact Finance or renewal specialist team.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Special_Instructions_reqd_after_Tier2</fullName>
+        <active>true</active>
+        <errorConditionFormula>AND(
+ISBLANK(Special_Instructions__c ),
+OR(
+NOT(ISBLANK( Tier_2_Partner__c )),
+NOT(ISBLANK( Tier_3_Partner__c ))
+)
+)</errorConditionFormula>
+        <errorDisplayField>Special_Instructions__c</errorDisplayField>
+        <errorMessage>Special Instruction is required if Tier 2 or Tier 3 is not blank.</errorMessage>
     </validationRules>
     <validationRules>
         <fullName>check_Opportunity_Pricebook</fullName>

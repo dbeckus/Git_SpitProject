@@ -53,8 +53,6 @@ public class RMAItemTriggerHandler implements ITriggerHandler {
         {
             for(Id rmaItemId: newItems.keyset())
             {
-                RMA_Item__c newRMA= (RMA_Item__c)newItems.get(rmaItemId);
-                
             }
             
         }
@@ -71,7 +69,7 @@ public class RMAItemTriggerHandler implements ITriggerHandler {
                 RMA_Item__c oldRMAItem= (RMA_Item__c)oldItems.get(rmaItemId);
                 if(newRMAItem.Asset__c!=null && newRMAItem.Status__c!=oldRMAItem.Status__c && newRMAItem.Status__c=='Received' )
                 {
-                    if(newRMAItem.Product_Category__c =='Appliance' || newRMAItem.Product_Category__c =='GMS')
+                    if(newRMAItem.Product_Category__c!=null && (newRMAItem.Product_Category__c =='Appliance' || newRMAItem.Product_Category__c =='GMS'))
                     {
                         Asset asset= new Asset(Id=newRMAItem.Asset__c);
                         asset.ContactId = null;

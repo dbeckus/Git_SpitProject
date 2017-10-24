@@ -123,5 +123,7 @@
         })();
     </script>
     
-    <apex:detail showChatter="true" relatedList="true" inlineEdit="true"  /> 
+     <apex:detail showChatter="true" relatedList="true" inlineEdit="true"   /> 
+  
+   
 </apex:page>
