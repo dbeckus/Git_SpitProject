@@ -266,6 +266,45 @@ Product__r.Term__c&lt;=1
         <unique>false</unique>
     </fields>
     <fields>
+        <fullName>Primary_Partner_Registered_Disc_EC__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(NOT(ISBLANK( Quote__r.Tier_2_Partner__c )),Quote__r.Tier_2_Partner__r.Registered_Discount_EdgeConnect__c,Quote__r.Tier_1_Partner__r.Registered_Discount_EdgeConnect__c)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Primary Partner Registered Disc EC</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>Primary_Partner_Registered_Disc_NXVX__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(NOT(ISBLANK( Quote__r.Tier_2_Partner__c )),Quote__r.Tier_2_Partner__r.Registered_Discount_Product__c,Quote__r.Tier_1_Partner__r.Registered_Discount_Product__c)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Primary Partner Registered Disc NXVX</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>Primary_Partner_Registered_Disc_Service__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(NOT(ISBLANK( Quote__r.Tier_2_Partner__c )),Quote__r.Tier_2_Partner__r.Registered_Discount_Service__c,Quote__r.Tier_1_Partner__r.Registered_Discount_Service__c)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Primary Partner Registered Disc Service</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
         <fullName>ProdDisc__c</fullName>
         <externalId>false</externalId>
         <formula>if( contains(Prod_Category__c, &quot;Appliance&quot;),  Discount_Percent__c, 0)</formula>
@@ -383,7 +422,7 @@ Product__r.Term__c&lt;=1
         <fullName>Reseller_Discount__c</fullName>
         <externalId>false</externalId>
         <formula>IF(
-Include4ServiceDiscount__c==1,Quote__r.Opportunity__r.Primary_Partner__r.Registered_Discount_Service__c, 
+Include4ServiceDiscount__c==1,Primary_Partner_Registered_Disc_Service__c, 
 IF(
 AND(Include4ServiceDiscount__c==0,
 OR( 
@@ -391,12 +430,12 @@ ISPICKVAL(Product__r.Product_Type__c,&quot;EDGECONNECT&quot;),
 ISPICKVAL(Product__r.Product_Type__c,&quot;EC-SP-Perpetual&quot;), 
 ISPICKVAL(Product__r.Product_Type__c,&quot;EC-SP-Term&quot;) ,
 ISPICKVAL(Product__r.Product_Type__c,&quot;EC-SP-Metered&quot;) 
-)),Quote__r.Opportunity__r.Primary_Partner__r.Registered_Discount_EdgeConnect__c,
+)),Primary_Partner_Registered_Disc_EC__c,
 IF(
 AND(
 Include4ServiceDiscount__c==0,
 ISPICKVAL(Product__r.Product_Type__c,&quot;NX/VX&quot;)
-),Quote__r.Opportunity__r.Primary_Partner__r.Registered_Discount_Product__c,0
+),Primary_Partner_Registered_Disc_NXVX__c,0
 )
 )
 )</formula>

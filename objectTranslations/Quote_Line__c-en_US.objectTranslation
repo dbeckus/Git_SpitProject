@@ -65,6 +65,18 @@
         <name>MultiYearMaint__c</name>
     </fields>
     <fields>
+        <label><!-- Primary Partner Registered Disc EC --></label>
+        <name>Primary_Partner_Registered_Disc_EC__c</name>
+    </fields>
+    <fields>
+        <label><!-- Primary Partner Registered Disc NXVX --></label>
+        <name>Primary_Partner_Registered_Disc_NXVX__c</name>
+    </fields>
+    <fields>
+        <label><!-- Primary Partner Registered Disc Service --></label>
+        <name>Primary_Partner_Registered_Disc_Service__c</name>
+    </fields>
+    <fields>
         <label><!-- ProdDisc --></label>
         <name>ProdDisc__c</name>
     </fields>

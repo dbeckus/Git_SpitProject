@@ -1828,6 +1828,10 @@
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>TEstClassForTesting</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>TeamMemberCheck</apexClass>
         <enabled>false</enabled>
     </classAccesses>
@@ -5927,6 +5931,21 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Quote_Line__c.MultiYearMaint__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Quote_Line__c.Primary_Partner_Registered_Disc_EC__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Quote_Line__c.Primary_Partner_Registered_Disc_NXVX__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Quote_Line__c.Primary_Partner_Registered_Disc_Service__c</field>
         <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>

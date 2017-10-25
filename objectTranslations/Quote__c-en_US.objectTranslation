@@ -391,7 +391,7 @@ if( Service_Discount_Max__c &gt; RegPartServDisc__c ,3,0)
         <relationshipLabel><!-- Silver Peak Quotes (Tier 2 Partner) --></relationshipLabel>
     </fields>
     <fields>
-        <label><!-- Tier 3  Partner --></label>
+        <label><!-- Other Reseller --></label>
         <name>Tier_3_Partner__c</name>
         <relationshipLabel><!-- Silver Peak Quotes (Tier3  Partner) --></relationshipLabel>
     </fields>
@@ -474,6 +474,10 @@ if( Service_Discount_Max__c &gt; RegPartServDisc__c ,3,0)
         <errorMessage><!-- There is no pricebook for the specified opportunity. --></errorMessage>
         <name>check_Opportunity_Pricebook</name>
     </validationRules>
+    <webLinks>
+        <label><!-- Add_Edit_Products --></label>
+        <name>Add_Edit_Products</name>
+    </webLinks>
     <webLinks>
         <label><!-- CloneWithProducts --></label>
         <name>CloneWithProducts</name>

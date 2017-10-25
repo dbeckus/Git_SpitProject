@@ -1,8 +1,8 @@
 public class OpportunityTriggerHandler implements ITriggerHandler {
-    private List<Period> lstPeriod=null;
+    
     public OpportunityTriggerHandler()
     {
-      
+        
     }
     
     public Boolean IsDisabled()
@@ -88,7 +88,6 @@ public class OpportunityTriggerHandler implements ITriggerHandler {
                             newOpp.addError('This selected stage cannot be updated as it has active physical assets.');
                         }
                     }
-                   
                     if(newOpp.Has_Active_POCs__c)
                     {
                         newOpp.POC_End_Date__c = Date.today();
@@ -219,6 +218,7 @@ public class OpportunityTriggerHandler implements ITriggerHandler {
             //SetContactRole(newItems.keyset());
             CreateWANStartCase(wanStartOpps);
             SycnOpportunityToQuoteHandler.sycnOpportunityDateToQuoteDateOnUpdate((Map<Id,Opportunity>)oldItems,(Map<Id,Opportunity>)newItems);
+            UpdateFirstOpportunityWinCheckBox(setAccIds);
         }
         
     }
@@ -272,20 +272,19 @@ public class OpportunityTriggerHandler implements ITriggerHandler {
     }
     
     
-    private  void CalculateFirstCustomerDate(Set<Id> acctIds)
+    private void CalculateFirstCustomerDate(Set<Id> acctIds)
     {
-        List<Account> lstAccToUpdate= new List<Account>();
+        List<Account> lstAccToUpdate= new List<Account>();  
         if(acctIds!=null && acctIds.size()>0)
         {
-            List<Account> lstAccounts =[Select Id,First_Asset_Quarter__c,Is_Partner_Initiated_Account__c ,(Select Id, CloseDate,Deal_Reg__c from Opportunities where StageName='Closed Won' order by CloseDate asc) from Account where Id in:acctIds ];
+            List<Account> lstAccounts =[Select Id,First_Asset_Quarter__c,Is_Partner_Initiated_Account__c ,(Select Id, CloseDate,Deal_Reg__c,First_Win_Opportunity__c from Opportunities where StageName='Closed Won' order by CloseDate asc) from Account where Id in:acctIds ];
+            
             for(Account item: lstAccounts)
             {
                 System.debug('AcctIds');
                 Date minDate=null;
                 boolean partnerInitated;
-                
                 List<Opportunity> lstCurrOpp=item.Opportunities;
-                
                 if(lstCurrOpp!=null && lstCurrOpp.size()>0)
                 {
                     minDate= lstCurrOpp[0].CloseDate;
@@ -295,6 +294,7 @@ public class OpportunityTriggerHandler implements ITriggerHandler {
                     {
                         lstAccToUpdate.add(new Account(Id=item.Id,First_Asset_Quarter__c=currentFiscalQuarter,Is_Partner_Initiated_Account__c=partnerInitated));
                     }
+                    
                 }
                 else
                 {
@@ -306,17 +306,69 @@ public class OpportunityTriggerHandler implements ITriggerHandler {
             {
                 update lstAccToUpdate;
             }
+            
         }
+    }
+    
+    private void UpdateFirstOpportunityWinCheckBox(Set<Id> acctIds)
+    {
+        List<Opportunity> lstOppToUpdate= new List<Opportunity>();
+        if(acctIds!=null && acctIds.size()>0)
+        {
+            
+            List<Account> lstAccounts =[Select Id,(Select Id,Name, StageName,CloseDate,Deal_Reg__c,First_Win_Opportunity__c from Opportunities  order by CloseDate asc, LastModifiedDate asc) from Account where Id in:acctIds ];
+            for(Account item: lstAccounts)
+            {
+                System.debug(item.Id);
+                boolean firstOpp=false;
+                List<Opportunity> lstCurrOpps=item.Opportunities;
+                System.debug('lstCurrOpps '+ lstCurrOpps.size());
+                if(lstCurrOpps!=null && lstCurrOpps.size()>0)
+                {
+                    for(integer counter=0; counter<lstCurrOpps.size(); counter++)
+                    {
+                        Opportunity currOpp=lstCurrOpps[counter];
+                        if(currOpp.StageName=='Closed Won' && !firstOpp)
+                        {
+                            firstOpp=true;
+                            if(!currOpp.First_Win_Opportunity__c)
+                            {
+                                currOpp.First_Win_Opportunity__c=true;
+                                lstOppToUpdate.add(currOpp);
+                            }
+                            
+                        }
+                        else
+                        {
+                            if(currOpp.First_Win_Opportunity__c)
+                            {
+                                currOpp.First_Win_Opportunity__c=false;
+                                lstOppToUpdate.add(currOpp);
+                            }
+                            
+                        }
+                        
+                    }
+                }
+                
+            }
+            if(lstOppToUpdate.size()>0)
+            {
+                update lstOppToUpdate;
+            }
+            
+            
+        }
+        
     }
     
     private  string RetrieveQuarterName(Date closeDate)
     {
-        lstPeriod =[Select Type, StartDate, EndDate, QuarterLabel, PeriodLabel, Number, FiscalYearSettings.Name From Period  where Type ='Quarter' order by StartDate];
+        List<Period> lstPeriod =[Select Type, StartDate, EndDate, QuarterLabel, PeriodLabel, Number, FiscalYearSettings.Name From Period  where Type ='Quarter' order by StartDate];
         if(lstPeriod!=null && lstPeriod.size()>0)
         {
             for(Period item: lstPeriod)
             {
-                
                 if(item.StartDate<=closeDate && closeDate<=item.EndDate)
                 {
                     return item.FiscalYearSettings.Name + 'Q' + item.Number;
@@ -350,26 +402,26 @@ public class OpportunityTriggerHandler implements ITriggerHandler {
             PatchRuleHelper.assignTeamMembers(new List<Id>(setTeamAssign));
         }
     }
-   /* private void SetContactRole(Set<Id> oppIds)
-    {
-        List<OpportunityContactRole>lstContactRole= new List<OpportunityContactRole>();
-        List<OpportunityContactRole> oppCR = [select id, role from OpportunityContactRole where 
-                                              opportunityid in :oppIds AND role= null];
-        
-        if(oppCR.size() > 0)
-        {
-            for(OpportunityContactRole item: oppCR)
-            {
-                item.Role = 'Contact';
-                lstContactRole.add(item);
-            }
-            
-        }
-        if(lstContactRole.size()>0)
-        {
-            update lstContactRole;
-        }
-    }*/
+    /* private void SetContactRole(Set<Id> oppIds)
+{
+List<OpportunityContactRole>lstContactRole= new List<OpportunityContactRole>();
+List<OpportunityContactRole> oppCR = [select id, role from OpportunityContactRole where 
+opportunityid in :oppIds AND role= null];
+
+if(oppCR.size() > 0)
+{
+for(OpportunityContactRole item: oppCR)
+{
+item.Role = 'Contact';
+lstContactRole.add(item);
+}
+
+}
+if(lstContactRole.size()>0)
+{
+update lstContactRole;
+}
+}*/
     private Set<Id> CheckIfAssetsCreatedForClosedOpp(List<Asset> lstAssets)
     {
         Set<Id> setOppIds= new Set<Id>();

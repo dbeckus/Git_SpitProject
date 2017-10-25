@@ -79,6 +79,18 @@
                 <behavior>Readonly</behavior>
                 <field>Product_Quote_Type__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>Primary_Partner_Registered_Disc_Service__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>Primary_Partner_Registered_Disc_EC__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>Primary_Partner_Registered_Disc_NXVX__c</field>
+            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>

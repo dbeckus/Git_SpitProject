@@ -817,10 +817,8 @@ OR((Opportunity_Amount__c - Quote_Amount_Rollup__c) &lt;100 ,(Quote_Amount_Rollu
     <fields>
         <fullName>Reseller_AccountId__c</fullName>
         <externalId>false</externalId>
-        <formula>IF(NOT(ISBLANK(Tier_3_Partner__c)),Tier_3_Partner__c,
-IF(NOT(ISBLANK(Tier_2_Partner__c)),Tier_2_Partner__c,
+        <formula>IF(NOT(ISBLANK(Tier_2_Partner__c)),Tier_2_Partner__c,
 Tier_1_Partner__c
-)
 )</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>Reseller AccountId</label>
@@ -1146,9 +1144,9 @@ Tier_1_Partner__c
         <fullName>Tier_3_Partner__c</fullName>
         <deleteConstraint>SetNull</deleteConstraint>
         <externalId>false</externalId>
-        <label>Tier 3  Partner</label>
+        <label>Other Reseller</label>
         <lookupFilter>
-            <active>true</active>
+            <active>false</active>
             <filterItems>
                 <field>Account.IsTier3Partner__c</field>
                 <operation>equals</operation>
@@ -1298,6 +1296,23 @@ NOT(ISBLANK( Tier_3_Partner__c ))
         <errorConditionFormula>Opportunity__r.Pricebook2Id = NULL</errorConditionFormula>
         <errorMessage>There is no pricebook for the specified opportunity.</errorMessage>
     </validationRules>
+    <webLinks>
+        <fullName>Add_Edit_Products</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>Add/Edit Products</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <url>if(&quot;{!Quote__c.Approval_Status__c}&quot;==&quot;Submitted&quot;||&quot;{!Quote__c.Approval_Made__c}&quot; == &quot;1&quot; || &quot;{!Quote__c.Approval_Made__c}&quot; == &quot;true&quot; || &quot;{!Quote__c.Approval_Made__c}&quot; == &quot;True&quot;) 
+{ 
+alert(&quot;Quote is locked and can not be edited&quot;); 
+} 
+else 
+{ 
+window.open(&quot;/apex/EditQuoteLines?id={!Quote__c.Id}&quot;, &quot;_top&quot;); 
+}</url>
+    </webLinks>
     <webLinks>
         <fullName>CloneWithProducts</fullName>
         <availability>online</availability>
