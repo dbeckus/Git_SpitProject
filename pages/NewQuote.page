@@ -54,7 +54,7 @@
                     <apex:inputField value="{!quote.PaymentTerm__c}" id="paymentterm"/>
                 </apex:pageBlockSectionItem>
                 <apex:pageBlockSectionItem > 
-                    <apex:outputLabel value="Tier 3 Partner" for="tier3partner"></apex:outputLabel>
+                    <apex:outputLabel value="Other Reseller" for="tier3partner"></apex:outputLabel>
                     <apex:inputField value="{!quote.Tier_3_Partner__c}" id="tier3partner"/>
                 </apex:pageBlockSectionItem>
                 <apex:pageBlockSectionItem > 

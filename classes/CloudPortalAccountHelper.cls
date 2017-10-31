@@ -2,7 +2,7 @@ public class CloudPortalAccountHelper {
     
     private static Map<String, String> regionMap = new Map<String, String>
     {
-        	'US East (N. Virginia)'=>'us-east-1',
+        	'US East (N. Virginia) (Current Production)'=>'us-east-1',
             'US East (Ohio)'=>'us-east-2',
             'US West (N. California)'=>'us-west-1',	
             'US West (Oregon)'=>'us-west-2',

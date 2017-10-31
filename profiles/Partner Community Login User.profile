@@ -5874,6 +5874,11 @@
         <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
+        <editable>false</editable>
+        <field>Quote_Line__c.Approval_Date_Time_Stamp__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>true</editable>
         <field>Quote_Line__c.Discount_Percent__c</field>
         <readable>true</readable>
@@ -5982,6 +5987,11 @@
         <editable>true</editable>
         <field>Quote_Line__c.Product__c</field>
         <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Quote_Line__c.Recalculate_Approval_Level__c</field>
+        <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>

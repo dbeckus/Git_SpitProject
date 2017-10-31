@@ -17,6 +17,10 @@
         <name>ApprovalType__c</name>
     </fields>
     <fields>
+        <label><!-- Approval Date Time Stamp --></label>
+        <name>Approval_Date_Time_Stamp__c</name>
+    </fields>
+    <fields>
         <label><!-- Discount Percent --></label>
         <name>Discount_Percent__c</name>
     </fields>
@@ -113,6 +117,10 @@
         <label><!-- Quote --></label>
         <name>Quote__c</name>
         <relationshipLabel><!-- Quote Lines --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Recalculate Approval Level --></label>
+        <name>Recalculate_Approval_Level__c</name>
     </fields>
     <fields>
         <label><!-- Reseller Discount --></label>

@@ -91,6 +91,14 @@
                 <behavior>Readonly</behavior>
                 <field>Primary_Partner_Registered_Disc_NXVX__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Recalculate_Approval_Level__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Approval_Date_Time_Stamp__c</field>
+            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>

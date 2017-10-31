@@ -831,7 +831,7 @@ Tier_1_Partner__c
     <fields>
         <fullName>Reseller_EdgeConnect_Discount__c</fullName>
         <externalId>false</externalId>
-        <formula>Opportunity__r.Primary_Partner__r.Registered_Discount_EdgeConnect__c</formula>
+        <formula>IF(NOT(ISBLANK(Tier_2_Partner__c )),Tier_2_Partner__r.Registered_Discount_EdgeConnect__c,Tier_1_Partner__r.Registered_Discount_EdgeConnect__c)</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>Reseller EdgeConnect Discount</label>
         <precision>18</precision>
@@ -844,7 +844,7 @@ Tier_1_Partner__c
     <fields>
         <fullName>Reseller_NX_VX_Discount__c</fullName>
         <externalId>false</externalId>
-        <formula>Opportunity__r.Primary_Partner__r.Registered_Discount_Product__c</formula>
+        <formula>IF(NOT(ISBLANK(Tier_2_Partner__c )),Tier_2_Partner__r.Registered_Discount_Product__c,Tier_1_Partner__r.Registered_Discount_Product__c)</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>Reseller NX/VX Discount</label>
         <precision>18</precision>
@@ -857,7 +857,7 @@ Tier_1_Partner__c
     <fields>
         <fullName>Reseller_Service_Discount__c</fullName>
         <externalId>false</externalId>
-        <formula>Opportunity__r.Primary_Partner__r.Registered_Discount_Service__c</formula>
+        <formula>IF(NOT(ISBLANK(Tier_2_Partner__c )),Tier_2_Partner__r.Registered_Discount_Service__c,Tier_1_Partner__r.Registered_Discount_Service__c)</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>Reseller Service Discount</label>
         <precision>18</precision>
@@ -1101,6 +1101,7 @@ Tier_1_Partner__c
         <label>Tier 1 Partner</label>
         <lookupFilter>
             <active>true</active>
+            <errorMessage>Account must be Reseller or Distributor</errorMessage>
             <filterItems>
                 <field>Account.IsAPartner__c</field>
                 <operation>equals</operation>
@@ -1124,6 +1125,7 @@ Tier_1_Partner__c
         <label>Tier 2 Partner</label>
         <lookupFilter>
             <active>true</active>
+            <errorMessage>Account must be of type Distributor and reseller agreement checked to true</errorMessage>
             <filterItems>
                 <field>Account.IsTier2Partner__c</field>
                 <operation>equals</operation>
@@ -1146,11 +1148,12 @@ Tier_1_Partner__c
         <externalId>false</externalId>
         <label>Other Reseller</label>
         <lookupFilter>
-            <active>false</active>
+            <active>true</active>
+            <errorMessage>Account must be of Type Partner</errorMessage>
             <filterItems>
-                <field>Account.IsTier3Partner__c</field>
+                <field>Account.Type</field>
                 <operation>equals</operation>
-                <value>True</value>
+                <value>Partner</value>
             </filterItems>
             <isOptional>false</isOptional>
         </lookupFilter>

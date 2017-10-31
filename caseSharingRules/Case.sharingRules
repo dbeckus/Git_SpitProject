@@ -55,15 +55,4 @@
         <caseAccessLevel>Edit</caseAccessLevel>
         <name>SE Team</name>
     </ownerRules>
-    <ownerRules>
-        <fullName>ShareFromPartner</fullName>
-        <sharedTo>
-            <allInternalUsers></allInternalUsers>
-        </sharedTo>
-        <sharedFrom>
-            <allPartnerUsers></allPartnerUsers>
-        </sharedFrom>
-        <caseAccessLevel>Edit</caseAccessLevel>
-        <name>ShareFromPartner</name>
-    </ownerRules>
 </CaseSharingRules>
