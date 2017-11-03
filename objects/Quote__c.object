@@ -1246,7 +1246,7 @@ NOT(ISBLANK( Reseller_AccountId__c)),
 Reseller_AccountId__c!= PreparedFor__r.AccountId 
 )</errorConditionFormula>
         <errorDisplayField>PreparedFor__c</errorDisplayField>
-        <errorMessage>This contact must belong to the highest tier partner account defined in the quote (Tier1,Tier2,Tier3).</errorMessage>
+        <errorMessage>The contact you selected is not associated to the partner we are quoting.  Please make sure you select a contact from the primary partner account.</errorMessage>
     </validationRules>
     <validationRules>
         <fullName>Distributor_reqd_Tier1_rese_agg_blank</fullName>

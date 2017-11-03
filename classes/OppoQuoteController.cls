@@ -105,6 +105,15 @@ public class OppoQuoteController
                     } 
                 }             
             }
+            
+            // Check if the quote is the only one on the opp. If yes, then make it Primary
+            List<Quote__c> lstQuotes=[Select Id from Quote__c where Opportunity__c=:oppo.Id and Id!=:quote.id];
+            if(lstQuotes!=null && lstQuotes.size()==0)
+            {
+                
+                quote.Primary__c=true;
+                update quote;
+            }
             return returnPage;           
         }
         catch(exception ex)

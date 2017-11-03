@@ -486,8 +486,6 @@ and down to get the primary contact role. */
             {
                 delete itemsToDel; //delete quote lines;
             }
-            System.debug('Opp Id'+ quote.Opportunity__r.Id);
-            
             init();
             
             
@@ -498,8 +496,15 @@ and down to get the primary contact role. */
             ApexPages.addMessages(exc); 
             return null;
         }
+        if(quote.Primary__c)
+        {
+            PageReference result = new PageReference('/apex/editQuoteLines?id=' + quote.Id + '&reloadOppo=1');
+            result.setRedirect(true);
+            return result;
+        }
         return quotePage();
     }
+    
     
     public PageReference saveAndMakePrimary()
     {

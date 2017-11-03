@@ -460,7 +460,7 @@ if( Service_Discount_Max__c &gt; RegPartServDisc__c ,3,0)
         <name>Cant_Show_Discounts_and_Hide_Prices</name>
     </validationRules>
     <validationRules>
-        <errorMessage><!-- This contact must belong to the highest tier partner account defined in the quote (Tier1,Tier2,Tier3). --></errorMessage>
+        <errorMessage><!-- The contact you selected is not associated to the partner we are quoting.  Please make sure you select a contact from the primary partner account. --></errorMessage>
         <name>Check_Prepared_For_belonging_to_account</name>
     </validationRules>
     <validationRules>
