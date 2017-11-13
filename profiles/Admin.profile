@@ -1592,6 +1592,10 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>RMATriggerHandler</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>RegisterAccountController</apexClass>
         <enabled>true</enabled>
     </classAccesses>

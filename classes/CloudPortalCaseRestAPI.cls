@@ -64,6 +64,7 @@ global with sharing class CloudPortalCaseRestAPI {
         }
         catch(Exception ex)
         {
+            insert new ErrorLog__c(Subject__c='Error in CPCaseInfo API', Message__c=ex.getMessage() + '\r\n' + ex.getStackTraceString());
             res.responseBody = Blob.valueOf(String.valueOf(ex) + '\n\n' + ex.getStackTraceString());
             res.statusCode=400;
             System.debug(ex.getMessage());
