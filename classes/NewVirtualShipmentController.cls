@@ -74,6 +74,25 @@ public with sharing class NewVirtualShipmentController
             return ecProdIds;            
         }
     }
+    private Map<Id,String> UnityORCHProductIds {
+        get{
+            Map<Id,String> ecProdIds= new Map<Id,String>();
+            try
+            {
+                List<Product2> productList=[Select Id,Name from Product2 where IsActive=true and Name like 'EC-ORCH-AAS%' and Family='Virtual Image' and Product2.Product_Type__c ='EDGECONNECT' ];
+                for(Product2 prod : productList)
+                {
+                    ecProdIds.put(prod.Id,prod.Name);
+                }
+            }
+            catch(Exception ex)
+            {
+                ApexPages.addMessages(ex);
+                return null;
+            }
+            return ecProdIds;            
+        }
+    }
   
     public List<Product2> ProductsList
     {
@@ -134,6 +153,11 @@ public with sharing class NewVirtualShipmentController
         if(!ValidateEndDatesForEdgeConnect())
         {
             ApexPages.addMessage(new ApexPages.Message(ApexPages.Severity.Error, 'Dates must match for all the EdgeConnect products.'));  
+            return null;
+        }
+        if(!ValidateUnityOrchestratorAttributesForAccount())
+        {
+            ApexPages.addMessage(new ApexPages.Message(ApexPages.Severity.Error, 'Please populate Unity Orchestrator attributes like admin user, domain and location in the account.'));  
             return null;
         }
         SavePoint sp = Database.setSavePoint();
@@ -371,6 +395,26 @@ public with sharing class NewVirtualShipmentController
         if(setDates.size()>0 && setDates.size()>1)
         {
             return false;
+        }
+        return true;
+    }
+    private  boolean ValidateUnityOrchestratorAttributesForAccount()
+    {
+        Set<Id> setOrchAssets= new Set<Id>();
+        for(VirtualAssetManager.VirtualAsset virtualAsset : AssetLines)
+        {
+            if(UnityORCHProductIds.containsKey(virtualAsset.Asset.Product2Id))
+            {
+                setOrchAssets.add(virtualAsset.Asset.Product2Id);
+            }
+        }
+        if(setOrchAssets.size()>0)
+        {
+            Account data=[Select Id,Name,ECSP__c,Unity_Orch_Admin_User__c,Unity_Orch_Domain__c,Unity_Orch_Location__c from Account where Id=:shipmentRecord.Shipment_Account__c];
+            if(!data.ECSP__c &&(data.Unity_Orch_Admin_User__c==null||data.Unity_Orch_Location__c==null||data.Unity_Orch_Domain__c==null))
+            {
+                return false;
+            } 
         }
         return true;
     }
