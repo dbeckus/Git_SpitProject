@@ -18,7 +18,7 @@ public  class RenewalAssetsHelper
     
     public static boolean RenewEdgeConnectLicense(List<Asset> lstAsset)
     {
-        
+        Map<Id,Date> mapAssets= new Map<Id,Date>();
         List<License__c> lstLicenses= new List<License__c>();
         List<Asset> lstAssets= new List<Asset>();
         if(lstAsset!=null && lstAsset.size()>0)
@@ -37,27 +37,36 @@ public  class RenewalAssetsHelper
                 lstAssets.add(asset);
                 if(prodName!='EC-ORCH')
                 {
-                    List<License__c> lstLicense=  [Select Id,Name,License_Expiration__c, AssetId__c from License__c where AssetId__c =: asset.Id];
+                    System.debug('asset.Renewal_Nodes__c'+ asset.Renewal_Nodes__c);
+                    mapAssets.put(asset.Id,asset.Renewal_Date__c);
+                    if((prodName.startsWith('EC-BASE')||prodName.startsWith('EC-PLUS')||prodName.startsWith('EC-BOOST'))&& asset.Renewal_Nodes__c==0)
+                    {
+                         mapAssets.remove(asset.Id);
+                    }
+                }
+            }
+            try
+            {
+                if(mapAssets.size()>0)
+                {
+                    List<License__c> lstLicense=  [Select Id,Name,License_Expiration__c, AssetId__c from License__c where AssetId__c in: mapAssets.keyset()];
                     if(lstLicense!=null && lstLicense.size()>0)
                     {
                         for(License__c item: lstLicense)
                         {
                             if(item!=null)
                             {      
-                                
-                                item.License_Expiration__c= asset.Renewal_Date__c;
+                                item.License_Expiration__c= mapAssets.get(item.AssetId__c);
                                 lstLicenses.add(item);                
                             }
                         }
                     }
+                    if(lstlicenses.size()>0)
+                    {
+                        update lstLicenses;
+                    }
                 }
-            }
-            try
-            {
-                if(lstlicenses.size()>0)
-                {
-                    update lstLicenses;
-                }
+                
                 if(lstAssets.size()>0)
                 {
                     update lstAssets;
@@ -191,7 +200,7 @@ public  class RenewalAssetsHelper
             }
             if(mapAssetId.size()>0)
             {
-               lstAssetswithLicense=[Select Id,Product2.NumberOfLicenses__c,(select Id, Model__c, SerialNumber__c from Licenses__r order by CreatedDate asc) from Asset where Id in:mapAssetId.keySet()];
+                lstAssetswithLicense=[Select Id,Product2.NumberOfLicenses__c,(select Id, Model__c, SerialNumber__c from Licenses__r order by CreatedDate asc) from Asset where Id in:mapAssetId.keySet()];
             }
             if(lstAssetswithLicense.size()>0)
             {
@@ -202,10 +211,10 @@ public  class RenewalAssetsHelper
                     List<License__c> finalLicList= new List<License__c>();
                     if(item.Product2.NumberOfLicenses__c!=null && item.Product2.NumberOfLicenses__c >1)
                     {
-                       for(integer counter=0;counter<item.Product2.NumberOfLicenses__c;counter++)
-                       {
-                           finalLicList.add(lstLicense[counter]);
-                       }
+                        for(integer counter=0;counter<item.Product2.NumberOfLicenses__c;counter++)
+                        {
+                            finalLicList.add(lstLicense[counter]);
+                        }
                     }
                     else
                     {

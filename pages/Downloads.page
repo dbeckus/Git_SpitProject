@@ -33,6 +33,7 @@
     
     </script>
     <apex:form >
+       <A HREF="/services/xml/LatestAccounts">Latest Accounts</A>
         <ul class="nav subpageNavStyle">
             <li class="{!IF(ActiveTab = 'VAP', 'hovered', '')}">
                 <apex:commandLink action="{!changeBuilds}" value="Initial Installation Packages" styleClass="{!IF(ActiveTab = 'VAP', 'active', '')}">

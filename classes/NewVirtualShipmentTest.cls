@@ -53,7 +53,7 @@ public class NewVirtualShipmentTest
     }
     
     
-        @isTest
+    @isTest
     static void testNewShipmentController_ECORCH()
     {
         Test.startTest();
@@ -97,7 +97,7 @@ public class NewVirtualShipmentTest
         
         
     }
-     @isTest
+    @isTest
     static void testNewShipmentController_EC_DatesMismatch()
     {
         Test.startTest();
@@ -137,8 +137,66 @@ public class NewVirtualShipmentTest
         controller.removeLine();
         
         controller.save(); 
+        Boolean messageFound = false;
+        for(ApexPages.Message message : ApexPages.getMessages()) 
+        {
+            if(message.getDetail() == 'Dates must match for all the EdgeConnect products.' && message.getSeverity() == ApexPages.Severity.Error) 
+            {
+                messageFound = true;        
+            }
+        }
+        System.assert(messageFound);
         
+    }
+     @isTest
+    static void testNewShipmentController_Orchestrator_DataValidation()
+    {
+        Test.startTest();
+        Account testAccount = new Account(Name='acme');
+        testAccount.EC_Customer_Date__c=Date.today();
+        insert testAccount;
+        Account spAccount = new Account(Name='Silver Peak Systems');
+        insert spAccount;
+        Opportunity testOpp = new Opportunity(Name='acme', CloseDate=Date.today(), StageName='Open', ForecastCategoryName ='Pipeline', AccountId=testAccount.Id);
+        insert testOpp;
+        Product2 testProduct1 = new Product2(Name='EC-ORCH-AAS-L-1Y',Model__c='EC-ORCH-AAS-L-1Y',Product_Category__c='Subscription', Forecast_Category__c = 'Virtual', Family='Virtual Image', IsActive=true,Product_Type__c='EDGECONNECT');
+        insert testProduct1;
+        Product2 testProduct2 = new Product2(Name='EC-BASE-1Y',Model__c='EC-BASE-1Y',Product_Category__c='Subscription', Forecast_Category__c = 'Virtual', Family='Virtual Image', IsActive=true,Product_Type__c='EDGECONNECT');
+        insert testProduct2;
+        Contact testContact = new Contact(LastName='acme', AccountId=testAccount.Id);
+        insert testContact;
+        Purchase_Order__c testPO = new Purchase_Order__c(Name = 'acme', Email_Contact__c=testContact.Id, Opportunity__c=testOpp.Id);
+        insert testPO;
+        Test.stopTest();
         
+        Shipment__c testShipment = new Shipment__c();  
+        
+        PageReference pageRef = new PageReference('/apex/NewVirtualShipment?poId=' + testPO.Id);
+        Test.setCurrentPage(pageRef);
+        ApexPages.StandardController stdController = new ApexPages.StandardController(testShipment);
+        NewVirtualShipmentController controller = new NewVirtualShipmentController(stdController);
+        controller.TempAsset.ContactId = testContact.Id;
+        
+        controller.AssetLines[0].Asset.Product2Id = testProduct1.id;
+        controller.AssetLines[0].Asset.Quantity = 1;
+        controller.AssetLines[0].Asset.Evaluation_End_Date__c = Date.today().addDays(1);
+        controller.addLine();
+        controller.AssetLines[1].Asset.Product2Id = testProduct2.Id;
+        controller.AssetLines[1].Asset.Quantity = 1;
+        controller.AssetLines[1].Asset.Evaluation_End_Date__c = Date.today().addDays(1);
+        ApexPages.currentPage().getParameters().put('rowIndex', '2');
+        controller.removeLine();
+        controller.save(); 
+        Boolean messageFound = false;
+        for(ApexPages.Message message : ApexPages.getMessages()) 
+        {
+            if(message.getDetail() == 'Please populate Unity Orchestrator attributes like admin user, domain and location in the account.' && message.getSeverity() == ApexPages.Severity.Error) 
+            {
+                messageFound = true;        
+            }
+        }
+        System.assert(messageFound);
+            
     }
     @isTest
     static void testNewShipmentController_UpdateAssetLicenseDate()
