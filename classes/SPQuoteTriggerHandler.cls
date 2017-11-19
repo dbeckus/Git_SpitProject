@@ -11,9 +11,19 @@ public class SPQuoteTriggerHandler implements ITriggerHandler {
     }
     public void BeforeInsert(List<SObject> newItems) 
     {
-       
         if(newItems!=null && newItems.size()>0)
         {
+            for(Quote__c newQuote: (List<Quote__c>)newItems)
+            {
+                if(newQuote.Tier_2_Partner__c!=null && newQuote.Assigned_Distributor__c!=null)
+                {
+                    string distInfo=newQuote.Assigned_Distributor__c;
+                    string[] splitDistInfo= distInfo.split('\\|');
+                 
+                    if(newQuote.Tier_2_Partner__c!=splitDistInfo[0])
+                        newQuote.Tier_2_Partner__c.addError('Tier 2 partner is not a valid distributor.'+ string.format('Please select {0} value.',new string[]{splitDistInfo[1]}) );
+                }
+            }
         }
         
     }
@@ -21,7 +31,19 @@ public class SPQuoteTriggerHandler implements ITriggerHandler {
     {
         if(newItems!=null && newItems.size()>0)
         {
-            
+            for(Id quoteId: newItems.keyset())
+            {
+                Quote__c newQuote= (Quote__c)newItems.get(quoteId);
+                Quote__c oldQuote= (Quote__c)oldItems.get(quoteId);
+                if(newQuote.Tier_2_Partner__c!=oldQuote.Tier_2_Partner__c && newQuote.Tier_2_Partner__c!=null && newQuote.Assigned_Distributor__c!=null)
+                {
+                    string distInfo=newQuote.Assigned_Distributor__c;
+                    string[] splitDistInfo= distInfo.split('\\|');
+                   
+                    if(newQuote.Tier_2_Partner__c!=splitDistInfo[0])
+                        newQuote.Tier_2_Partner__c.addError('Tier 2 partner is not a valid distributor.'+ string.format('Please select {0} value.',new string[]{splitDistInfo[1]}) );
+                }
+            }
             
         }
     }
@@ -31,7 +53,7 @@ public class SPQuoteTriggerHandler implements ITriggerHandler {
     }
     public void AfterInsert(Map<Id, SObject> newItems) 
     {
-         mapQuoteOpp= new Map<Id,Id>();
+        mapQuoteOpp= new Map<Id,Id>();
         if(newItems!=null && newItems.size()>0)
         {
             for(Id quoteId:newItems.keyset())

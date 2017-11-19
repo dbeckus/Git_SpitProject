@@ -39,6 +39,14 @@
         <protected>false</protected>
     </fieldUpdates>
     <fieldUpdates>
+        <fullName>Clear_Special_Instruction</fullName>
+        <field>Special_Instructions__c</field>
+        <name>Clear Special Instruction</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Null</operation>
+        <protected>false</protected>
+    </fieldUpdates>
+    <fieldUpdates>
         <fullName>CondPODefaultTerms</fullName>
         <description>Default Payment Terms language</description>
         <field>PaymentTermInstructions__c</field>
@@ -180,6 +188,20 @@
             <value>False</value>
         </criteriaItems>
         <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>Clear Special Instructions</fullName>
+        <actions>
+            <name>Clear_Special_Instruction</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <formula>AND
+(
+ ISBLANK(Assigned_Distributor__c ),
+ NOT(ISBLANK(Tier_2_Partner__c))
+)</formula>
+        <triggerType>onCreateOnly</triggerType>
     </rules>
     <rules>
         <fullName>CondPOTerms</fullName>

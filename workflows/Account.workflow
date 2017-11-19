@@ -449,6 +449,15 @@
         <protected>false</protected>
     </fieldUpdates>
     <fieldUpdates>
+        <fullName>Sync_Virtual_Asset_to_Cloud_Portal</fullName>
+        <field>Sync_Virtual_Assets_with_CP__c</field>
+        <literalValue>1</literalValue>
+        <name>Sync Virtual Asset to Cloud Portal</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+    </fieldUpdates>
+    <fieldUpdates>
         <fullName>UnCheckExpiredCustomerFlag</fullName>
         <field>Expired_Customer__c</field>
         <literalValue>0</literalValue>
@@ -759,6 +768,24 @@
             <value>Partner</value>
         </criteriaItems>
         <description>Set Record Type to Reseller</description>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>Sync the account if unity orch attributes change</fullName>
+        <actions>
+            <name>Sync_Virtual_Asset_to_Cloud_Portal</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <formula>AND(
+NOT( Sync_Virtual_Assets_with_CP__c ),
+OR(
+ISCHANGED( Unity_Orch_Admin_User__c ),
+ISCHANGED(  Unity_Orch_Domain__c ),
+ISCHANGED( Unity_Orch_Location__c  ),
+ISCHANGED( Unity_Orch_Version__c )
+)
+)</formula>
         <triggerType>onAllChanges</triggerType>
     </rules>
     <rules>

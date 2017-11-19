@@ -87,6 +87,10 @@
                 <behavior>Edit</behavior>
                 <field>Quote_Name__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>Assigned_Distributor__c</field>
+            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>

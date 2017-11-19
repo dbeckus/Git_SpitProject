@@ -53,6 +53,10 @@ if( Service_Discount_Max__c &gt; RegPartServDisc__c ,3,0)
         </picklistValues>
     </fields>
     <fields>
+        <label><!-- Assigned Distributor --></label>
+        <name>Assigned_Distributor__c</name>
+    </fields>
+    <fields>
         <label><!-- Order Discount % --></label>
         <name>Average_Discount__c</name>
     </fields>
@@ -356,6 +360,10 @@ if( Service_Discount_Max__c &gt; RegPartServDisc__c ,3,0)
         <name>Show_Virtual_Alternatives__c</name>
     </fields>
     <fields>
+        <help><!-- Example: Reseller CDW 
+Contact: Joe Smith 
+test@cdw.com 
+Minimum program discount: 29% --></help>
         <label><!-- Special Instructions --></label>
         <name>Special_Instructions__c</name>
     </fields>

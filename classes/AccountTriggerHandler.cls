@@ -3,6 +3,8 @@ public class AccountTriggerHandler implements ITriggerHandler {
     List<Id> accNeedsTeamAssign  = new List<Id>();
     List<String> directorEmails = new List<String>();
     Map<Id, String> user2TREmail = new Map<Id, String>();
+    Set<string> ValidBuildNumber= new Set<string>();
+   
     public AccountTriggerHandler()
     {
         
@@ -16,11 +18,25 @@ public class AccountTriggerHandler implements ITriggerHandler {
         if(newItems!=null && newItems.size()>0)
         {
             List<Account> lstAccount=(List<Account>) newItems;
+            PopulateOrchestratorVersion();
+            
             for(Account newAcc :lstAccount)
             {
-                if(!string.isBlank(newAcc.Unity_Orch_Domain__c) && CheckforDuplicateDomain(newAcc.Unity_Orch_Domain__c))
+                if(!string.isBlank(newAcc.Unity_Orch_Domain__c) && CheckforDuplicateDomain(newAcc.Unity_Orch_Domain__c,null))
                 {
                     newAcc.addError('Unity Orch Domain entered is used in another account. Kindly enter another domain name.');
+                }
+                if(newAcc.Unity_Orch_Version__c!=null)
+                {
+                    if(!CheckOrchVersion(newAcc.Unity_Orch_Version__c))
+                    {
+                        newAcc.Unity_Orch_Version__c.addError('This field can only accept in **.**.**.***** format. For ex 8.1.14.33650.' );
+                    }
+                    else if(!ValidBuildNumber.contains(newAcc.Unity_Orch_Version__c) )
+                    {
+                        newAcc.Unity_Orch_Version__c.addError('Invalid version number. Please enter valid version.' );
+                    }
+                    
                 }
             }
         }
@@ -30,13 +46,26 @@ public class AccountTriggerHandler implements ITriggerHandler {
     {
         if(newItems!=null && newItems.size()>0)
         {
+            PopulateOrchestratorVersion();
             for (Id accId : newItems.keyset())
             {
+                System.debug('BEfore Update');
                 Account newAccInfo= (Account)newItems.get(accId);
                 Account oldAccInfo= (Account)oldItems.get(accId);
-                if(!string.isBlank(newAccInfo.Unity_Orch_Domain__c) && newAccInfo.Unity_Orch_Domain__c!=oldAccInfo.Unity_Orch_Domain__c && CheckforDuplicateDomain(newAccInfo.Unity_Orch_Domain__c))
+                if(!string.isBlank(newAccInfo.Unity_Orch_Domain__c) && newAccInfo.Unity_Orch_Domain__c!=oldAccInfo.Unity_Orch_Domain__c && CheckforDuplicateDomain(newAccInfo.Unity_Orch_Domain__c,newAccInfo.Id))
                 {
                     newAccInfo.addError('Unity Orch Domain entered is used in another account. Kindly enter another domain name.');
+                }
+                if(newAccInfo.Unity_Orch_Version__c!=null && newAccInfo.Unity_Orch_Version__c!=oldAccInfo.Unity_Orch_Version__c)
+                {
+                    if(!CheckOrchVersion(newAccInfo.Unity_Orch_Version__c))
+                    {
+                        newAccInfo.Unity_Orch_Version__c.addError('This field can only accept in **.**.**.***** format. For ex 8.1.14.33650.' );
+                    }
+                   else if(!ValidBuildNumber.contains(newAccInfo.Unity_Orch_Version__c) )
+                    {
+                        newAccInfo.Unity_Orch_Version__c.addError('Invalid version number. Please enter valid version.' );
+                    }
                 }
                 if(!newAccInfo.Override_Service_Provider_Setting__c)
                 {
@@ -220,12 +249,19 @@ capCreationAcctId.add(newAccInfo.Id);
         
     }
     
-    private boolean CheckforDuplicateDomain(string inputDomain)
+    private boolean CheckforDuplicateDomain(string inputDomain,Id acctId)
     {
-        List<Account> lstAccount= [Select Id from Account where ECSP__c=false and Unity_Orch_Domain__c=:inputDomain];
+        List<Account> lstAccount= null;
+        if(acctId!=null)
+        	lstAccount=[Select Id from Account where (NOT Id=:acctId) and ECSP__c=false and Unity_Orch_Domain__c=:inputDomain];
+        else
+            lstAccount=[Select Id from Account where ECSP__c=false and Unity_Orch_Domain__c=:inputDomain];
+        
+        System.debug('lstAccount '+lstAccount);
         if(lstAccount!=null && lstAccount.size()>0)
         {
-            return true;
+            
+            	return true;
         }
         return false;
     }
@@ -381,6 +417,30 @@ insert lstCapCase;
             }
         }
         
+    }
+    private boolean CheckOrchVersion(string inputData)
+    {
+        pattern myPattern = pattern.compile('^([0-9]{1,2}+[.])?([0-9]{1,2}+[.])?([0-9]{1,2}+[.])?([0-9]{5,})$'); 
+		matcher myMatcher = myPattern.matcher(inputData);
+		return (myMatcher.matches() && myMatcher.hitEnd());
+    }
+    private void PopulateOrchestratorVersion()
+    {
+       List<Builds__c> lstBuildData=[Select Build_Number__c from Builds__c where Release__r.Type__c='GMS' and Inactive__c=false and Release__r.Name like 'GMS 8%' and (NOT Release__r.Name = 'GMS 8.0')];
+	          
+       if(lstBuildData!=null && lstBuildData.size()>0)
+       {
+           for(Builds__c data:lstBuildData)
+           {
+               string buildNumber=data.Build_Number__c;
+               if(buildNumber.contains('_'))
+               {
+                   buildNumber=buildNumber.replace('_', '.');
+               }
+               ValidBuildNumber.add(buildNumber) ;
+           }
+           System.debug(ValidBuildNumber);
+       }
     }
     private void LinkAccountToPatch(List<Id> accPatchIds, List<Id> accTeamIds,List<Opportunity> lstOpp)
     {

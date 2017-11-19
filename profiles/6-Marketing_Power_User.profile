@@ -1152,6 +1152,10 @@
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>PUBQandARSSController</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>Pagination</apexClass>
         <enabled>false</enabled>
     </classAccesses>
@@ -6043,6 +6047,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Quote__c.Assigned_Distributor__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Quote__c.Average_Discount__c</field>
         <readable>false</readable>
     </fieldPermissions>
@@ -9933,6 +9942,10 @@
     </pageAccesses>
     <pageAccesses>
         <apexPage>PurchaseRequest</apexPage>
+        <enabled>false</enabled>
+    </pageAccesses>
+    <pageAccesses>
+        <apexPage>QandARSS</apexPage>
         <enabled>false</enabled>
     </pageAccesses>
     <pageAccesses>

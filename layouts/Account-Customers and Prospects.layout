@@ -104,6 +104,14 @@
                 <behavior>Edit</behavior>
                 <field>Customer_Price_Book__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Unity_Orch_Version__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Assigned_Distributor__c</field>
+            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>
@@ -675,6 +683,13 @@
         <fields>Quote_Date__c</fields>
         <fields>Quote_Valid_Until__c</fields>
         <relatedList>Quote__c.Tier_3_Partner__c</relatedList>
+    </relatedLists>
+    <relatedLists>
+        <fields>ACCOUNT.NAME</fields>
+        <fields>ACCOUNT.ADDRESS1_CITY</fields>
+        <fields>ACCOUNT.PHONE1</fields>
+        <fields>ACCOUNT.TYPE</fields>
+        <relatedList>Account.Assigned_Distributor__c</relatedList>
     </relatedLists>
     <relatedObjects>ParentId</relatedObjects>
     <showEmailCheckbox>false</showEmailCheckbox>

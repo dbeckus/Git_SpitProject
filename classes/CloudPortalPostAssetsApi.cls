@@ -130,7 +130,11 @@ public class CloudPortalPostAssetsApi extends CloudPortalApiBase {
                 }
                 //generator.writeObjectField('size',item.size);
                 generator.writeObjectField('region',item.region);
-                generator.writeObjectField('version','');
+                if(!string.isEmpty(item.version))
+                {
+                    generator.writeObjectField('version',item.version);
+                }
+                	
                 generator.writeEndObject();
             }
             
