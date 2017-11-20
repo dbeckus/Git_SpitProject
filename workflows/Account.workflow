@@ -778,6 +778,7 @@
         </actions>
         <active>true</active>
         <formula>AND(
+NOT(ISNEW()),
 NOT( Sync_Virtual_Assets_with_CP__c ),
 OR(
 ISCHANGED( Unity_Orch_Admin_User__c ),

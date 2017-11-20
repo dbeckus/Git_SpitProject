@@ -58,6 +58,173 @@ public class TestAccountTriggerHandler {
         } 
         
     }
+      @IsTest
+    public static void OrchDomainVersion_Insert()
+    {
+        
+        try
+        {
+            Account acc = new Account(Name='test', Unity_Orch_Version__c='1222.21.1.12222');
+            insert acc;
+         
+        }
+        catch(Exception e)
+        {
+            System.debug(e.getMessage());
+            Boolean expectedExceptionThrown =  e.getMessage().contains('This field can only accept in **.**.**.***** format. For ex 8.1.14.33650.') ? true : false;
+            System.AssertEquals(expectedExceptionThrown, true);
+        } 
+        
+    }
+      @IsTest
+    public static void OrchDomainVersion_Update()
+    {
+        
+        try
+        {
+            Account acc = new Account(Name='test');
+            insert acc;
+            acc.Unity_Orch_Version__c='12.21.1.1222';
+            update acc;
+         
+        }
+        catch(Exception e)
+        {
+            System.debug(e.getMessage());
+            Boolean expectedExceptionThrown =  e.getMessage().contains('This field can only accept in **.**.**.***** format. For ex 8.1.14.33650.') ? true : false;
+            System.AssertEquals(expectedExceptionThrown, true);
+        } 
+        
+    }
+    
+     @IsTest
+    public static void OrchDomainVersion_NotInSystem_Insert()
+    {
+        
+        try
+        {
+            Releases__c rel= new  Releases__c();
+            rel.Name='GMS 8.1';
+            rel.Type__c='GMS';
+            rel.Release_Date__c= Date.today();
+            rel.Release__c= 'Test Data';
+            insert rel;
+            
+            Builds__c build= new Builds__c();
+            build.Name ='Test';
+            build.Status__c='GA';
+            build.Release__c= rel.Id;
+            build.Build_Number__c='8.1.1.12222';
+            insert build;
+            
+            Account acc = new Account(Name='test', Unity_Orch_Version__c='1.21.1.12222');
+            insert acc;
+         
+        }
+        catch(Exception e)
+        {
+            System.debug(e.getMessage());
+            Boolean expectedExceptionThrown =  e.getMessage().contains('Invalid version number. Please enter valid version.') ? true : false;
+            System.AssertEquals(expectedExceptionThrown, true);
+        } 
+        
+    }
+      @IsTest
+    public static void OrchDomainVersion_NotInSystem_Update()
+    {
+        
+        try
+        {
+            Releases__c rel= new  Releases__c();
+            rel.Name='GMS 8.1';
+            rel.Type__c='GMS';
+            rel.Release_Date__c= Date.today();
+            rel.Release__c= 'Test Data';
+            insert rel;
+            
+            Builds__c build= new Builds__c();
+            build.Name ='Test';
+            build.Status__c='GA';
+            build.Release__c= rel.Id;
+            build.Build_Number__c='8.1.1.12222';
+            insert build;
+            Account acc = new Account(Name='test', Unity_Orch_Admin_User__c='abc@abc.com',Unity_Orch_Domain__c='testabc6',Unity_Orch_Location__c='Canada (Central)');
+            insert acc;
+           	acc.Unity_Orch_Version__c='12.21.1.12222';
+            update acc;
+        }
+        catch(Exception e)
+        {
+            System.debug(e.getMessage());
+            Boolean expectedExceptionThrown =  e.getMessage().contains('Invalid version number. Please enter valid version.') ? true : false;
+            System.AssertEquals(expectedExceptionThrown, true);
+        } 
+        
+    }
+      @IsTest
+    public static void OrchDomainVersion_InSystem_Update()
+    {
+        
+        try
+        {
+            Releases__c rel= new  Releases__c();
+            rel.Name='GMS 8.1';
+            rel.Type__c='GMS';
+            rel.Release_Date__c= Date.today();
+            rel.Release__c= 'Test Data';
+            insert rel;
+            
+            Builds__c build= new Builds__c();
+            build.Name ='Test';
+            build.Status__c='GA';
+            build.Release__c= rel.Id;
+            build.Build_Number__c='8.1.1.12222';
+            insert build;
+            Account acc = new Account(Name='test', Unity_Orch_Admin_User__c='abc@abc.com',Unity_Orch_Domain__c='testabc6',Unity_Orch_Location__c='Canada (Central)');
+            insert acc;
+           	acc.Unity_Orch_Version__c='8.1.1.12222';
+            update acc;
+        }
+        catch(Exception e)
+        {
+            System.debug(e.getMessage());
+            Boolean expectedExceptionThrown =  e.getMessage().contains('Invalid version number. Please enter valid version.') ? true : false;
+            System.AssertEquals(expectedExceptionThrown, true);
+        } 
+        
+    }
+      @IsTest
+    public static void OrchDomainVersion_InSystem_Update_Underscore()
+    {
+        
+        try
+        {
+            Releases__c rel= new  Releases__c();
+            rel.Name='GMS 8.1';
+            rel.Type__c='GMS';
+            rel.Release_Date__c= Date.today();
+            rel.Release__c= 'Test Data';
+            insert rel;
+            
+            Builds__c build= new Builds__c();
+            build.Name ='Test';
+            build.Status__c='GA';
+            build.Release__c= rel.Id;
+            build.Build_Number__c='8.1.1_12222';
+            insert build;
+            Account acc = new Account(Name='test', Unity_Orch_Admin_User__c='abc@abc.com',Unity_Orch_Domain__c='testabc6',Unity_Orch_Location__c='Canada (Central)');
+            insert acc;
+           	acc.Unity_Orch_Version__c='8.1.1.12222';
+            update acc;
+        }
+        catch(Exception e)
+        {
+            System.debug(e.getMessage());
+            Boolean expectedExceptionThrown =  e.getMessage().contains('Invalid version number. Please enter valid version.') ? true : false;
+            System.AssertEquals(expectedExceptionThrown, true);
+        } 
+        
+    }
     @IsTest
     public static void CloudPortalAccountAssetsNotDelete()
     {
