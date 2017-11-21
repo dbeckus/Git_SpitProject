@@ -1279,6 +1279,15 @@ ISCHANGED(StageName)
         <triggerType>onCreateOnly</triggerType>
     </rules>
     <rules>
+        <fullName>Populate Default PriceBook on Opp</fullName>
+        <active>false</active>
+        <criteriaItems>
+            <field>Opportunity.Name</field>
+            <operation>notEqual</operation>
+        </criteriaItems>
+        <triggerType>onCreateOnly</triggerType>
+    </rules>
+    <rules>
         <fullName>Populate Stage Discovery created by RSM</fullName>
         <actions>
             <name>Update_Opp_Stage_as_Discovery_RSM</name>

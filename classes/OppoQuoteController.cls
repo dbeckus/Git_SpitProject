@@ -10,7 +10,7 @@ public class OppoQuoteController
         String oppoId = ((Opportunity)controller.getRecord()).Id;
         if(oppoId instanceOf Id)
         {
-            oppo = [select name, account.name, Pricebook2Id, HasOpportunityLineItem, Owner.ManagerId,
+            oppo = [select name, account.name, Pricebook2Id, Account.Default_PriceBook__c, HasOpportunityLineItem, Owner.ManagerId,
                        (Select Id From OpportunityLineItems)
                     from opportunity where id = :oppoId];
             //oppo = new Opportunity();
@@ -76,9 +76,9 @@ public class OppoQuoteController
         try
         {
             PageReference returnPage;
-           
             if(!oppo.HasOpportunityLineItem)
             {
+                     
                 update oppo;
                 upsert quote;
                 returnPage = new PageReference('/apex/Quote?Id=' + quote.Id); 
