@@ -35,6 +35,10 @@ public class SPQuoteTriggerHandler implements ITriggerHandler {
             {
                 Quote__c newQuote= (Quote__c)newItems.get(quoteId);
                 Quote__c oldQuote= (Quote__c)oldItems.get(quoteId);
+                /*if(newQuote.Opportunity__c!=oldQuote.Opportunity__c && CheckInvalidPriceBook(new Set<Id>{newQuote.Opportunity__c,oldQuote.Opportunity__c}))
+                {
+                     newQuote.addError('The pricebook of the new opportunity does not match with the current opportunity pricebook.' );
+                }*/
                 if(newQuote.Tier_2_Partner__c!=oldQuote.Tier_2_Partner__c && newQuote.Tier_2_Partner__c!=null && newQuote.Assigned_Distributor__c!=null)
                 {
                     string distInfo=newQuote.Assigned_Distributor__c;
@@ -120,6 +124,20 @@ public class SPQuoteTriggerHandler implements ITriggerHandler {
         
     }
     
+    private boolean CheckInvalidPriceBook(Set<Id> lstOppId)
+    {
+        List<Opportunity> lstOpp=[Select PriceBook2Id from Opportunity where Id in:lstOppId];
+        Set<Id> lstPB= new Set<Id>();
+        for(Opportunity opp: lstOpp)
+        {
+            lstPB.add(opp.Pricebook2Id);
+        }
+        if(lstPB.size()>0 && lstPB.size()>1)
+        {
+            return true;
+        }
+        return false;
+    }
     private void CheckPrimaryFlag()
     {
         if(mapQuoteOpp!=null && mapQuoteOpp.size()>0)
