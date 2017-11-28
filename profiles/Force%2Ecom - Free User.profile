@@ -6,6 +6,11 @@
         <visible>false</visible>
     </applicationVisibilities>
     <applicationVisibilities>
+        <application>Chatter_RSS</application>
+        <default>false</default>
+        <visible>false</visible>
+    </applicationVisibilities>
+    <applicationVisibilities>
         <application>Internal_Applications</application>
         <default>false</default>
         <visible>false</visible>
@@ -1597,6 +1602,50 @@
     </classAccesses>
     <classAccesses>
         <apexClass>RMATriggerHandler</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>RSS2Chatter_AssocFeedToObjectController</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>RSS2Chatter_AssociateObjectController</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>RSS2Chatter_CleanupChatterPosts</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>RSS2Chatter_CleanupRSSPosts</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>RSS2Chatter_FeedRelatedObjectExtenson</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>RSS2Chatter_GetRSS</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>RSS2Chatter_Main</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>RSS2Chatter_PreviewController</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>RSS2Chatter_ScheduleCleanup</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>RSS2Chatter_ScheduleGetRSS</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>RSS2Chatter_Tests</apexClass>
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
@@ -6921,6 +6970,91 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
+        <editable>true</editable>
+        <field>RSS_Feed_Posts__c.Comments__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>RSS_Feed_Posts__c.Description__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>RSS_Feed_Posts__c.GUID__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>RSS_Feed_Posts__c.Link__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>RSS_Feed_Posts__c.Publish_Date__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>RSS_Feed_Posts__c.Title__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>RSS_Feed_Related_Object__c.Account__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>RSS_Feed_Related_Object__c.Campaign__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>RSS_Feed_Related_Object__c.Contact__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>RSS_Feed_Related_Object__c.Opportunity__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>RSS_Feed_Related_Object__c.Related_Object_Id__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>RSS_Feed_Related_Object__c.Related_Object_Name__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>RSS_Feed_Related_Object__c.Relationship_Type__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>RSS_Feed__c.Active__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>RSS_Feed__c.Last_Sync__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>RSS_Feed__c.Maximum_Posts_to_Read__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>RSS_Feed__c.Roll_Up_Posts__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>false</editable>
         <field>Releases__c.EULA_Agreement__c</field>
         <readable>true</readable>
@@ -8497,6 +8631,15 @@
         <recordType>RMA__c.RMA</recordType>
     </layoutAssignments>
     <layoutAssignments>
+        <layout>RSS_Feed_Posts__c-RSS Feed Post Layout</layout>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>RSS_Feed_Related_Object__c-RSS Feed Related Object Layout</layout>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>RSS_Feed__c-RSS Feed Layout</layout>
+    </layoutAssignments>
+    <layoutAssignments>
         <layout>Releases__c-Releases Layout</layout>
     </layoutAssignments>
     <layoutAssignments>
@@ -9533,6 +9676,26 @@
     </pageAccesses>
     <pageAccesses>
         <apexPage>RMAListOverride</apexPage>
+        <enabled>false</enabled>
+    </pageAccesses>
+    <pageAccesses>
+        <apexPage>RSS2Chatter_AssociateFeedToObject</apexPage>
+        <enabled>false</enabled>
+    </pageAccesses>
+    <pageAccesses>
+        <apexPage>RSS2Chatter_Associate_Objects</apexPage>
+        <enabled>false</enabled>
+    </pageAccesses>
+    <pageAccesses>
+        <apexPage>RSS2Chatter_OverrideNewRelObject</apexPage>
+        <enabled>false</enabled>
+    </pageAccesses>
+    <pageAccesses>
+        <apexPage>RSS2Chatter_Preview</apexPage>
+        <enabled>false</enabled>
+    </pageAccesses>
+    <pageAccesses>
+        <apexPage>RSS2Chatter_SplashScreen</apexPage>
         <enabled>false</enabled>
     </pageAccesses>
     <pageAccesses>

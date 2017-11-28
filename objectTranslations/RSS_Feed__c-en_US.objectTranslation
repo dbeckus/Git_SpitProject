@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>RSS Feed</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>RSS Feeds</value>
+    </caseValues>
+    <fields>
+        <help><!-- The active flag indicates whether or not the feed will be read, 
+this allows you to switch feeds on or off without deleting records --></help>
+        <label><!-- Active --></label>
+        <name>Active__c</name>
+    </fields>
+    <fields>
+        <help><!-- The last sync field shows the last date and time a feed post was added to this rss feed. --></help>
+        <label><!-- Last Sync --></label>
+        <name>Last_Sync__c</name>
+    </fields>
+    <fields>
+        <help><!-- The number of posts value determines how many newss items can be read from the rss feed, 
+a value of 0 here indicates that ALL posts will be read --></help>
+        <label><!-- Maximum Posts to Read --></label>
+        <name>Maximum_Posts_to_Read__c</name>
+    </fields>
+    <fields>
+        <help><!-- The Roll up posts flag determines the way in which posts are presented in your chatter feed, rss news items can be posted as individual chatter posts, or if this flag is checked then the rss news items will be posted into a single chatter feed --></help>
+        <label><!-- Roll Up Posts --></label>
+        <name>Roll_Up_Posts__c</name>
+    </fields>
+    <fields>
+        <help><!-- The url tells the system where to get the rss feed data from --></help>
+        <label><!-- URL --></label>
+        <name>URL__c</name>
+    </fields>
+    <layouts>
+        <layout>RSS Feed Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+    </layouts>
+    <startsWith>Consonant</startsWith>
+    <webLinks>
+        <label><!-- Setup_Instructions --></label>
+        <name>Setup_Instructions</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- Test_Feed --></label>
+        <name>Test_Feed</name>
+    </webLinks>
+</CustomObjectTranslation>
