@@ -1705,6 +1705,10 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>RssFeedController</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>RvAccountToAccountBatchProcess</apexClass>
         <enabled>true</enabled>
     </classAccesses>
@@ -10265,6 +10269,10 @@
     </pageAccesses>
     <pageAccesses>
         <apexPage>RevenueRecognitionChecklist</apexPage>
+        <enabled>true</enabled>
+    </pageAccesses>
+    <pageAccesses>
+        <apexPage>RssFeedGenerator</apexPage>
         <enabled>true</enabled>
     </pageAccesses>
     <pageAccesses>

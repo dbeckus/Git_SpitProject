@@ -49,7 +49,7 @@
     <description>SW Builds related to a release</description>
     <enableActivities>false</enableActivities>
     <enableBulkApi>true</enableBulkApi>
-    <enableFeeds>false</enableFeeds>
+    <enableFeeds>true</enableFeeds>
     <enableHistory>false</enableHistory>
     <enableReports>true</enableReports>
     <enableSharing>true</enableSharing>
@@ -59,6 +59,7 @@
         <externalId>false</externalId>
         <label>Build Details</label>
         <length>32000</length>
+        <trackFeedHistory>false</trackFeedHistory>
         <trackTrending>false</trackTrending>
         <type>LongTextArea</type>
         <visibleLines>4</visibleLines>
@@ -70,6 +71,7 @@
         <label>Build Number</label>
         <length>20</length>
         <required>false</required>
+        <trackFeedHistory>true</trackFeedHistory>
         <trackTrending>false</trackTrending>
         <type>Text</type>
         <unique>false</unique>
@@ -80,6 +82,7 @@
         <inlineHelpText>input date of ECO</inlineHelpText>
         <label>ECO Date</label>
         <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
         <trackTrending>false</trackTrending>
         <type>Date</type>
     </fields>
@@ -111,6 +114,7 @@
             <sorted>false</sorted>
         </picklist>
         <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
         <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
@@ -134,6 +138,7 @@
             <sorted>false</sorted>
         </picklist>
         <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
         <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
@@ -143,6 +148,7 @@
         <externalId>false</externalId>
         <inlineHelpText>Check this to remove visibility in the Support Center Portal</inlineHelpText>
         <label>Inactive</label>
+        <trackFeedHistory>false</trackFeedHistory>
         <trackTrending>false</trackTrending>
         <type>Checkbox</type>
     </fields>
@@ -151,6 +157,7 @@
         <defaultValue>false</defaultValue>
         <externalId>false</externalId>
         <label>Silver Peak Recommended</label>
+        <trackFeedHistory>true</trackFeedHistory>
         <trackTrending>false</trackTrending>
         <type>Checkbox</type>
     </fields>
@@ -175,6 +182,7 @@ LEFT( Build_Number__c ,(FIND(    &apos;_&apos;, Build_Number__c   , 1)-1)))</for
         <relationshipLabel>Builds</relationshipLabel>
         <relationshipName>Builds</relationshipName>
         <required>false</required>
+        <trackFeedHistory>true</trackFeedHistory>
         <trackTrending>false</trackTrending>
         <type>Lookup</type>
     </fields>
@@ -202,12 +210,14 @@ LEFT( Build_Number__c ,(FIND(    &apos;_&apos;, Build_Number__c   , 1)-1)))</for
             <sorted>false</sorted>
         </picklist>
         <required>false</required>
+        <trackFeedHistory>true</trackFeedHistory>
         <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
     <label>Build</label>
     <nameField>
         <label>Build Name</label>
+        <trackFeedHistory>false</trackFeedHistory>
         <type>Text</type>
     </nameField>
     <pluralLabel>Builds</pluralLabel>

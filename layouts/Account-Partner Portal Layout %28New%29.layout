@@ -124,10 +124,6 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>Customer_Price_Book__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
                 <field>Unity_Orch_Version__c</field>
             </layoutItems>
             <layoutItems>

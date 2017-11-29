@@ -110,10 +110,6 @@
                 <behavior>Edit</behavior>
                 <field>Assigned_Distributor__c</field>
             </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>Default_PriceBook__c</field>
-            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>
@@ -285,10 +281,6 @@
                 <behavior>Edit</behavior>
                 <field>Service_Provider_Location__c</field>
             </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>Customer_Price_Book__c</field>
-            </layoutItems>
         </layoutColumns>
         <style>TwoColumnsLeftToRight</style>
     </layoutSections>
@@ -363,6 +355,10 @@
             <layoutItems>
                 <behavior>Edit</behavior>
                 <field>PrimaryPartnerContact__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Default_PriceBook__c</field>
             </layoutItems>
         </layoutColumns>
         <style>TwoColumnsLeftToRight</style>

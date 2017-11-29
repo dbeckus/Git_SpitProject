@@ -1705,6 +1705,10 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>RssFeedController</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>RvAccountToAccountBatchProcess</apexClass>
         <enabled>false</enabled>
     </classAccesses>
@@ -9948,6 +9952,10 @@
     <pageAccesses>
         <apexPage>RevenueRecognitionChecklist</apexPage>
         <enabled>true</enabled>
+    </pageAccesses>
+    <pageAccesses>
+        <apexPage>RssFeedGenerator</apexPage>
+        <enabled>false</enabled>
     </pageAccesses>
     <pageAccesses>
         <apexPage>SPIREHome</apexPage>

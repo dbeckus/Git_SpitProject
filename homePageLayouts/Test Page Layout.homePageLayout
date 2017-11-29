@@ -6,8 +6,5 @@
     <narrowComponents>Shortcuts</narrowComponents>
     <narrowComponents>standard-RecentItems</narrowComponents>
     <narrowComponents>qbdialer__PowerDialer</narrowComponents>
-    <wideComponents>standard-ProcessWorkitems</wideComponents>
-    <wideComponents>standard-Tasks</wideComponents>
-    <wideComponents>standard-Dashboard</wideComponents>
-    <wideComponents>standard-Calendar</wideComponents>
+    <wideComponents>Rss Feeds</wideComponents>
 </HomePageLayout>
