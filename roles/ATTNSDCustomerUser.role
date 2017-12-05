@@ -6,5 +6,5 @@
     <mayForecastManagerShare>false</mayForecastManagerShare>
     <name>AT&amp;T NSD Customer User</name>
     <opportunityAccessLevel>None</opportunityAccessLevel>
-    <parentRole>VP_Service_Provider_Sales</parentRole>
+    <parentRole>Grade_3_Sales_SP</parentRole>
 </Role>

@@ -21,10 +21,10 @@ trigger LinkContactToRVMember on rvpe__RVMember__c (after insert)
         
         if(matchedEmails.contains(contact.Email))
         {
-        	if(duplicatedEmails.indexOf(contact.Email) < 0)
-        	{
-            	duplicatedEmails += contact.Email + ' \r\n';
-        	}
+            if(duplicatedEmails.indexOf(contact.Email) < 0)
+            {
+                duplicatedEmails += contact.Email + ' \r\n';
+            }
         }
         else
         {
@@ -33,7 +33,7 @@ trigger LinkContactToRVMember on rvpe__RVMember__c (after insert)
     }
     if(duplicatedEmails <> '')
     {
-        List<User> users = [select Id from User where Name = 'Curtis Christensen'];
+        List<User> users = [select Id from User where Name = 'Dennis Beckus' and ProfileID = '00e30000000elKyAAI'];
         if(!users.isEmpty())
         {
             FeedItem feedItem = new FeedItem();

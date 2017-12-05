@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Workflow xmlns="http://soap.sforce.com/2006/04/metadata">
     <alerts>
+        <fullName>Contact_Send_Partner_Contact_Welcome_Template</fullName>
+        <description>Contact: Send Partner Contact Welcome Template</description>
+        <protected>false</protected>
+        <recipients>
+            <field>Email</field>
+            <type>email</type>
+        </recipients>
+        <senderAddress>silverpeakinfo@silver-peak.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>Partner_Account_Templates/Partner_Contact_Welcome</template>
+    </alerts>
+    <alerts>
         <fullName>Email_Self_Registration_has_been_Enabled</fullName>
         <description>Email - Self Registration has been Enabled</description>
         <protected>false</protected>
@@ -14,11 +26,10 @@
     </alerts>
     <alerts>
         <fullName>Partner_Role_Updated_On_Contact</fullName>
-        <ccEmails>Lindsey@snapbi.com</ccEmails>
         <description>Partner Role Updated On Contact</description>
         <protected>false</protected>
         <recipients>
-            <recipient>curtisc@silver-peak.com</recipient>
+            <recipient>dbeckus@silver-peak.com</recipient>
             <type>user</type>
         </recipients>
         <senderAddress>silverpeakinfo@silver-peak.com</senderAddress>
@@ -43,6 +54,24 @@ Sales_Rejected_Comments__c</formula>
         <name>Contact Sales Rejected Date Time Stamp</name>
         <notifyAssignee>false</notifyAssignee>
         <operation>Formula</operation>
+        <protected>false</protected>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Contact_Owner_GEO</fullName>
+        <field>GEO__c</field>
+        <formula>IF(ISBLANK(Owner.GEO_Region__c ),&apos;&apos;,Owner.GEO_Region__c)</formula>
+        <name>Update Contact Owner GEO</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_lead_source_to_deal_reg</fullName>
+        <field>LeadSource</field>
+        <literalValue>Deal Registration</literalValue>
+        <name>Update lead source to deal reg</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
         <protected>false</protected>
     </fieldUpdates>
     <outboundMessages>
@@ -87,6 +116,25 @@ Sales_Rejected_Comments__c</formula>
         <triggerType>onAllChanges</triggerType>
     </rules>
     <rules>
+        <fullName>Contact%3A Allow Partner Portal Self Registration %3D True</fullName>
+        <actions>
+            <name>Contact_Send_Partner_Contact_Welcome_Template</name>
+            <type>Alert</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>Contact.CanAllowPartnerPortalSelfReg__c</field>
+            <operation>equals</operation>
+            <value>True</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Account.IsPartner</field>
+            <operation>equals</operation>
+            <value>True</value>
+        </criteriaItems>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
         <fullName>Contact%3A Contact Role Task Reminders</fullName>
         <actions>
             <name>Reminder_Set_Contact_Role_on_Opportunity</name>
@@ -114,6 +162,29 @@ Sales_Rejected_Comments__c</formula>
         </criteriaItems>
         <description>Alert to Admin that a User has been assigned a Manager or Executive Role</description>
         <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>Restrict updating deal reg lead source</fullName>
+        <actions>
+            <name>Update_lead_source_to_deal_reg</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <description>If the lead source is Deal Reg and Cloudingo tries to update it with different value, update it back to Deal Reg</description>
+        <formula>AND(ISCHANGED(LeadSource),
+    TEXT(PRIORVALUE(LeadSource)) = &apos;Deal Registration&apos;,
+    $User.Id= &apos;005380000057EOB&apos;)</formula>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>Update Contact GEO</fullName>
+        <actions>
+            <name>Update_Contact_Owner_GEO</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <formula>ISCHANGED(OwnerId )</formula>
+        <triggerType>onAllChanges</triggerType>
     </rules>
     <rules>
         <fullName>UponSetForSelfRegister</fullName>

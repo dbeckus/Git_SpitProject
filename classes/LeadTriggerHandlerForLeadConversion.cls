@@ -16,6 +16,23 @@ public class LeadTriggerHandlerForLeadConversion extends TriggerHandler
     {
         updateLeadStatusOnContact();
     }
+    
+    public static Id getCloudingoUserId()
+    {
+      if(SilverPeakUtils.IsProduction())
+        {
+            return '005380000057EOB';     
+        }
+        else
+        {
+         User cloudingoUser = [Select Id, Name from User where Name = 'Cloudingo Integration'];
+         if(cloudingoUser!=null)
+         {
+         return cloudingoUser.Id;
+         }
+         return null;
+        }
+    }
 
     private void updateLeadStatusOnContact()
     {
@@ -23,7 +40,9 @@ public class LeadTriggerHandlerForLeadConversion extends TriggerHandler
         for(Sobject obj : Trigger.new)
         {
             Lead lead = (Lead)obj;
-            if(lead.IsConverted == true && lead.Trial_Request_from_Marketplace__c == false && lead.ConvertedContactId != null)
+            Id uid =userinfo.getUserId();
+            Id cloudingoUserId=getCloudingoUserId();
+            if(lead.IsConverted == true && lead.Trial_Request_from_Marketplace__c == false && lead.ConvertedContactId != null && cloudingoUserId!=null && uid !=cloudingoUserId )
             {
                 contacts.add(new Contact(Id=lead.ConvertedContactId, Lead_Status__c=lead.Status));
             }

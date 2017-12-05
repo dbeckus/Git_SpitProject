@@ -209,7 +209,10 @@ public class PatchRuleEngineBuilder
         }
         for(String value : values)
         {
-            result += '\'' + value + '\', ';
+            if(String.isNotBlank(value)) 
+            {
+                result += '\'' + value + '\', ';
+            }
         }
         if(result.endsWith(', '))
         {
@@ -230,7 +233,10 @@ public class PatchRuleEngineBuilder
         }
         for(String value : values)
         {
-            result += '\'' + value + '\', ';
+            if(String.isNotBlank(value)) 
+            {
+                result += '\'' + value + '\', ';
+            }
         }
         if(result.endsWith(', '))
         {

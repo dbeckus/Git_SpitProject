@@ -6,5 +6,5 @@
     <mayForecastManagerShare>false</mayForecastManagerShare>
     <name>Munters Customer User</name>
     <opportunityAccessLevel>None</opportunityAccessLevel>
-    <parentRole>SalesManagerEastern</parentRole>
+    <parentRole>Grade_3_Sales_EMEA</parentRole>
 </Role>

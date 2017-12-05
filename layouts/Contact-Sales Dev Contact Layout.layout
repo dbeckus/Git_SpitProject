@@ -12,6 +12,7 @@
     <excludeButtons>EnablePartnerPortalUser</excludeButtons>
     <excludeButtons>EnablePrmSuperUser</excludeButtons>
     <excludeButtons>EnableSelfService</excludeButtons>
+    <excludeButtons>RequestUseSfdc</excludeButtons>
     <excludeButtons>Submit</excludeButtons>
     <excludeButtons>ViewCustomerPortal</excludeButtons>
     <excludeButtons>ViewPartnerPortalUser</excludeButtons>
@@ -31,8 +32,20 @@
                 <field>GEO__c</field>
             </layoutItems>
             <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>Accurate_GEO__c</field>
+            </layoutItems>
+            <layoutItems>
                 <behavior>Edit</behavior>
                 <field>Quote_Contact__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Explicit_Consent__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>ABM_Target__c</field>
             </layoutItems>
         </layoutColumns>
         <layoutColumns>
@@ -88,6 +101,18 @@
             <layoutItems>
                 <behavior>Edit</behavior>
                 <field>Fax</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Patch_Owner__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>Patch_Owner_Name__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Trigger_Marketo_Sync__c</field>
             </layoutItems>
         </layoutColumns>
         <layoutColumns>

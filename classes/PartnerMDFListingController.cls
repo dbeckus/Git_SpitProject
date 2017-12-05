@@ -1,4 +1,4 @@
-public class PartnerMDFListingController {
+public with sharing class PartnerMDFListingController {
     public list<MDF_Request__c> Requests{ get; set; }
     public PartnerMDFListingController()
     {

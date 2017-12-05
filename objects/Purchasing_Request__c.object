@@ -187,6 +187,27 @@
         <type>Picklist</type>
     </fields>
     <fields>
+        <fullName>PR_line__c</fullName>
+        <externalId>false</externalId>
+        <label># PR line</label>
+        <summaryForeignKey>Purchase_Request_Lines__c.Purchasing_Request__c</summaryForeignKey>
+        <summaryOperation>count</summaryOperation>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Summary</type>
+    </fields>
+    <fields>
+        <fullName>PR_line_qty__c</fullName>
+        <externalId>false</externalId>
+        <label># PR line qty</label>
+        <summarizedField>Purchase_Request_Lines__c.Qty__c</summarizedField>
+        <summaryForeignKey>Purchase_Request_Lines__c.Purchasing_Request__c</summaryForeignKey>
+        <summaryOperation>sum</summaryOperation>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Summary</type>
+    </fields>
+    <fields>
         <fullName>PayOnCreditCard__c</fullName>
         <defaultValue>false</defaultValue>
         <externalId>false</externalId>

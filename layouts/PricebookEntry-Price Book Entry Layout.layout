@@ -27,8 +27,8 @@
                 <field>LastModifiedById</field>
             </layoutItems>
             <layoutItems>
-                <behavior>Edit</behavior>
-                <field>Not_Discountable__c</field>
+                <behavior>Readonly</behavior>
+                <field>Quote_Type__c</field>
             </layoutItems>
         </layoutColumns>
         <layoutColumns>

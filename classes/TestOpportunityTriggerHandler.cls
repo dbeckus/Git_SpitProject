@@ -1,7 +1,7 @@
 @IsTest
 public class TestOpportunityTriggerHandler {
     @isTest
-    static void testTriggerPreventOpportunityDeletion()
+    public static void testTriggerPreventOpportunityDeletion()
     {
         Opportunity opp = new Opportunity(Name='acme', CloseDate=Date.today(), StageName='Discovery');
         insert opp;
@@ -32,7 +32,7 @@ public class TestOpportunityTriggerHandler {
         System.assert(result.Fiscal_Quarter_Name__c!=null);
     }
     
-  @IsTest
+    @IsTest
     public static void TestUpdateFirstOpportunityWinCheckBox_FirstOppClosed()
     {
         Account acc = new Account(Name='acme', Type='Eval');
@@ -50,7 +50,7 @@ public class TestOpportunityTriggerHandler {
         System.assert(result.First_Win_Opportunity__c==true);
     }
     
-     @IsTest
+    @IsTest
     public static void TestUpdateFirstOpportunityWinCheckBox_Uncheck()
     {
         Account acc = new Account(Name='acme', Type='Eval');
@@ -68,7 +68,7 @@ public class TestOpportunityTriggerHandler {
         System.assert(result.First_Win_Opportunity__c==true);
         opp.StageName='PO in Process';
         update opp;
-		Opportunity result1=[Select Id,First_Win_Opportunity__c from Opportunity where Id=:opp.Id];
+        Opportunity result1=[Select Id,First_Win_Opportunity__c from Opportunity where Id=:opp.Id];
         System.assert(result1.First_Win_Opportunity__c==false);        
     }
     
@@ -89,9 +89,6 @@ public class TestOpportunityTriggerHandler {
         Opportunity result=[Select Id,Fiscal_Quarter_Name__c from Opportunity where Id=:opp.Id];
         System.assert(result.Fiscal_Quarter_Name__c!=null);
     }
-    
-    
-    
     
     @IsTest
     public static void CheckAllOppsUpdatedforAccount()
@@ -337,7 +334,7 @@ public class TestOpportunityTriggerHandler {
         
     }
     @isTest
-    static void testUpdateOpportunity()
+    public static void testUpdateOpportunity()
     {
         Contact con = new Contact(LastName = 'Test');
         insert con;
@@ -365,7 +362,7 @@ System.assertEquals(null, [select Id,SBQQ__StartDate__c from SBQQ__Quote__c wher
 */
     }
     @isTest(SeeAllData = true)
-    static void testCreateWanStartCase()
+    public static void testCreateWanStartCase()
     {
         Account acc = new Account(Name='acme');
         insert acc;
@@ -376,7 +373,7 @@ System.assertEquals(null, [select Id,SBQQ__StartDate__c from SBQQ__Quote__c wher
         insert line;
     }
     @isTest
-    static void testSetLeadSourceOnOpp()
+    public static void testSetLeadSourceOnOpp()
     {
         Account acc = new Account(Name='acme');
         insert acc;
@@ -386,7 +383,7 @@ System.assertEquals(null, [select Id,SBQQ__StartDate__c from SBQQ__Quote__c wher
         update opp;
     }
     @isTest
-    static void testRemoveOrphanedPOC()
+    public static void testRemoveOrphanedPOC()
     {
         Account account = new Account(Name='acme');
         insert account;
@@ -398,7 +395,7 @@ System.assertEquals(null, [select Id,SBQQ__StartDate__c from SBQQ__Quote__c wher
         delete opp;
     }
     @isTest 
-    static void activePOCsTrue(){
+    public static void activePOCsTrue(){
         Opportunity opp = new Opportunity();
         opp.Name ='POC Age Opportunity';
         opp.StageName = 'New';
@@ -421,7 +418,7 @@ System.assertEquals(null, [select Id,SBQQ__StartDate__c from SBQQ__Quote__c wher
     
     //Test when Active POC's is unchecked
     @isTest
-    static void activePOCsFalse(){
+    public static void activePOCsFalse(){
         Opportunity opp = new Opportunity();
         opp.Name ='POC Age Opportunity1';
         opp.StageName = 'New';
@@ -443,7 +440,7 @@ System.assertEquals(null, [select Id,SBQQ__StartDate__c from SBQQ__Quote__c wher
     
     //Test when oppportunity is closed with active POC
     @isTest
-    static void OpportunityIsClosedWithActivePOC(){
+    public static void OpportunityIsClosedWithActivePOC(){
         Opportunity opp = new Opportunity();
         opp.Name ='POC Age Opportunity2';
         opp.StageName = 'New';
@@ -466,7 +463,7 @@ System.assertEquals(null, [select Id,SBQQ__StartDate__c from SBQQ__Quote__c wher
     
     //Test when oppportunity is closed with no active POC's
     @isTest
-    static void OpportunityIsClosedWithoutActivePOC(){
+    public static void OpportunityIsClosedWithoutActivePOC(){
         Opportunity opp = new Opportunity();
         opp.Name ='POC Age Opportunity3';
         opp.StageName = 'New';
@@ -518,7 +515,7 @@ System.assertEquals(null, [select Id,SBQQ__StartDate__c from SBQQ__Quote__c wher
             
         }
     }
-     @IsTest(SeeAllData=true)
+    @IsTest(SeeAllData=true)
     public static void TestPopulateOpportunitySource_RSM1()
     {
         
@@ -549,7 +546,7 @@ System.assertEquals(null, [select Id,SBQQ__StartDate__c from SBQQ__Quote__c wher
             
         }
     }
-     @IsTest(SeeAllData=true)
+    @IsTest(SeeAllData=true)
     public static void TestPopulateOpportunitySource_RSM2()
     {
         
@@ -581,7 +578,7 @@ System.assertEquals(null, [select Id,SBQQ__StartDate__c from SBQQ__Quote__c wher
         }
     }
     
-     @IsTest(SeeAllData=true)
+    @IsTest(SeeAllData=true)
     public static void TestPopulateOpportunitySource_RSM3()
     {
         
@@ -628,7 +625,7 @@ System.assertEquals(null, [select Id,SBQQ__StartDate__c from SBQQ__Quote__c wher
         
         System.runAs(usr)
         {
-           Test.startTest();
+            Test.startTest();
             Account acc= new Account(Name='acme') ;
             insert acc;
             
@@ -691,54 +688,24 @@ System.assertEquals(null, [select Id,SBQQ__StartDate__c from SBQQ__Quote__c wher
         rsmusr.IsActive =true;
         insert rsmusr;
         
-        Patch__c patch = new Patch__c(Patch_Name__c='acme', Active__c=true,RSM__c=rsmusr.Id);
-        insert patch;
-        
-        Account acc= new Account(Name='Test Account',Patch__c=patch.Id);
-        insert acc;
-        
-        Opportunity opp= new Opportunity(AccountId=acc.id,Name='Test Opp',StageName='Discovery',CloseDate=Date.today().addYears(1));
-        insert opp;
-        
-        Opportunity outputOpp=[Select Id,Technical_Responsible__c from Opportunity where Id=:opp.Id];
-        System.assertEquals(outputOpp.Technical_Responsible__c, techUser.id);
+        System.runAs(rsmusr)
+        { 
+            Account acc= new Account(Name='Test Account');
+            insert acc;
+            
+            Opportunity opp= new Opportunity(AccountId=acc.id,Name='Test Opp',StageName='Discovery',CloseDate=Date.today().addYears(1));
+            insert opp;
+            
+            Opportunity outputOpp=[Select Id,Technical_Responsible__c from Opportunity where Id=:opp.Id];
+            System.assertEquals(outputOpp.Technical_Responsible__c, techUser.id);
+        }
         
     }
     @Istest(SeeAllData=true)
-    public static void SetTechResponsibilityWhenNotNullAndNotNew()
-    {
-         Profile prof = [SELECT Id FROM Profile WHERE Name='1.4- Intl Regional Sales Manager']; 
-        User techUser = new User(Alias = 'standt', Email='testUser@testtechuser.com', 
-                                 EmailEncodingKey='UTF-8', LastName='Testing', LanguageLocaleKey='en_US', 
-                                 LocaleSidKey='en_US', ProfileId = prof.Id, 
-                                 TimeZoneSidKey='America/Los_Angeles', UserName='testUser@testtechuser.com');
-        
-        techUser.IsActive =true;
-        insert techUser;
-        User rsmusr = new User(Alias = 'standt', Email='testUser@testrsmUser.com', 
-                               EmailEncodingKey='UTF-8', LastName='Testing', LanguageLocaleKey='en_US', 
-                               LocaleSidKey='en_US', ProfileId = prof.Id, 
-                               TimeZoneSidKey='America/Los_Angeles', UserName='testUser@testrsmUser.com',Default_TR__c=techUser.id);
-        
-        rsmusr.IsActive =true;
-        insert rsmusr;
-        
-        Patch__c patch = new Patch__c(Patch_Name__c='acme', Active__c=true,RSM__c=rsmusr.Id);
-        insert patch;
-        
-        Account acc= new Account(Name='Test Account',Patch__c=patch.Id);
-        insert acc;
-        
-        Opportunity opp= new Opportunity(AccountId=acc.id,Name='Test Opp',StageName='Discovery',CloseDate=Date.today().addYears(1),Technical_Responsible__c=rsmusr.Id);
-        insert opp;
-        
-        Opportunity outputOpp=[Select Id,Technical_Responsible__c from Opportunity where Id=:opp.Id];
-        System.assertNotEquals(outputOpp.Technical_Responsible__c, techUser.id);
-    }
-     @Istest(SeeAllData=true)
     public static void SetTechResponsibilityWhenNullAndNew()
     {
-          Profile prof = [SELECT Id FROM Profile WHERE Name='1.4- Intl Regional Sales Manager']; 
+        Profile prof = [SELECT Id FROM Profile WHERE Name='1.4- Intl Regional Sales Manager']; 
+        Profile profbdr = [SELECT Id FROM Profile WHERE Name='1.7- Renewal Specialist'];
         User techUser = new User(Alias = 'standt', Email='testUser@testtechuser.com', 
                                  EmailEncodingKey='UTF-8', LastName='Testing', LanguageLocaleKey='en_US', 
                                  LocaleSidKey='en_US', ProfileId = prof.Id, 
@@ -746,24 +713,61 @@ System.assertEquals(null, [select Id,SBQQ__StartDate__c from SBQQ__Quote__c wher
         
         techUser.IsActive =true;
         insert techUser;
-        User rsmusr = new User(Alias = 'standt', Email='testUser@testrsmUser.com', 
+        User bdrusr = new User(Alias = 'standt', Email='testUser@testrsmUser.com', 
                                EmailEncodingKey='UTF-8', LastName='Testing', LanguageLocaleKey='en_US', 
-                               LocaleSidKey='en_US', ProfileId = prof.Id, 
-                               TimeZoneSidKey='America/Los_Angeles', UserName='testUser@testrsmUser.com',Default_TR__c=techUser.id);
+                               LocaleSidKey='en_US', ProfileId = profbdr.Id, 
+                               TimeZoneSidKey='America/Los_Angeles', UserName='testUser@testbdrUser.com',Default_TR__c=techUser.id);
         
-        rsmusr.IsActive =true;
-        insert rsmusr;
+        bdrusr.IsActive =true;
+        insert bdrusr;
         
-        Patch__c patch = new Patch__c(Patch_Name__c='acme', Active__c=true,RSM__c=rsmusr.Id);
-        insert patch;
+        System.runAs(bdrusr)
+        {
+            Account acc= new Account(Name='Test Account');
+            insert acc;
+            
+            Opportunity opp= new Opportunity(AccountId=acc.id,Name='Test Opp',StageName='New',CloseDate=Date.today().addYears(1));
+            insert opp;
+            
+            Opportunity outputOpp=[Select Id,Technical_Responsible__c from Opportunity where Id=:opp.Id];
+            System.assertEquals(outputOpp.Technical_Responsible__c, null);
+        }
+    }
+    
+    //opp updated with New TR who is not a Team Member
+    @isTest
+    public static void newTRAddedToTeam(){
         
-        Account acc= new Account(Name='Test Account',Patch__c=patch.Id);
-        insert acc;
+        UserRole r = new UserRole(DeveloperName = 'Grade_4_Sys_Eng_NAM_Eastern', Name = 'Grade 4 Sys Eng NAM Eastern');
+        insert r;
         
-        Opportunity opp= new Opportunity(AccountId=acc.id,Name='Test Opp',StageName='New',CloseDate=Date.today().addYears(1));
-        insert opp;
+        User usr1= new User(LastName = 'Bell',FirstName = 'Rodney',Email = 'rbell@silver-peak.com',Username = 'rbell@silver-peak.com',
+                            UserRoleId = r.id,TimeZoneSidKey  = 'America/Los_Angeles',EmailEncodingKey = 'UTF-8',
+                            LanguageLocaleKey = 'en_US',LocaleSidKey = 'en_US',Alias = 'rbell',
+                            ProfileId = [Select Id from Profile where name = '1.6- Sales Engineer Team'].Id);
+        insert usr1;
         
-        Opportunity outputOpp=[Select Id,Technical_Responsible__c from Opportunity where Id=:opp.Id];
-        System.assertEquals(outputOpp.Technical_Responsible__c, null);
+        User usr2= new User(LastName = 'Lever',FirstName = 'Todd',Email ='tlever@silver-peak.com',Username = 'tlever@silver-peak.com',
+                            UserRoleId = r.id,TimeZoneSidKey  = 'America/Los_Angeles',EmailEncodingKey = 'UTF-8',
+                            LanguageLocaleKey = 'en_US',LocaleSidKey = 'en_US',Alias = 'tlever',
+                            ProfileId = [Select Id from Profile where name = '1.6- Sales Engineer Team'].Id);
+        insert usr2;
+        
+        System.runAs(usr1){
+            Account acc =  new Account(Name = 'Test Account',Type = 'Prospect');
+            insert acc;
+            
+            Opportunity opp = new Opportunity(Name = 'Test Opportunity',AccountId = acc.Id,StageName = 'Qualified',CloseDate = Date.Today()+30,
+                                              Type = 'Follow on Business',Deal_Type__c = 'WAN Op');
+            insert opp;
+            
+            opp.Technical_Responsible__c = usr2.Id;
+            update opp;
+            
+            List<OpportunityTeamMember> listOTM = [Select Id,OpportunityId,TeamMemberRole,UserId,OpportunityAccessLevel from OpportunityTeamMember where OpportunityId =:opp.Id
+                                                   and UserId =:usr2.Id];
+            system.assertEquals('Systems Engineer', listOTM[0].TeamMemberRole);
+            system.assertEquals('Edit', listOTM[0].OpportunityAccessLevel);
+        }
     }
 }

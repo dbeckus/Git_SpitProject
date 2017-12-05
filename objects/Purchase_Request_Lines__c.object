@@ -96,23 +96,19 @@
                 <default>false</default>
             </picklistValues>
             <picklistValues>
-                <fullName>331-Brazil</fullName>
+                <fullName>350-Service Providers</fullName>
                 <default>false</default>
             </picklistValues>
             <picklistValues>
-                <fullName>380-Support</fullName>
+                <fullName>410-Demand Gen. &amp; Communications</fullName>
                 <default>false</default>
             </picklistValues>
             <picklistValues>
-                <fullName>410-Marketing</fullName>
+                <fullName>412-Product &amp; Solutions Marketing</fullName>
                 <default>false</default>
             </picklistValues>
             <picklistValues>
-                <fullName>412-Marketing Communications</fullName>
-                <default>false</default>
-            </picklistValues>
-            <picklistValues>
-                <fullName>414-Corporate Communications</fullName>
+                <fullName>414-Corporate Marketing</fullName>
                 <default>false</default>
             </picklistValues>
             <picklistValues>
@@ -120,7 +116,7 @@
                 <default>false</default>
             </picklistValues>
             <picklistValues>
-                <fullName>418-Channel Marketing</fullName>
+                <fullName>418-Field &amp; Channel Marketing</fullName>
                 <default>false</default>
             </picklistValues>
             <picklistValues>
@@ -137,6 +133,14 @@
             </picklistValues>
             <picklistValues>
                 <fullName>710-Operations</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>810-Support</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>820-Deployment Engineers</fullName>
                 <default>false</default>
             </picklistValues>
             <sorted>false</sorted>
@@ -178,6 +182,20 @@
         <trackHistory>false</trackHistory>
         <trackTrending>false</trackTrending>
         <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>PR_line__c</fullName>
+        <externalId>false</externalId>
+        <formula>Purchasing_Request__r.PR_line__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label># PR line</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Project__c</fullName>
@@ -314,6 +332,10 @@
             </picklistValues>
             <picklistValues>
                 <fullName>100042-VMworld Partner Exchange 2015</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>100043-Service Provider</fullName>
                 <default>false</default>
             </picklistValues>
             <sorted>false</sorted>

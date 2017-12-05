@@ -6,10 +6,10 @@
     <tab>Sales_Development</tab>
     <tab>mkto_si__Marketo_Sales_Insight</tab>
     <tab>standard-Account</tab>
+    <tab>SP_Forecasting</tab>
     <tab>standard-ContentSearch</tab>
     <tab>standard-File</tab>
     <tab>standard-Contact</tab>
-    <tab>SP_Forecasting</tab>
     <tab>Spire</tab>
     <tab>standard-Opportunity</tab>
     <tab>standard-Case</tab>
@@ -28,4 +28,7 @@
     <tab>standard-Forecasting3</tab>
     <tab>LMS_Course_Certification__c</tab>
     <tab>Api_Configuration__c</tab>
+    <tab>LMS_Course__c</tab>
+    <tab>Aviso</tab>
+    <tab>Account_Summary</tab>
 </CustomApplication>

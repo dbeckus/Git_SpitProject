@@ -6,5 +6,5 @@
     <mayForecastManagerShare>false</mayForecastManagerShare>
     <name>CFCAL-Banque Customer User</name>
     <opportunityAccessLevel>None</opportunityAccessLevel>
-    <parentRole>EMEA_Inside_Sales</parentRole>
+    <parentRole>Grade_2_BDR</parentRole>
 </Role>

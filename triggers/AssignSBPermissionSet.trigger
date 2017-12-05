@@ -9,7 +9,6 @@ trigger AssignSBPermissionSet on User (after insert) {
     profileIds.add('00e50000000vvBM');
     profileIds.add('00e50000000vMPT');
     profileIds.add('00e38000001Buca');
-    
     for(User usr:Trigger.New)
     {
         if(profileIds.contains(usr.ProfileId))
@@ -26,13 +25,10 @@ trigger AssignSBPermissionSet on User (after insert) {
             
         }
     }
-    if(!Test.isRunningTest())
-    {
-        if(lstPermissionSetAssignment.size()>0)
-        {
-            insert lstPermissionSetAssignment;
-        }
-    }
     
+    if(lstPermissionSetAssignment.size()>0)
+    {
+        insert lstPermissionSetAssignment;
+    }
     
 }

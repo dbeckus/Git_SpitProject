@@ -278,11 +278,21 @@ Approval_Level_Needed__c &gt;1
         </rejectBehavior>
     </approvalStep>
     <approvalStep>
-        <allowDelegate>false</allowDelegate>
+        <allowDelegate>true</allowDelegate>
         <assignedApprover>
             <approver>
-                <type>userHierarchyField</type>
+                <name>chelfer@silver-peak.com</name>
+                <type>user</type>
             </approver>
+            <approver>
+                <name>eyeaman@silver-peak.com</name>
+                <type>user</type>
+            </approver>
+            <approver>
+                <name>rbooth@silver-peak.com</name>
+                <type>user</type>
+            </approver>
+            <whenMultipleApprovers>FirstResponse</whenMultipleApprovers>
         </assignedApprover>
         <entryCriteria>
             <formula>AND 

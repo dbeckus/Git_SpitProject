@@ -6,5 +6,5 @@
     <mayForecastManagerShare>false</mayForecastManagerShare>
     <name>Banco Modal S/A. Customer Manager</name>
     <opportunityAccessLevel>None</opportunityAccessLevel>
-    <parentRole>CountryManagerLAT</parentRole>
+    <parentRole>Grade_2_COMM</parentRole>
 </Role>

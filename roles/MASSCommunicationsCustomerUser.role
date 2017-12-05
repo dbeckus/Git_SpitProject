@@ -6,5 +6,5 @@
     <mayForecastManagerShare>false</mayForecastManagerShare>
     <name>MASS Communications Customer User</name>
     <opportunityAccessLevel>None</opportunityAccessLevel>
-    <parentRole>SalesManagerEastern</parentRole>
+    <parentRole>Grade_5_CAM_NAM_Northeast</parentRole>
 </Role>

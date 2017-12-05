@@ -118,6 +118,11 @@
         <unique>false</unique>
     </fields>
     <label>LMS Course</label>
+    <listViews>
+        <fullName>All</fullName>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+    </listViews>
     <nameField>
         <displayFormat>C-{000}</displayFormat>
         <label>Name</label>

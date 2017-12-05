@@ -22,6 +22,10 @@
                 <behavior>Readonly</behavior>
                 <field>Manager_Text_Field__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Disable_Portal_Access__c</field>
+            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>

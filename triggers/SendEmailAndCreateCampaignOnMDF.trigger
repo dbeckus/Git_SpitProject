@@ -36,6 +36,16 @@ trigger SendEmailAndCreateCampaignOnMDF on MDF_Request__c (after Update)
         Messaging.SingleEmailMessage mail = new Messaging.SingleEmailMessage();
         List<Messaging.SingleEmailMessage> mails = new List<Messaging.SingleEmailMessage>();
         List<EmailTemplate> et = [Select Id, Name, Body, HtmlValue,Subject from EmailTemplate where DeveloperName like '%New_MDF_Approved_Post_Event%' limit 1];
+        List<OrgWideEmailAddress> orgWideEmail = [Select Id from OrgWideEmailAddress where DisplayName = 'Silver Peak Channel Team' LIMIT 1];
+        List<Messaging.Emailfileattachment> fileAttachments = new List<Messaging.Emailfileattachment>();
+        for(Attachment attach : [select Id, Name, Body from Attachment where parentId = :et[0].Id])
+        {
+            Messaging.Emailfileattachment efa = new Messaging.Emailfileattachment();
+            efa.setFileName(attach.Name);
+            efa.setBody(attach.Body);
+            fileAttachments.add(efa);
+        }
+         
         if(!et.isEmpty())
         {
             String url;
@@ -44,11 +54,17 @@ trigger SendEmailAndCreateCampaignOnMDF on MDF_Request__c (after Update)
                 url = SendMdfUrlToClientController.encryptParameter(mdf.Id);
                 String recipient = mdf.Owner.Profile.Name == '13g-SP Partner Community' ? mdf.Owner.Email : mdf.Contact__r.Email;
                 mail.setToAddresses(new String[] {recipient});
-                mail.setSenderDisplayName('The Silver Peak Team');
+                //mail.setSenderDisplayName('The Silver Peak Team');
+                mail.setOrgWideEmailAddressId(orgWideEmail[0].Id);
                 mail.setSubject(mergeEmail(et[0].Subject, mdf, url));
                 mail.setPlainTextBody(mergeEmail(et[0].Body, mdf, url));
                 mail.setBccSender(false);
                 mail.setUseSignature(false);
+
+                if(!fileAttachments.IsEmpty())
+                {
+                    mail.setFileAttachments(fileAttachments);
+                }
                 mails.add(mail);
             }
             Messaging.sendEmail(mails);
@@ -89,8 +105,8 @@ trigger SendEmailAndCreateCampaignOnMDF on MDF_Request__c (after Update)
         {
             String fyfq = getQuarter(mdf.Activity_Date__c);
             String geo = mdf.GEO__c == 'NAM' ? 'AMER' : mdf.GEO__c;
-            String activityDate = (mdf.Activity_Date__c == null) ? '' : ((String.valueOf(mdf.Activity_Date__c.year()).right(2)) + '' + (mdf.Activity_Date__c.month() < 10 ? '0' + mdf.Activity_Date__c.month() : '' + mdf.Activity_Date__c.month()) + '' + (mdf.Activity_Date__c.day() < 10 ? '0' + mdf.Activity_Date__c.day() : '' + mdf.Activity_Date__c.day()));
-            String campaignName = truncateString(fyfq, 6) + '_' + truncateString(geo, 5) + '_' + truncateString(mdf.Type_Of_Program__c, 15) + '_' + truncateString(mdf.Event_Campaign_Name__c, 15) + '_' + truncateString(mdf.Account__r.Name, 15) + '_' + truncateString(mdf.Event_Location_City__c, 12) + '_' + truncateString(activityDate, 6);
+            String activityDate = (mdf.Activity_Date__c == null) ? '' : ((mdf.Activity_Date__c.month() < 10 ? '0' + mdf.Activity_Date__c.month() : '' + mdf.Activity_Date__c.month()) + '' + (mdf.Activity_Date__c.day() < 10 ? '0' + mdf.Activity_Date__c.day() : '' + mdf.Activity_Date__c.day()) + '' + (String.valueOf(mdf.Activity_Date__c.year()).right(2)));
+            String campaignName = truncateString(fyfq, 6) + '_' + truncateString(activityDate, 6) + '_' + truncateString(geo, 5) + '_' + truncateString(mdf.Type_Of_Program__c, 15) + '_' + truncateString(mdf.Event_Campaign_Name__c, 15) + '_' + truncateString(mdf.Account__r.Name, 15) + '_' + truncateString(mdf.Event_Location_City__c, 12);
             return campaignName.length() > 80 ? campaignName.substring(0, 80) : campaignName;
         }
         else
@@ -121,7 +137,9 @@ trigger SendEmailAndCreateCampaignOnMDF on MDF_Request__c (after Update)
         if(d != null)
         {
             Integer month = d.month();
-            return 'FY' + String.valueOf(d.year()).subString(2,4) + 'Q' + (Integer)Math.ceil(math.mod(month + 5, 12)/4.0);
+            String FY = 'FY' + String.valueOf((month >= 8) ? d.year() + 1 : d.year()).subString(2,4);
+            String FQ = 'Q' + (Integer)Math.ceil((month >= 8 ? month -7 : month + 5) /3.0);
+            return FY + FQ;
         }
         else
         {

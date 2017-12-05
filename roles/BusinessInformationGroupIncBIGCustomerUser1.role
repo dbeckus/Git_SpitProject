@@ -6,5 +6,5 @@
     <mayForecastManagerShare>false</mayForecastManagerShare>
     <name>Business Information Group Inc. Customer User</name>
     <opportunityAccessLevel>None</opportunityAccessLevel>
-    <parentRole>ChannelSalesManagerEast</parentRole>
+    <parentRole>Grade_5_CAM_NAM_Southeast</parentRole>
 </Role>

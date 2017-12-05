@@ -90,12 +90,7 @@
             <type>Alert</type>
         </actions>
         <active>true</active>
-        <formula>AND( NOT(ISPICKVAL(Contract_Type__c,&quot;Evaluation&quot;)),
-OR(
-ISCHANGED( EndDate ) &amp;&amp;  ISPICKVAL( Status , &quot;Activated&quot;),
-ISPICKVAL( Status , &quot;Activated&quot;) &amp;&amp; ISPICKVAL( Priorvalue(Status) , &quot;Draft&quot;),
-ISPICKVAL( Status , &quot;Activated&quot;) &amp;&amp; ISPICKVAL( Priorvalue(Status) , &quot;Expired&quot;)
-))</formula>
+        <formula>AND( NOT(ISPICKVAL(Contract_Type__c,&quot;Evaluation&quot;)), OR( ISCHANGED( EndDate ) &amp;&amp;  ISPICKVAL( Status , &quot;Activated&quot;), ISPICKVAL( Status , &quot;Activated&quot;) &amp;&amp; ISPICKVAL( Priorvalue(Status) , &quot;Draft&quot;), ISPICKVAL( Status , &quot;Activated&quot;) &amp;&amp; ISPICKVAL( Priorvalue(Status) , &quot;Expired&quot;) ))</formula>
         <triggerType>onAllChanges</triggerType>
     </rules>
     <rules>
@@ -129,17 +124,6 @@ ISPICKVAL( Status , &quot;Activated&quot;) &amp;&amp; ISPICKVAL( Priorvalue(Stat
             <operation>notEqual</operation>
         </criteriaItems>
         <description>Set&apos;s actions to occur when contracts are edited.</description>
-        <triggerType>onAllChanges</triggerType>
-    </rules>
-    <rules>
-        <fullName>Sync Contract Dates for Service Provider</fullName>
-        <active>false</active>
-        <formula>AND(
-ISPICKVAL( Contract_Type__c,&quot;Service Provider&quot; ),
-ISCHANGED( StartDate ),
-ISCHANGED( EndDate),
-ISCHANGED( Status)
-)</formula>
         <triggerType>onAllChanges</triggerType>
     </rules>
 </Workflow>

@@ -1,3 +1,62 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<OpportunitySharingRules xmlns="http://soap.sforce.com/2006/04/metadata"/>
-
+<OpportunitySharingRules xmlns="http://soap.sforce.com/2006/04/metadata">
+    <criteriaBasedRules>
+        <fullName>Share_EMEA_Opps_with_BDR_Contractor</fullName>
+        <sharedTo>
+            <role>Grade_2_BDR_Contractor</role>
+        </sharedTo>
+        <criteriaItems>
+            <field>Sales_Region__c</field>
+            <operation>startsWith</operation>
+            <value>EMEA</value>
+        </criteriaItems>
+        <name>Share EMEA Opps with BDR Contractor</name>
+        <opportunityAccessLevel>Edit</opportunityAccessLevel>
+    </criteriaBasedRules>
+    <criteriaBasedRules>
+        <fullName>Share_Non_Renewal_opps_with_Marketo</fullName>
+        <sharedTo>
+            <role>Marketo_Integration</role>
+        </sharedTo>
+        <criteriaItems>
+            <field>Type</field>
+            <operation>equals</operation>
+            <value>Follow on Business,New Business</value>
+        </criteriaItems>
+        <name>Share Non Renewal opps with Marketo</name>
+        <opportunityAccessLevel>Edit</opportunityAccessLevel>
+    </criteriaBasedRules>
+    <ownerRules>
+        <fullName>Share_Owned_by_Partner_to_Marketo</fullName>
+        <sharedTo>
+            <role>Marketo_Integration</role>
+        </sharedTo>
+        <sharedFrom>
+            <allPartnerUsers></allPartnerUsers>
+        </sharedFrom>
+        <name>Share Owned by Partner to Marketo</name>
+        <opportunityAccessLevel>Edit</opportunityAccessLevel>
+    </ownerRules>
+    <ownerRules>
+        <fullName>Share_Owned_by_Partner_to_SP_Employee</fullName>
+        <sharedTo>
+            <group>Silver_Peak_Employees</group>
+        </sharedTo>
+        <sharedFrom>
+            <allPartnerUsers></allPartnerUsers>
+        </sharedFrom>
+        <name>Share Owned by Partner to SP Employee</name>
+        <opportunityAccessLevel>Edit</opportunityAccessLevel>
+    </ownerRules>
+    <ownerRules>
+        <fullName>Share_with_All_Users</fullName>
+        <sharedTo>
+            <group>Silver_Peak_Employees</group>
+        </sharedTo>
+        <sharedFrom>
+            <allInternalUsers></allInternalUsers>
+        </sharedFrom>
+        <name>Share with All Users</name>
+        <opportunityAccessLevel>Edit</opportunityAccessLevel>
+    </ownerRules>
+</OpportunitySharingRules>

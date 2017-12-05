@@ -36,8 +36,9 @@ public class MarketingFundsControllerTest {
             //mfc.saveApprovedMDF();
             
             MarketingFundsController mfc2 = new MarketingFundsController();
-            mfc2.accountAttachment.Body = Blob.valueOf('Test Data');
-            mfc2.eventAgendaAttachment.Body = Blob.valueOf('Test Data');
+            mfc2.getAWSConfig();
+            //mfc2.accountAttachment.Body = Blob.valueOf('Test Data');
+            //mfc2.eventAgendaAttachment.Body = Blob.valueOf('Test Data');
             mfc2.request = new MDF_Request__c(Type_of_Program__c ='Awareness', Silver_Peak_Speaking_Opportunity__c = 'No', Approval_Status__c = 'Approved', Activity_Complete__c = true,Expected_Audience_Size__c = 2, Expected_Number_of_Leads__c = 2,Est_Value_of_Expected_Opportunities__c = 2,Event_Location_City__c = 'los', Event_Location_Zip__c = 'testZip');
             mfc2.pap1.Country__c = 'USA';
             mfc2.pap1.State__c = 'California';
@@ -77,12 +78,18 @@ public class MarketingFundsControllerTest {
         mfc.pap1.State__c = '';
         mfc.saveMDF();
         //mfc.saveApprovedMDF();
-
+        
+        //Test editMDF and editMDFResult
+        PageReference ref = mfc.editMDF();
+        system.assertEquals(true, mfc.editable);
+        ref = mfc.editMDFResult();
+        system.assertEquals(true, mfc.resultEditable);
+        
         MarketingFundsController mfc2 = new MarketingFundsController();
-        mfc2.accountAttachment.Body = Blob.valueOf('Test Data');
-        mfc2.eventAgendaAttachment.Body = Blob.valueOf('Test Data');
-		mfc2.accountAttachment.Name = 'Test';
-        mfc2.eventAgendaAttachment.Name = 'Test';
+        //mfc2.accountAttachment.Body = Blob.valueOf('Test Data');
+        //mfc2.eventAgendaAttachment.Body = Blob.valueOf('Test Data');
+        //mfc2.accountAttachment.Name = 'Test';
+        //mfc2.eventAgendaAttachment.Name = 'Test';
         mfc2.request = new MDF_Request__c(Type_of_Program__c ='Awareness', Silver_Peak_Speaking_Opportunity__c = 'No', Approval_Status__c = 'Approved', Activity_Complete__c = true,Expected_Audience_Size__c = 2, Expected_Number_of_Leads__c = 2,Est_Value_of_Expected_Opportunities__c = 2,Event_Location_City__c = 'los', Event_Location_Zip__c = 'testZip');
         mfc2.pap1.Country__c = 'USA';
         mfc2.pap1.State__c = 'California';
@@ -95,7 +102,7 @@ public class MarketingFundsControllerTest {
         {
         }
         
-		MarketingFundsController.MDF newMDF = new MarketingFundsController.MDF();
+        MarketingFundsController.MDF newMDF = new MarketingFundsController.MDF();
         newMDF.Total_Attendees = '10';
         newMDF.Event_Results_Opportunities = '20';
         newMDf.Total_Qualified_Leads = '30';
@@ -109,30 +116,28 @@ public class MarketingFundsControllerTest {
         newMDF.attendance = 3;
         
         //add 3 contentVersions sample 
-		ContentVersion invoiceCv = new ContentVersion(Title = 'title', PathOnClient = 'test', IsMajorVersion = false, Description = 'invoice', VersionData = Blob.valueOf('Test Data'));
+        ContentVersion invoiceCv = new ContentVersion(Title = 'title', PathOnClient = 'test', IsMajorVersion = false, Description = 'invoice', VersionData = Blob.valueOf('Test Data'));
         insert invoiceCv;
-		invoiceCv = [Select Id, ContentDocumentId from ContentVersion where Id =: invoiceCv.Id];
+        invoiceCv = [Select Id, ContentDocumentId from ContentVersion where Id =: invoiceCv.Id];
         //ContentDocumentLink invoiceLdl = new ContentDocumentLink(ContentDocumentId = invoiceCv.ContentDocumentId, LinkedEntityId = mdf.Id,ShareType='V');
         //insert invoiceLdl;
         ContentVersion proofCv = new ContentVersion(Title = 'title', PathOnClient = 'test', IsMajorVersion = false, Description = 'proof', VersionData = Blob.valueOf('Test Data'));
         insert proofCv;
-		proofCv = [Select Id, ContentDocumentId from ContentVersion where Id =: proofCv.Id];
+        proofCv = [Select Id, ContentDocumentId from ContentVersion where Id =: proofCv.Id];
         ContentDocumentLink proofLdl = new ContentDocumentLink(ContentDocumentId = proofCv.ContentDocumentId, LinkedEntityId = mdf.Id,ShareType='V');
         insert proofLdl;
         ContentVersion attendanceCv = new ContentVersion(Title = 'title', PathOnClient = 'test', IsMajorVersion = false, Description = 'attendance', VersionData = Blob.valueOf('Test Data'));
         insert attendanceCv;
-		attendanceCv = [Select Id, ContentDocumentId from ContentVersion where Id =: attendanceCv.Id];
+        attendanceCv = [Select Id, ContentDocumentId from ContentVersion where Id =: attendanceCv.Id];
         ContentDocumentLink attendanceLdl = new ContentDocumentLink(ContentDocumentId = attendanceCv.ContentDocumentId, LinkedEntityId = mdf.Id,ShareType='V');
         insert attendanceLdl;
-		mfc2.getFile(mdf.Id);
-        MarketingFundsController.linkFileToMFR(mdf.Id, invoiceCv.Id, true);
-        MarketingFundsController.linkFileToMFR(mdf.Id, proofCv.Id, true);
+        mfc2.getFile(mdf.Id);
+        MarketingFundsController.AWSResponse response = new MarketingFundsController.AWSResponse();
+        response.FileName = 'test';
+        MarketingFundsController.linkFileToMFR(response, mdf.Id, true, null);
+        //MarketingFundsController.linkFileToMFR(mdf.Id, proofCv.Id, true, null);
         MarketingFundsController.updateMDF(newMDF,'');
         MarketingFundsController.updateMDF(newMDF, mdf.Id);
-		MarketingFundsController.uploadFile('Test Body Data', 'Test Name', '', mdf.Id, 'invoice', true);
-        MarketingFundsController.uploadFile('', 'Test Name', invoiceCv.Id, mdf.Id, 'invoice', true);
-        MarketingFundsController.uploadFile('Test Body Data', 'Test Name', '', null, 'invoice', true);
-        MarketingFundsController.uploadFile('Test Body Data', 'Test Name', invoiceCv.Id, mdf.Id, 'invoice', true);
         MDF_Request__c eMdf = new MDF_Request__c(Type_of_Program__c ='Enablement', Event_Materials_Requested__c = 'test\r\nmessage',
                                                 Silver_Peak_Speaking_Opportunity__c = 'Yes');
         insert eMdf;
@@ -141,6 +146,8 @@ public class MarketingFundsControllerTest {
         newMDF.Requested_Reimbursement_Amount = 'Error Data';
         mfc2.getFile(eMdf.Id);
         MarketingFundsController.updateMDF(newMDF, eMdf.Id);
+        
+        
     }
     
     @isTest

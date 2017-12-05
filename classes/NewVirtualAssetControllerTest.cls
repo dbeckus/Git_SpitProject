@@ -9,7 +9,6 @@ public class NewVirtualAssetControllerTest
         Contact contact = new Contact(LastName = 'acme', AccountId = account.Id);
         insert contact;
         Opportunity opportunity = new Opportunity(Name = 'acme', AccountId = account.Id, StageName = 'Discovery', CloseDate = Date.today().addDays(10),Product_Type__c='Both');
-        opportunity.Technical_Responsible__c=UserInfo.getUserId();
         insert opportunity;
         Request__c pocRequest = new Request__c(Opportunity__c = opportunity.Id, POC_Contact__c = contact.Id);
         insert pocRequest;
@@ -27,7 +26,6 @@ public class NewVirtualAssetControllerTest
         system.assert(controller.Products.size() > 0);
         controller.Asset.Product2Id = controller.Products[0].getValue();
         controller.Asset.Evaluation_End_Date__c = Date.today().addDays(30);
-        controller.Asset.Status = 'Customer Subscription';
         controller.save();
         
         Test.stopTest();

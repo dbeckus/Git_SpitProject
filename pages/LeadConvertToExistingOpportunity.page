@@ -64,12 +64,13 @@
                 <apex:pageBlockSectionItem >
                     <apex:outputLabel value="Contact Role" for="contactRole" />
                      <apex:selectList value="{!OCR.Role}" required="true"  size="1" multiselect="false">
-					<apex:selectOption />
+                    <apex:selectOption />
                     <apex:selectOption itemLabel="Decision Maker" itemValue="Decision Maker" />
                     <apex:selectOption itemLabel="Evaluator" itemValue="Evaluator" />
                     <apex:selectOption itemLabel="Executive Sponsor" itemValue="Executive Sponsor" />
                     <apex:selectOption itemLabel="Influencer" itemValue="Influencer" />
                     <apex:selectOption itemLabel="Technical Buyer" itemValue="Technical Buyer" />
+                    <apex:selectOption itemLabel="Partner Contact" itemValue="Partner Contact" />
                 </apex:selectList>
                 </apex:pageBlockSectionItem>
                 <apex:pageBlockSectionItem >

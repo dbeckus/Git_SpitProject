@@ -1,28 +1,25 @@
 /**
-* Validates if the updating SPContractNumber fields have duplicate values in the database.
-*/
+ * Validates if the updating SPContractNumber fields have duplicate values in the database.
+ */
 trigger ValidateSPContractNumber on Contract (before insert, before update)
 {
     Set<String> newSPContractNumbers = new Set<String>();
     Boolean hasDuplicate = false;
     String errMsg = 'Duplicate value.';
-    
     for(Contract contract : Trigger.New)
     {
         //If the updating contracts have duplicate SPContractNumbers, throw error.
         //Else adds the SPContractNumber to the set.
-       
-            if(!validateSPContractNumber(contract, 'SP_Contract_Number__c', newSPContractNumbers, true)) { contract.SP_Contract_Number__c.addError(errMsg); hasDuplicate = true; break; }
-            if(!validateSPContractNumber(contract, 'SP_Contract_Number_2__c', newSPContractNumbers, true)) { contract.SP_Contract_Number_2__c.addError(errMsg); hasDuplicate = true; break; }
-            if(!validateSPContractNumber(contract, 'SP_Contract_Number_3__c', newSPContractNumbers, true)) { contract.SP_Contract_Number_3__c.addError(errMsg); hasDuplicate = true; break; }
-            if(!validateSPContractNumber(contract, 'SP_Contract_Number_4__c', newSPContractNumbers, true)) { contract.SP_Contract_Number_4__c.addError(errMsg); hasDuplicate = true; break; }
-            if(!validateSPContractNumber(contract, 'SP_Contract_Number_5__c', newSPContractNumbers, true)) { contract.SP_Contract_Number_5__c.addError(errMsg); hasDuplicate = true; break; }
-            if(!validateSPContractNumber(contract, 'SP_Contract_Number_6__c', newSPContractNumbers, true)) { contract.SP_Contract_Number_6__c.addError(errMsg); hasDuplicate = true; break; }
-            if(!validateSPContractNumber(contract, 'SP_Contract_Number_7__c', newSPContractNumbers, true)) { contract.SP_Contract_Number_7__c.addError(errMsg); hasDuplicate = true; break; }
-            if(!validateSPContractNumber(contract, 'SP_Contract_Number_8__c', newSPContractNumbers, true)) { contract.SP_Contract_Number_8__c.addError(errMsg); hasDuplicate = true; break; }
-            if(!validateSPContractNumber(contract, 'SP_Contract_Number_9__c', newSPContractNumbers, true)) { contract.SP_Contract_Number_9__c.addError(errMsg); hasDuplicate = true; break; }
-            if(!validateSPContractNumber(contract, 'SP_Contract_Number_10__c', newSPContractNumbers, true)) { contract.SP_Contract_Number_10__c.addError(errMsg); hasDuplicate = true; break; }
-        
+        if(!validateSPContractNumber(contract, 'SP_Contract_Number__c', newSPContractNumbers, true)) { contract.SP_Contract_Number__c.addError(errMsg); hasDuplicate = true; break; }
+        if(!validateSPContractNumber(contract, 'SP_Contract_Number_2__c', newSPContractNumbers, true)) { contract.SP_Contract_Number_2__c.addError(errMsg); hasDuplicate = true; break; }
+        if(!validateSPContractNumber(contract, 'SP_Contract_Number_3__c', newSPContractNumbers, true)) { contract.SP_Contract_Number_3__c.addError(errMsg); hasDuplicate = true; break; }
+        if(!validateSPContractNumber(contract, 'SP_Contract_Number_4__c', newSPContractNumbers, true)) { contract.SP_Contract_Number_4__c.addError(errMsg); hasDuplicate = true; break; }
+        if(!validateSPContractNumber(contract, 'SP_Contract_Number_5__c', newSPContractNumbers, true)) { contract.SP_Contract_Number_5__c.addError(errMsg); hasDuplicate = true; break; }
+        if(!validateSPContractNumber(contract, 'SP_Contract_Number_6__c', newSPContractNumbers, true)) { contract.SP_Contract_Number_6__c.addError(errMsg); hasDuplicate = true; break; }
+        if(!validateSPContractNumber(contract, 'SP_Contract_Number_7__c', newSPContractNumbers, true)) { contract.SP_Contract_Number_7__c.addError(errMsg); hasDuplicate = true; break; }
+        if(!validateSPContractNumber(contract, 'SP_Contract_Number_8__c', newSPContractNumbers, true)) { contract.SP_Contract_Number_8__c.addError(errMsg); hasDuplicate = true; break; }
+        if(!validateSPContractNumber(contract, 'SP_Contract_Number_9__c', newSPContractNumbers, true)) { contract.SP_Contract_Number_9__c.addError(errMsg); hasDuplicate = true; break; }
+        if(!validateSPContractNumber(contract, 'SP_Contract_Number_10__c', newSPContractNumbers, true)) { contract.SP_Contract_Number_10__c.addError(errMsg); hasDuplicate = true; break; }
     }
     
     if(!hasDuplicate)
@@ -30,27 +27,27 @@ trigger ValidateSPContractNumber on Contract (before insert, before update)
         Set<Id> contractIds = (Trigger.isInsert) ? new Set<Id>() : Trigger.newMap.keyset();
         //Gets the contract which has the duplicate a SPContractNumber. 
         List<Contract> contracts = [select SP_Contract_Number__c,
-                                    SP_Contract_Number_2__c, 
-                                    SP_Contract_Number_3__c, 
-                                    SP_Contract_Number_4__c, 
-                                    SP_Contract_Number_5__c, 
-                                    SP_Contract_Number_6__c, 
-                                    SP_Contract_Number_7__c, 
-                                    SP_Contract_Number_8__c, 
-                                    SP_Contract_Number_9__c, 
-                                    SP_Contract_Number_10__c 
-                                    from Contract where 
-                                    (SP_Contract_Number__c in :newSPContractNumbers or 
-                                     SP_Contract_Number_2__c in :newSPContractNumbers or 
-                                     SP_Contract_Number_3__c in :newSPContractNumbers or 
-                                     SP_Contract_Number_4__c in :newSPContractNumbers or 
-                                     SP_Contract_Number_5__c in :newSPContractNumbers or 
-                                     SP_Contract_Number_6__c in :newSPContractNumbers or 
-                                     SP_Contract_Number_7__c in :newSPContractNumbers or 
-                                     SP_Contract_Number_8__c in :newSPContractNumbers or 
-                                     SP_Contract_Number_9__c in :newSPContractNumbers or 
-                                     SP_Contract_Number_10__c in :newSPContractNumbers) and 
-                                    Id not in :contractIds];
+                                          SP_Contract_Number_2__c, 
+                                          SP_Contract_Number_3__c, 
+                                          SP_Contract_Number_4__c, 
+                                          SP_Contract_Number_5__c, 
+                                          SP_Contract_Number_6__c, 
+                                          SP_Contract_Number_7__c, 
+                                          SP_Contract_Number_8__c, 
+                                          SP_Contract_Number_9__c, 
+                                          SP_Contract_Number_10__c 
+                                          from Contract where 
+                                          (SP_Contract_Number__c in :newSPContractNumbers or 
+                                          SP_Contract_Number_2__c in :newSPContractNumbers or 
+                                          SP_Contract_Number_3__c in :newSPContractNumbers or 
+                                          SP_Contract_Number_4__c in :newSPContractNumbers or 
+                                          SP_Contract_Number_5__c in :newSPContractNumbers or 
+                                          SP_Contract_Number_6__c in :newSPContractNumbers or 
+                                          SP_Contract_Number_7__c in :newSPContractNumbers or 
+                                          SP_Contract_Number_8__c in :newSPContractNumbers or 
+                                          SP_Contract_Number_9__c in :newSPContractNumbers or 
+                                          SP_Contract_Number_10__c in :newSPContractNumbers) and 
+                                          Id not in :contractIds];
         if(!contracts.isEmpty())
         {
             Set<String> duplicatedSPContractNumbers = new Set<String>();
@@ -83,7 +80,6 @@ trigger ValidateSPContractNumber on Contract (before insert, before update)
                 if(!validateSPContractNumber(contract, 'SP_Contract_Number_9__c', duplicatedSPContractNumbers, false)) { contract.SP_Contract_Number_9__c.addError(errMsg); break; }
                 if(!validateSPContractNumber(contract, 'SP_Contract_Number_10__c', duplicatedSPContractNumbers, false)) { contract.SP_Contract_Number_10__c.addError(errMsg); break; }
             }
-            
         }
     }
     

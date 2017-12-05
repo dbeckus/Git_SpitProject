@@ -2,9 +2,9 @@
 <Role xmlns="http://soap.sforce.com/2006/04/metadata">
     <caseAccessLevel>None</caseAccessLevel>
     <contactAccessLevel>Edit</contactAccessLevel>
-    <description>CBTS Partner Manager</description>
+    <description>Cinncinnati Bell Partner Manager</description>
     <mayForecastManagerShare>false</mayForecastManagerShare>
-    <name>CBTS Partner Manager</name>
+    <name>Cinncinnati Bell Partner Manager</name>
     <opportunityAccessLevel>None</opportunityAccessLevel>
     <parentRole>CBTSPartnerExecutive</parentRole>
 </Role>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Role xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseAccessLevel>None</caseAccessLevel>
+    <contactAccessLevel>Edit</contactAccessLevel>
+    <description>Mojit d.o.o. Sarajevo Partner Manager</description>
+    <mayForecastManagerShare>false</mayForecastManagerShare>
+    <name>Mojit d.o.o. Sarajevo Partner Manager</name>
+    <opportunityAccessLevel>None</opportunityAccessLevel>
+    <parentRole>Grade_3_CAM_EMEA</parentRole>
+</Role>

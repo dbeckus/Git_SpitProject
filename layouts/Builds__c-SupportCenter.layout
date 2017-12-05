@@ -46,7 +46,7 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>FIPS_Compliant__c</field>
+                <field>End_of_Maintenance__c</field>
             </layoutItems>
         </layoutColumns>
         <layoutColumns/>

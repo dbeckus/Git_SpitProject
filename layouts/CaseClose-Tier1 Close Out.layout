@@ -19,12 +19,8 @@
                 <field>Comments</field>
             </layoutItems>
             <layoutItems>
-                <behavior>Readonly</behavior>
-                <field>Is_Asset_Warranty_Expired__c</field>
-            </layoutItems>
-            <layoutItems>
                 <behavior>Edit</behavior>
-                <field>Allow_RMA__c</field>
+                <field>Jira_Issue_ID__c</field>
             </layoutItems>
         </layoutColumns>
         <style>OneColumn</style>

@@ -439,4 +439,65 @@ public class TestSPQuoteTriggerHandler {
         
         Test.stopTest();
     }
+    
+      @isTest(SeeAllData=true)
+    public static void TestCheckAssignedDistributor_Assigned_Insert()
+    {
+        Account testAccount= new Account(Name='Test Account');
+        insert testAccount;
+        Account reseller= new Account(Name='Test Reseller',Type='Partner',Partner_Type__c='Reseller');
+        insert reseller;
+        Account distributor= new Account(Name='Test Distributor',Type='Partner',Partner_Type__c='Distributor',Reseller_Agreement__c=true);
+        insert distributor;
+        Account distributor1= new Account(Name='Test Distributor',Type='Partner',Partner_Type__c='Distributor',Reseller_Agreement__c=true);
+        insert distributor1;
+        reseller.Assigned_Distributor__c=distributor.Id;
+        update reseller;
+        //create opportunity and opportunity line item.
+        Opportunity oppo = new Opportunity(AccountId=testAccount.Id,name='test', stageName='Discovery', CloseDate=Date.newInstance(2006,10,10));
+        insert oppo;
+        try
+        {
+            Quote__c qt = new Quote__c(Tier_1_Partner__c=reseller.Id, Tier_2_Partner__c=distributor1.Id,  Quote_Name__c='Test',Opportunity__c = oppo.Id, Quote_Valid_Until__c = Date.today(), Quote_Date__c = Date.today());
+            insert qt; 
+        }
+        catch(Exception ex)
+        {
+            
+        }
+        
+       
+       
+    }
+      @isTest(SeeAllData=true)
+    public static void TestCheckAssignedDistributor_Assigned_Update()
+    {
+        Account testAccount= new Account(Name='Test Account');
+        insert testAccount;
+        Account reseller= new Account(Name='Test Reseller',Type='Partner',Partner_Type__c='Reseller');
+        insert reseller;
+        Account distributor= new Account(Name='Test Distributor',Type='Partner',Partner_Type__c='Distributor',Reseller_Agreement__c=true);
+        insert distributor;
+        Account distributor1= new Account(Name='Test Distributor',Type='Partner',Partner_Type__c='Distributor',Reseller_Agreement__c=true);
+        insert distributor1;
+        reseller.Assigned_Distributor__c=distributor.Id;
+        update reseller;
+        //create opportunity and opportunity line item.
+        Opportunity oppo = new Opportunity(AccountId=testAccount.Id,name='test', stageName='Discovery', CloseDate=Date.newInstance(2006,10,10));
+        insert oppo;
+        try
+        {
+            Quote__c qt = new Quote__c(Tier_1_Partner__c=reseller.Id, Tier_2_Partner__c=distributor.Id,  Quote_Name__c='Test',Opportunity__c = oppo.Id, Quote_Valid_Until__c = Date.today(), Quote_Date__c = Date.today());
+            insert qt; 
+            qt.Tier_2_Partner__c=distributor1.Id;
+            update qt;
+        }
+        catch(Exception ex)
+        {
+            
+        }
+        
+       
+       
+    }
 }

@@ -62,6 +62,10 @@
         <type>role</type>
     </allowedSubmitters>
     <allowedSubmitters>
+        <submitter>Grade_1_Inside_Sales</submitter>
+        <type>role</type>
+    </allowedSubmitters>
+    <allowedSubmitters>
         <submitter>InsideSalesEast</submitter>
         <type>role</type>
     </allowedSubmitters>
@@ -173,6 +177,18 @@
         <submitter>VPSalesWestern</submitter>
         <type>role</type>
     </allowedSubmitters>
+    <allowedSubmitters>
+        <submitter>Grade_1_Sales</submitter>
+        <type>roleSubordinatesInternal</type>
+    </allowedSubmitters>
+    <allowedSubmitters>
+        <submitter>Grade_1_Sales_COMM</submitter>
+        <type>roleSubordinatesInternal</type>
+    </allowedSubmitters>
+    <allowedSubmitters>
+        <submitter>Grade_1_Sys_Eng</submitter>
+        <type>roleSubordinatesInternal</type>
+    </allowedSubmitters>
     <approvalPageFields>
         <field>Name</field>
         <field>Owner</field>
@@ -193,7 +209,7 @@
             <whenMultipleApprovers>FirstResponse</whenMultipleApprovers>
         </assignedApprover>
         <entryCriteria>
-            <formula>Opportunity__r.Primary_Partner__r.CreditHold__c</formula>
+            <formula>Primary_Partner_Credit_Hold__c</formula>
         </entryCriteria>
         <ifCriteriaNotMet>GotoNextStep</ifCriteriaNotMet>
         <label>Credit Hold : Require Approval</label>
@@ -209,7 +225,7 @@
             <whenMultipleApprovers>FirstResponse</whenMultipleApprovers>
         </assignedApprover>
         <entryCriteria>
-            <formula>NOT(Opportunity__r.Primary_Partner__r.Reseller_Agreement__c )</formula>
+            <formula>NOT( Primary_Partner_Reseller_Agreement__c  )</formula>
         </entryCriteria>
         <ifCriteriaNotMet>GotoNextStep</ifCriteriaNotMet>
         <label>Reseller Agreement Not Checked: Require Approval</label>
@@ -246,6 +262,10 @@
         <assignedApprover>
             <approver>
                 <name>chelfer@silver-peak.com</name>
+                <type>user</type>
+            </approver>
+            <approver>
+                <name>rbooth@silver-peak.com</name>
                 <type>user</type>
             </approver>
             <whenMultipleApprovers>FirstResponse</whenMultipleApprovers>

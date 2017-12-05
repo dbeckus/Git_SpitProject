@@ -2,9 +2,9 @@
 <Role xmlns="http://soap.sforce.com/2006/04/metadata">
     <caseAccessLevel>None</caseAccessLevel>
     <contactAccessLevel>Edit</contactAccessLevel>
-    <description>Bandwave Systems LLC Partner User</description>
+    <description>Bandwave Systems LLC MSP Briggs Partner User</description>
     <mayForecastManagerShare>false</mayForecastManagerShare>
-    <name>Bandwave Systems LLC Partner User</name>
+    <name>Bandwave Systems LLC MSP Briggs Partner User</name>
     <opportunityAccessLevel>None</opportunityAccessLevel>
     <parentRole>BandwaveSystemsLLCPartnerManager</parentRole>
 </Role>

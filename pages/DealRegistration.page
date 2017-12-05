@@ -1,0 +1,987 @@
+<apex:page controller="CommunityDealRegistrationController" showheader="false" id="thePage" standardStylesheets="true" docType="html-5.0">
+    <apex:includeScript value="{!URLFOR($Resource.jQuery, 'jquery-1.4.3.min.js')}"/>
+    <apex:includeScript value="{!URLFOR($Resource.CountryStates, 'papaparse.min.js')}"/>
+    <apex:includeScript value="{!URLFOR($Resource.CountryStates, 'countrystatedependency.js')}"/>
+    <style>
+        .dealRegPage
+        {
+            width:97.5%;
+        }
+        .panel{
+        display: none;
+        }
+        .input-items{
+        list-style: none;
+        }
+        ul.input-items > li{
+        padding-top: .3em;
+        padding-bottom: .3em;
+        width:100%;
+        }
+        .sub-title{
+        font-size: 20px;
+        font-weight: 100;
+        color:#007bbb;
+        font-family: Arial-light, sans-serif;
+        border-radius: 7px;
+        }
+        .sub-desc{
+        padding-top: 1em;
+        font-size: 13px;
+        }
+        .require:after
+        {
+        color: red;
+        content: '*';
+        padding-left: 5px;
+        }
+        .reg-content-container{
+        font-family: 'GillSansMT-Regular', Arial, Helvetica, Sans-serif;
+        }
+        .reg-label{
+        font-size: 14px;
+        padding-top: .6em;
+        }
+        .reg-input{
+            width: 100%;
+            padding-top: .4em;
+            padding-bottom: .7em;
+        }
+        .reg-input .input
+        {
+            width: 62%;
+            padding-top:0.3em;
+            padding-bottom:0.3em;
+        }
+        .reg-input .select
+        {
+            padding-top:0.3em;
+            padding-bottom:0.3em;
+        }
+        .reg-input-sub .input
+        {
+            width: 60%;
+        }
+        .content-body .btn-disabled{
+            background-color:#ccc;
+            pointer-events: none;
+        }
+        .p-top__medium{
+            padding-top:1.2em;
+        }
+        .p-bottom__medium{
+            padding-bottom: 1.2em
+        }
+        .p-left__small{ padding-left:.3em }
+        .content-body input.reg-submit-btn{
+            padding: 20px 0px;
+            width: 62%;
+            font-size: 20px;
+            background-color: #007cb9;
+            background-image: none;
+            color: #FFF;
+            text-transform: uppercase;
+            font-weight: 300;
+            float: left;
+        }
+        .content-body input.reg-submit-btn.disabled
+        {
+            background-color: #ccc;
+            pointer-events: none;
+        }
+        .content-body .message
+        {
+            width: 80%;
+            padding-left: 0px;
+            margin-left: 0px;
+            color: red;
+        }
+        .content-body .message ul > li
+        {
+            color: black;
+        }
+        .content-body ul.message > li
+        {
+            color:black;
+            margin-left: 2.5em;
+            padding-right: 0.3em;
+        }
+        .content-body .error
+        {
+            color: red;
+        }
+        .dealRegPage .show{ display: inline; }
+        .dealRegPage .hidden{ display:none; }
+        .page .centerLoadingText
+        {
+            text-align: center;
+            font-size: 16px;
+            padding: 2em;
+        }
+        .centerLoadingText .dealRegLoading
+        {
+            background-color: #fff;
+            border: 1px solid #fff;
+            color: #666;
+            font-size: 95%;
+            padding: 4px;
+        }
+        .centerLoadingText .dealRegLoading > img
+        { padding: 1em; }
+        .autoSearchContainer
+        {
+            position: relative;
+        }
+        .autoSearchResultPanel
+        {
+            position: absolute;
+            z-index: 235;
+            width: 62%;
+            background-color: #fff;
+            border: 1px solid #bfbcbc;
+            border-radius: .3em;
+            margin-top: 3px;
+            padding: 5px;
+            max-height: 150px;
+            overflow: auto;
+        }
+        .autoSearchOptions
+        {
+            list-style: none;
+            margin: 0px;
+            padding: 0px;
+        }
+        .autoSearchOptions > li
+        {
+            margin:0px;
+            padding:1px;
+            padding-left: 12px;
+        }
+        .autoSearchOption
+        {
+            cursor: pointer;
+        }
+        .autoSearchOption:hover
+        {
+            color:#fff;
+            background-color: #6bbdff;
+        }
+        .autoSearchHide 
+        {
+            display: none;
+        }
+    </style>
+    <script type="text/javascript">
+    //if successed, redirect to deal reg success page
+    var partnerType = '{!currUserAct.Partner_Type__c}';
+    var isSavedSuccess = "{!isSavedSuccess}";
+    var regionFilters = "{!regionFilters}";
+    var dataSets = {resellers:[],distributors:[]};
+    isSavedSuccess = (isSavedSuccess == 'true')?true:false;
+    if(isSavedSuccess)
+    {
+        top.location = '/s/DealRegistrationSuccess'; 
+    }else
+    {
+        enableButton();
+        $("input[id$='noContactHidden']").val(false);
+    }
+    
+    var autoAdjustHeight = function(){
+        try{
+            top.document.getElementById("myIframe").style.height = (document.body.clientHeight + 120)+ "px";
+        }catch(err){
+            console.log(err);
+        }
+    }
+    
+    function setSubmitButtonDisabled()
+    {
+        var btn = $("input[id$='submitBtn']");
+        btn.addClass('disabled');
+        $("#submitBtnLoading").removeClass("hidden");
+        $("#submitBtnLoading").addClass("show");
+        btn.attr('value', 'Submitting your Deal Reg');
+    }
+    
+    function enableButton()
+    {
+        var btn = $("input[id$='submitBtn']");
+        if(btn.hasClass('disabled'))
+        {
+            btn.removeClass('disabled');
+            btn.attr('value', 'Submit');
+        }
+        $("#submitBtnLoading").removeClass("show");
+        $("#submitBtnLoading").addClass("hidden");
+    }
+    
+    function showOtherDistributor()
+    {
+        var distributorElem = $("input[id$='DistributorInputHidden']");
+        var panel = $("#otherDistributerPanel");
+        if(distributorElem.val() == 'other')
+        {
+            panel.slideDown("slow", autoAdjustHeight);
+            $("input[id$='otherDistributorInput']").attr("placeholder", "Please input distributor's name");
+        }
+        else
+        {
+            panel.slideUp("slow", autoAdjustHeight);
+        }
+    }
+    
+    function getResellerContacts(actId)
+    {
+        var loading = $('#otherResellerLoading');
+        $("input[id$='noContactHidden']").val(false);
+        if(loading.hasClass('hidden'))
+        {
+           loading.removeClass('hidden');
+           loading.addClass('show');
+        }
+        var selectedReseller = $("input[id$='ResellerInputHidden']").val();
+        var selector = $("select[id$='resellerContactSelector']");
+        selector.attr('disabled', 'disabled');
+        Visualforce.remoting.Manager.invokeAction(
+            '{!$RemoteAction.CommunityDealRegistrationController.getAllResellerContacts}',
+            actId,
+            function(result, event){
+                if(loading.hasClass('show'))
+                {
+                    loading.removeClass('show')
+                    loading.addClass('hidden');
+                }
+                if(event.status)
+                {
+                    selector.find('option').remove();
+                    selector.append($("<option></option>").attr("value", null).text('--None--'));
+                    for(var i = 0; i<result.length; i++)
+                    {
+                        selector.append($("<option></option>").attr("value", result[i].Id).text(result[i].Name));
+                    }
+                    selector.append($("<option></option>").attr("value", 'NoContact').text('Contact Not Listed'));
+                    if(selectedReseller === 'other')
+                    {
+                        selector.val('NoContact');
+                        setResellerContact();
+                    }
+                    selector.removeAttr('disabled');
+                }else if(event.type === 'exception')
+                {
+                    console.log('Error: '+JSON.stringify(event));
+                }
+            });
+    }
+    
+    function showOtherReseller()
+    {
+        var resellerElem = $("input[id$='ResellerInputHidden']");
+        var panel = $("#otherResellerPanel");
+        var actId = resellerElem.val();
+        if(actId == 'other')
+        {
+            panel.slideDown("slow", autoAdjustHeight);
+            $("select[id$='resellerContactSelector']").find('option').remove();
+            $("select[id$='resellerContactSelector']").append($("<option></option>").attr("value", null).text('--None--'));
+            $("select[id$='resellerContactSelector']").append($("<option></option>").attr("value", 'NoContact').text('Contact Not Listed'));
+            $("select[id$='resellerContactSelector']").val("NoContact");
+            setResellerContact();
+            $("input[id$='otherResellerInput']").attr("placeholder", "Please input reseller's name");
+        }
+        else
+        {
+            panel.slideUp("slow", autoAdjustHeight);
+            if(actId != '')
+            {
+                getResellerContacts(actId);
+            }
+        }
+    }
+    
+    function displayRegForSomene()
+    {
+        var regForsomeone = $("input[id$='regForSomeoneCheck']")[0];
+        if(regForsomeone && regForsomeone.checked === true)
+        {
+            $("div[id$='regForSomeoneDetail']").slideDown("slow", autoAdjustHeight);
+        }
+        else
+        {
+            $("div[id$='regForSomeoneDetail']").slideUp("slow", autoAdjustHeight);
+        }
+    }
+    
+    function prepareStatePikclists()
+    {
+        var state = $("#stateSelector");
+        var country = $("#countrySelector");
+        var stateCountryPicks = new CountryStateDependency(country, state, "{!URLFOR($Resource.CountryStates, 'data.csv')}", { placeholder: {countryLabel: "--None--", stateLabel: "--None--"}});
+    }
+
+    function findItems(input, source, key)
+    {
+        input = input.toLowerCase();
+        var result = [];
+        if(source)
+        {
+            for(var i=0; i<source.length; i++)
+            {
+                var item = source[i];
+                if(item[key].toLowerCase().includes(input))
+                {
+                    result.push(item);
+                }
+            }
+        }
+        return result;
+    }
+
+    function hideResult(id)
+    {
+        $(id).addClass('autoSearchHide');;
+    }
+
+    function hideDistributorResult(isTimeout)
+    {
+        if(isTimeout)
+        {
+            setTimeout(function(){
+                hideResult("#Distributor_AutoSearchResultPanel");
+            }, 500);
+        }else
+        {
+            hideResult("#Distributor_AutoSearchResultPanel");
+        }
+    }
+
+    function hideResellerResult(isTimeout)
+    {
+        if(isTimeout)
+        {
+            setTimeout(function(){
+                hideResult("#Reseller_AutoSearchResultPanel");
+            }, 500);
+        }else
+        {
+          hideResult("#Reseller_AutoSearchResultPanel");
+        }
+    }
+
+    function setDistributorId(event)
+    {
+        var id = $(event.target).attr('data-id');
+        var label = $(event.target).attr('data-label');
+        $("#newDistributorInput").val(label);
+        var target = $("input[id$='DistributorInputHidden']");
+        target.val(id);
+        showOtherDistributor();
+        hideDistributorResult(false);
+    }
+
+    function setResellerId(event)
+    {
+        var id = $(event.target).attr('data-id');
+        var label = $(event.target).attr('data-label');
+        $("#newResellerInput").val(label);
+        var target = $("input[id$='ResellerInputHidden']");
+        target.val(id);
+        showOtherReseller();
+        hideResellerResult(false);
+    }
+
+    function showResult(parentId, source, functionName)
+    {
+        var parent  = $(parentId);
+        parent.children().remove();
+        for(var m=0; m<source.length; m++)
+        {
+            parent.append("<li class='autoSearchOption' onclick='"+functionName+"(event)' data-id='"+source[m].value+"' data-label='"+source[m].label+"'>"+source[m].label+"</li>");
+        }
+    }
+
+    function toggleReseult(id)
+    {
+        var elem = $(id);
+        if(elem.hasClass('autoSearchHide'))
+        {
+            elem.removeClass('autoSearchHide');
+        }else
+        {
+            elem.addClass('autoSearchHide');
+        }
+    }
+
+    function handleDistributorInput()
+    {
+        var input = $("#newDistributorInput").val();
+        var result = findItems(input, dataSets.distributors, 'label');
+        if(result.length==0)
+        {
+            result.push({'label':'Other', 'value':'other'});
+        }
+        showResult('#distributorResult', result, 'setDistributorId');
+        toggleReseult("#Distributor_AutoSearchResultPanel");
+    }
+
+    function handleResellerInput()
+    {
+        var input = $("#newResellerInput").val();
+        if(input !== '')
+        {
+            var result = findItems(input, dataSets.resellers, 'label');
+            /*if(result.length==0)
+            {
+                result.push({'label':'Other', 'value':'other'});
+            }*/
+            showResult('#resellerResult', result, 'setResellerId');
+            toggleReseult("#Reseller_AutoSearchResultPanel");
+        }else
+        {
+            var target = $("input[id$='ResellerInputHidden']");
+            target.val('');
+            getResellerContacts('');
+        }
+    }
+    
+    function preSetPlaceholders()
+    {
+        $('.name').each(function(elems, e){
+            $(e).attr('placeholder', 'Please only input alphabetical characters');
+        });
+        $('.currency').each(function(elems, e){
+            $(e).attr('placeholder', 'Please input amount in USD currency');
+        });
+        $('.phone').each(function(elems, e){
+            $(e).attr('placeholder', 'Please input valid phone numbers');
+        });
+        $('.emailFmt').each(function(elems, e){
+            $(e).attr('placeholder', 'name@example.com');
+        });
+    }
+    
+    function isCurrency(input)
+    {
+        if(isNaN(input))
+        {
+            return (/^\\$(\d{1,3}(\,\d{3})*|(\d+))(\.\d{1,2})?$/.test(input));
+        }else
+        {
+            return true;
+        }
+    }
+    
+    function isDate(input)
+    {
+        var d = new Date(input);
+        var num = /^[0-9]+$/.test(input);
+        if(num == true || d == 'Invalid Date')
+        {
+            return false;
+        }
+        else
+        {
+            return true;
+        }
+    }
+
+    function isValidatedEmail(input)
+    {
+        if(input !== '')
+        {
+            return (/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(input));
+        }else
+        {
+            return false;
+        }
+    }
+    
+    function addError(elem, msg)
+    {
+        elem.parent().parent().append('<div class="error">'+msg+'</div>');
+    }
+    
+    function removeError(e)
+    {
+        e.parent().parent().find('div.error').remove();
+    }
+
+    var errMessager = {};
+    errMessager.errors = [];
+    errMessager.addError = function(l, e){
+        errMessager.errors.push({'label':l,'err':e});
+    };
+    errMessager.clearErros = function(){
+        errMessager.errors = [];
+    };
+    errMessager.getErrorsAsHtml = function(){
+        var str = '<ul>';
+        for(var e = 0; e < errMessager.errors.length; e += 1)
+        {
+            str += '<li><b>' + errMessager.errors[e].label + ':</b> ' + errMessager.errors[e].err + '</li>';
+        }
+        return str += '</ul>';
+    };
+    errMessager.showJsErrors = function(tagId){
+        $('#'+tagId).append(errMessager.getErrorsAsHtml());
+        $('#'+tagId).show();
+    };
+    
+    function validateDealReg()
+    {
+        setSubmitButtonDisabled();
+        var isValidated = true;
+        errMessager.clearErros();
+        $("#JsValidationErrors").hide().empty();
+        try
+        {
+
+        var isRegForSomeone = $("input[id$='regForSomeoneCheck']").attr('checked');
+        if(isRegForSomeone === true)
+        {
+            var partnerRepName = $("input[id$='partnerRepName']").val();
+            var partnerRepPhone = $("input[id$='partnerRepPhone']").val();
+            var partnerRepEmail = $("input[id$='partnerRepEmail']").val();
+            if(partnerRepName === '')
+            {
+                isValidated = false;
+                errMessager.addError('Partner Rep Name', "Please fill out the Rep Name, if you are registering this opportunity for someone else.");
+            }
+            if(partnerRepPhone === '')
+            {
+                isValidated = false;
+                errMessager.addError('Partner Rep Phone Number', "Please fill out the Rep Phone, if you are registering this opportunity for someone else.");
+            }
+            if(partnerRepEmail.trim() === '')
+            {
+                isValidated = false;
+                errMessager.addError('Partner Rep Email', "Please fill out the Rep Email, if you are registering this opportunity for someone else.");
+            }
+            if(!isValidatedEmail(partnerRepEmail.trim()))
+            {
+                isValidated = false;
+                errMessager.addError('Partner Rep Email', "Please use valid Email Address");
+            }
+        }
+
+        if($("#stateSelector ").val() == '--None--')
+        {
+            //$("#stateSelector").parent().find('.error').remove();
+            //$("#stateSelector").parent().append("<div class='error'>Please select a state</div>");
+            errMessager.addError('State','Please select a state');
+        }/*else // remove error message
+        {
+            $("#stateSelector").parent().find('.error').remove();
+        }*/
+        if($("#countrySelector").val() == '--None--')
+        {
+            errMessager.addError('Country','Please select a country');
+        }
+        $('select.required').each(function(elems, elm){
+            var e = $(elm);
+            if(e.val() == '' || e.val() == 'Please Select')
+            {
+                isValidated = false;
+                errMessager.addError(e.data('errlabel'), e.data('errlabel')+' is required, please select a value');
+            }
+        });
+        $('.date').each(function(elems, elm){
+            var e = $(elm);
+            var dateVar = e.val();
+            if(!isDate(e.val()) && (e.hasClass('require') || dateVar != '') ){ 
+                isValidated = false;
+                errMessager.addError(e.data('errlabel'), 'Invalid date, please choose a date from the date picker');
+            }
+        });
+        $('.email').each(function(elems, elm){
+            var e = $(elm);
+            e.val(e.val().trim());
+            if( e.val() !== '' && !isValidatedEmail(e.val()) )
+            {
+                isValidated = false;
+                errMessager.addError(e.data('errlabel'), 'Invalid Email address, please input an email address as the format \'name@email.com\'');
+            }
+        });
+        $('.currency').each(function(elements, elem){
+            var e = $(elem);
+            e.val(e.val().trim());
+            if(isNaN(e.val()))
+            {
+                isValidated = false;
+                errMessager.addError(e.data('errlabel'), 'Invalid currency, please input numbers without a $ sign, commas or any other special characters');
+            }
+        });
+        
+        var flag = ($("input[id$='noContactHidden']").val()) === 'true'?true:false;
+        var contactSelector = $("input[id$='resellerContactHidden']");
+        var resellerSelect = $("input[id$='ResellerInputHidden']");
+        var otherReseller = $("input[id$='otherResellerInput']");
+        
+        if(resellerSelect.val() == '')
+        {
+            isValidated = false;
+            errMessager.addError('Reseller', 'Please select a reseller');
+        }
+        if(resellerSelect.val() === 'other' && otherReseller.val().trim() === '')
+        {
+            isValidated = false;
+            errMessager.addError('Other Reseller', 'Please input a reseller name');
+        }
+
+        if(partnerType !== 'Reseller' && flag === false && contactSelector.val() === '')
+        {   
+            if( (resellerSelect.val() !== ''&& resellerSelect.val() !== 'other') 
+                || (resellerSelect.val() === 'other' && otherReseller.val().trim() !== '') )
+            {
+                isValidated = false;
+                errMessager.addError('Reseller Contact', "Please select a reseller contact. If your contact is not listed, please select 'Contact Not Listed' and put the name to Other Reseller");
+            }
+        }   
+
+        if(!isValidated){ enableButton(); }
+        if(errMessager.errors.length > 0){ 
+            errMessager.showJsErrors('JsValidationErrors');
+            parent.scrollTo(150,380);
+        }
+        autoAdjustHeight();
+        }catch(e)
+        {console.log(e);}
+        return isValidated;
+    }
+    
+    function setCountry()
+    {
+        var selector = $('#countrySelector').val();
+        selector = (selector == '--None--')?'':selector;
+        var countrySetter = $("input[id$='countryHidden']");
+        countrySetter.val(selector);
+    }
+    
+    function setState()
+    {
+        var selector = $('#stateSelector').val();
+        selector = (selector == '--None--')?'':selector;
+        var countrySetter = $("input[id$='stateHidden']");
+        countrySetter.val(selector);
+    }
+    
+    function setResellerContact()
+    {
+        var selectorVar = $("#resellerContactSelector").val();
+        if(selectorVar=== 'NoContact')
+        {
+            $("input[id$='noContactHidden']").val(true);
+            $("input[id$='resellerContactHidden']").val('')
+        }else
+        {
+            $("input[id$='noContactHidden']").val(false);
+            selectorVar = (selectorVar == '--None--' || selectorVar === 'Please select')?'':selectorVar;
+            $("input[id$='resellerContactHidden']").val(selectorVar);
+        }
+    }
+
+    function initResellers()
+    {
+        Visualforce.remoting.Manager.invokeAction(
+            '{!$RemoteAction.CommunityDealRegistrationController.getAllResellers}',
+            regionFilters
+            ,
+            function(result, event){
+                if(event.status)
+                {
+                    dataSets.resellers = result;
+                }else if(event.type === 'exception')
+                {
+                    console.log('Error: '+JSON.stringify(event));
+                }
+            });
+    }
+
+    function initDistributors()
+    {
+        Visualforce.remoting.Manager.invokeAction(
+            '{!$RemoteAction.CommunityDealRegistrationController.getAllDistributors}',
+            regionFilters
+            ,
+            function(result, event){
+                if(event.status)
+                {
+                    dataSets.distributors = result;
+                }else if(event.type === 'exception')
+                {
+                    console.log('Error: '+JSON.stringify(event));
+                }
+            });
+    }
+
+    function initData()
+    {
+        initResellers();
+        initDistributors();
+    }
+    
+    $(function(){
+        initData();
+        displayRegForSomene();
+        prepareStatePikclists();
+        preSetPlaceholders();
+        $("select[id$='resellerContactSelector']").append($("<option selected='selected'></option>").attr("value", null).text('Please select'));
+        $("select[id$='resellerContactSelector']").append($("<option ></option>").attr("value", 'NoContact').text('Contact Not Listed'));
+        $('.dateFormat').remove();
+        autoAdjustHeight();
+    });
+    </script>
+    <apex:outputPanel layout="block" id="page" styleClass="dealRegPage">
+        <apex:form onsubmit="return validateDealReg();" rendered="{!isSavedSuccess == false}">
+            <div class="reg-content-container">
+                <div class="content-body">
+                    <ul class="input-items">
+                        <li>
+                            <apex:messages styleClass="message"/>
+                            <div class="message" style="display: none;" id="JsValidationErrors"></div>
+                        </li>
+                        <li>
+                            <div class="sub-title">Company Information</div>
+                            <div class="sub-desc">Please provide information about the customer, fields marked with<span class="require"></span> &nbsp;is required.</div>
+                        </li>
+                        <li>
+                            <div class="reg-label require">Customer Company Name</div>
+                            <div class = "reg-input"><apex:inputField html-data-errlabel="Customer Company Name" required="true" styleClass="input name" value="{!leadRecord.Company}"/></div>
+                        </li>
+                        <li>
+                            <div class="reg-label require">Customer First Name</div>
+                            <div class = "reg-input"><apex:inputField html-data-errlabel="Customer First Name" required="true" styleClass="input name" value="{!leadRecord.FirstName}"/></div>
+                        </li>
+                        <li>
+                            <div class=" reg-label require">Customer Last Name</div>
+                            <div class = "reg-input"><apex:inputField html-data-errlabel="Customer Last Name" required="true" styleClass="input name" value="{!leadRecord.LastName}"/></div>
+                        </li>
+                        <li>
+                            <div class="reg-label require">Phone</div>
+                            <div class = "reg-input"><apex:inputField html-data-errlabel="Phone" required="true" styleClass="input phone" value="{!leadRecord.Phone}"/></div>
+                        </li>
+                        <li>
+                            <div class="reg-label require">Email</div>
+                            <div class = "reg-input"><apex:inputField html-data-errlabel="Email" required="true" type="email" styleClass="input email emailFmt" value="{!leadRecord.Email}"/></div>
+                        </li>
+                        <li>
+                            <div class="reg-label require">Address</div>
+                            <div class = "reg-input"><apex:inputField html-data-errlabel="Address" required="true" styleClass="input" value="{!leadRecord.Street}"/></div>
+                        </li>
+                        <li>
+                            <div class="reg-label require">City</div>
+                            <div class = "reg-input"><apex:inputField html-data-errlabel="City" required="true" styleClass="input" value="{!leadRecord.City}"/></div>
+                        </li>
+                        <li>
+                            <div class="reg-label require">Country</div>
+                            <div class = "reg-input">
+                                <apex:inputHidden id="countryHidden" html-data-errlabel="Country" required="true" value="{!leadRecord.Country}"/>
+                                <select size="1" id="countrySelector" html-data-errlabel="Country" required="required" class="input" onchange="setCountry()"></select></div>
+                        </li>
+                        <li>
+                            <div class="reg-label require">State</div>
+                            <div class = "reg-input">
+                                <apex:inputHidden id="stateHidden" html-data-errlabel="State" required="true" value="{!leadRecord.State}"/>
+                                <select size="1" id="stateSelector" html-data-errlabel="State" required="required" class="input" onchange="setState()"></select></div>
+                        </li>
+                        <li>
+                            <div class="reg-label require">Zip</div>
+                            <div class = "reg-input"><apex:inputField html-data-errlabel="Zip" required="true" styleClass="input" value="{!leadRecord.PostalCode}"/></div>
+                        </li>
+                        <li>
+                            <div class="sub-title p-top__medium p-bottom__medium">Reseller Qualification Informaton</div>
+                        </li>
+                        <li>
+                            <div class="reg-label require">Are you registering this opportunity on behalf of someone else?</div>
+                            <div class = "reg-input"><apex:inputCheckbox html-data-errlabel="Are you registering this opportunity on behalf of someone else?" styleClass="select" id="regForSomeoneCheck" onchange="displayRegForSomene()" value="{!leadRecord.Are_u_registering_this_opp_for_someone__c}"/></div>
+                            
+                            <div class="panel" id="regForSomeoneDetail">
+                                <div class="reg-label require">Partner Rep Name (First, Last)</div>
+                                <div></div>
+                                <div class="reg-input"><apex:inputField html-data-errlabel="Partner Rep Name" required="{!leadRecord.Are_u_registering_this_opp_for_someone__c}" styleClass="input name" id="partnerRepName" value="{!leadRecord.Partner_Rep_Name__c}"/></div>
+                                
+                                <div class="reg-label require">Partner Rep Phone Number</div>
+                                <div></div>
+                                <div class="reg-input"><apex:inputField html-data-errlabel="Partner Rep Phone Number" required="{!leadRecord.Are_u_registering_this_opp_for_someone__c}" styleClass="input phone" id="partnerRepPhone" value="{!leadRecord.Partner_Rep_Phone_Number__c}"/></div>
+                                
+                                <div class="reg-label require">Partner Rep Email</div>
+                                <div></div>
+                                <div class="reg-input"><apex:inputField html-data-errlabel="Partner Rep Email" type="email" required="{!leadRecord.Are_u_registering_this_opp_for_someone__c}" styleClass="input emailFmt" id="partnerRepEmail" value="{!leadRecord.Partner_Rep_Email__c}"/></div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="reg-label require">Project Name</div>
+                            <div class = "reg-input"><apex:inputField html-data-errlabel="Project Name" required="true" styleClass="input text" value="{!leadRecord.Project_Name__c}"/></div>
+                        </li>
+                        <!-- Begin Technical Contact Detail -->
+                        <li>
+                            <div class="reg-label">Pre Sales Technical Contact</div>
+                        </li>
+                            <ul class="input-items">
+                                <li>
+                                    <div class="reg-label" text-indent="50px">Full Name</div>
+                                    <div class = "reg-input reg-input-sub"><apex:inputField html-data-errlabel="Pre Sales Full Name" styleClass="input text" value="{!leadRecord.Pre_Sales_Technical_Contact_Name__c}"/></div>
+                                </li>
+                                <li>
+                                    <div class="reg-label">Email Address</div>
+                                    <div class = "reg-input reg-input-sub"><apex:inputField html-data-errlabel="Pre Sales Email Address" styleClass="input email emailFmt" value="{!leadRecord.Pre_Sales_Technical_Contact_Email__c}"/></div>
+                                </li>
+                                <li>
+                                    <div class="reg-label">Phone</div>
+                                    <div class = "reg-input reg-input-sub"><apex:inputField html-data-errlabel="Pre Sales Phone" styleClass="input phone" value="{!leadRecord.Pre_Sales_Technical_Contact_Phone__c}"/></div>
+                                </li>
+                            </ul>
+                            <li>
+                                <div class="reg-label">Support Technical Contact</div>
+                                
+                            </li>
+                            <ul class="input-items">
+                                <li>
+                                    <div class="reg-label">Full Name</div>
+                                    <div class = "reg-input reg-input-sub"><apex:inputField html-data-errlabel="Support Techincal Contact Full Name" styleClass="input text" value="{!leadRecord.Support_Technical_Contact_Name__c}"/></div>
+                                </li>
+                                <li>
+                                    <div class="reg-label">Email Address</div>
+                                    <div class = "reg-input reg-input-sub"><apex:inputField html-data-errlabel="Support Techincal Contact Email Address" styleClass="input email emailFmt" value="{!leadRecord.Support_Technical_Contact_Email__c}"/></div>
+                                </li>
+                                <li>
+                                    <div class="reg-label ">Phone</div>
+                                    <div class = "reg-input reg-input-sub"><apex:inputField html-data-errlabel="Support Technical Contact Phone" styleClass="input phone" value="{!leadRecord.Support_Technical_Contact_Phone__c}"/></div>
+                                </li>
+                            </ul>
+                        <!-- End Technical Contact Detail -->
+                        
+                        <li>
+                            <div class="reg-label">Estimated Close Date </div>
+                            <div class = "reg-input"><apex:inputField id="estCloseDate" html-data-errlabel="Estimated Close Date" styleClass="input date" value="{!leadRecord.Estimated_Close_Date__c}"/></div>
+                        </li>
+                        <li>
+                            <div class="reg-label require">Project Description</div>
+                            <div class = "reg-input"><apex:inputField required="true" html-data-errlabel="Project Description" styleClass="input text" value="{!leadRecord.Project_Description__c}"/></div>
+                        </li>
+                        <li>
+                            <div class="reg-label">Project Budgeted? </div>
+                            <div class = "reg-input"><apex:inputCheckbox html-data-errlabel="Project Budgeted" styleClass="select" value="{!leadRecord.Project_Budgeted__c}"/></div>
+                        </li>
+                        <li>
+                            <div class="reg-label"><div class="require">Project Budget Amount ( Enter data as a number without a $ sign, commas or any other special characters. )</div></div>
+                            <div class = "reg-input"><apex:inputField html-data-errlabel="Project Budget Amount" styleClass="input currency" required="true" value="{!leadRecord.Project_Budget_Amount__c}" /></div>
+                        </li>
+                        <li>
+                            <div class="reg-label">Competitive Deal?</div>
+                            <div class = "reg-input"><apex:inputCheckbox html-data-errlabel="Comptitive Deal" styleClass="select" value="{!leadRecord.Competitive_Deal__c}"/></div>
+                        </li>
+                        <li>
+                            <div class="reg-label require">Competition</div>
+                            <div class = "reg-input"><apex:inputField html-data-errlabel="Competition" styleClass="input" required="true" value="{!leadRecord.Competition__c}"/></div>
+                        </li>
+                        <li>
+                            <div class="reg-label require">Deal Source</div>
+                            <div class = "reg-input"><apex:selectList html-data-errlabel="Deal Source" size="1" styleClass="input required" required="true" value="{!leadRecord.Deal_Source__c}">
+                                <apex:selectOption itemLabel="Please Select" itemValue="Please Select"></apex:selectOption>
+                                <apex:selectOption itemLabel="Existing Customer" itemValue="Existing Customer"></apex:selectOption>
+                                <apex:selectOption itemLabel="New Business" itemValue="New Business"></apex:selectOption>
+                                <apex:selectOption itemLabel="RFP" itemValue="RFP"></apex:selectOption>
+                                </apex:selectList></div>
+                        </li>
+                        <li>
+                            <!--<apex:outputPanel layout="block" styleClass="" id="distributorDetailPanel" rendered="{!currUserAct.Partner_Type__c == 'Distributor'}">-->
+                            <apex:outputPanel layout="block" styleClass="" id="distributorDetailPanel">
+                                <div class="reg-label">Preferred Distributor</div>
+                                <div class="reg-input">
+                                    <!--apex:selectList styleClass="input" id="distributorSelect" size="1" onchange="showOtherDistributor()" value="{!selectedDistributorId}"><apex:selectOptions value="{!distributors}"/></apex:selectList>-->
+                                   <apex:inputHidden id="DistributorInputHidden" html-data-errlabel="Prefered Distributor" value="{!selectedDistributorId}"/>
+                                   <div class="autoSearchContainer">
+                                        <div class="autoSearchInputPanel">
+                                            <input class="input text" id="newDistributorInput" oninput="handleDistributorInput()" onblur="hideDistributorResult(true)" autocomplete="off"/>
+                                        </div>
+                                        <div class="autoSearchResultPanel autoSearchHide" id="Distributor_AutoSearchResultPanel">
+                                            <ul id="distributorResult" class="autoSearchOptions"></ul>
+                                        </div>
+                                   </div>
+                                   
+                                </div> 
+                            </apex:outputPanel>
+                            <div class="panel" id="otherDistributerPanel">
+                                <div class="reg-label require">Other Distributor</div>
+                                <div class="reg-input"><apex:inputField html-data-errlabel="Other Distributor" styleClass="input text" required="{!selectedDistributorId == 'other'}" id="otherDistributorInput" value="{!leadRecord.DealReg_Distributor_Text__c}"/></div>   
+                            </div>
+                            <apex:outputPanel layout="block" styleClass="" id="resellerDetailPanel" rendered="{!currUserAct.Partner_Type__c != 'Reseller'}">
+                                <div>
+                                    <div class="reg-label require">Reseller</div>
+                                    <div class = "reg-input">
+                                    <apex:inputHidden id="ResellerInputHidden" html-data-errlabel="Reseller" value="{!selectedResellerId}"/>
+                                       <div class="autoSearchContainer">
+                                        <div class="autoSearchInputPanel">
+                                            <input class="input text" id="newResellerInput" oninput="handleResellerInput()" onblur="hideResellerResult(true)" autocomplete="off" />
+                                        </div>
+                                        <div class="autoSearchResultPanel autoSearchHide" id="Reseller_AutoSearchResultPanel">
+                                            <ul id="resellerResult" class="autoSearchOptions"></ul>
+                                        </div>
+                                       </div>
+                                    </div>
+                                </div>
+                                <div class="panel" id="otherResellerPanel">
+                                    <div class="reg-label require">Other Reseller</div>
+                                    <div class="reg-input"><apex:inputField html-data-errlabel="Other Reseller" styleClass="input text" required="{!selectedResellerId == 'other'}" id="otherResellerInput" value="{!leadRecord.DealReg_Reseller_Text__c}"/></div>
+                                </div>
+                                <div>
+                                    <div id="contactLabel" class="reg-label require">Reseller Contact</div>
+                                    <div class = "reg-input">
+                                        <apex:inputHidden html-data-errlabel="No Deal Reg Reseller Contact?" id="noContactHidden" value="{!leadRecord.NoDealRegistrationResellerContact__c}"/>
+                                        <apex:inputHidden html-data-errlabel="Rseller Contact" id="resellerContactHidden" value="{!leadRecord.Deal_Registration_Reseller_Contact__c}"/>
+                                        <select id="resellerContactSelector" size="1" class="input" onchange="setResellerContact()"></select>
+                                        <img id="otherResellerLoading" src="/img/loading.gif" class="hidden p-left__small"/>
+                                    </div>
+                                </div>
+                            </apex:outputPanel>
+                            
+                        </li>
+                        <li>
+                            <div class="reg-label require">Deal Type</div>
+                            <div class = "reg-input"><apex:selectList html-data-errlabel="Deal Type" size="1" required="true" styleClass="input required" value="{!leadRecord.Deal_Type__c}">
+                                <apex:selectOption itemLabel="Please Select" itemValue="Please Select"></apex:selectOption>
+                                <apex:selectOption itemLabel="SD WAN" itemValue="SD WAN"></apex:selectOption>
+                                <apex:selectOption itemLabel="Wan Op" itemValue="Wan Op"></apex:selectOption>
+                                <apex:selectOption itemLabel="Replication" itemValue="Replication"></apex:selectOption>
+                                </apex:selectList></div>
+                        </li>
+                        <li>
+                            <div class="reg-label require">Deal source originated by</div>
+                            <div class = "reg-input"><apex:selectList html-data-errlabel="Deal source originated by" size="1" required="true" styleClass="input required" value="{!leadRecord.I_brought_this_deal_to_Silver_Peak__c}">
+                                <apex:selectOption itemLabel="Please Select" itemValue="Please Select"></apex:selectOption>
+                                <apex:selectOption itemLabel="Silver Peak" itemValue="Silver Peak"></apex:selectOption>
+                                <apex:selectOption itemLabel="Us (partner)" itemValue="Us (partner)"></apex:selectOption>
+                                </apex:selectList></div>
+                        </li>
+                        <li>
+                            <div class="reg-label require">Deal is a result of a Silver Peak funded activity?</div>
+                            <div class = "reg-input"><apex:selectList html-data-errlabel="Deal is a result of a Silver Peak funded activity?" required="true" styleClass="input required" size="1" value="{!leadRecord.Deal_is_a_result_of_a_SP_funded_event__c}">
+                                <apex:selectOption itemLabel="Please Select" itemValue="Please Select"></apex:selectOption>
+                                <apex:selectOption itemLabel="Yes" itemValue="Yes"></apex:selectOption>
+                                <apex:selectOption itemLabel="No" itemValue="No"></apex:selectOption>
+                                </apex:selectList></div>
+                        </li>
+                        <li>
+                            <div class="p-top__medium">
+                                <apex:commandButton value="Register" action="{!Save}" styleClass="reg-submit-btn" id="submitBtn" />
+                                <img id="submitBtnLoading" style="padding-top:3%; padding-left:2%;" class="hidden" src="/img/loading.gif"/>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </apex:form>
+        <apex:outputPanel rendered="{!isSavedSuccess}" >
+            <div class="centerLoadingText" style="text-align: center;font-size: 16px; padding: 2em;">
+                <span class="loading" style="border: 1px solid #ffffff;">
+                    <img src="/img/loading.gif" style="padding: 13px"/>
+                    <span>Processing, please wait ... ... </span>
+                </span>
+            </div>
+            <script>
+            parent.scrollTo(150,380);
+            </script>
+        </apex:outputPanel>
+    </apex:outputPanel>
+</apex:page>

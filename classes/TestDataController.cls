@@ -9,7 +9,7 @@ public class TestDataController {
                     '&client_id=' + '3MVG9PerJEe9i8iJHT36EOe.CDwodG04rDZo.EXoBfzJOIRF4lZIpmVa0omAgwrgr8fxBi.pXVUfrze3NmlYg' +
                     '&client_secret=' + '362843396604305330' +
                     '&username=' + EncodingUtil.urlEncode('prane@silver-peak.com.spit', 'UTF-8') +
-                    '&password=' + EncodingUtil.urlEncode('Fluffy1989', 'UTF-8'));
+                    '&password=' + EncodingUtil.urlEncode('Fluffy1985', 'UTF-8'));
         
         Http http = new Http();
         
@@ -34,7 +34,7 @@ System.debug('BODY: '+res1.getBody());
 System.debug('STATUS:'+res1.getStatus());
 System.debug('STATUS_CODE:'+res1.getStatusCode());
 */
-       /* 
+        
         HttpRequest req2 = new HttpRequest(); 
         req2.setMethod('POST');
         req2.setEndpoint('https://silverpeaksystems--spit.cs30.my.salesforce.com/services/apexrest/CPCaseInfo');
@@ -62,8 +62,7 @@ System.debug('STATUS_CODE:'+res1.getStatusCode());
         System.debug('STATUS:'+res2.getStatus());
         System.debug('STATUS_CODE:'+res2.getStatusCode());
         caseNumber=res2.getBody();
-*/
-        
+        /*
         HttpRequest req3 = new HttpRequest(); 
         req3.setMethod('POST');
         req3.setEndpoint('https://silverpeaksystems--spit.cs30.my.salesforce.com/services/apexrest/CPFileInfo');
@@ -74,8 +73,8 @@ System.debug('STATUS_CODE:'+res1.getStatusCode());
         generator.writeFieldName('fileInfo');
         generator.writeStartArray();
         generator.writeStartObject();
-        generator.writeObjectField('sfCaseId','57838423842384293084');
-        generator.writeObjectField('fileName','Test File Name Praj');
+        generator.writeObjectField('sfCaseId','500n0000007fI1O');
+        generator.writeObjectField('fileName','Test File Name');
         generator.writeObjectField('fileKey','00D300000000byV/005500000046tQb/1432834561534/silverpeak.docx');
         generator.writeObjectField('fileSize','2555');
         generator.writeEndObject();
@@ -89,7 +88,7 @@ System.debug('STATUS_CODE:'+res1.getStatusCode());
         HTTPResponse res3 = http3.send(req3);
         System.debug('BODY: '+res3.getBody());
         System.debug('STATUS:'+res3.getStatus());
-        System.debug('STATUS_CODE:'+res3.getStatusCode());
+        System.debug('STATUS_CODE:'+res3.getStatusCode());*/
         return null;
     }
     

@@ -14,7 +14,7 @@
             <criteriaItems>
                 <field>Case.RecordTypeId</field>
                 <operation>notEqual</operation>
-                <value>IT Help Requests,WANstart,Orchestrator,HR Help Request</value>
+                <value>IT Help Requests,WANstart,Orchestrator,HR Requests,Facilities,DevOps Help Requests,Lab Help Requests</value>
             </criteriaItems>
             <template>Support/TechSupportCaseinQueue</template>
         </ruleEntry>
@@ -29,9 +29,47 @@
             <criteriaItems>
                 <field>Case.RecordTypeId</field>
                 <operation>notEqual</operation>
-                <value>IT Help Requests,WANstart,Orchestrator,HR Help Request</value>
+                <value>IT Help Requests,WANstart,Orchestrator,HR Requests,Facilities,DevOps Help Requests,Lab Help Requests</value>
             </criteriaItems>
             <template>Support/TechSupportCaseinQueue</template>
+        </ruleEntry>
+        <ruleEntry>
+            <assignedTo>HR_Help_Requests</assignedTo>
+            <assignedToType>Queue</assignedToType>
+            <criteriaItems>
+                <field>Case.RecordTypeId</field>
+                <operation>equals</operation>
+                <value>HR Requests</value>
+            </criteriaItems>
+            <template>Support/HR_Request_Case_in_Queue</template>
+        </ruleEntry>
+        <ruleEntry>
+            <assignedTo>Facilities_Requests</assignedTo>
+            <assignedToType>Queue</assignedToType>
+            <criteriaItems>
+                <field>Case.RecordTypeId</field>
+                <operation>equals</operation>
+                <value>Facilities</value>
+            </criteriaItems>
+            <template>Support/Facilities_Case_in_Queue</template>
+        </ruleEntry>
+        <ruleEntry>
+            <assignedTo>LabHelp</assignedTo>
+            <assignedToType>Queue</assignedToType>
+            <criteriaItems>
+                <field>Case.RecordTypeId</field>
+                <operation>equals</operation>
+                <value>Lab Help Requests</value>
+            </criteriaItems>
+        </ruleEntry>
+        <ruleEntry>
+            <assignedTo>DevOps</assignedTo>
+            <assignedToType>Queue</assignedToType>
+            <criteriaItems>
+                <field>Case.RecordTypeId</field>
+                <operation>equals</operation>
+                <value>DevOps Help Requests</value>
+            </criteriaItems>
         </ruleEntry>
     </assignmentRule>
 </AssignmentRules>

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Layout xmlns="http://soap.sforce.com/2006/04/metadata">
     <customButtons>Custom_Clone</customButtons>
-    <customButtons>Define_Channel_On_Quote</customButtons>
     <customButtons>Add_Revenue_Recognition</customButtons>
     <customButtons>Patch_Lock_Unlock</customButtons>
     <customButtons>Patch_Override_Opp</customButtons>
@@ -9,7 +8,6 @@
     <customButtons>Renewal</customButtons>
     <customButtons>Merge</customButtons>
     <customButtons>BL__Find_Reference</customButtons>
-    <customButtons>Define_Channel</customButtons>
     <excludeButtons>Clone</excludeButtons>
     <excludeButtons>Submit</excludeButtons>
     <layoutSections>
@@ -83,48 +81,8 @@
                 <field>SP_OpEx_Opportunity__c</field>
             </layoutItems>
             <layoutItems>
-                <behavior>Edit</behavior>
-                <field>HDWR_AMT__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>Sfwr_Amt__c</field>
-            </layoutItems>
-            <layoutItems>
                 <behavior>Readonly</behavior>
-                <field>ECSP_HDWR_Amount__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Readonly</behavior>
-                <field>ECSP_SFWR_Amount__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>Active_POC_DateStamp__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>Inactive_POC_DateStamp__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Readonly</behavior>
-                <field>POC_Age__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>Regional_Sales_Manager__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Readonly</behavior>
-                <field>Annual_Contract_Value__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Readonly</behavior>
-                <field>Total_Contract_Value__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Readonly</behavior>
-                <field>Net_Contract_Value__c</field>
+                <field>Total_Comp_Rate__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Readonly</behavior>
@@ -136,23 +94,19 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Readonly</behavior>
-                <field>Total_Comp_Rate__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>Other_Competitor_Value__c</field>
+                <field>EC_Hardware_Amount__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Readonly</behavior>
-                <field>Created_By_Profile_Name__c</field>
+                <field>Annual_Contract_Value__c</field>
             </layoutItems>
             <layoutItems>
-                <behavior>Edit</behavior>
-                <field>Industry__c</field>
+                <behavior>Readonly</behavior>
+                <field>Net_Contract_Value__c</field>
             </layoutItems>
             <layoutItems>
-                <behavior>Edit</behavior>
-                <field>First_Win_Opportunity__c</field>
+                <behavior>Readonly</behavior>
+                <field>NX_VX_Amount__c</field>
             </layoutItems>
         </layoutColumns>
         <layoutColumns>
@@ -177,7 +131,7 @@
                 <field>StageName</field>
             </layoutItems>
             <layoutItems>
-                <behavior>Readonly</behavior>
+                <behavior>Edit</behavior>
                 <field>Probability</field>
             </layoutItems>
             <layoutItems>
@@ -221,8 +175,28 @@
                 <field>Channel_Manager__c</field>
             </layoutItems>
             <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>Patch_Owner__c</field>
+            </layoutItems>
+            <layoutItems>
                 <behavior>Edit</behavior>
                 <field>First_CAM_Assigned__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>HDWR_AMT__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Sfwr_Amt__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>ECSP_HDWR_Amount__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>ECSP_SFWR_Amount__c</field>
             </layoutItems>
         </layoutColumns>
         <style>TwoColumnsTopToBottom</style>
@@ -235,23 +209,10 @@
         <layoutColumns>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>Number_of_branches__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>Applications__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
                 <field>OtherEnv__c</field>
             </layoutItems>
         </layoutColumns>
-        <layoutColumns>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>Network_Speed__c</field>
-            </layoutItems>
-        </layoutColumns>
+        <layoutColumns/>
         <style>TwoColumnsLeftToRight</style>
     </layoutSections>
     <layoutSections>
@@ -302,19 +263,7 @@
         <detailHeading>true</detailHeading>
         <editHeading>true</editHeading>
         <label>Sales Team/Channel Information</label>
-        <layoutColumns>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>Registered_Partner__c</field>
-            </layoutItems>
-            <layoutItems>
-                <height>110</height>
-                <page>PartnerList</page>
-                <showLabel>false</showLabel>
-                <showScrollbars>false</showScrollbars>
-                <width>100%</width>
-            </layoutItems>
-        </layoutColumns>
+        <layoutColumns/>
         <layoutColumns>
             <layoutItems>
                 <emptySpace>true</emptySpace>
@@ -354,6 +303,10 @@
             <layoutItems>
                 <behavior>Readonly</behavior>
                 <field>POC_History__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>POC_Age__c</field>
             </layoutItems>
         </layoutColumns>
         <layoutColumns>
@@ -395,6 +348,10 @@
             <layoutItems>
                 <behavior>Edit</behavior>
                 <field>Follow_Up_Contact__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Industry__c</field>
             </layoutItems>
         </layoutColumns>
         <style>TwoColumnsTopToBottom</style>
@@ -555,6 +512,18 @@
                 <behavior>Readonly</behavior>
                 <field>Intial_Estimated_Close_Date__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Tier1_Partner__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Tier2_Partner__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Tier3_Partner__c</field>
+            </layoutItems>
         </layoutColumns>
         <style>TwoColumnsLeftToRight</style>
     </layoutSections>
@@ -698,6 +667,7 @@
         <customButtons>NewQuoteFromOpportunity</customButtons>
         <excludeButtons>New</excludeButtons>
         <fields>NAME</fields>
+        <fields>Quote_Name__c</fields>
         <fields>Quote_Date__c</fields>
         <fields>Quote_Valid_Until__c</fields>
         <fields>Approval_Status__c</fields>
@@ -718,12 +688,6 @@
         <fields>SBQQ__Primary__c</fields>
         <fields>Product_Type__c</fields>
         <relatedList>SBQQ__Quote__c.SBQQ__Opportunity2__c</relatedList>
-    </relatedLists>
-    <relatedLists>
-        <fields>ACCOUNT.NAME</fields>
-        <fields>PARTNER.ROLE</fields>
-        <fields>PARTNER.PRIMARY</fields>
-        <relatedList>RelatedPartnerList</relatedList>
     </relatedLists>
     <relatedLists>
         <fields>TASK.SUBJECT</fields>
@@ -772,9 +736,9 @@
         <fields>Product2</fields>
         <fields>ProductCode</fields>
         <fields>Quantity</fields>
+        <fields>DiscountPercent__c</fields>
         <fields>Discount</fields>
         <fields>TotalPrice</fields>
-        <fields>DiscountPercent__c</fields>
         <relatedList>RelatedLineItemList</relatedList>
     </relatedLists>
     <relatedLists>
@@ -934,11 +898,6 @@
             <field>Technical_Responsible__c</field>
             <posX>2</posX>
             <posY>1</posY>
-        </summaryLayoutItems>
-        <summaryLayoutItems>
-            <field>Registered_Partner__c</field>
-            <posX>3</posX>
-            <posY>0</posY>
         </summaryLayoutItems>
         <summaryLayoutItems>
             <field>Registration_Expiration__c</field>

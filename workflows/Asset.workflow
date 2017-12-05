@@ -7,7 +7,7 @@
         <description>Decommission Hosted GMS</description>
         <protected>false</protected>
         <recipients>
-            <recipient>curtisc@silver-peak.com</recipient>
+            <recipient>dbeckus@silver-peak.com</recipient>
             <type>user</type>
         </recipients>
         <recipients>
@@ -191,7 +191,7 @@
         <description>Notify Fulfillment Team for Hosted GMS</description>
         <protected>false</protected>
         <recipients>
-            <recipient>curtisc@silver-peak.com</recipient>
+            <recipient>dbeckus@silver-peak.com</recipient>
             <type>user</type>
         </recipients>
         <recipients>
@@ -696,6 +696,15 @@ right(Id,4))</formula>
         <protected>false</protected>
     </fieldUpdates>
     <fieldUpdates>
+        <fullName>Set_EOM_for_SP_Hardware</fullName>
+        <field>End_of_Maintenance__c</field>
+        <formula>DATE(YEAR(Ship_Date__c)+5,MONTH(Ship_Date__c),DAY(Ship_Date__c))</formula>
+        <name>Set EOM for SP Hardware</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+    </fieldUpdates>
+    <fieldUpdates>
         <fullName>Uncheck_Renewal_License_Key_Generated</fullName>
         <field>Renewal_Key_Generated__c</field>
         <literalValue>0</literalValue>
@@ -763,12 +772,27 @@ right(Id,4))</formula>
             <type>FieldUpdate</type>
         </actions>
         <active>true</active>
-        <formula>AND (  
-OR(  BEGINS(Product2.Name,&quot;EC&quot;),  BEGINS(Product2.Name,&quot;UNITY CLOUD&quot;) ), 
- NOT(Product2.Name == &quot;EC-ORCH&quot;), 
- OR( ISPICKVAL(Status,&quot;Customer Subscription Active&quot;), ISPICKVAL(Status,&quot;Customer Subscription&quot;), ISPICKVAL(Status,&quot;Customer Evaluation&quot;),  ISPICKVAL(Status,&quot;Customer Owned&quot;), ISPICKVAL(Status,&quot;Loan&quot;), ISPICKVAL(Status,&quot;Conditional PO&quot;) ),  
- ISPICKVAL(Product2.Family,&quot;Virtual Image&quot;),  
- OR(ISNew(),  ISCHANGED(License_End_Date__c),  ISCHANGED(Bandwidth_Nodes__c),  ISCHANGED(Licenses_Nodes__c),ISCHANGED(Status),ISCHANGED(Contract_Number__c) ) )</formula>
+        <formula>AND (  OR(  BEGINS(Product2.Name,&quot;EC&quot;),  BEGINS(Product2.Name,&quot;UNITY CLOUD&quot;) ),  NOT(Product2.Name == &quot;EC-ORCH&quot;),   OR( ISPICKVAL(Status,&quot;Customer Subscription Active&quot;), ISPICKVAL(Status,&quot;Customer Subscription&quot;), ISPICKVAL(Status,&quot;Customer Evaluation&quot;),  ISPICKVAL(Status,&quot;Customer Owned&quot;), ISPICKVAL(Status,&quot;Loan&quot;), ISPICKVAL(Status,&quot;Conditional PO&quot;) ),  ISPICKVAL(Product2.Family,&quot;Virtual Image&quot;),  OR(ISNew(),  ISCHANGED(License_End_Date__c),  ISCHANGED(Bandwidth_Nodes__c),  ISCHANGED(Licenses_Nodes__c),ISCHANGED( Service_Support_Start_Date__c ),  ISCHANGED( Service_Support_End_Date__c ),  ISCHANGED(Status) ) )</formula>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>Calculate End Of Maintainance for SP Hardware</fullName>
+        <actions>
+            <name>Set_EOM_for_SP_Hardware</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <formula>AND 
+( 
+ISPICKVAL(Product2.Family,&quot;Product&quot;), 
+OR( 
+ISPICKVAL(Product2.Product_Type__c ,&quot;EC-SP-Perpetual&quot;), 
+ISPICKVAL(Product2.Product_Type__c ,&quot;EC-SP-Metered&quot;), 
+ISPICKVAL(Product2.Product_Type__c ,&quot;EC-SP-Term&quot;) 
+), 
+OR(ISCHANGED( Ship_Date__c ),ISNEW()) 
+
+)</formula>
         <triggerType>onAllChanges</triggerType>
     </rules>
     <rules>
@@ -800,6 +824,11 @@ OR(  BEGINS(Product2.Name,&quot;EC&quot;),  BEGINS(Product2.Name,&quot;UNITY CLO
             <field>Asset.Sync_With_Cloud_Portal__c</field>
             <operation>equals</operation>
             <value>True</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Product2.Family</field>
+            <operation>notEqual</operation>
+            <value>Product</value>
         </criteriaItems>
         <triggerType>onCreateOrTriggeringUpdate</triggerType>
     </rules>
@@ -875,21 +904,7 @@ BEGINS( Product2.Name ,&quot;EC&quot;)
             <type>FieldUpdate</type>
         </actions>
         <active>true</active>
-        <formula>AND( 
-ISPICKVAL( Product2.Family,&quot;Product&quot;), 
-OR( 
-ISPICKVAL(Product2.Product_Type__c ,&quot;EDGECONNECT&quot;), 
-ISPICKVAL(Product2.Product_Type__c ,&quot;EC-SP-Perpetual&quot;), 
-ISPICKVAL(Product2.Product_Type__c ,&quot;EC-SP-Metered&quot;),
-ISPICKVAL(Product2.Product_Type__c ,&quot;EC-SP-Term&quot;)
-), 
-ISPICKVAL(Status,&quot;Customer Owned&quot;), 
-OR( 
-ISNEW(), 
-ISCHANGED( Ship_Date__c ), 
-ISCHANGED( Product2Id ) 
-) 
-)</formula>
+        <formula>AND(  ISPICKVAL( Product2.Family,&quot;Product&quot;),  OR(  ISPICKVAL(Product2.Product_Type__c ,&quot;EDGECONNECT&quot;),  ISPICKVAL(Product2.Product_Type__c ,&quot;EC-SP-Perpetual&quot;),  ISPICKVAL(Product2.Product_Type__c ,&quot;EC-SP-Metered&quot;), ISPICKVAL(Product2.Product_Type__c ,&quot;EC-SP-Term&quot;) ),  ISPICKVAL(Status,&quot;Customer Owned&quot;),  OR(  ISNEW(),  ISCHANGED( Ship_Date__c ),  ISCHANGED( Product2Id )  )  )</formula>
         <triggerType>onAllChanges</triggerType>
     </rules>
     <rules>
@@ -1382,25 +1397,6 @@ NOT(TriggerAutoFulfillEmail__c)
             <timeLength>1</timeLength>
             <workflowTimeTriggerUnit>Hours</workflowTimeTriggerUnit>
         </workflowTimeTriggers>
-    </rules>
-    <rules>
-        <fullName>Populate Bandwidth value for Unity Cloud ORCH</fullName>
-        <active>false</active>
-        <criteriaItems>
-            <field>Product2.Family</field>
-            <operation>equals</operation>
-            <value>Virtual Image</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>Product2.Name</field>
-            <operation>startsWith</operation>
-            <value>EC-ORCH-AAS</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>Asset.GMS_Nodes__c</field>
-            <operation>equals</operation>
-        </criteriaItems>
-        <triggerType>onCreateOrTriggeringUpdate</triggerType>
     </rules>
     <rules>
         <fullName>SendReplacementNotice</fullName>

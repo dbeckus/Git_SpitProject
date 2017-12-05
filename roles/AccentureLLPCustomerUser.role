@@ -6,5 +6,5 @@
     <mayForecastManagerShare>false</mayForecastManagerShare>
     <name>Accenture LLP Customer User</name>
     <opportunityAccessLevel>None</opportunityAccessLevel>
-    <parentRole>SalesManagerEastern</parentRole>
+    <parentRole>Grade_4_Sales_NAM_East</parentRole>
 </Role>

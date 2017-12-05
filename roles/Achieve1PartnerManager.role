@@ -6,5 +6,5 @@
     <mayForecastManagerShare>false</mayForecastManagerShare>
     <name>Achieve 1 Partner Manager</name>
     <opportunityAccessLevel>None</opportunityAccessLevel>
-    <parentRole>ChannelSalesManagerEast</parentRole>
+    <parentRole>SVPMarketing</parentRole>
 </Role>

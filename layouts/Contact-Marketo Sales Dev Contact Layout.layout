@@ -30,8 +30,20 @@
                 <field>GEO__c</field>
             </layoutItems>
             <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>Accurate_GEO__c</field>
+            </layoutItems>
+            <layoutItems>
                 <behavior>Edit</behavior>
                 <field>Quote_Contact__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Explicit_Consent__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>ABM_Target__c</field>
             </layoutItems>
         </layoutColumns>
         <layoutColumns>
@@ -422,7 +434,7 @@
         <label>Marketo Sales Insight</label>
         <layoutColumns>
             <layoutItems>
-                <height>450</height>
+                <height>400</height>
                 <page>mkto_si__Contact</page>
                 <showLabel>false</showLabel>
                 <showScrollbars>false</showScrollbars>

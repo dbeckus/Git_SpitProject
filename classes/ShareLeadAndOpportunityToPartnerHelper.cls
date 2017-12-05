@@ -1,10 +1,31 @@
 public class ShareLeadAndOpportunityToPartnerHelper
 {
-    @future
+    private static Set<Id> globalLeadIds;
+    
     public static void willShareLeads(List<Id> leadIds)
     {
-        List<Lead> theLeads = [select Id, Name, OwnerId, Registered_Distributor__c, Registered_Partner__c, Registered_Distributor_Contact__c, Registered_Partner_Sales_Rep__c from Lead where Id in :leadIds];
-        shareLeads(theLeads);
+        if(globalLeadIds == null)
+        {
+            globalLeadIds = new Set<Id>();
+        }
+        for(Integer i = leadIds.size() - 1; i >= 0; i--)
+        {
+            Id leadId = leadIds[i];
+            if(globalLeadIds.contains(leadId))
+            {
+                leadIds.remove(i);
+            }
+            globalLeadIds.add(leadId);
+        }
+        if(leadIds.size() > 0)
+        {
+            if(!(Test.isRunningTest() && Limits.getQueueableJobs() > 0))
+            {
+                ShareLeadAndOpportunityToPartnerJob job = new ShareLeadAndOpportunityToPartnerJob();
+                job.LeadIds = leadIds;
+                System.enqueueJob(job);
+            }
+        }
     }
     
     public static void shareLeads(List<Id> leadIds)
@@ -65,10 +86,31 @@ public class ShareLeadAndOpportunityToPartnerHelper
         Database.insert(newLeadShares, false);
     }
     
-    @future
+    private static Set<Id> globalOpportunityIds;
     public static void willShareOpportunities(List<Id> oppIds)
     {
-        shareOpportunities(oppIds);
+        if(globalOpportunityIds == null)
+        {
+            globalOpportunityIds = new Set<Id>();
+        }
+        for(Integer i = oppIds.size() - 1; i >= 0; i--)
+        {
+            Id oppId = oppIds[i];
+            if(globalOpportunityIds.contains(oppId))
+            {
+                oppIds.remove(i);
+            }
+            globalOpportunityIds.add(oppId);
+        }
+        if(oppIds.size() > 0)
+        {
+            if(!(Test.isRunningTest() && Limits.getQueueableJobs() > 0))
+            {
+                ShareLeadAndOpportunityToPartnerJob job = new ShareLeadAndOpportunityToPartnerJob();
+                job.OpportunityIds = oppIds;
+                System.enqueueJob(job);
+            }
+        }
     }
     
     public static void shareOpportunities(List<Id> oppIds)
@@ -100,9 +142,9 @@ public class ShareLeadAndOpportunityToPartnerHelper
                 contactIds.add(opp.Registering_Partner_Sales_Rep__c);
             }
             /*accIds.add(opp.Registered_Distributor__c);
-accIds.add(opp.Registering_Partner__c);
-contactIds.add(opp.Registered_Distributor_Contact__c);
-contactIds.add(opp.Registering_Partner_Sales_Rep__c);*/
+            accIds.add(opp.Registering_Partner__c);
+            contactIds.add(opp.Registered_Distributor_Contact__c);
+            contactIds.add(opp.Registering_Partner_Sales_Rep__c);*/
         }
         
         Map<Id, Id> portalManagers = getPortalManagerRoles(new List<Id>(accIds));
@@ -153,26 +195,26 @@ contactIds.add(opp.Registering_Partner_Sales_Rep__c);*/
     }
     
     /*private static Map<Id, Id> getPortalUserRoles()
-{
-if(portalUserRoles == null)
-{
-portalUserRoles = new Map<Id, Id>();
-List<UserRole> portalUserRoleList = [select Id, PortalAccountId from UserRole where PortalType='Partner' and PortalRole in ('Worker', 'User') and PortalAccountId!=null];
-List<Group> groups = [select Id, RelatedId from Group where RelatedId in :portalUserRoleList];
-for(UserRole role : portalUserRoleList)
-{
-for(Group g : groups)
-{
-if(role.Id == g.RelatedId)
-{
-portalUserRoles.put(role.PortalAccountId, g.Id);
-break;
-}
-}
-}
-}
-return portalUserRoles;
-}*/
+    {
+    if(portalUserRoles == null)
+    {
+    portalUserRoles = new Map<Id, Id>();
+    List<UserRole> portalUserRoleList = [select Id, PortalAccountId from UserRole where PortalType='Partner' and PortalRole in ('Worker', 'User') and PortalAccountId!=null];
+    List<Group> groups = [select Id, RelatedId from Group where RelatedId in :portalUserRoleList];
+    for(UserRole role : portalUserRoleList)
+    {
+    for(Group g : groups)
+    {
+    if(role.Id == g.RelatedId)
+    {
+    portalUserRoles.put(role.PortalAccountId, g.Id);
+    break;
+    }
+    }
+    }
+    }
+    return portalUserRoles;
+    }*/
     
     private static Map<Id, Id> getPortalUsers(List<Id> contactIds)
     {

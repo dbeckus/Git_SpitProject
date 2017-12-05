@@ -1,12 +1,13 @@
 /*
  * Create purchase request on new MDF creation
+ * 26MAY2017 - fixed bug where CSM and RSM were being set before Account was set
  */
 trigger CreatePurchasingRequests on MDF_Request__c (before insert, after insert)
 {
     if(Trigger.isBefore)
     {
         User currentUser = [select Id, ContactId from User where Id = :UserInfo.getUserId() limit 1];
-        List<Contact> contacts = [select Id, AccountId, Account.OwnerId, Account.Owner.GEO_Region__c, Account.Patch__c, Account.Patch__r.CSM__c, Account.Patch__r.CSM__r.GEO_Region__c, Account.Patch__r.RSM__c, Account.Patch__r.RSM__r.GEO_Region__c from Contact where Id = :currentUser.ContactId limit 1];
+        List<Contact> contacts = [select Id, AccountId, Account.OwnerId, Account.Owner.GEO_Region__c, Account.Patch__c, Account.Patch__r.CSM__c, Account.Patch__r.CSM__r.GEO_Region__c, Account.Patch__r.Owner__r.GEO_Region__c, Account.Patch__r.RSM__c, Account.Patch__r.RSM__r.GEO_Region__c from Contact where Id = :currentUser.ContactId limit 1];
         Account currentAccount = (contacts.size() > 0) ? contacts[0].Account : null;
         Contact currentContact = (contacts.size() > 0) ? contacts[0] : null;
         Map<Id, Account> moreAccounts = getAccounts(Trigger.new);
@@ -74,7 +75,10 @@ trigger CreatePurchasingRequests on MDF_Request__c (before insert, after insert)
         if(acc != null)
         {
             req.Account__c = acc.Id;
-            req.GEO__c = acc.Patch__r.CSM__r.GEO_Region__c;
+            req.CSM__c = acc.Patch__r.CSM__c;
+            req.RSM__c = acc.Patch__r.RSM__c;
+            //setting GEO to that of patch owner instead of CAM
+            req.GEO__c = acc.Patch__r.Owner__r.GEO_Region__c;
             if(String.isBlank(req.GEO__c))
             {
                 req.GEO__c = acc.Owner.GEO_Region__c;
@@ -102,7 +106,7 @@ trigger CreatePurchasingRequests on MDF_Request__c (before insert, after insert)
         {
             accIds.add(mdf.Account__c);
         }
-        return new Map<Id, Account>([select Id, OwnerId, Owner.GEO_Region__c, Patch__c, Patch__r.CSM__c, Patch__r.CSM__r.GEO_Region__c, Patch__r.RSM__c, Patch__r.RSM__r.GEO_Region__c from Account where Id in :accIds]);
+        return new Map<Id, Account>([select Id, OwnerId, Owner.GEO_Region__c, Patch__c, Patch__r.CSM__c, Patch__r.CSM__r.GEO_Region__c, Patch__r.Owner__c, Patch__r.Owner__r.GEO_Region__c, Patch__r.RSM__c, Patch__r.RSM__r.GEO_Region__c from Account where Id in :accIds]);
     }
     
     private Map<Id, Contact> getContacts(List<MDF_Request__c> mdfs)

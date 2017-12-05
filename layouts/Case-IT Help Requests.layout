@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Layout xmlns="http://soap.sforce.com/2006/04/metadata">
     <customButtons>Re_Open</customButtons>
+    <customButtons>attachmentzip__Download_Attachments</customButtons>
     <excludeButtons>Submit</excludeButtons>
     <layoutSections>
         <customLabel>false</customLabel>
@@ -31,14 +32,6 @@
             <layoutItems>
                 <behavior>Edit</behavior>
                 <field>AccountId</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Readonly</behavior>
-                <field>Is_Asset_Warranty_Expired__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>Allow_RMA__c</field>
             </layoutItems>
         </layoutColumns>
         <layoutColumns>
@@ -179,6 +172,22 @@
         <layoutColumns/>
         <layoutColumns/>
         <style>CustomLinks</style>
+    </layoutSections>
+    <layoutSections>
+        <customLabel>true</customLabel>
+        <detailHeading>true</detailHeading>
+        <editHeading>true</editHeading>
+        <label>Jira Section</label>
+        <layoutColumns>
+            <layoutItems>
+                <height>300</height>
+                <page>zsfjira__ZCaseRelatedJiraIssues</page>
+                <showLabel>false</showLabel>
+                <showScrollbars>true</showScrollbars>
+                <width>100%</width>
+            </layoutItems>
+        </layoutColumns>
+        <style>OneColumn</style>
     </layoutSections>
     <quickActionList>
         <quickActionListItems>

@@ -9,8 +9,8 @@
         <enableEmailToCase>true</enableEmailToCase>
         <enableHtmlEmail>false</enableHtmlEmail>
         <enableOnDemandEmailToCase>true</enableOnDemandEmailToCase>
-        <enableThreadIDInBody>false</enableThreadIDInBody>
-        <enableThreadIDInSubject>true</enableThreadIDInSubject>
+        <enableThreadIDInBody>true</enableThreadIDInBody>
+        <enableThreadIDInSubject>false</enableThreadIDInSubject>
         <notifyOwnerOnNewCaseEmail>false</notifyOwnerOnNewCaseEmail>
         <overEmailLimitAction>Bounce</overEmailLimitAction>
         <routingAddresses>
@@ -27,8 +27,44 @@
             <caseOrigin>Email</caseOrigin>
             <casePriority>P3 - Normal</casePriority>
             <createTask>false</createTask>
+            <emailAddress>devopshelp@silver-peak.com</emailAddress>
+            <routingName>Dev Ops Help</routingName>
+            <saveEmailHeaders>true</saveEmailHeaders>
+        </routingAddresses>
+        <routingAddresses>
+            <addressType>EmailToCase</addressType>
+            <caseOrigin>Email</caseOrigin>
+            <casePriority>P3 - Normal</casePriority>
+            <createTask>false</createTask>
+            <emailAddress>facilities@silver-peak.com</emailAddress>
+            <routingName>Facilities</routingName>
+            <saveEmailHeaders>true</saveEmailHeaders>
+        </routingAddresses>
+        <routingAddresses>
+            <addressType>EmailToCase</addressType>
+            <caseOrigin>Email</caseOrigin>
+            <casePriority>P3 - Normal</casePriority>
+            <createTask>false</createTask>
             <emailAddress>hrhelp@silver-peak.com</emailAddress>
             <routingName>HRHelp</routingName>
+            <saveEmailHeaders>true</saveEmailHeaders>
+        </routingAddresses>
+        <routingAddresses>
+            <addressType>EmailToCase</addressType>
+            <caseOrigin>Email</caseOrigin>
+            <casePriority>P3 - Normal</casePriority>
+            <createTask>false</createTask>
+            <emailAddress>ithelp@silver-peak.com</emailAddress>
+            <routingName>ITHelpRequests</routingName>
+            <saveEmailHeaders>true</saveEmailHeaders>
+        </routingAddresses>
+        <routingAddresses>
+            <addressType>EmailToCase</addressType>
+            <caseOrigin>Email</caseOrigin>
+            <casePriority>P3 - Normal</casePriority>
+            <createTask>false</createTask>
+            <emailAddress>labhelp@silver-peak.com</emailAddress>
+            <routingName>LabHelp</routingName>
             <saveEmailHeaders>true</saveEmailHeaders>
         </routingAddresses>
         <routingAddresses>
@@ -39,15 +75,6 @@
             <emailAddress>support@silver-peak.com</emailAddress>
             <routingName>TechncialSupportCases</routingName>
             <saveEmailHeaders>true</saveEmailHeaders>
-        </routingAddresses>
-        <routingAddresses>
-            <addressType>EmailToCase</addressType>
-            <caseOrigin>Email</caseOrigin>
-            <casePriority>P4 - Low</casePriority>
-            <createTask>false</createTask>
-            <emailAddress>prane@silver-peak.com</emailAddress>
-            <routingName>Test Praj</routingName>
-            <saveEmailHeaders>false</saveEmailHeaders>
         </routingAddresses>
         <unauthorizedSenderAction>Discard</unauthorizedSenderAction>
     </emailToCase>

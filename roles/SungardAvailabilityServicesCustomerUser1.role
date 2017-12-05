@@ -6,5 +6,5 @@
     <mayForecastManagerShare>false</mayForecastManagerShare>
     <name>Sungard Availability Services Customer User</name>
     <opportunityAccessLevel>None</opportunityAccessLevel>
-    <parentRole>VP_Sales_North_America</parentRole>
+    <parentRole>Grade_4_Sales_NAM_East</parentRole>
 </Role>

@@ -6,5 +6,5 @@
     <mayForecastManagerShare>false</mayForecastManagerShare>
     <name>Grupo Comercial Lg, S.A. de C.V. Customer User</name>
     <opportunityAccessLevel>None</opportunityAccessLevel>
-    <parentRole>CountryManagerLAT</parentRole>
+    <parentRole>Grade_2_COMM</parentRole>
 </Role>

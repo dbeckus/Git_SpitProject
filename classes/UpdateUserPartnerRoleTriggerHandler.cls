@@ -7,7 +7,6 @@ public class UpdateUserPartnerRoleTriggerHandler
     @future
     public static void UpdateUsersRole(Set<Id> contactsIdSet, Set<Id> accountsIdSet)
     {
-        
         Map<Id, Map<String, Id>> accountId2PortalRoleMap = new Map<Id, Map<String, Id>>(); //Key: AccountId, Value: Map(Key: PortalRole, Value: UserRoleId)
         for(UserRole role : [select Id, Name, PortalAccountId, PortalRole from UserRole where PortalAccountId in :accountsIdSet])
         {
@@ -28,7 +27,6 @@ public class UpdateUserPartnerRoleTriggerHandler
                 portalRole = partnerRole2PortalRoleMap.get(user.Contact.Partner_Role__c);
                 roleId = accountId2PortalRoleMap.get(user.Contact.AccountId).get(portalRole);
             }
-            System.debug('roleId'+roleId);
             user.UserRoleId = roleId;
         }
         update users;

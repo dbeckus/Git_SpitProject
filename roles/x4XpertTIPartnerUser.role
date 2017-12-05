@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Role xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseAccessLevel>None</caseAccessLevel>
+    <contactAccessLevel>Edit</contactAccessLevel>
+    <description>4Xpert TI Partner User</description>
+    <mayForecastManagerShare>false</mayForecastManagerShare>
+    <name>4Xpert TI Partner User</name>
+    <opportunityAccessLevel>None</opportunityAccessLevel>
+    <parentRole>x4XpertTIPartnerManager</parentRole>
+</Role>

@@ -11,36 +11,6 @@
             <displaying>3</displaying>
             <periodType>Month</periodType>
         </forecastRangeSettings>
-        <name>Opportunity_ExpectedRevenue_Revenue</name>
-        <opportunityListFieldsSelectedSettings>
-            <field>00N500000025ZTe</field>
-            <field>FULL_NAME</field>
-            <field>OPPORTUNITY.NAME</field>
-            <field>OPPORTUNITY.TYPE</field>
-            <field>00N3800000328rB</field>
-            <field>OPPORTUNITY.STAGE_NAME</field>
-            <field>FORECAST_CATEGORY</field>
-            <field>OPPORTUNITY.AMOUNT</field>
-            <field>OPPORTUNITY.PROBABILITY</field>
-            <field>OPPORTUNITY.EXP_AMOUNT</field>
-            <field>OPPORTUNITY.CLOSE_DATE</field>
-            <field>00N50000003Lc40</field>
-            <field>00N50000003Jbz6</field>
-        </opportunityListFieldsSelectedSettings>
-        <quotasSettings>
-            <showQuotas>false</showQuotas>
-        </quotasSettings>
-    </forecastingTypeSettings>
-    <forecastingTypeSettings>
-        <active>true</active>
-        <adjustmentsSettings>
-            <enableAdjustments>true</enableAdjustments>
-        </adjustmentsSettings>
-        <forecastRangeSettings>
-            <beginning>0</beginning>
-            <displaying>3</displaying>
-            <periodType>Month</periodType>
-        </forecastRangeSettings>
         <name>OpportunityRevenue</name>
         <opportunityListFieldsSelectedSettings>
             <field>OPPORTUNITY.NAME</field>

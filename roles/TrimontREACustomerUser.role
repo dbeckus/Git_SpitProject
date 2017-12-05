@@ -6,5 +6,5 @@
     <mayForecastManagerShare>false</mayForecastManagerShare>
     <name>Trimont REA Customer User</name>
     <opportunityAccessLevel>None</opportunityAccessLevel>
-    <parentRole>Sales_Manager_South_Central</parentRole>
+    <parentRole>Grade_4_Sales_NAM_East</parentRole>
 </Role>

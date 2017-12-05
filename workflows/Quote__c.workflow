@@ -21,15 +21,6 @@
         <template>Sales/DiscountApproved</template>
     </alerts>
     <fieldUpdates>
-        <fullName>Change_Quote_Status_To_Pending</fullName>
-        <field>Approval_Status__c</field>
-        <literalValue>Pending Approval</literalValue>
-        <name>Change Quote Status To Pending</name>
-        <notifyAssignee>false</notifyAssignee>
-        <operation>Literal</operation>
-        <protected>false</protected>
-    </fieldUpdates>
-    <fieldUpdates>
         <fullName>CheckECApprovalFlag</fullName>
         <field>EC_Approval__c</field>
         <literalValue>1</literalValue>
@@ -196,12 +187,8 @@
             <type>FieldUpdate</type>
         </actions>
         <active>true</active>
-        <formula>AND
-(
- ISBLANK(Assigned_Distributor__c ),
- NOT(ISBLANK(Tier_2_Partner__c))
-)</formula>
-        <triggerType>onCreateOnly</triggerType>
+        <formula>AND (  ISBLANK(Assigned_Distributor__c ),  NOT(ISBLANK(Tier_2_Partner__c)) )</formula>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
     </rules>
     <rules>
         <fullName>CondPOTerms</fullName>
@@ -290,12 +277,6 @@ ISCHANGED(  Value_At_List__c  )  , ISCHANGED(   Quote_Amount_Rollup__c   )
             <operation>equals</operation>
             <value>True</value>
         </criteriaItems>
-        <triggerType>onCreateOrTriggeringUpdate</triggerType>
-    </rules>
-    <rules>
-        <fullName>Update Opp Owner Manager</fullName>
-        <active>false</active>
-        <formula>Opportunity__r.OwnerId !=null</formula>
         <triggerType>onCreateOrTriggeringUpdate</triggerType>
     </rules>
 </Workflow>

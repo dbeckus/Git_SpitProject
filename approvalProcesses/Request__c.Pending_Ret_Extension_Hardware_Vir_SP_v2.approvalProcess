@@ -7,6 +7,14 @@
         <type>role</type>
     </allowedSubmitters>
     <allowedSubmitters>
+        <submitter>EngineeringDirector</submitter>
+        <type>role</type>
+    </allowedSubmitters>
+    <allowedSubmitters>
+        <submitter>OperationsManager</submitter>
+        <type>role</type>
+    </allowedSubmitters>
+    <allowedSubmitters>
         <submitter>Sales_Manager_Central</submitter>
         <type>role</type>
     </allowedSubmitters>
@@ -45,6 +53,26 @@
     <allowedSubmitters>
         <submitter>SeniorSystemEngineerWest</submitter>
         <type>role</type>
+    </allowedSubmitters>
+    <allowedSubmitters>
+        <submitter>Service_Provider_Sales_Manager</submitter>
+        <type>role</type>
+    </allowedSubmitters>
+    <allowedSubmitters>
+        <submitter>VP_Service_Provider_Sales</submitter>
+        <type>role</type>
+    </allowedSubmitters>
+    <allowedSubmitters>
+        <submitter>Grade_1_Sales</submitter>
+        <type>roleSubordinatesInternal</type>
+    </allowedSubmitters>
+    <allowedSubmitters>
+        <submitter>Grade_1_Sys_Eng</submitter>
+        <type>roleSubordinatesInternal</type>
+    </allowedSubmitters>
+    <allowedSubmitters>
+        <submitter>VPProductManagement</submitter>
+        <type>roleSubordinatesInternal</type>
     </allowedSubmitters>
     <approvalPageFields>
         <field>Name</field>
@@ -116,7 +144,8 @@ ISPICKVAL(Type__c,&quot;Evaluation&quot;),
 IsAllVirtual__c =0,
 OR(
 ISPICKVAL(Status__c,&quot;Pending Return&quot;),
-ISPICKVAL(Status__c,&quot;Pending Return - Invoiced&quot;)
+ISPICKVAL(Status__c,&quot;Pending Return - Invoiced&quot;),
+ISPICKVAL(Status__c,&quot;Shipped- Pending Extension Approval&quot;)
 ),
 Opportunity__r.Account.ECSP__c
 )</formula>

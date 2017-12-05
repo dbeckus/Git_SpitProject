@@ -236,6 +236,7 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>EC-SP Software</displayNameOverride>
             <field>XactlyExpress__DealID__c.XactlyExpress__Currency2__c</field>
             <table>XactlyExpress__XCCreditDealResult__c</table>
         </columns>
@@ -287,6 +288,7 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>EC Customer Date</displayNameOverride>
             <field>XactlyExpress__DealID__c.XactlyExpress__Date2__c</field>
             <table>XactlyExpress__XCCreditDealResult__c</table>
         </columns>
@@ -494,7 +496,7 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <displayNameOverride>Item</displayNameOverride>
+            <displayNameOverride>Product Type</displayNameOverride>
             <field>XactlyExpress__DealID__c.XactlyExpress__String2__c</field>
             <table>XactlyExpress__XCCreditDealResult__c</table>
         </columns>
@@ -530,7 +532,7 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <displayNameOverride>Item Description</displayNameOverride>
+            <displayNameOverride>Patch Owner Text</displayNameOverride>
             <field>XactlyExpress__DealID__c.XactlyExpress__String3__c</field>
             <table>XactlyExpress__XCCreditDealResult__c</table>
         </columns>

@@ -76,7 +76,7 @@ trigger LinkRVMemberToContact on rvpe__RVMember__c (before insert)
     
     if(duplicatedEmails <> '')
     {
-        List<User> users = [select Id from User where Name = 'Curtis Christensen'];
+        List<User> users = [select Id from User where Name = 'Dennis Beckus' and ProfileID = '00e30000000elKyAAI'];
         if(!users.isEmpty())
         {
             FeedItem feedItem = new FeedItem();

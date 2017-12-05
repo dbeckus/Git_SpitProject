@@ -6,5 +6,5 @@
     <mayForecastManagerShare>false</mayForecastManagerShare>
     <name>Massachusetts Teachers Association Staff Organization, Inc. Customer User</name>
     <opportunityAccessLevel>None</opportunityAccessLevel>
-    <parentRole>SalesManagerEastern</parentRole>
+    <parentRole>Grade_4_Sales_NAM_East</parentRole>
 </Role>

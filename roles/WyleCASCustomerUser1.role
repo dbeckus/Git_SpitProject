@@ -6,5 +6,5 @@
     <mayForecastManagerShare>false</mayForecastManagerShare>
     <name>Wyle - CAS Customer User</name>
     <opportunityAccessLevel>None</opportunityAccessLevel>
-    <parentRole>SalesManagerWestern</parentRole>
+    <parentRole>Grade_4_Sales_NAM_West</parentRole>
 </Role>

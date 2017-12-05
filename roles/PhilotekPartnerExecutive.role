@@ -6,5 +6,5 @@
     <mayForecastManagerShare>false</mayForecastManagerShare>
     <name>Philotek Partner Executive</name>
     <opportunityAccessLevel>None</opportunityAccessLevel>
-    <parentRole>ChannelSalesManagerEast</parentRole>
+    <parentRole>Grade_5_CAM_NAM_Southeast</parentRole>
 </Role>

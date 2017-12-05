@@ -89,7 +89,7 @@ public class LicenseEncryptionJob implements Queueable, Database.AllowsCallouts
         }
     }
     
-    private String prepareLicenseBeforeSend(List<License__c> licenses)
+    public String prepareLicenseBeforeSend(List<License__c> licenses)
     {
         List<String> licenseToBeEncoded = new List<String>();
         for(License__c license : licenses)
@@ -175,7 +175,8 @@ public class LicenseEncryptionJob implements Queueable, Database.AllowsCallouts
     {
         Http h = new Http();
         HttpRequest req = new HttpRequest();
-        req.setEndpoint('https://storage.silverpeaksystems.com/Genlicense.ashx');    //Test url: https://storage.ensemble.us.com/test/Genlicense.ashx
+        req.setEndpoint('https://storage.silverpeaksystems.com/Genlicense.ashx');    
+        //req.setEndpoint('https://test.exfit.cn/Genlicense.ashx');    
         req.setHeader('Content-Type', 'application/x-www-form-urlencoded');
         req.setBody('v=' + EncodingUtil.urlEncode(aes128License, 'utf-8'));
         req.setMethod('POST');
@@ -189,6 +190,7 @@ public class LicenseEncryptionJob implements Queueable, Database.AllowsCallouts
         Http h = new Http();
         HttpRequest req = new HttpRequest();
         req.setEndpoint('https://storage.silverpeaksystems.com/GenGmslicense.ashx');
+        //req.setEndpoint('https://test.exfit.cn/GenGmslicense.ashx');
         req.setHeader('Content-Type', 'text/plain');
         req.setBody(aes128License);
         req.setMethod('POST');
@@ -207,7 +209,8 @@ public class LicenseEncryptionJob implements Queueable, Database.AllowsCallouts
                 Blob encryptedBody = Crypto.encrypt('AES256', Blob.valueOf('735065616B30C0F1735065616B30C0F1'), Blob.valueOf('4368657917336E65'), Blob.valueOf(plainBody));
                 Http h = new Http();
                 HttpRequest req = new HttpRequest();
-                req.setEndpoint('https://autosupport.silverpeaksystems.com/phlicense/cgi-bin/batchaddlicense.pl');
+                req.setEndpoint('https://storage.silverpeaksystems.com/linux/phlicense/cgi-bin/batchaddlicense.pl');
+                //req.setEndpoint('https://test.exfit.cn/linux/phlicense/cgi-bin/batchaddlicense.pl');
                 req.setBody('v=' + EncodingUtil.urlEncode(EncodingUtil.base64Encode(encryptedBody), 'utf-8'));
                 req.setMethod('POST');
                 req.setTimeout(60000);  //60 seconds time out

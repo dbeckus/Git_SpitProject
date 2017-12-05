@@ -40,6 +40,14 @@
                 <behavior>Readonly</behavior>
                 <field>Tier_3_Partner__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>Oppty_Stage__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>Primary_on_Oppty__c</field>
+            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>

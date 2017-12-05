@@ -329,6 +329,12 @@
     <relatedLists>
         <relatedList>RelatedEntityHistoryList</relatedList>
     </relatedLists>
+    <relatedLists>
+        <fields>NAME</fields>
+        <fields>Ensemblestorage__FormatedSize__c</fields>
+        <fields>File_Type__c</fields>
+        <relatedList>Ensemblestorage__EnsembleFile__c.Funding_Requests__c</relatedList>
+    </relatedLists>
     <showEmailCheckbox>false</showEmailCheckbox>
     <showHighlightsPanel>false</showHighlightsPanel>
     <showInteractionLogPanel>false</showInteractionLogPanel>

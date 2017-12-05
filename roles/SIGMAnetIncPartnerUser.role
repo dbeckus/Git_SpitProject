@@ -2,9 +2,9 @@
 <Role xmlns="http://soap.sforce.com/2006/04/metadata">
     <caseAccessLevel>None</caseAccessLevel>
     <contactAccessLevel>Edit</contactAccessLevel>
-    <description>SIGMAnet, Inc. Partner User</description>
+    <description>ConvergeOne (formerly SigmaNET) Partner User</description>
     <mayForecastManagerShare>false</mayForecastManagerShare>
-    <name>SIGMAnet, Inc. Partner User</name>
+    <name>ConvergeOne (formerly SigmaNET) Partner User</name>
     <opportunityAccessLevel>None</opportunityAccessLevel>
     <parentRole>SIGMAnetIncPartnerManager</parentRole>
 </Role>

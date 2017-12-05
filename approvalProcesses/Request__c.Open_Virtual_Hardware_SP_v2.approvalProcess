@@ -7,6 +7,14 @@
         <type>role</type>
     </allowedSubmitters>
     <allowedSubmitters>
+        <submitter>EngineeringDirector</submitter>
+        <type>role</type>
+    </allowedSubmitters>
+    <allowedSubmitters>
+        <submitter>OperationsManager</submitter>
+        <type>role</type>
+    </allowedSubmitters>
+    <allowedSubmitters>
         <submitter>Sales_Manager_Central</submitter>
         <type>role</type>
     </allowedSubmitters>
@@ -45,6 +53,26 @@
     <allowedSubmitters>
         <submitter>SeniorSystemEngineerWest</submitter>
         <type>role</type>
+    </allowedSubmitters>
+    <allowedSubmitters>
+        <submitter>Service_Provider_Sales_Manager</submitter>
+        <type>role</type>
+    </allowedSubmitters>
+    <allowedSubmitters>
+        <submitter>VP_Service_Provider_Sales</submitter>
+        <type>role</type>
+    </allowedSubmitters>
+    <allowedSubmitters>
+        <submitter>Grade_1_Sales</submitter>
+        <type>roleSubordinatesInternal</type>
+    </allowedSubmitters>
+    <allowedSubmitters>
+        <submitter>Grade_1_Sys_Eng</submitter>
+        <type>roleSubordinatesInternal</type>
+    </allowedSubmitters>
+    <allowedSubmitters>
+        <submitter>VPProductManagement</submitter>
+        <type>roleSubordinatesInternal</type>
     </allowedSubmitters>
     <approvalPageFields>
         <field>Name</field>
@@ -99,6 +127,10 @@
                 <name>mlear@silver-peak.com</name>
                 <type>user</type>
             </approver>
+            <approver>
+                <name>mlear@silver-peak.com</name>
+                <type>user</type>
+            </approver>
             <whenMultipleApprovers>FirstResponse</whenMultipleApprovers>
         </assignedApprover>
         <label>Send to Finance team</label>
@@ -114,7 +146,6 @@
  IsAllVirtual__c =0,
  ISPICKVAL(Status__c,&quot;Open&quot;),
 ISPICKVAL(Type__c,&quot;Evaluation&quot;),
- RSM_Approved__c , TR_Approved__c ,
  Submission_Condition_Satisfied__c ,
 Opportunity__r.Account.ECSP__c
 )</formula>

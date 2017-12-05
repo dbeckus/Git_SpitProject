@@ -6,5 +6,5 @@
     <mayForecastManagerShare>false</mayForecastManagerShare>
     <name>GreenSea IT Partner Manager</name>
     <opportunityAccessLevel>None</opportunityAccessLevel>
-    <parentRole>ChannelSalesManagerWest</parentRole>
+    <parentRole>SVPMarketing</parentRole>
 </Role>

@@ -135,19 +135,6 @@ CASE( Product__r.Product_Family_Clean__c , &apos;Virtual&apos;, IF( AND( ISPICKV
         <type>Percent</type>
     </fields>
     <fields>
-        <fullName>Discount_field__c</fullName>
-        <externalId>false</externalId>
-        <formula>Quote__r.Opportunity__r.Primary_Partner__r.Standard_Discount_EdgeConnect__c</formula>
-        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
-        <label>Discount field</label>
-        <precision>18</precision>
-        <required>false</required>
-        <scale>2</scale>
-        <trackHistory>false</trackHistory>
-        <trackTrending>false</trackTrending>
-        <type>Percent</type>
-    </fields>
-    <fields>
         <fullName>Include4ConsultingDisc__c</fullName>
         <defaultValue>0</defaultValue>
         <externalId>false</externalId>
@@ -275,45 +262,6 @@ Product__r.Term__c&lt;=1
         <unique>false</unique>
     </fields>
     <fields>
-        <fullName>Primary_Partner_Registered_Disc_EC__c</fullName>
-        <externalId>false</externalId>
-        <formula>IF(NOT(ISBLANK( Quote__r.Tier_2_Partner__c )),Quote__r.Tier_2_Partner__r.Registered_Discount_EdgeConnect__c,Quote__r.Tier_1_Partner__r.Registered_Discount_EdgeConnect__c)</formula>
-        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
-        <label>Primary Partner Registered Disc EC</label>
-        <precision>18</precision>
-        <required>false</required>
-        <scale>2</scale>
-        <trackHistory>false</trackHistory>
-        <trackTrending>false</trackTrending>
-        <type>Percent</type>
-    </fields>
-    <fields>
-        <fullName>Primary_Partner_Registered_Disc_NXVX__c</fullName>
-        <externalId>false</externalId>
-        <formula>IF(NOT(ISBLANK( Quote__r.Tier_2_Partner__c )),Quote__r.Tier_2_Partner__r.Registered_Discount_Product__c,Quote__r.Tier_1_Partner__r.Registered_Discount_Product__c)</formula>
-        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
-        <label>Primary Partner Registered Disc NXVX</label>
-        <precision>18</precision>
-        <required>false</required>
-        <scale>2</scale>
-        <trackHistory>false</trackHistory>
-        <trackTrending>false</trackTrending>
-        <type>Percent</type>
-    </fields>
-    <fields>
-        <fullName>Primary_Partner_Registered_Disc_Service__c</fullName>
-        <externalId>false</externalId>
-        <formula>IF(NOT(ISBLANK( Quote__r.Tier_2_Partner__c )),Quote__r.Tier_2_Partner__r.Registered_Discount_Service__c,Quote__r.Tier_1_Partner__r.Registered_Discount_Service__c)</formula>
-        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
-        <label>Primary Partner Registered Disc Service</label>
-        <precision>18</precision>
-        <required>false</required>
-        <scale>2</scale>
-        <trackHistory>false</trackHistory>
-        <trackTrending>false</trackTrending>
-        <type>Percent</type>
-    </fields>
-    <fields>
         <fullName>ProdDisc__c</fullName>
         <externalId>false</externalId>
         <formula>if( contains(Prod_Category__c, &quot;Appliance&quot;),  Discount_Percent__c, 0)</formula>
@@ -405,9 +353,9 @@ Product__r.Term__c&lt;=1
         <defaultValue>0</defaultValue>
         <externalId>false</externalId>
         <label>Quantity</label>
-        <precision>11</precision>
+        <precision>12</precision>
         <required>true</required>
-        <scale>2</scale>
+        <scale>3</scale>
         <trackHistory>true</trackHistory>
         <trackTrending>false</trackTrending>
         <type>Number</type>
@@ -426,15 +374,6 @@ Product__r.Term__c&lt;=1
         <trackTrending>false</trackTrending>
         <type>MasterDetail</type>
         <writeRequiresMasterRead>false</writeRequiresMasterRead>
-    </fields>
-    <fields>
-        <fullName>Recalculate_Approval_Level__c</fullName>
-        <defaultValue>false</defaultValue>
-        <externalId>false</externalId>
-        <label>Recalculate Approval Level</label>
-        <trackHistory>false</trackHistory>
-        <trackTrending>false</trackTrending>
-        <type>Checkbox</type>
     </fields>
     <fields>
         <fullName>Reseller_Discount__c</fullName>
@@ -537,7 +476,7 @@ ISPICKVAL(Product__r.Product_Type__c,&quot;NX/VX&quot;)
     </validationRules>
     <validationRules>
         <fullName>WholeNumberQuantity</fullName>
-        <active>true</active>
+        <active>false</active>
         <description>Quantity shold be whole number if product family is not service</description>
         <errorConditionFormula>TEXT(Product__r.Family) != &quot;Support&quot; &amp;&amp; TEXT(Product__r.Family) != &quot;Service&quot; &amp;&amp; CEILING(Quantity__c) != Quantity__c &amp;&amp; !CONTAINS( Product__r.Name, &quot;SUBSCRIPTION RENEWAL&quot; )</errorConditionFormula>
         <errorDisplayField>Quantity__c</errorDisplayField>

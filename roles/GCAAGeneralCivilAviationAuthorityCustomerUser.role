@@ -6,5 +6,5 @@
     <mayForecastManagerShare>false</mayForecastManagerShare>
     <name>GCAA – General Civil Aviation Authority Customer User</name>
     <opportunityAccessLevel>None</opportunityAccessLevel>
-    <parentRole>EMEASales</parentRole>
+    <parentRole>Grade_3_Sales_EMEA</parentRole>
 </Role>

@@ -43,7 +43,7 @@ public class QuoteExtensionTest
         Profile prof = [SELECT Id FROM Profile WHERE Name='1.4- Intl Regional Sales Manager']; 
         User usr = new User(Alias = 'standt', Email='testUser@uniquetest.com', 
                             EmailEncodingKey='UTF-8', LastName='Testing', LanguageLocaleKey='en_US', 
-                            LocaleSidKey='en_US', ProfileId = prof.Id, GEO__c='NAM',Region__c='West',
+                            LocaleSidKey='en_US', ProfileId = prof.Id, 
                             TimeZoneSidKey='America/Los_Angeles', UserName='testUser@uniquetest.com');
         
         usr.IsActive =true;
@@ -58,9 +58,10 @@ public class QuoteExtensionTest
             PricebookEntry pricebookEntry = new PricebookEntry(Pricebook2Id = newPricebook.Id, Product2Id = product.Id, UnitPrice = 1.0, IsActive = true);
             insert pricebookEntry;
             
-            Opportunity opportunity = new Opportunity(Name = 'Test Opportunity', Sales_Region__c='APAC',Pricebook2Id = newPricebook.Id, StageName = 'Discovery', CloseDate = Date.today().addDays(1));
+            Opportunity opportunity = new Opportunity(Name = 'Test Opportunity',Sales_Region__c='APAC', Pricebook2Id = newPricebook.Id, StageName = 'Discovery', CloseDate = Date.today().addDays(1));
             insert opportunity;
-        
+            opportunity.Sales_Region__c='APAC';
+            update opportunity;
             OpportunityLineItem opportunityLineItem = new OpportunityLineItem(OpportunityId = opportunity.id, PricebookEntryId = pricebookEntry.id, UnitPrice = 1.5, Quantity = 2);
             insert opportunityLineItem;
             Quote__c quote1 = new Quote__c(Opportunity__c = opportunity.Id, Quote_Valid_Until__c = Date.today(), Quote_Date__c = Date.today());
@@ -73,17 +74,112 @@ public class QuoteExtensionTest
             
             QuoteExtension.SetPrimaryQuoteAndSubmit(quote1.Id, opportunity.Id);
             quote1 = [select Primary__c from Quote__c where Id = :quote1.Id];
-            
-            System.assertEquals('Discount Justification is empty. Please provide comments.',QuoteExtension.SubmitForApproval(quote1.Id));
+            string outputTest=QuoteExtension.SubmitForApproval(quote1.Id);
+            System.debug('Test'+outputTest);
+            System.assert(outputTest.contains('Discount Justification is empty. Please provide comments.'));
        }
+    }
+    
+    @isTest(seeAllData=true)
+    static void testQuoteExtension_ValidateCriteria_SpecialInstructions()
+    {
+        Account testAccount= new Account(Name='Test Account');
+        insert testAccount;
+        Account reseller= new Account(Name='Test Reseller',Type='Partner',Partner_Type__c='Reseller');
+        insert reseller;
+        Account distributor= new Account(Name='Test Distributor',Type='Partner',Partner_Type__c='Distributor',Reseller_Agreement__c=true);
+        insert distributor;
+        //create opportunity and opportunity line item.
+  
+        try
+        {
+            Product2 product = new Product2(name = 'Test Product', Product_Category__c = 'Subscription', isActive = true, IsQuotable__c = true);
+            insert product;
+            Pricebook2 standardPricebook = [select Id from Pricebook2 where IsStandard = true limit 1];
+            insert new PricebookEntry(Pricebook2Id = standardPricebook.Id, Product2Id = product.Id, UnitPrice = 1.0, IsActive = true);
+            Pricebook2 newPricebook = new Pricebook2(name = 'Test Pricebook');
+            insert newPricebook;
+            PricebookEntry pricebookEntry = new PricebookEntry(Pricebook2Id = newPricebook.Id, Product2Id = product.Id, UnitPrice = 1.0, IsActive = true);
+            insert pricebookEntry;
+            Opportunity oppo = new Opportunity(AccountId=testAccount.Id,name='test', stageName='Discovery', CloseDate=Date.newInstance(2006,10,10));
+            insert oppo;
+            OpportunityLineItem opportunityLineItem = new OpportunityLineItem(OpportunityId = oppo.id, PricebookEntryId = pricebookEntry.id, UnitPrice = 1.5, Quantity = 2);
+            insert opportunityLineItem;
+            Quote__c qt = new Quote__c(Tier_1_Partner__c=reseller.Id, Tier_2_Partner__c=distributor.Id,  Quote_Name__c='Test',Opportunity__c = oppo.Id, Quote_Valid_Until__c = Date.today(), Quote_Date__c = Date.today());
+            insert qt; 
+            Quote_Line__c quoteLine= new Quote_Line__c(Quote__c=qt.Id,Discount_Percent__c=99,Quantity__c=10,Product__c=product.Id);
+        	insert quoteLine;
+            QuoteExtension.SetPrimaryQuoteAndSubmit(qt.Id, oppo.Id);
+            Quote__c quote1 = [select Primary__c from Quote__c where Id = :qt.Id];
+            string outputTest=QuoteExtension.SubmitForApproval(quote1.Id);
+            System.debug('outputTest'+outputTest);
+            System.assert(outputTest.contains('Special Instructions is empty. Please provide comments.'));
+        }
+        catch(Exception ex)
+        {
+            
+        }
         
+            
+           
+       
+    }
+     @isTest(seeAllData=true)
+    static void testQuoteExtension_ValidateCriteria_GEORegion()
+    {
+        Account testAccount= new Account(Name='Test Account');
+        insert testAccount;
+        Account reseller= new Account(Name='Test Reseller',Type='Partner',Partner_Type__c='Reseller');
+        insert reseller;
+        Account distributor= new Account(Name='Test Distributor',Type='Partner',Partner_Type__c='Distributor',Reseller_Agreement__c=true);
+        insert distributor;
+        //create opportunity and opportunity line item.
+  
+        try
+        {
+            Product2 product = new Product2(name = 'Test Product', Product_Category__c = 'Subscription', isActive = true, IsQuotable__c = true);
+            insert product;
+            Pricebook2 standardPricebook = [select Id from Pricebook2 where IsStandard = true limit 1];
+            insert new PricebookEntry(Pricebook2Id = standardPricebook.Id, Product2Id = product.Id, UnitPrice = 1.0, IsActive = true);
+            Pricebook2 newPricebook = new Pricebook2(name = 'Test Pricebook');
+            insert newPricebook;
+            PricebookEntry pricebookEntry = new PricebookEntry(Pricebook2Id = newPricebook.Id, Product2Id = product.Id, UnitPrice = 1.0, IsActive = true);
+            insert pricebookEntry;
+            Opportunity oppo = new Opportunity(AccountId=testAccount.Id,name='test', stageName='Discovery', CloseDate=Date.newInstance(2006,10,10));
+            insert oppo;
+            OpportunityLineItem opportunityLineItem = new OpportunityLineItem(OpportunityId = oppo.id, PricebookEntryId = pricebookEntry.id, UnitPrice = 1.5, Quantity = 2);
+            insert opportunityLineItem;
+            Quote__c qt = new Quote__c(Tier_1_Partner__c=reseller.Id, Tier_2_Partner__c=distributor.Id,  Quote_Name__c='Test',Opportunity__c = oppo.Id, Quote_Valid_Until__c = Date.today(), Quote_Date__c = Date.today());
+            insert qt; 
+            qt.Special_Instructions__c='Test';
+            Update qt;
+            Quote_Line__c quoteLine= new Quote_Line__c(Quote__c=qt.Id,Discount_Percent__c=99,Quantity__c=10,Product__c=product.Id);
+        	insert quoteLine;
+            QuoteExtension.SetPrimaryQuoteAndSubmit(qt.Id, oppo.Id);
+            Quote__c quote1 = [select Primary__c from Quote__c where Id = :qt.Id];
+            string outputTest=QuoteExtension.SubmitForApproval(quote1.Id);
+            System.debug('outputTest'+outputTest);
+            System.assert(outputTest.contains('GEO is blank on the opportunity.Please populate this value or contact sales operations.'));
+        }
+        catch(Exception ex)
+        {
+            
+        }
         
-        
+            
+           
+       
     }
     
     @isTest(seeAllData=true)
     static void testQuoteExtension_ValidateCriteria_ApprovalSubmit()
     {
+        Account testAccount= new Account(Name='Test Account');
+        insert testAccount;
+        Account reseller= new Account(Name='Test Reseller',Type='Partner',Partner_Type__c='Reseller');
+        insert reseller;
+        Account distributor= new Account(Name='Test Distributor',Type='Partner',Partner_Type__c='Distributor',Reseller_Agreement__c=true);
+        insert distributor;
         Product2 product = new Product2(name = 'Test Product', Product_Category__c = 'Subscription', isActive = true, IsQuotable__c = true);
         insert product;
         Pricebook2 standardPricebook = [select Id from Pricebook2 where IsStandard = true limit 1];
@@ -98,7 +194,7 @@ public class QuoteExtensionTest
         insert opportunity;
         OpportunityLineItem opportunityLineItem = new OpportunityLineItem(OpportunityId = opportunity.id, PricebookEntryId = pricebookEntry.id, UnitPrice = 1.5, Quantity = 2);
         insert opportunityLineItem;
-        Quote__c quote1 = new Quote__c(Opportunity__c = opportunity.Id, Quote_Valid_Until__c = Date.today(), Quote_Date__c = Date.today(),Discount_Justification__c='test Data');
+        Quote__c quote1 = new Quote__c(Tier_1_Partner__c=reseller.Id, Tier_2_Partner__c=distributor.Id,Opportunity__c = opportunity.Id, Quote_Valid_Until__c = Date.today(), Quote_Date__c = Date.today(),Discount_Justification__c='test Data');
         insert quote1; 
         Quote__c quote2 = new Quote__c(Opportunity__c = opportunity.Id, Quote_Valid_Until__c = Date.today(), Quote_Date__c = Date.today(), Primary__c = true);
         insert quote2;

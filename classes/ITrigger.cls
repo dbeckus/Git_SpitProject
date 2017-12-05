@@ -25,7 +25,4 @@ public interface ITrigger
     void afterDelete();
 
     void afterUndelete();
-    
-   
-    
 }

@@ -2,9 +2,9 @@
 <Role xmlns="http://soap.sforce.com/2006/04/metadata">
     <caseAccessLevel>None</caseAccessLevel>
     <contactAccessLevel>Edit</contactAccessLevel>
-    <description>RESPONSE DATA COMMUNICATIONS LTD Customer User</description>
+    <description>Solar Communications Ltd Customer User</description>
     <mayForecastManagerShare>false</mayForecastManagerShare>
-    <name>RESPONSE DATA COMMUNICATIONS LTD Customer User</name>
+    <name>Solar Communications Ltd Customer User</name>
     <opportunityAccessLevel>None</opportunityAccessLevel>
-    <parentRole>DirectorofChannelEMEA</parentRole>
+    <parentRole>Grade_3_CAM_EMEA</parentRole>
 </Role>

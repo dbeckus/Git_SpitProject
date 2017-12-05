@@ -56,6 +56,10 @@
                 <behavior>Edit</behavior>
                 <field>FIPS_Compliant__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>End_of_Maintenance__c</field>
+            </layoutItems>
         </layoutColumns>
         <layoutColumns/>
         <style>TwoColumnsTopToBottom</style>

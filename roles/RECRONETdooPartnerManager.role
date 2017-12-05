@@ -6,5 +6,5 @@
     <mayForecastManagerShare>false</mayForecastManagerShare>
     <name>RECRO-NET d.o.o. Partner Manager</name>
     <opportunityAccessLevel>None</opportunityAccessLevel>
-    <parentRole>DirectorofChannelEMEA</parentRole>
+    <parentRole>Grade_3_CAM_EMEA</parentRole>
 </Role>

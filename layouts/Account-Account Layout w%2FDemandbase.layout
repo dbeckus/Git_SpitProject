@@ -55,6 +55,10 @@
                 <field>Cumulative_Bookings__c</field>
             </layoutItems>
             <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>Cumulative_Opp_Value__c</field>
+            </layoutItems>
+            <layoutItems>
                 <behavior>Edit</behavior>
                 <field>Target_Account__c</field>
             </layoutItems>
@@ -100,78 +104,34 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>Service_Provider_Account_Type__c</field>
+                <field>Health_Description__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>Service_Provider_Contracted__c</field>
+                <field>Health_Type__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>Service_Provider_Admin_User__c</field>
+                <field>Is_this_a_foreign_government_entity__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>Service_Provider_Domain__c</field>
+                <field>Clean_Status_Changed__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>Service_Provider_Environment_Type__c</field>
+                <field>Data_com_Clean_Modified__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>Service_Provider_Location__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Readonly</behavior>
-                <field>First_EC_Customer_Date__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>WAN_OP_Customer_Date__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>WAN_Op_Asset_Name__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>Override_Service_Provider_Setting__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>Unity_Orch_Admin_User__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>Unity_Orch_Domain__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>Unity_Orch_Location__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>EC_End_Date__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Readonly</behavior>
-                <field>EC_Term__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>Unity_Orch_Version__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>Assigned_Distributor__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>Default_PriceBook__c</field>
+                <field>SP_MKTG__c</field>
             </layoutItems>
         </layoutColumns>
         <layoutColumns>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>PartnerPortalEnabledIndicator__c</field>
+            </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
                 <field>Rating</field>
@@ -242,11 +202,31 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
+                <field>Trigger_Active_Asset_Count__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>WAN_OP_Customer_Date__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
                 <field>Sync_with_Cloud_Portal__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
                 <field>Reseller_Agreement_Acknowledged__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Sync_Virtual_Assets_with_CP__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Is_Partner_Initiated_Account__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Override_Service_Provider_Setting__c</field>
             </layoutItems>
         </layoutColumns>
         <style>TwoColumnsTopToBottom</style>
@@ -282,6 +262,49 @@
             </layoutItems>
         </layoutColumns>
         <style>OneColumn</style>
+    </layoutSections>
+    <layoutSections>
+        <customLabel>true</customLabel>
+        <detailHeading>true</detailHeading>
+        <editHeading>true</editHeading>
+        <label>Everstring</label>
+        <layoutColumns>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>ES_APP__ESCity__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>ES_APP__ESState__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>ES_APP__ESZipcode__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>ES_APP__ESCompanyPhone__c</field>
+            </layoutItems>
+        </layoutColumns>
+        <layoutColumns>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>ES_APP__ESOverallFitScore__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>ES_APP__ESEmployees__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>ES_APP__ESRevenue__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>ES_APP__ESSource__c</field>
+            </layoutItems>
+        </layoutColumns>
+        <style>TwoColumnsLeftToRight</style>
     </layoutSections>
     <layoutSections>
         <customLabel>true</customLabel>
@@ -817,7 +840,9 @@
         <fields>CONTACT.EMAIL</fields>
         <fields>CONTACT.PHONE1</fields>
         <fields>CONTACT.ALLOW_PORTAL_SELF_REG</fields>
+        <fields>Primary_Account_Contact__c</fields>
         <fields>CONTACT.CREATED_DATE</fields>
+        <fields>PortalUserActive__c</fields>
         <relatedList>RelatedContactList</relatedList>
     </relatedLists>
     <relatedLists>
@@ -852,7 +877,6 @@
         <fields>CONTRACT.END_DATE</fields>
         <fields>CONTRACT.STATUS</fields>
         <fields>SP_Contract_Number__c</fields>
-        <fields>Trigger_Notice__c</fields>
         <relatedList>RelatedContractList</relatedList>
     </relatedLists>
     <relatedLists>
@@ -869,10 +893,9 @@
         <fields>End_of_Maintenance__c</fields>
         <fields>License_End_Date__c</fields>
         <relatedList>RelatedAssetList</relatedList>
-        <sortField>Product_Name_And_Nodes__c</sortField>
-        <sortOrder>Desc</sortOrder>
     </relatedLists>
     <relatedLists>
+        <excludeButtons>New</excludeButtons>
         <fields>NAME</fields>
         <fields>Type__c</fields>
         <fields>Status__c</fields>
@@ -901,12 +924,6 @@
     </relatedLists>
     <relatedLists>
         <relatedList>RelatedNoteList</relatedList>
-    </relatedLists>
-    <relatedLists>
-        <fields>ACCOUNT.NAME</fields>
-        <fields>OPPORTUNITY.NAME</fields>
-        <fields>PARTNER.ROLE</fields>
-        <relatedList>RelatedPartnerList</relatedList>
     </relatedLists>
     <relatedLists>
         <relatedList>RelatedAccountSalesTeam</relatedList>
@@ -987,32 +1004,9 @@
         <relatedList>RelatedProcessHistoryList</relatedList>
     </relatedLists>
     <relatedLists>
+        <excludeButtons>New</excludeButtons>
         <fields>NAME</fields>
-        <fields>Opportunity__c</fields>
-        <fields>Quote_Date__c</fields>
-        <fields>Quote_Valid_Until__c</fields>
-        <relatedList>Quote__c.Tier_1_Partner__c</relatedList>
-    </relatedLists>
-    <relatedLists>
-        <fields>NAME</fields>
-        <fields>Opportunity__c</fields>
-        <fields>Quote_Date__c</fields>
-        <fields>Quote_Valid_Until__c</fields>
-        <relatedList>Quote__c.Tier_2_Partner__c</relatedList>
-    </relatedLists>
-    <relatedLists>
-        <fields>NAME</fields>
-        <fields>Opportunity__c</fields>
-        <fields>Quote_Date__c</fields>
-        <fields>Quote_Valid_Until__c</fields>
-        <relatedList>Quote__c.Tier_3_Partner__c</relatedList>
-    </relatedLists>
-    <relatedLists>
-        <fields>ACCOUNT.NAME</fields>
-        <fields>ACCOUNT.ADDRESS1_CITY</fields>
-        <fields>ACCOUNT.PHONE1</fields>
-        <fields>ACCOUNT.TYPE</fields>
-        <relatedList>Account.Assigned_Distributor__c</relatedList>
+        <relatedList>Information_Card__c.Account__c</relatedList>
     </relatedLists>
     <relatedObjects>ParentId</relatedObjects>
     <showEmailCheckbox>false</showEmailCheckbox>

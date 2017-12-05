@@ -6,5 +6,5 @@
     <mayForecastManagerShare>false</mayForecastManagerShare>
     <name>Low Cost Holidays Customer User</name>
     <opportunityAccessLevel>None</opportunityAccessLevel>
-    <parentRole>CFO</parentRole>
+    <parentRole>SVPSales</parentRole>
 </Role>

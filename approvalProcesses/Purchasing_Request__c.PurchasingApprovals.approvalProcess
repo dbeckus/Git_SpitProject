@@ -20,10 +20,6 @@
         <type>user</type>
     </allowedSubmitters>
     <allowedSubmitters>
-        <submitter>curtisc@silver-peak.com</submitter>
-        <type>user</type>
-    </allowedSubmitters>
-    <allowedSubmitters>
         <submitter>lquilici@silver-peak.com</submitter>
         <type>user</type>
     </allowedSubmitters>
@@ -137,7 +133,7 @@
         </approvalActions>
         <assignedApprover>
             <approver>
-                <name>rmarqueling@silver-peak.com</name>
+                <name>mlear@silver-peak.com</name>
                 <type>user</type>
             </approver>
             <whenMultipleApprovers>FirstResponse</whenMultipleApprovers>

@@ -84,6 +84,10 @@
         <layoutColumns>
             <layoutItems>
                 <behavior>Edit</behavior>
+                <field>SendReminder__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
                 <field>Account__c</field>
             </layoutItems>
             <layoutItems>
@@ -371,6 +375,14 @@
                 <behavior>Edit</behavior>
                 <field>Result_Detail__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Topic_Course__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Number_of_Certifications__c</field>
+            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>
@@ -472,6 +484,13 @@
     </relatedLists>
     <relatedLists>
         <relatedList>RelatedFileList</relatedList>
+    </relatedLists>
+    <relatedLists>
+        <excludeButtons>New</excludeButtons>
+        <fields>NAME</fields>
+        <fields>Ensemblestorage__FormatedSize__c</fields>
+        <fields>File_Type__c</fields>
+        <relatedList>Ensemblestorage__EnsembleFile__c.Funding_Requests__c</relatedList>
     </relatedLists>
     <relatedLists>
         <fields>CreatedDate</fields>

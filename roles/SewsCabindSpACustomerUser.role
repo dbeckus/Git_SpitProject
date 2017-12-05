@@ -6,5 +6,5 @@
     <mayForecastManagerShare>false</mayForecastManagerShare>
     <name>Sews Cabind S.p.A. Customer User</name>
     <opportunityAccessLevel>None</opportunityAccessLevel>
-    <parentRole>EMEASales</parentRole>
+    <parentRole>Grade_3_Sales_EMEA</parentRole>
 </Role>

@@ -1,0 +1,1310 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Follow</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <enableActivities>false</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>true</enableHistory>
+    <enableReports>true</enableReports>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <fieldSets>
+        <fullName>Account_Values</fullName>
+        <description>Comparison visualforce page.</description>
+        <displayedFields>
+            <field>Account__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>ACCT_business_is_Consulting_Sales__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>ACCT_business_is_Product_Sales__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>ACCT_business_is_Services_Sales__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>ACCT_Are_you_an_authorized_partner_of__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>ACC_Company_Name__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>ACCT_Billing_City__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>ACCT_Billing_Country__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>ACCT_Billing_State__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>ACCT_Billing_Street__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>ACCT_Billing_Postal_Code__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>ACCT_Distributor_of_Choice__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>ACCT_Email_Domain_Used__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>ACCT_Integrate_Cloud_Solns_with_Vendors__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>ACCT_Years_in_Business__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>ACCT_Marketing_Offerings__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>ACCT_Number_of_employees_in_your_org__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>ACCT_Own_brand_of_profess_services__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>ACCT_Phone__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>ACCT_Please_Name_the_Vendors__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>ACCT_Primary_target_market_size__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>ACCT_Professionals_in_your_org_Inside__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>ACCT_Number_of_sales_professionals__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>ACCT_Provide_technical_support__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>ACCT_Region__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>ACCT_Silver_Peak_opportunity_pending__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>ACCT_Tax_ID_Number__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>ACCT_TOP_3_industries__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>ACCT_Total_annual_sales_revenues_LY__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>ACCT_Website__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <label>Account Values</label>
+    </fieldSets>
+    <fieldSets>
+        <fullName>Submitted_Values</fullName>
+        <description>Comparison visualforce page.</description>
+        <displayedFields>
+            <field>Status__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>Company_Name__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>ACCT_Billing_City__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>ACCT_Billing_Country__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>ACCT_Billing_Postal_Code__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>ACCT_Billing_State__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>ACCT_Billing_Street__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>business_is_Consulting_Sales__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>business_is_Product_Sales__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>business_is_Services_Sales__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>Are_you_an_authorized_partner_of__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>Distributor_of_Choice__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>Email_Domain_Used__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>Integrate_Cloud_Solutions_with_Vendors__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>Marketing_Offerings__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>Number_of_employees_in_your_organization__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>Own_brand_of_professional_services__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>Phone__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>Please_Name_the_Vendors__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>Primary_target_market_size__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>Professionals_in_your_org_Inside_Sales__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>Number_of_sales_professionals_in_org__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>Professionals_in_org__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>Provide_technical_support__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>Region__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>Silver_Peak_opportunity_pending__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>Tax_ID_Number__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>TOP_3_industries__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>Total_annual_sales_revenues_last_year__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>Website__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>Years_in_Business__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <label>Submitted Values</label>
+    </fieldSets>
+    <fields>
+        <fullName>ACCT_Are_you_an_authorized_partner_of__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(INCLUDES(Account__r.Are_you_an_authorized_partner_of__c,&quot;Cisco&quot;),&quot;Cisco&quot; + BR(),
+IF(INCLUDES(Account__r.Are_you_an_authorized_partner_of__c,&quot;Citrix&quot;),&quot;Citrix&quot; + BR(),
+IF(INCLUDES(Account__r.Are_you_an_authorized_partner_of__c,&quot;Dell/Ecologic/EMC&quot;),&quot;Dell/Ecologic/EMC&quot; + BR(),
+IF(INCLUDES(Account__r.Are_you_an_authorized_partner_of__c,&quot;Infoblox&quot;),&quot;Infoblox&quot; + BR(),
+IF(INCLUDES(Account__r.Are_you_an_authorized_partner_of__c,&quot;Microsoft&quot;),&quot;Microsoft&quot; + BR(),
+IF(INCLUDES(Account__r.Are_you_an_authorized_partner_of__c,&quot;Nutanix&quot;),&quot;Nutanix&quot; + BR(),
+IF(INCLUDES(Account__r.Are_you_an_authorized_partner_of__c,&quot;Riverbed&quot;),&quot;Riverbed&quot; + BR(),
+IF(INCLUDES(Account__r.Are_you_an_authorized_partner_of__c,&quot;VMWare&quot;),&quot;VMWare&quot; + BR(),
+IF(INCLUDES(Account__r.Are_you_an_authorized_partner_of__c,&quot;Zscaler&quot;),&quot;Zscaler&quot; + BR(),
+IF(INCLUDES(Account__r.Are_you_an_authorized_partner_of__c,&quot;Not Applicable&quot;),&quot;Not Applicable&quot; + BR(),&quot;&quot;))))))))))</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Are you an authorized partner of: - ACCT</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>ACCT_Billing_City__c</fullName>
+        <externalId>false</externalId>
+        <formula>Account__r.BillingCity</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Billing City - ACCT</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>ACCT_Billing_Country__c</fullName>
+        <externalId>false</externalId>
+        <formula>Account__r.BillingCountry</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Billing Country - ACCT</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>ACCT_Billing_Postal_Code__c</fullName>
+        <externalId>false</externalId>
+        <formula>Account__r.BillingPostalCode</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Billing Postal Code - ACCT</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>ACCT_Billing_State__c</fullName>
+        <externalId>false</externalId>
+        <formula>Account__r.BillingState</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Billing State - ACCT</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>ACCT_Billing_Street__c</fullName>
+        <externalId>false</externalId>
+        <formula>Account__r.BillingStreet</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Billing Street - ACCT</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>ACCT_Distributor_of_Choice__c</fullName>
+        <externalId>false</externalId>
+        <formula>Account__r.Distributor_of_Choice__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Distributor of Choice - ACCT</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>ACCT_Email_Domain_Used__c</fullName>
+        <externalId>false</externalId>
+        <formula>Account__r.Email_Domain_Used__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Email Domain Used - ACCT</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>ACCT_Integrate_Cloud_Solns_with_Vendors__c</fullName>
+        <externalId>false</externalId>
+        <formula>TEXT(Account__r.Integrate_cloudsolutions_with_vendors__c)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Integrate Cloud Solns w Vendors? - ACCT</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>ACCT_Marketing_Offerings__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(INCLUDES(Account__r.Marketting_Oferrings__c,&quot;Dedicated Marketing Resource&quot;),&quot;Dedicated Marketing Resource&quot; +BR(),
+IF(INCLUDES(Account__r.Marketting_Oferrings__c,&quot;Multi-touch Strategic Marketing&quot;),&quot;Multi-touch Strategic Marketing&quot; +BR(),
+IF(INCLUDES(Account__r.Marketting_Oferrings__c,&quot;Commitments to Marketing Funding&quot;),&quot;Commitments to Marketing Funding&quot; +BR(),
+IF(INCLUDES(Account__r.Marketting_Oferrings__c,&quot;Not Applicable&quot;),&quot;Not Applicable&quot; +BR(),&quot;&quot;))))</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Marketing Offerings - ACCT</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>ACCT_Number_of_employees_in_your_org__c</fullName>
+        <externalId>false</externalId>
+        <formula>TEXT(Account__r.Number_of_employees_in_your_organization__c)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Number of employees in your org - ACCT</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>ACCT_Number_of_sales_professionals__c</fullName>
+        <externalId>false</externalId>
+        <formula>Account__r.Number_of_sales_professionals_in_org__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Professionals in org Outside Sale - ACCT</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>ACCT_Own_brand_of_profess_services__c</fullName>
+        <externalId>false</externalId>
+        <formula>TEXT(Account__r.Own_brand_of_professional_services__c)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Own brand of profess services? - ACCT</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>ACCT_Phone__c</fullName>
+        <externalId>false</externalId>
+        <formula>Account__r.Phone</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Phone - ACCT</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>ACCT_Please_Name_the_Vendors__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(INCLUDES(Account__r.Please_Name_the_Vendors__c,&quot;Cisco&quot;),&quot;Cisco&quot; + BR(), 
+IF(INCLUDES(Account__r.Please_Name_the_Vendors__c,&quot;Citrix&quot;),&quot;Citrix&quot; + BR(), 
+IF(INCLUDES(Account__r.Please_Name_the_Vendors__c,&quot;Dell/Ecologic/EMC&quot;),&quot;Dell/Ecologic/EMC&quot; + BR(), 
+IF(INCLUDES(Account__r.Please_Name_the_Vendors__c,&quot;Infoblox&quot;),&quot;Infoblox&quot; + BR(), 
+IF(INCLUDES(Account__r.Please_Name_the_Vendors__c,&quot;Microsoft&quot;),&quot;Microsoft&quot; + BR(), 
+IF(INCLUDES(Account__r.Please_Name_the_Vendors__c,&quot;Nutanix&quot;),&quot;Nutanix&quot; + BR(), 
+IF(INCLUDES(Account__r.Please_Name_the_Vendors__c,&quot;Riverbed&quot;),&quot;Riverbed&quot; + BR(), 
+IF(INCLUDES(Account__r.Please_Name_the_Vendors__c,&quot;VMWare&quot;),&quot;VMWare&quot; + BR(), 
+IF(INCLUDES(Account__r.Please_Name_the_Vendors__c,&quot;Zscaler&quot;),&quot;Zscaler&quot; + BR(), 
+IF(INCLUDES(Account__r.Please_Name_the_Vendors__c,&quot;Not Applicable&quot;),&quot;Not Applicable&quot; + BR(),&quot;&quot;))))))))))</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Please Name the Vendors - ACCT</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>ACCT_Primary_target_market_size__c</fullName>
+        <externalId>false</externalId>
+        <formula>TEXT(Account__r.Primary_target_market_size__c)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Primary target market size? - ACCT</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>ACCT_Professionals_in_org__c</fullName>
+        <externalId>false</externalId>
+        <formula>Account__r.Professionals_in_org__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Professionals in org Sales Engineers - A</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>ACCT_Professionals_in_your_org_Inside__c</fullName>
+        <externalId>false</externalId>
+        <formula>Account__r.Professionals_in_your_org_Inside_Sales__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Professionals in org Inside Sales - ACCT</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>ACCT_Provide_technical_support__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(INCLUDES(Provide_technical_support__c,&quot;Telephone support&quot;),&quot;Telephone support&quot; + BR(),
+IF(INCLUDES(Provide_technical_support__c,&quot;Online support&quot;),&quot;Online support&quot; + BR(),
+IF(INCLUDES(Provide_technical_support__c,&quot;On-site engineers&quot;),&quot;On-site engineers&quot; + BR(),
+IF(INCLUDES(Provide_technical_support__c,&quot;Not Applicable&quot;),&quot;Not Applicable&quot; + BR(),&quot;&quot;))))</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Provide technical support? - ACCT</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>ACCT_Region__c</fullName>
+        <externalId>false</externalId>
+        <formula>TEXT(Account__r.Region__c)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Region - ACCT</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>ACCT_Silver_Peak_opportunity_pending__c</fullName>
+        <externalId>false</externalId>
+        <formula>TEXT(Account__r.Silver_Peak_oppo_pend__c)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Silver Peak opportunity pending - ACCT</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>ACCT_TOP_3_industries__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(INCLUDES(Account__r.TOP_3_industries__c,&quot;Banking&quot;),&quot;Banking&quot; + BR(),
+IF(INCLUDES(Account__r.TOP_3_industries__c,&quot;Education&quot;),&quot;Education&quot; + BR(),
+IF(INCLUDES(Account__r.TOP_3_industries__c,&quot;Energy, Oil/Gas &amp; Natural Resources&quot;),&quot;Energy, Oil/Gas &amp; Natural Resources&quot; + BR(),
+IF(INCLUDES(Account__r.TOP_3_industries__c,&quot;Financial Securities&quot;),&quot;Financial Securities&quot; + BR(),
+IF(INCLUDES(Account__r.TOP_3_industries__c,&quot;Healthcare&quot;),&quot;Healthcare&quot; + BR(),
+IF(INCLUDES(Account__r.TOP_3_industries__c,&quot;Insurance&quot;),&quot;Insurance&quot; + BR(),
+IF(INCLUDES(Account__r.TOP_3_industries__c,&quot;Manufacturing&quot;),&quot;Manufacturing&quot; + BR(),
+IF(INCLUDES(Account__r.TOP_3_industries__c,&quot;Media, Internet &amp; Entertainment&quot;),&quot;Media, Internet &amp; Entertainment&quot; + BR(),
+IF(INCLUDES(Account__r.TOP_3_industries__c,&quot;Software/IT enabled Services&quot;),&quot;Software/IT enabled Services&quot; + BR(),
+IF(INCLUDES(Account__r.TOP_3_industries__c,&quot;Pharmaceuticals&quot;),&quot;Pharmaceuticals&quot; + BR(),
+IF(INCLUDES(Account__r.TOP_3_industries__c,&quot;Retail&quot;),&quot;Retail&quot; + BR(),
+IF(INCLUDES(Account__r.TOP_3_industries__c,&quot;Telecomunications&quot;),&quot;Telecomunications&quot; + BR(),
+IF(INCLUDES(Account__r.TOP_3_industries__c,&quot;Transportation&quot;),&quot;Transportation&quot; + BR(),
+IF(INCLUDES(Account__r.TOP_3_industries__c,&quot;US Federal Government&quot;),&quot;US Federal Government&quot; + BR(),
+IF(INCLUDES(Account__r.TOP_3_industries__c,&quot;US Local Government&quot;),&quot;US Local Government&quot; + BR(),
+IF(INCLUDES(Account__r.TOP_3_industries__c,&quot;Non-US Government&quot;),&quot;Non-US Government&quot; + BR(),
+IF(INCLUDES(Account__r.TOP_3_industries__c,&quot;Other&quot;),&quot;Other&quot; + BR(),&quot;&quot;)))))))))))))))))</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>TOP 3 industries - ACCT</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>ACCT_Tax_ID_Number__c</fullName>
+        <externalId>false</externalId>
+        <formula>Account__r.Tax_ID_Number__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Tax ID Number - ACCT</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>ACCT_Total_annual_sales_revenues_LY__c</fullName>
+        <externalId>false</externalId>
+        <formula>TEXT(Account__r.total_annual_sales_revenues_last_year__c)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Total annual sales revenues LY? - ACCT</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>ACCT_Website__c</fullName>
+        <externalId>false</externalId>
+        <formula>Account__r.Website</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Website - ACCT</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>ACCT_Years_in_Business__c</fullName>
+        <externalId>false</externalId>
+        <formula>Account__r.Years_in_Business__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Years in Business - ACCT</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>ACCT_business_is_Consulting_Sales__c</fullName>
+        <externalId>false</externalId>
+        <formula>Account__r.business_is_Consulting_Sales__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>% business is Consulting Sales - ACCT</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>ACCT_business_is_Product_Sales__c</fullName>
+        <externalId>false</externalId>
+        <formula>Account__r.business_is_Product_Sales__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>% business is Product Sales - ACCT</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>ACCT_business_is_Services_Sales__c</fullName>
+        <externalId>false</externalId>
+        <formula>Account__r.business_is_Services_Sales__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>% business is Services Sales - ACCT</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>ACC_Company_Name__c</fullName>
+        <externalId>false</externalId>
+        <formula>Account__r.Name</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Company Name - ACCT</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Account_CAM__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Account CAM</label>
+        <referenceTo>User</referenceTo>
+        <relationshipName>Information_Cards</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Account_Data_Match__c</fullName>
+        <externalId>false</externalId>
+        <label>Account Data Match</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Account__c</fullName>
+        <externalId>false</externalId>
+        <label>Account</label>
+        <referenceTo>Account</referenceTo>
+        <relationshipLabel>Information Cards</relationshipLabel>
+        <relationshipName>Info_Cards</relationshipName>
+        <relationshipOrder>0</relationshipOrder>
+        <reparentableMasterDetail>true</reparentableMasterDetail>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>MasterDetail</type>
+        <writeRequiresMasterRead>false</writeRequiresMasterRead>
+    </fields>
+    <fields>
+        <fullName>Are_you_an_authorized_partner_of__c</fullName>
+        <externalId>false</externalId>
+        <label>Are you an authorized partner of:</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Not Applicable</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>MultiselectPicklist</type>
+        <visibleLines>4</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Billing_City__c</fullName>
+        <externalId>false</externalId>
+        <label>Billing City</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Billing_Country__c</fullName>
+        <externalId>false</externalId>
+        <label>Billing Country</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Billing_Postal_Code__c</fullName>
+        <externalId>false</externalId>
+        <label>Billing Postal Code</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Billing_State__c</fullName>
+        <externalId>false</externalId>
+        <label>Billing State</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Billing_Street__c</fullName>
+        <externalId>false</externalId>
+        <label>Billing Street</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Company_Name__c</fullName>
+        <externalId>false</externalId>
+        <label>Company Name</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Distributor_of_Choice__c</fullName>
+        <externalId>false</externalId>
+        <label>Distributor of Choice</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Email_Domain_Used__c</fullName>
+        <externalId>false</externalId>
+        <label>Email Domain Used</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Integrate_Cloud_Solutions_with_Vendors__c</fullName>
+        <externalId>false</externalId>
+        <label>Integrate Cloud Solutions with Vendors?</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>MarketingPartnerContact__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Marketing Partner Contact</label>
+        <referenceTo>Contact</referenceTo>
+        <relationshipLabel>Information Cards (Marketing Partner Contact)</relationshipLabel>
+        <relationshipName>Information_Cards2</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Marketing_Offerings__c</fullName>
+        <externalId>false</externalId>
+        <label>Marketing Offerings</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Not Applicable</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>MultiselectPicklist</type>
+        <visibleLines>4</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Number_of_Matching_Accounts__c</fullName>
+        <externalId>false</externalId>
+        <label>Number of Matching Accounts</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Number_of_employees_in_your_organization__c</fullName>
+        <externalId>false</externalId>
+        <label>Number of employees in your organization</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Number_of_sales_professionals_in_org__c</fullName>
+        <externalId>false</externalId>
+        <label>Professionals in org Outside Sales</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Own_brand_of_professional_services__c</fullName>
+        <externalId>false</externalId>
+        <label>Own brand of professional services?</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Phone__c</fullName>
+        <externalId>false</externalId>
+        <label>Phone</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Phone</type>
+    </fields>
+    <fields>
+        <fullName>Please_Name_the_Vendors__c</fullName>
+        <externalId>false</externalId>
+        <label>Please Name the Vendors</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Not Applicable</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>MultiselectPicklist</type>
+        <visibleLines>4</visibleLines>
+    </fields>
+    <fields>
+        <fullName>PrimaryPartnerContact__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Primary Partner Contact</label>
+        <referenceTo>Contact</referenceTo>
+        <relationshipLabel>Information Cards (Primary Partner Contact)</relationshipLabel>
+        <relationshipName>Information_Cards1</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Primary_Partner_First_Name__c</fullName>
+        <externalId>false</externalId>
+        <formula>PrimaryPartnerContact__r.FirstName</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Primary Partner First Name</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Primary_target_market_size__c</fullName>
+        <externalId>false</externalId>
+        <label>Primary target market size?</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Professionals_in_org__c</fullName>
+        <externalId>false</externalId>
+        <label>Professionals in org Sales Engineers</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Professionals_in_your_org_Inside_Sales__c</fullName>
+        <externalId>false</externalId>
+        <label>Professionals in org Inside Sales</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Provide_technical_support__c</fullName>
+        <externalId>false</externalId>
+        <label>Provide technical support?</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Not Applicable</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>MultiselectPicklist</type>
+        <visibleLines>4</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Region__c</fullName>
+        <externalId>false</externalId>
+        <label>Region</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>RegisteringUserContact__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Registering User Contact</label>
+        <referenceTo>Contact</referenceTo>
+        <relationshipLabel>Information Cards (Registering User Contact)</relationshipLabel>
+        <relationshipName>Information_Cards3</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>SignatoryPartnerContact__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Signatory Partner Contact</label>
+        <referenceTo>Contact</referenceTo>
+        <relationshipLabel>Information Cards</relationshipLabel>
+        <relationshipName>Information_Cards</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Silver_Peak_opportunity_pending__c</fullName>
+        <externalId>false</externalId>
+        <label>Silver Peak opportunity pending</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Status__c</fullName>
+        <externalId>false</externalId>
+        <label>Status</label>
+        <picklist>
+            <picklistValues>
+                <fullName>New</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Submitted</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Recalled</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Approved</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Rejected</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No Change</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Merged</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Child Account Created</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>TOP_3_industries__c</fullName>
+        <externalId>false</externalId>
+        <label>TOP 3 industries</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Tax_ID_Number__c</fullName>
+        <externalId>false</externalId>
+        <label>Tax ID Number</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Total_annual_sales_revenues_last_year__c</fullName>
+        <externalId>false</externalId>
+        <label>Total annual sales revenues last year?</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Website__c</fullName>
+        <externalId>false</externalId>
+        <label>Website</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Years_in_Business__c</fullName>
+        <externalId>false</externalId>
+        <label>Years in Business</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>business_is_Consulting_Sales__c</fullName>
+        <externalId>false</externalId>
+        <label>% business is Consulting Sales</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>business_is_Product_Sales__c</fullName>
+        <externalId>false</externalId>
+        <label>% business is Product Sales</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>business_is_Services_Sales__c</fullName>
+        <externalId>false</externalId>
+        <label>% business is Services Sales</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <label>Information Card</label>
+    <nameField>
+        <displayFormat>IC-{000000}</displayFormat>
+        <label>Info Card Name</label>
+        <trackHistory>false</trackHistory>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>Information Cards</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ControlledByParent</sharingModel>
+    <startsWith>Vowel</startsWith>
+</CustomObject>

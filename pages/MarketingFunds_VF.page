@@ -1,29 +1,66 @@
-<apex:page controller="MarketingFundsController" showheader="false" id="thePage" doctype="HTML-5.0">
+<apex:page controller="MarketingFundsController" showheader="false" id="thePage" doctype="HTML-5.0" cache="false">
+    <!--<apex:includeScript value="{!URLFOR($Resource.MarketingFundsLib, 'MarketingFunds/components/jQuery/jquery-2.1.3.min.js')}"/>-->
     <apex:includeScript value="{!URLFOR($Resource.jQuery, 'jquery-1.4.3.min.js')}"/>
     <apex:includeScript value="{!URLFOR($Resource.NewCommunity,'/js/jquery-ui.js')}"/>
     <apex:stylesheet value="{!URLFOR($Resource.NewCommunity,'/css/jquery-ui.css')}"/>
-    <apex:includeScript value="{!URLFOR($Resource.MarketingFunds, 'plupload.full.min.js')}"/>
-    <apex:includeScript value="{!URLFOR($Resource.MarketingFunds, 'forcetk.js')}"/>
-    <apex:stylesheet value="{!URLFOR($Resource.MarketingFunds, 'mfr.css')}"/>
+    <apex:stylesheet value="{!URLFOR($Resource.MarketingFundsLib,'MarketingFunds/css/mfr.css')}"/>
+
+    <script type="text/javascript">
+        var config = '{!JSENCODE(AWSConfig)}';
+    </script>
+    <style type="text/css">
+    	input.submitBtn-small {
+            float: right;
+            font-weight: normal;
+            background-color: #007cb9;
+            color: #FFFFFF;
+            background-image: none;
+            font-size: medium;
+            width: 4em;
+        	margin-right: 4em;
+        }
+    </style>
     <body id = "iframeBody">
         <apex:outputPanel rendered="{!userProfile==''}" >
-            <ul>
+            <ul class="mainBody">
                 <li>
                     <apex:pageMessages escape="false"/>
                 </li>
             </ul>
         </apex:outputPanel>
-        <apex:form styleClass="form-horizontal" rendered="{!userProfile != '' && request.Approval_Status__c != 'Pending' && request.Approval_Status__c != 'Approved'}" onsubmit="return checkSubmit();">
+        <apex:form styleClass="form-horizontal" rendered="{!userProfile != '' && editable == true}" id="MdfForm" onsubmit="return handleSubmit()">
+            <script type="javascript/text">
+            $(document).ready(function(){
+				docReady();
+                if({!completedMDF} == true){
+					$(".submitButton").addClass("disabledBtn");
+                    if(files.length > 0){
+                        $(".submitButton").addClass("disabledBtn");
+                        $(".submitButton").attr("value","Uploading Files");
+                        $("#loadingIcon").show();
+                    	uploadAllFiles("{!request.Id}");
+                    }else{
+                        $(".submitButton").attr("value","Submitting");
+                        if('{!userProfile}' == 'siteUser'){
+                            top.location = top.location.href;
+                        }else{
+                            top.location = '/s/MarketingFunds?id={!request.Id}';
+                        }
+                    }
+                }
+            });
+            </script>
             <ul class="mainBody">
                 <li style="width:90%;">
                     <apex:pageMessages escape="false"/>
                 </li>
+                <li style="width:90%;margin:0;padding:6px;" id="reminder"></li>
                 <li>
                     <img src="/img/msg_icons/info16.png" class="helpIcon" title="helpIcon" id="helpIcon"/>
                     <label >
                         Type of Marketing Activity <span class = "redMark">*</span>
                         <div><apex:inputField value="{!request.Type_of_Program__c}" styleClass="activityType" required="true"/></div>
-                    </label>               
+                    </label>
                 </li>
                 <li>
                     <label>
@@ -187,8 +224,8 @@
                         <div><apex:inputField value="{!request.Comments__c}"/> </div>
                     </label>
                 </li>
-                <div id="detailsSection">
-                    <div class="SpecificSection hiddenElement">
+                	<div id="detailsSection">
+                    <span class="SpecificSection hiddenElement">
                         <li class="sectionTitle">Activity Specific Details</li>
                         <li>
                             <label>
@@ -206,8 +243,8 @@
                             <label>
                                 Target Account List <span class = "redMark">*</span>
                             </label>
-                            <div style="margin-top:10px;"><apex:inputFile value="{!accountAttachment.body}" fileName="{!accountAttachment.name}" styleClass="requiredInput1"/></div> 
-                            <apex:outputLink value="{!URLFOR($Action.Attachment.Download, accountAttachment.Id)}" target="_blank" rendered="{!NOT(IsBlank(accountAttachment.Id))}" styleClass="requiredDisplay1">{!accountAttachment.name}</apex:outputLink> 
+                            <input type="file" class="file requiredInput1" id="accountList" title="Target Account List"/>
+							<apex:outputText rendered="{!NOT(IsBlank(accountList))}" value="{!accountList}" styleClass="requiredDisplay1"/>
                         </li>
                         <li>
                             <label>
@@ -245,12 +282,10 @@
                             <label>
                                 Event Agenda
                             </label>
-                            <div style="margin-top:10px;">
-                                <apex:inputFile value="{!eventAgendaAttachment.body}" fileName="{!eventAgendaAttachment.name}" styleClass="agendaInput" id="agenda"/>
-                            </div> 
-                            <apex:outputLink value="{!URLFOR($Action.Attachment.Download, eventAgendaAttachment.Id)}" target="_blank" rendered="{!NOT(IsBlank(eventAgendaAttachment.Id))}">{!eventAgendaAttachment.name}</apex:outputLink>
+                            <input type="file" class="file agendaInput" id="EventAgenda" title="Event Agenda"/>
+                            <apex:outputText rendered="{!NOT(IsBlank(eventAgenda))}" value="{!eventAgenda}"/>
                         </li>
-                    </div>
+                    </span>
                     <div class="SpecificSection hiddenElement" id="locationSection">
                         <li class="sectionTitle">Location Details</li>
                         <li>
@@ -279,7 +314,7 @@
                         </li>
                     </div>
                     </div>
-                <div class="SpecificSection hiddenElement">
+                <span class="SpecificSection hiddenElement">
                     <li class="sectionTitle">Event Materials Requested</li>
                     <li>
                         <label>Please indicate below if you require any event materials</label>
@@ -347,206 +382,56 @@
                             <div><apex:inputField value="{!request.Addressee_Contact_Information__c}"/></div>
                         </label>
                     </li>
-                </div>
+                </span>
                 <li>
-                    <apex:commandButton value="Submit" action="{!saveMDF}"  styleClass="submitButton"/> 
+                    <apex:commandButton value="Submit" action="{!saveMDF}" styleClass="submitButton" reRender="MdfForm"/>
+                    <img src="/img/loading32.gif" id="loadingIcon" class="loadingIcon"/>
                 </li>
             </ul>
         </apex:form>
-        <apex:outputPanel rendered="{!userProfile != '' && request.Approval_Status__c=='Pending' || request.Approval_Status__c=='Approved'}" styleClass="form-horizontal">
-            <form onsubmit="validateForm(); return false;" id="theForm">
+        <apex:outputPanel rendered="{!userProfile != '' && (request.Approval_Status__c=='Approved' || editable == false )}" styleClass="form-horizontal">
             <ul class="mainBody">
+                <apex:form onsubmit="validateForm(); return false;" id="theForm">
                 <li style="width:90%;margin:0;padding:0;">
                     <apex:pageMessages escape="false"/>
                 </li>
-                <apex:outputPanel rendered="{!request.Approval_Status__c=='Approved' && !request.Activity_Complete__c}">
-                        <li style="width:90%;margin:0;padding:6px;" id="reminder">
-                </li>
+                <apex:outputPanel rendered="{!resultEditable}">
+                	<li style="width:90%;margin:0;padding:6px;" id="reminder"></li>
                 <apex:outputPanel rendered="{!request.Type_of_Program__c != 'Enablement'}">
                     <li class="sectionTitle">Event Results</li>
-                    <li>
-                        Please complete the form below to submit your activity results.
-                        <br/>
-                        <br/>
-                        <label>
-                            Total Attendees/Contacts Reached <span class = "redMark">*</span>
-                            <div><input type="text" class="number required" required="required" placeholder="Numbers only" id="attendees"/></div>
-                        </label>
-                    </li>
-                    <li>
-                        <label>
-                            Total Opportunities Generated <span class = "redMark">*</span>
-                            <div><input type="text" class="number required" required="required" placeholder="Numbers only" id="opportunities"/></div>
-                        </label>
-                    </li>
-                    <li>
-                        <label>
-                            Total Qualified Leads <span class = "redMark">*</span>
-                            <div><input type="text" class="number required" required="required" placeholder="Numbers only" id="leads"/></div>
-                        </label>
-                    </li>
-                    <li>
-                        <label>
-                            Estimated Pipeline Value <span class = "redMark">*</span>
-                            <div><input type="text" class="number currency required" required="required" placeholder="Please input amount in USD currency" id="pipeline"/></div>
-                        </label>
-                    </li>
-                    <li>
-                        <label>
-                            Campaign        
-                            <div><apex:outputField value="{!request.Campaign_Name__c}"/></div>
-                        </label>
-                    </li>
-                    <li>
-                        <label>
-                            Result Detail <span class = "redMark">*</span>       
-                            <div><textarea class="required" required="required" id="result" style="height:36px;"></textarea></div>
-                        </label>
-                    </li>
-                    <li>
-                        <label>
-                            Requested Reimbursement Amount <span class = "redMark">*</span>
-                            <div><input type="text" class="number currency required" required="true" placeholder="Please input amount in USD currency" id="amount"/></div>
-                        </label>
-                    </li>
-                </apex:outputPanel> 
-                <apex:outputPanel rendered="{!request.Type_of_Program__c == 'Enablement'}">
-                    <li class="sectionTitle">Partner Training Results</li>
-                    <li>
-                        Please complete the form below to submit your activity results.
-                        <br/>
-                        <br/>
-                        <label>
-                            Topic/Course <span class = "redMark">*</span>
-                            <div><input type="text" class="required" required="required" id="topic"/></div>
-                        </label>
-                    </li>
-                    <li>
-                        <label>
-                            Total Attendees <span class = "redMark">*</span>
-                            <div><input type="text" class="number required" required="required" placeholder="Numbers only" id="attendees"/></div>
-                        </label>
-                    </li>
-                    <li>
-                        <label>
-                            Number of Certifications <span class = "redMark">*</span>
-                            <div><input type="text" class="number required" required="required" placeholder="Numbers only" id="certifications"/></div>
-                        </label>
-                    </li>
-                    <li>
-                        <label>
-                            Result Detail <span class = "redMark">*</span>       
-                            <div><textarea class="required" required="required" id="result" style="height:36px;"></textarea></div>
-                        </label>
-                    </li>
-                    <li>
-                        <label>
-                            Campaign        
-                            <div><apex:outputField value="{!request.Campaign_Name__c}"/></div>
-                        </label>
-                    </li>
-                    <li>
-                        <label>
-                            Requested Reimbursement Amount <span class = "redMark">*</span>
-                            <div><input type="text" class="number currency required" required="true" placeholder="Please input amount in USD currency" id="amount"/></div>
-                        </label>
-                    </li>
-                </apex:outputPanel>
-                <li>Required Documentation: please upload the following required documents to process payment(Each file size does not exceed 50MB):</li>
-                <li class="indent">
-                    <label>
-                        Invoice (billed to Silver Peak) <span class = "redMark">*</span>
-                    </label>
-                    <input type="file" class="file required" id = "invoice" onchange="checkFileSize(this);" required="required" title="Invoice"/>
-                </li>
-                <li class="indent">
-                    <label>
-                        Proof of Performance (photos, print, third party receipts proving cost of the event so you will be invoiced for the correct amount, email invites, collateral, etc.You can select multiple files.) <span class = "redMark">*</span>
-                    </label>
-                    <input type="file" class="file required" multiple = "multiple" id = "proof" onchange="checkFileSize(this);" required="required" title="Proof of Performance"/>
-                </li>
-                <li class="indent">
-                    <label>
-                    Attendance List – leads must be identified and have contact information (contact info must include: first and last name, company, title, email, phone number, country, state, postal code) <span class = "redMark">*</span>
-                    </label>
-                    <input type="file" class="file required" id = "attendance" onchange="checkFileSize(this);" required="required" title="Attendance List"/>
-                </li>
-                <li>
-                    <input type="submit" value="Submit" class="btn submitButton"/>
-                    <img src="/img/loading32.gif" id="loadingIcon" class="loadingIcon"/>
-                </li>
-                <li style="border-bottom: solid 1px #007cb9;margin-top: 100px;margin-bottom:30px;width:91.5%;"></li>
-                </apex:outputPanel>
-                <apex:outputPanel rendered="{!request.Approval_Status__c=='Approved' && request.Activity_Complete__c}">
-                    <apex:outputPanel rendered="{!request.Type_of_Program__c != 'Enablement'}">
-                        <li class="sectionTitle">Event Results</li>
                         <li>
+                            Please complete the form below to submit your activity results.
+                            <br/>
+                            <br/>
                             <label>
-                                Total Attendees/Contacts Reached
-                                <div class="displayMessage"><apex:outputField value="{!request.Total_Attendees__c}"/></div>
+                                Total Attendees/Contacts Reached <span class = "redMark">*</span>
+                                <div>
+                                    <apex:inputField value="{!request.Total_Attendees__c}" styleClass="number required" required="true" html-placeholder="Numbers only" id="attendees"/>
+                                </div>
                             </label>
                         </li>
                         <li>
                             <label>
-                                Total Opportunities Generated
-                                <div class="displayMessage"><apex:outputField value="{!request.Event_Results_Opportunities__c}"/></div>
+                                Total Opportunities Generated <span class = "redMark">*</span>
+                                <div>
+                                    <apex:inputField value="{!request.Event_Results_Opportunities__c}" styleClass="number required" required="true" html-placeholder="Numbers only" id="opportunities"/>
+                                </div>
                             </label>
                         </li>
                         <li>
                             <label>
-                                Total Qualified Leads
-                                <div class="displayMessage"><apex:outputField value="{!request.Total_Qualified_Leads__c}"/></div>
+                                Total Qualified Leads <span class = "redMark">*</span>
+                                <div>
+                                    <apex:inputField value="{!request.Total_Qualified_Leads__c}" styleClass="number required" required="true" html-placeholder="Numbers only" id="leads"/>
+                                </div>
                             </label>
                         </li>
                         <li>
                             <label>
-                                Estimated Pipeline Value
-                                <div class="displayMessage"><apex:outputField value="{!request.Estimated_Pipeline_Value__c}"/></div>
-                            </label>
-                        </li>
-                        <li>
-                            <label>
-                                Campaign 
-                                <div class="displayMessage"><apex:outputField value="{!request.Campaign_Name__c}"/></div>
-                            </label>
-                        </li>
-                        <li>
-                            <label>
-                                Result Detail 
-                                <div class="displayMessage"><apex:outputField value="{!request.Result_Detail__c}"/></div>
-                            </label>
-                        </li>
-                        <li>
-                            <label>
-                                Requested Reimbursement Amount
-                                <div class="displayMessage"><apex:outputField value="{!request.Requested_Reimbursement_Amount__c}"/></div>
-                            </label>
-                        </li>
-                    </apex:outputPanel>
-                    <apex:outputPanel rendered="{!request.Type_of_Program__c == 'Enablement'}">
-                        <li class="sectionTitle">Partner Training Results</li>
-                        <li>
-                            <label>
-                                Topic/Course
-                                <div class="displayMessage"><apex:outputField value="{!request.Topic_Course__c}" /></div>
-                            </label>
-                        </li>
-                        <li>
-                            <label>
-                                Total Attendees 
-                                <div class="displayMessage"><apex:outputField value="{!request.Total_Attendees__c}" /></div>
-                            </label>
-                        </li>
-                        <li>
-                            <label>
-                                Number of Certifications 
-                                <div class="displayMessage"><apex:outputField value="{!request.Number_of_Certifications__c}" /></div>
-                            </label>
-                        </li>
-                        <li>
-                            <label>
-                                Result Detail 
-                                <div class="displayMessage"><apex:outputField value="{!request.Result_Detail__c}" /></div>
+                                Estimated Pipeline Value <span class = "redMark">*</span>
+                                <div>
+                                    <apex:inputField value="{!request.Estimated_Pipeline_Value__c}" styleClass="number currency required" required="true" html-placeholder="Please input amount in USD currency" id="pipeline"/>
+                                </div>
                             </label>
                         </li>
                         <li>
@@ -557,11 +442,196 @@
                         </li>
                         <li>
                             <label>
-                                Requested Reimbursement Amount <span class = "redMark">*</span>    
-                                <div class="displayMessage"><apex:outputField value="{!request.Requested_Reimbursement_Amount__c}"/></div>
+                                Result Detail <span class = "redMark">*</span>       
+                                <div>
+                                    <apex:inputField value="{!request.Result_Detail__c}" styleClass="required" required="required" id="result" style="height:36px;"/>
+                                </div>
                             </label>
                         </li>
-                    </apex:outputPanel>
+                        <li>
+                            <label>
+                                Requested Reimbursement Amount <span class = "redMark">*</span>
+                                <div>
+                                    <apex:inputField value="{!request.Requested_Reimbursement_Amount__c}" styleClass="number currency required" required="true" html-placeholder="Please input amount in USD currency" id="amount"/>
+                                </div>
+                            </label>
+                        </li>
+                </apex:outputPanel> 
+                <apex:outputPanel rendered="{!request.Type_of_Program__c == 'Enablement'}">
+                    <li class="sectionTitle">Partner Training Results</li>
+                        <li>
+                            Please complete the form below to submit your activity results.
+                            <br/>
+                            <br/>
+                            <label>
+                                Topic/Course <span class = "redMark">*</span>
+                                <div>
+                                    <apex:inputField value="{!request.Topic_Course__c}" styleClass="required" required="true" id="topic"/>
+                                </div>
+                            </label>
+                        </li>
+                        <li>
+                            <label>
+                                Total Attendees <span class = "redMark">*</span>
+                                <div>
+                                    <apex:inputField value="{!request.Total_Attendees__c}" styleClass="required" html-placeholder="Numbers only" required="true" id="eattendees"/>
+                                </div>
+                            </label>
+                        </li>
+                        <li>
+                            <label>
+                                Number of Certifications <span class = "redMark">*</span>
+                                <div>
+                                    <apex:inputField value="{!request.Number_of_Certifications__c}" styleClass="number required" html-placeholder="Numbers only" required="true" id="certifications"/>
+                                </div>
+                            </label>
+                        </li>
+                        <li>
+                            <label>
+                                Result Detail <span class = "redMark">*</span>       
+                                <div>
+                                    <apex:inputField value="{!request.Result_Detail__c}" styleClass="required" required="required" id="eresult" style="height:36px;"/>
+                                </div>
+                            </label>
+                        </li>
+                        <li>
+                            <label>
+                                Campaign        
+                                <div><apex:outputField value="{!request.Campaign_Name__c}"/></div>
+                            </label>
+                        </li>
+                        <li>
+                            <label>
+                                Requested Reimbursement Amount <span class = "redMark">*</span>
+                                <div>
+                                    <apex:inputField value="{!request.Requested_Reimbursement_Amount__c}" styleClass="number currency required" required="true" html-placeholder="Please input amount in USD currency" id="eamount"/>
+                                </div>
+                            </label>
+                        </li>
+                </apex:outputPanel>
+                <li>Required Documentation: please upload the following required documents to process payment:</li>
+                <li class="indent">
+                    <label>
+                        Invoice (billed to Silver Peak) <span class = "redMark">*</span>
+                    </label>
+                    <input type="file" class="file required" id = "invoice" required="required" title="Invoice"/>
+                </li>
+                <li class="indent">
+                    <label>
+                        Proof of Performance (photos, print, third party receipts proving cost of the event so you will be invoiced for the correct amount, email invites, collateral, etc.You can select multiple files.) <span class = "redMark">*</span>
+                    </label>
+                    <input type="file" class="file required" multiple = "multiple" id = "proof" required="required" title="Proof of Performance"/>
+                </li>
+                <li class="indent">
+                    <label>
+                    Attendance List – leads must be identified and have contact information (contact info must include: first and last name, company, title, email, phone number, country, state, postal code) <span class = "redMark">*</span>
+                    </label>
+                    <input type="file" class="file required" id = "attendance" required="required" title="Attendance List"/>
+                </li>
+                <li>
+                    <input type="submit" value="Submit" class="btn submitButton"/>
+                    <img src="/img/loading32.gif" id="loadingIcon" class="loadingIcon"/>
+                </li>
+                <li style="border-bottom: solid 1px #007cb9;margin-top: 100px;margin-bottom:30px;width:91.5%;"></li>
+                </apex:outputPanel>
+				</apex:form>
+                <apex:outputPanel rendered="{!!resultEditable && request.Approval_Status__c=='Approved'}">
+                    <apex:form >
+                        <apex:outputPanel rendered="{!request.Type_of_Program__c != 'Enablement'}">
+                            <li class="sectionTitle" style="width:96%;">
+                                <span>
+                                    Event Results
+                                </span>
+                                <apex:commandButton value="Edit" action="{!editMDFResult}" styleClass="submitBtn-small" style="float:right;"/>
+                            </li>
+                            <li>
+                                <label>
+                                    Total Attendees/Contacts Reached
+                                    <div class="displayMessage"><apex:outputField value="{!request.Total_Attendees__c}"/></div>
+                                </label>
+                            </li>
+                            <li>
+                                <label>
+                                    Total Opportunities Generated
+                                    <div class="displayMessage"><apex:outputField value="{!request.Event_Results_Opportunities__c}"/></div>
+                                </label>
+                            </li>
+                            <li>
+                                <label>
+                                    Total Qualified Leads
+                                    <div class="displayMessage"><apex:outputField value="{!request.Total_Qualified_Leads__c}"/></div>
+                                </label>
+                            </li>
+                            <li>
+                                <label>
+                                    Estimated Pipeline Value
+                                    <div class="displayMessage"><apex:outputField value="{!request.Estimated_Pipeline_Value__c}"/></div>
+                                </label>
+                            </li>
+                            <li>
+                                <label>
+                                    Campaign 
+                                    <div class="displayMessage"><apex:outputField value="{!request.Campaign_Name__c}"/></div>
+                                </label>
+                            </li>
+                            <li>
+                                <label>
+                                    Result Detail 
+                                    <div class="displayMessage"><apex:outputField value="{!request.Result_Detail__c}"/></div>
+                                </label>
+                            </li>
+                            <li>
+                                <label>
+                                    Requested Reimbursement Amount
+                                    <div class="displayMessage"><apex:outputField value="{!request.Requested_Reimbursement_Amount__c}"/></div>
+                                </label>
+                            </li>
+                        </apex:outputPanel>
+                        <apex:outputPanel rendered="{!request.Type_of_Program__c == 'Enablement'}">
+                            <li class="sectionTitle" style="width:96%;">
+                                <span>
+                                    Partner Training Results
+                                </span>
+                                <apex:commandButton value="Edit" action="{!editMDFResult}" styleClass="submitBtn-small" style="float:right;"/>
+                            </li>
+                            <li>
+                                <label>
+                                    Topic/Course
+                                    <div class="displayMessage"><apex:outputField value="{!request.Topic_Course__c}" /></div>
+                                </label>
+                            </li>
+                            <li>
+                                <label>
+                                    Total Attendees 
+                                    <div class="displayMessage"><apex:outputField value="{!request.Total_Attendees__c}" /></div>
+                                </label>
+                            </li>
+                            <li>
+                                <label>
+                                    Number of Certifications 
+                                    <div class="displayMessage"><apex:outputField value="{!request.Number_of_Certifications__c}" /></div>
+                                </label>
+                            </li>
+                            <li>
+                                <label>
+                                    Result Detail 
+                                    <div class="displayMessage"><apex:outputField value="{!request.Result_Detail__c}" /></div>
+                                </label>
+                            </li>
+                            <li>
+                                <label>
+                                    Campaign        
+                                    <div><apex:outputField value="{!request.Campaign_Name__c}"/></div>
+                                </label>
+                            </li>
+                            <li>
+                                <label>
+                                    Requested Reimbursement Amount <span class = "redMark">*</span>    
+                                    <div class="displayMessage"><apex:outputField value="{!request.Requested_Reimbursement_Amount__c}"/></div>
+                                </label>
+                            </li>
+                        </apex:outputPanel>
+                    </apex:form>
                     <li>
                         Required documentation
                     </li>
@@ -570,26 +640,41 @@
                             Invoice
                         </label>
                         <br/>
-                        <apex:outputLink value="/sfc/servlet.shepherd/version/download/{!invoice.ContentDocument.LatestPublishedVersionId}" target="_document" rendered="{!NOT(IsBlank(invoice.Id))}">{!invoice.ContentDocument.Title}</apex:outputLink>
+                        <div class="displayMessage">
+                        	<apex:outputText value="{!invoice}" rendered="{!NOT(IsBlank(invoice))}"/>
+                        </div>
+                        <!--apex:outputLink value="/sfc/servlet.shepherd/version/download/{!invoice.ContentDocument.LatestPublishedVersionId}" target="_document" rendered="{!NOT(IsBlank(invoice.Id))}">{!invoice.ContentDocument.Title}</apex:outputLink -->
                     </li>
                     <li class="indent">
                         <label>
                             Proof of Performance
                         </label>
                         <apex:repeat value="{!proofs}" var="proof" rendered="{!proofs.size > 0}">
-                            <apex:outputLink value="/sfc/servlet.shepherd/version/download/{!proof.ContentDocument.LatestPublishedVersionId}" target="_document" rendered="{!NOT(IsBlank(proof.Id))}">{!proof.ContentDocument.Title}<br/></apex:outputLink>
+                            <div class="displayMessage">
+                                <apex:outputText value="{!proof}"/>
+                            </div>
+                            <br/>
+                            <!--apex:outputLink value="/sfc/servlet.shepherd/version/download/{!proof.ContentDocument.LatestPublishedVersionId}" target="_document" rendered="{!NOT(IsBlank(proof.Id))}">{!proof.ContentDocument.Title}<br/></apex:outputLink-->
                         </apex:repeat>
                     </li>
                     <li class="indent">
                         <label>
                             Attendance List
                         </label>
-                        <apex:outputLink value="/sfc/servlet.shepherd/version/download/{!attendance.ContentDocument.LatestPublishedVersionId}" target="_document" rendered="{!NOT(IsBlank(attendance.Id))}">{!attendance.ContentDocument.Title}</apex:outputLink> 
+                        <div class="displayMessage">
+                        	<apex:outputText value="{!attendance}" rendered="{!NOT(IsBlank(attendance))}"/>
+                        </div>
+                        <!--apex:outputLink value="/sfc/servlet.shepherd/version/download/{!attendance.ContentDocument.LatestPublishedVersionId}" target="_document" rendered="{!NOT(IsBlank(attendance.Id))}">{!attendance.ContentDocument.Title}</apex:outputLink--> 
                     </li>
                     <li style="border-bottom: solid 1px #007cb9;margin-top: 10px;margin-bottom:30px;width:91.5%;"></li>
                 </apex:outputPanel>
                 <apex:outputPanel styleClass="{!IF(request.Approval_Status__c=='Approved' && !request.Activity_Complete__c,'greyPanel' ,'')}">
-                <li class="sectionTitle">Details on {!request.Name}</li>
+                <li class="sectionTitle" style="width:100%;">
+                    <span>Details on {!request.Name}</span>
+                    <apex:form style="float:right;">
+						<apex:commandButton value="Edit" rendered="{!request.Approval_Status__c!='Approved'}" action="{!editMDF}" styleClass="submitBtn-small"/>
+					</apex:form>
+				</li>
                 <li>
                     <label >
                         Type of Marketing Activity
@@ -775,7 +860,12 @@
                     <li>
                         <label>
                             Target Account List
-                            <div class="displayMessage"><apex:outputLink value="{!URLFOR($Action.Attachment.Download, accountAttachment.Id)}" target="_blank" rendered="{!NOT(IsBlank(accountAttachment.Id))}">{!accountAttachment.name}</apex:outputLink></div> 
+                            <div class="displayMessage">
+                                <apex:outputText rendered="{!NOT(IsBlank(accountList))}" value="{!accountList}" styleClass="requiredDisplay1"/>
+                                <!--
+                                <apex:outputLink value="{!URLFOR($Action.Attachment.Download, accountAttachment.Id)}" target="_blank" rendered="{!NOT(IsBlank(accountAttachment.Id))}">{!accountAttachment.name}</apex:outputLink>
+								-->
+                            </div> 
                         </label>
                     </li>
                     <li>
@@ -814,7 +904,10 @@
                         <label>
                             Event Agenda 
                             <div class="displayMessage">
+                                <apex:outputText rendered="{!NOT(IsBlank(eventAgenda))}" value="{!eventAgenda}"/>
+                                <!--
                                 <apex:outputLink value="{!URLFOR($Action.Attachment.Download, eventAgendaAttachment.Id)}" rendered="{!NOT(IsBlank(eventAgendaAttachment.Id))}" target="_blank">{!eventAgendaAttachment.name}</apex:outputLink>
+								-->
                             </div> 
                         </label>
                     </li>
@@ -911,163 +1004,23 @@
                 </apex:outputPanel>
                 </apex:outputPanel>
             </ul>
-            </form>
         </apex:outputPanel>
     </body>
-    
-    <script type="text/javascript">
-    var maxStringSize = 690000000;    //Maximum String size is 690,000,000 characters
-    var maxFileSize = 500000000;      //After Base64 Encoding, this is the max file size
-    var files = [];
-    var maxFile = 0;
-    var completedFiles = 0;
-    
-    function checkFileSize(inputFile){
-        var invoices = $(inputFile)[0].files;
-        if(invoices.length > 0){
-            for(var i = 0; i < invoices.length; i++){
-                var invoice = invoices[i];
-                if(invoice.size >= maxFileSize){
-                    alert("File must be under 500 MB in size. Your file is too large. Please try again.");
-                    var file = $(inputFile);
-                    file.after(file.clone().val(""));
-                    file.remove(); 
-                    return;
-                }
-            }
-        }        
-    }
 
-    function updateMDF(){
-        MarketingFundsController.updateMDF(
-            {"Total_Attendees" : $("#attendees").val(), "Event_Results_Opportunities" : $("#opportunities").val(), "Total_Qualified_Leads" : $("#leads").val(), "Estimated_Pipeline_Value" : $("#pipeline").val(), 
-             "Result_Detail" : $("#result").val(), "Requested_Reimbursement_Amount" : $("#amount").val(), "Topic_Course" : $("#topic").val(), "Number_of_Certifications" : $("#certifications").val(), 'invoice' : $("#invoice")[0].files.length, 'proof' : $("#proof")[0].files.length, 'attendance' : $("#attendance")[0].files.length},"{!request.Id}",
-            function(result, event){
-                if(event.type === 'exception'){
-                    showReminder(event);
-                    return;
-                }else if(event.status){
-                    if(result.substring(0,3) == 'a38'){
-                        console.log("Enter uploadFiles:" + result);
-                        uploadFiles(result);
-                    }else if(result.substring(0,5) == 'Error'){
-                        showErrorMsg(result.substring(5));
-                    }else{
-                        showReminder(event);
-                    }
-                }else{
-                    showReminder(event);
-                }
-            },
-            {buffer: true, escape: true, timeout: 120000}
-        );
-    }
-    
-    function showReminder(showMsg){
-        $("#reminder")[0].innerHTML=('<div class="errorMsg"><strong>Error:</strong>'+ showMsg +'</div>');
-        aotuAdjustHeight();
-    }
-    
-    function uploadFiles(mfrId){
-        if(files.length == 0){
-            //alert("please select at least one file");
-            return;
-        }else{
-            for(var i = 0; i < files.length; i++){
-                console.log("uploadFile: " + i);
-                uploadFile(mfrId, files[i]);
-            }
-        }
-    }
-    
-    //Upload File
-    function uploadFile(mfrId, file) {
-        var client = new forcetk.Client();
-        client.setSessionToken("{!$Api.Session_ID}"); 
-        client.createBlob('ContentVersion', {
-            Origin: 'C', // 'H' for Chatter File, 'C' for Content Document
-            "ReasonForChange" : "MFR Approval",
-            "Description" : file.description,
-            PathOnClient: file.name
-        }, file.name, 'VersionData', file, function(response){
-            completedFiles++;
-            var maxFilecompleted = completedFiles == files.length;
-            MarketingFundsController.linkFileToMFR(mfrId, response.id, maxFilecompleted, function(result, event){
-                if(event.type === 'exception'){
-                    alert('Failed to upload file. The error message is: ' + result);
-                    showReminder(event);
-                    return;
-                }else if(event.status){
-                    if(result == 'success'){
-                        if(maxFilecompleted){
-                            top.location.reload();
-                        }
-                    }else if(result.substring(0,5) == 'Error'){
-                        showErrorMsg(result.substring(5));
-                        console.log(result);
-                    }
-                }
-            },{buffer: true, escape: true, timeout: 120000})
-        },function(request, status, response){
-            alert("Failed to upload file. Error message is: " + status);
-            showReminder("Failed to upload file. Error message is: " + status);
-            console.log(request);
-            console.log(status);
-            console.log(response);
-        });
-    }
-    
-    /*
-    function uploadOneFile(fileId, concreteFile){
-        var fileBody = "";
-        if(concreteFile.size <= concreteFile.position + chunkSize){
-            fileBody = concreteFile.body.substring(concreteFile.position);
-            concreteFile.done = concreteFile.index == maxFile ? 'maxFilecompleted' : 'completed';
-            concreteFile.Progress = 100;
-        }else{
-            fileBody = concreteFile.body.substring(concreteFile.position, concreteFile.position + chunkSize);
-        }
-        MarketingFundsController.uploadFile(
-            fileBody, concreteFile.name, fileId,"{!request.Id}", concreteFile.description, concreteFile.done,
-            function(result, event){
-                if(event.type === 'exception'){
-                    showReminder(event);
-                    return;
-                }else if(event.status){
-                    if(result.substring(0,3) == '068'){
-                        if(concreteFile.done.indexOf("completed") != -1){
-                            //TODO update the progress of file uploading...
-                            if(concreteFile.index == maxFile){
-                                showProgress(100);
-                                top.location.reload();
-                            }
-                        }else{
-                            concreteFile.position += chunkSize;
-                            //TODO update the progress of file uploading...
-                            uploadOneFile(result, concreteFile);
-                            concreteFile.progress = (concreteFile.position / concreteFile.size * 100).toFixed(0);
-                            if(concreteFile.index == maxFile){
-                                showProgress(concreteFile.progress);
-                            }
-                        }
-                    }
-                }
-            },
-            {buffer: true, escape: true, timeout: 120000}
-        );
-    }
-    function showProgress(){
-        if(!$(".submitButton").hasClass("disabledBtn")){
-            $(".submitButton").addClass("disabledBtn");
-            $("#loadingIcon").show();
-        }else{
-            $("#loadingIcon").show();
-        }
-    }*/
+    <script type="text/javascript" src="{!URLFOR($Resource.MarketingFundsLib, 'MarketingFunds/components/aws/aws-sdk.min.js')}"/>
+    <script type="text/javascript" src="{!URLFOR($Resource.MarketingFundsLib, 'MarketingFunds/js/AWS.Config.js')}"/>
+    <script type="text/javascript">
+
+    var files = [];
+
     function validateForm(){
         var isValid = true;
         var errorMsg = "Invalid number";
         $(".number").each(function(){
+            number = $(this).val();
+            if(!!number){
+                $(this).attr("value", number.replace(/,/g,'')); 
+            }
             if(isNaN($(this).val())){
                 if($(this).hasClass("currency")){
                     errorMsg = "Invalid currency";
@@ -1088,10 +1041,39 @@
                 isValid = false;
             }
         });
-        if(isValid && checkSubmit()){
+        //&& checkSubmit()
+        if(isValid){
+            populateFiles();
+            $(".submitButton").addClass("disabledBtn");
+            $(".submitButton").attr("value","Request is submitting");
+            $("#loadingIcon").show();
             updateMDF();
         }
         aotuAdjustHeight();
+    }
+
+    function updateMDF(){
+        MarketingFundsController.updateMDF(
+            {"Total_Attendees" : $("input[id$='attendees']").val(), "Event_Results_Opportunities" : $("input[id$='opportunities']").val(), "Total_Qualified_Leads" : $("input[id$='leads']").val(), "Estimated_Pipeline_Value" : $("input[id$='pipeline']").val(), 
+             "Result_Detail" : $("[id$='result']").val(), "Requested_Reimbursement_Amount" : $("input[id$='amount']").val(), "Topic_Course" : $("input[id$='topic']").val(), "Number_of_Certifications" : $("input[id$='certifications']").val(), 'invoice' : $("#invoice")[0].files.length, 'proof' : $("#proof")[0].files.length, 'attendance' : $("#attendance")[0].files.length},"{!request.Id}",
+            function(result, event){
+                if(event.type === 'exception'){
+                    showReminder(event);
+                    return;
+                }else if(event.status){
+                    if(result.substring(0,3) == 'a38'){
+                        uploadAllFiles(result);
+                    }else if(result.substring(0,5) == 'Error'){
+                        showErrorMsg(result.substring(5));
+                    }else{
+                        showReminder(event);
+                    }
+                }else{
+                    showReminder(event);
+                }
+            },
+            {buffer: true, escape: true, timeout: 120000}
+        );
     }
     
     function showErrorMsg(errorMsg){
@@ -1114,10 +1096,13 @@
     </script>
     <script type = "text/javascript">
     $(document).ready(function(){
+        docReady();
+        scrollTop();
+    });
+    
+    function docReady()
+    {
         showSection();
-        if('{!request.Approval_Status__c}' == 'Pending' || '{!request.Approval_Status__c}' == 'Approved'){
-            scrollTop();
-        }
         if($(".requiredInput1").is(":visible")){
             $(".requiredInput1").attr("required","required");
         }else{
@@ -1125,6 +1110,7 @@
         }
         focus();
         requiredInput();
+        setTitle();
         $(".activityType").change(function(){
             requiredInput();
             addTooltips();
@@ -1156,7 +1142,7 @@
             setTimeout("aotuAdjustHeight()",205);
         });
         try{
-            if(("{!request.Approval_Status__c}" == "Pending" || "{!request.Approval_Status__c}" == "Approved")){
+            if({!editable} == false){
                 showTable("showTable");
             }else{
                 fillTable();
@@ -1167,9 +1153,9 @@
         }catch(err){
         }
         controllInput();
-        requireFile();
         aotuAdjustHeight();
-    });
+    }
+    
     function focus(){
         if($("ul[class='message']").hasClass("message")){
             $(".message").attr("tabindex",-1).focus();
@@ -1178,7 +1164,7 @@
     }
     function aotuAdjustHeight(){
         try{
-            top.document.getElementById("myIframe").style.height = (document.body.clientHeight + 50)+ "px";
+            top.document.getElementById("myIframe").style.height = (document.body.clientHeight + 100)+ "px";
         }catch(err){
         }
     }
@@ -1199,7 +1185,7 @@
             $("#detailsSection input,#detailsSection textarea,#detailsSection select").attr("required","");
             $(".SpecificSection").hide();
         }
-        if($(".requiredInput1").is(":visible") && !$("a").hasClass("requiredDisplay1")){
+        if($(".requiredInput1").is(":visible") && !$("span").hasClass("requiredDisplay1")){
             $(".requiredInput1").attr("required","required");
         }else{
             $(".requiredInput1").attr("required","");
@@ -1301,36 +1287,25 @@
             }
         });
     }
-    function requireFile(){
-    if($("input").hasClass('inputFile')){
-        $("input.inputFile").attr("required","required");
-        }
-    }
-    function checkSubmit(){
-        if(window.confirm('After your submit, you cannot edit this form again. Are you sure you want to continue?')){
+    function handleSubmit(){
+        if($("form[id$='MdfForm']")[0].checkValidity()){
             populateFiles();
             $(".submitButton").addClass("disabledBtn");
-            $(".submitButton").attr("value","Request is submitting");
+            $(".submitButton").attr("value","Submitting");
             $("#loadingIcon").show();
-            return true;
-        }else{
-            return false;
+            //trueSave();
         }
+        return true;
     }
     function populateFiles(){
-        $(".file").each(function(){
+        files = [];
+        $("input.file").each(function(){
             if($(this)[0].files){
-                var invoices = $(this)[0].files;
-                console.log(invoices.length);
-                for(var i = 0; i < invoices.length; i++){
-                    var invoice = invoices[i];
-                    invoice.fileIndex = files.length;
-                    invoice.description = $(this).attr("title");
-                    files.push(invoice);
-                    var index = invoice.fileIndex;
-                    if(index > 0 && files[index].size >= files[maxFile].size){
-                        maxFile = index;
-                    }
+                var s3Files = $(this)[0].files;
+                for(var i = 0; i < s3Files.length; i++){
+                    var s3File = s3Files[i];
+                    s3File.description = $(this).attr("title");
+                    files.push(s3File);
                 }
             }
         });
@@ -1345,6 +1320,93 @@
         }else{
             $("#SpecificSection").hide();
         }
+    }
+    function setTitle(){
+        $(".activityType").children("option").each(function(){
+            var reminder = "";
+            var type = $(this).val();
+            if(type == "Awareness"){
+                reminder = "Activity to increase knowledge of Silver Peak (website optimization, social media, content syndication, newsletters, tradeshows or events";
+            }else if(type == "Enablement"){
+                reminder = "Activity to equip partner selling (sales training, technical training, co-branded collateral)";
+            }else if(type == "Engagement"){
+                reminder = "Activity to promote interaction between Silver Peak and partners (customer briefings, joint account planning)";
+            }else if(type == "Demand Generation"){
+                reminder = "Activity with call-to-action and that delivers qualified leads (e-marketing, promotions, telemarketing, webinars)";
+            }
+            $(this).attr("title", reminder);
+        });
+    }
+
+    var totalUploaded;
+    var firstDeleteProofs = true;
+    function uploadAllFiles(mdfId){
+        totalUploaded = 0;
+        var bucket = new AWS.S3( {params: {Bucket: AWS.config.s3.params.Bucket} });
+        var timeStamp = new Date().getTime();
+        for(var i = 0; i < files.length; i++){
+            var file = files[i];
+            var params = {
+                Key: 'MFR/' + mdfId + '/' + file.name,
+                ContentType: file.type,
+                ContentLength: file.size,
+                Body: file,
+                ServerSideEncryption: 'AES256',
+                Metadata: {
+                    sequence: String(i)
+                },
+                ACL:'private'
+            };
+            var request = bucket.putObject(params);
+            request.fileType = file.description;
+            resp = request.
+                on('success', function(response){
+                    totalUploaded++;
+                    console.log(response);
+                    createFileInSF(response, mdfId, totalUploaded == files.length, firstDeleteProofs);
+                    if(firstDeleteProofs && response.request.fileType == "Proof of Performance"){
+                        firstDeleteProofs = false;
+                    }
+                }).
+                on('httpUploadProgress', function(progress, response){
+                    console.log(progress);
+                    console.log(response);
+                }).
+                on('error',function(response){
+                    console.log(response);
+                    alert('Network failure');
+                }).
+                send();
+        }
+    }
+
+    function showReminder(showMsg){
+        $("#reminder")[0].innerHTML=('<div class="errorMsg"><strong>Error:</strong>'+ showMsg +'</div>');
+        aotuAdjustHeight();
+    }
+
+    function createFileInSF(response, mdfId, allUploaded, firstDeleteProofs){
+        var params = response.request.params;
+        MarketingFundsController.linkFileToMFR({"FileName":params.Body.name, "S3Key":params.Key, "FileSize":params.ContentLength, "S3Bucket":params.Bucket, "FileType":response.request.fileType}, mdfId, allUploaded, firstDeleteProofs,
+            function(result, event){
+                if(event.type === 'exception'){
+                    alert('Failed to upload file. The error message is: ' + result);
+                    showReminder(event);
+                    return;
+                }else if(event.status){
+                    if(result == 'allUploaded'){
+						if('{!userProfile}' == 'siteUser'){
+							top.location = top.location.href;
+                        }else{
+                            top.location = '/s/MarketingFunds?id=' + mdfId;
+                        }
+                    }else if(result != 'successUploadedOne'){
+                        showReminder(result);
+                        console.log(result);
+                    }
+                }
+            },{buffer: true, escape: true, timeout: 120000}
+        );
     }
     </script>
 </apex:page>

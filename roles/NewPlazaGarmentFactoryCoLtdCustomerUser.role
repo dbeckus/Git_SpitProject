@@ -2,9 +2,9 @@
 <Role xmlns="http://soap.sforce.com/2006/04/metadata">
     <caseAccessLevel>None</caseAccessLevel>
     <contactAccessLevel>Edit</contactAccessLevel>
-    <description>New Plaza Garment Factory Co Ltd Customer User</description>
+    <description>Wiseford Industries Limited Customer User</description>
     <mayForecastManagerShare>false</mayForecastManagerShare>
-    <name>New Plaza Garment Factory Co Ltd Customer User</name>
+    <name>Wiseford Industries Limited Customer User</name>
     <opportunityAccessLevel>None</opportunityAccessLevel>
-    <parentRole>AsiaSouthDirector</parentRole>
+    <parentRole>Grade_3_Sales_APAC_ASEAN</parentRole>
 </Role>

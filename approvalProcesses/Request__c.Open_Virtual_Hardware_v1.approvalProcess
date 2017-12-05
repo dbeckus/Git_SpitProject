@@ -7,6 +7,14 @@
         <type>role</type>
     </allowedSubmitters>
     <allowedSubmitters>
+        <submitter>EngineeringDirector</submitter>
+        <type>role</type>
+    </allowedSubmitters>
+    <allowedSubmitters>
+        <submitter>OperationsManager</submitter>
+        <type>role</type>
+    </allowedSubmitters>
+    <allowedSubmitters>
         <submitter>Sales_Manager_Central</submitter>
         <type>role</type>
     </allowedSubmitters>
@@ -46,6 +54,22 @@
         <submitter>SeniorSystemEngineerWest</submitter>
         <type>role</type>
     </allowedSubmitters>
+    <allowedSubmitters>
+        <submitter>Service_Provider_Sales_Manager</submitter>
+        <type>role</type>
+    </allowedSubmitters>
+    <allowedSubmitters>
+        <submitter>Grade_1_Sales</submitter>
+        <type>roleSubordinatesInternal</type>
+    </allowedSubmitters>
+    <allowedSubmitters>
+        <submitter>Grade_1_Sys_Eng</submitter>
+        <type>roleSubordinatesInternal</type>
+    </allowedSubmitters>
+    <allowedSubmitters>
+        <submitter>VPProductManagement</submitter>
+        <type>roleSubordinatesInternal</type>
+    </allowedSubmitters>
     <approvalPageFields>
         <field>Name</field>
         <field>Owner</field>
@@ -63,11 +87,14 @@
             <whenMultipleApprovers>FirstResponse</whenMultipleApprovers>
         </assignedApprover>
         <entryCriteria>
-            <formula>BEGINS(Opportunity__r.GEO_Region__c,&quot;APAC&quot;)</formula>
+            <formula>OR(
+BEGINS(Opportunity__r.GEO_Region__c,&quot;APAC&quot;),
+BEGINS(Opportunity__r.GEO_Region__c,&quot;ANZ&quot;)
+)</formula>
         </entryCriteria>
         <ifCriteriaNotMet>GotoNextStep</ifCriteriaNotMet>
-        <label>APAC</label>
-        <name>APAC</name>
+        <label>APAC/ANZ</label>
+        <name>APAC_ANZ</name>
     </approvalStep>
     <approvalStep>
         <allowDelegate>true</allowDelegate>
@@ -119,7 +146,8 @@
         <entryCriteria>
             <formula>AND( 
 NOT (BEGINS(Opportunity__r.GEO_Region__c,&quot;APAC&quot;)), 
-NOT (BEGINS(Opportunity__r.GEO_Region__c,&quot;EMEA&quot;)) 
+NOT (BEGINS(Opportunity__r.GEO_Region__c,&quot;EMEA&quot;)),
+NOT (BEGINS(Opportunity__r.GEO_Region__c,&quot;ANZ&quot;))
 )</formula>
         </entryCriteria>
         <ifCriteriaNotMet>ApproveRecord</ifCriteriaNotMet>
@@ -141,7 +169,8 @@ NOT (BEGINS(Opportunity__r.GEO_Region__c,&quot;EMEA&quot;))
         <entryCriteria>
             <formula>AND( 
 NOT (BEGINS(Opportunity__r.GEO_Region__c,&quot;APAC&quot;)), 
-NOT (BEGINS(Opportunity__r.GEO_Region__c,&quot;EMEA&quot;)) 
+NOT (BEGINS(Opportunity__r.GEO_Region__c,&quot;EMEA&quot;)),
+NOT (BEGINS(Opportunity__r.GEO_Region__c,&quot;ANZ&quot;))
 )</formula>
         </entryCriteria>
         <ifCriteriaNotMet>ApproveRecord</ifCriteriaNotMet>
@@ -164,6 +193,7 @@ NOT (BEGINS(Opportunity__r.GEO_Region__c,&quot;EMEA&quot;))
             <formula>AND( 
 NOT (BEGINS(Opportunity__r.GEO_Region__c,&quot;APAC&quot;)), 
 NOT (BEGINS(Opportunity__r.GEO_Region__c,&quot;EMEA&quot;)),
+NOT (BEGINS(Opportunity__r.GEO_Region__c,&quot;ANZ&quot;)),
 OR(
 ISPICKVAL( International_Shipping__c,&quot;Yes&quot; ),
 ISPICKVAL( Expedited_Shipping__c ,&quot;Yes&quot;),

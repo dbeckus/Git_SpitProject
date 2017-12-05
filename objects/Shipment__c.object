@@ -216,16 +216,6 @@
         <type>Lookup</type>
     </fields>
     <fields>
-        <fullName>System_Engineer_Email__c</fullName>
-        <externalId>false</externalId>
-        <label>System Engineer Email</label>
-        <required>false</required>
-        <trackHistory>false</trackHistory>
-        <trackTrending>false</trackTrending>
-        <type>Email</type>
-        <unique>false</unique>
-    </fields>
-    <fields>
         <fullName>Third_Email__c</fullName>
         <externalId>false</externalId>
         <label>Third Email</label>

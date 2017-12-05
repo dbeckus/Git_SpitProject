@@ -40,32 +40,28 @@
             <translation><!-- 321-Singapore --></translation>
         </picklistValues>
         <picklistValues>
-            <masterLabel>331-Brazil</masterLabel>
-            <translation><!-- 331-Brazil --></translation>
+            <masterLabel>350-Service Providers</masterLabel>
+            <translation><!-- 350-Service Providers --></translation>
         </picklistValues>
         <picklistValues>
-            <masterLabel>380-Support</masterLabel>
-            <translation><!-- 380-Support --></translation>
+            <masterLabel>410-Demand Gen. &amp; Communications</masterLabel>
+            <translation><!-- 410-Demand Gen. &amp; Communications --></translation>
         </picklistValues>
         <picklistValues>
-            <masterLabel>410-Marketing</masterLabel>
-            <translation><!-- 410-Marketing --></translation>
+            <masterLabel>412-Product &amp; Solutions Marketing</masterLabel>
+            <translation><!-- 412-Product &amp; Solutions Marketing --></translation>
         </picklistValues>
         <picklistValues>
-            <masterLabel>412-Marketing Communications</masterLabel>
-            <translation><!-- 412-Marketing Communications --></translation>
-        </picklistValues>
-        <picklistValues>
-            <masterLabel>414-Corporate Communications</masterLabel>
-            <translation><!-- 414-Corporate Communications --></translation>
+            <masterLabel>414-Corporate Marketing</masterLabel>
+            <translation><!-- 414-Corporate Marketing --></translation>
         </picklistValues>
         <picklistValues>
             <masterLabel>416-Marketing Operations</masterLabel>
             <translation><!-- 416-Marketing Operations --></translation>
         </picklistValues>
         <picklistValues>
-            <masterLabel>418-Channel Marketing</masterLabel>
-            <translation><!-- 418-Channel Marketing --></translation>
+            <masterLabel>418-Field &amp; Channel Marketing</masterLabel>
+            <translation><!-- 418-Field &amp; Channel Marketing --></translation>
         </picklistValues>
         <picklistValues>
             <masterLabel>450-Bus Dev</masterLabel>
@@ -83,6 +79,14 @@
             <masterLabel>710-Operations</masterLabel>
             <translation><!-- 710-Operations --></translation>
         </picklistValues>
+        <picklistValues>
+            <masterLabel>810-Support</masterLabel>
+            <translation><!-- 810-Support --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>820-Deployment Engineers</masterLabel>
+            <translation><!-- 820-Deployment Engineers --></translation>
+        </picklistValues>
     </fields>
     <fields>
         <label><!-- Description --></label>
@@ -95,6 +99,10 @@
     <fields>
         <label><!-- Line Total --></label>
         <name>Line_Total__c</name>
+    </fields>
+    <fields>
+        <label><!-- # PR line --></label>
+        <name>PR_line__c</name>
     </fields>
     <fields>
         <label><!-- Project --></label>
@@ -230,6 +238,10 @@
         <picklistValues>
             <masterLabel>100042-VMworld Partner Exchange 2015</masterLabel>
             <translation><!-- 100042-VMworld Partner Exchange 2015 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>100043-Service Provider</masterLabel>
+            <translation><!-- 100043-Service Provider --></translation>
         </picklistValues>
     </fields>
     <fields>

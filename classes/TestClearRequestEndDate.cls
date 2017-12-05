@@ -34,8 +34,6 @@ public class TestClearRequestEndDate {
         Request__c request = new Request__c(POC_Contact__c = contact.Id);
         request.POC_Type__c='EdgeConnect';
         request.Extension_Justification__c='Test';
-        request.TR_Approved__c=true;
-        request.RSM_Approved__c=true;
         request.Type__c='Evaluation';
         request.Submission_Condition_Satisfied__c=true;
         request.Target_End_Date__c=Date.today().adddays(30);
@@ -71,8 +69,6 @@ public class TestClearRequestEndDate {
         request.POC_Type__c='EdgeConnect';
         request.Extension_Justification__c='Test';
         
-        request.TR_Approved__c=true;
-        request.RSM_Approved__c=true;
         request.Submission_Condition_Satisfied__c=true;
         request.Target_End_Date__c=Date.today().adddays(5);
         request.Status__c='Shipped';

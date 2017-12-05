@@ -6,5 +6,5 @@
     <mayForecastManagerShare>false</mayForecastManagerShare>
     <name>Technical Support Engineer</name>
     <opportunityAccessLevel>Edit</opportunityAccessLevel>
-    <parentRole>DirectorofCustomerService</parentRole>
+    <parentRole>Technical_Support_Manager</parentRole>
 </Role>

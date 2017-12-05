@@ -282,6 +282,7 @@
             <picklistValues>
                 <fullName>Cameroon</fullName>
                 <default>false</default>
+                <controllingFieldValues>EMEA</controllingFieldValues>
             </picklistValues>
             <picklistValues>
                 <fullName>Cape Verde</fullName>
@@ -1284,6 +1285,14 @@
                 <fullName>Zimbabwe</fullName>
                 <default>false</default>
                 <controllingFieldValues>EMEA</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Country Not Listed</fullName>
+                <default>false</default>
+                <controllingFieldValues>APAC</controllingFieldValues>
+                <controllingFieldValues>EMEA</controllingFieldValues>
+                <controllingFieldValues>LAT</controllingFieldValues>
+                <controllingFieldValues>NAM</controllingFieldValues>
             </picklistValues>
             <sorted>false</sorted>
         </picklist>

@@ -6,5 +6,5 @@
     <mayForecastManagerShare>false</mayForecastManagerShare>
     <name>Integrated Data Storage Partner Manager</name>
     <opportunityAccessLevel>None</opportunityAccessLevel>
-    <parentRole>ChannelSalesManagerWest</parentRole>
+    <parentRole>SVPMarketing</parentRole>
 </Role>

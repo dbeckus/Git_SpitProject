@@ -272,6 +272,10 @@
             <translation><!-- Riser Card --></translation>
         </picklistValues>
         <picklistValues>
+            <masterLabel>SATA</masterLabel>
+            <translation><!-- SATA --></translation>
+        </picklistValues>
+        <picklistValues>
             <masterLabel>Shipping</masterLabel>
             <translation><!-- Shipping --></translation>
         </picklistValues>

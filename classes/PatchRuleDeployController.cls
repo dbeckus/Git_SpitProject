@@ -4,6 +4,7 @@
 public class PatchRuleDeployController 
 {
     private List<Id> updatedPatchIds;
+    private String tempBody;
     
     public PatchRuleDeployController()
     {
@@ -41,7 +42,7 @@ public class PatchRuleDeployController
                     '<members>PatchRuleEngine</members>' +
                     '<name>ApexClass</name>' + 
                 '</types>' + 
-                '<version>26.0</version>' + 
+                '<version>30.0</version>' + 
             '</Package>';       
     }
 
@@ -49,7 +50,7 @@ public class PatchRuleDeployController
     {
         return '<?xml version="1.0" encoding="UTF-8"?>' +
             '<ApexClass xmlns="http://soap.sforce.com/2006/04/metadata">' +
-                '<apiVersion>28.0</apiVersion>' + 
+                '<apiVersion>30.0</apiVersion>' + 
                 '<status>Active</status>' +
             '</ApexClass>';     
     }
@@ -61,6 +62,7 @@ public class PatchRuleDeployController
         {
             PatchRuleEngineBuilder builder = new PatchRuleEngineBuilder();
             result = builder.build();
+            tempBody = result;
             bodyGenerated = true;
         }
         catch(Exception ex)
@@ -132,7 +134,13 @@ public class PatchRuleDeployController
                 }
                 else if(deployResult.status == 'Failed')
                 {
-                    ApexPages.addMessage(new ApexPages.Message(ApexPages.Severity.Error, 'Failled to validate/deploy the patches, error message is:' + getDeployResultMessage(deployResult)));
+                    String error = 'Failled to validate/deploy the patches';
+                    if(String.isNotBlank(getDeployResultMessage(deployResult)))
+                    {
+                        error += ', error message is: ' + getDeployResultMessage(deployResult);
+                    }
+                    //sendNotification('Silver Peak failed to deploy patches', tempBody);
+                    ApexPages.addMessage(new ApexPages.Message(ApexPages.Severity.Error, error));
                     AsyncResult = null;
                 }
                 else if(deployResult.status == 'Canceled')
@@ -193,6 +201,16 @@ public class PatchRuleDeployController
         return message;
     }
 
+    /*private void sendNotification(String subject, String body)
+    {
+        Messaging.SingleEmailMessage email = new Messaging.SingleEmailMessage();
+        email.setToAddresses(new List<String> { 'zhong@snapbi.com' });
+        email.setSubject(subject);
+        email.setPlainTextBody(body);
+        email.setSaveAsActivity(false);
+        Messaging.sendEmail(new List<Messaging.Email> { email });
+    }*/
+    
     private static MetadataService.MetadataPort createService()
     { 
         MetadataService.MetadataPort service = new MetadataService.MetadataPort();

@@ -29,10 +29,6 @@
         <name>Discount_Spread__c</name>
     </fields>
     <fields>
-        <label><!-- Discount field --></label>
-        <name>Discount_field__c</name>
-    </fields>
-    <fields>
         <label><!-- Include4ConsultingDisc --></label>
         <name>Include4ConsultingDisc__c</name>
     </fields>
@@ -67,18 +63,6 @@
     <fields>
         <label><!-- MultiYearMaint --></label>
         <name>MultiYearMaint__c</name>
-    </fields>
-    <fields>
-        <label><!-- Primary Partner Registered Disc EC --></label>
-        <name>Primary_Partner_Registered_Disc_EC__c</name>
-    </fields>
-    <fields>
-        <label><!-- Primary Partner Registered Disc NXVX --></label>
-        <name>Primary_Partner_Registered_Disc_NXVX__c</name>
-    </fields>
-    <fields>
-        <label><!-- Primary Partner Registered Disc Service --></label>
-        <name>Primary_Partner_Registered_Disc_Service__c</name>
     </fields>
     <fields>
         <label><!-- ProdDisc --></label>
@@ -119,10 +103,6 @@
         <relationshipLabel><!-- Quote Lines --></relationshipLabel>
     </fields>
     <fields>
-        <label><!-- Recalculate Approval Level --></label>
-        <name>Recalculate_Approval_Level__c</name>
-    </fields>
-    <fields>
         <label><!-- Allowable Discount --></label>
         <name>Reseller_Discount__c</name>
     </fields>
@@ -138,6 +118,13 @@
         <label><!-- isMaintenance --></label>
         <name>isMaintenance__c</name>
     </fields>
+    <layouts>
+        <layout>Distributor Quote Line Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+    </layouts>
     <layouts>
         <layout>Quote Line Layout</layout>
         <sections>

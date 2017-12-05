@@ -28,6 +28,10 @@
         <relationshipLabel><!-- Purchase Orders --></relationshipLabel>
     </fields>
     <fields>
+        <label><!-- Is this a foreign government entity? --></label>
+        <name>Is_this_a_foreign_government_entity__c</name>
+    </fields>
+    <fields>
         <label><!-- Missing End Customer PO --></label>
         <name>Missing_End_Customer_PO__c</name>
     </fields>
@@ -73,6 +77,10 @@
         <help><!-- when this is set it sets status to partial shipped, when cleared is sets to shipped complete --></help>
         <label><!-- Partial Ship --></label>
         <name>Partial_Ship__c</name>
+    </fields>
+    <fields>
+        <label><!-- Pending Support Contract --></label>
+        <name>Pending_Support_Contract__c</name>
     </fields>
     <fields>
         <label><!-- RevRecSigned --></label>

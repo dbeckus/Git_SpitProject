@@ -2,7 +2,7 @@
 <Workflow xmlns="http://soap.sforce.com/2006/04/metadata">
     <alerts>
         <fullName>Closed_Won_Less_Than_100_K_Email_Template</fullName>
-        <ccEmails>prane@silver-peak.com</ccEmails>
+        <ccEmails>SFDCAllHands@silver-peak.com</ccEmails>
         <description>Closed Won Less Than 100 K Email Template</description>
         <protected>false</protected>
         <recipients>
@@ -22,7 +22,7 @@
     </alerts>
     <alerts>
         <fullName>Closed_Won_New_and_FO</fullName>
-        <ccEmails>prane@silver-peak.com</ccEmails>
+        <ccEmails>SFDCAllHands@silver-peak.com</ccEmails>
         <description>Closed Won New and FO</description>
         <protected>false</protected>
         <recipients>
@@ -200,15 +200,31 @@
             <type>owner</type>
         </recipients>
         <recipients>
-            <recipient>DirectorofChannelSales</recipient>
+            <recipient>Grade_1_Inside_Sales</recipient>
             <type>role</type>
         </recipients>
         <recipients>
-            <recipient>VPSalesEastern</recipient>
+            <recipient>Grade_1_Sales_COMM</recipient>
             <type>role</type>
         </recipients>
         <recipients>
-            <recipient>VPSalesWestern</recipient>
+            <recipient>Grade_2_BDR</recipient>
+            <type>role</type>
+        </recipients>
+        <recipients>
+            <recipient>Grade_3_Sales_NAM_Central</recipient>
+            <type>role</type>
+        </recipients>
+        <recipients>
+            <recipient>Grade_3_Sales_NAM_East</recipient>
+            <type>role</type>
+        </recipients>
+        <recipients>
+            <recipient>Grade_3_Sales_NAM_South</recipient>
+            <type>role</type>
+        </recipients>
+        <recipients>
+            <recipient>Grade_3_Sales_NAM_West</recipient>
             <type>role</type>
         </recipients>
         <recipients>
@@ -221,10 +237,6 @@
         </recipients>
         <recipients>
             <recipient>ewhite@silver-peak.com</recipient>
-            <type>user</type>
-        </recipients>
-        <recipients>
-            <recipient>shorton@silver-peak.com</recipient>
             <type>user</type>
         </recipients>
         <senderType>CurrentUser</senderType>
@@ -261,11 +273,11 @@
             <type>role</type>
         </recipients>
         <recipients>
-            <recipient>ewhite@silver-peak.com</recipient>
-            <type>user</type>
+            <recipient>Grade_3_Sales_APAC_ASEAN</recipient>
+            <type>role</type>
         </recipients>
         <recipients>
-            <recipient>mtrims@silver-peak.com</recipient>
+            <recipient>ewhite@silver-peak.com</recipient>
             <type>user</type>
         </recipients>
         <senderType>CurrentUser</senderType>
@@ -298,15 +310,15 @@
             <type>owner</type>
         </recipients>
         <recipients>
+            <recipient>Grade_2_Sales_EMEA</recipient>
+            <type>role</type>
+        </recipients>
+        <recipients>
             <recipient>VPSalesEMEA</recipient>
             <type>role</type>
         </recipients>
         <recipients>
             <recipient>ewhite@silver-peak.com</recipient>
-            <type>user</type>
-        </recipients>
-        <recipients>
-            <recipient>mtrims@silver-peak.com</recipient>
             <type>user</type>
         </recipients>
         <senderType>CurrentUser</senderType>
@@ -343,11 +355,11 @@
             <type>role</type>
         </recipients>
         <recipients>
-            <recipient>ewhite@silver-peak.com</recipient>
-            <type>user</type>
+            <recipient>Grade_2_Sales_LATAM</recipient>
+            <type>roleSubordinatesInternal</type>
         </recipients>
         <recipients>
-            <recipient>mtrims@silver-peak.com</recipient>
+            <recipient>ewhite@silver-peak.com</recipient>
             <type>user</type>
         </recipients>
         <senderType>CurrentUser</senderType>
@@ -387,33 +399,17 @@
     </alerts>
     <alerts>
         <fullName>NotifyVPMarketingtoauthorizeISRcreditonOpportunity</fullName>
-        <ccEmails>curtisc@silver-peak.com</ccEmails>
+        <ccEmails>dbeckus@silver-peak.com</ccEmails>
         <description>Notify VP Marketing to authorize ISR credit on Opportunity</description>
         <protected>false</protected>
-        <recipients>
-            <recipient>cbaily@silver-peak.com</recipient>
-            <type>user</type>
-        </recipients>
-        <recipients>
-            <recipient>dlambert@silver-peak.com</recipient>
-            <type>user</type>
-        </recipients>
         <senderType>CurrentUser</senderType>
         <template>Sales/ISR_new_oppty_alert</template>
     </alerts>
     <alerts>
         <fullName>OpportunityAdvancedfromProspecting</fullName>
-        <ccEmails>curtisc@silver-peak.com</ccEmails>
+        <ccEmails>dbeckus@silver-peak.com</ccEmails>
         <description>Opportunity Advanced from Prospecting</description>
         <protected>false</protected>
-        <recipients>
-            <recipient>cbaily@silver-peak.com</recipient>
-            <type>user</type>
-        </recipients>
-        <recipients>
-            <recipient>dlambert@silver-peak.com</recipient>
-            <type>user</type>
-        </recipients>
         <senderType>CurrentUser</senderType>
         <template>Sales/OptyProspected</template>
     </alerts>
@@ -422,39 +418,55 @@
         <description>Opportunity Stage Change Closed-Not Won</description>
         <protected>false</protected>
         <recipients>
+            <recipient>Account Manager</recipient>
+            <type>opportunityTeam</type>
+        </recipients>
+        <recipients>
             <recipient>Channel Manager</recipient>
-            <type>accountTeam</type>
+            <type>opportunityTeam</type>
+        </recipients>
+        <recipients>
+            <recipient>Systems Engineer</recipient>
+            <type>opportunityTeam</type>
+        </recipients>
+        <recipients>
+            <recipient>Team Owner</recipient>
+            <type>opportunityTeam</type>
         </recipients>
         <recipients>
             <recipient>CEO</recipient>
             <type>role</type>
         </recipients>
         <recipients>
-            <recipient>DirectorofChannelSales</recipient>
+            <recipient>Grade_1_Inside_Sales</recipient>
             <type>role</type>
         </recipients>
         <recipients>
-            <recipient>VPSalesEMEA</recipient>
+            <recipient>Grade_1_Sales</recipient>
             <type>role</type>
         </recipients>
         <recipients>
-            <recipient>VPSalesEastern</recipient>
+            <recipient>Grade_1_Sales_COMM</recipient>
             <type>role</type>
         </recipients>
         <recipients>
-            <recipient>VPSalesLAT</recipient>
+            <recipient>Grade_1_Sys_Eng</recipient>
             <type>role</type>
         </recipients>
         <recipients>
-            <recipient>VPSalesWestern</recipient>
+            <recipient>Grade_2_BDR</recipient>
             <type>role</type>
         </recipients>
         <recipients>
-            <recipient>afuoss@silver-peak.com</recipient>
-            <type>user</type>
+            <recipient>Grade_2_Sales_NAM</recipient>
+            <type>role</type>
         </recipients>
         <recipients>
             <recipient>dennis@silver-peak.com</recipient>
+            <type>user</type>
+        </recipients>
+        <recipients>
+            <recipient>dgranath@silver-peak.com</recipient>
             <type>user</type>
         </recipients>
         <recipients>
@@ -466,11 +478,15 @@
             <type>user</type>
         </recipients>
         <recipients>
-            <recipient>mmartin@silver-peak.com</recipient>
+            <recipient>jvincenzo@silver-peak.com</recipient>
             <type>user</type>
         </recipients>
         <recipients>
-            <recipient>prane@silver-peak.com</recipient>
+            <recipient>rbooth@silver-peak.com</recipient>
+            <type>user</type>
+        </recipients>
+        <recipients>
+            <recipient>rmarqueling@silver-peak.com</recipient>
             <type>user</type>
         </recipients>
         <senderType>CurrentUser</senderType>
@@ -500,10 +516,67 @@
     <alerts>
         <fullName>Opportunityhasbeenclosedandwon</fullName>
         <ccEmails>opptywon@silver-peak.com</ccEmails>
+        <ccEmails>semanagers@silver-peak.com</ccEmails>
         <description>Opportunity has been closed and won</description>
         <protected>false</protected>
         <recipients>
+            <recipient>Account Manager</recipient>
+            <type>opportunityTeam</type>
+        </recipients>
+        <recipients>
+            <recipient>Channel Manager</recipient>
+            <type>opportunityTeam</type>
+        </recipients>
+        <recipients>
+            <recipient>Inside Sale Representative</recipient>
+            <type>opportunityTeam</type>
+        </recipients>
+        <recipients>
+            <recipient>Systems Engineer</recipient>
+            <type>opportunityTeam</type>
+        </recipients>
+        <recipients>
+            <recipient>Team Owner</recipient>
+            <type>opportunityTeam</type>
+        </recipients>
+        <recipients>
             <type>owner</type>
+        </recipients>
+        <recipients>
+            <recipient>CEO</recipient>
+            <type>role</type>
+        </recipients>
+        <recipients>
+            <recipient>CFO</recipient>
+            <type>role</type>
+        </recipients>
+        <recipients>
+            <recipient>DirectorofCustomerService</recipient>
+            <type>role</type>
+        </recipients>
+        <recipients>
+            <recipient>Grade_1_Inside_Sales</recipient>
+            <type>role</type>
+        </recipients>
+        <recipients>
+            <recipient>Grade_2_Sales_NAM</recipient>
+            <type>role</type>
+        </recipients>
+        <recipients>
+            <recipient>SVPSales</recipient>
+            <type>role</type>
+        </recipients>
+        <recipients>
+            <recipient>VPProductManagement</recipient>
+            <type>role</type>
+        </recipients>
+        <recipients>
+            <recipient>jvincenzo@silver-peak.com</recipient>
+            <type>user</type>
+        </recipients>
+        <recipients>
+            <recipient>rrammaha@silver-peak.com</recipient>
+            <type>user</type>
         </recipients>
         <senderType>CurrentUser</senderType>
         <template>Support/OptyClosedWon</template>
@@ -513,19 +586,37 @@
         <description>Sales Win Send to Opp Owner</description>
         <protected>false</protected>
         <recipients>
-            <recipient>ddalponte@silver-peak.com</recipient>
-            <type>user</type>
+            <type>owner</type>
         </recipients>
         <recipients>
             <recipient>ewhite@silver-peak.com</recipient>
             <type>user</type>
         </recipients>
+        <senderAddress>salesops@silver-peak.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>unfiled$public/Sales_Win_Email</template>
+    </alerts>
+    <alerts>
+        <fullName>Send_Loss_Email_to_Opp_Owner</fullName>
+        <description>Send Loss Email to Opp Owner</description>
+        <protected>false</protected>
         <recipients>
-            <recipient>rbooth@silver-peak.com</recipient>
+            <type>owner</type>
+        </recipients>
+        <senderAddress>salesops@silver-peak.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>Sales/Sales_Loss_Email</template>
+    </alerts>
+    <alerts>
+        <fullName>Send_email_to_Praj</fullName>
+        <description>Send email to Praj</description>
+        <protected>false</protected>
+        <recipients>
+            <recipient>prane@silver-peak.com</recipient>
             <type>user</type>
         </recipients>
         <senderType>CurrentUser</senderType>
-        <template>unfiled$public/Sales_Win_Email</template>
+        <template>Sales/RevRecSignedByRSM</template>
     </alerts>
     <alerts>
         <fullName>Send_email_to_registering_partner_sales_rep</fullName>
@@ -545,7 +636,7 @@
         <description>Send me a note upon Deal Reg conversion</description>
         <protected>false</protected>
         <recipients>
-            <recipient>curtisc@silver-peak.com</recipient>
+            <recipient>dbeckus@silver-peak.com</recipient>
             <type>user</type>
         </recipients>
         <senderType>CurrentUser</senderType>
@@ -556,16 +647,20 @@
         <description>Send to BDR for closed dead</description>
         <protected>false</protected>
         <recipients>
+            <recipient>Grade_1_Inside_Sales</recipient>
+            <type>role</type>
+        </recipients>
+        <recipients>
+            <recipient>Grade_2_BDR</recipient>
+            <type>role</type>
+        </recipients>
+        <recipients>
             <recipient>ISR_Team</recipient>
             <type>role</type>
         </recipients>
         <recipients>
             <recipient>InsideSalesMgr</recipient>
             <type>role</type>
-        </recipients>
-        <recipients>
-            <recipient>ewhite@silver-peak.com</recipient>
-            <type>user</type>
         </recipients>
         <senderType>CurrentUser</senderType>
         <template>unfiled$public/oppty_closed_stage_dead</template>
@@ -574,10 +669,6 @@
         <fullName>Transactional_Opportunity_Alert</fullName>
         <description>Transactional Opportunity Alert</description>
         <protected>false</protected>
-        <recipients>
-            <recipient>afuoss@silver-peak.com</recipient>
-            <type>user</type>
-        </recipients>
         <recipients>
             <recipient>dfehleisen@silver-peak.com</recipient>
             <type>user</type>
@@ -628,14 +719,6 @@
         <name>Clear Bypassing Validation</name>
         <notifyAssignee>false</notifyAssignee>
         <operation>Literal</operation>
-        <protected>false</protected>
-    </fieldUpdates>
-    <fieldUpdates>
-        <fullName>Clear_the_other_competitor_text</fullName>
-        <field>Other_Competitor_Value__c</field>
-        <name>Clear the other competitor text</name>
-        <notifyAssignee>false</notifyAssignee>
-        <operation>Null</operation>
         <protected>false</protected>
     </fieldUpdates>
     <fieldUpdates>
@@ -805,28 +888,6 @@
         <protected>false</protected>
     </fieldUpdates>
     <fieldUpdates>
-        <fullName>Stamp_Active_POC</fullName>
-        <field>Active_POC_DateStamp__c</field>
-        <formula>IF(
-AND(
-ISBLANK(Active_POC_DateStamp__c),
-Has_Active_POCs__c
-),today(),Active_POC_DateStamp__c )</formula>
-        <name>Stamp Active POC</name>
-        <notifyAssignee>false</notifyAssignee>
-        <operation>Formula</operation>
-        <protected>false</protected>
-    </fieldUpdates>
-    <fieldUpdates>
-        <fullName>Stamp_Inactive_Date</fullName>
-        <field>Inactive_POC_DateStamp__c</field>
-        <formula>IF( !Has_Active_POCs__c,today(), Inactive_POC_DateStamp__c  )</formula>
-        <name>Stamp Inactive Date</name>
-        <notifyAssignee>false</notifyAssignee>
-        <operation>Formula</operation>
-        <protected>false</protected>
-    </fieldUpdates>
-    <fieldUpdates>
         <fullName>Technical_Responsibility_Updates</fullName>
         <description>Updates to Dave Fehleisen</description>
         <field>Technical_Responsible__c</field>
@@ -888,7 +949,7 @@ Has_Active_POCs__c
         <endpointUrl>https://partner.silver-peak.com/services/SFDC-DealRegistrationApproved.ashx</endpointUrl>
         <fields>Id</fields>
         <includeSessionId>false</includeSessionId>
-        <integrationUser>curtisc@silver-peak.com</integrationUser>
+        <integrationUser>dbeckus@silver-peak.com</integrationUser>
         <name>Deal Registration Approved</name>
         <protected>false</protected>
         <useDeadLetterQueue>false</useDeadLetterQueue>
@@ -899,7 +960,7 @@ Has_Active_POCs__c
         <endpointUrl>https://partner.silver-peak.com/services/SFDC-OpportunityNotifyRVMember.ashx</endpointUrl>
         <fields>Id</fields>
         <includeSessionId>false</includeSessionId>
-        <integrationUser>curtisc@silver-peak.com</integrationUser>
+        <integrationUser>dbeckus@silver-peak.com</integrationUser>
         <name>Notify RV Member</name>
         <protected>false</protected>
         <useDeadLetterQueue>false</useDeadLetterQueue>
@@ -987,6 +1048,19 @@ New_Business__c
         <triggerType>onCreateOrTriggeringUpdate</triggerType>
     </rules>
     <rules>
+        <fullName>Check Signature issue</fullName>
+        <actions>
+            <name>Send_email_to_Praj</name>
+            <type>Alert</type>
+        </actions>
+        <active>true</active>
+        <formula>AND( Signature_of_Opportunity_Owner__c,
+NOT(ISBLANK(PRIORVALUE(Signed_By__c ))),
+ISBLANK(Signed_By__c)
+)</formula>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
         <fullName>Clear Bypassing Validation</fullName>
         <actions>
             <name>Clear_Bypassing_Validation</name>
@@ -999,20 +1073,6 @@ New_Business__c
             <value>True</value>
         </criteriaItems>
         <triggerType>onAllChanges</triggerType>
-    </rules>
-    <rules>
-        <fullName>Clear Other Competitor Value</fullName>
-        <actions>
-            <name>Clear_the_other_competitor_text</name>
-            <type>FieldUpdate</type>
-        </actions>
-        <active>true</active>
-        <criteriaItems>
-            <field>Opportunity.primary_competitor__c</field>
-            <operation>notEqual</operation>
-            <value>Other</value>
-        </criteriaItems>
-        <triggerType>onCreateOrTriggeringUpdate</triggerType>
     </rules>
     <rules>
         <fullName>Clear out opp source for renewal</fullName>
@@ -1074,6 +1134,14 @@ ISCHANGED(StageName)
         </criteriaItems>
         <criteriaItems>
             <field>Opportunity.Loss_Description__c</field>
+            <operation>notEqual</operation>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Opportunity.Loss_Reason__c</field>
+            <operation>notEqual</operation>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Opportunity.primary_competitor__c</field>
             <operation>notEqual</operation>
         </criteriaItems>
         <description>oppty-closed</description>
@@ -1170,6 +1238,7 @@ ISCHANGED(StageName)
             <type>Alert</type>
         </actions>
         <active>true</active>
+        <booleanFilter>1 AND 2 AND 3 AND 4 AND 5 AND 6</booleanFilter>
         <criteriaItems>
             <field>Opportunity.StageName</field>
             <operation>equals</operation>
@@ -1189,6 +1258,14 @@ ISCHANGED(StageName)
             <operation>lessOrEqual</operation>
             <value>100000</value>
         </criteriaItems>
+        <criteriaItems>
+            <field>Opportunity.Number_of_branches__c</field>
+            <operation>notEqual</operation>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Opportunity.primary_competitor__c</field>
+            <operation>notEqual</operation>
+        </criteriaItems>
         <description>Sends an email when a new and follow on  opportunity is closed/won</description>
         <triggerType>onCreateOrTriggeringUpdate</triggerType>
     </rules>
@@ -1199,6 +1276,7 @@ ISCHANGED(StageName)
             <type>Alert</type>
         </actions>
         <active>true</active>
+        <booleanFilter>1 AND 2 AND 3 AND 4 AND 5 AND 6</booleanFilter>
         <criteriaItems>
             <field>Opportunity.StageName</field>
             <operation>equals</operation>
@@ -1217,6 +1295,14 @@ ISCHANGED(StageName)
             <field>Opportunity.Amount</field>
             <operation>greaterThan</operation>
             <value>100000</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Opportunity.Number_of_branches__c</field>
+            <operation>notEqual</operation>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Opportunity.primary_competitor__c</field>
+            <operation>notEqual</operation>
         </criteriaItems>
         <description>Sends an email when a new and follow on  opportunity is closed/won</description>
         <triggerType>onCreateOrTriggeringUpdate</triggerType>
@@ -1260,6 +1346,45 @@ ISCHANGED(StageName)
         <triggerType>onAllChanges</triggerType>
     </rules>
     <rules>
+        <fullName>Opportunity Closed Won</fullName>
+        <actions>
+            <name>Opportunityhasbeenclosedandwon</name>
+            <type>Alert</type>
+        </actions>
+        <actions>
+            <name>SetFinanceId</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>false</active>
+        <criteriaItems>
+            <field>Opportunity.StageName</field>
+            <operation>equals</operation>
+            <value>Closed Won</value>
+        </criteriaItems>
+        <description>Sends an email when an opportunity is closed/won</description>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>Opportunity Closed Won%28New%26FO%29</fullName>
+        <actions>
+            <name>Closed_Won_New_and_FO</name>
+            <type>Alert</type>
+        </actions>
+        <active>false</active>
+        <criteriaItems>
+            <field>Opportunity.StageName</field>
+            <operation>equals</operation>
+            <value>Closed Won</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Opportunity.Type</field>
+            <operation>equals</operation>
+            <value>Follow on Business,New Business</value>
+        </criteriaItems>
+        <description>Sends an email when a new and follow on  opportunity is closed/won</description>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
         <fullName>Opportunity Registration Converted</fullName>
         <actions>
             <name>Deal_Reg_Converted</name>
@@ -1276,15 +1401,6 @@ ISCHANGED(StageName)
             <value>Deal Registration</value>
         </criteriaItems>
         <description>When a deal registration converts from a lead, setup some of the data values for the opportunity</description>
-        <triggerType>onCreateOnly</triggerType>
-    </rules>
-    <rules>
-        <fullName>Populate Default PriceBook on Opp</fullName>
-        <active>false</active>
-        <criteriaItems>
-            <field>Opportunity.Name</field>
-            <operation>notEqual</operation>
-        </criteriaItems>
         <triggerType>onCreateOnly</triggerType>
     </rules>
     <rules>
@@ -1319,6 +1435,10 @@ ISCHANGED(StageName)
             <operation>equals</operation>
             <value>True</value>
         </criteriaItems>
+        <criteriaItems>
+            <field>Opportunity.Finance_Released_At__c</field>
+            <operation>notEqual</operation>
+        </criteriaItems>
         <description>when finance signs the rev rec checklist, email to oppty owner</description>
         <triggerType>onCreateOrTriggeringUpdate</triggerType>
     </rules>
@@ -1334,20 +1454,68 @@ ISCHANGED(StageName)
             <operation>equals</operation>
             <value>True</value>
         </criteriaItems>
+        <criteriaItems>
+            <field>Opportunity.Signed_At__c</field>
+            <operation>notEqual</operation>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Opportunity.Signed_By__c</field>
+            <operation>notEqual</operation>
+        </criteriaItems>
         <description>when the RSM signs the rev rec checklist, email to Kiellie and Richard</description>
         <triggerType>onCreateOrTriggeringUpdate</triggerType>
     </rules>
     <rules>
-        <fullName>Send Competition Data</fullName>
+        <fullName>Send Competition Data For Lost Opp</fullName>
         <actions>
-            <name>Sales_Win_Send_to_Opp_Owner</name>
+            <name>Send_Loss_Email_to_Opp_Owner</name>
             <type>Alert</type>
         </actions>
         <active>true</active>
         <criteriaItems>
             <field>Opportunity.StageName</field>
             <operation>equals</operation>
-            <value>Closed Won,Closed Lost</value>
+            <value>Closed Lost</value>
+        </criteriaItems>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>Send Competition Data for Win</fullName>
+        <actions>
+            <name>Sales_Win_Send_to_Opp_Owner</name>
+            <type>Alert</type>
+        </actions>
+        <active>true</active>
+        <booleanFilter>1 AND ((2 AND 3)  OR (4 AND 5)) AND 6</booleanFilter>
+        <criteriaItems>
+            <field>Opportunity.StageName</field>
+            <operation>equals</operation>
+            <value>Closed Won</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Opportunity.Type</field>
+            <operation>equals</operation>
+            <value>New Business</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Opportunity.First_Win_Opportunity__c</field>
+            <operation>equals</operation>
+            <value>True</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Opportunity.Type</field>
+            <operation>equals</operation>
+            <value>Follow on Business,Support Renewal,Subscription Renewal,EC Renewal,New Business</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Opportunity.Amount</field>
+            <operation>greaterThan</operation>
+            <value>100000</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Opportunity.CloseDate</field>
+            <operation>greaterOrEqual</operation>
+            <value>10/23/2017</value>
         </criteriaItems>
         <triggerType>onCreateOrTriggeringUpdate</triggerType>
     </rules>
@@ -1358,9 +1526,7 @@ ISCHANGED(StageName)
             <type>FieldUpdate</type>
         </actions>
         <active>true</active>
-        <formula>OR
-(IsNew(),
-ISCHANGED( OwnerId ))</formula>
+        <formula>OR (IsNew(), ISCHANGED( OwnerId ))</formula>
         <triggerType>onAllChanges</triggerType>
     </rules>
     <rules>
@@ -1465,20 +1631,6 @@ ISCHANGED( OwnerId ))</formula>
         <triggerType>onCreateOnly</triggerType>
     </rules>
     <rules>
-        <fullName>Stamp Date on Opp for Active POC</fullName>
-        <actions>
-            <name>Stamp_Active_POC</name>
-            <type>FieldUpdate</type>
-        </actions>
-        <actions>
-            <name>Stamp_Inactive_Date</name>
-            <type>FieldUpdate</type>
-        </actions>
-        <active>true</active>
-        <formula>ISCHANGED( Has_Active_POCs__c )</formula>
-        <triggerType>onAllChanges</triggerType>
-    </rules>
-    <rules>
         <fullName>TempToFixRenewalStage</fullName>
         <active>false</active>
         <criteriaItems>
@@ -1528,7 +1680,7 @@ ISCHANGED( OwnerId ))</formula>
             <name>Uncheck_Partner_Initated_Flag</name>
             <type>FieldUpdate</type>
         </actions>
-        <active>true</active>
+        <active>false</active>
         <formula>AND(
 NOT(ISNULL( AccountId)),
 Account.Is_Partner_Initiated_Account__c,
@@ -1710,6 +1862,27 @@ IF(ISPICKVAL (LeadSource, &quot;Customer Referral.&quot;), 1,0), &quot;Used&quot
             <value>Marketplace</value>
         </criteriaItems>
         <description>oppty-closed and not won over 100K add exec staff to notices</description>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>oppty-closed-under100k</fullName>
+        <actions>
+            <name>OpportunityStageChangeEvalORClosedNotWon</name>
+            <type>Alert</type>
+        </actions>
+        <active>false</active>
+        <booleanFilter>1 AND 2</booleanFilter>
+        <criteriaItems>
+            <field>Opportunity.StageName</field>
+            <operation>equals</operation>
+            <value>Closed Lost,Closed Dead</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Opportunity.Type</field>
+            <operation>notEqual</operation>
+            <value>Marketplace</value>
+        </criteriaItems>
+        <description>oppty-closed and not won under 100k</description>
         <triggerType>onCreateOrTriggeringUpdate</triggerType>
     </rules>
     <rules>

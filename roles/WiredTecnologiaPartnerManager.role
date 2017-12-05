@@ -6,5 +6,5 @@
     <mayForecastManagerShare>false</mayForecastManagerShare>
     <name>Wired Tecnologia da Informacao Ltda Partner Manager</name>
     <opportunityAccessLevel>None</opportunityAccessLevel>
-    <parentRole>CountryManagerLAT</parentRole>
+    <parentRole>Grade_2_COMM</parentRole>
 </Role>

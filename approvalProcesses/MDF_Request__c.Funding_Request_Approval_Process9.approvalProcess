@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ApprovalProcess xmlns="http://soap.sforce.com/2006/04/metadata">
-    <active>true</active>
+    <active>false</active>
     <allowRecall>false</allowRecall>
     <allowedSubmitters>
         <type>creator</type>
@@ -179,7 +179,7 @@
             <criteriaItems>
                 <field>MDF_Request__c.GEO__c</field>
                 <operation>equals</operation>
-                <value>APAC</value>
+                <value>APAC,AZN</value>
             </criteriaItems>
             <criteriaItems>
                 <field>MDF_Request__c.Approval_Status__c</field>
@@ -228,7 +228,7 @@
             <criteriaItems>
                 <field>MDF_Request__c.GEO__c</field>
                 <operation>equals</operation>
-                <value>APAC</value>
+                <value>APAC,AZN</value>
             </criteriaItems>
             <criteriaItems>
                 <field>MDF_Request__c.Approval_Status__c</field>
@@ -562,7 +562,7 @@
         </approvalActions>
         <assignedApprover>
             <approver>
-                <name>ivara@silver-peak.com</name>
+                <name>amenjivar@silver-peak.com</name>
                 <type>user</type>
             </approver>
             <whenMultipleApprovers>FirstResponse</whenMultipleApprovers>
@@ -616,7 +616,7 @@
         </approvalActions>
         <assignedApprover>
             <approver>
-                <name>rcury@silver-peak.com</name>
+                <name>amenjivar@silver-peak.com</name>
                 <type>user</type>
             </approver>
             <whenMultipleApprovers>FirstResponse</whenMultipleApprovers>
@@ -770,6 +770,10 @@ Change Log:
         <action>
             <name>Move_MDF_Request_To_Pending</name>
             <type>FieldUpdate</type>
+        </action>
+        <action>
+            <name>New_MDF_Request_Submitted_for_Approval_Internal</name>
+            <type>Alert</type>
         </action>
     </initialSubmissionActions>
     <label>Funding Request Approval Process</label>

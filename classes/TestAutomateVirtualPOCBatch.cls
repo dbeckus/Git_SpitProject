@@ -8,8 +8,6 @@ public class TestAutomateVirtualPOCBatch {
         Set<String> customerUserTypes = new Set<String> {'PowerCustomerSuccess'};
             Account acc = new Account(Name='testECPOC');
         insert acc;
-        Account spAcc = new Account(Name='Silver Peak Systems');
-        insert spAcc;
         Contact contact = new Contact(FirstName = 'AcmeFirstname', LastName = 'AcmeLastname', Phone='123456789', Email = 'acme@acme.com' , accountId=acc.Id);
         insert contact;
         Profile p = [select Id,name from Profile where UserType in :customerUserTypes limit 1];
@@ -59,8 +57,6 @@ public class TestAutomateVirtualPOCBatch {
         request.Opportunity__c= opportunity.id;
         request.Status__c='Approved to Ship';
         request.VirtualProduct1__c='VX-8000';
-        request.TR_Approved__c=true;
-        request.RSM_Approved__c=true;
         request.Submission_Condition_Satisfied__c=true;
         request.VirtualQuantity1__c=1;
         insert request;
@@ -83,8 +79,6 @@ public class TestAutomateVirtualPOCBatch {
         Set<String> customerUserTypes = new Set<String> {'PowerCustomerSuccess'};
             Account acc = new Account(Name='testECPOC',Type='Customer');
         insert acc;
-        Account spAcc = new Account(Name='Silver Peak Systems');
-        insert spAcc;
         Contact contact = new Contact(FirstName = 'AcmeFirstname', LastName = 'AcmeLastname', Phone='123456789', Email = 'acme@acme.com' , accountId=acc.Id);
         insert contact;
         
@@ -121,8 +115,6 @@ public class TestAutomateVirtualPOCBatch {
         request.Opportunity__c= opportunity.id;
         request.Status__c='Approved to Ship';
         request.VirtualProduct1__c='VX-8000';
-        request.TR_Approved__c=true;
-        request.RSM_Approved__c=true;
         request.Submission_Condition_Satisfied__c=true;
         request.VirtualQuantity1__c=1;
         insert request;
@@ -146,8 +138,6 @@ public class TestAutomateVirtualPOCBatch {
         Set<String> customerUserTypes = new Set<String> {'PowerCustomerSuccess'};
             Account acc = new Account(Name='testECPOC',Type='Other');
         insert acc;
-        Account spAcc = new Account(Name='Silver Peak Systems');
-        insert spAcc;
         Contact contact = new Contact(FirstName = 'AcmeFirstname', LastName = 'AcmeLastname', Phone='123456789', Email = 'acme@acme.com' , accountId=acc.Id);
         insert contact;
         
@@ -184,8 +174,6 @@ public class TestAutomateVirtualPOCBatch {
         request.Opportunity__c= opportunity.id;
         request.Status__c='Approved to Ship';
         request.VirtualProduct1__c='VX-8000';
-        request.TR_Approved__c=true;
-        request.RSM_Approved__c=true;
         request.Submission_Condition_Satisfied__c=true;
         request.VirtualQuantity1__c=1;
         insert request;
@@ -201,15 +189,13 @@ public class TestAutomateVirtualPOCBatch {
         System.assertEquals(false, updateContact.CanAllowPortalSelfReg);
         
     }
-    @IsTest
+@IsTest
     public static void ValidatePartnerPortalLogic()
     {
         //Set<String> customerUserTypes = new Set<String> {'CSPLiteUser', 'PowerPartner', 'PowerCustomerSuccess',   'CustomerSuccess'};
         Set<String> customerUserTypes = new Set<String> {'PowerPartner'};
             Account acc = new Account(Name='testECPOC');
         insert acc;
-        Account spAcc = new Account(Name='Silver Peak Systems');
-        insert spAcc;
         Contact contact = new Contact(FirstName = 'AcmeFirstname', LastName = 'AcmeLastname', Phone='123456789', Email = 'acme@acme.com' , accountId=acc.Id);
         insert contact;
         Profile p = [select Id,name from Profile where Name='13g-SP Partner Community' limit 1];
@@ -259,8 +245,6 @@ public class TestAutomateVirtualPOCBatch {
         request.Opportunity__c= opportunity.id;
         request.Status__c='Approved to Ship';
         request.VirtualProduct1__c='VX-8000';
-        request.TR_Approved__c=true;
-        request.RSM_Approved__c=true;
         request.Submission_Condition_Satisfied__c=true;
         request.VirtualQuantity1__c=1;
         insert request;
@@ -273,15 +257,13 @@ public class TestAutomateVirtualPOCBatch {
         Request__c outputPOC=[Select Id,Status__c from Request__c where Id=:request.Id ];
         System.assertEquals('Shipped', outputPOC.Status__c);
     }
-    
+   
     public static void CreatePartnerPortalUser()
     {
         //Set<String> customerUserTypes = new Set<String> {'CSPLiteUser', 'PowerPartner', 'PowerCustomerSuccess',   'CustomerSuccess'};
         Set<String> customerUserTypes = new Set<String> {'PowerPartner'};
             Account acc = new Account(Name='testECPOC',Type='Partner');
         insert acc;
-        Account spAcc = new Account(Name='Silver Peak Systems');
-        insert spAcc;
         Contact contact = new Contact(FirstName = 'AcmeFirstname', LastName = 'AcmeLastname', Phone='123456789', Email = 'acme@acme.com' , accountId=acc.Id);
         insert contact;
         
@@ -340,8 +322,6 @@ public class TestAutomateVirtualPOCBatch {
         request.Opportunity__c= opportunity.id;
         request.Status__c='Approved to Ship';
         request.VirtualProduct1__c='VX-8000';
-        request.TR_Approved__c=true;
-        request.RSM_Approved__c=true;
         request.Submission_Condition_Satisfied__c=true;
         request.VirtualQuantity1__c=1;
         insert request;
@@ -356,15 +336,13 @@ public class TestAutomateVirtualPOCBatch {
         User updateContact=[Select Id from User where ContactId=:contact.Id];
         System.assert(updateContact!=null);
     }
-    @IsTest
+  @IsTest
     public static void PartnerPortalUser_NotEnabled_NotFulfilled()
     {
         //Set<String> customerUserTypes = new Set<String> {'CSPLiteUser', 'PowerPartner', 'PowerCustomerSuccess',   'CustomerSuccess'};
         Set<String> customerUserTypes = new Set<String> {'PowerPartner'};
             Account acc = new Account(Name='testECPOC',Type='Other');
         insert acc;
-        Account spAcc = new Account(Name='Silver Peak Systems');
-        insert spAcc;
         Contact contact = new Contact(FirstName = 'AcmeFirstname', LastName = 'AcmeLastname', Phone='123456789', Email = 'acme@acme.com' , accountId=acc.Id);
         insert contact;
         
@@ -401,8 +379,6 @@ public class TestAutomateVirtualPOCBatch {
         request.Opportunity__c= opportunity.id;
         request.Status__c='Approved to Ship';
         request.VirtualProduct1__c='VX-8000';
-        request.TR_Approved__c=true;
-        request.RSM_Approved__c=true;
         request.Submission_Condition_Satisfied__c=true;
         request.VirtualQuantity1__c=1;
         insert request;
@@ -417,14 +393,12 @@ public class TestAutomateVirtualPOCBatch {
         
     }
     
-    @IsTest
+   @IsTest
     public static void GMS_Fulfillment()
     {
         Set<String> customerUserTypes = new Set<String> {'PowerPartner'};
             Account acc = new Account(Name='testECPOC',Type='Partner');
         insert acc;
-        Account spAcc = new Account(Name='Silver Peak Systems');
-        insert spAcc;
         Contact contact = new Contact(FirstName = 'AcmeFirstname', LastName = 'AcmeLastname', Phone='123456789', Email = 'acme@acme.com' , accountId=acc.Id);
         insert contact;
         
@@ -484,8 +458,6 @@ public class TestAutomateVirtualPOCBatch {
         request.Status__c='Approved to Ship';
         request.VirtualProduct1__c='GMS-10';
         request.VirtualProduct2__c='UNITY CLOUD INTELLIGENCE';
-        request.TR_Approved__c=true;
-        request.RSM_Approved__c=true;
         request.Submission_Condition_Satisfied__c=true;
         request.VirtualQuantity1__c=1;
         request.VirtualQuantity2__c=1;
@@ -495,29 +467,27 @@ public class TestAutomateVirtualPOCBatch {
         AutomateVirtualPOCBatch obj = new AutomateVirtualPOCBatch();
         Database.executeBatch(obj);
         Test.stopTest();        
-        /* Request__c outputPOC=[Select Id,Status__c from Request__c where Id=:request.Id ];
-System.assertEquals('Shipped', outputPOC.Status__c);
-User updateContact=[Select Id from User where ContactId=:contact.Id];
-System.assert(updateContact!=null);
-List<Asset> asset= [Select Id,Key_Generated__c from Asset where POCRequest__c=: request.Id];
-System.assert(true,asset[0].Key_Generated__c);*/
+       /* Request__c outputPOC=[Select Id,Status__c from Request__c where Id=:request.Id ];
+        System.assertEquals('Shipped', outputPOC.Status__c);
+        User updateContact=[Select Id from User where ContactId=:contact.Id];
+        System.assert(updateContact!=null);
+        List<Asset> asset= [Select Id,Key_Generated__c from Asset where POCRequest__c=: request.Id];
+        System.assert(true,asset[0].Key_Generated__c);*/
         
     }
     
+  
     
-    
-    @IsTest
+   @IsTest
     public static void Multiple_Fulfillment()
     {
         Set<String> customerUserTypes = new Set<String> {'PowerPartner'};
             Account acc = new Account(Name='testECPOC',Type='Partner');
         insert acc;
-        Account spAcc = new Account(Name='Silver Peak Systems');
-        insert spAcc;
         Contact contact = new Contact(FirstName = 'AcmeFirstname', LastName = 'AcmeLastname', Phone='123456789', Email = 'acme@acme.com' , accountId=acc.Id);
         insert contact;
         
-        Profile p = [select Id,name from Profile where Name='13g-SP Partner Community' limit 1];
+       Profile p = [select Id,name from Profile where Name='13g-SP Partner Community' limit 1];
         User partnerUser = new User(
             profileId = p.id, 
             username = 'acme@acme.com.pp', 
@@ -573,8 +543,6 @@ System.assert(true,asset[0].Key_Generated__c);*/
         request.Status__c='Approved to Ship';
         request.VirtualProduct1__c='GMS-10';
         request.VirtualProduct2__c='VX-9000';
-        request.TR_Approved__c=true;
-        request.RSM_Approved__c=true;
         request.Submission_Condition_Satisfied__c=true;
         request.VirtualQuantity1__c=1;
         request.VirtualQuantity2__c=1;

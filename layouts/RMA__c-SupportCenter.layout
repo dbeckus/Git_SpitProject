@@ -27,10 +27,6 @@
                 <behavior>Readonly</behavior>
                 <field>Tracking_Information__c</field>
             </layoutItems>
-            <layoutItems>
-                <behavior>Readonly</behavior>
-                <field>Received_Count__c</field>
-            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>

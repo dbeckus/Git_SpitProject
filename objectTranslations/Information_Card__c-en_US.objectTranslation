@@ -1,0 +1,369 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Information Card</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Information Cards</value>
+    </caseValues>
+    <fields>
+        <label><!-- Are you an authorized partner of: - ACCT --></label>
+        <name>ACCT_Are_you_an_authorized_partner_of__c</name>
+    </fields>
+    <fields>
+        <label><!-- Billing City - ACCT --></label>
+        <name>ACCT_Billing_City__c</name>
+    </fields>
+    <fields>
+        <label><!-- Billing Country - ACCT --></label>
+        <name>ACCT_Billing_Country__c</name>
+    </fields>
+    <fields>
+        <label><!-- Billing Postal Code - ACCT --></label>
+        <name>ACCT_Billing_Postal_Code__c</name>
+    </fields>
+    <fields>
+        <label><!-- Billing State - ACCT --></label>
+        <name>ACCT_Billing_State__c</name>
+    </fields>
+    <fields>
+        <label><!-- Billing Street - ACCT --></label>
+        <name>ACCT_Billing_Street__c</name>
+    </fields>
+    <fields>
+        <label><!-- Distributor of Choice - ACCT --></label>
+        <name>ACCT_Distributor_of_Choice__c</name>
+    </fields>
+    <fields>
+        <label><!-- Email Domain Used - ACCT --></label>
+        <name>ACCT_Email_Domain_Used__c</name>
+    </fields>
+    <fields>
+        <label><!-- Integrate Cloud Solns w Vendors? - ACCT --></label>
+        <name>ACCT_Integrate_Cloud_Solns_with_Vendors__c</name>
+    </fields>
+    <fields>
+        <label><!-- Marketing Offerings - ACCT --></label>
+        <name>ACCT_Marketing_Offerings__c</name>
+    </fields>
+    <fields>
+        <label><!-- Number of employees in your org - ACCT --></label>
+        <name>ACCT_Number_of_employees_in_your_org__c</name>
+    </fields>
+    <fields>
+        <label><!-- Professionals in org Outside Sale - ACCT --></label>
+        <name>ACCT_Number_of_sales_professionals__c</name>
+    </fields>
+    <fields>
+        <label><!-- Own brand of profess services? - ACCT --></label>
+        <name>ACCT_Own_brand_of_profess_services__c</name>
+    </fields>
+    <fields>
+        <label><!-- Phone - ACCT --></label>
+        <name>ACCT_Phone__c</name>
+    </fields>
+    <fields>
+        <label><!-- Please Name the Vendors - ACCT --></label>
+        <name>ACCT_Please_Name_the_Vendors__c</name>
+    </fields>
+    <fields>
+        <label><!-- Primary target market size? - ACCT --></label>
+        <name>ACCT_Primary_target_market_size__c</name>
+    </fields>
+    <fields>
+        <label><!-- Professionals in org Sales Engineers - A --></label>
+        <name>ACCT_Professionals_in_org__c</name>
+    </fields>
+    <fields>
+        <label><!-- Professionals in org Inside Sales - ACCT --></label>
+        <name>ACCT_Professionals_in_your_org_Inside__c</name>
+    </fields>
+    <fields>
+        <label><!-- Provide technical support? - ACCT --></label>
+        <name>ACCT_Provide_technical_support__c</name>
+    </fields>
+    <fields>
+        <label><!-- Region - ACCT --></label>
+        <name>ACCT_Region__c</name>
+    </fields>
+    <fields>
+        <label><!-- Silver Peak opportunity pending - ACCT --></label>
+        <name>ACCT_Silver_Peak_opportunity_pending__c</name>
+    </fields>
+    <fields>
+        <label><!-- TOP 3 industries - ACCT --></label>
+        <name>ACCT_TOP_3_industries__c</name>
+    </fields>
+    <fields>
+        <label><!-- Tax ID Number - ACCT --></label>
+        <name>ACCT_Tax_ID_Number__c</name>
+    </fields>
+    <fields>
+        <label><!-- Total annual sales revenues LY? - ACCT --></label>
+        <name>ACCT_Total_annual_sales_revenues_LY__c</name>
+    </fields>
+    <fields>
+        <label><!-- Website - ACCT --></label>
+        <name>ACCT_Website__c</name>
+    </fields>
+    <fields>
+        <label><!-- Years in Business - ACCT --></label>
+        <name>ACCT_Years_in_Business__c</name>
+    </fields>
+    <fields>
+        <label><!-- % business is Consulting Sales - ACCT --></label>
+        <name>ACCT_business_is_Consulting_Sales__c</name>
+    </fields>
+    <fields>
+        <label><!-- % business is Product Sales - ACCT --></label>
+        <name>ACCT_business_is_Product_Sales__c</name>
+    </fields>
+    <fields>
+        <label><!-- % business is Services Sales - ACCT --></label>
+        <name>ACCT_business_is_Services_Sales__c</name>
+    </fields>
+    <fields>
+        <label><!-- Company Name - ACCT --></label>
+        <name>ACC_Company_Name__c</name>
+    </fields>
+    <fields>
+        <label><!-- Account CAM --></label>
+        <name>Account_CAM__c</name>
+        <relationshipLabel><!-- Information Cards --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Account Data Match --></label>
+        <name>Account_Data_Match__c</name>
+        <picklistValues>
+            <masterLabel>No</masterLabel>
+            <translation><!-- No --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Yes</masterLabel>
+            <translation><!-- Yes --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Account --></label>
+        <name>Account__c</name>
+        <relationshipLabel><!-- Information Cards --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Are you an authorized partner of: --></label>
+        <name>Are_you_an_authorized_partner_of__c</name>
+        <picklistValues>
+            <masterLabel>Not Applicable</masterLabel>
+            <translation><!-- Not Applicable --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Billing City --></label>
+        <name>Billing_City__c</name>
+    </fields>
+    <fields>
+        <label><!-- Billing Country --></label>
+        <name>Billing_Country__c</name>
+    </fields>
+    <fields>
+        <label><!-- Billing Postal Code --></label>
+        <name>Billing_Postal_Code__c</name>
+    </fields>
+    <fields>
+        <label><!-- Billing State --></label>
+        <name>Billing_State__c</name>
+    </fields>
+    <fields>
+        <label><!-- Billing Street --></label>
+        <name>Billing_Street__c</name>
+    </fields>
+    <fields>
+        <label><!-- Company Name --></label>
+        <name>Company_Name__c</name>
+    </fields>
+    <fields>
+        <label><!-- Distributor of Choice --></label>
+        <name>Distributor_of_Choice__c</name>
+    </fields>
+    <fields>
+        <label><!-- Email Domain Used --></label>
+        <name>Email_Domain_Used__c</name>
+    </fields>
+    <fields>
+        <label><!-- Integrate Cloud Solutions with Vendors? --></label>
+        <name>Integrate_Cloud_Solutions_with_Vendors__c</name>
+    </fields>
+    <fields>
+        <label><!-- Marketing Partner Contact --></label>
+        <name>MarketingPartnerContact__c</name>
+        <relationshipLabel><!-- Information Cards (Marketing Partner Contact) --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Marketing Offerings --></label>
+        <name>Marketing_Offerings__c</name>
+        <picklistValues>
+            <masterLabel>Not Applicable</masterLabel>
+            <translation><!-- Not Applicable --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Number of Matching Accounts --></label>
+        <name>Number_of_Matching_Accounts__c</name>
+    </fields>
+    <fields>
+        <label><!-- Number of employees in your organization --></label>
+        <name>Number_of_employees_in_your_organization__c</name>
+    </fields>
+    <fields>
+        <label><!-- Professionals in org Outside Sales --></label>
+        <name>Number_of_sales_professionals_in_org__c</name>
+    </fields>
+    <fields>
+        <label><!-- Own brand of professional services? --></label>
+        <name>Own_brand_of_professional_services__c</name>
+    </fields>
+    <fields>
+        <label><!-- Phone --></label>
+        <name>Phone__c</name>
+    </fields>
+    <fields>
+        <label><!-- Please Name the Vendors --></label>
+        <name>Please_Name_the_Vendors__c</name>
+        <picklistValues>
+            <masterLabel>Not Applicable</masterLabel>
+            <translation><!-- Not Applicable --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Primary Partner Contact --></label>
+        <name>PrimaryPartnerContact__c</name>
+        <relationshipLabel><!-- Information Cards (Primary Partner Contact) --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Primary Partner First Name --></label>
+        <name>Primary_Partner_First_Name__c</name>
+    </fields>
+    <fields>
+        <label><!-- Primary target market size? --></label>
+        <name>Primary_target_market_size__c</name>
+    </fields>
+    <fields>
+        <label><!-- Professionals in org Sales Engineers --></label>
+        <name>Professionals_in_org__c</name>
+    </fields>
+    <fields>
+        <label><!-- Professionals in org Inside Sales --></label>
+        <name>Professionals_in_your_org_Inside_Sales__c</name>
+    </fields>
+    <fields>
+        <label><!-- Provide technical support? --></label>
+        <name>Provide_technical_support__c</name>
+        <picklistValues>
+            <masterLabel>Not Applicable</masterLabel>
+            <translation><!-- Not Applicable --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Region --></label>
+        <name>Region__c</name>
+    </fields>
+    <fields>
+        <label><!-- Registering User Contact --></label>
+        <name>RegisteringUserContact__c</name>
+        <relationshipLabel><!-- Information Cards (Registering User Contact) --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Signatory Partner Contact --></label>
+        <name>SignatoryPartnerContact__c</name>
+        <relationshipLabel><!-- Information Cards --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Silver Peak opportunity pending --></label>
+        <name>Silver_Peak_opportunity_pending__c</name>
+    </fields>
+    <fields>
+        <label><!-- Status --></label>
+        <name>Status__c</name>
+        <picklistValues>
+            <masterLabel>Approved</masterLabel>
+            <translation><!-- Approved --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Child Account Created</masterLabel>
+            <translation><!-- Child Account Created --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Merged</masterLabel>
+            <translation><!-- Merged --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>New</masterLabel>
+            <translation><!-- New --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>No Change</masterLabel>
+            <translation><!-- No Change --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Recalled</masterLabel>
+            <translation><!-- Recalled --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Rejected</masterLabel>
+            <translation><!-- Rejected --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Submitted</masterLabel>
+            <translation><!-- Submitted --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- TOP 3 industries --></label>
+        <name>TOP_3_industries__c</name>
+    </fields>
+    <fields>
+        <label><!-- Tax ID Number --></label>
+        <name>Tax_ID_Number__c</name>
+    </fields>
+    <fields>
+        <label><!-- Total annual sales revenues last year? --></label>
+        <name>Total_annual_sales_revenues_last_year__c</name>
+    </fields>
+    <fields>
+        <label><!-- Website --></label>
+        <name>Website__c</name>
+    </fields>
+    <fields>
+        <label><!-- Years in Business --></label>
+        <name>Years_in_Business__c</name>
+    </fields>
+    <fields>
+        <label><!-- % business is Consulting Sales --></label>
+        <name>business_is_Consulting_Sales__c</name>
+    </fields>
+    <fields>
+        <label><!-- % business is Product Sales --></label>
+        <name>business_is_Product_Sales__c</name>
+    </fields>
+    <fields>
+        <label><!-- % business is Services Sales --></label>
+        <name>business_is_Services_Sales__c</name>
+    </fields>
+    <layouts>
+        <layout>Information Card Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+        <sections>
+            <label><!-- Information Card Details --></label>
+            <section>Information Card Details</section>
+        </sections>
+        <sections>
+            <label><!-- Information Comparison --></label>
+            <section>Information Comparison</section>
+        </sections>
+    </layouts>
+    <startsWith>Vowel</startsWith>
+</CustomObjectTranslation>

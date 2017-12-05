@@ -316,7 +316,7 @@ public class RMATriggerHandler implements ITriggerHandler {
         if(acctManager!=null && acctManager.size()>0 )
         {
             if(acctManager[0].User.Email!=newRMA.Account_Manager_Email_1__c)
-            	newRMA.Account_Manager_Email_1__c=acctManager[0].User.Email;
+              newRMA.Account_Manager_Email_1__c=acctManager[0].User.Email;
             if(acctManager.size()>1)
             {
                if(acctManager[1].User.Email!=newRMA.Account_Manager_Email_2__c)
@@ -328,11 +328,11 @@ public class RMATriggerHandler implements ITriggerHandler {
         if(seManager!=null && seManager.size()>0 )
         {
             if(seManager[0].User.Email!=newRMA.System_Engineer_Email_1__c)
-            	newRMA.System_Engineer_Email_1__c =seManager[0].User.Email;
+              newRMA.System_Engineer_Email_1__c =seManager[0].User.Email;
             if(seManager.size()>1)
             {
                 if(seManager[1].User.Email!= newRMA.System_Engineer_Email_2__c)
-                 	newRMA.System_Engineer_Email_2__c =seManager[1].User.Email;
+                   newRMA.System_Engineer_Email_2__c =seManager[1].User.Email;
                
             }
         }

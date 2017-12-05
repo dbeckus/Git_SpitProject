@@ -74,6 +74,14 @@
         </picklistValues>
     </fields>
     <fields>
+        <label><!-- # PR line --></label>
+        <name>PR_line__c</name>
+    </fields>
+    <fields>
+        <label><!-- # PR line qty --></label>
+        <name>PR_line_qty__c</name>
+    </fields>
+    <fields>
         <label><!-- Pay on Credit Card --></label>
         <name>PayOnCreditCard__c</name>
     </fields>

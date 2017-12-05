@@ -6,5 +6,5 @@
     <mayForecastManagerShare>false</mayForecastManagerShare>
     <name>Silver Peak SE - Duane Henigin Customer User</name>
     <opportunityAccessLevel>None</opportunityAccessLevel>
-    <parentRole>SeniorSystemEngineerWest</parentRole>
+    <parentRole>Grade_1_Sys_Eng</parentRole>
 </Role>

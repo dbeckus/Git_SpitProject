@@ -2,10 +2,13 @@
     <apex:attribute name="POCRequestId" description="Id of the POC request" type="Id" assignTo="{!RequestId}" />
     <apex:variable var="termvalue" value="{!DefaultDate}"/>
      <apex:variable var="idx" value="{!0}"/>
+    
      <apex:repeat var="cx" value="{!assets}">
      {!cx.Model__c}, S/N {!cx.Name}<br/>
      <apex:variable var="termvalue" value="{!IF(idx==0,cx.License_End_Date__c,termvalue)}"/>
      <apex:variable var="idx" value="{! idx+ 1}" />
+      
+     
     </apex:repeat>  
     <br/>
     Your term will expire on: <b><apex:outputText value="{0, date, MMMM d','  yyyy}"><apex:param value="{!termvalue}" /> </apex:outputText> </b>

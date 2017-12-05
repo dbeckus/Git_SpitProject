@@ -2,9 +2,9 @@
 <Role xmlns="http://soap.sforce.com/2006/04/metadata">
     <caseAccessLevel>None</caseAccessLevel>
     <contactAccessLevel>Edit</contactAccessLevel>
-    <description>Cladirect, Inc. Partner Manager</description>
+    <description>CLA Direct, Inc. Partner Manager</description>
     <mayForecastManagerShare>false</mayForecastManagerShare>
-    <name>Cladirect, Inc. Partner Manager</name>
+    <name>CLA Direct, Inc. Partner Manager</name>
     <opportunityAccessLevel>None</opportunityAccessLevel>
-    <parentRole>ChannelSalesManagerEast</parentRole>
+    <parentRole>Grade_5_CAM_NAM_Southeast</parentRole>
 </Role>

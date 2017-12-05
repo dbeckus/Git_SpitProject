@@ -14,7 +14,7 @@
                 </apex:pageBlockSectionItem>
                 <apex:pageBlockSectionItem >
                     <apex:outputLabel value="Price Book"></apex:outputLabel>
-                    <apex:selectList value="{!oppo.PriceBook2Id}" size="1" disabled="true">
+                    <apex:selectList value="{!oppo.Pricebook2Id}" size="1" disabled="true">
                         <apex:selectOptions value="{!priceBooks}"></apex:selectOptions>
                     </apex:selectList>
                 </apex:pageBlockSectionItem>
@@ -36,34 +36,50 @@
                     <apex:outputLabel value="Presented" for="presented"></apex:outputLabel>
                     <apex:inputField id="presented" value="{!quote.Quote_Date__c}"/>
                 </apex:pageBlockSectionItem>   
-                <apex:pageBlockSectionItem > 
-                    <apex:outputLabel value="Tier 1 Partner" for="tier1partner"></apex:outputLabel>
+                <apex:pageBlockSectionItem rendered="{!!IsDistributor}" > 
+                    <apex:outputLabel value="Tier 1 Partner" ></apex:outputLabel>
                     <apex:inputField value="{!quote.Tier_1_Partner__c}" id="tier1partner" required="true"/>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem rendered="{!IsDistributor}" > 
+                    <apex:outputLabel value="Tier 1 Partner" ></apex:outputLabel>
+                    <apex:outputField value="{!quote.Tier_1_Partner__c}" id="tier1partner"/>
                 </apex:pageBlockSectionItem>
                  <apex:pageBlockSectionItem > 
                     <apex:outputLabel value="Valid Until" for="validunitl"></apex:outputLabel>
                     <apex:inputField value="{!quote.Quote_Valid_Until__c}" id="validuntil"/>
                 </apex:pageBlockSectionItem>
-                <apex:pageBlockSectionItem > 
+                <apex:pageBlockSectionItem rendered="{!!IsDistributor}"> 
                     <apex:outputLabel value="Tier 2 Partner" for="tier2partner"></apex:outputLabel>
                     <apex:inputField value="{!quote.Tier_2_Partner__c}" id="tier2partner" />
                 </apex:pageBlockSectionItem>
-              
-             <apex:pageBlockSectionItem > 
-                    <apex:outputLabel value="Payment Term" for="paymentterm"></apex:outputLabel>
-                    <apex:inputField value="{!quote.PaymentTerm__c}" id="paymentterm"/>
+                 <apex:pageBlockSectionItem rendered="{!IsDistributor}"> 
+                    <apex:outputLabel value="Tier 2 Partner" for="tier2partner"></apex:outputLabel>
+                    <apex:outputField value="{!quote.Tier_2_Partner__c}" id="tier2partner" />
                 </apex:pageBlockSectionItem>
-                <apex:pageBlockSectionItem > 
+               <apex:pageBlockSectionItem > 
+                    <apex:inputHidden />
+                </apex:pageBlockSectionItem>
+                   <apex:pageBlockSectionItem > 
+                    <apex:inputHidden />
+                </apex:pageBlockSectionItem>
+             <apex:pageBlockSectionItem > 
+                    <apex:outputLabel value="Payment Term" for="paymentterm" rendered="{!!IsDistributor}"></apex:outputLabel>
+                    <apex:inputField value="{!quote.PaymentTerm__c}" rendered="{!!IsDistributor}" id="paymentterm"/>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem rendered="{!!IsDistributor}"> 
                     <apex:outputLabel value="Other Reseller" for="tier3partner"></apex:outputLabel>
                     <apex:inputField value="{!quote.Tier_3_Partner__c}" id="tier3partner"/>
                 </apex:pageBlockSectionItem>
-                <apex:pageBlockSectionItem > 
-                    <apex:inputHidden />
-                </apex:pageBlockSectionItem>
-                <apex:pageBlockSectionItem > 
+               
+                  
+                <apex:pageBlockSectionItem rendered="{!!IsDistributor}" > 
                     <apex:outputLabel value="Prepared For" for="preparedfor"></apex:outputLabel>
                     <apex:inputField value="{!quote.PreparedFor__c}" id="preparedfor"  />
-                </apex:pageBlockSectionItem>                        
+                </apex:pageBlockSectionItem> 
+                 <apex:pageBlockSectionItem rendered="{!IsDistributor}" > 
+                    <apex:outputLabel value="Prepared For" for="preparedfor"></apex:outputLabel>
+                    <apex:outputField value="{!quote.PreparedFor__c}" id="preparedfor"  />
+                </apex:pageBlockSectionItem> 
                 <apex:pageBlockSectionItem > 
                     <apex:inputHidden />
                 </apex:pageBlockSectionItem>

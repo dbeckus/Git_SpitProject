@@ -73,7 +73,6 @@
                         <h3 ><a title="General Availability" href="#">GA</a></h3>
                         <div>
                             <apex:outputText rendered="{!AND(GARecommendedBuilds.size = 0, GAOtherBuilds.size = 0)}" value="No records were found." />
-                            
                             <apex:pageBlock rendered="{!NOT(ISNULL(GARecommendedBuilds)) && GARecommendedBuilds.size > 0}">
                                 <apex:pageBlockTable id="GARecommendBuild" value="{!GARecommendedBuilds}" var="build">
                                     <apex:column width="12%">
@@ -85,12 +84,20 @@
                                         </apex:facet>
                                         <apex:outputLink style="text-decoration:none; color:#015BA7;" value="/apex/NewBuildDetail?id={!build.Id}&relName={!ReleaseType}">{!build.ReleaseCode__c}</apex:outputLink>
                                     </apex:column>
-                                    <apex:column width="12%">
+                                    <apex:column width="10%">
                                         <apex:facet name="header" >
                                             <apex:outputText >Release Date▼▲</apex:outputText>
                                         </apex:facet>
                                         <apex:outputText value="{0, date, MM/dd/yyyy}">
                                             <apex:param value="{!build.ECO_Date__c}" />
+                                        </apex:outputText>
+                                    </apex:column>
+                                    <apex:column width="12%">
+                                        <apex:facet name="header" >
+                                            <apex:outputText >End Of Maintenance▼▲</apex:outputText>
+                                        </apex:facet>
+                                        <apex:outputText style="color:red" value="{0, date, MM/dd/yyyy}">
+                                            <apex:param value="{!build.End_of_Maintenance__c}" />
                                         </apex:outputText>
                                     </apex:column>
                                     <apex:column width="5%">
@@ -119,6 +126,14 @@
                                         </apex:facet>
                                         <apex:outputText value="{0, date, MM/dd/yyyy}">
                                             <apex:param value="{!buildb.ECO_Date__c}" />
+                                        </apex:outputText>
+                                    </apex:column>
+                                    <apex:column width="12%">
+                                        <apex:facet name="header" >
+                                            <apex:outputText >End Of Maintenance▼▲</apex:outputText>
+                                        </apex:facet>
+                                        <apex:outputText style="color:red" value="{0, date, MM/dd/yyyy}">
+                                            <apex:param value="{!buildb.End_of_Maintenance__c}" />
                                         </apex:outputText>
                                     </apex:column>
                                     <apex:column width="5%">

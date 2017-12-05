@@ -6,5 +6,5 @@
     <mayForecastManagerShare>false</mayForecastManagerShare>
     <name>Nippon Sheet Glass Co. Ltd. Customer User</name>
     <opportunityAccessLevel>None</opportunityAccessLevel>
-    <parentRole>EMEASales</parentRole>
+    <parentRole>Grade_3_Sales_SP</parentRole>
 </Role>

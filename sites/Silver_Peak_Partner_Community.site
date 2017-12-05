@@ -31,7 +31,7 @@
     <indexPage>PartnerPortalHome</indexPage>
     <masterLabel>Silver Peak Partner Community</masterLabel>
     <requireInsecurePortalAccess>false</requireInsecurePortalAccess>
-    <siteAdmin>curtisc@silver-peak.com</siteAdmin>
+    <siteAdmin>dbeckus@silver-peak.com</siteAdmin>
     <siteRedirectMappings>
         <action>Permanent</action>
         <isActive>true</isActive>

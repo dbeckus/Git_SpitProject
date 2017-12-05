@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Layout xmlns="http://soap.sforce.com/2006/04/metadata">
     <customButtons>OpenRMA</customButtons>
-    <customButtons>Requeue_Case</customButtons>
+    <customButtons>attachmentzip__Download_Attachments</customButtons>
     <excludeButtons>Submit</excludeButtons>
     <layoutSections>
         <customLabel>true</customLabel>
@@ -35,15 +35,11 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>Associated_BUG_ID__c</field>
+                <field>Jira_Issue_ID__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Readonly</behavior>
-                <field>Has_Defect_Flag__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Readonly</behavior>
-                <field>Link_to_Bug__c</field>
+                <field>Jira_Issue_Link__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
@@ -68,10 +64,6 @@
             <layoutItems>
                 <behavior>Readonly</behavior>
                 <field>ContactEmail</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Readonly</behavior>
-                <field>SuppliedEmail</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
@@ -104,14 +96,6 @@
             <layoutItems>
                 <behavior>Edit</behavior>
                 <field>TAC_Hours__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Readonly</behavior>
-                <field>Is_Asset_Warranty_Expired__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>Allow_RMA__c</field>
             </layoutItems>
         </layoutColumns>
         <layoutColumns>
@@ -179,6 +163,18 @@
                 <behavior>Edit</behavior>
                 <field>Customer_Account__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Associated_BUG_ID__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>Has_Defect_Flag__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>Link_to_Bug__c</field>
+            </layoutItems>
         </layoutColumns>
         <style>TwoColumnsTopToBottom</style>
     </layoutSections>
@@ -209,10 +205,14 @@
     </layoutSections>
     <layoutSections>
         <customLabel>false</customLabel>
-        <detailHeading>false</detailHeading>
+        <detailHeading>true</detailHeading>
         <editHeading>true</editHeading>
         <label>Web Information</label>
         <layoutColumns>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>SuppliedEmail</field>
+            </layoutItems>
             <layoutItems>
                 <behavior>Readonly</behavior>
                 <field>SuppliedName</field>
@@ -234,6 +234,14 @@
             <layoutItems>
                 <behavior>Edit</behavior>
                 <field>Reason_Web__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>Account_Name_Text__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>VXOA_Release_Text__c</field>
             </layoutItems>
         </layoutColumns>
         <style>TwoColumnsTopToBottom</style>
@@ -365,6 +373,10 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Readonly</behavior>
+                <field>Product__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
                 <field>Asset_Status__c</field>
             </layoutItems>
             <layoutItems>
@@ -382,6 +394,10 @@
             <layoutItems>
                 <behavior>Readonly</behavior>
                 <field>ContractSupportNotes__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Allow_RMA__c</field>
             </layoutItems>
         </layoutColumns>
         <layoutColumns>
@@ -409,6 +425,14 @@
                 <behavior>Readonly</behavior>
                 <field>Build__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>Active_EC_License__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>EC_Licenses__c</field>
+            </layoutItems>
         </layoutColumns>
         <style>TwoColumnsLeftToRight</style>
     </layoutSections>
@@ -424,10 +448,29 @@
             <layoutItems>
                 <customLink>RMA_Tracking</customLink>
             </layoutItems>
+            <layoutItems>
+                <customLink>Cloud_Portal_Link</customLink>
+            </layoutItems>
         </layoutColumns>
         <layoutColumns/>
         <layoutColumns/>
         <style>CustomLinks</style>
+    </layoutSections>
+    <layoutSections>
+        <customLabel>true</customLabel>
+        <detailHeading>true</detailHeading>
+        <editHeading>true</editHeading>
+        <label>Jira Issues</label>
+        <layoutColumns>
+            <layoutItems>
+                <height>300</height>
+                <page>zsfjira__ZCaseRelatedJiraIssues</page>
+                <showLabel>false</showLabel>
+                <showScrollbars>true</showScrollbars>
+                <width>100%</width>
+            </layoutItems>
+        </layoutColumns>
+        <style>OneColumn</style>
     </layoutSections>
     <quickActionList>
         <quickActionListItems>

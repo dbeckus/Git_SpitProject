@@ -55,10 +55,6 @@
                 <behavior>Edit</behavior>
                 <field>Pricebook2Id</field>
             </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>Smart_Hands_Region__c</field>
-            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>
@@ -128,7 +124,7 @@
         <label>Navision Contract Id&apos;s</label>
         <layoutColumns>
             <layoutItems>
-                <behavior>Required</behavior>
+                <behavior>Edit</behavior>
                 <field>SP_Contract_Number__c</field>
             </layoutItems>
             <layoutItems>
@@ -276,6 +272,15 @@
     </relatedLists>
     <relatedLists>
         <fields>NAME</fields>
+        <fields>SBQQ__CustomerPrice__c</fields>
+        <fields>SBQQ__DistributorDiscount__c</fields>
+        <fields>SBQQ__EndDate__c</fields>
+        <fields>SBQQ__Product__c</fields>
+        <fields>SBQQ__Quantity__c</fields>
+        <fields>SBQQ__ListPrice__c</fields>
+        <fields>SBQQ__NetPrice__c</fields>
+        <fields>SBQQ__OriginalUnitCost__c</fields>
+        <fields>SBQQ__RegularPrice__c</fields>
         <relatedList>SBQQ__Subscription__c.SBQQ__Contract__c</relatedList>
     </relatedLists>
     <relatedLists>
@@ -312,14 +317,6 @@
     </relatedLists>
     <relatedLists>
         <relatedList>RelatedNoteList</relatedList>
-    </relatedLists>
-    <relatedLists>
-        <fields>NAME</fields>
-        <fields>Type__c</fields>
-        <fields>Priority__c</fields>
-        <fields>Status__c</fields>
-        <fields>AccountName__c</fields>
-        <relatedList>Request__c.Contract_Number__c</relatedList>
     </relatedLists>
     <relatedObjects>AccountId</relatedObjects>
     <showEmailCheckbox>false</showEmailCheckbox>

@@ -324,6 +324,13 @@
         <relatedList>RelatedNoteList</relatedList>
     </relatedLists>
     <relatedLists>
+        <excludeButtons>New</excludeButtons>
+        <fields>NAME</fields>
+        <fields>Ensemblestorage__FormatedSize__c</fields>
+        <fields>File_Type__c</fields>
+        <relatedList>Ensemblestorage__EnsembleFile__c.Funding_Requests__c</relatedList>
+    </relatedLists>
+    <relatedLists>
         <relatedList>RelatedEntityHistoryList</relatedList>
     </relatedLists>
     <showEmailCheckbox>false</showEmailCheckbox>

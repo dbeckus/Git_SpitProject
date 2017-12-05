@@ -6,5 +6,5 @@
     <mayForecastManagerShare>false</mayForecastManagerShare>
     <name>THINK NETWORKS PERU SAC Partner Manager</name>
     <opportunityAccessLevel>None</opportunityAccessLevel>
-    <parentRole>CountryManagerLAT</parentRole>
+    <parentRole>Grade_2_COMM</parentRole>
 </Role>

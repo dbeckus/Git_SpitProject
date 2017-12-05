@@ -2,9 +2,9 @@
 <Role xmlns="http://soap.sforce.com/2006/04/metadata">
     <caseAccessLevel>None</caseAccessLevel>
     <contactAccessLevel>Edit</contactAccessLevel>
-    <description>Epsilon Technology Solutions Partner Manager</description>
+    <description>Frontline Technology Services Partner Manager</description>
     <mayForecastManagerShare>false</mayForecastManagerShare>
-    <name>Epsilon Technology Solutions Partner Manager</name>
+    <name>Frontline Technology Services Partner Manager</name>
     <opportunityAccessLevel>None</opportunityAccessLevel>
-    <parentRole>ANZADirector</parentRole>
+    <parentRole>Grade_3_Sales_APAC_ANZ</parentRole>
 </Role>

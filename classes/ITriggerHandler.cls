@@ -4,7 +4,7 @@ public interface ITriggerHandler
  
     void BeforeUpdate(Map<Id, SObject> newItems, Map<Id, SObject> oldItems);
  
-    void BeforeDelete(Map<Id,SObject> oldItems);
+    void BeforeDelete(Map<Id, SObject> oldItems);
  
     void AfterInsert(Map<Id, SObject> newItems);
  

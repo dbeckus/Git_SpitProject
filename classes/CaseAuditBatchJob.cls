@@ -30,6 +30,12 @@ global class CaseAuditBatchJob implements Database.Batchable<sObject>, Database.
     global void execute(Database.BatchableContext BC, List<User> scope)
     {
         List<Messaging.SingleEmailMessage> mails = new List<Messaging.SingleEMailMessage>();
+        List<User> ccUsers = [select Id, Email from user where UserRole.Name IN ('Director of Customer Service','Technical Support Manager')];
+        List<String> ccemails = new List<string>();
+        for(User u : ccUsers)
+        {
+            ccemails.add(u.email);
+        }
 
         for(User usr : scope)
         {
@@ -41,7 +47,7 @@ global class CaseAuditBatchJob implements Database.Batchable<sObject>, Database.
                 Messaging.SingleEmailMessage email = new Messaging.SingleEmailMessage();
                 //email.setTargetObjectId('00530000000giMZ');  //for test purpose
                 email.setTargetObjectId(usr.Id);
-                email.setCcAddresses(new string[] { 'ssheikh@silver-peak.com' });
+                email.setCcAddresses(ccemails);
                 email.setSubject('Case Audit');
                 email.setHtmlBody(composeOpenCaseEmail(openCasesOver10Days));
                 email.setSaveAsActivity(false);
@@ -76,7 +82,7 @@ global class CaseAuditBatchJob implements Database.Batchable<sObject>, Database.
                 Messaging.SingleEmailMessage email = new Messaging.SingleEmailMessage();
                 //email.setTargetObjectId('00530000000giMZ');  //for test purpose
                 email.setTargetObjectId(usr.Id);
-                email.setCcAddresses(new string[] { 'ssheikh@silver-peak.com' });
+                email.setCcAddresses(ccemails);
                 email.setSubject('Case Audit (P1)');
                 email.setHtmlBody(composeP1OpenCaseEmail2(p1CasesT2));
                 email.setSaveAsActivity(false);

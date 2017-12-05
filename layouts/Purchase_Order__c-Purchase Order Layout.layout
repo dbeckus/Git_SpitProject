@@ -32,11 +32,19 @@
                 <behavior>Edit</behavior>
                 <field>Tracking_Information__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>Is_this_a_foreign_government_entity__c</field>
+            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>
                 <behavior>Readonly</behavior>
                 <field>Status__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Pending_Support_Contract__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>

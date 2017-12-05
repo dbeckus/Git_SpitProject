@@ -27,6 +27,10 @@
         <name>EULA_Agreement__c</name>
     </fields>
     <fields>
+        <label><!-- End of Maintenance --></label>
+        <name>End_of_Maintenance__c</name>
+    </fields>
+    <fields>
         <label><!-- FIPS Compliant --></label>
         <name>FIPS_Compliant__c</name>
         <picklistValues>

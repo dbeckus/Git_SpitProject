@@ -6,5 +6,5 @@
     <mayForecastManagerShare>false</mayForecastManagerShare>
     <name>McCormick France Customer User</name>
     <opportunityAccessLevel>None</opportunityAccessLevel>
-    <parentRole>EMEA_Inside_Sales</parentRole>
+    <parentRole>Grade_3_Sales_EMEA</parentRole>
 </Role>

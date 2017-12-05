@@ -21,6 +21,8 @@ public class PartnerPortalLoginController
             String startURL = ApexPages.currentPage().getParameters().get('startURL');
             String homeURL = String.isBlank(retURL) ? (String.isBlank(startURL) ? 'champions_home' : startURL) : retURL;
             hasLoginError = false;
+            //remove all leading, trailing, or repeating space charaters
+            Username = Username.normalizeSpace();
             String formattedUsername = (Username != null && !Username.endsWith('.sp')) ? (Username + '.sp') : Username;   //To make sure username is not duplicate to other org
             User usr = getUserByEmail(new List<String> {formattedUsername, Username});
             if(usr != null)

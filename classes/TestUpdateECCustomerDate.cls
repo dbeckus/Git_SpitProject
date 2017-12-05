@@ -1,6 +1,6 @@
 @IsTest
 public class TestUpdateECCustomerDate {
-    @IsTest(SeeAllData=true)
+    
     public static void TestUpdateECCustomerDate_EC()
     {
         Test.startTest();
@@ -28,7 +28,7 @@ public class TestUpdateECCustomerDate {
         Test.stopTest();
     }
     
-     @IsTest(SeeAllData=true)
+     
     public static void TestUpdateECCustomerDate_EC_ChangeAcctId()
     {
         Test.startTest();
@@ -61,7 +61,7 @@ public class TestUpdateECCustomerDate {
         Test.stopTest();
     }
     
- 	 @IsTest(SeeAllData=true)
+ 	 
     public static void TestUpdateECCustomerDate_VX()
     {
         Test.startTest();

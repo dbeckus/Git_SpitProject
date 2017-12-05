@@ -76,10 +76,6 @@
         <relationshipLabel><!-- Shipments --></relationshipLabel>
     </fields>
     <fields>
-        <label><!-- System Engineer Email --></label>
-        <name>System_Engineer_Email__c</name>
-    </fields>
-    <fields>
         <label><!-- Third Email --></label>
         <name>Third_Email__c</name>
     </fields>

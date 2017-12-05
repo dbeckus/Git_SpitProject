@@ -140,7 +140,7 @@
             <ul class="accordion form-ul" id="accordion1">
                 <li class="head-title">
                     <div class="data-row">
-                        <span class="data-cell first-cell center"><span class="fa fa-exclamation-circle" ng-show="hasUpdate" data-toggle="tooltip" data-placement="top" title="There are updates. Deployment is needed" style="color:#F0A300"></span></span>
+                        <span class="data-cell first-cell center"><span class="fa fa-exclamation-circle" ng-show="hasUpdate" data-toggle="tooltip" data-placement="top" title="One or more patches have been updated. Deployment is needed" style="color:#F0A300"></span></span>
                         <span class="data-cell">Patch Number</span>
                         <span class="data-cell">Patch Name</span>
                         <span class="data-cell">Type</span>
@@ -149,8 +149,7 @@
                         <span class="data-cell">ISR</span>
                         <span class="data-cell">RSM</span>
                         <span class="data-cell">SE</span>
-                        <span class="data-cell">Overlay 1</span>
-                        <span class="data-cell">Overlay 2</span>
+                        <span class="data-cell">Overlay</span>
                     </div>
                 </li>
                 <li class="accordion-group" ng-repeat="p in patches">
@@ -158,8 +157,9 @@
                         <div class="accordion-toggle collapsed" >
                             <div class="data-row">
                                 <span class="data-cell first-cell">
-                                    <span class="fa fa-check" ng-show="p.active" data-toggle="tooltip" data-placement="top" title="This patch is ACTIVE" style="color:green"></span>
-                                    <span class="fa fa-times" ng-hide="p.active" data-toggle="tooltip" data-placement="top" title="This patch is INACTIVE" style="color:grey"></span>
+                                    <span class="fa fa-check" ng-show="p.active" data-toggle="tooltip" data-placement="top" title="ACTIVE" style="color:green"></span>
+                                    <span class="fa fa-times" ng-hide="p.active" data-toggle="tooltip" data-placement="top" title="INACTIVE" style="color:grey"></span>
+                                    <span class="fa fa-user-plus" ng-show="p.overlay" data-toggle="tooltip" data-placement="top" title="Assigns team only" style="color:red"></span>
                                     <span class="fa fa-bitbucket" ng-show="p.catchall" data-toggle="tooltip" data-placement="top" title="Catchall bucket" style="color:red"></span>
                                     <span class="fa fa-exclamation-circle" ng-show="isUpdated(p)" data-toggle="tooltip" data-placement="top" title="Needs deployment" style="color:#F0A300"></span>
                                 </span>
@@ -171,8 +171,7 @@
                                 <span class="data-cell"><a ng-click="openNewWindow('/' + p.isrId)">{{p.isrName}}</a>&nbsp;</span>
                                 <span class="data-cell"><a ng-click="openNewWindow('/' + p.rsmId)">{{p.rsmName}}</a>&nbsp;</span>
                                 <span class="data-cell"><a ng-click="openNewWindow('/' + p.seId)">{{p.seName}}</a>&nbsp;</span>
-                                <span class="data-cell"><a ng-click="openNewWindow('/' + p.patchOverlay1Id)">{{p.patchOverlay1Name}}</a>&nbsp;</span>
-                                <span class="data-cell"><a ng-click="openNewWindow('/' + p.patchOverlay2Id)">{{p.patchOverlay2Name}}</a>&nbsp;</span>
+                                <span class="data-cell"><a ng-click="openNewWindow('/' + p.patchOverlay1Id)">{{p.patchOverlay1Name}}</a>&nbsp;&nbsp;<a ng-click="openNewWindow('/' + p.patchOverlay2Id)">{{p.patchOverlay2Name}}</a>&nbsp;</span>
                             </div>
                         </div>
                     </div>

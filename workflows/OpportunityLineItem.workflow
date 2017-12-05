@@ -2,9 +2,12 @@
 <Workflow xmlns="http://soap.sforce.com/2006/04/metadata">
     <alerts>
         <fullName>training_order_closed</fullName>
-        <ccEmails>curtisc@silver-peak.com</ccEmails>
         <description>training_order_closed</description>
         <protected>false</protected>
+        <recipients>
+            <recipient>dbeckus@silver-peak.com</recipient>
+            <type>user</type>
+        </recipients>
         <senderType>CurrentUser</senderType>
         <template>Support/Training_order_closed</template>
     </alerts>
@@ -13,7 +16,7 @@
         <description>wanstart_order_closed</description>
         <protected>false</protected>
         <recipients>
-            <recipient>curtisc@silver-peak.com</recipient>
+            <recipient>dbeckus@silver-peak.com</recipient>
             <type>user</type>
         </recipients>
         <senderType>CurrentUser</senderType>

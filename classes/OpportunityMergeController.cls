@@ -557,6 +557,7 @@ ApexPages.addMessages(e);
     static void test1()
     {
         PriceBook2 pb = [select Id from Pricebook2 where IsStandard=true limit 1];
+        
         Account oppAccount = new Account(Name = 'Test Opp Account');
         insert oppAccount;
         Contact con= new Contact(LastName='testLastName',Email='abc@test2323.com',AccountId=oppAccount.Id);

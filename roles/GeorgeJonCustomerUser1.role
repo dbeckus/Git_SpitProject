@@ -2,9 +2,9 @@
 <Role xmlns="http://soap.sforce.com/2006/04/metadata">
     <caseAccessLevel>None</caseAccessLevel>
     <contactAccessLevel>Edit</contactAccessLevel>
-    <description>George Jon Customer User</description>
+    <description>George Jon &amp; Associates Customer User</description>
     <mayForecastManagerShare>false</mayForecastManagerShare>
-    <name>George Jon Customer User</name>
+    <name>George Jon &amp; Associates Customer User</name>
     <opportunityAccessLevel>None</opportunityAccessLevel>
-    <parentRole>ChannelSalesManagerWest</parentRole>
+    <parentRole>SVPMarketing</parentRole>
 </Role>

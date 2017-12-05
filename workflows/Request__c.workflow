@@ -485,59 +485,6 @@
         <senderType>OrgWideEmailAddress</senderType>
         <template>POC/Extension_Reminder</template>
     </alerts>
-    <alerts>
-        <fullName>Send_Reminder_Email_for_POC_Expiration</fullName>
-        <ccEmails>notifications@silver-peak.com</ccEmails>
-        <description>Send Reminder Email for POC Expiration</description>
-        <protected>false</protected>
-        <recipients>
-            <field>POC_Contact__c</field>
-            <type>contactLookup</type>
-        </recipients>
-        <recipients>
-            <recipient>prane@silver-peak.com</recipient>
-            <type>user</type>
-        </recipients>
-        <recipients>
-            <field>RSM_Manager__c</field>
-            <type>userLookup</type>
-        </recipients>
-        <recipients>
-            <field>RSM_VP_Sales__c</field>
-            <type>userLookup</type>
-        </recipients>
-        <recipients>
-            <field>RSM__c</field>
-            <type>userLookup</type>
-        </recipients>
-        <recipients>
-            <field>SE_Director__c</field>
-            <type>userLookup</type>
-        </recipients>
-        <recipients>
-            <field>SE_Manager__c</field>
-            <type>userLookup</type>
-        </recipients>
-        <recipients>
-            <field>SE__c</field>
-            <type>userLookup</type>
-        </recipients>
-        <senderAddress>noreply@silver-peak.com</senderAddress>
-        <senderType>OrgWideEmailAddress</senderType>
-        <template>POC/POCExpirationReminder</template>
-    </alerts>
-    <alerts>
-        <fullName>Send_email_to_POC_Team</fullName>
-        <description>Send email to POC Team</description>
-        <protected>false</protected>
-        <recipients>
-            <recipient>prane@silver-peak.com</recipient>
-            <type>user</type>
-        </recipients>
-        <senderAddress>noreply@silver-peak.com</senderAddress>
-        <senderType>OrgWideEmailAddress</senderType>
-        <template>POC/POCExpirationReminder</template>
-    </alerts>
     <fieldUpdates>
         <fullName>ClearFirstExtension</fullName>
         <field>First_Extension_Granted__c</field>
@@ -820,13 +767,7 @@ Requested_End_Date__c
             <type>FieldUpdate</type>
         </actions>
         <active>true</active>
-        <formula>AND(
-ISPICKVAL(Status__c,&quot;Shipped - Extended&quot;),
-IsPICKVAL(Type__c,&quot;Evaluation&quot;),
-NOT(ISBLANK(Requested_End_Date__c )),
-Requested_End_Date__c == Target_End_Date__c,
-OR(First_Extension_Granted__c , Second_Extension_Granted__c)
-)</formula>
+        <formula>AND( ISPICKVAL(Status__c,&quot;Shipped - Extended&quot;), IsPICKVAL(Type__c,&quot;Evaluation&quot;), NOT(ISBLANK(Requested_End_Date__c )), Requested_End_Date__c == Target_End_Date__c, OR(First_Extension_Granted__c , Second_Extension_Granted__c) )</formula>
         <triggerType>onCreateOrTriggeringUpdate</triggerType>
     </rules>
     <rules>
@@ -1141,12 +1082,7 @@ Eval RMA opened by trigger on status change to pending return (set by monitoring
             <type>FieldUpdate</type>
         </actions>
         <active>true</active>
-        <formula>AND(
- Opportunity__r.Account.ECSP__c,
-ISCHANGED( Target_End_Date__c ) 
-
-
-)</formula>
+        <formula>AND(  Opportunity__r.Account.ECSP__c, ISCHANGED( Target_End_Date__c )    )</formula>
         <triggerType>onAllChanges</triggerType>
     </rules>
     <rules>
@@ -1165,7 +1101,7 @@ ISCHANGED( Target_End_Date__c )
             <name>Update_POC_Approver_flag</name>
             <type>FieldUpdate</type>
         </actions>
-        <active>true</active>
+        <active>false</active>
         <criteriaItems>
             <field>Request__c.Name</field>
             <operation>notEqual</operation>

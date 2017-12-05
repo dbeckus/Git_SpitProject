@@ -24,23 +24,23 @@
                         <!-- Collect the nav links, forms, and other content for toggling -->
                         <div class="collapse navbar-collapse set-all" id="navbar-collapse-3">
                             <ul class="nav navbar-nav navbar-right">
-                                <li><a href="http://www.silver-peak.com/solutions">Solutions</a></li>
-                                <li><a href="http://www.silver-peak.com/products">Products</a></li>
-                                <li><a href="http://www.silver-peak.com/support">Support</a></li>
+                                <li><a href="https://www.silver-peak.com/solutions">Solutions</a></li>
+                                <li><a href="https://www.silver-peak.com/products">Products</a></li>
+                                <li><a href="https://www.silver-peak.com/support">Support</a></li>
                                 <li class="active"><a href="http://partner.silver-peak.com" class="dropdown-toggle">Partners</a></li>
                                 <li class="dropdown">
                                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">Quick Links <b class="caret"></b></a>
                                     <ul class="dropdown-menu" role="menu">
-                                        <li role="presentation"><a href="http://www.silver-peak.com/company">About Silver Peak </a></li>
-                                        <li role="presentation"><a href="http://www.silver-peak.com/support/customer-login">Support Login </a></li>
-                                        <li role="presentation"><a href="http://www.silver-peak.com/products/unity-edge-connect">Unity EdgeConnect  </a></li>
-                                        <li role="presentation"><a href="http://www.silver-peak.com/news/in-the-news">News </a></li>
-                                        <li role="presentation"><a href="http://www.silver-peak.com/events">Events</a></li>
-                                        <li role="presentation"><a href="http://www.silver-peak.com/company/careers">Careers</a></li>
-                                        <li role="presentation"><a href="http://www.silver-peak.com/company/contact">Contact Us  </a></li>
+                                        <li role="presentation"><a href="https://www.silver-peak.com/company">About Silver Peak </a></li>
+                                        <li role="presentation"><a href="https://www.silver-peak.com/support/customer-login">Support Login </a></li>
+                                        <li role="presentation"><a href="https://www.silver-peak.com/products/unity-edge-connect">Unity EdgeConnect  </a></li>
+                                        <li role="presentation"><a href="https://www.silver-peak.com/news/in-the-news">News </a></li>
+                                        <li role="presentation"><a href="https://www.silver-peak.com/events">Events</a></li>
+                                        <li role="presentation"><a href="https://www.silver-peak.com/company/careers">Careers</a></li>
+                                        <li role="presentation"><a href="https://www.silver-peak.com/company/contact">Contact Us  </a></li>
                                     </ul>
                                 </li>
-                                <li><a href="http://marketplace.silver-peak.com/">Try/Buy</a></li>
+                                <li><a href="https://www.silver-peak.com/marketplace">Try/Buy</a></li>
                                 <!--<li><a data-toggle="modal" href="#myModal">Login</a></li>-->       
                                 <li><a class="collapsed" data-toggle="collapse" href="#nav-collapse3" aria-expanded="false" aria-controls="nav-collapse3"> <img src="/s/SilverPeak/images/search.png"/></a></li>
                             </ul>
@@ -55,12 +55,14 @@
             </div>
         </div>
         <div>
-        <section style="background-image:url(/s/Silver-Peak-Partners.jpg?v=2&amp;SiteID=0DM5000000000pp);background-position: center;height:200px;background-size:auto 200px;background-repeat:no-repeat">
-            <div class="container partner-heading">
-                <div class="row">
-                    <div class="col-lg-12" style="text-align:center"></div>
-                </div>
+        <section class="header-title" style="padding: 58px;height: 200px;background-size: cover;background-repeat: no-repeat;background-image: url(/s/basecamp-bg.jpg?v=2&#38;SiteID=0DM5000000000pp);background-position: center center;">
+        <div class="container partner-heading" style ="">
+        <div class="row">
+            <div class="col-lg-12">
+                <h1 class="page-title" style ="color: #004d73; margin: 22px 0; text-align: center; font-family: 'GillSansMT-Light'; font-weight: 100; display: block">Silver Peak Partners</h1>
             </div>
+        </div>
+        </div>
         </section>    
     </div>
     <div>
@@ -71,7 +73,7 @@
                         <div class="col-lg-12">
                             <div class="partner-tab">
                                 <ul style="width:auto">
-                                    <li><a href="http://www.silver-peak.com/company/tech-partners">Alliance Partners</a></li>
+                                    <li><a href="https://www.silver-peak.com/company/tech-partners">Alliance Partners</a></li>
                                     <li><a href="/s/ChannelPartners">Channel Partners</a></li>
                                     <li><a href="/s/BecomePartner">Become a Partner</a></li>
                                     <!--Changing Login to For Partners AG-->
@@ -100,46 +102,46 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
-                    <h3> Info Center </h3>
+                    <h3>Resource Center </h3>
                     <ul>
-                        <li> <a href="http://www.silver-peak.com/info-center/search?category=3" target="_blank"> Market Research </a> </li>
-                        <li> <a href="http://www.silver-peak.com/info-center/search?category=4" target="_blank"> Technical Analysis / Comparison </a> </li>
-                        <li> <a href="http://www.silver-peak.com/info-center/search?category=5" target="_blank"> Deployment / Management </a> </li>
-                        <li> <a href="http://www.silver-peak.com/info-center/search?category=16" target="_blank"> Calculate Return on Investment(ROI) </a> </li>
-                        <li> <a href="http://www.silver-peak.com/info-center/search?category=6" target="_blank"> General Silver Peak Information </a> </li>
+                        <li> <a href="https://www.silver-peak.com/info-center/search?category=3" target="_blank"> Market Research </a> </li>
+                        <li> <a href="https://www.silver-peak.com/info-center/search?category=4" target="_blank"> Technical Analysis / Comparison </a> </li>
+                        <li> <a href="https://www.silver-peak.com/info-center/search?category=5" target="_blank"> Deployment / Management </a> </li>
+                        <li> <a href="https://www.silver-peak.com/info-center/search?category=16" target="_blank"> Calculate Return on Investment(ROI) </a> </li>
+                        <li> <a href="https://www.silver-peak.com/info-center/search?category=6" target="_blank"> General Silver Peak Information </a> </li>
                     </ul>
                 </div>
                 <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
                     <h3> News </h3>
                     <ul>
                         <li> <a href="http://blog.silver-peak.com/" target="_blank"> Blog </a> </li>
-                        <li> <a href="http://www.silver-peak.com/news/press-releases" target="_blank"> Press Releases </a> </li>
-                        <li> <a href="http://www.silver-peak.com/news/in-the-news" target="_blank"> In the News </a> </li>
+                        <li> <a href="https://www.silver-peak.com/news/press-releases" target="_blank"> Press Releases </a> </li>
+                        <li> <a href="https://www.silver-peak.com/news/in-the-news" target="_blank"> In the News </a> </li>
                         <li> <a href="#"> Communities </a> </li>
-                        <li> <a href="http://www.silver-peak.com/news/awards" target="_blank"> Awards </a> </li>
+                        <li> <a href="https://www.silver-peak.com/news/awards" target="_blank"> Awards </a> </li>
                     </ul>
                 </div>
                 <div class="col-lg-2  col-md-2 col-sm-12 col-xs-12">
                     <h3> Events </h3>
                     <ul>
-                        <li> <a href="http://www.silver-peak.com/events?type=tradeshow" target="_blank"> Tradeshows </a> </li>
-                        <li> <a href="http://www.silver-peak.com/events?type=technicalworkshop" target="_blank"> Technical Luncheons </a> </li>
-                        <li> <a href="http://www.silver-peak.com/events?type=webinar" target="_blank"> Webinars </a> </li>
+                        <li> <a href="https://www.silver-peak.com/events?type=tradeshow" target="_blank"> Tradeshows </a> </li>
+                        <li> <a href="https://www.silver-peak.com/events?type=technicalworkshop" target="_blank"> Technical Luncheons </a> </li>
+                        <li> <a href="https://www.silver-peak.com/events?type=webinar" target="_blank"> Webinars </a> </li>
                     </ul>
                 </div>
                 <div class="col-lg-2  col-md-2 col-sm-12 col-xs-12">
                     <h3> Company </h3>
                     <ul>
                         <li> <a href="#"> Overview </a> </li>
-                        <li> <a href="http://www.silver-peak.com/company/customers" target="_blank"> Customers </a> </li>
-                        <li> <a href="http://www.silver-peak.com/company/channel-partners" target="_blank"> Channel Partners </a> </li>
-                        <li> <a href="http://www.silver-peak.com/company/tech-partners" target="_blank"> Technology Partners </a> </li>
-                        <li> <a href="http://www.silver-peak.com/company/leadership" target="_blank"> Management </a> </li>
-                        <li> <a href="http://www.silver-peak.com/company/contact" target="_blank"> Contact Us </a> </li>
+                        <li> <a href="https://www.silver-peak.com/company/customers" target="_blank"> Customers </a> </li>
+                        <li> <a href="https://www.silver-peak.com/company/channel-partners" target="_blank"> Channel Partners </a> </li>
+                        <li> <a href="https://www.silver-peak.com/company/tech-partners" target="_blank"> Technology Partners </a> </li>
+                        <li> <a href="https://www.silver-peak.com/company/leadership" target="_blank"> Management </a> </li>
+                        <li> <a href="https://www.silver-peak.com/company/contact" target="_blank"> Contact Us </a> </li>
                     </ul>
                 </div>
                 <div class="col-lg-3  col-md-3 col-sm-12 col-xs-12 ">
-                    <h3> Stay Connected With Us </h3>
+                    <h3>Follow Us</h3>
                     
                         <div class="social-icons">
                          <a href="http://twitter.com/SilverPeak" target="_blank"> <img src="/s/SilverPeak/images/mid-twitter-icon.png"/> </a> &nbsp;&nbsp;
@@ -157,7 +159,7 @@
     
     <div class="footer-bottom">
         <div class="container">
-            <p class="col-lg-8 col-sm-12"> Copyright © 2015 Silver Peak, Inc. All rights reserved.  <a href="">Privacy</a> | <a href="">Terms</a></p>
+            <p class="col-lg-8 col-sm-12"> Copyright © 2017 Silver Peak, Inc. All rights reserved.  <a href="https://www.silver-peak.com/privacy">Privacy</a></p>
             <div class="col-lg-4 col-sm-12 text-right">
                 888-598-7325
             </div>

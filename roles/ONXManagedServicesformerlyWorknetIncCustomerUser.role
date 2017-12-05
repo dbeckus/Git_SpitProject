@@ -6,5 +6,5 @@
     <mayForecastManagerShare>false</mayForecastManagerShare>
     <name>OnX Enterprise Solutions Customer User</name>
     <opportunityAccessLevel>None</opportunityAccessLevel>
-    <parentRole>ChannelSalesManagerWest</parentRole>
+    <parentRole>SVPMarketing</parentRole>
 </Role>

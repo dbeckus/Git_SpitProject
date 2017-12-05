@@ -4,17 +4,24 @@ public class OppoQuoteController
     public Opportunity oppo{get;set;}
     public Quote__c quote{get;set;}
     public Integer stage{get;set;}
-    
+    public boolean IsDistributor{get;set;}
     public OppoQuoteController(ApexPages.StandardController controller)
     {
         String oppoId = ((Opportunity)controller.getRecord()).Id;
+        IsDistributor=SilverPeakUtils.IsDistributorCommunityUser();
         if(oppoId instanceOf Id)
         {
-            oppo = [select name, account.name, Pricebook2Id, HasOpportunityLineItem, Owner.ManagerId,
+            oppo = [select name, account.name, Pricebook2Id,Registering_Partner__c, HasOpportunityLineItem, Owner.ManagerId,
                        (Select Id From OpportunityLineItems)
                     from opportunity where id = :oppoId];
             //oppo = new Opportunity();
-            quote = new Quote__c(Opportunity__r = oppo,Opp_Owner_Manager__c=oppo.Owner.ManagerId,  Opportunity__c = oppoId, Quote_Date__c = Date.today(), PaymentTerm__c = 'Net 30', Quote_Valid_Until__c = Date.today().addDays(30));
+            quote = new Quote__c(Opportunity__r = oppo,Tier_1_Partner__c=oppo.Registering_Partner__c,Opp_Owner_Manager__c=oppo.Owner.ManagerId,  Opportunity__c = oppoId, Quote_Date__c = Date.today(), PaymentTerm__c = 'Net 30', Quote_Valid_Until__c = Date.today().addDays(30));
+            if(IsDistributor)
+            {
+                User userData=[select Id,ContactId,Contact.AccountId from User where Id=:UserInfo.getUserId()];
+                quote.Tier_2_Partner__c=userData.Contact.AccountId;
+                quote.PreparedFor__c=userdata.ContactId;
+            }
         }
         else
         {
@@ -76,9 +83,9 @@ public class OppoQuoteController
         try
         {
             PageReference returnPage;
+           
             if(!oppo.HasOpportunityLineItem)
             {
-                     
                 update oppo;
                 upsert quote;
                 returnPage = new PageReference('/apex/Quote?Id=' + quote.Id); 

@@ -2,9 +2,9 @@
 <Role xmlns="http://soap.sforce.com/2006/04/metadata">
     <caseAccessLevel>None</caseAccessLevel>
     <contactAccessLevel>Edit</contactAccessLevel>
-    <description>Epsilon Technology Solutions Partner User</description>
+    <description>Frontline Technology Services Partner User</description>
     <mayForecastManagerShare>false</mayForecastManagerShare>
-    <name>Epsilon Technology Solutions Partner User</name>
+    <name>Frontline Technology Services Partner User</name>
     <opportunityAccessLevel>None</opportunityAccessLevel>
     <parentRole>EpsilonTechnologySolutionsPartnerManager</parentRole>
 </Role>

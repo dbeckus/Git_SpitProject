@@ -287,7 +287,6 @@ global with sharing class CustomPOCRequestController
                 VirtualProducts.add(new VirtualProductInfo(VirtualProducts.size(),'EC-BASE-1Y',10));
                 VirtualProducts.add(new VirtualProductInfo(VirtualProducts.size(),'EC-PLUS-1Y',10));
                 VirtualProducts.add(new VirtualProductInfo(VirtualProducts.size(),'EC-BOOST-1Y',100));
-                VirtualProducts.add(new VirtualProductInfo(VirtualProducts.size(),'EC-SAAS-1Y',1));
             }
             if(VirtualProducts.size()>0)
             {
@@ -1156,11 +1155,9 @@ global with sharing class CustomPOCRequestController
         System.assertEquals(updatedReq.VirtualProduct1__c, 'EC-BASE-1Y');
         System.assertEquals(updatedReq.VirtualProduct2__c, 'EC-PLUS-1Y');
         System.assertEquals(updatedReq.VirtualProduct3__c, 'EC-BOOST-1Y'); 
-        System.assertEquals(updatedReq.VirtualProduct4__c, 'EC-SAAS-1Y');
         System.assertEquals(updatedReq.VirtualQuantity1__c, 10);
         System.assertEquals(updatedReq.VirtualQuantity2__c, 10);
         System.assertEquals(updatedReq.VirtualQuantity3__c, 100); 
-        System.assertEquals(updatedReq.VirtualQuantity4__c,1);
         
     }  
     @isTest

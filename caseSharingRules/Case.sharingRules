@@ -1,58 +1,146 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CaseSharingRules xmlns="http://soap.sforce.com/2006/04/metadata">
-    <ownerRules>
-        <fullName>AllInternalUsers</fullName>
+    <criteriaBasedRules>
+        <fullName>CFO_Subordinates</fullName>
         <sharedTo>
-            <allInternalUsers></allInternalUsers>
+            <roleAndSubordinatesInternal>CFO</roleAndSubordinatesInternal>
         </sharedTo>
-        <sharedFrom>
-            <allInternalUsers></allInternalUsers>
-        </sharedFrom>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>notEqual</operation>
+            <value>HR Requests,Facilities</value>
+        </criteriaItems>
         <caseAccessLevel>Edit</caseAccessLevel>
-        <name>AllInternalUsers</name>
-    </ownerRules>
-    <ownerRules>
-        <fullName>AllInternalUsers7366415</fullName>
+        <name>CFO &amp; Subordinates</name>
+    </criteriaBasedRules>
+    <criteriaBasedRules>
+        <fullName>Human_Resources_Subordinates</fullName>
         <sharedTo>
-            <allInternalUsers></allInternalUsers>
+            <roleAndSubordinatesInternal>Human_Resource</roleAndSubordinatesInternal>
         </sharedTo>
-        <sharedFrom>
-            <queue>TechSupportQueue</queue>
-        </sharedFrom>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>HR Requests,Facilities</value>
+        </criteriaItems>
         <caseAccessLevel>Edit</caseAccessLevel>
-        <name>AllInternalUsers</name>
-    </ownerRules>
-    <ownerRules>
-        <fullName>SETeam</fullName>
+        <name>Human Resources &amp; Subordinates</name>
+    </criteriaBasedRules>
+    <criteriaBasedRules>
+        <fullName>Marketo_Integration_Subordinates</fullName>
         <sharedTo>
-            <group>SETeam</group>
+            <roleAndSubordinatesInternal>Marketo_Integration</roleAndSubordinatesInternal>
         </sharedTo>
-        <sharedFrom>
-            <allInternalUsers></allInternalUsers>
-        </sharedFrom>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>notEqual</operation>
+            <value>HR Requests,Facilities</value>
+        </criteriaItems>
         <caseAccessLevel>Edit</caseAccessLevel>
-        <name>SE Team</name>
-    </ownerRules>
-    <ownerRules>
-        <fullName>SETeam736641</fullName>
+        <name>Marketo Integration &amp; Subordinates</name>
+    </criteriaBasedRules>
+    <criteriaBasedRules>
+        <fullName>SVP_Marketing_Subordinates</fullName>
         <sharedTo>
-            <group>SETeam</group>
+            <roleAndSubordinatesInternal>SVPMarketing</roleAndSubordinatesInternal>
         </sharedTo>
-        <sharedFrom>
-            <allCustomerPortalUsers></allCustomerPortalUsers>
-        </sharedFrom>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>notEqual</operation>
+            <value>HR Requests,Facilities</value>
+        </criteriaItems>
         <caseAccessLevel>Edit</caseAccessLevel>
-        <name>SE Team</name>
-    </ownerRules>
-    <ownerRules>
-        <fullName>SETeam736642</fullName>
+        <name>SVP Marketing &amp; Subordinates</name>
+    </criteriaBasedRules>
+    <criteriaBasedRules>
+        <fullName>Share_Axians_cases_with_other_users</fullName>
         <sharedTo>
-            <group>SETeam</group>
+            <portalRole>AXIANSNETWORKSLIMITEDPartnerUser</portalRole>
         </sharedTo>
-        <sharedFrom>
-            <queue>TechSupportQueue</queue>
-        </sharedFrom>
+        <criteriaItems>
+            <field>AccountId</field>
+            <operation>equals</operation>
+            <value>0013800001F3baz</value>
+        </criteriaItems>
         <caseAccessLevel>Edit</caseAccessLevel>
-        <name>SE Team</name>
-    </ownerRules>
+        <name>Share Axians cases with other users</name>
+    </criteriaBasedRules>
+    <criteriaBasedRules>
+        <fullName>Share_Interroute_Cases_with_interoute_partner_user</fullName>
+        <sharedTo>
+            <portalRole>InterouteCommunicationsLtdPartnerUser</portalRole>
+        </sharedTo>
+        <criteriaItems>
+            <field>AccountId</field>
+            <operation>equals</operation>
+            <value>0015000000MOZ6l</value>
+        </criteriaItems>
+        <caseAccessLevel>Read</caseAccessLevel>
+        <name>Share Interroute Cases with interoute partner user</name>
+    </criteriaBasedRules>
+    <criteriaBasedRules>
+        <fullName>VP_Business_Development_Subordinates</fullName>
+        <sharedTo>
+            <roleAndSubordinatesInternal>VPofBusinessDevlopment</roleAndSubordinatesInternal>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>notEqual</operation>
+            <value>HR Requests,Facilities</value>
+        </criteriaItems>
+        <caseAccessLevel>Edit</caseAccessLevel>
+        <name>VP Business Development &amp; Subordinates</name>
+    </criteriaBasedRules>
+    <criteriaBasedRules>
+        <fullName>VP_Operations_Subordinates</fullName>
+        <sharedTo>
+            <roleAndSubordinatesInternal>VPOperations</roleAndSubordinatesInternal>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>notEqual</operation>
+            <value>HR Requests,Facilities</value>
+        </criteriaItems>
+        <caseAccessLevel>Edit</caseAccessLevel>
+        <name>VP Operations &amp; Subordinates</name>
+    </criteriaBasedRules>
+    <criteriaBasedRules>
+        <fullName>VP_Product_Management</fullName>
+        <sharedTo>
+            <roleAndSubordinatesInternal>VPProductManagement</roleAndSubordinatesInternal>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>notEqual</operation>
+            <value>HR Requests,Facilities</value>
+        </criteriaItems>
+        <caseAccessLevel>Edit</caseAccessLevel>
+        <name>VP Product Management</name>
+    </criteriaBasedRules>
+    <criteriaBasedRules>
+        <fullName>VP_of_Engineering_Subordinates</fullName>
+        <sharedTo>
+            <roleAndSubordinatesInternal>VPofEngineering</roleAndSubordinatesInternal>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>notEqual</operation>
+            <value>HR Requests,Facilities</value>
+        </criteriaItems>
+        <caseAccessLevel>Edit</caseAccessLevel>
+        <name>VP of Engineering &amp; Subordinates</name>
+    </criteriaBasedRules>
+    <criteriaBasedRules>
+        <fullName>eTrique_Integration_Subordinates</fullName>
+        <sharedTo>
+            <roleAndSubordinatesInternal>eTriqueIntegration</roleAndSubordinatesInternal>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>notEqual</operation>
+            <value>HR Requests,Facilities</value>
+        </criteriaItems>
+        <caseAccessLevel>Edit</caseAccessLevel>
+        <name>eTrique Integration &amp; Subordinates</name>
+    </criteriaBasedRules>
 </CaseSharingRules>

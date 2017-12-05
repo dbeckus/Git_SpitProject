@@ -95,6 +95,18 @@
         <type>TextArea</type>
     </fields>
     <fields>
+        <fullName>FCMM__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>FCMM</label>
+        <referenceTo>User</referenceTo>
+        <relationshipName>Patches_FCMM</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
         <fullName>ISR__c</fullName>
         <deleteConstraint>SetNull</deleteConstraint>
         <externalId>false</externalId>
@@ -134,6 +146,7 @@
         <fullName>Overlay__c</fullName>
         <defaultValue>false</defaultValue>
         <externalId>false</externalId>
+        <inlineHelpText>If an overlay patch meets criteria, the patch is not assigned. Only the overlaying members are added to the team members</inlineHelpText>
         <label>Overlay</label>
         <trackHistory>false</trackHistory>
         <trackTrending>false</trackTrending>
@@ -191,6 +204,7 @@
     <fields>
         <fullName>Rule_Logic__c</fullName>
         <externalId>false</externalId>
+        <inlineHelpText>A formula referencing the processing sequence of criteria rules, indicating the logic of how the rules to be evaluated. e.g. &quot;4&quot;, &quot;1 AND 2&quot;, &quot;2 AND (3 OR 4)&quot;, &quot;2 AND NOT (3 OR 4)&quot;</inlineHelpText>
         <label>Rule Logic</label>
         <length>200</length>
         <required>false</required>
@@ -208,54 +222,6 @@
         <relationshipName>Patch_Assignments3</relationshipName>
         <required>false</required>
         <trackHistory>true</trackHistory>
-        <trackTrending>false</trackTrending>
-        <type>Lookup</type>
-    </fields>
-    <fields>
-        <fullName>SP_BDR__c</fullName>
-        <deleteConstraint>SetNull</deleteConstraint>
-        <externalId>false</externalId>
-        <label>Service Provider BDR</label>
-        <referenceTo>User</referenceTo>
-        <relationshipName>Patches2</relationshipName>
-        <required>false</required>
-        <trackHistory>false</trackHistory>
-        <trackTrending>false</trackTrending>
-        <type>Lookup</type>
-    </fields>
-    <fields>
-        <fullName>SP_CAM__c</fullName>
-        <deleteConstraint>SetNull</deleteConstraint>
-        <externalId>false</externalId>
-        <label>Service Provider CAM</label>
-        <referenceTo>User</referenceTo>
-        <relationshipName>Patches</relationshipName>
-        <required>false</required>
-        <trackHistory>false</trackHistory>
-        <trackTrending>false</trackTrending>
-        <type>Lookup</type>
-    </fields>
-    <fields>
-        <fullName>SP_RSM__c</fullName>
-        <deleteConstraint>SetNull</deleteConstraint>
-        <externalId>false</externalId>
-        <label>Service Provider_RSM</label>
-        <referenceTo>User</referenceTo>
-        <relationshipName>PatchesRSM</relationshipName>
-        <required>false</required>
-        <trackHistory>false</trackHistory>
-        <trackTrending>false</trackTrending>
-        <type>Lookup</type>
-    </fields>
-    <fields>
-        <fullName>SP_SE__c</fullName>
-        <deleteConstraint>SetNull</deleteConstraint>
-        <externalId>false</externalId>
-        <label>Service Provider SE</label>
-        <referenceTo>User</referenceTo>
-        <relationshipName>Patches1</relationshipName>
-        <required>false</required>
-        <trackHistory>false</trackHistory>
         <trackTrending>false</trackTrending>
         <type>Lookup</type>
     </fields>

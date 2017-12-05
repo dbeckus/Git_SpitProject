@@ -26,6 +26,10 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
+                <field>Overlay__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
                 <field>Rule_Logic__c</field>
             </layoutItems>
             <layoutItems>
@@ -35,26 +39,6 @@
             <layoutItems>
                 <behavior>Edit</behavior>
                 <field>Comments__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>Overlay__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>SP_RSM__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>SP_CAM__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>SP_SE__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>SP_BDR__c</field>
             </layoutItems>
         </layoutColumns>
         <layoutColumns>
@@ -77,6 +61,10 @@
             <layoutItems>
                 <behavior>Edit</behavior>
                 <field>SE__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>FCMM__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>

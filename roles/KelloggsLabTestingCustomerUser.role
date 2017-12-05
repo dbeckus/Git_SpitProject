@@ -6,5 +6,5 @@
     <mayForecastManagerShare>false</mayForecastManagerShare>
     <name>Kellogg&apos;s-Lab Testing Customer User</name>
     <opportunityAccessLevel>None</opportunityAccessLevel>
-    <parentRole>VP_Sales_Central_1</parentRole>
+    <parentRole>Grade_3_Sales_NAM_Central</parentRole>
 </Role>

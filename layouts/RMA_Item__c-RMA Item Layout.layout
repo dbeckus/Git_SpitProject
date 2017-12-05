@@ -60,10 +60,6 @@
                 <behavior>Readonly</behavior>
                 <field>Ship2AccountName__c</field>
             </layoutItems>
-            <layoutItems>
-                <behavior>Readonly</behavior>
-                <field>Product_Category__c</field>
-            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>

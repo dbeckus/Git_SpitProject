@@ -1,0 +1,207 @@
+<apex:page standardController="Information_Card__c" extensions="InformationCardController" showHeader="false" docType="html-5.0">
+    <style>
+        .header{
+            width: 80%;
+            color: #4a4a56;
+            border-collapse:collapse;
+        }
+        .inBorder{
+            border-bottom: 1px solid #ececec;
+            height: 20px;
+        }
+        .tr_mark{
+        
+        }
+        .tr_mark:hover{
+            background-color:#f5e4a1;
+        }
+    </style>
+    <table class="header">
+        <tr>
+            <th class="inBorder"></th>
+            <th class="inBorder">Information Card</th>
+            <th class="inBorder">Related Account</th>
+            <th class="inBorder">Match or not</th>
+        </tr>
+        <tr class="tr_mark">
+            <td class="inBorder">Company Name</td>
+            <td class="inBorder"><apex:outputField value="{!card.Company_Name__c}"/></td>
+            <td class="inBorder"><apex:outputField value="{!card.Account__r.Name}"/></td>
+            <td class="inBorder"><apex:image url="{!URLFOR($Resource.AccountInfoCardIcons, IF(card.Company_Name__c == card.Account__r.Name,'right.png','wrong.png'))}" width="18" height="18" /></td>
+        </tr>
+        <tr class="tr_mark">
+            <td class="inBorder">Billing Street</td>
+            <td class="inBorder"><apex:outputField value="{!card.Billing_Street__c}"/></td>
+            <td class="inBorder"><apex:outputField value="{!card.Account__r.BillingStreet}"/></td>
+            <td class="inBorder"><apex:image url="{!URLFOR($Resource.AccountInfoCardIcons, IF(card.Billing_Street__c == card.Account__r.BillingStreet,'right.png','wrong.png'))}" width="18" height="18" /></td>
+        </tr>
+        <tr class="tr_mark">
+            <td class="inBorder">Billing City</td>
+            <td class="inBorder"><apex:outputField value="{!card.Billing_City__c}"/></td>
+            <td class="inBorder"><apex:outputField value="{!card.Account__r.BillingCity}"/></td>
+            <td class="inBorder"><apex:image url="{!URLFOR($Resource.AccountInfoCardIcons, IF(card.Billing_City__c == card.Account__r.BillingCity,'right.png','wrong.png'))}" width="18" height="18" /></td>
+        </tr>
+        <tr class="tr_mark">
+            <td class="inBorder">Billing State</td>
+            <td class="inBorder"><apex:outputField value="{!card.Billing_State__c}"/></td>
+            <td class="inBorder"><apex:outputField value="{!card.Account__r.BillingState}"/></td>
+            <td class="inBorder"><apex:image url="{!URLFOR($Resource.AccountInfoCardIcons, IF(card.Billing_State__c == card.Account__r.BillingState,'right.png','wrong.png'))}" width="18" height="18" /></td>
+        </tr>
+        <tr class="tr_mark">
+            <td class="inBorder">Billing Postal Code</td>
+            <td class="inBorder"><apex:outputField value="{!card.Billing_Postal_Code__c}"/></td>
+            <td class="inBorder"><apex:outputField value="{!card.Account__r.BillingPostalCode}"/></td>
+            <td class="inBorder"><apex:image url="{!URLFOR($Resource.AccountInfoCardIcons, IF(card.Billing_Postal_Code__c == card.Account__r.BillingPostalCode,'right.png','wrong.png'))}" width="18" height="18" /></td>
+        </tr>
+        <tr class="tr_mark">
+            <td class="inBorder">Billing Country</td>
+            <td class="inBorder"><apex:outputField value="{!card.Billing_Country__c}"/></td>
+            <td class="inBorder"><apex:outputField value="{!card.Account__r.BillingCountry}"/></td>
+            <td class="inBorder"><apex:image url="{!URLFOR($Resource.AccountInfoCardIcons, IF(card.Billing_Country__c == card.Account__r.BillingCountry,'right.png','wrong.png'))}" width="18" height="18" /></td>
+        </tr>
+        <tr class="tr_mark">
+            <td class="inBorder">Region</td>
+            <td class="inBorder"><apex:outputField value="{!card.Region__c}"/></td>
+            <td class="inBorder"><apex:outputField value="{!card.Account__r.Region__c}"/></td>
+            <td class="inBorder"><apex:image url="{!URLFOR($Resource.AccountInfoCardIcons, IF(card.Region__c == card.Account__r.Region__c,'right.png','wrong.png'))}" width="18" height="18" /></td>
+        </tr>
+        <tr class="tr_mark">
+            <td class="inBorder">Website</td>
+            <td class="inBorder"><apex:outputField value="{!card.Website__c}"/></td>
+            <td class="inBorder"><apex:outputField value="{!card.Account__r.Website}"/></td>
+            <td class="inBorder"><apex:image url="{!URLFOR($Resource.AccountInfoCardIcons, IF(card.Website__c == card.Account__r.Website,'right.png','wrong.png'))}" width="18" height="18" /></td>
+        </tr>
+        <tr class="tr_mark">
+            <td class="inBorder">Email Domain Used</td>
+            <td class="inBorder"><apex:outputField value="{!card.Email_Domain_Used__c}"/></td>
+            <td class="inBorder"><apex:outputField value="{!card.Account__r.Email_Domain_Used__c}"/></td>
+            <td class="inBorder"><apex:image url="{!URLFOR($Resource.AccountInfoCardIcons, IF(card.Email_Domain_Used__c == card.Account__r.Email_Domain_Used__c,'right.png','wrong.png'))}" width="18" height="18" /></td>
+        </tr>
+        <tr class="tr_mark">
+            <td class="inBorder">Phone</td>
+            <td class="inBorder"><apex:outputField value="{!card.Phone__c}"/></td>
+            <td class="inBorder"><apex:outputField value="{!card.Account__r.Phone}"/></td>
+            <td class="inBorder"><apex:image url="{!URLFOR($Resource.AccountInfoCardIcons, IF(card.Phone__c == card.Account__r.Phone,'right.png','wrong.png'))}" width="18" height="18" /></td>
+        </tr>
+        <tr class="tr_mark">
+            <td class="inBorder">Years in Business</td>
+            <td class="inBorder"><apex:outputField value="{!card.Years_in_Business__c}"/></td>
+            <td class="inBorder"><apex:outputField value="{!card.Account__r.Years_in_Business__c}"/></td>
+            <td><apex:image url="{!URLFOR($Resource.AccountInfoCardIcons, IF(card.Years_in_Business__c == card.Account__r.Years_in_Business__c,'right.png','wrong.png'))}" width="18" height="18" /></td>
+        </tr>
+        <tr class="tr_mark">
+            <td class="inBorder">Silver Peak opportunity pending</td>
+            <td class="inBorder"><apex:outputField value="{!card.Silver_Peak_opportunity_pending__c}"/></td>
+            <td class="inBorder"><apex:outputField value="{!card.Account__r.Silver_Peak_oppo_pend__c}"/></td>
+            <td class="inBorder"><apex:image url="{!URLFOR($Resource.AccountInfoCardIcons, IF(card.Silver_Peak_opportunity_pending__c == card.Account__r.Silver_Peak_oppo_pend__c,'right.png','wrong.png'))}" width="18" height="18" /></td>
+        </tr>
+        <tr class="tr_mark">
+            <td class="inBorder">Total annual sales revenues last year?</td>
+            <td class="inBorder"><apex:outputField value="{!card.Total_annual_sales_revenues_last_year__c}"/></td>
+            <td class="inBorder"><apex:outputField value="{!card.Account__r.total_annual_sales_revenues_last_year__c}"/></td>
+            <td class="inBorder"><apex:image url="{!URLFOR($Resource.AccountInfoCardIcons, IF(card.Total_annual_sales_revenues_last_year__c == card.Account__r.total_annual_sales_revenues_last_year__c,'right.png','wrong.png'))}" width="18" height="18" /></td>
+        </tr>
+        <tr class="tr_mark">
+            <td class="inBorder">Number of employees in your organization</td>
+            <td class="inBorder"><apex:outputField value="{!card.Number_of_employees_in_your_organization__c}"/></td>
+            <td class="inBorder"><apex:outputField value="{!card.Account__r.Number_of_employees_in_your_organization__c}"/></td>
+            <td class="inBorder"><apex:image url="{!URLFOR($Resource.AccountInfoCardIcons, IF(card.Number_of_employees_in_your_organization__c == card.Account__r.Number_of_employees_in_your_organization__c,'right.png','wrong.png'))}" width="18" height="18" /></td>
+        </tr>
+        <tr class="tr_mark">
+            <td class="inBorder">Professionals in org Outside Sales</td>
+            <td class="inBorder"><apex:outputField value="{!card.Professionals_in_org__c}"/></td>
+            <td class="inBorder"><apex:outputField value="{!card.Account__r.Professionals_in_org__c}"/></td>
+            <td class="inBorder"><apex:image url="{!URLFOR($Resource.AccountInfoCardIcons, IF(card.Professionals_in_org__c == card.Account__r.Professionals_in_org__c,'right.png','wrong.png'))}" width="18" height="18" /></td>
+        </tr>
+        <tr class="tr_mark">
+            <td class="inBorder">Professionals in org Inside Sales</td>
+            <td class="inBorder"><apex:outputField value="{!card.Professionals_in_your_org_Inside_Sales__c}"/></td>
+            <td class="inBorder"><apex:outputField value="{!card.Account__r.Professionals_in_your_org_Inside_Sales__c}"/></td>
+            <td class="inBorder"><apex:image url="{!URLFOR($Resource.AccountInfoCardIcons, IF(card.Professionals_in_your_org_Inside_Sales__c == card.Account__r.Professionals_in_your_org_Inside_Sales__c,'right.png','wrong.png'))}" width="18" height="18" /></td>
+        </tr>
+        <tr class="tr_mark">
+            <td class="inBorder">Professionals in org Sales Engineers</td>
+            <td class="inBorder"><apex:outputField value="{!card.Number_of_sales_professionals_in_org__c}"/></td>
+            <td class="inBorder"><apex:outputField value="{!card.Account__r.Number_of_sales_professionals_in_org__c}"/></td>
+            <td class="inBorder"><apex:image url="{!URLFOR($Resource.AccountInfoCardIcons, IF(card.Number_of_sales_professionals_in_org__c == card.Account__r.Number_of_sales_professionals_in_org__c,'right.png','wrong.png'))}" width="18" height="18" /></td>
+        </tr>
+        <tr class="tr_mark">
+            <td class="inBorder">TOP 3 industries</td>
+            <td class="inBorder"><apex:outputField value="{!card.TOP_3_industries__c}"/></td>
+            <td class="inBorder"><apex:outputField value="{!card.Account__r.TOP_3_industries__c}"/></td>
+            <td class="inBorder"><apex:image url="{!URLFOR($Resource.AccountInfoCardIcons, IF(card.TOP_3_industries__c == card.Account__r.TOP_3_industries__c,'right.png','wrong.png'))}" width="18" height="18" /></td>
+        </tr>
+        <tr class="tr_mark">
+            <td class="inBorder">% business is Product Sales</td>
+            <td class="inBorder"><apex:outputField value="{!card.business_is_Product_Sales__c}"/></td>
+            <td class="inBorder"><apex:outputField value="{!card.Account__r.business_is_Product_Sales__c}"/></td>
+            <td class="inBorder"><apex:image url="{!URLFOR($Resource.AccountInfoCardIcons, IF(card.business_is_Product_Sales__c == card.Account__r.business_is_Product_Sales__c,'right.png','wrong.png'))}" width="18" height="18" /></td>
+        </tr>
+        <tr class="tr_mark">
+            <td class="inBorder">% business is Consulting Sales</td>
+            <td class="inBorder"><apex:outputField value="{!card.business_is_Consulting_Sales__c}"/></td>
+            <td class="inBorder"><apex:outputField value="{!card.Account__r.business_is_Consulting_Sales__c}"/></td>
+            <td class="inBorder"><apex:image url="{!URLFOR($Resource.AccountInfoCardIcons, IF(card.business_is_Consulting_Sales__c == card.Account__r.business_is_Consulting_Sales__c,'right.png','wrong.png'))}" width="18" height="18" /></td>
+        </tr>
+        <tr class="tr_mark">
+            <td class="inBorder">% business is Services Sales</td>
+            <td class="inBorder"><apex:outputField value="{!card.business_is_Services_Sales__c}"/></td>
+            <td class="inBorder"><apex:outputField value="{!card.Account__r.business_is_Services_Sales__c}"/></td>
+            <td class="inBorder"><apex:image url="{!URLFOR($Resource.AccountInfoCardIcons, IF(card.business_is_Services_Sales__c == card.Account__r.business_is_Services_Sales__c,'right.png','wrong.png'))}" width="18" height="18" /></td>
+        </tr>
+        <tr class="tr_mark">
+            <td class="inBorder">Own brand of professional services?</td>
+            <td class="inBorder"><apex:outputField value="{!card.Own_brand_of_professional_services__c}"/></td>
+            <td class="inBorder"><apex:outputField value="{!card.Account__r.Own_brand_of_professional_services__c}"/></td>
+            <td class="inBorder"><apex:image url="{!URLFOR($Resource.AccountInfoCardIcons, IF(card.Own_brand_of_professional_services__c == card.Account__r.Own_brand_of_professional_services__c,'right.png','wrong.png'))}" width="18" height="18" /></td>
+        </tr>
+        <tr class="tr_mark">
+            <td class="inBorder">Provide technical support?</td>
+            <td class="inBorder"><apex:outputField value="{!card.Provide_technical_support__c}"/></td>
+            <td class="inBorder"><apex:outputField value="{!card.Account__r.Provide_technical_support__c}"/></td>
+            <td class="inBorder"><apex:image url="{!URLFOR($Resource.AccountInfoCardIcons, IF(card.Provide_technical_support__c == card.Account__r.Provide_technical_support__c,'right.png','wrong.png'))}" width="18" height="18" /></td>
+        </tr>
+        <tr class="tr_mark">
+            <td class="inBorder">Primary target market size?</td>
+            <td class="inBorder"><apex:outputField value="{!card.Primary_target_market_size__c}"/></td>
+            <td class="inBorder"><apex:outputField value="{!card.Account__r.Primary_target_market_size__c}"/></td>
+            <td class="inBorder"><apex:image url="{!URLFOR($Resource.AccountInfoCardIcons, IF(card.Primary_target_market_size__c == card.Account__r.Primary_target_market_size__c,'right.png','wrong.png'))}" width="18" height="18" /></td>
+        </tr>
+        <tr class="tr_mark">
+            <td class="inBorder">Marketing Offerings</td>
+            <td class="inBorder"><apex:outputField value="{!card.Marketing_Offerings__c}"/></td>
+            <td class="inBorder"><apex:outputField value="{!card.Account__r.Marketting_Oferrings__c}"/></td>
+            <td class="inBorder"><apex:image url="{!URLFOR($Resource.AccountInfoCardIcons, IF(card.Marketing_Offerings__c == card.Account__r.Marketting_Oferrings__c,'right.png','wrong.png'))}" width="18" height="18" /></td>
+        </tr>
+        <tr class="tr_mark">
+            <td class="inBorder">Are you an authorized partner of</td>
+            <td class="inBorder"><apex:outputField value="{!card.Are_you_an_authorized_partner_of__c}"/></td>
+            <td class="inBorder"><apex:outputField value="{!card.Account__r.Are_you_an_authorized_partner_of__c}"/></td>
+            <td class="inBorder"><apex:image url="{!URLFOR($Resource.AccountInfoCardIcons, IF(card.Are_you_an_authorized_partner_of__c == card.Account__r.Are_you_an_authorized_partner_of__c,'right.png','wrong.png'))}" width="18" height="18" /></td>
+        </tr>
+        <tr class="tr_mark">
+            <td class="inBorder">Integrate Cloud Solutions with Vendors?</td>
+            <td class="inBorder"><apex:outputField value="{!card.Integrate_Cloud_Solutions_with_Vendors__c}"/></td>
+            <td class="inBorder"><apex:outputField value="{!card.Account__r.Integrate_cloudsolutions_with_vendors__c}"/></td>
+            <td class="inBorder"><apex:image url="{!URLFOR($Resource.AccountInfoCardIcons, IF(card.Phone__c == card.Account__r.Phone,'right.png','wrong.png'))}" width="18" height="18" /></td>
+        </tr>
+        <tr class="tr_mark">
+            <td class="inBorder">Please Name the Vendors</td>
+            <td class="inBorder"><apex:outputField value="{!card.Please_Name_the_Vendors__c}"/></td>
+            <td class="inBorder"><apex:outputField value="{!card.Account__r.Please_Name_the_Vendors__c}"/></td>
+            <td class="inBorder"><apex:image url="{!URLFOR($Resource.AccountInfoCardIcons, IF(card.Please_Name_the_Vendors__c == card.Account__r.Please_Name_the_Vendors__c,'right.png','wrong.png'))}" width="18" height="18" /></td>
+        </tr>
+        <tr class="tr_mark">
+            <td class="inBorder">Distributor of Choice</td>
+            <td class="inBorder"><apex:outputField value="{!card.Distributor_of_Choice__c}"/></td>
+            <td class="inBorder"><apex:outputField value="{!card.Account__r.Distributor_of_Choice__c}"/></td>
+            <td class="inBorder"><apex:image url="{!URLFOR($Resource.AccountInfoCardIcons, IF(card.Distributor_of_Choice__c == card.Account__r.Distributor_of_Choice__c,'right.png','wrong.png'))}" width="18" height="18" /></td>
+        </tr>
+        <tr class="tr_mark">
+            <td class="inBorder">Tax ID Number</td>
+            <td class="inBorder"><apex:outputField value="{!card.Tax_ID_Number__c}"/></td>
+            <td class="inBorder"><apex:outputField value="{!card.Account__r.Tax_ID_Number__c}"/></td>
+            <td class="inBorder"><apex:image url="{!URLFOR($Resource.AccountInfoCardIcons, IF(card.Tax_ID_Number__c == card.Account__r.Tax_ID_Number__c,'right.png','wrong.png'))}" width="18" height="18" /></td>
+        </tr>
+    </table>
+</apex:page>

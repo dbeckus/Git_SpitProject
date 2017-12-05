@@ -6,5 +6,5 @@
     <mayForecastManagerShare>false</mayForecastManagerShare>
     <name>LAN SERVICE s.r.l. Partner Manager</name>
     <opportunityAccessLevel>None</opportunityAccessLevel>
-    <parentRole>DirectorofChannelEMEA</parentRole>
+    <parentRole>Grade_3_CAM_EMEA</parentRole>
 </Role>

@@ -6,5 +6,5 @@
     <mayForecastManagerShare>false</mayForecastManagerShare>
     <name>Masergy-Haldex Customer User</name>
     <opportunityAccessLevel>None</opportunityAccessLevel>
-    <parentRole>Sales_Manager_Central</parentRole>
+    <parentRole>Grade_3_Sales_SP</parentRole>
 </Role>

@@ -21,7 +21,7 @@
     <indexPage>UpcomingEvents</indexPage>
     <masterLabel>ww2</masterLabel>
     <requireInsecurePortalAccess>false</requireInsecurePortalAccess>
-    <siteAdmin>curtisc@silver-peak.com</siteAdmin>
+    <siteAdmin>dbeckus@silver-peak.com</siteAdmin>
     <siteTemplate>TrainingRegistrationTemplate</siteTemplate>
     <siteType>Visualforce</siteType>
     <subdomain>silverpeaksystems</subdomain>

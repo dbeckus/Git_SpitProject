@@ -6,5 +6,5 @@
     <mayForecastManagerShare>false</mayForecastManagerShare>
     <name>Textiles Avante Customer User</name>
     <opportunityAccessLevel>None</opportunityAccessLevel>
-    <parentRole>CountryManagerLAT</parentRole>
+    <parentRole>Grade_2_COMM</parentRole>
 </Role>

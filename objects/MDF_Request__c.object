@@ -1633,7 +1633,7 @@ BR() &amp;
         </sharedTo>
     </listViews>
     <listViews>
-        <fullName>All_MDF_Requests_In_Progress</fullName>
+        <fullName>All_MDF_Requests</fullName>
         <columns>NAME</columns>
         <columns>Reference_field__c</columns>
         <columns>Partner_Account__c</columns>
@@ -1646,12 +1646,7 @@ BR() &amp;
         <columns>OWNER.LAST_NAME</columns>
         <columns>Accounting_PoC_Email__c</columns>
         <filterScope>Everything</filterScope>
-        <filters>
-            <field>Approval_Status__c</field>
-            <operation>notEqual</operation>
-            <value>Approved,Denied</value>
-        </filters>
-        <label>All Funding Requests In Progress</label>
+        <label>All Funding Requests</label>
         <sharedTo>
             <allInternalUsers></allInternalUsers>
         </sharedTo>
@@ -1687,56 +1682,6 @@ BR() &amp;
             <group>SalesTeam</group>
             <group>WestSalesTeam</group>
         </sharedTo>
-    </listViews>
-    <listViews>
-        <fullName>Approved_MDF_Requests_Partners</fullName>
-        <columns>NAME</columns>
-        <columns>Reference_field__c</columns>
-        <columns>Approval_Status__c</columns>
-        <columns>Type_of_Program__c</columns>
-        <columns>Event_Campaign_Name__c</columns>
-        <columns>Activity_Date__c</columns>
-        <columns>Activity_Complete__c</columns>
-        <columns>Purchasing_Request__c</columns>
-        <columns>Partner_Account__c</columns>
-        <columns>OWNER.FIRST_NAME</columns>
-        <columns>OWNER.LAST_NAME</columns>
-        <columns>GEO__c</columns>
-        <columns>PO_No__c</columns>
-        <filterScope>Everything</filterScope>
-        <filters>
-            <field>Approval_Status__c</field>
-            <operation>equals</operation>
-            <value>Approved</value>
-        </filters>
-        <label>3) Approved Funding Requests</label>
-    </listViews>
-    <listViews>
-        <fullName>Denied_MDF_Requests_Partner</fullName>
-        <columns>NAME</columns>
-        <columns>Approval_Status__c</columns>
-        <columns>Partner_Account__c</columns>
-        <columns>Type_of_Program__c</columns>
-        <columns>Event_Campaign_Name__c</columns>
-        <columns>Activity_Date__c</columns>
-        <columns>Activity_Complete__c</columns>
-        <columns>GEO__c</columns>
-        <filterScope>Everything</filterScope>
-        <filters>
-            <field>Approval_Status__c</field>
-            <operation>equals</operation>
-            <value>Denied</value>
-        </filters>
-        <filters>
-            <field>Approval_Status_Hidden__c</field>
-            <operation>equals</operation>
-            <value>Denied</value>
-        </filters>
-        <filters>
-            <field>Reason_Rejected__c</field>
-            <operation>notEqual</operation>
-        </filters>
-        <label>4) Denied Funding Requests</label>
     </listViews>
     <listViews>
         <fullName>Denied_MDF_Requests_Partner_Alerted</fullName>
@@ -1912,6 +1857,21 @@ BR() &amp;
         </sharedTo>
     </listViews>
     <listViews>
+        <fullName>MFRs_for_FVC_Inc</fullName>
+        <columns>NAME</columns>
+        <columns>MDF_Status__c</columns>
+        <columns>Account__c</columns>
+        <columns>OWNER.FIRST_NAME</columns>
+        <columns>OWNER.LAST_NAME</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Account__c</field>
+            <operation>equals</operation>
+            <value>FVC Inc.</value>
+        </filters>
+        <label>MFRs for FVC Inc.</label>
+    </listViews>
+    <listViews>
         <fullName>My_own_funding_requests</fullName>
         <columns>NAME</columns>
         <columns>Type_of_Program__c</columns>
@@ -1958,37 +1918,6 @@ BR() &amp;
             <group>SalesTeam</group>
             <group>WestSalesTeam</group>
         </sharedTo>
-    </listViews>
-    <listViews>
-        <fullName>Pending_MDF_Requests_In_Progress_Partners</fullName>
-        <columns>NAME</columns>
-        <columns>Approval_Status__c</columns>
-        <columns>Type_of_Program__c</columns>
-        <columns>Event_Campaign_Name__c</columns>
-        <columns>Activity_Date__c</columns>
-        <columns>Activity_Complete__c</columns>
-        <columns>Purchasing_Request__c</columns>
-        <columns>Partner_Account__c</columns>
-        <columns>OWNER.FIRST_NAME</columns>
-        <columns>OWNER.LAST_NAME</columns>
-        <columns>GEO__c</columns>
-        <columns>CSM__c</columns>
-        <filterScope>Everything</filterScope>
-        <filters>
-            <field>Approval_Status__c</field>
-            <operation>equals</operation>
-            <value>Pending</value>
-        </filters>
-        <filters>
-            <field>Approval_Status_Hidden__c</field>
-            <operation>notEqual</operation>
-            <value>Approved,Denied</value>
-        </filters>
-        <filters>
-            <field>Reference_field__c</field>
-            <operation>equals</operation>
-        </filters>
-        <label>2) Pending Funding Requests(In Progress)</label>
     </listViews>
     <listViews>
         <fullName>Requests_Requiring_GL_Code_Dept_Proj</fullName>

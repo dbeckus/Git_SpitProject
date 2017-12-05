@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Role xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseAccessLevel>None</caseAccessLevel>
+    <contactAccessLevel>Edit</contactAccessLevel>
+    <description>HILAL COMPUTER &amp; TECHNICAL FOR TRADE COMPANY Partner User</description>
+    <mayForecastManagerShare>false</mayForecastManagerShare>
+    <name>HILAL COMPUTER &amp; TECHNICAL FOR TRADE COMPANY Partner User</name>
+    <opportunityAccessLevel>None</opportunityAccessLevel>
+    <parentRole>HILALCOMPUTERTECHNICALFORTRADECOMPANYPartnerManager</parentRole>
+</Role>

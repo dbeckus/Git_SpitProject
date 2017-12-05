@@ -62,10 +62,6 @@
             </approver>
             <whenMultipleApprovers>FirstResponse</whenMultipleApprovers>
         </assignedApprover>
-        <entryCriteria>
-            <formula>OR(IsPickVal(Opportunity__r.Account.Type ,&quot;Prospect&quot;),IsPickVal(Opportunity__r.Account.Type ,&quot;Customer&quot;))</formula>
-        </entryCriteria>
-        <ifCriteriaNotMet>RejectRecord</ifCriteriaNotMet>
         <label>Send to next approver Shayne Stubbs</label>
         <name>Send_to_next_approver_ShayneStubbs</name>
     </approvalStep>

@@ -6,5 +6,5 @@
     <mayForecastManagerShare>false</mayForecastManagerShare>
     <name>RSM US (previously McGladrey LLP) Customer User</name>
     <opportunityAccessLevel>None</opportunityAccessLevel>
-    <parentRole>ChannelSalesManagerCentral</parentRole>
+    <parentRole>Grade_5_CAM_NAM_Southwest</parentRole>
 </Role>

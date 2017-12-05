@@ -15,6 +15,10 @@
                 <field>Name</field>
             </layoutItems>
             <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>AccountId18Digit__c</field>
+            </layoutItems>
+            <layoutItems>
                 <behavior>Edit</behavior>
                 <field>ParentId</field>
             </layoutItems>
@@ -25,10 +29,6 @@
             <layoutItems>
                 <behavior>Edit</behavior>
                 <field>Target_Account__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Readonly</behavior>
-                <field>IsPartner</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
@@ -52,11 +52,31 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
+                <field>First_Asset_Quarter__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>EC_Customer_Date__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>WAN_OP_Customer_Date__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>EC_Opp_Date__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
                 <field>ECSP_Base_Discount__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
                 <field>ECSP_Boost_Discount__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>Cumulative_Opp_Value__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
@@ -75,40 +95,24 @@
                 <field>Trigger_Active_Asset_Count__c</field>
             </layoutItems>
             <layoutItems>
-                <behavior>Readonly</behavior>
-                <field>First_EC_Customer_Date__c</field>
+                <behavior>Edit</behavior>
+                <field>Health_Type__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>WAN_OP_Customer_Date__c</field>
+                <field>Is_this_a_foreign_government_entity__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>WAN_Op_Asset_Name__c</field>
+                <field>Clean_Status_Changed__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>EC_Customer_Date__c</field>
+                <field>Data_com_Clean_Modified__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>Override_Service_Provider_Setting__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>SendExpirationEmail__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>EC_End_Date__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Readonly</behavior>
-                <field>EC_Term__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>Assigned_Distributor__c</field>
+                <field>SP_MKTG__c</field>
             </layoutItems>
         </layoutColumns>
         <layoutColumns>
@@ -118,19 +122,11 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Readonly</behavior>
+                <field>PartnerPortalEnabledIndicator__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
                 <field>Cumulative_Bookings__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Readonly</behavior>
-                <field>IsAPartner__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Readonly</behavior>
-                <field>IsTier2Partner__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>IsTier3Partner__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
@@ -186,6 +182,10 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
+                <field>Health_Description__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
                 <field>Support_Contact1__c</field>
             </layoutItems>
             <layoutItems>
@@ -195,6 +195,10 @@
             <layoutItems>
                 <behavior>Edit</behavior>
                 <field>Support_Contact3__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>CAM__c</field>
             </layoutItems>
         </layoutColumns>
         <style>TwoColumnsTopToBottom</style>
@@ -222,33 +226,6 @@
         <customLabel>true</customLabel>
         <detailHeading>true</detailHeading>
         <editHeading>true</editHeading>
-        <label>Unity Orchestrator Information</label>
-        <layoutColumns>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>Unity_Orch_Admin_User__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>Unity_Orch_Domain__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>Unity_Orch_Location__c</field>
-            </layoutItems>
-        </layoutColumns>
-        <layoutColumns>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>Unity_Orch_Version__c</field>
-            </layoutItems>
-        </layoutColumns>
-        <style>TwoColumnsLeftToRight</style>
-    </layoutSections>
-    <layoutSections>
-        <customLabel>true</customLabel>
-        <detailHeading>true</detailHeading>
-        <editHeading>true</editHeading>
         <label>Service Provider Information</label>
         <layoutColumns>
             <layoutItems>
@@ -261,18 +238,14 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>Service_Provider_Domain__c</field>
+                <field>Service_Provider_Admin_User__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>Service_Provider_Contracted__c</field>
+                <field>Service_Provider_Domain__c</field>
             </layoutItems>
         </layoutColumns>
         <layoutColumns>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>Service_Provider_Admin_User__c</field>
-            </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
                 <field>Service_Provider_Environment_Type__c</field>
@@ -280,6 +253,14 @@
             <layoutItems>
                 <behavior>Edit</behavior>
                 <field>Service_Provider_Location__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Service_Provider_Contracted__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Override_Service_Provider_Setting__c</field>
             </layoutItems>
         </layoutColumns>
         <style>TwoColumnsLeftToRight</style>
@@ -330,10 +311,6 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>CreditHold__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
                 <field>Partner_Type__c</field>
             </layoutItems>
             <layoutItems>
@@ -354,11 +331,11 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>PrimaryPartnerContact__c</field>
+                <field>CreditHold__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>Default_PriceBook__c</field>
+                <field>PrimaryPartnerContact__c</field>
             </layoutItems>
         </layoutColumns>
         <style>TwoColumnsLeftToRight</style>
@@ -508,11 +485,19 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
+                <field>Marketting_Oferrings__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
                 <field>TOP_3_industries__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
                 <field>CertifiedPartnerPlaque__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Distributor_of_Choice__c</field>
             </layoutItems>
         </layoutColumns>
         <layoutColumns>
@@ -716,7 +701,9 @@
         <fields>CONTACT.EMAIL</fields>
         <fields>CONTACT.PHONE1</fields>
         <fields>CONTACT.ALLOW_PORTAL_SELF_REG</fields>
+        <fields>Primary_Account_Contact__c</fields>
         <fields>CONTACT.CREATED_DATE</fields>
+        <fields>PortalUserActive__c</fields>
         <relatedList>RelatedContactList</relatedList>
     </relatedLists>
     <relatedLists>
@@ -771,6 +758,8 @@
         <fields>End_of_Maintenance__c</fields>
         <fields>License_End_Date__c</fields>
         <relatedList>Asset.Silver_Peak_Account__c</relatedList>
+        <sortField>Product_Name_And_Nodes__c</sortField>
+        <sortOrder>Desc</sortOrder>
     </relatedLists>
     <relatedLists>
         <customButtons>New_Virtual_Asset</customButtons>
@@ -786,8 +775,6 @@
         <fields>End_of_Maintenance__c</fields>
         <fields>License_End_Date__c</fields>
         <relatedList>RelatedAssetList</relatedList>
-        <sortField>Product_Name_And_Nodes__c</sortField>
-        <sortOrder>Desc</sortOrder>
     </relatedLists>
     <relatedLists>
         <fields>CONTRACT.CONTRACT_NUMBER</fields>
@@ -815,7 +802,6 @@
         <fields>CONTRACT.END_DATE</fields>
         <fields>CONTRACT.STATUS</fields>
         <fields>SP_Contract_Number__c</fields>
-        <fields>Trigger_Notice__c</fields>
         <relatedList>RelatedContractList</relatedList>
     </relatedLists>
     <relatedLists>
@@ -847,12 +833,6 @@
     </relatedLists>
     <relatedLists>
         <relatedList>RelatedNoteList</relatedList>
-    </relatedLists>
-    <relatedLists>
-        <fields>ACCOUNT.NAME</fields>
-        <fields>OPPORTUNITY.NAME</fields>
-        <fields>PARTNER.ROLE</fields>
-        <relatedList>RelatedPartnerList</relatedList>
     </relatedLists>
     <relatedLists>
         <relatedList>RelatedAccountSalesTeam</relatedList>
@@ -921,32 +901,9 @@
         <relatedList>T3chAccelerator__Instance__c.T3chAccelerator__account_id__c</relatedList>
     </relatedLists>
     <relatedLists>
+        <excludeButtons>New</excludeButtons>
         <fields>NAME</fields>
-        <fields>Opportunity__c</fields>
-        <fields>Quote_Date__c</fields>
-        <fields>Quote_Valid_Until__c</fields>
-        <relatedList>Quote__c.Tier_1_Partner__c</relatedList>
-    </relatedLists>
-    <relatedLists>
-        <fields>NAME</fields>
-        <fields>Opportunity__c</fields>
-        <fields>Quote_Date__c</fields>
-        <fields>Quote_Valid_Until__c</fields>
-        <relatedList>Quote__c.Tier_2_Partner__c</relatedList>
-    </relatedLists>
-    <relatedLists>
-        <fields>NAME</fields>
-        <fields>Opportunity__c</fields>
-        <fields>Quote_Date__c</fields>
-        <fields>Quote_Valid_Until__c</fields>
-        <relatedList>Quote__c.Tier_3_Partner__c</relatedList>
-    </relatedLists>
-    <relatedLists>
-        <fields>ACCOUNT.NAME</fields>
-        <fields>ACCOUNT.ADDRESS1_CITY</fields>
-        <fields>ACCOUNT.PHONE1</fields>
-        <fields>ACCOUNT.TYPE</fields>
-        <relatedList>Account.Assigned_Distributor__c</relatedList>
+        <relatedList>Information_Card__c.Account__c</relatedList>
     </relatedLists>
     <relatedObjects>ParentId</relatedObjects>
     <showEmailCheckbox>false</showEmailCheckbox>

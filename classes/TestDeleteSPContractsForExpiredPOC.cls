@@ -33,17 +33,17 @@ public class TestDeleteSPContractsForExpiredPOC {
         Request__c pocRequest = new Request__c(POC_Contact__c = contact.Id);
         pocRequest.POC_Type__c='Perpetual';
         pocRequest.Opportunity__c= opportunity.id;
-        pocRequest.VirtualProduct1__c= 'EC-SP-50';
+        pocRequest.VirtualProduct1__c= 'EC-SP-50-B';
         pocRequest.VirtualQuantity1__c= 5;
-        pocRequest.VirtualProduct1__c= 'EC-SP-100';
+        pocRequest.VirtualProduct1__c= 'EC-SP-100-B';
         pocRequest.VirtualQuantity1__c= 5;
-        pocRequest.VirtualProduct1__c= 'EC-SP-200';
+        pocRequest.VirtualProduct1__c= 'EC-SP-200-B';
         pocRequest.VirtualQuantity1__c= 5;
-        pocRequest.VirtualProduct1__c= 'EC-SP-1000';
+        pocRequest.VirtualProduct1__c= 'EC-SP-1000-B';
         pocRequest.VirtualQuantity1__c= 5;
         
         insert pocRequest;     
-      	Contract con= new Contract();
+        Contract con= new Contract();
         con.AccountId=acc.Id;
         con.Contract_Type__c='Evaluation';
         con.Status='Draft';

@@ -2,9 +2,9 @@
 <Role xmlns="http://soap.sforce.com/2006/04/metadata">
     <caseAccessLevel>None</caseAccessLevel>
     <contactAccessLevel>Edit</contactAccessLevel>
-    <description>PT. NTT Indonesia Partner User</description>
+    <description>NTT Indonesia Partner User</description>
     <mayForecastManagerShare>false</mayForecastManagerShare>
-    <name>PT. NTT Indonesia Partner User</name>
+    <name>NTT Indonesia Partner User</name>
     <opportunityAccessLevel>None</opportunityAccessLevel>
     <parentRole>PTNTTIndonesiaPartnerManager</parentRole>
 </Role>

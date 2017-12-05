@@ -40,10 +40,6 @@ if( Service_Discount_Max__c &gt; RegPartServDisc__c ,3,0)
             <translation><!-- Approved --></translation>
         </picklistValues>
         <picklistValues>
-            <masterLabel>Pending Approval</masterLabel>
-            <translation><!-- Pending Approval --></translation>
-        </picklistValues>
-        <picklistValues>
             <masterLabel>Rejected</masterLabel>
             <translation><!-- Rejected --></translation>
         </picklistValues>
@@ -162,8 +158,8 @@ if( Service_Discount_Max__c &gt; RegPartServDisc__c ,3,0)
         <name>Opportunity_Amount__c</name>
     </fields>
     <fields>
-        <label><!-- Opportunity Geo Region --></label>
-        <name>Opportunity_Geo_Region__c</name>
+        <label><!-- Opportunity Closed --></label>
+        <name>Opportunity_Stage__c</name>
     </fields>
     <fields>
         <label><!-- Opportunity --></label>
@@ -209,9 +205,25 @@ if( Service_Discount_Max__c &gt; RegPartServDisc__c ,3,0)
         </picklistValues>
     </fields>
     <fields>
+        <label><!-- Prep Account Name --></label>
+        <name>Prep_Account_Name__c</name>
+    </fields>
+    <fields>
         <label><!-- Prepared For --></label>
         <name>PreparedFor__c</name>
         <relationshipLabel><!-- Silver Peak Quotes --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Prepared For AccountId --></label>
+        <name>Prepared_For_AccountId__c</name>
+    </fields>
+    <fields>
+        <label><!-- Primary Partner Credit Hold --></label>
+        <name>Primary_Partner_Credit_Hold__c</name>
+    </fields>
+    <fields>
+        <label><!-- Primary Partner Reseller Agreement --></label>
+        <name>Primary_Partner_Reseller_Agreement__c</name>
     </fields>
     <fields>
         <label><!-- Primary --></label>
@@ -421,6 +433,56 @@ Minimum program discount: 29% --></help>
         <name>Value_At_List__c</name>
     </fields>
     <layouts>
+        <layout>Admin Quote Layout</layout>
+        <sections>
+            <label><!-- Approval Criteria --></label>
+            <section>Approval Criteria</section>
+        </sections>
+        <sections>
+            <label><!-- Approval Info --></label>
+            <section>Approval Info</section>
+        </sections>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+        <sections>
+            <label><!-- Discount Section --></label>
+            <section>Discount Section</section>
+        </sections>
+        <sections>
+            <label><!-- Override Address --></label>
+            <section>Override Address</section>
+        </sections>
+        <sections>
+            <label><!-- Quote Addresses --></label>
+            <section>Quote Addresses</section>
+        </sections>
+        <sections>
+            <label><!-- Quote Instructions --></label>
+            <section>Quote Instructions</section>
+        </sections>
+    </layouts>
+    <layouts>
+        <layout>Dsitributor Quote Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+        <sections>
+            <label><!-- Discount Section --></label>
+            <section>Discount Section</section>
+        </sections>
+        <sections>
+            <label><!-- Quote Addresses --></label>
+            <section>Quote Addresses</section>
+        </sections>
+        <sections>
+            <label><!-- Quote Instructions --></label>
+            <section>Quote Instructions</section>
+        </sections>
+    </layouts>
+    <layouts>
         <layout>Partner Quote Layout</layout>
         <sections>
             <label><!-- Custom Links --></label>
@@ -437,6 +499,10 @@ Minimum program discount: 29% --></help>
     </layouts>
     <layouts>
         <layout>Quote Layout</layout>
+        <sections>
+            <label><!-- Approval Criteria --></label>
+            <section>Approval Criteria</section>
+        </sections>
         <sections>
             <label><!-- Approval Info --></label>
             <section>Approval Info</section>
@@ -476,16 +542,8 @@ Minimum program discount: 29% --></help>
         <name>Distributor_reqd_Tier1_rese_agg_blank</name>
     </validationRules>
     <validationRules>
-        <errorMessage><!-- Please select right prepared for --></errorMessage>
-        <name>Prepared_For_should_derive_from_Primary</name>
-    </validationRules>
-    <validationRules>
         <errorMessage><!-- You are not allowed to create quote on renewal opportunity. Please contact Finance or renewal specialist team. --></errorMessage>
         <name>Renew_Quotes_can_be_create_fr_spec_prof</name>
-    </validationRules>
-    <validationRules>
-        <errorMessage><!-- Special Instruction is required if Tier 2 or Tier 3 is not blank. --></errorMessage>
-        <name>Special_Instructions_reqd_after_Tier2</name>
     </validationRules>
     <validationRules>
         <errorMessage><!-- There is no pricebook for the specified opportunity. --></errorMessage>

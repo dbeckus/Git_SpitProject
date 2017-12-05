@@ -26,6 +26,11 @@
         <name>Comments__c</name>
     </fields>
     <fields>
+        <label><!-- FCMM --></label>
+        <name>FCMM__c</name>
+        <relationshipLabel><!-- Patches (FCMM) --></relationshipLabel>
+    </fields>
+    <fields>
         <label><!-- ISR --></label>
         <name>ISR__c</name>
         <relationshipLabel><!-- Patches (ISR) --></relationshipLabel>
@@ -41,6 +46,7 @@
         <relationshipLabel><!-- Patches (Overlay 2) --></relationshipLabel>
     </fields>
     <fields>
+        <help><!-- If an overlay patch meets criteria, the patch is not assigned. Only the overlaying members are added to the team members --></help>
         <label><!-- Overlay --></label>
         <name>Overlay__c</name>
     </fields>
@@ -64,6 +70,7 @@
         <relationshipLabel><!-- Patches (RSM) --></relationshipLabel>
     </fields>
     <fields>
+        <help><!-- A formula referencing the processing sequence of criteria rules, indicating the logic of how the rules to be evaluated. e.g. &quot;4&quot;, &quot;1 AND 2&quot;, &quot;2 AND (3 OR 4)&quot;, &quot;2 AND NOT (3 OR 4)&quot; --></help>
         <label><!-- Rule Logic --></label>
         <name>Rule_Logic__c</name>
     </fields>
@@ -71,26 +78,6 @@
         <label><!-- SE --></label>
         <name>SE__c</name>
         <relationshipLabel><!-- Patches (SE) --></relationshipLabel>
-    </fields>
-    <fields>
-        <label><!-- Service Provider BDR --></label>
-        <name>SP_BDR__c</name>
-        <relationshipLabel><!-- Patches (Service Provider BDR) --></relationshipLabel>
-    </fields>
-    <fields>
-        <label><!-- Service Provider CAM --></label>
-        <name>SP_CAM__c</name>
-        <relationshipLabel><!-- Patches (Service Provider CAM) --></relationshipLabel>
-    </fields>
-    <fields>
-        <label><!-- Service Provider_RSM --></label>
-        <name>SP_RSM__c</name>
-        <relationshipLabel><!-- Patches (Service Provider_RSM) --></relationshipLabel>
-    </fields>
-    <fields>
-        <label><!-- Service Provider SE --></label>
-        <name>SP_SE__c</name>
-        <relationshipLabel><!-- Patches (Service Provider SE) --></relationshipLabel>
     </fields>
     <fields>
         <label><!-- Timestamp --></label>

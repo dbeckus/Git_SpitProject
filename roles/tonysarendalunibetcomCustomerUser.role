@@ -2,9 +2,9 @@
 <Role xmlns="http://soap.sforce.com/2006/04/metadata">
     <caseAccessLevel>None</caseAccessLevel>
     <contactAccessLevel>Edit</contactAccessLevel>
-    <description>Unibet Customer User</description>
+    <description>kindredgroup (Unibet) Customer User</description>
     <mayForecastManagerShare>false</mayForecastManagerShare>
-    <name>Unibet Customer User</name>
+    <name>kindredgroup (Unibet) Customer User</name>
     <opportunityAccessLevel>None</opportunityAccessLevel>
-    <parentRole>EMEASales</parentRole>
+    <parentRole>Grade_3_Sales_EMEA</parentRole>
 </Role>

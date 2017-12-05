@@ -25,7 +25,7 @@
                 <apex:pageBlockSectionItem >
                     <apex:outputLabel value="Contact Role" for="contactRole" />
                     <apex:outputPanel styleClass="requiredInput" layout="block">
-    				<apex:outputPanel styleClass="requiredBlock" layout="block"/>
+                    <apex:outputPanel styleClass="requiredBlock" layout="block"/>
                         <apex:selectList value="{!OCR.Role}" size="1" required="true" multiselect="false">
                             <apex:selectOption />
                             <apex:selectOption itemLabel="Decision Maker" itemValue="Decision Maker" />
@@ -33,6 +33,7 @@
                             <apex:selectOption itemLabel="Executive Sponsor" itemValue="Executive Sponsor" />
                             <apex:selectOption itemLabel="Influencer" itemValue="Influencer" />
                             <apex:selectOption itemLabel="Technical Buyer" itemValue="Technical Buyer" />
+                            <apex:selectOption itemLabel="Partner Contact" itemValue="Partner Contact" />
                         </apex:selectList>
                     </apex:outputPanel>
                 </apex:pageBlockSectionItem>

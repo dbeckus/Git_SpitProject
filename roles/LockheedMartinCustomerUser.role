@@ -6,5 +6,5 @@
     <mayForecastManagerShare>false</mayForecastManagerShare>
     <name>Lockheed Martin Customer User</name>
     <opportunityAccessLevel>None</opportunityAccessLevel>
-    <parentRole>VP_Sales_North_America</parentRole>
+    <parentRole>Grade_2_Sales_NAM</parentRole>
 </Role>

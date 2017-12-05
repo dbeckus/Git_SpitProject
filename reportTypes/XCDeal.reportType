@@ -98,21 +98,25 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>EC-SP Software</displayNameOverride>
             <field>XactlyExpress__Currency2__c</field>
             <table>XactlyExpress__XCDeal__c</table>
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Total Comp Rate</displayNameOverride>
             <field>XactlyExpress__Currency3__c</field>
             <table>XactlyExpress__XCDeal__c</table>
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Comp Rate 2</displayNameOverride>
             <field>XactlyExpress__Currency4__c</field>
             <table>XactlyExpress__XCDeal__c</table>
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Comp Rate 1</displayNameOverride>
             <field>XactlyExpress__Currency5__c</field>
             <table>XactlyExpress__XCDeal__c</table>
         </columns>
@@ -144,6 +148,7 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>EC Customer Date</displayNameOverride>
             <field>XactlyExpress__Date2__c</field>
             <table>XactlyExpress__XCDeal__c</table>
         </columns>
@@ -187,11 +192,13 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>NNC</displayNameOverride>
             <field>XactlyExpress__Number2__c</field>
             <table>XactlyExpress__XCDeal__c</table>
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Constant</displayNameOverride>
             <field>XactlyExpress__Number3__c</field>
             <table>XactlyExpress__XCDeal__c</table>
         </columns>
@@ -315,6 +322,7 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Patch RSM</displayNameOverride>
             <field>XactlyExpress__String17__c</field>
             <table>XactlyExpress__XCDeal__c</table>
         </columns>
@@ -366,13 +374,13 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <displayNameOverride>Item</displayNameOverride>
+            <displayNameOverride>Product Type</displayNameOverride>
             <field>XactlyExpress__String2__c</field>
             <table>XactlyExpress__XCDeal__c</table>
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <displayNameOverride>Item Description</displayNameOverride>
+            <displayNameOverride>Patch Owner Type</displayNameOverride>
             <field>XactlyExpress__String3__c</field>
             <table>XactlyExpress__XCDeal__c</table>
         </columns>

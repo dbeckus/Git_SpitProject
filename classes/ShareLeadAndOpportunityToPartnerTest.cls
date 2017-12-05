@@ -46,4 +46,16 @@ public class ShareLeadAndOpportunityToPartnerTest
         Database.executeBatch(currentBatchJob, 1);
         Test.stopTest();
     }
+    
+    @isTest
+    static void testJob()
+    {
+        Account acc = new Account(Name='acme', Type='Partner');
+        insert acc;
+        Opportunity opp = new Opportunity(Name = 'test', AccountId=acc.Id, CloseDate=Date.today(), StageName='Discovery', Registering_Partner__c = acc.Id);
+        insert opp;
+        ShareLeadAndOpportunityToPartnerJob job = new ShareLeadAndOpportunityToPartnerJob();
+        job.OpportunityIds = new List<Id> { opp.Id };
+        System.enqueueJob(job);
+    }
 }

@@ -6,5 +6,5 @@
     <mayForecastManagerShare>false</mayForecastManagerShare>
     <name>Beckus and Associates Partner Manager</name>
     <opportunityAccessLevel>None</opportunityAccessLevel>
-    <parentRole>CFO</parentRole>
+    <parentRole>SVPSales</parentRole>
 </Role>

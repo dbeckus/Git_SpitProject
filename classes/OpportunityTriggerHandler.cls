@@ -1,5 +1,6 @@
 public class OpportunityTriggerHandler implements ITriggerHandler {
     
+    Map<Id,Id> mapOppTR = null;
     public OpportunityTriggerHandler()
     {
         
@@ -121,6 +122,7 @@ public class OpportunityTriggerHandler implements ITriggerHandler {
         Set<Id> oppNeedsTeamAssign = new Set<Id>();
         List<Opportunity> oppsNeedSharing = new List<Opportunity>();
         List<Id> oppIdsNeedSharing = new List<Id>();
+        mapOppTR= new Map<Id,Id>();
         if(newItems!=null && newItems.size()>0)
         {
             for (Id oppId : newItems.keyset())
@@ -146,10 +148,15 @@ public class OpportunityTriggerHandler implements ITriggerHandler {
                     oppsNeedSharing.add(newOpp);
                     oppIdsNeedSharing.add(newOpp.Id);
                 }
+                if(newOpp.Technical_Responsible__c !=null)
+                {
+                    mapOppTR.put(newOpp.Id,newOpp.Technical_Responsible__c);
+                }
             }
             ShareOppToRegisteredPartner(oppsNeedSharing,oppIdsNeedSharing);
             LinkOpportunityToPatch(oppNeedsPatchAssign, oppNeedsTeamAssign);
             ResetPrimaryCampaignSource(lstOpps);
+            AddTRToOpportunityTeam(mapOppTR);
             //SetContactRole(newItems.keyset());
         }
     }
@@ -161,6 +168,7 @@ public class OpportunityTriggerHandler implements ITriggerHandler {
         Set<Id> oppNeedsTeamAssign = new Set<Id>();
         List<Opportunity> oppsNeedSharing = new List<Opportunity>();
         List<Id> oppIdsNeedSharing = new List<Id>();
+        mapOppTR= new Map<Id,Id>();
         if(newItems!=null && newItems.size()>0)
         {
             for (Id oppId : newItems.keyset())
@@ -211,6 +219,10 @@ public class OpportunityTriggerHandler implements ITriggerHandler {
                         oppIdsNeedSharing.add(newOpp.Id);
                     }
                 }
+                if(newOpp.Technical_Responsible__c !=null && newOpp.Technical_Responsible__c != oldOpp.Technical_Responsible__c)
+                {
+                    mapOppTR.put(newOpp.Id,newOpp.Technical_Responsible__c);
+                }
             }
             ShareOppToRegisteredPartner(oppsNeedSharing,oppIdsNeedSharing);
             LinkOpportunityToPatch(oppNeedsPatchAssign, oppNeedsTeamAssign);
@@ -219,6 +231,7 @@ public class OpportunityTriggerHandler implements ITriggerHandler {
             CreateWANStartCase(wanStartOpps);
             SycnOpportunityToQuoteHandler.sycnOpportunityDateToQuoteDateOnUpdate((Map<Id,Opportunity>)oldItems,(Map<Id,Opportunity>)newItems);
             UpdateFirstOpportunityWinCheckBox(setAccIds);
+            AddTRToOpportunityTeam(mapOppTR);
         }
         
     }
@@ -492,6 +505,63 @@ update lstContactRole;
                 catch(Exception ex)
                 {
                     Trigger.new[0].addError(ex.getMessage());
+                }
+            }
+        }
+    }
+    private void AddTRToOpportunityTeam(Map<Id,Id> mapOppsTRValue)
+    {
+        if(mapOppsTRValue.size()>0){
+            List<OpportunityTeamMember> listNewMembers = new List<OpportunityTeamMember>();
+            Set<Id> setNewMembersIds = new Set<Id>();    
+            List<Opportunity> listOppswithTeamMembers = [Select Id,Technical_Responsible__c, (Select Id,OpportunityId,OpportunityAccessLevel,TeamMemberRole,UserId from OpportunityTeamMembers where UserId IN:mapOppsTRValue.values() and TeamMemberRole='Systems Engineer')
+                                                         from Opportunity where Id IN :mapOppsTRValue.keySet()];
+            
+            if(listOppswithTeamMembers != null && listOppswithTeamMembers.size()>0){
+                for(Opportunity opp: listOppswithTeamMembers)
+                {
+                    if(opp.OpportunityTeamMembers != null && opp.OpportunityTeamMembers.size()==0)
+                    {
+                        OpportunityTeamMember newOTM = new OpportunityTeamMember();
+                        newOTM.OpportunityId = opp.Id;
+                        newOTM.UserId = opp.Technical_Responsible__c;
+                        newOTM.TeamMemberRole = 'Systems Engineer';
+                        listNewMembers.add(newOTM);
+                        setNewMembersIds.add(opp.Technical_Responsible__c);
+                    }
+                    else
+                    {
+                        Boolean isMatchFound;
+                        for(OpportunityTeamMember otm: opp.OpportunityTeamMembers)
+                        {
+                            if(opp.Technical_Responsible__c == otm.UserId)
+                            {
+                                isMatchFound = True;
+                            }
+                        }
+                        if(!isMatchFound){
+                            OpportunityTeamMember newOTM = new OpportunityTeamMember();
+                            newOTM.OpportunityId = opp.Id;
+                            newOTM.UserId = opp.Technical_Responsible__c;
+                            newOTM.TeamMemberRole = 'Systems Engineer';
+                            listNewMembers.add(newOTM);
+                            setNewMembersIds.add(opp.Technical_Responsible__c);
+                            
+                        }
+                    }
+                }
+                
+                if(listNewMembers != null && listNewMembers.size()>0)
+                {
+                    insert listNewMembers; 
+                }
+                
+                List<OpportunityShare> listShares = [Select Id,OpportunityAccessLevel,Rowcause from OpportunityShare where UserOrGroupId IN :setNewMembersIds and OpportunityId IN :mapOppsTRValue.keySet() and RowCause = 'Team'];
+                if(listShares!= null && listShares.size()>0){
+                    for (OpportunityShare share : listShares)  {
+                        share.OpportunityAccessLevel = 'Edit';
+                    }
+                    update listShares;      
                 }
             }
         }

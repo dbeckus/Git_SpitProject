@@ -6,5 +6,5 @@
     <mayForecastManagerShare>false</mayForecastManagerShare>
     <name>Latigid Solutions Customer User</name>
     <opportunityAccessLevel>None</opportunityAccessLevel>
-    <parentRole>DirectorofChannelSales</parentRole>
+    <parentRole>Grade_2_CAM</parentRole>
 </Role>

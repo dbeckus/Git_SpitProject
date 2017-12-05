@@ -3,10 +3,9 @@
     <availability>online</availability>
     <displayType>link</displayType>
     <encodingKey>UTF-8</encodingKey>
-    <height>600</height>
     <linkType>url</linkType>
     <masterLabel>SFDC Friend Report</masterLabel>
-    <openType>noSidebar</openType>
+    <openType>replace</openType>
     <protected>false</protected>
     <url>https://silverpeaksystems.my.salesforce.com/00O38000004YdGA</url>
 </CustomPageWebLink>

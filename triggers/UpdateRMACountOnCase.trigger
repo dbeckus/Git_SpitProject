@@ -8,20 +8,20 @@ trigger UpdateRMACountOnCase on RMA__c (after insert, after delete, after undele
     {
         for(RMA__c rma : Trigger.old)
         {
-            if(rma.Case__c != null)
-            {
-                caseIds.add(rma.Case__c);
-            }
+        	if(rma.Case__c != null)
+        	{
+            	caseIds.add(rma.Case__c);
+        	}
         }
     }
     else if(Trigger.isInsert || Trigger.isUndelete)
     {
         for(RMA__c rma : Trigger.new)
         {
-            if(rma.Case__c != null)
-            {
-                caseIds.add(rma.Case__c);
-            }
+        	if(rma.Case__c != null)
+        	{
+            	caseIds.add(rma.Case__c);
+        	}
         }
     }
     else
@@ -32,14 +32,14 @@ trigger UpdateRMACountOnCase on RMA__c (after insert, after delete, after undele
             RMA__c oldRma = Trigger.oldMap.get(rma.Id);
             if(rma.Case__c != oldRma.Case__c)
             {
-                if(rma.Case__c != null)
-                {
-                    caseIds.add(rma.Case__c);
-                }
-                if(oldRma.Case__c != null)
-                {
-                    caseIds.add(oldRma.Case__c);
-                }
+            	if(rma.Case__c != null)
+            	{
+                	caseIds.add(rma.Case__c);
+            	}
+            	if(oldRma.Case__c != null)
+            	{
+                	caseIds.add(oldRma.Case__c);
+            	}
             }
         }
     }

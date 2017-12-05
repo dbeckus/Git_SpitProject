@@ -36,7 +36,6 @@ trigger UpdateECCustomerDate on Asset (after insert,after update) {
                 {
                     Account newAcc= new Account(Id=acc.Id);
                     newAcc.EC_Customer_Date__c=lstAsset[0].CreatedDate;
-                    newAcc.EC_Asset_Name__c=lstAsset[0].Name;
                     lstAccountToUpdate.add(newAcc);
                 }
             }

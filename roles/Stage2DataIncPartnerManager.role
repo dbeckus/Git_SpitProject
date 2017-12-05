@@ -6,5 +6,5 @@
     <mayForecastManagerShare>false</mayForecastManagerShare>
     <name>Stage2 Data Inc Partner Manager</name>
     <opportunityAccessLevel>None</opportunityAccessLevel>
-    <parentRole>Sales_Manager_Central</parentRole>
+    <parentRole>SVPMarketing</parentRole>
 </Role>

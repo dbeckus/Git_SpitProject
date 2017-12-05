@@ -133,7 +133,7 @@ public without sharing class LeadToPOCAutomationHelper
                 opp.Type = 'Marketplace';
                 opp.StageName = 'Marketplace Trial';
                 opp.Amount = 0;
-                opp.OwnerId = '00530000000etJs';      //Assign marketplace trial opps to curtis
+                opp.OwnerId = '005500000045fp1';      //Assign marketplace trial opps to dennis
                 opp.Opportunity_Source__c = 'Marketing';
                 opp.Trigger_POC__c = true;
                 Map<String, Schema.RecordTypeInfO> oppRecordTypes = Schema.SObjectType.Opportunity.getRecordTypeInfosByName();

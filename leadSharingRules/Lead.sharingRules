@@ -1,117 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <LeadSharingRules xmlns="http://soap.sforce.com/2006/04/metadata">
     <criteriaBasedRules>
-        <fullName>DealReg_Submitted_and_Rejected_Shares_with_All_but_Marketo</fullName>
+        <fullName>Share_Approved_Deal_Reg_with_Marketo</fullName>
         <sharedTo>
-            <roleAndSubordinatesInternal>CFO</roleAndSubordinatesInternal>
-        </sharedTo>
-        <criteriaItems>
-            <field>LeadSource</field>
-            <operation>equals</operation>
-            <value>Deal Registration</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>Status</field>
-            <operation>equals</operation>
-            <value>Submitted,Draft,Rejected</value>
-        </criteriaItems>
-        <leadAccessLevel>Edit</leadAccessLevel>
-        <name>DealReg Submitted and Rejected Shares with All but Marketo</name>
-    </criteriaBasedRules>
-    <criteriaBasedRules>
-        <fullName>DealReg_Submitted_and_Rejected_Shares_with_Engineering_but_Marketo</fullName>
-        <sharedTo>
-            <roleAndSubordinatesInternal>VPofEngineering</roleAndSubordinatesInternal>
-        </sharedTo>
-        <criteriaItems>
-            <field>LeadSource</field>
-            <operation>equals</operation>
-            <value>Deal Registration</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>Status</field>
-            <operation>equals</operation>
-            <value>Submitted,Draft,Rejected</value>
-        </criteriaItems>
-        <leadAccessLevel>Edit</leadAccessLevel>
-        <name>DealReg Submitted and Rejected Shares with Engineering but Marketo</name>
-    </criteriaBasedRules>
-    <criteriaBasedRules>
-        <fullName>DealReg_Submitted_and_Rejected_Shares_with_Operations_but_Marketo</fullName>
-        <sharedTo>
-            <roleAndSubordinatesInternal>VPOperations</roleAndSubordinatesInternal>
-        </sharedTo>
-        <criteriaItems>
-            <field>LeadSource</field>
-            <operation>equals</operation>
-            <value>Deal Registration</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>Status</field>
-            <operation>equals</operation>
-            <value>Submitted,Draft,Rejected</value>
-        </criteriaItems>
-        <leadAccessLevel>Edit</leadAccessLevel>
-        <name>DealReg Submitted and Rejected Shares with Operations but Marketo</name>
-    </criteriaBasedRules>
-    <criteriaBasedRules>
-        <fullName>DealReg_Submitted_and_Rejected_Shares_with_Product_Management_but_Marketo</fullName>
-        <sharedTo>
-            <roleAndSubordinatesInternal>VPProductManagement</roleAndSubordinatesInternal>
-        </sharedTo>
-        <criteriaItems>
-            <field>LeadSource</field>
-            <operation>equals</operation>
-            <value>Deal Registration</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>Status</field>
-            <operation>equals</operation>
-            <value>Submitted,Draft,Rejected</value>
-        </criteriaItems>
-        <leadAccessLevel>Edit</leadAccessLevel>
-        <name>DealReg Submitted and Rejected Shares with Product Management  but Marketo</name>
-    </criteriaBasedRules>
-    <criteriaBasedRules>
-        <fullName>DealReg_Submitted_and_Rejected_Shares_with_SVP_Marketing_but_Marketo</fullName>
-        <sharedTo>
-            <roleAndSubordinatesInternal>SVPMarketing</roleAndSubordinatesInternal>
-        </sharedTo>
-        <criteriaItems>
-            <field>LeadSource</field>
-            <operation>equals</operation>
-            <value>Deal Registration</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>Status</field>
-            <operation>equals</operation>
-            <value>Submitted,Draft,Rejected</value>
-        </criteriaItems>
-        <leadAccessLevel>Edit</leadAccessLevel>
-        <name>DealReg Submitted and Rejected Shares with SVP Marketing but Marketo</name>
-    </criteriaBasedRules>
-    <criteriaBasedRules>
-        <fullName>DealReg_Submitted_and_Rejected_Shares_with_VP_Business_Development_but_Marketo</fullName>
-        <sharedTo>
-            <roleAndSubordinatesInternal>VPofBusinessDevlopment</roleAndSubordinatesInternal>
-        </sharedTo>
-        <criteriaItems>
-            <field>LeadSource</field>
-            <operation>equals</operation>
-            <value>Deal Registration</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>Status</field>
-            <operation>equals</operation>
-            <value>Submitted,Draft,Rejected</value>
-        </criteriaItems>
-        <leadAccessLevel>Edit</leadAccessLevel>
-        <name>DealReg Submitted and Rejected Shares with VP Business Development but Marketo</name>
-    </criteriaBasedRules>
-    <criteriaBasedRules>
-        <fullName>DealReg_with_approved_Status_Share_with_All</fullName>
-        <sharedTo>
-            <allInternalUsers></allInternalUsers>
+            <role>Marketo_Integration</role>
         </sharedTo>
         <criteriaItems>
             <field>LeadSource</field>
@@ -124,12 +16,12 @@
             <value>Submitted,Draft,Rejected</value>
         </criteriaItems>
         <leadAccessLevel>Edit</leadAccessLevel>
-        <name>DealReg with approved Status Share with All</name>
+        <name>Share Approved Deal Reg with Marketo</name>
     </criteriaBasedRules>
     <criteriaBasedRules>
-        <fullName>Share_All_Leads_except_Deal_Reg</fullName>
+        <fullName>Share_Lead_source_not_equal_to_deal_reg_Marketo</fullName>
         <sharedTo>
-            <allInternalUsers></allInternalUsers>
+            <role>Marketo_Integration</role>
         </sharedTo>
         <criteriaItems>
             <field>LeadSource</field>
@@ -137,28 +29,50 @@
             <value>Deal Registration</value>
         </criteriaItems>
         <leadAccessLevel>Edit</leadAccessLevel>
-        <name>Share All Leads except Deal Reg</name>
+        <name>Share Lead source not equal to deal reg  Marketo</name>
     </criteriaBasedRules>
     <ownerRules>
-        <fullName>AllInternalUsers7385833</fullName>
+        <fullName>Share_Leads_owned_by_BDR_con_to_BDR_con</fullName>
         <sharedTo>
-            <allInternalUsers></allInternalUsers>
+            <role>Grade_2_BDR_Contractor</role>
+        </sharedTo>
+        <sharedFrom>
+            <role>Grade_2_BDR_Contractor</role>
+        </sharedFrom>
+        <leadAccessLevel>Edit</leadAccessLevel>
+        <name>Share Leads owned by BDR con to BDR con</name>
+    </ownerRules>
+    <ownerRules>
+        <fullName>Share_Owned_by_Partner_to_Marketo</fullName>
+        <sharedTo>
+            <role>Marketo_Integration</role>
         </sharedTo>
         <sharedFrom>
             <allPartnerUsers></allPartnerUsers>
         </sharedFrom>
         <leadAccessLevel>Edit</leadAccessLevel>
-        <name>AllInternalUsers</name>
+        <name>Share Owned by Partner to Marketo</name>
     </ownerRules>
     <ownerRules>
-        <fullName>TechnicalMarketingEngineerA</fullName>
+        <fullName>Share_Owned_by_Partner_to_SP_Employee</fullName>
         <sharedTo>
-            <role>TechnicalMarketingEngineer</role>
+            <group>Silver_Peak_Employees</group>
+        </sharedTo>
+        <sharedFrom>
+            <allPartnerUsers></allPartnerUsers>
+        </sharedFrom>
+        <leadAccessLevel>Edit</leadAccessLevel>
+        <name>Share Owned by Partner to SP Employee</name>
+    </ownerRules>
+    <ownerRules>
+        <fullName>Share_Owners_with_SP_Employee</fullName>
+        <sharedTo>
+            <group>Silver_Peak_Employees</group>
         </sharedTo>
         <sharedFrom>
             <allInternalUsers></allInternalUsers>
         </sharedFrom>
         <leadAccessLevel>Edit</leadAccessLevel>
-        <name>Technical Marketing EngineerA</name>
+        <name>Share Owners with SP Employee</name>
     </ownerRules>
 </LeadSharingRules>

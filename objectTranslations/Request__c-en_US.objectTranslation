@@ -452,6 +452,10 @@
         <name>Original_POC_End_Date__c</name>
     </fields>
     <fields>
+        <label><!-- POC COntact ID --></label>
+        <name>POC_COntact_ID__c</name>
+    </fields>
+    <fields>
         <help><!-- link to contact record for POC communications --></help>
         <label><!-- POC Contact --></label>
         <name>POC_Contact__c</name>
@@ -1079,6 +1083,10 @@
     <validationRules>
         <errorMessage><!-- You are not allowed to change POC Approvers. --></errorMessage>
         <name>POCApprovercanbechangedbyOps</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- POC cannot be be created as the selected opportunity stage is Closed --></errorMessage>
+        <name>POC_cant_be_created_for_dead_opps</name>
     </validationRules>
     <validationRules>
         <errorMessage><!-- POC cannot be created for the selected opportunity as there is no primary quote defined. --></errorMessage>

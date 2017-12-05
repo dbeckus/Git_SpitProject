@@ -6,5 +6,5 @@
     <mayForecastManagerShare>false</mayForecastManagerShare>
     <name>InnoCom Ltd Customer User</name>
     <opportunityAccessLevel>None</opportunityAccessLevel>
-    <parentRole>DirectorofChannelEMEA</parentRole>
+    <parentRole>Grade_3_CAM_EMEA</parentRole>
 </Role>

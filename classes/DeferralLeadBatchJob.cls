@@ -59,7 +59,7 @@ global class DeferralLeadBatchJob implements Database.Batchable<Sobject>, Databa
         if(leadCount > 0)
         {
             Messaging.SingleEmailMessage email = new Messaging.SingleEmailMessage();
-            email.setToAddresses(new String[] { 'curtisc@silver-peak.com' });
+            email.setToAddresses(new String[] { 'dbeckus@silver-peak.com' });
             email.setSubject('Deferral Leads Notification Summary');
             email.setPlainTextBody('Totally ' + userCount + ' users get notified. \r\nIncludes ' + leadCount + ' leads.\r\n' + Date.today().format());
             if(EmailAddressId != null)

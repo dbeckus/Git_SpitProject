@@ -91,9 +91,21 @@
         <relationshipLabel>Purchase Orders</relationshipLabel>
         <relationshipName>Purchase_Orders</relationshipName>
         <required>false</required>
-        <trackHistory>false</trackHistory>
+        <trackHistory>true</trackHistory>
         <trackTrending>false</trackTrending>
         <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Is_this_a_foreign_government_entity__c</fullName>
+        <externalId>false</externalId>
+        <formula>TEXT( Opportunity__r.Account.Is_this_a_foreign_government_entity__c )</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Is this a foreign government entity?</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
     </fields>
     <fields>
         <fullName>Missing_End_Customer_PO__c</fullName>
@@ -197,6 +209,15 @@
         <externalId>false</externalId>
         <inlineHelpText>when this is set it sets status to partial shipped, when cleared is sets to shipped complete</inlineHelpText>
         <label>Partial Ship</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Pending_Support_Contract__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Pending Support Contract</label>
         <trackHistory>false</trackHistory>
         <trackTrending>false</trackTrending>
         <type>Checkbox</type>

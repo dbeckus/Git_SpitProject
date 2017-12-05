@@ -6,5 +6,5 @@
     <mayForecastManagerShare>false</mayForecastManagerShare>
     <name>Alizz Islamic Bank Customer User</name>
     <opportunityAccessLevel>None</opportunityAccessLevel>
-    <parentRole>EMEASales</parentRole>
+    <parentRole>Grade_3_Sales_EMEA</parentRole>
 </Role>

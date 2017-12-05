@@ -6,5 +6,5 @@
     <mayForecastManagerShare>false</mayForecastManagerShare>
     <name>Test Company - Ignore 2 Partner Manager</name>
     <opportunityAccessLevel>None</opportunityAccessLevel>
-    <parentRole>SalesManagerWestern</parentRole>
+    <parentRole>Grade_4_Sales_NAM_West</parentRole>
 </Role>
