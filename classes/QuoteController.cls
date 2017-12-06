@@ -179,14 +179,14 @@ public class QuoteController
             LineItem tmpItem = new LineItem();
             //line.Quote__r = quote;
             tmpItem.record = line;
-            tmpItem.NotDiscountable = line.Product__r.Not_Discountable__c;
             tmpItem.amount = line.Quantity__c * line.Unit_Price__c;
             tmpItem.amountCurrency = convertToCurrency(tmpItem.amount);
             tmpItem.needUpdate = false;
-            List<PricebookEntry> pbEntries = [Select UnitPrice From PricebookEntry where Product2Id = :line.Product__c and Pricebook2Id = :quote.Opportunity__r.Pricebook2Id limit 1];
+            List<PricebookEntry> pbEntries = [Select UnitPrice,Not_Discountable__c From PricebookEntry where Product2Id = :line.Product__c and Pricebook2Id = :quote.Opportunity__r.Pricebook2Id limit 1];
             if(pbEntries.size() > 0)
             {
                 tmpItem.price = pbEntries[0];
+                tmpItem.NotDiscountable = pbEntries[0].Not_Discountable__c;
                 tmpItem.index = items.size();
                 items.add(tmpItem);
             }

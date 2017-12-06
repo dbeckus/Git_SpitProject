@@ -2114,6 +2114,10 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>TestRMATriggerHandler</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>TestReSyncDeletedAssetsInCP</apexClass>
         <enabled>true</enabled>
     </classAccesses>

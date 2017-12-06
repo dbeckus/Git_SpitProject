@@ -221,7 +221,8 @@ public class RMATriggerHandler implements ITriggerHandler {
             {
                 alternateProductSequence = new List<Id> { originalProductId, originalProduct.RMA_Primary_Replacement__c, originalProduct.RMA_Alternate_1__c, originalProduct.RMA_Alternate_2__c };
             }
-            
+            System.debug('currentProductId'+currentProductId);
+            System.debug('alternateProductSequence'+alternateProductSequence);
             Boolean foundCurrent = false;
             for(Id productId : alternateProductSequence)
             {

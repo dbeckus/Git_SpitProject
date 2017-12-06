@@ -196,6 +196,10 @@
                 <behavior>Edit</behavior>
                 <field>Assigned_Distributor__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Default_PriceBook__c</field>
+            </layoutItems>
         </layoutColumns>
         <style>TwoColumnsTopToBottom</style>
     </layoutSections>

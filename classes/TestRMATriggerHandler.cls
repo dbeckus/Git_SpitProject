@@ -1,6 +1,6 @@
 @IsTest
 public class TestRMATriggerHandler {
- 	@isTest
+   @isTest
     static void TestUpdateRMACountOnCase()
     {
         Account acc = new Account(Name = 'acme');
