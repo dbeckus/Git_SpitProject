@@ -156,20 +156,16 @@ public class PORenewalAssetsController {
                         if(assets.size()>0)
                         {
                             RenewalAssetsHelper.CheckUnCheckAssets(assets, true);
+                            RenewalAssetsHelper.SendEmailsForPurchaseOrder(true, PORequest,CustomerContact.Email_Contact__c); 
                             RenewalAssetsHelper.RenewEdgeConnectLicense(assets);
                         }
-                        isSuccessful=true;
+                       
                     }
                     catch(Exception ex)
                     {
                         Database.Rollback(sp);
                         ApexPages.addMessages(ex);
                         SilverPEakUtils.logException(ex);
-                    }
-                    
-                    if(isSuccessful)
-                    {
-                        RenewalAssetsHelper.SendEmailsForPurchaseOrder(true, PORequest,CustomerContact.Email_Contact__c);    
                     }
                     if(assets.size()>0)
                     {
@@ -186,8 +182,8 @@ public class PORenewalAssetsController {
                     try
                     {
                         RenewalAssetsHelper.CheckUnCheckAssets(assets, true);
+                        RenewalAssetsHelper.SendEmailsForPurchaseOrder(false, PORequest,CustomerContact.Email_Contact__c); 
                         RenewalAssetsHelper.CreateNewLicenses(assets);
-                        isSuccessful=true;
                     }
                     catch(Exception ex)
                     {
@@ -197,10 +193,7 @@ public class PORenewalAssetsController {
                     }
                     finally
                     {
-                        if(isSuccessful)
-                        {
-                            RenewalAssetsHelper.SendEmailsForPurchaseOrder(false, PORequest,CustomerContact.Email_Contact__c);    
-                        }
+                       
                         if(assets.size()>0)
                         {
                             RenewalAssetsHelper.CheckUnCheckAssets(assets, false);

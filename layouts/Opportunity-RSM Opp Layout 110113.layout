@@ -732,6 +732,7 @@
     </relatedLists>
     <relatedLists>
         <excludeButtons>AddProduct</excludeButtons>
+        <excludeButtons>ChoosePricebook</excludeButtons>
         <excludeButtons>EditAllProduct</excludeButtons>
         <fields>Product2</fields>
         <fields>ProductCode</fields>
@@ -902,7 +903,7 @@
         <summaryLayoutItems>
             <field>Registration_Expiration__c</field>
             <posX>3</posX>
-            <posY>1</posY>
+            <posY>0</posY>
         </summaryLayoutItems>
         <summaryLayoutStyle>Default</summaryLayoutStyle>
     </summaryLayout>

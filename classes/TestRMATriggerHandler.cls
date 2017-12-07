@@ -85,7 +85,7 @@ public class TestRMATriggerHandler {
         update rma;
         system.assertEquals(Userinfo.getUserEmail(), [SELECT Account_Manager_Email_1__c, System_Engineer_Email_1__c FROM RMA__c WHERE id = :rma.Id][0].System_Engineer_Email_1__c);
     }
-     @isTest
+    
     static void TestUpdateRMATrackingInfoToCase()
     {
         Account acc = new Account(Name = 'acme');

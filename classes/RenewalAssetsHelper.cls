@@ -26,11 +26,11 @@ public  class RenewalAssetsHelper
             for(Asset asset: lstAsset)
             {
                 string prodName= asset.Product2.Name;
-                if((prodName.startsWith('EC-BASE')||prodName.startsWith('EC-PLUS'))&& asset.Licenses_Nodes__c == asset.Renewal_Nodes__c )
+                if((prodName.startsWith('EC-BASE')||prodName.startsWith('EC-PLUS'))&& asset.Licenses_Nodes__c <= asset.Renewal_Nodes__c )
                 {
                     asset.Licenses_Nodes__c= asset.Renewal_Nodes__c;
                 }
-                if(prodName.startsWith('EC-BOOST')&& asset.Bandwidth_Nodes__c == asset.Renewal_Nodes__c)
+                if(prodName.startsWith('EC-BOOST')&& asset.Bandwidth_Nodes__c <= asset.Renewal_Nodes__c)
                 {
                     asset.Bandwidth_Nodes__c= asset.Renewal_Nodes__c;
                 }
@@ -135,14 +135,14 @@ public  class RenewalAssetsHelper
             {
                 
                 string prodName= asset.Product2.Name;
-                if((prodName.startsWith('EC-BASE')||prodName.startsWith('EC-PLUS'))&& asset.Licenses_Nodes__c == asset.Renewal_Nodes__c )
+                if((prodName.startsWith('EC-BASE')||prodName.startsWith('EC-PLUS'))&& asset.Licenses_Nodes__c <=asset.Renewal_Nodes__c )
                 {
                     asset.Renewal_Nodes__c=0;
                     asset.Renewal_Date__c=null;
                     asset.Renewal_Start_Date__c=null;
                     
                 }
-                if(prodName.startsWith('EC-BOOST')&& asset.Bandwidth_Nodes__c == asset.Renewal_Nodes__c)
+                if(prodName.startsWith('EC-BOOST')&& asset.Bandwidth_Nodes__c <= asset.Renewal_Nodes__c)
                 {
                     asset.Renewal_Nodes__c=0;
                     asset.Renewal_Date__c=null;
