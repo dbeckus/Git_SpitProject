@@ -601,12 +601,13 @@ ApexPages.addMessages(ex);
         Quote_Line__c[] qlines = new list<Quote_Line__c>(); 
         for(LineItem lItem : items) 
         {
+            	decimal discount =lItem.record.Discount_Percent__c!=null?lItem.record.Discount_Percent__c:0;
                 List<PricebookEntry> pbEntries = [Select UnitPrice From PricebookEntry where Product2Id = :lItem.record.Product__c and Pricebook2Id = :quote.Opportunity__r.Pricebook2Id limit 1];
             	Quote_Line__c ql = new Quote_Line__c(
                 Quote__c = twinQuote.id,
                 Discount_Percent__c = lItem.record.Discount_Percent__c,
                 Quantity__c = lItem.record.Quantity__c,
-                Unit_Price__c=  pbEntries.size() > 0?(pbEntries[0].UnitPrice-(pbEntries[0].UnitPrice*lItem.record.Discount_Percent__c/100)):0,
+                Unit_Price__c=  (pbEntries!=null && pbEntries.size() > 0)?(pbEntries[0].UnitPrice-(pbEntries[0].UnitPrice*discount/100)):0,
                 Product__c = lItem.record.Product__c
             ); 
             qlines.add(ql);     

@@ -50,6 +50,10 @@
                 <behavior>Edit</behavior>
                 <field>Disable_Portal_Access__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>EmailAddressFormula__c</field>
+            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>

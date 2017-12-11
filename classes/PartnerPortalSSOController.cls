@@ -13,15 +13,15 @@ public with sharing class PartnerPortalSSOController
     {
         if(ProfileValid)
         {
-            String ssoRequest = ApexPages.currentPage().getParameters().get('SSORequest');
+            /*String ssoRequest = ApexPages.currentPage().getParameters().get('SSORequest');
             if(String.isNotBlank(ssoRequest))
             {
                 return ssoLoginCofirm();
             }
             else
-            {
+            {*/
                 return ssoLoginTry();
-            }   
+            //}   
         }
         else
         {
@@ -33,7 +33,7 @@ public with sharing class PartnerPortalSSOController
     {
         if(UserInfo.getUserType() == 'PowerPartner')
         {
-            String url = PartnerPortalSSOStub.getSSOLink(UserInfo.getUserId());
+            String url = HPartnerPortalSSOStub.getSSOLink(UserInfo.getUserId());
             return new PageReference(url);
         }
         else
