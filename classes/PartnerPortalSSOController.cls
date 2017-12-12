@@ -11,6 +11,7 @@ public with sharing class PartnerPortalSSOController
 
     public PageReference redirect()
     {
+        System.debug('ProfileValid'+ProfileValid);
         if(ProfileValid)
         {
             /*String ssoRequest = ApexPages.currentPage().getParameters().get('SSORequest');
@@ -34,6 +35,7 @@ public with sharing class PartnerPortalSSOController
         if(UserInfo.getUserType() == 'PowerPartner')
         {
             String url = HPartnerPortalSSOStub.getSSOLink(UserInfo.getUserId());
+            System.debug('URL '+url );
             return new PageReference(url);
         }
         else
@@ -41,6 +43,8 @@ public with sharing class PartnerPortalSSOController
             ApexPages.addMessage(new ApexPages.Message(ApexPages.Severity.Error, 'Only Partner Portal user can login to the LMS.'));
             return null;
         }
+     
+       
     }
     
     private PageReference ssoLoginCofirm()

@@ -20,6 +20,8 @@ global class PartnerPortalUrlRewriter implements Site.UrlRewriter
                 {
                     PageReference p = new PageReference(PARTNER_VISUALFORCE_PAGE + contentPage.VirtualPath__c);
                     p.getParameters().putAll(myFriendlyUrl.getParameters());
+                    System.debug('Test'+p);
+                    System.debug('myFriendlyUrl.getParameters() '+myFriendlyUrl.getParameters());
                     return p;
                 }
             }

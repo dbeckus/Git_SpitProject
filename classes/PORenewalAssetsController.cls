@@ -182,8 +182,8 @@ public class PORenewalAssetsController {
                     try
                     {
                         RenewalAssetsHelper.CheckUnCheckAssets(assets, true);
-                        RenewalAssetsHelper.SendEmailsForPurchaseOrder(false, PORequest,CustomerContact.Email_Contact__c); 
                         RenewalAssetsHelper.CreateNewLicenses(assets);
+                        RenewalAssetsHelper.SendEmailsForPurchaseOrder(false, PORequest,CustomerContact.Email_Contact__c); 
                     }
                     catch(Exception ex)
                     {

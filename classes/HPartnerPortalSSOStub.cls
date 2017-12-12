@@ -5,7 +5,7 @@ public  class HPartnerPortalSSOStub
     private static final String INVALID_CONTACT_MSG = 'Contact without account.';
     private static final String DEFAULT_PARENT_DEPARTMENT_ID = '83a738a2-1c22-45d0-bf55-76a6daf18e18';//85750 LMS AccountName='Partners'
     
-    private static String ssoBase = 'https://full-silverpeak.cs51.force.com/idp/login?app=0sp4B0000008OJ3';
+    private static String ssoBase = 'https://silverpeaksystems--spit.cs13.my.salesforce.com/idp/login?app=0spW0000000CaVd';
     private static String adminKey = '43a8764c-d95b-4f6b-b563-6ad5ffc06f97';
     private static String httpLoginBase='https://silverpeaksystems-migration.sandbox.myabsorb.com/api/Rest/v1/Authenticate?username=ithelp@silver-peak.com&password=Speak-123&privateKey=43a8764c-d95b-4f6b-b563-6ad5ffc06f97';
     
@@ -46,7 +46,7 @@ public  class HPartnerPortalSSOStub
         if(currentUser.ContactId != null)
         {
             String username = currentUser.Email; //currentUser.UserName.removeEnd('.sp');
-            Contact currentContact = [select Id, FirstName, LastName, Title, Email, AccountId, Account.ParentId, (select Id, LMSUserName__c, LMSUserId__c, Dell_Segment__c from Partner_Contacts_Profile__r) from Contact where Id = :currentUser.ContactId];
+            /*Contact currentContact = [select Id, FirstName, LastName, Title, Email, AccountId, Account.ParentId, (select Id, LMSUserName__c, LMSUserId__c, Dell_Segment__c from Partner_Contacts_Profile__r) from Contact where Id = :currentUser.ContactId];
             if(currentContact != null && currentContact.Partner_Contacts_Profile__r != null && currentContact.Partner_Contacts_Profile__r.size() > 0 && String.isNotBlank(currentContact.Partner_Contacts_Profile__r[0].LMSUserName__c))
             {
                 username = currentContact.Partner_Contacts_Profile__r[0].LMSUserName__c;
@@ -110,8 +110,8 @@ public  class HPartnerPortalSSOStub
                 accountProfile.LmsDepartmentId__c = departmentId;
                 accountProfile.LmsDepartmentName__c = deptProfile.LmsDepartmentName__c;
                 upsert accountProfile;
-            }
-            return ssoBase;
+            }*/
+            return null;
             
         }
         else
