@@ -759,7 +759,7 @@
                             </tr>      
                            <tr class="euTr{!info.Index} euTr" style="font-weight:bold;display:{!IF(info.SiteLocation.VAT.IsEU, 'table-row','none')}">
                                 <td class="editTableTitleTd" colspan="2">
-                                    EU Country VAT Information:
+                                    EU Country VAT Information: VAT information is not required for shipment of EC-US, EC-XS, EC-S, NX-700 or NX-1700. Please enter N/A in all fields if shipping these models.
                                     <img class="hideListButton" src="/s.gif" id="euPanelSpan{!info.Index}" style="float:right;cursor:pointer;" onclick="showAdditionalDestinationSubPanel(this,'.euTr{!info.Index}')"/>
                                 </td>
                             </tr>

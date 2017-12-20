@@ -200,7 +200,7 @@
           <apex:pageblock >
            <apex:pageBlockTable value="{!AccountKeyList}" var="acct" style="width:100%" >
         	<apex:column style="width:30%" headerValue="Account Name"  value="{!acct.AccountName}" />
-             <apex:column headerValue="Account Key" value="{!acct.AccountKey}" />
+             <apex:column headerValue="Initial Account Key" value="{!acct.AccountKey}" />
            </apex:pageBlockTable>
          </apex:pageblock>
         <span id="searchSection">
