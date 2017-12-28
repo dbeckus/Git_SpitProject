@@ -31,6 +31,16 @@
         <operation>Formula</operation>
         <protected>false</protected>
     </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_IS_EC</fullName>
+        <field>Is_EdgeConnect__c</field>
+        <literalValue>1</literalValue>
+        <name>Update IS EC</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>true</reevaluateOnChange>
+    </fieldUpdates>
     <rules>
         <fullName>FU%3A SetLineDescriptionEqualToProduct</fullName>
         <actions>
@@ -44,6 +54,20 @@
             <value>1/1/2000</value>
         </criteriaItems>
         <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>Update Opportunity Product EdgeConnect</fullName>
+        <actions>
+            <name>Update_IS_EC</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>false</active>
+        <criteriaItems>
+            <field>OpportunityLineItem.Quote_Type__c</field>
+            <operation>equals</operation>
+            <value>EDGECONNECT</value>
+        </criteriaItems>
+        <triggerType>onCreateOnly</triggerType>
     </rules>
     <rules>
         <fullName>training_order</fullName>
