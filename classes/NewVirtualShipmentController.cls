@@ -93,6 +93,25 @@ public with sharing class NewVirtualShipmentController
             return ecProdIds;            
         }
     }
+      private Map<Id,String> UnityORCHSPProductIds {
+        get{
+            Map<Id,String> ecProdIds= new Map<Id,String>();
+            try
+            {
+                List<Product2> productList=[Select Id,Name from Product2 where IsActive=true and Name like 'EC-ORCH-SP-AAS%' and Family='Virtual Image' and Product2.Product_Type__c ='EDGECONNECT' ];
+                for(Product2 prod : productList)
+                {
+                    ecProdIds.put(prod.Id,prod.Name);
+                }
+            }
+            catch(Exception ex)
+            {
+                ApexPages.addMessages(ex);
+                return null;
+            }
+            return ecProdIds;            
+        }
+    }
   
     public List<Product2> ProductsList
     {
@@ -182,6 +201,8 @@ public with sharing class NewVirtualShipmentController
         List<Asset> updateExistingECAssets = new List<Asset>();
         // Retreive the EdgeConnect Asset Product Id and Asset Id.
         Map<string,Asset> lstExistingECAssets= RetreiveExistingAssetInfo(shipmentRecord.Shipment_Account__c);
+        System.debug('lstExistingECAssets' +lstExistingECAssets.size());
+        System.debug('ECProductIds' +ECProductIds);
         List<VirtualAssetManager.VirtualAsset> insertAssetLines = new List<VirtualAssetManager.VirtualAsset>();
         List<VirtualAssetManager.VirtualAsset> updateAssetLines = new List<VirtualAssetManager.VirtualAsset>();
         
@@ -200,7 +221,7 @@ public with sharing class NewVirtualShipmentController
                 VirtualAssetManager.VirtualAsset vasset= new VirtualAssetManager.VirtualAsset();
                 vasset.Asset = currAsset;
                 vasset.Asset.Evaluation_End_Date__c= virtualAsset.Asset.Evaluation_End_Date__c;
-                if(currAsset.Product2.Name.contains('EC-ORCH'))
+                if(currAsset.Product2.Name=='EC-ORCH')
                 {
                     vasset.Asset.Evaluation_End_Date__c=null;
                 }
@@ -232,7 +253,19 @@ public with sharing class NewVirtualShipmentController
                 if(ECProductIds!=null && ECProductIds.size()>0 && ECProductIds.containsKey(virtualAsset.Asset.Product2Id))
                 {
                     virtualAsset.Asset.Status='Customer Subscription Active';
+                  
                     virtualAsset.Asset.EC_Product_Name__c=ECProductIds.get(virtualAsset.Asset.Product2Id);
+                    if(virtualAsset.Asset.EC_Product_Name__c!=null && virtualAsset.Asset.EC_Product_Name__c.contains('EC-ORCH-AAS'))
+                    {
+                        if(UnityORCHProductIds!=null && UnityORCHProductIds.containsKey(virtualAsset.Asset.Product2Id))
+                            virtualAsset.Asset.EC_Product_Name__c=UnityORCHProductIds.get(virtualAsset.Asset.Product2Id);
+                    }
+                    else  if(virtualAsset.Asset.EC_Product_Name__c!=null && virtualAsset.Asset.EC_Product_Name__c.contains('EC-ORCH-SP-AAS'))
+                    {
+                        if(UnityORCHSPProductIds!=null && UnityORCHSPProductIds.containsKey(virtualAsset.Asset.Product2Id))
+                            virtualAsset.Asset.EC_Product_Name__c=UnityORCHSPProductIds.get(virtualAsset.Asset.Product2Id);
+                    }
+                  
                 }
                 //If the EC Orchestrator is selected, then hardcode the GMS Nodes to 10000
                 if(ECProductIds!=null && ECProductIds.size()>0 && ECProductIds.containsKey(virtualAsset.Asset.Product2Id) &&  ECProductIds.get(virtualAsset.Asset.Product2Id) =='EC-ORCH' )
@@ -482,7 +515,7 @@ public with sharing class NewVirtualShipmentController
         Map<string,Asset> mapAssetItems = new Map<string,Asset>();   
         
         List<Id>productIds = new List<Id>();
-        List<Product2> ecProducts= [Select Id from Product2 where Name like 'EC-%' and Family='Virtual Image' and Product_Type__c='EDGECONNECT'];
+        List<Product2> ecProducts= [Select Id from Product2 where Name like 'EC-%' and (not NAME like 'EC-ORCH-AAS%') and (not NAME like 'EC-ORCH-SP-AAS%') and Family='Virtual Image' and Product_Type__c='EDGECONNECT'];
         
         for(Product2 prod :ecProducts)
         {

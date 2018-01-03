@@ -361,7 +361,7 @@ System.assertEquals(Date.today().addDays(10), [select Id,SBQQ__StartDate__c from
 System.assertEquals(null, [select Id,SBQQ__StartDate__c from SBQQ__Quote__c where Id = :quote2.Id].SBQQ__StartDate__c);
 */
     }
-    @isTest(SeeAllData = true)
+    //@isTest(SeeAllData = true)
     public static void testCreateWanStartCase()
     {
         Account acc = new Account(Name='acme');
