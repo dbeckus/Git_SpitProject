@@ -914,6 +914,10 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>MDFTriggerHandler</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>MarkContactsCertifiedController</apexClass>
         <enabled>true</enabled>
     </classAccesses>

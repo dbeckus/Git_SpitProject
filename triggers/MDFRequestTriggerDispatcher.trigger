@@ -13,9 +13,10 @@
 
 trigger MDFRequestTriggerDispatcher on MDF_Request__c (before insert, before update, before delete, after insert, after update, after delete, after undelete)
 {
-    if(!SilverPeakUtils.BypassingTriggers)
+    TriggerDispatcher.Run(new MDFTriggerHandler());
+   /* if(!SilverPeakUtils.BypassingTriggers)
     {
         TriggerHandler handler = new MDFRequestTriggerHandlerForAutoSubmit();
         handler.execute();
-    }
+    }*/
 }
