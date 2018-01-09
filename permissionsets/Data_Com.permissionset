@@ -4269,6 +4269,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>MDF_Request__c.Purchasing_Request_First_Approver__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>MDF_Request__c.Purchasing_Request_Line_Added__c</field>
         <readable>false</readable>
     </fieldPermissions>

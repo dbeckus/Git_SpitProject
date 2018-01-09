@@ -81,6 +81,10 @@
                 <behavior>Edit</behavior>
                 <field>Purchasing_Request__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>Purchasing_Request_First_Approver__c</field>
+            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>

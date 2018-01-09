@@ -412,6 +412,10 @@
         <name>Preferred_Phone__c</name>
     </fields>
     <fields>
+        <label><!-- Purchasing Request First Approver --></label>
+        <name>Purchasing_Request_First_Approver__c</name>
+    </fields>
+    <fields>
         <help><!-- Number of Purchasing Request Lines on this MDF Request. Should be at least &apos;1&apos; to progress through the approval process. (Purchasing Req Line contains Gl Code, Dept/Proj Number) --></help>
         <label><!-- Purchasing Request Line Added --></label>
         <name>Purchasing_Request_Line_Added__c</name>

@@ -6,9 +6,9 @@
     <loginUrl>https://silverpeak.okta.com/app/salesforce/exk162pntxUCAMuyR0x7/sso/saml</loginUrl>
     <logoutUrl>https://silverpeak.okta.com</logoutUrl>
     <name>Okta</name>
-    <oauthTokenEndpoint>https://silverpeaksystems--Spit.cs13.my.salesforce.com/services/oauth2/token?so=00DW0000008xkoV</oauthTokenEndpoint>
+    <oauthTokenEndpoint>https://silverpeaksystems--spit.cs13.my.salesforce.com/services/oauth2/token?so=00DW0000008xkoV</oauthTokenEndpoint>
     <redirectBinding>false</redirectBinding>
-    <salesforceLoginUrl>https://silverpeaksystems--Spit.cs13.my.salesforce.com?so=00DW0000008xkoV</salesforceLoginUrl>
+    <salesforceLoginUrl>https://silverpeaksystems--spit.cs13.my.salesforce.com?so=00DW0000008xkoV</salesforceLoginUrl>
     <samlEntityId>https://saml.salesforce.com</samlEntityId>
     <samlVersion>SAML2_0</samlVersion>
     <userProvisioning>false</userProvisioning>

@@ -25,25 +25,20 @@ global with sharing class CloudPortalCaseRestAPI {
                 }
                 if(existContact==null)
                 {
-                    
                     // Create Contact 
                     // Find Account by either Asset Id, Account key and license key
                     if(existAsset!=null)
                     {
                         acctId=existAsset.AccountId;
                     }
-                    else
+                    else if(caseInfo.salesforceId!=null)
                     {
-                        acctId=FindAccountByKey(caseInfo.cpAccountKey, caseInfo.cpLicenseKey);
+                        acctId=caseInfo.salesforceId;
                     }
-                    //Create Contact 
-                    //
                     if(acctId!=null)
                     {
                         existContact= CreateContactByMail(caseInfo.emailAddress,caseInfo.conFullName,caseInfo.conPhoneNumber,acctId);
                     }
-                    
-                    
                 }
                 
                 caseInfo.description=string.format('{0} \n SerialNumber: {1}', new String[]{caseInfo.description,caseInfo.serialNumber});
@@ -152,7 +147,7 @@ return lstCases;
         }
         return null;
     }
-    
+    /*
     private static Id FindAccountByKey(string acctKey, string licenseKey)
     {
         List<Account> lstAcc = new List<Account>();
@@ -169,9 +164,9 @@ return lstCases;
             return lstAcc[0].Id;
         }
         return null;
-        
-        
-    }
+    }*/
+    
+   
     global class CaseData
     {
         global string subject{get;set;}
@@ -180,7 +175,7 @@ return lstCases;
         global string emailAddress{get;set;}
         global string conFullName{get;set;}
         global string conPhoneNumber{get;set;}
-        global string cpAccountKey{get;set;}
+        global string salesforceId{get;set;}
         global string cpLicenseKey{get;set;}
         global string serialNumber{get;set;}
         

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>User GEO Region</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>User GEO Regions</value>
+    </caseValues>
+    <fields>
+        <label><!-- GEO Region --></label>
+        <name>GEO_Region__c</name>
+    </fields>
+    <fields>
+        <label><!-- Owner Id --></label>
+        <name>Owner_Id__c</name>
+    </fields>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

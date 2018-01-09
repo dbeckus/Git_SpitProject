@@ -80,6 +80,10 @@
                 <behavior>Edit</behavior>
                 <field>Estimated_Other_Vendor_s_Amount__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>Purchasing_Request_First_Approver__c</field>
+            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>
