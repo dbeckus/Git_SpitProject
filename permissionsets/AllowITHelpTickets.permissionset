@@ -1405,6 +1405,10 @@
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>PatchChangeTriggerHandler</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>PatchMatchListQuickAddController</apexClass>
         <enabled>false</enabled>
     </classAccesses>
@@ -2178,6 +2182,10 @@
     </classAccesses>
     <classAccesses>
         <apexClass>TestUpdateOpportunityProductType</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>TestUpdatePatchChangesonOpenOpps</apexClass>
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>

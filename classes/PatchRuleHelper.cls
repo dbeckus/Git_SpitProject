@@ -268,7 +268,7 @@ assignTeamMembers(objIds);
                     {
                         Database.delete([select Id from LeadShare where LeadId in :effectiveObjs], false);
                         Database.insert(getPatchSharings(effectiveObjs), false);
-                        ShareLeadAndOpportunityToPartnerHelper.willShareLeads(leadIds);
+                        //ShareLeadAndOpportunityToPartnerHelper.willShareLeads(leadIds);
                     }
                 }
                 else if(objs[0] instanceOf Opportunity)
@@ -297,7 +297,7 @@ assignTeamMembers(objIds);
                         }
                         Database.SaveResult[] result = Database.insert(teamMembers, false);
                         //SilverPeakUtils.logDatabaseError(teamMembers, result);
-                        ShareLeadAndOpportunityToPartnerHelper.willShareOpportunities(oppIds);
+                        //ShareLeadAndOpportunityToPartnerHelper.willShareOpportunities(oppIds);
                         for(sObject obj: teamMembers)
                         {
                             String oppTeamMemberRole = (String)obj.get('TeamMemberRole');

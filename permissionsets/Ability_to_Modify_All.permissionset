@@ -1405,6 +1405,10 @@
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>PatchChangeTriggerHandler</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>PatchMatchListQuickAddController</apexClass>
         <enabled>false</enabled>
     </classAccesses>
@@ -2178,6 +2182,10 @@
     </classAccesses>
     <classAccesses>
         <apexClass>TestUpdateOpportunityProductType</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>TestUpdatePatchChangesonOpenOpps</apexClass>
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
@@ -8949,6 +8957,15 @@
         <allowRead>true</allowRead>
         <modifyAllRecords>true</modifyAllRecords>
         <object>PatchMatchList__c</object>
+        <viewAllRecords>true</viewAllRecords>
+    </objectPermissions>
+    <objectPermissions>
+        <allowCreate>true</allowCreate>
+        <allowDelete>true</allowDelete>
+        <allowEdit>true</allowEdit>
+        <allowRead>true</allowRead>
+        <modifyAllRecords>true</modifyAllRecords>
+        <object>Patch_Change__e</object>
         <viewAllRecords>true</viewAllRecords>
     </objectPermissions>
     <objectPermissions>

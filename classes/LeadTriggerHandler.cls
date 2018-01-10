@@ -227,7 +227,7 @@ public class LeadTriggerHandler implements ITriggerHandler {
                     leadsToBeUpdated.get(newLead.Id).BANT_Qualified__c = false;
                     leadIdsToBeMovedOff.add(newLead.Id);
                 }
-                if(isChanged(oldLead, newLead, new String[] {'Registered_Distributor_Contact__c', 'Registered_Partner_Sales_Rep__c', 'Registered_Distributor__c', 'Registered_Partner__c'}))
+                if(isChanged(oldLead, newLead, new String[] {'OwnerId','Registered_Distributor_Contact__c', 'Registered_Partner_Sales_Rep__c', 'Registered_Distributor__c', 'Registered_Partner__c'}))
                 {
                     needToShareLeads.add(newLead);
                     needToShareLeadIds.add(newLead.Id);

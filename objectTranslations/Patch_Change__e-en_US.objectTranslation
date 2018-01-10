@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Patch Change</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Patch Changes</value>
+    </caseValues>
+    <fields>
+        <label><!-- Channel Manager Name --></label>
+        <name>Channel_Manager_Name__c</name>
+    </fields>
+    <fields>
+        <label><!-- Patch Id --></label>
+        <name>Patch_Id__c</name>
+    </fields>
+    <fields>
+        <label><!-- RSM Name --></label>
+        <name>RSM_Name__c</name>
+    </fields>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>
