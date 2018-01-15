@@ -1,15 +1,19 @@
 public class MDFTriggerHandler implements ITriggerHandler{
     private string MDFRecordTypeId=null;
+    Map<Id, Account> moreAccounts=null;
+    Map<Id, Contact> moreContacts=null;
+    Account loggedInUserAccount=null;
+    Contact loggedInUserContact=null;
     public MDFTriggerHandler()
     {
         if(SilverPeakutils.IsProduction())
         {
-           MDFRecordTypeId= '012500000005btC';
+            MDFRecordTypeId= '012500000005btC';
         }
         else
         {
-             List<RecordType> purchaseRecordType = [select Id from RecordType where SobjectType = 'Purchasing_Request__c' and Name = 'MDF Request' limit 1];
-        	 MDFRecordTypeId = (purchaseRecordType.size() > 0) ? purchaseRecordType[0].Id : null;
+            List<RecordType> purchaseRecordType = [select Id from RecordType where SobjectType = 'Purchasing_Request__c' and Name = 'MDF Request' limit 1];
+            MDFRecordTypeId = (purchaseRecordType.size() > 0) ? purchaseRecordType[0].Id : null;
         }
         
     }
@@ -19,21 +23,37 @@ public class MDFTriggerHandler implements ITriggerHandler{
     }
     public void BeforeInsert(List<SObject> newItems) 
     {
+        
         List<Purchasing_Request__c> purchaseRequests = new List<Purchasing_Request__c>();
         if(newItems!=null && newItems.size()>0)
         {
+            User currentUser = [select Id, ContactId from User where Id = :UserInfo.getUserId() limit 1];
+            List<Contact> contacts = [select Id, AccountId, Account.OwnerId, Account.Owner.GEO_Region__c, Account.Patch__c, Account.Patch__r.CSM__c, Account.Patch__r.CSM__r.GEO_Region__c, Account.Patch__r.Owner__r.GEO_Region__c, Account.Patch__r.RSM__c, Account.Patch__r.RSM__r.GEO_Region__c from Contact where Id = :currentUser.ContactId limit 1];
+            loggedInUserAccount = (contacts.size() > 0) ? contacts[0].Account : null;
+            loggedInUserContact = (contacts.size() > 0) ? contacts[0] : null;
+            moreAccounts = getAccounts(newItems);
+            moreContacts = getContacts(newItems);
             List<MDF_Request__c> lstMDF=( List<MDF_Request__c> )newItems;
-            for(MDF_Request__c mdfId:lstMDF)
+            for(MDF_Request__c mdfReq:lstMDF)
             {
-              
                 Purchasing_Request__c purchaseRequest = new Purchasing_Request__c(RecordTypeId = MDFRecordTypeId);
                 purchaseRequests.add(purchaseRequest);
+                if(mdfReq.Account__c == null)
+                {
+                    //MDF created by portal user
+                    UpdateAcctGEO(mdfReq,loggedInUserContact,loggedInUserAccount);
+                }
+                else
+                {
+                    //MDF created by internal user
+                    Account acc = moreAccounts.get(mdfReq.Account__c);
+                    Contact ct = moreContacts.get(mdfReq.Contact__c);
+                    UpdateAcctGEO(mdfReq,ct,acc);
+                }
             }
-            if(purchaseRequests!=null && purchaseRequests.size()>0)
-           		insert purchaseRequests;
-        }
-        
-        
+            insert purchaseRequests;
+            AssociateMDFWithPurchaseRequest(newItems,purchaseRequests);
+        }        
     }
     public void BeforeUpdate(Map<Id, SObject> newItems, Map<Id, SObject> oldItems) 
     {
@@ -82,13 +102,14 @@ public class MDFTriggerHandler implements ITriggerHandler{
             for (Id mdfId : newItems.keyset())
             {
                 MDF_Request__c mdf= (MDF_Request__c)newItems.get(mdfId);
+                accountIds.add(mdf.Account__c);
                 if(mdf.Is_Portal_Request__c)
                     lstRequests.add(mdf);
                 if(mdf.Account__c!=null)
                 {
                     lstMDF.add(mdf);
                 }
-                if(mdf.CSM__c!=null)
+                if(mdf.CSM__c!=null || mdf.OwnerId!=null || mdf.RSM__c!=null)
                 {
                     lstCSMShare.add(mdf);
                 }
@@ -98,6 +119,7 @@ public class MDFTriggerHandler implements ITriggerHandler{
             {
                 AutoSubmitMDFRequest(lstRequests);
             }
+            UpdatePurchasingRequest(Trigger.NewMap.values());
             ShareMDFToPartner(lstMDF);
             CopyMdfToAccount(accountIds);
             ShareMDFToCSM(lstCSMShare);
@@ -140,12 +162,12 @@ public class MDFTriggerHandler implements ITriggerHandler{
                 {
                     lstMDFPRApproval.add(newMDF);
                 }
-                if(newMDF.CSM__c!=oldMDF.CSM__c)
+                if(newMDF.CSM__c!=oldMDF.CSM__c|| newMDF.OwnerId!=oldMDF.OwnerId || newMDF.RSM__c!=oldMDF.RSM__c)
                 {
                     lstCSMShare.add(newMDF);
                 }
             }
-            UpdatePurchasingRequest(newItems.Values());
+            
             CreateCampaignForMDF(setCampMdfIds);
             ShareMDFToPartner(lstMDF);
             ShareMDFToCSM(lstCSMShare);
@@ -176,9 +198,87 @@ public class MDFTriggerHandler implements ITriggerHandler{
         
     }
     
-    private void UpdateAcctAttributes(MDF_Request__c mdfRequest,Contact con,Account acc)
+    private void AssociateMDFWithPurchaseRequest(List<MDF_Request__c> lstMDF, List<Purchasing_Request__c> lstPR)
     {
-        
+        MDF_Request__c request;
+        for(Integer i = 0; i < lstMDF.size(); i++)
+        {
+            request = lstMDF[i];
+            if(request.Purchasing_Request__c == null)
+            {
+                request.Purchasing_Request__c = lstPR[i].Id;
+            }
+            
+        }
+    }
+    private Map<Id, Account> getAccounts(List<MDF_Request__c> mdfs)
+    {
+        Set<Id> accIds = new Set<Id>();
+        for(MDF_Request__c mdf : mdfs)
+        {
+            accIds.add(mdf.Account__c);
+        }
+        return new Map<Id, Account>([select Id, OwnerId, Owner.GEO_Region__c, Patch__c, Patch__r.CSM__c, Patch__r.CSM__r.GEO_Region__c, Patch__r.Owner__c, Patch__r.Owner__r.GEO_Region__c, Patch__r.RSM__c, Patch__r.RSM__r.GEO_Region__c from Account where Id in :accIds]);
+    }
+    
+    private Map<Id, Contact> getContacts(List<MDF_Request__c> mdfs)
+    {
+        Set<Id> contactIds = new Set<Id>();
+        Map<Id, Contact> result = new Map<Id, Contact>();
+        for(MDF_Request__c mdf : mdfs)
+        {
+            if(mdf.Contact__c != null)
+            {
+                result.put(mdf.Contact__c, new Contact(Id=mdf.Contact__c));
+            }
+        }
+        return result;
+    }
+    private void UpdateAcctGEO(MDF_Request__c req,Contact ct,Account acc)
+    {
+        if(acc != null)
+        {
+            req.Account__c = acc.Id;
+            req.CSM__c = acc.Patch__r.CSM__c;
+            req.RSM__c = acc.Patch__r.RSM__c;
+            //setting GEO to that of patch owner instead of CAM
+            req.GEO__c = acc.Patch__r.Owner__r.GEO_Region__c;
+            if(String.isBlank(req.GEO__c))
+            {
+                req.GEO__c = acc.Owner.GEO_Region__c;
+            }
+            if(String.isNotBlank(req.GEO__c))
+            {
+                String geo = req.GEO__c;
+                String[] parts = geo.split('-');
+                if(parts.size() >= 1)
+                {
+                    req.GEO__c = parts[0];
+                }
+            }
+        }
+        if(ct != null)
+        {
+            req.Submitter__c = ct.Id;
+        }
+    }
+    private void UpdatePurchasingRequest(List<MDF_Request__c> lstMDFReq)
+    {
+        if(lstMDFReq!=null && lstMDFReq.size()>0)
+        {
+            List<MDF_Request__c> mdfs = [select Id, Purchasing_Request__c, Account__c, Account__r.Name, OwnerId, Owner.Name, Owner.Email, Company_Billing_Address__c, Remit_to_Address__c from MDF_Request__c where Id in :lstMDFReq];
+            List<Purchasing_Request__c> requests = new List<Purchasing_Request__c>();
+            for(MDF_Request__c mdf : mdfs)
+            {
+                Purchasing_Request__c request = new Purchasing_Request__c(Id=mdf.Purchasing_Request__c);
+                request.Vendor_Name__c = mdf.Account__r.Name;
+                request.Vendor_Contact__c = mdf.Owner.Name;
+                request.Vendor_Email__c = mdf.Owner.Email;
+                request.Vendor_Address__c = isBlankAddress(mdf.Remit_to_Address__c) ? mdf.Company_Billing_Address__c : mdf.Remit_to_Address__c;
+                requests.add(request);
+            }
+            Database.update(requests, false);
+        }
     }
     private Boolean isApproval(String text)
     {
@@ -315,24 +415,7 @@ public class MDFTriggerHandler implements ITriggerHandler{
     }
     
     
-    private void UpdatePurchasingRequest(List<MDF_Request__c> lstMDFReq)
-    {
-        if(lstMDFReq!=null && lstMDFReq.size()>0)
-        {
-            List<MDF_Request__c> mdfs = [select Id, Purchasing_Request__c, Account__c, Account__r.Name, OwnerId, Owner.Name, Owner.Email, Company_Billing_Address__c, Remit_to_Address__c from MDF_Request__c where Id in :lstMDFReq];
-            List<Purchasing_Request__c> requests = new List<Purchasing_Request__c>();
-            for(MDF_Request__c mdf : mdfs)
-            {
-                Purchasing_Request__c request = new Purchasing_Request__c(Id=mdf.Purchasing_Request__c);
-                request.Vendor_Name__c = mdf.Account__r.Name;
-                request.Vendor_Contact__c = mdf.Owner.Name;
-                request.Vendor_Email__c = mdf.Owner.Email;
-                request.Vendor_Address__c = isBlankAddress(mdf.Remit_to_Address__c) ? mdf.Company_Billing_Address__c : mdf.Remit_to_Address__c;
-                requests.add(request);
-            }
-            Database.update(requests, false);
-        }
-    }
+    
     
     private Boolean isBlankAddress(String address)
     {
