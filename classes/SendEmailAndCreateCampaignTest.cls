@@ -5,7 +5,7 @@
  */
 @isTest
 public class SendEmailAndCreateCampaignTest {
-    @isTest(seeAllData=true)
+    /*@isTest(seeAllData=true)
 	public static void testSendEmailAndCreateCampaign()
     {
         List<User> currentUser = [Select Id, Profile.Name, Profile.Id, Name from User where Profile.Name != '13g-SP Partner Community' and IsActive = true limit 1];
@@ -27,5 +27,5 @@ public class SendEmailAndCreateCampaignTest {
         Test.stopTest();
 		mdf = [Select Id, Campaign__c from MDF_Request__c where Id =: newMDF.Id];
 		system.assertEquals(1, [Select Count() from Campaign where Id =: mdf.Campaign__c]);
-    }
+    }*/
 }

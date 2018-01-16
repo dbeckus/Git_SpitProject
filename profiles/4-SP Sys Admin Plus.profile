@@ -2054,6 +2054,10 @@
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>TestMDFTriggerHandler</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>TestNewReleasesController</apexClass>
         <enabled>false</enabled>
     </classAccesses>

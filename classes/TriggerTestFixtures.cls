@@ -564,25 +564,7 @@ System.assertEquals(campaignMember.LeadId, ct.Campaign_Lead__c);*/
         
     }
     
-    @isTest
-    static void testSubmitPurchaseRequestOnMdfApproval()
-    {
-        List<RecordType> purchaseRecordType = [select Id from RecordType where SobjectType='Purchasing_Request__c' and Name='MDF Request' limit 1];
-        Purchasing_Request__c purchase = new Purchasing_Request__c();
-        purchase.RecordTypeId = (purchaseRecordType.size() > 0) ? purchaseRecordType[0].Id : null;
-        insert purchase;
-        
-        MDF_Request__c request = new MDF_Request__c(Purchasing_Request__c=purchase.Id);
-        insert request;
-        
-        request.Approval_Status__c = 'Approved';
-        request.Approval_Status_Hidden__c = 'Approved';
-        try
-        {
-            update request;
-        }
-        catch(Exception ex) {}
-    }
+   
     
     @isTest
     static void testAddPowerPartnerToPublicGroups()
@@ -612,31 +594,7 @@ System.assertEquals(campaignMember.LeadId, ct.Campaign_Lead__c);*/
         //System.assert([select count() from GroupMember where UserOrGroupId=:newUser.Id] > 0); //error thrown in trigger: mixed DML (bug of sfdc?)
     }
     
-    @isTest
-    static void testUpdateMdfStatusFromPR()
-    {
-        List<User> prApprovers = [select Id from User where PR_Approver__c=true limit 1];
-        List<RecordType> mdfRecordType = [select Id from RecordType where Name='MDF Request' and SObjectType='Purchasing_Request__c' limit 1];
-        Purchasing_Request__c pr = new Purchasing_Request__c(First_Approver__c=prApprovers[0].Id, RecordTypeId=mdfRecordType[0].Id);
-        insert pr;
-        MDF_Request__c mdf = new MDF_Request__c(Purchasing_Request__c=pr.Id);
-        insert mdf;
-        
-        pr.Approval_Status__c = 'Final Approval';
-        update pr;
-        mdf = [select Id, Approval_Status__c from MDF_Request__c where Id=:mdf.Id limit 1];
-        System.assertEquals('Approved', mdf.Approval_Status__c);
-    }
+  
     
-    @isTest
-    static void testCopyMdfToAccount()
-    {
-        Account acc = new Account(Name='acme');
-        insert acc;
-        MDF_Request__c mdf = new MDF_Request__c(Account__c=acc.Id, Estimated_Silver_Peak_Amount__c=1000);
-        insert mdf;
-        
-        acc = [select Id, Total_Requested_MDF__c from Account where Id=:acc.Id limit 1];
-        System.assertEquals(1000, acc.Total_Requested_MDF__c);
-    }
+  
 }

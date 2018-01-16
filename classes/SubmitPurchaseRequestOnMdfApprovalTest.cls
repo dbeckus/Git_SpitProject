@@ -1,6 +1,6 @@
 @isTest
 public class SubmitPurchaseRequestOnMdfApprovalTest {
-    @isTest
+   /* @isTest
     static void testSubmitPurchaseRequestOnMdfApproval()
     {
         List<RecordType> purchaseRecordType = [select Id from RecordType where SobjectType='Purchasing_Request__c' and Name='MDF Request' limit 1];
@@ -19,5 +19,5 @@ public class SubmitPurchaseRequestOnMdfApprovalTest {
         
         request.Approval_Status_Hidden__c = 'Approved';
         update request;
-    }
+    }*/
 }
