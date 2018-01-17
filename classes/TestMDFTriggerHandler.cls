@@ -46,10 +46,26 @@ public class TestMDFTriggerHandler {
         }
         catch(Exception ex) {}
     }
+    @ISTest(SeeAllData=true)
+    static void testMDFCSM()
+    {
+        List<User> currentUser = [Select Id, Profile.Name, Profile.Id, Name from User where Profile.Name != '13g-SP Partner Community' and IsActive = true limit 1];
+        if(currentUser.isEmpty())
+        {
+            return;
+        }
+        Contact con = new Contact(LastName='Acme', Email='acme@test.com',FirstName='Acme');
+        insert con;
+        MDF_Request__c mdf = new MDF_Request__c(Type_of_Program__c ='Awareness', OwnerId = currentUser[0].Id, Contact__c = con.Id, Activity_Date__c = date.today());
+        insert mdf;
+        mdf.CSM__c=currentUser[0].Id;
+        update mdf;
+    }
     
     @isTest
     static void testMDFShare()
     {
+        Test.startTest();
         User portalUser = [select COntactId, COntact.AccountId from User where IsActive = true and UserType = 'PowerPartner' limit 1];
         MDF_Request__c mdf = new MDF_Request__c(Account__c = portalUser.Contact.AccountId);
         MDF_Request__c mdf2 = new MDF_Request__c(Account__c = portalUser.Contact.AccountId);
@@ -57,8 +73,18 @@ public class TestMDFTriggerHandler {
         mdf.Account__c = null;
         update mdf;
         ShareMDFToPartnerHelper.shareMDFs(new List<MDF_Request__c> {mdf, mdf2});
+        Test.stopTest();
     }
-    
+     @isTest
+    static void testMDFShare_PortalUser()
+    {
+        Test.startTest();
+       	Account acc = new Account(Name='acme');
+        insert acc;
+        MDF_Request__c mdf = new MDF_Request__c(Account__c=acc.Id, Estimated_Silver_Peak_Amount__c=1000,Is_Portal_Request__c=true);
+        insert mdf;
+        Test.stopTest();
+    }
     @isTest
     static void testMDFShareSchedule()
     {

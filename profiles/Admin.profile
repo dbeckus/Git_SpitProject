@@ -630,6 +630,10 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>GEORegionChangeTriggerHandler</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>GenerateGmsLicenseController</apexClass>
         <enabled>true</enabled>
     </classAccesses>
@@ -1987,6 +1991,10 @@
     </classAccesses>
     <classAccesses>
         <apexClass>TestFixtures</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>TestGEORegionChangeTriggerHandler</apexClass>
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
