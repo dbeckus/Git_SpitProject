@@ -54,7 +54,7 @@ public class GEORegionChangeTriggerHandler implements ITriggerHandler {
             SilverPeakUtils.logException(ex);
         }
     }
-   	public void AfterUpdate(Map<Id, SObject> newItems, Map<Id, SObject> oldItems) 
+    public void AfterUpdate(Map<Id, SObject> newItems, Map<Id, SObject> oldItems) 
     {     
         
     }

@@ -33,7 +33,30 @@ public class TestGEORegionChangeTriggerHandler {
         Test.stopTest();
     }
     
+   @IsTest
+    public static void UpdateGEORegion_NoOpps()
+    {
+        Profile prof = [SELECT Id FROM Profile WHERE Name='5-SP Contract Mgr']; 
+        User usr = new User(Alias = 'standt', Email='testUser@uniquetest.com', 
+                            EmailEncodingKey='UTF-8', LastName='LName',FirstName='FName', LanguageLocaleKey='en_US', 
+                            LocaleSidKey='en_US', ProfileId = prof.Id, GEO__c='EMEA',Region__c='East',
+                            TimeZoneSidKey='America/Los_Angeles', UserName='testUser@uniquetest.com');
+        
+        usr.IsActive =true;
+        insert usr; 
+        
+      
    
+        Test.startTest();
+        User_GEO_Region__e obj= new User_GEO_Region__e();
+        obj.Owner_Id__c=usr.Id;
+        obj.GEO_Region__c=usr.Sales_Region__c;
+        System.debug(obj);
+        Database.SaveResult spresult= EventBus.publish(obj);
+        System.assert(spresult.isSuccess());
+     
+        Test.stopTest();
+    }
     
      
 }

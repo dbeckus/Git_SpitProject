@@ -579,6 +579,10 @@ assignTeamMembers(objIds);
                 {
                     result.add(new AccountTeamMember(AccountId=acc.Id, UserId=patch.SE__c, TeamMemberRole='Systems Engineer'));
                 }
+                if(patch.Owner__c != null && !IsPartOfCoreTeam(patch,patch.Owner__c))
+                {
+                    result.add(new AccountTeamMember(AccountId=acc.Id, UserId=patch.Owner__c, TeamMemberRole='Team Owner'));
+                }
                 if(patch.Overlay_1__c != null && patch.Overlay__c == true && !IsPartOfCoreTeam(patch,patch.Overlay_1__c))
                 {
                     result.add(new AccountTeamMember(AccountId=acc.Id, UserId=patch.Overlay_1__c, TeamMemberRole='Team Member'));

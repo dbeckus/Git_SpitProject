@@ -26,6 +26,7 @@ public class PatchChangeTriggerHandler implements ITriggerHandler {
     {
         Map<Id,String> setCAMChange = new Map<Id,String>();
         Map<Id,String> setRSMChange = new Map<Id,String>();
+        
         for(Id recId:newItems.keyset())
         {
             Patch_Change__e obj= (Patch_Change__e)newItems.get(recId);
@@ -37,6 +38,7 @@ public class PatchChangeTriggerHandler implements ITriggerHandler {
             {
                 setRSMChange.put((Id)obj.Patch_Id__c,obj.RSM_Name__c);
             }
+            
         }
         try
         {
@@ -45,15 +47,13 @@ public class PatchChangeTriggerHandler implements ITriggerHandler {
                 List<Opportunity> lstOpp=[Select Id,Patch__c,Channel_Manager__c from Opportunity where IsClosed=false and Patch__c in:setCAMChange.keyset()];
                 if(lstOpp!=null && lstOpp.size()>0)
                 {
-                    for(Id patchId: setCAMChange.keySet())
-                    {
-                        for(Opportunity opp: lstOpp)
-                        {
-                            opp.Channel_Manager__c=setCAMChange.get(patchId);
-                        }
-                    }
                     
+                    for(Opportunity opp: lstOpp)
+                    {
+                        opp.Channel_Manager__c=setCAMChange.get(opp.Patch__c);
+                    }
                     Database.update(lstOpp, false);
+                    System.debug('Done');
                 }
                 
             }
@@ -62,20 +62,20 @@ public class PatchChangeTriggerHandler implements ITriggerHandler {
                 List<Opportunity> lstOpp=[Select Id,Patch__c,Regional_Sales_Manager__c from Opportunity where IsClosed=false and Patch__c in:setRSMChange.keyset()];
                 if(lstOpp!=null && lstOpp.size()>0)
                 {
-                    for(Id patchId: setRSMChange.keySet())
+                    for(Opportunity opp: lstOpp)
                     {
-                        for(Opportunity opp: lstOpp)
-                        {
-                            opp.Regional_Sales_Manager__c=setRSMChange.get(patchId);
-                        }
+                        opp.Regional_Sales_Manager__c=setRSMChange.get(opp.Patch__c);
                     }
                     Database.update(lstOpp, false);
+                    System.debug('Done');
                 }
                 
             }
+            
         }
         catch(Exception ex)
         {
+            System.debug(ex);
             SilverPeakUtils.logException(ex);
         }
     }

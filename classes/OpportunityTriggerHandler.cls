@@ -143,7 +143,8 @@ public class OpportunityTriggerHandler implements ITriggerHandler {
                         oppNeedsTeamAssign.add(newOpp.Id);
                     }
                 }
-                if(newOpp.LeadSource=='Deal Registration')
+                
+                if(newOpp.Registered_Distributor_Contact__c!=null || newOpp.Registering_Partner_Sales_Rep__c!=null || newOpp.Registered_Distributor__c!=null || newOpp.Registering_Partner__c!=null)
                 {
                     oppsNeedSharing.add(newOpp);
                     oppIdsNeedSharing.add(newOpp.Id);
@@ -211,14 +212,14 @@ public class OpportunityTriggerHandler implements ITriggerHandler {
                         setAccIds.add(newOpp.AccountId);
                     }
                 }
-                if(newOpp.LeadSource=='Deal Registration')
+                //if(newOpp.LeadSource=='Deal Registration')
+               // {
+                if(isChanged(oldOpp, newOpp, new String[] { 'LeadSource', 'OwnerId', 'Registered_Distributor_Contact__c', 'Registering_Partner_Sales_Rep__c', 'Registered_Distributor__c', 'Registering_Partner__c'}))
                 {
-                    if(isChanged(oldOpp, newOpp, new String[] { 'LeadSource', 'OwnerId', 'Registered_Distributor_Contact__c', 'Registering_Partner_Sales_Rep__c', 'Registered_Distributor__c', 'Registering_Partner__c'}))
-                    {
-                        oppsNeedSharing.add(newOpp);
-                        oppIdsNeedSharing.add(newOpp.Id);
-                    }
+                    oppsNeedSharing.add(newOpp);
+                    oppIdsNeedSharing.add(newOpp.Id);
                 }
+               // }
                 if(newOpp.Technical_Responsible__c !=null && newOpp.Technical_Responsible__c != oldOpp.Technical_Responsible__c)
                 {
                     mapOppTR.put(newOpp.Id,newOpp.Technical_Responsible__c);

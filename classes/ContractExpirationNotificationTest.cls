@@ -1,12 +1,12 @@
 @isTest
 public class ContractExpirationNotificationTest
 {
-	@isTest
+    @isTest
     static void testContractExpirationNotification()
     {
         Account acc = new Account(Name='acme');
         insert acc;
-         Account spAcc = new Account(Name='Silver Peak Systems');
+        Account spAcc = new Account(Name='Silver Peak Systems');
         insert spAcc;
         Contact c = new Contact(LastName='acme', Email='test@test.com', AccountId=acc.Id);
         insert c;
@@ -22,7 +22,7 @@ public class ContractExpirationNotificationTest
         insert asset;
         ct0.Status = ct60.Status = ct90.Status = ct1.Status = 'Activated';
         update new List<Contract> { ct0, ct60, ct90, ct1 };
-        
+            
         List<Contract> contracts = [select AccountId from Contract where Status='Activated' and EndDate in (:Date.today().addDays(-1), :Date.today(), :Date.today().addDays(60), :Date.today().addDays(90)) and Include_For_Notice__c=1];
         System.assertEquals(4, contracts.size());
         

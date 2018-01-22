@@ -18,7 +18,7 @@ public class TestAccountTriggerHandler {
         
     }
     
-    @IsTest
+   @IsTest
     public static void OrchDomainDuplicate_Insert()
     {
         
@@ -37,7 +37,7 @@ public class TestAccountTriggerHandler {
         } 
         
     }
-      @IsTest
+    @IsTest
     public static void OrchDomainDuplicate_Update()
     {
         
@@ -253,7 +253,7 @@ public class TestAccountTriggerHandler {
         } 
         
     }
-    @IsTest(SeeAllData=true)
+   @IsTest(SeeAllData=true)
     public static void test1_Contact()
     {
         Test.startTest();
@@ -312,7 +312,7 @@ public class TestAccountTriggerHandler {
         acc.Cloud_Portal_Account_Name__c='test';
         update acc;
     }
-    @IsTest
+   @IsTest
     public static void ECSPFlag_AccountSyncedinCP()
     {
         Account acc=new Account(Name='Test',Cloud_Portal_Account_Name__c='Test',ECSP__c=true,Service_Provider_Account_type__c='Perpetual',Service_Provider_Admin_User__c='abc@abc.com');
@@ -342,7 +342,7 @@ public class TestAccountTriggerHandler {
         }
         
     }
-    @IsTest
+   // @IsTest
     public static void ECSPFlag_AccountAssetsCreated()
     {
         Account acc=new Account(Name='Test',ECSP__c=true,Service_Provider_Account_type__c='Perpetual',Service_Provider_Admin_User__c='abc@abc.com');
@@ -436,7 +436,7 @@ public class TestAccountTriggerHandler {
         }
         
     }
-    @IsTest(SeeAllData=true)
+   @IsTest(SeeAllData=true)
     public static void test1_Account_UnityCloudSyncedinCP()
     {
         Account acc=new Account(Name='Test',Cloud_Portal_Account_Name__c='Test',Unity_Orch_Admin_User__c='abc@abc.com',Unity_Orch_Domain__c='test123',Unity_Orch_Location__c='US East (Ohio)');
@@ -465,5 +465,41 @@ public class TestAccountTriggerHandler {
             
         }
     }
+     @IsTest
+    public static void UpdateOppTypeforAccount()
+    {
+        
+        Account acc = new Account(Name='acme', Type='Eval');
+        insert acc;
+        Contact con = new Contact(LastName='acme', AccountId=acc.Id);
+        con.MailingStreet='address1 \r\n address2';
+        insert con;
+        
+        Opportunity opp1 = new Opportunity(Name='test', StageName='New', CloseDate=Date.today().addDays(30),AccountId = acc.Id,Opportunity_Source__c='RSM',Type='New Business');
+        insert opp1;
+        Opportunity opp2 = new Opportunity(Name='test', StageName='New', CloseDate=Date.today().addDays(100),AccountId = acc.Id,Opportunity_Source__c='RSM',Type='New Business');
+        insert opp2;
+        Test.startTest();
+        opp1.Finance_Reviewed__c=true;
+        opp1.StageName='Closed Won';
+        update opp1;
+        
+        List<Opportunity> result=[Select Id,Fiscal_Quarter_Name__c from Opportunity where Id=:acc.Id];
+        for(Opportunity opp: result)
+        {
+            System.assertEquals(opp.Type, 'Follow on Business');
+        }
+        Test.stopTest();
+    }
     
+      @IsTest
+    public static void EnforcePortalUserGroup()
+    {
+        Test.startTest();
+        Account acc = new Account(Name='acme', Type='Eval',GEO_Supported__c='NAM');
+        insert acc;
+       	acc.GEO_Supported__c='EMEA';
+        update acc;
+        Test.stopTest();
+    }
 }

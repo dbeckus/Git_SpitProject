@@ -93,7 +93,7 @@ public class AccountTriggerHandler implements ITriggerHandler {
                 }
                 if(!newAccInfo.Override_Service_Provider_Setting__c)
                 {
-                    if(!newAccInfo.ECSP__c && (oldAccInfo.Unity_Orch_Admin_User__c!=newAccInfo.Unity_Orch_Admin_User__c || oldAccInfo.Unity_Orch_Domain__c !=newAccInfo.Unity_Orch_Domain__c ||oldAccInfo.Unity_Orch_Location__c!=newAccInfo.Unity_Orch_Location__c))
+                    if(!newAccInfo.ECSP__c && ((oldAccInfo.Unity_Orch_Admin_User__c!=null && oldAccInfo.Unity_Orch_Admin_User__c!=newAccInfo.Unity_Orch_Admin_User__c) || (oldAccInfo.Unity_Orch_Domain__c!=null && oldAccInfo.Unity_Orch_Domain__c !=newAccInfo.Unity_Orch_Domain__c) || (oldAccInfo.Unity_Orch_Location__c!=null && oldAccInfo.Unity_Orch_Location__c!=newAccInfo.Unity_Orch_Location__c)))
                     {
                         if(newAccInfo.Cloud_Portal_Account_Id__c!=null || newAccInfo.Cloud_Portal_Account_Key__c!=null || newAccInfo.Cloud_Portal_Account_Name__c !=null)
                         {

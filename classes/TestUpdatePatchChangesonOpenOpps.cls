@@ -16,18 +16,22 @@ public class TestUpdatePatchChangesonOpenOpps {
         insert usr;
         Patch__c patch = new Patch__c(Patch_Name__c='acme');
         insert patch;
-        Opportunity opp = new Opportunity(Name='acme',patch__c=patch.Id, CloseDate=Date.today(), StageName='Discovery', AccountId=acc.Id);
+        Opportunity opp = new Opportunity(Name='acme',patch__c=patch.Id, Deal_Type__c='Wan Op',CloseDate=Date.today(), StageName='Discovery', AccountId=acc.Id);
         insert opp;
         
         patch.RSM__c=usr.Id;
         update patch;
+        Patch__c updPatch=[Select Id,RSM__r.Name from Patch__c where Id=:patch.Id ];
+        Patch_Change__e objPE= new Patch_Change__e(Patch_Id__c=patch.Id,RSM_Name__c=updPatch.RSM__r.Name,Channel_Manager_Name__c=null);
+        System.debug('objPE'+objPE);
         Test.startTest();
-        Patch_Change__e objPE= new Patch_Change__e(Patch_Id__c=patch.Id,RSM_Name__c=patch.RSM__r.Name,Channel_Manager_Name__c=null);
         Database.SaveResult sr = EventBus.publish(objPE);
-        System.debug(sr.isSuccess());
         Test.stopTest();
+        System.debug('sr.IsSuccess' + sr.isSuccess());
         Opportunity opp1=[Select Regional_Sales_Manager__c from Opportunity where Id=:opp.Id];
         System.assertequals(opp1.Regional_Sales_Manager__c,'FName LName');
+        
+        
         
     }
     @IsTest
@@ -47,19 +51,23 @@ public class TestUpdatePatchChangesonOpenOpps {
         insert usr;
         Patch__c patch = new Patch__c(Patch_Name__c='acme');
         insert patch;
-        Opportunity opp = new Opportunity(Name='acme',patch__c=patch.Id, CloseDate=Date.today(), StageName='Discovery', AccountId=acc.Id);
+        Opportunity opp = new Opportunity(Name='acme',patch__c=patch.Id,Deal_Type__c='Wan Op' ,CloseDate=Date.today(), StageName='Discovery', AccountId=acc.Id);
         insert opp;
         
         patch.CSM__c=usr.Id;
         update patch;
+        Patch__c updPatch=[Select Id,CSM__r.Name from Patch__c where Id=:patch.Id ];
+        Patch_Change__e objPE= new Patch_Change__e(Patch_Id__c=patch.Id,RSM_Name__c=null,Channel_Manager_Name__c=updPatch.CSM__r.Name);
+        System.debug('objPE'+objPE);
         Test.startTest();
-        Patch_Change__e objPE= new Patch_Change__e(Patch_Id__c=patch.Id,RSM_Name__c=null,Channel_Manager_Name__c=patch.CSM__r.Name);
-        Database.SaveResult sr = EventBus.publish(objPE);
         
-        System.debug(sr.isSuccess());
+        Database.SaveResult sr = EventBus.publish(objPE);
         Test.stopTest();
+        System.debug('sr.IsSuccess' + sr.isSuccess());
         Opportunity opp1=[Select Channel_Manager__c from Opportunity where Id=:opp.Id];
         System.assertequals(opp1.Channel_Manager__c,'FName LName');
+        
+        
         
     }
 }

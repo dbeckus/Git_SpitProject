@@ -4,6 +4,8 @@ public class SubscriptionExpirationReminderJobTest
     @isTest
     static void test()
     {
+        Account spAcc= new Account(Name='Silver Peak Systems');
+        insert spAcc;
         Account acc = new Account(Name='acme');
         insert acc;
         Contact contact = new Contact(LastName='acme', AccountId=acc.Id);
@@ -31,6 +33,8 @@ public class SubscriptionExpirationReminderJobTest
      @isTest
     static void test_CustomerEvaluationAssets()
     {
+          Account spAcc= new Account(Name='Silver Peak Systems');
+        insert spAcc;
         Account acc = new Account(Name='acme');
         insert acc;
         Contact contact = new Contact(LastName='acme', AccountId=acc.Id);
@@ -52,6 +56,8 @@ public class SubscriptionExpirationReminderJobTest
      @isTest
     static void test_CustomerSubscriptionAssets()
     {
+        Account spAcc= new Account(Name='Silver Peak Systems');
+        insert spAcc;
         Account acc = new Account(Name='acme');
         insert acc;
         Contact contact = new Contact(LastName='acme', AccountId=acc.Id);
