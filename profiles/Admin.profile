@@ -206,6 +206,10 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>AssociateLMSCertificateWithContact</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>AttachmentCheckOnMDFTest</apexClass>
         <enabled>true</enabled>
     </classAccesses>
@@ -1871,6 +1875,10 @@
     </classAccesses>
     <classAccesses>
         <apexClass>TestAssignSBPermissionSet</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>TestAssociateLMSCertificateWithContact</apexClass>
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>

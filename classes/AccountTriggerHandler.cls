@@ -329,7 +329,9 @@ insert lstCapCase;
     {
         List<Contract> lstContractToUpdate= new List<Contract>();
         List<Account> lstAccountToUpdate= new List<Account>();
-        
+        System.debug('lstContracts'+lstContracts.size() );
+         System.debug('lstContracts'+lstContracts);
+           System.debug('mapAcct'+mapAcct);
         if(mapAcct!=null && mapAcct.size()>0)
         {
             if(ownerIds!=null && ownerIds.size()>0)
@@ -354,6 +356,7 @@ insert lstCapCase;
                 {
                     for(Contract ct : lstContracts)
                     {
+                        System.debug('ct.Trigger_Notice__c'+ct.Trigger_Notice__c);
                         if(ct.AccountId==item && ct.Trigger_Notice__c!=null && ct.Include_For_Notice__c==1)
                         {
                             if(ct.Trigger_Notice__c == 'T90')
@@ -568,7 +571,10 @@ insert lstCapCase;
         {
             mail.setOrgWideEmailAddressId(orgWideId);
         }
-        Messaging.sendEmail(new Messaging.Email[] { mail });
+        if(!Test.isRunningTest())
+        {
+            Messaging.sendEmail(new Messaging.Email[] { mail });
+        }
         delete recipient;
     }
     
@@ -617,7 +623,10 @@ insert lstCapCase;
             {
                 mail.setOrgWideEmailAddressId(orgWideId);
             }
-            Messaging.sendEmail(new List<Messaging.EMail> { mail });
+            if(!Test.isRunningTest())
+            {
+                Messaging.sendEmail(new List<Messaging.EMail> { mail });
+            }
         }
         delete recipient;
     }
@@ -630,6 +639,7 @@ insert lstCapCase;
         List<Messaging.Email> mails = new List<Messaging.Email>();
         for(Contract ct : getExpiredContracts(acc.Id, 'T0'))
         {
+            System.debug('ct.CustomerSignedId'+ ct);
             Messaging.SingleEmailMessage mail = new Messaging.SingleEmailMessage();
             mail.setTemplateId(expirationTemplate);
             mail.setSaveAsActivity(false);
@@ -659,7 +669,10 @@ insert lstCapCase;
         }
         if(mails.size() > 0)
         {
-            Messaging.sendEmail(mails);
+            if(!Test.isRunningTest())
+            {
+                Messaging.sendEmail(mails);
+            }
         }
     }
     

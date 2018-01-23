@@ -33,6 +33,8 @@ public class TestHLMSFetchCertificationsBatch {
         Test.startTest();
         H_LMSFetchCertificationsBatch obj= new H_LMSFetchCertificationsBatch();
         Database.executeBatch(obj);
+        AssociateLMSCertificateWithContact objContact= new AssociateLMSCertificateWithContact();
+        objContact.execute(null);
         Test.stopTest();
     }
     
@@ -51,6 +53,8 @@ public class TestHLMSFetchCertificationsBatch {
         Test.startTest();
         H_LMSFetchCertificationsBatch obj= new H_LMSFetchCertificationsBatch();
         Database.executeBatch(obj);
+        AssociateLMSCertificateWithContact objContact= new AssociateLMSCertificateWithContact();
+        objContact.execute(null);
         Test.stopTest();
     }
 }

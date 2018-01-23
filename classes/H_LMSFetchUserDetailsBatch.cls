@@ -59,9 +59,6 @@ public class H_LMSFetchUserDetailsBatch implements Database.Batchable<sObject>,D
     public void finish(Database.BatchableContext context)
     {
         
-        // Associate Certification with Contact
-        LMSBatchHelper.H_AssociateContactUsingUserId();
-        // Associate Certiifcation with Email Address.
-        LMSBatchHelper.H_AssociateContactUsingEmailAddress();
+        
     }
 }
