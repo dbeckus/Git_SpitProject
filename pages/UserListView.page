@@ -1,0 +1,4 @@
+<apex:page >
+    
+    <apex:ListViews type="User" />
+</apex:page>

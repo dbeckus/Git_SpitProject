@@ -9447,6 +9447,10 @@
         <enabled>false</enabled>
     </pageAccesses>
     <pageAccesses>
+        <apexPage>MassUpdateUser</apexPage>
+        <enabled>false</enabled>
+    </pageAccesses>
+    <pageAccesses>
         <apexPage>MiscellaneousSetup</apexPage>
         <enabled>false</enabled>
     </pageAccesses>
@@ -9940,6 +9944,10 @@
     </pageAccesses>
     <pageAccesses>
         <apexPage>UpcomingEventsPartner</apexPage>
+        <enabled>false</enabled>
+    </pageAccesses>
+    <pageAccesses>
+        <apexPage>UserListView</apexPage>
         <enabled>false</enabled>
     </pageAccesses>
     <pageAccesses>
