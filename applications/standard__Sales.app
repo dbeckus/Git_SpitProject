@@ -31,4 +31,5 @@
     <tab>LMS_Course__c</tab>
     <tab>Aviso</tab>
     <tab>Account_Summary</tab>
+    <tab>Mass_Update_User</tab>
 </CustomApplication>

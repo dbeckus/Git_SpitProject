@@ -3636,6 +3636,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>LMS_Course_Certification__c.IsActive__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>LMS_Course_Certification__c.LMS_User_Id__c</field>
         <readable>false</readable>
     </fieldPermissions>
@@ -9640,6 +9645,10 @@
     </tabSettings>
     <tabSettings>
         <tab>MFR_Requests</tab>
+        <visibility>None</visibility>
+    </tabSettings>
+    <tabSettings>
+        <tab>Mass_Update_User</tab>
         <visibility>None</visibility>
     </tabSettings>
     <tabSettings>

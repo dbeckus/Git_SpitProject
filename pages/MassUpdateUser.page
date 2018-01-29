@@ -10,15 +10,15 @@
 
       <apex:pageBlock id="step1" title="Step 1. Confirm records to be updated" mode="edit" rendered="{!step='1'}">
             <apex:pagemessages escape="false"></apex:pagemessages>
-			<apex:pageBlockSection >
+            <apex:pageBlockSection >
             <apex:pageBlockTable var="a" value="{!selected}">
                 <apex:column value="{!a.Name}"/>
-				<apex:column value="{!a.Email}"/>
-				<apex:column value="{!a.Title}"/>
+                <apex:column value="{!a.Email}"/>
+                <apex:column value="{!a.Title}"/>
             </apex:pageBlockTable>
-			</apex:pageBlockSection>
-			<apex:panelGrid columns="2">
-			</apex:panelGrid>
+            </apex:pageBlockSection>
+            <apex:panelGrid columns="2">
+            </apex:panelGrid>
           <apex:pageBlockButtons >
               <apex:commandButton action="{!cancel}" value="Previous"/>
               <apex:commandButton action="{!step2}" value="Next"/>
@@ -37,11 +37,11 @@
       </apex:pageBlock> 
   
       <apex:pageBlock id="step3" title="Step 3. Specify the new value for field - {!fieldName}" mode="edit" rendered="{!step='3'}">
- 		 <apex:pagemessages escape="false"></apex:pagemessages>
- 	     <apex:inputText rendered="{!fieldType='CURRENCY'}" value="{!valueToUpdate}" />
-  	   	 <apex:inputText rendered="{!fieldType='DATE'}" value="{!valueToUpdate}" />
-		 <apex:inputText rendered="{!fieldType='DATETIME'}" value="{!valueToUpdate}" />
- 		 <apex:inputText rendered="{!fieldType='TEXT'}" value="{!valueToUpdate}" />
+         <apex:pagemessages escape="false"></apex:pagemessages>
+         <apex:inputText rendered="{!fieldType='CURRENCY'}" value="{!valueToUpdate}" />
+         <apex:inputText rendered="{!fieldType='DATE'}" value="{!valueToUpdate}" />
+         <apex:inputText rendered="{!fieldType='DATETIME'}" value="{!valueToUpdate}" />
+         <apex:inputText rendered="{!fieldType='TEXT'}" value="{!valueToUpdate}" />
          <apex:inputText rendered="{!fieldType='NUMBER'}" value="{!valueToUpdate}" />
          <apex:inputText rendered="{!fieldType='COMBOBOX'}" value="{!valueToUpdate}" />
          <apex:inputText rendered="{!fieldType='DOUBLE'}" value="{!valueToUpdate}" />
@@ -57,10 +57,10 @@
          <apex:inputTextArea rendered="{!fieldType='TEXTAREA'}" rows="15" cols="100" value="{!valueToUpdate}" />
          <apex:inputCheckBox rendered="{!fieldType='BOOLEAN'}" value="{!valueToUpdate}" />
          <apex:selectList rendered="{!fieldType='PICKLIST'}" value="{!valueToUpdate}" size="1">
-		 <apex:selectOptions value="{!picklistvalues}"/>
-	     </apex:selectList>
+         <apex:selectOptions value="{!picklistvalues}"/>
+         </apex:selectList>
              <apex:pageBlockButtons >
-          	  <apex:commandButton action="{!step2}" value="Previous"/>
+              <apex:commandButton action="{!step2}" value="Previous"/>
               <apex:commandButton action="{!step4}" value="Next"/>
               <apex:commandButton action="{!cancel}" value="Cancel" onclick="return confirmCancel()" immediate="true" style="margin-left: 2em"/>
              </apex:pageBlockButtons>
@@ -69,7 +69,7 @@
       <apex:pageBlock id="step4" title="Step 4. Confirmation" mode="edit" rendered="{!step='4'}">
           <apex:pagemessages escape="false"></apex:pagemessages>
           <apex:pageBlockButtons >
-          	  <apex:commandButton action="{!step3}" value="Previous"/>
+              <apex:commandButton action="{!step3}" value="Previous"/>
               <apex:commandButton action="{!step5}" value="Update"/>
               <apex:commandButton action="{!cancel}" value="Cancel" onclick="return confirmCancel()" immediate="true" style="margin-left: 2em"/>
           </apex:pageBlockButtons>

@@ -3658,6 +3658,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>LMS_Course_Certification__c.IsActive__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>LMS_Course_Certification__c.LMS_User_Id__c</field>
         <readable>false</readable>
     </fieldPermissions>

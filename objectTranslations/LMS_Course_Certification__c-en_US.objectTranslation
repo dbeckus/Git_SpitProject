@@ -33,6 +33,10 @@
         <name>Expiry_Date__c</name>
     </fields>
     <fields>
+        <label><!-- IsActive --></label>
+        <name>IsActive__c</name>
+    </fields>
+    <fields>
         <label><!-- LMS Course Id --></label>
         <name>LMS_Course_Id__c</name>
         <relationshipLabel><!-- Certifications --></relationshipLabel>

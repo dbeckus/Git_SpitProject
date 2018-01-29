@@ -110,6 +110,14 @@
         <type>Date</type>
     </fields>
     <fields>
+        <fullName>IsActive__c</fullName>
+        <defaultValue>true</defaultValue>
+        <externalId>false</externalId>
+        <label>IsActive</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
         <fullName>LMS_Course_Id__c</fullName>
         <externalId>false</externalId>
         <label>LMS Course Id</label>
