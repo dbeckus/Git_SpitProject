@@ -13,6 +13,14 @@
         <name>Active__c</name>
     </fields>
     <fields>
+        <label><!-- CAM Email --></label>
+        <name>CAM_Email__c</name>
+    </fields>
+    <fields>
+        <label><!-- CAM Phone --></label>
+        <name>CAM_Phone__c</name>
+    </fields>
+    <fields>
         <label><!-- CAM --></label>
         <name>CSM__c</name>
         <relationshipLabel><!-- Patches (CAM) --></relationshipLabel>
@@ -26,9 +34,21 @@
         <name>Comments__c</name>
     </fields>
     <fields>
+        <label><!-- Description --></label>
+        <name>Description__c</name>
+    </fields>
+    <fields>
         <label><!-- FCMM --></label>
         <name>FCMM__c</name>
         <relationshipLabel><!-- Patches (FCMM) --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- ISR Email --></label>
+        <name>ISR_Email__c</name>
+    </fields>
+    <fields>
+        <label><!-- ISR Phone --></label>
+        <name>ISR_Phone__c</name>
     </fields>
     <fields>
         <label><!-- ISR --></label>
@@ -36,9 +56,25 @@
         <relationshipLabel><!-- Patches (ISR) --></relationshipLabel>
     </fields>
     <fields>
+        <label><!-- Overlay 1 Email --></label>
+        <name>Overlay_1_Email__c</name>
+    </fields>
+    <fields>
+        <label><!-- Overlay 1 Phone --></label>
+        <name>Overlay_1_Phone__c</name>
+    </fields>
+    <fields>
         <label><!-- Overlay 1 --></label>
         <name>Overlay_1__c</name>
         <relationshipLabel><!-- Patches (Overlay 1) --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Overlay 2 Email --></label>
+        <name>Overlay_2_Email__c</name>
+    </fields>
+    <fields>
+        <label><!-- Overlay 2 Phone --></label>
+        <name>Overlay_2_Phone__c</name>
     </fields>
     <fields>
         <label><!-- Overlay 2 --></label>
@@ -60,9 +96,25 @@
         <name>Patch_Name__c</name>
     </fields>
     <fields>
+        <label><!-- Patch Owner Email --></label>
+        <name>Patch_Owner_Email__c</name>
+    </fields>
+    <fields>
+        <label><!-- Patch Owner Phone --></label>
+        <name>Patch_Owner_Phone__c</name>
+    </fields>
+    <fields>
         <help><!-- Smaller number gets higher priority --></help>
         <label><!-- Processing Sequence --></label>
         <name>ProcessingSequence__c</name>
+    </fields>
+    <fields>
+        <label><!-- RSM Email --></label>
+        <name>RSM_Email__c</name>
+    </fields>
+    <fields>
+        <label><!-- RSM Phone --></label>
+        <name>RSM_Phone__c</name>
     </fields>
     <fields>
         <label><!-- RSM --></label>
@@ -75,9 +127,21 @@
         <name>Rule_Logic__c</name>
     </fields>
     <fields>
+        <label><!-- SE Email --></label>
+        <name>SE_Email__c</name>
+    </fields>
+    <fields>
+        <label><!-- SE Phone --></label>
+        <name>SE_Phone__c</name>
+    </fields>
+    <fields>
         <label><!-- SE --></label>
         <name>SE__c</name>
         <relationshipLabel><!-- Patches (SE) --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Territory --></label>
+        <name>Territory__c</name>
     </fields>
     <fields>
         <label><!-- Timestamp --></label>

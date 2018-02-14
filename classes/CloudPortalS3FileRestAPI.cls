@@ -95,6 +95,6 @@ global with sharing class CloudPortalS3FileRestAPI {
         
     }
     
-    global  class CustomException extends Exception {}
+    
     
 }

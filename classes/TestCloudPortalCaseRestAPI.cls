@@ -21,8 +21,9 @@ public class TestCloudPortalCaseRestAPI {
         RestContext.request = req;
         RestContext.response= res;
         
-        string resp=CloudPortalCaseRestAPI.CreateNewCase(obj); //Call the Method of the Class with Proper       Constructor 
-        System.assert(resp!=null);//Assert that the Account is inserted and has Id        
+        string caseId=CloudPortalCaseRestAPI.CreateNewCase(obj); //Call the Method of the Class with Proper       Constructor 
+        System.assert(caseId==null);//Assert that the Account is inserted and has Id   
+        System.assert(res.statusCode==400);
         Test.stopTest();
     }
     @Istest
@@ -56,92 +57,13 @@ public class TestCloudPortalCaseRestAPI {
         RestContext.request = req;
         RestContext.response= res;
         
-        string resp=CloudPortalCaseRestAPI.CreateNewCase(obj); //Call the Method of the Class with Proper       Constructor 
-        System.assert(resp!=null);//Assert that the Account is inserted and has Id        
+        string caseId=CloudPortalCaseRestAPI.CreateNewCase(obj); //Call the Method of the Class with Proper       Constructor 
+        System.assert(caseId!=null);//Assert that the Account is inserted and has Id   
+        System.assert(res.statusCode==200);      
         Test.stopTest();
     }
-    @Istest
-    public static void TestCaseAPI_LicenseKey()
-    {
-        Account acc = new Account(Name='acme');
-        insert acc;
-        Account spacc = new Account(Name='Silver Peak Systems');
-        insert spacc;
-        Contact contact = new Contact(LastName='acme', AccountId=acc.Id);
-        insert contact;
-        Product2 product = new Product2(Name='EC-BASE-1Y', Family='Virtual Image', Product_Category__c='Subscription', IsActive=true);
-        insert product;
-        Asset asset1 = new Asset(Name='Test123', SerialNumber='Test123',AccountId=acc.Id,ContactId=contact.Id, Product2Id=product.Id);
-        asset1.License_Key__c='test7777';
-        insert asset1;
-        CloudPortalCaseRestAPI.CaseData obj= new CloudPortalCaseRestAPI.CaseData();
-        obj.subject='test';
-        obj.description='test';
-        obj.emailAddress='abc2323@abc.com';
-        obj.priority='P3 - Normal';
-        obj.serialNumber='9283932';
-        obj.conFullName=contact.Name;
-        obj.conPhoneNumber='2323232';
-        //obj.cpAccountKey='';
-        obj.cpLicenseKey='test7777';
-        string jsonData=Json.serialize(obj);
-        Test.startTest();
-        
-        RestRequest req = new RestRequest(); 
-        RestResponse res = new RestResponse();
-        
-        req.requestURI = '/services/apexrest/CPCaseInfo';  //Request URL
-        req.httpMethod = 'POST';//HTTP Request Type
-        req.requestBody = Blob.valueof(jsonData);
-        RestContext.request = req;
-        RestContext.response= res;
-        
-        string resp=CloudPortalCaseRestAPI.CreateNewCase(obj); //Call the Method of the Class with Proper       Constructor 
-        System.assert(resp!=null);//Assert that the Account is inserted and has Id        
-        Test.stopTest();
-    }
-    
  
-    public static void TestCaseAPI_AccountKey()
-    {
-        Account acc = new Account(Name='acme',Cloud_Portal_Account_Key__c='Test233');
-        insert acc;
-        Account spacc = new Account(Name='Silver Peak Systems');
-        insert spacc;
-        Contact contact = new Contact(LastName='acme', AccountId=acc.Id);
-        insert contact;
-        Product2 product = new Product2(Name='EC-BASE-1Y', Family='Virtual Image', Product_Category__c='Subscription', IsActive=true);
-        insert product;
-        Asset asset1 = new Asset(Name='Test123', SerialNumber='Test123',AccountId=acc.Id,ContactId=contact.Id, Product2Id=product.Id);
-        asset1.License_Key__c='test7777';
-        insert asset1;
-        CloudPortalCaseRestAPI.CaseData obj= new CloudPortalCaseRestAPI.CaseData();
-        obj.subject='test';
-        obj.description='test';
-        obj.emailAddress='abc2323@abc.com';
-        obj.priority='P3 - Normal';
-        obj.serialNumber='9283932';
-        obj.conFullName=contact.Name;
-        obj.conPhoneNumber='2323232';
-        //obj.cpAccountKey='Test233';
-        obj.cpLicenseKey='test3337777';
-        string jsonData=Json.serialize(obj);
-        Test.startTest();
-        
-        RestRequest req = new RestRequest(); 
-        RestResponse res = new RestResponse();
-        
-        req.requestURI = '/services/apexrest/CPCaseInfo';  //Request URL
-        req.httpMethod = 'POST';//HTTP Request Type
-        req.requestBody = Blob.valueof(jsonData);
-        RestContext.request = req;
-        RestContext.response= res;
-        
-        string resp=CloudPortalCaseRestAPI.CreateNewCase(obj); //Call the Method of the Class with Proper       Constructor 
-        System.assert(resp!=null);//Assert that the Account is inserted and has Id        
-        Test.stopTest();
-    }
-      @Istest
+    @Istest
     public static void TestCaseAPI_AccountId()
     {
         Account acc = new Account(Name='acme',Cloud_Portal_Account_Key__c='Test233');
@@ -163,7 +85,6 @@ public class TestCloudPortalCaseRestAPI {
         obj.serialNumber='9283932';
         obj.conFullName=contact.Name;
         obj.conPhoneNumber='2323232';
-        //obj.cpAccountKey='Test233';
         obj.salesforceId=acc.Id;
         string jsonData=Json.serialize(obj);
         Test.startTest();
@@ -177,8 +98,50 @@ public class TestCloudPortalCaseRestAPI {
         RestContext.request = req;
         RestContext.response= res;
         
-        string resp=CloudPortalCaseRestAPI.CreateNewCase(obj); //Call the Method of the Class with Proper       Constructor 
-        System.assert(resp!=null);//Assert that the Account is inserted and has Id        
+        string caseId=CloudPortalCaseRestAPI.CreateNewCase(obj); //Call the Method of the Class with Proper       Constructor 
+        System.assert(caseId!=null);//Assert that the Account is inserted and has Id   
+        System.assert(res.statusCode==200);         
+        Test.stopTest();
+    }
+    
+     @Istest
+    public static void TestCaseAPI_NoEmail()
+    {
+        Account acc = new Account(Name='acme',Cloud_Portal_Account_Key__c='Test233');
+        insert acc;
+        Account spacc = new Account(Name='Silver Peak Systems');
+        insert spacc;
+        Contact contact = new Contact(LastName='acme', AccountId=acc.Id);
+        insert contact;
+        Product2 product = new Product2(Name='EC-BASE-1Y', Family='Virtual Image', Product_Category__c='Subscription', IsActive=true);
+        insert product;
+        Asset asset1 = new Asset(Name='Test123', SerialNumber='Test123',AccountId=acc.Id,ContactId=contact.Id, Product2Id=product.Id);
+        asset1.License_Key__c='test7777';
+        insert asset1;
+        CloudPortalCaseRestAPI.CaseData obj= new CloudPortalCaseRestAPI.CaseData();
+        obj.subject='test';
+        obj.description='test';
+        obj.emailAddress='test@abc.com';
+        obj.priority='P3 - Normal';
+        obj.serialNumber='9283932';
+        obj.conFullName=contact.Name;
+        obj.conPhoneNumber='2323232';
+        obj.salesforceId=acc.Id;
+        string jsonData=Json.serialize(obj);
+        Test.startTest();
+        
+        RestRequest req = new RestRequest(); 
+        RestResponse res = new RestResponse();
+        
+        req.requestURI = '/services/apexrest/CPCaseInfo';  //Request URL
+        req.httpMethod = 'POST';//HTTP Request Type
+        req.requestBody = Blob.valueof(jsonData);
+        RestContext.request = req;
+        RestContext.response= res;
+        
+        string caseId=CloudPortalCaseRestAPI.CreateNewCase(obj); //Call the Method of the Class with Proper       Constructor 
+        System.assert(caseId!=null);//Assert that the Account is inserted and has Id   
+        System.assert(res.statusCode==200);         
         Test.stopTest();
     }
     @Istest
@@ -221,7 +184,7 @@ public class TestCloudPortalCaseRestAPI {
         Test.stopTest();
     }
     
-     @Istest
+    @Istest
     public static void TestS3FilesAPI_CaseNumber()
     {
         Account acc = new Account(Name='acme');
