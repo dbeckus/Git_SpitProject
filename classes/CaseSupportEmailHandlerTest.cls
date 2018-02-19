@@ -1,7 +1,7 @@
 @isTest
 public class CaseSupportEmailHandlerTest
 {
-    @isTest
+   @isTest
     static void testIsDuplicateCase()
     {
         Contact newContact = new Contact(LastName = 'acmeLastName', Email='acme@mail.com');
@@ -11,7 +11,7 @@ public class CaseSupportEmailHandlerTest
         System.assertEquals(true, CaseSupportEmailHandler.isDuplicateCase('acme 1981', 'acme@mail.com'));
     }
   
-    @isTest 
+   @isTest 
     static void testParseCaseNumber()
     {
         String[] caseNumbers = CaseSupportEmailHandler.parseCaseNumber('test[20100101-2015]');
@@ -44,9 +44,17 @@ public class CaseSupportEmailHandlerTest
     @isTest
     static void testNonAutoEmail()
     {
+        Test.startTest();
+        Account acc= new Account(Name='Test');
+        insert acc;
+        Contact con= new Contact(FirstName='TestFName',LastName='Test',Email='Acme.InTestMethod@acme.com',AccountId=acc.Id);
+        insert con;
+        Id [] fixedSearchResults= new Id[1];
+      	fixedSearchResults[0] = con.Id;
+       	Test.setFixedSearchResults(fixedSearchResults);
         Case cs = new Case(Subject='acme');
         insert cs;
-        EmailSetup__c setup = new EmailSetup__c(Name='Support', Drop_Email_From__c='spam');
+        EmailSetup__c setup = new EmailSetup__c(Name='Support', Drop_Email_From__c='spam',Case_Record_Type__c='Incoming Email');
         insert setup;
         Messaging.Inboundemail testEmail = new Messaging.Inboundemail();
         testEmail.subject = 'acme subject';
@@ -72,6 +80,8 @@ public class CaseSupportEmailHandlerTest
         Messaging.Inboundemail illegalFromNameEmail = new Messaging.Inboundemail();
         illegalFromNameEmail.fromName = 'system administrator';
         (new CaseSupportEmailHandler()).handleInboundEmail(illegalFromNameEmail, testEnvelope);
+        
+        Test.stopTest();
     }
     
     @isTest
@@ -86,13 +96,15 @@ public class CaseSupportEmailHandlerTest
         System.assertEquals(true, CaseSupportEmailHandler.isAutoEmail('AUTOCASE: [00-e0-81-78-58-8e]:[acme@test.com]:[P3]'));
     }
     
-    @isTest
+   	@isTest
     static void testAutoEmail()
     {
         EmailSetup__c setup = new EmailSetup__c(Name='Support', Drop_Email_From__c='spam', Case_Record_Type__c='Incoming Email');
         insert setup;
         Account acc = new Account(Name='acme');
         insert acc;
+        Account spAcc = new Account(Name='Silver Peak Systems');
+        insert spAcc;
         Asset asset = new Asset(Name='00e08178588e', AccountId=acc.Id);
         insert asset;
         Messaging.Inboundemail testEmail = new Messaging.Inboundemail();
@@ -117,4 +129,21 @@ public class CaseSupportEmailHandlerTest
         System.assertEquals(asset.Id, theCase.AssetId);
         System.assert(theCase.ContactId != null);
     }
+    
+    @isTest
+    static void testInsertCaseComments()
+    {
+        Contact newContact = new Contact(LastName = 'acmeLastName', Email='acme@mail.com');
+        insert newContact;
+        EmailSetup__c setup = new EmailSetup__c(Name='Support', Drop_Email_From__c='spam',Case_Record_Type__c='Incoming Email',delimiter__c=',');
+        insert setup;
+        Case newCase = new Case(Subject='acme 1981', ContactId=newContact.Id);
+        insert newCase;
+        Messaging.Inboundemail testEmail = new Messaging.Inboundemail();
+        testEmail.subject = 'acme subject';
+        testEmail.fromAddress = 'Acme.InTestMethod@acme.com';
+        testEmail.plainTextBody = 'This is a test Email plainTextBody !';
+        System.assertNotEquals(null,CaseSupportEmailHandler.insertCaseComment(newCase, testEmail));
+    }
+   
 }

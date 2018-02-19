@@ -166,27 +166,27 @@ public class RevenueRecognitionChecklistController
     
     private void checklist2Opp(RevenueRecognitionChecklist__c checklist, Opportunity opp)
     {
-        opp.Signed_By__c = rrChecklist.Signed_By__c;
-        opp.Signed_At__c = rrChecklist.Signed_At__c;
-        opp.Signature_of_Opportunity_Owner__c = rrChecklist.Signature_of_Opportunity_Owner__c;
-        opp.ProdRoadmap__c = rrChecklist.Roadmap_Information__c;
-        opp.RightOfReturn__c = rrChecklist.RightOfReturn__c;
-        opp.Other_Promises_Made__c = rrChecklist.Other_Promises_Made__c;
-        opp.Other_Promises_Made_Diclosed__c = (rrChecklist.Other_Promises_Made__c == 'Yes') ? rrChecklist.Other_Promises_Made_Disclosure__c : null;
-        opp.InstallationExpectations__c = rrChecklist.InstallationExpectations__c;
-        opp.Installation_Notes__c = (rrChecklist.InstallationExpectations__c == 'Yes') ? rrChecklist.Installation_Notes__c : null;
-        opp.Installation_Date__c = (rrChecklist.InstallationExpectations__c == 'Yes') ? rrChecklist.Installation_Date__c : null;       
-        opp.Future_Features_Expected__c = rrChecklist.Future_Features_Expected__c;
-        opp.Future_Features_Expected_Specifics__c = (rrChecklist.Future_Features_Expected__c == 'Yes') ? rrChecklist.Future_Features_Expected_Specifics__c : null;
-        opp.Finance_Reviewed__c = rrChecklist.Finance_Reviewed__c;
-        opp.Finance_Review_Notes__c = rrChecklist.Finance_Review_Notes__c;
-        opp.Finance_Released_At__c = rrChecklist.Finance_Released_At__c;
-        opp.Contingencies_of_Sale__c = rrChecklist.Contingencies_of_Sale__c;
-        opp.Describe_Contingencies__c = (rrChecklist.Contingencies_of_Sale__c == 'Yes') ? rrChecklist.Describe_Contingencies__c : null; 
-        opp.TrainingOrWANStartExpectations__c = rrChecklist.TrainingOrWANStartExpectations__c;
-        opp.DescribeExpectations__c = (rrChecklist.TrainingOrWANStartExpectations__c == 'Yes') ? rrChecklist.DescribeExpectations__c : null;
-        opp.UnitsGoingAbroad__c = rrChecklist.UnitsGoingAbroad__c;  
-        opp.Is_Foreign_Governor_Entity__c = rrChecklist.Is_Foreign_Governor_Entity__c;
+        //opp.Signed_By__c = checklist.Signed_By__c;
+        //opp.Signed_At__c = checklist.Signed_At__c;
+        opp.Signature_of_Opportunity_Owner__c = checklist.Signature_of_Opportunity_Owner__c;
+        opp.ProdRoadmap__c = checklist.Roadmap_Information__c;
+        opp.RightOfReturn__c = checklist.RightOfReturn__c;
+        opp.Other_Promises_Made__c = checklist.Other_Promises_Made__c;
+        opp.Other_Promises_Made_Diclosed__c = (checklist.Other_Promises_Made__c == 'Yes') ? checklist.Other_Promises_Made_Disclosure__c : null;
+        opp.InstallationExpectations__c = checklist.InstallationExpectations__c;
+        opp.Installation_Notes__c = (checklist.InstallationExpectations__c == 'Yes') ? checklist.Installation_Notes__c : null;
+        opp.Installation_Date__c = (checklist.InstallationExpectations__c == 'Yes') ? checklist.Installation_Date__c : null;       
+        opp.Future_Features_Expected__c = checklist.Future_Features_Expected__c;
+        opp.Future_Features_Expected_Specifics__c = (checklist.Future_Features_Expected__c == 'Yes') ? checklist.Future_Features_Expected_Specifics__c : null;
+        opp.Finance_Reviewed__c = checklist.Finance_Reviewed__c;
+        opp.Finance_Review_Notes__c = checklist.Finance_Review_Notes__c;
+        //opp.Finance_Released_At__c = checklist.Finance_Released_At__c;
+        opp.Contingencies_of_Sale__c = checklist.Contingencies_of_Sale__c;
+        opp.Describe_Contingencies__c = (checklist.Contingencies_of_Sale__c == 'Yes') ? checklist.Describe_Contingencies__c : null; 
+        opp.TrainingOrWANStartExpectations__c = checklist.TrainingOrWANStartExpectations__c;
+        opp.DescribeExpectations__c = (checklist.TrainingOrWANStartExpectations__c == 'Yes') ? checklist.DescribeExpectations__c : null;
+        opp.UnitsGoingAbroad__c = checklist.UnitsGoingAbroad__c;  
+        opp.Is_Foreign_Governor_Entity__c = checklist.Is_Foreign_Governor_Entity__c;
     }
     
     @isTest

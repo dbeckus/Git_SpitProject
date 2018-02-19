@@ -2,8 +2,9 @@
 global with sharing class CloudPortalCaseRestAPI {
     
     @HttpPost
-    global static ID CreateNewCase(CaseData caseInfo)
+    global static CaseInfo CreateNewCase(CaseData caseInfo)
     {
+        CaseInfo outputInfo= new CaseInfo();
         RestRequest req = RestContext.request;
         RestResponse res=RestContext.response;
         Asset existAsset=null;
@@ -63,7 +64,10 @@ global with sharing class CloudPortalCaseRestAPI {
                 insertCase.RecordTypeId='012500000005AuiAAE';// Tech Support Queue
                 insertCase.ContactId=existContact!=null?existContact.Id:null;
                 insert insertCase;
+                Case outputCase=[Select Id,CaseNumber from Case where Id=:insertCase.id];
                 res.statusCode=200;
+                outputInfo.caseId=outputCase.Id;
+                outputInfo.caseNumber= outputCase.CaseNumber;
             }
         }
         catch(Exception ex)
@@ -75,7 +79,7 @@ global with sharing class CloudPortalCaseRestAPI {
             System.debug(ex.getStackTraceString());
             
         }
-        return insertCase.Id;
+        return outputInfo;
     }
     
     
@@ -176,6 +180,13 @@ return lstCases;
         global string conPhoneNumber{get;set;}
         global string salesforceId{get;set;}
         global string serialNumber{get;set;}
+       
         
+    }
+    
+    global class CaseInfo
+    {
+         global string caseId{get;set;}
+        global string caseNumber{get;set;}
     }
 }

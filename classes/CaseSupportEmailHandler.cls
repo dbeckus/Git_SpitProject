@@ -128,6 +128,8 @@ global class CaseSupportEmailHandler implements Messaging.InboundEmailHandler
             result.success = false;
             result.message = 'Your message could not be processed. This is often because the body of the email was too large. Please resend in multiple emails of smaller size to add your comments to the case';
             String errorMessage = e.getMessage();
+            System.debug(e.getMessage());
+            System.debug(e.getStackTraceString());
             result.message = errorMessage;
             if(!errorMessage.contains('STRING_TOO_LONG') && !errorMessage.contains('MAXIMUM_SIZE_OF_ATTACHMENT'))
             {
@@ -354,6 +356,7 @@ global class CaseSupportEmailHandler implements Messaging.InboundEmailHandler
         }
     }
 
+       @testvisible
     //add a comment to case
     private static CaseComment insertCaseComment(Case theCase, Messaging.InboundEmail email)
     {
@@ -394,6 +397,10 @@ global class CaseSupportEmailHandler implements Messaging.InboundEmailHandler
     //checks if there is already a case created with the specified subject with in 5 minutes.
     private static Boolean isDuplicateCase(string theSubject, string fromAddress)
     {
+        if(theSubject!=null && theSubject.length()>4000)
+        {
+            theSubject= theSubject.substring(0,3999);
+        }
         List<Case> cases = [select Id, CreatedDate  from Case where Subject = :theSubject and contact.Email = :fromAddress order by CreatedDate desc limit 1];
         if(cases.size() == 1)
         {
