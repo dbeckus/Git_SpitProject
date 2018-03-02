@@ -23,7 +23,7 @@ public class TestCloudPortalCaseRestAPI {
         
         CloudPortalCaseRestAPI.CaseInfo caseInfo=CloudPortalCaseRestAPI.CreateNewCase(obj); //Call the Method of the Class with Proper       Constructor 
         System.assert(caseInfo.caseId==null);//Assert that the Account is inserted and has Id   
-        System.assert(res.statusCode==400);
+        System.assert(caseInfo.statusCode==400);
         Test.stopTest();
     }
     @Istest
@@ -59,7 +59,7 @@ public class TestCloudPortalCaseRestAPI {
         
         CloudPortalCaseRestAPI.CaseInfo caseInfo=CloudPortalCaseRestAPI.CreateNewCase(obj); //Call the Method of the Class with Proper       Constructor 
         System.assert(caseInfo.caseId!=null);//Assert that the Account is inserted and has Id   
-        System.assert(res.statusCode==200);      
+        System.assert(caseInfo.statusCode==200);      
         Test.stopTest();
     }
  
@@ -100,7 +100,7 @@ public class TestCloudPortalCaseRestAPI {
         
         CloudPortalCaseRestAPI.CaseInfo caseInfo=CloudPortalCaseRestAPI.CreateNewCase(obj); //Call the Method of the Class with Proper       Constructor 
         System.assert(caseInfo.caseId!=null);//Assert that the Account is inserted and has Id   
-        System.assert(res.statusCode==200);         
+        System.assert(caseInfo.statusCode==200);         
         Test.stopTest();
     }
     
@@ -141,9 +141,10 @@ public class TestCloudPortalCaseRestAPI {
         
         CloudPortalCaseRestAPI.CaseInfo caseInfo=CloudPortalCaseRestAPI.CreateNewCase(obj); //Call the Method of the Class with Proper       Constructor 
         System.assert(caseInfo.caseId!=null);//Assert that the Account is inserted and has Id   
-        System.assert(res.statusCode==200);         
+        System.assert(caseInfo.statusCode==200);         
         Test.stopTest();
     }
+     
     @Istest
     public static void TestS3FilesAPI()
     {
@@ -178,9 +179,9 @@ public class TestCloudPortalCaseRestAPI {
         RestContext.request = req;
         RestContext.response= res;
         
-        string resp=CloudPortalS3FileRestAPI.UploadFilesToCase(lstData); //Call the Method of the Class with Proper       Constructor 
-        System.assert(resp!=null);//Assert that the Account is inserted and has Id    
-        System.assert(resp=='Files are created successfully.');
+        CloudPortalS3FileRestAPI.FileData resp=CloudPortalS3FileRestAPI.UploadFilesToCase(lstData); //Call the Method of the Class with Proper       Constructor 
+        System.assert(resp!=null);//Assert that the Account is inserted and has Id   
+        System.assert(resp.statusCode==200);
         Test.stopTest();
     }
     
@@ -220,11 +221,53 @@ public class TestCloudPortalCaseRestAPI {
         RestContext.request = req;
         RestContext.response= res;
         
-        string resp=CloudPortalS3FileRestAPI.UploadFilesToCase(lstData); //Call the Method of the Class with Proper       Constructor 
+       	CloudPortalS3FileRestAPI.FileData resp=CloudPortalS3FileRestAPI.UploadFilesToCase(lstData); //Call the Method of the Class with Proper       Constructor 
         System.debug(resp);
-        System.assert(resp!=null);//Assert that the Account is inserted and has Id    
-        System.assert(resp=='Files are created successfully.');
+        System.assert(resp!=null);//Assert that the Account is inserted and has Id      
+        System.assert(resp.statusCode==200);
+        Test.stopTest();
+    }
+    
+    @Istest
+    public static void TestS3FilesAPI_CaseNumber_Invalid()
+    {
+        Account acc = new Account(Name='acme');
+        insert acc;
+        Account spacc = new Account(Name='Silver Peak Systems');
+        insert spacc;
+        Contact contact = new Contact(LastName='acme', AccountId=acc.Id);
+        insert contact;
+        Product2 product = new Product2(Name='EC-BASE-1Y', Family='Virtual Image', Product_Category__c='Subscription', IsActive=true);
+        insert product;
+        Asset asset1 = new Asset(Name='Test123', SerialNumber='Test123',AccountId=acc.Id,ContactId=contact.Id, Product2Id=product.Id);
+        insert asset1;
+        Case case1= new Case(Subject='Test',Description='Test Data');
+        insert case1;
+        Case caseData=[Select caseNumber from Case where Id=:case1.Id];
+        List<CloudPortalS3FileRestAPI.FileInfo> lstData= new List<CloudPortalS3FileRestAPI.FileInfo>();
+        CloudPortalS3FileRestAPI.FileInfo obj= new CloudPortalS3FileRestAPI.FileInfo();
+        System.debug('case1.CaseNumber'+caseData.CaseNumber);
+        obj.sfCaseId='test';
+        obj.fileName='test';
+        obj.fileKey='Test';
+        obj.fileSize=289;
+        lstData.add(obj);
+        string jsonData=Json.serialize(obj);
+        Test.startTest();
         
+        RestRequest req = new RestRequest(); 
+        RestResponse res = new RestResponse();
+        
+        req.requestURI = '/services/apexrest/CPFileInfo';  //Request URL
+        req.httpMethod = 'POST';//HTTP Request Type
+        req.requestBody = Blob.valueof(jsonData);
+        RestContext.request = req;
+        RestContext.response= res;
+        
+       	CloudPortalS3FileRestAPI.FileData resp=CloudPortalS3FileRestAPI.UploadFilesToCase(lstData); //Call the Method of the Class with Proper       Constructor 
+        System.debug(resp);
+        System.assert(resp!=null);//Assert that the Account is inserted and has Id     
+        System.assert(resp.statusCode==400);//Assert that the Account is inserted and has Id     
         Test.stopTest();
     }
 }

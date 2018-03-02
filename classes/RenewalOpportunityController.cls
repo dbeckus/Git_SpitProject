@@ -8,7 +8,7 @@ public class RenewalOpportunityController
     public RenewalOpportunityController(ApexPages.StandardController controller) 
     {
         opp = (Opportunity)controller.getRecord();
-        Opportunity oldOpp = [Select Id, Pricebook2Id,Product_Type__c,Account.ECSP__c,Tier1_Partner__c,Tier2_Partner__c,Tier3_Partner__c from Opportunity where Id =:opp.Id];
+        Opportunity oldOpp = [Select Id,Account.Default_PriceBook__c, Pricebook2Id,Product_Type__c,Account.ECSP__c,Tier1_Partner__c,Tier2_Partner__c,Tier3_Partner__c from Opportunity where Id =:opp.Id];
         List<Product2> products=null;
         
         if(oldOpp.Product_Type__c=='NX/VX')
@@ -40,7 +40,7 @@ public class RenewalOpportunityController
         opp.Tier2_Partner__c=oldOpp.Tier2_Partner__c;
         opp.Tier3_Partner__c=oldOpp.Tier3_Partner__c;
         
-        opp.Pricebook2Id = oldOpp.Pricebook2Id;
+        opp.Pricebook2Id = oldOpp.Account.Default_PriceBook__c;
         
         try
         {
@@ -52,7 +52,7 @@ public class RenewalOpportunityController
         List<Pricebook2> pricebook = [select Id from Pricebook2 where Id =:opp.Pricebook2Id];
         
         if(pricebook.size() == 0){
-            ApexPages.addMessage(new ApexPages.Message(ApexPages.Severity.Warning, 'No Pricebook is associate with the Parent Opportunity'));
+            ApexPages.addMessage(new ApexPages.Message(ApexPages.Severity.Warning, 'No default Pricebook is associate with the Parent Opportunity account.'));
         }
         else
         {  

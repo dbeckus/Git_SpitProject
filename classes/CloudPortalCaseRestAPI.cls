@@ -28,18 +28,19 @@ global with sharing class CloudPortalCaseRestAPI {
                 {
                     acctId=existAsset.AccountId;
                 }
-                 if(acctId==null)
-                 {
-                     string errorMessage= string.format('Unable to create case as there is no account with salesforce ID={0} and serial number={1}', new String[]{caseInfo.salesforceId,caseInfo.serialNumber});
-                     throw new CustomException(errorMessage);
-                 }
-                
-                
                 if(caseInfo.emailAddress!=null)
                 {
                     existContact=findContactByEmail(caseInfo.emailAddress);
+                    if(existContact!=null && existContact.AccountID!=null)
+                    {
+                        acctId=existContact.AccountId;
+                    }
                 }
-                
+                 if(acctId==null)
+                 {
+                     string errorMessage= string.format('Unable to create case as there is no account with salesforce ID={0} and serial number={1} and contact email={2}', new String[]{caseInfo.salesforceId,caseInfo.serialNumber,caseInfo.emailAddress});
+                     throw new CustomException(errorMessage);
+                 }
                 if(existContact==null)
                 {                    
                     if(acctId!=null)
@@ -65,7 +66,8 @@ global with sharing class CloudPortalCaseRestAPI {
                 insertCase.ContactId=existContact!=null?existContact.Id:null;
                 insert insertCase;
                 Case outputCase=[Select Id,CaseNumber from Case where Id=:insertCase.id];
-                res.statusCode=200;
+                outputInfo.statusCode=200;
+                outputInfo.errorMessage=null;
                 outputInfo.caseId=outputCase.Id;
                 outputInfo.caseNumber= outputCase.CaseNumber;
             }
@@ -73,11 +75,12 @@ global with sharing class CloudPortalCaseRestAPI {
         catch(Exception ex)
         {
             insert new ErrorLog__c(Subject__c='Error in CPCaseInfo API', Message__c=ex.getMessage() + '\r\n' + ex.getStackTraceString());
-            res.responseBody = Blob.valueOf(String.valueOf(ex) + '\n\n' + ex.getStackTraceString());
-            res.statusCode=400;
+            outputInfo.statusCode=400;
+            outputInfo.errorMessage=ex.getMessage();
+            outputInfo.caseId=null;
+            outputInfo.caseNumber=null;
             System.debug(ex.getMessage());
             System.debug(ex.getStackTraceString());
-            
         }
         return outputInfo;
     }
@@ -159,7 +162,7 @@ return lstCases;
     {
         if(String.isNotBlank(email) && email.length() >= 2)
         {
-            List<List<Contact>> result = [find :email In EMAIL FIELDS RETURNING Contact(Id, Name) limit 1];
+            List<List<Contact>> result = [find :email In EMAIL FIELDS RETURNING Contact(Id, Name,AccountId) limit 1];
             //Contact[] contacts = [select Id, Name from contact where Email=:email or Second_Email__c=:email or Third_Email__c=:email limit 1];
             if(result[0].size() > 0)
             {
@@ -186,7 +189,9 @@ return lstCases;
     
     global class CaseInfo
     {
-         global string caseId{get;set;}
+        global string caseId{get;set;}
         global string caseNumber{get;set;}
+        global integer statusCode{get;set;}
+        global string errorMessage{get;set;}
     }
 }
