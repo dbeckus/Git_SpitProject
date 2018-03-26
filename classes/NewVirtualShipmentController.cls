@@ -14,13 +14,15 @@ public with sharing class NewVirtualShipmentController
 {
     private Asset_mac__c am;        
     private Shipment__c shipmentRecord;
-    private List<Product2> products;     
+    private List<Product2> products;   
+    private static Date ECShipmentOldDate;
     public NewVirtualShipmentController(ApexPages.StandardController std)
     {
         String poId = ApexPages.currentPage().getParameters().get('poId');
         shipmentRecord = (Shipment__c)std.getRecord();
         TempAsset = new Asset();
         PoOpp = null;
+        ECShipmentOldDate=null;
         List<Purchase_Order__c> purchaseOrders = [SELECT Id, Name, Email_Contact__c, Opportunity__r.Account.Id, Opportunity__c FROM Purchase_Order__c WHERE Id = :poId];
         if(purchaseOrders.size() <= 0)
         {
@@ -220,6 +222,7 @@ public with sharing class NewVirtualShipmentController
                 Asset currAsset= lstExistingECAssets.get(updatedECProductName);
                 VirtualAssetManager.VirtualAsset vasset= new VirtualAssetManager.VirtualAsset();
                 vasset.Asset = currAsset;
+                ECShipmentOldDate=currAsset.License_End_Date__c;
                 vasset.Asset.Evaluation_End_Date__c= virtualAsset.Asset.Evaluation_End_Date__c;
                 if(currAsset.Product2.Name=='EC-ORCH')
                 {
@@ -465,7 +468,8 @@ public with sharing class NewVirtualShipmentController
             newLicenseEndDate = lstAssetsinShipment[0].license_End_Date__c;
             assetIds= (new Map<Id,Asset>(lstAssetsinShipment)).keySet();
             List<Asset> assetsToUpdate= new List<Asset>();
-            assetsToUpdate=[Select Id, (Select Id,Name,License_Expiration__c from licenses__r ) from Asset where  AccountId =: accountId and Product2.Family='Virtual Image' and Product2.Name like 'EC-%' and status='Customer Subscription Active' and (not Id in:assetIds) and (NOT Product2.Name ='EC-ORCH')];
+            System.debug('ECShipmentOldDate ' + ECShipmentOldDate);
+            assetsToUpdate=[Select Id, (Select Id,Name,License_Expiration__c from licenses__r ) from Asset where  AccountId =: accountId and Product2.Family='Virtual Image' and Product2.Name like 'EC-%' and status='Customer Subscription Active' and (not Id in:assetIds) and License_End_Date__c=:ECShipmentOldDate and (NOT Product2.Name ='EC-ORCH')];
             System.debug('Assets not in Shipment '+ assetsToUpdate.size());
             if(assetsToUpdate.size()>0) 
             {
@@ -532,7 +536,7 @@ public with sharing class NewVirtualShipmentController
         {
             assetIds.Add(shippedLineItem.Asset__c);
         } 
-        List<Asset> lstAssets= [Select Id,Product2Id,Product2.Name,Product2.SteelBrick_Category__c,Quantity,Bandwidth_Nodes__c,Licenses_Nodes__c,Status from Asset where Id in :assetIds and status='Customer Subscription Active' and Product2Id in :productIds];
+        List<Asset> lstAssets= [Select Id,Product2Id,Product2.Name,License_End_Date__c,Product2.SteelBrick_Category__c,Quantity,Bandwidth_Nodes__c,Licenses_Nodes__c,Status from Asset where Id in :assetIds and status='Customer Subscription Active' and Product2Id in :productIds];
         for(Asset assetItem :lstAssets)
         {
             mapAssetItems.put(assetItem.Product2.SteelBrick_Category__c, assetItem);
