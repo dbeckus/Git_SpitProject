@@ -218,7 +218,6 @@ public with sharing class NewVirtualShipmentController
             //string tobeUpdatedECProductName=lstExistingECAssets.c(virtualAsset.Asset.Product2Id);
             if(lstExistingECAssets!=null && lstExistingECAssets.containsKey(updatedECProductName))
             {
-                
                 Asset currAsset= lstExistingECAssets.get(updatedECProductName);
                 VirtualAssetManager.VirtualAsset vasset= new VirtualAssetManager.VirtualAsset();
                 vasset.Asset = currAsset;
