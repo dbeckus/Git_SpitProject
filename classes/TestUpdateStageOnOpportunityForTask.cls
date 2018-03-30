@@ -19,7 +19,7 @@ public class TestUpdateStageOnOpportunityForTask {
         Contact con = new Contact(LastName='testUser',AccountId=account.Id);
         insert con;
         Id standardPricebookId = TestUtilities.getStandardPricebookId();
-        Opportunity opp = new Opportunity(Name='test opp', AccountId=account.Id,StageName='New',Deal_Type__c='Replication',Type='New Business',Opportunity_Source__c='Other',Pricebook2Id=standardPricebookId,CloseDate=Date.today());
+        Opportunity opp = new Opportunity(Name='test opp', AccountId=account.Id,StageName='New',Deal_Type__c='Replication',Type='New Business',Opportunity_Source__c='Other', OwnerId= usr.Id, Pricebook2Id=standardPricebookId,CloseDate=Date.today());
         insert opp;
         System.debug('Original Opp '+ opp.Id);
         Task tsk= new Task();
@@ -59,7 +59,7 @@ public class TestUpdateStageOnOpportunityForTask {
         Contact con = new Contact(LastName='testUser',AccountId=account.Id);
         insert con;
         Id standardPricebookId = TestUtilities.getStandardPricebookId();
-        Opportunity opp = new Opportunity(Name='test opp',Solution_Type__c='Hybrid WAN', AccountId=account.Id,StageName='New',Type='New Business',Opportunity_Source__c='Other',Deal_Type__c='Replication',Pricebook2Id=standardPricebookId,CloseDate=Date.today());
+        Opportunity opp = new Opportunity(Name='test opp',Solution_Type__c='Hybrid WAN', AccountId=account.Id,StageName='New',Type='New Business',Opportunity_Source__c='Other',Deal_Type__c='Replication',OwnerId= usr.Id, Pricebook2Id=standardPricebookId,CloseDate=Date.today());
         insert opp;
         System.debug('Original Opp '+ opp.Id);
         Task tsk= new Task();

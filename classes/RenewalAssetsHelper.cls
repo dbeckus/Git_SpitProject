@@ -41,7 +41,7 @@ public  class RenewalAssetsHelper
                     mapAssets.put(asset.Id,asset.Renewal_Date__c);
                     if((prodName.startsWith('EC-BASE')||prodName.startsWith('EC-PLUS')||prodName.startsWith('EC-BOOST'))&& asset.Renewal_Nodes__c==0)
                     {
-                         mapAssets.remove(asset.Id);
+                        mapAssets.remove(asset.Id);
                     }
                 }
             }
@@ -65,6 +65,99 @@ public  class RenewalAssetsHelper
                     {
                         update lstLicenses;
                     }
+                }
+                
+                if(lstAssets.size()>0)
+                {
+                    update lstAssets;
+                }
+            }
+            catch(Exception ex)
+            {
+                
+                ApexPages.addMessages(ex);
+                SilverPeakutils.logException(ex);
+                return false;
+            }
+            
+        }
+        
+        return true;
+    }
+    
+    public static boolean RenewEdgeConnectLicenseAndNotifications(Boolean edgeConnect, List<Asset> lstAsset ,Purchase_Order__c PORequest, Id ccontact)
+    {
+        Map<Id,Date> mapAssets= new Map<Id,Date>();
+        List<License__c> lstLicenses= new List<License__c>();
+        List<Asset> lstAssets= new List<Asset>();
+        List<Asset> lstReductionAssets = new List<Asset>();
+        if(lstAsset!=null && lstAsset.size()>0)
+        {
+            for(Asset asset: lstAsset)
+            {
+                string prodName= asset.Product2.Name;
+                if(prodName.startsWith('EC-BASE')||prodName.startsWith('EC-PLUS'))
+                {
+                    if(asset.Licenses_Nodes__c <= asset.Renewal_Nodes__c)
+                    {
+                        asset.Licenses_Nodes__c= asset.Renewal_Nodes__c;	
+                    }
+                    else if(asset.Licenses_Nodes__c > asset.Renewal_Nodes__c)
+                    {
+                        lstReductionAssets.add(asset);
+                    }
+                }
+                if(prodName.startsWith('EC-BOOST'))
+                {
+                    if(asset.Bandwidth_Nodes__c <= asset.Renewal_Nodes__c)
+                    {
+                        asset.Bandwidth_Nodes__c= asset.Renewal_Nodes__c;
+                    }
+                    else if(asset.Bandwidth_Nodes__c > asset.Renewal_Nodes__c)
+                    {
+                        lstReductionAssets.add(asset);
+                    }
+                }
+                lstAssets.add(asset);
+                if(prodName!='EC-ORCH')
+                {
+                    System.debug('asset.Renewal_Nodes__c'+ asset.Renewal_Nodes__c);
+                    mapAssets.put(asset.Id,asset.Renewal_Date__c);
+                    if((prodName.startsWith('EC-BASE')||prodName.startsWith('EC-PLUS')||prodName.startsWith('EC-BOOST'))&& asset.Renewal_Nodes__c==0)
+                    {
+                        mapAssets.remove(asset.Id);
+                    }
+                }
+            }
+            try
+            {
+                if(mapAssets.size()>0)
+                {
+                    List<License__c> lstLicense=  [Select Id,Name,License_Expiration__c, AssetId__c from License__c where AssetId__c in: mapAssets.keyset()];
+                    if(lstLicense!=null && lstLicense.size()>0)
+                    {
+                        for(License__c item: lstLicense)
+                        {
+                            if(item!=null)
+                            {      
+                                item.License_Expiration__c= mapAssets.get(item.AssetId__c);
+                                lstLicenses.add(item);                
+                            }
+                        }
+                    }
+                    if(lstlicenses.size()>0)
+                    {
+                        update lstLicenses;
+                    }
+                }
+                
+                if(lstReductionAssets.size()!=null && lstReductionAssets.size()>0)
+                {
+                    SendEmailsForPurchaseOrderProcessing(PORequest, ccontact);
+                }
+                else if(lstReductionAssets.size()!=null && lstReductionAssets.size()==0)
+                {
+                    SendEmailsForPurchaseOrder(edgeConnect,PORequest, ccontact);
                 }
                 
                 if(lstAssets.size()>0)
@@ -448,7 +541,39 @@ public  class RenewalAssetsHelper
                 Messaging.sendEmail(new List<Messaging.Email> {email}, true);  
             }
         }
-    }    
+    }
+    
+    public static void SendEmailsForPurchaseOrderProcessing(Purchase_Order__c purchaseOrder, Id customerContact )
+    {
+        string pocRenewalEmailType= 'EC Virtual Renewal Email PO Processing';
+        
+        if(pocRenewalEmailType!=null)
+        {
+            List<EmailTemplate> template = [select Id from EmailTemplate where Name=:pocRenewalEmailType limit 1];
+            if(template.size() > 0)
+            {
+                List<String> ccs = getAccountTeam(purchaseOrder.Opportunity__r.AccountId);
+                if(customerContact!=null)
+                {
+                    Contact contactPerson = [Select email from Contact where Id=:customerContact];
+                    ccs.add(contactPerson.Email);
+                }
+                ccs.add('notifications@silver-peak.com');
+                Messaging.SingleEmailMessage email = new Messaging.SingleEmailMessage();
+                email.setTemplateId(template[0].Id);
+                email.setTargetObjectId(purchaseOrder.Email_Contact__c);
+                email.setCcAddresses(ccs);
+                email.setWhatId(purchaseOrder.Id);
+                email.setsaveAsActivity(false);
+                Id orgWideEmail = SilverPeakUtils.getOrganizationWideEmailId('notifications@silver-peak.com');
+                if(orgWideEmail != null)
+                {
+                    email.setOrgWideEmailAddressId(orgWideEmail);
+                }
+                Messaging.sendEmail(new List<Messaging.Email> {email}, true);  
+            }
+        }
+    }        
     
     public static void SendEmailsForPurchaseOrder_Reduction(Purchase_Order__c purchaseOrder)
     {

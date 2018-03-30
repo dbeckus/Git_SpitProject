@@ -706,6 +706,10 @@
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>HPartnerPortalGetDepartmentsByExtIdApi</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>HPartnerPortalGetEnrollementDetailsApi</apexClass>
         <enabled>false</enabled>
     </classAccesses>
@@ -2011,6 +2015,10 @@
     </classAccesses>
     <classAccesses>
         <apexClass>TestHLMSFetchCertificationsBatch</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>TestHPartnerPGetDepByExternalIdApi</apexClass>
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>

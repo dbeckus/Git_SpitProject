@@ -443,6 +443,7 @@ public class TestSPQuoteTriggerHandler {
       @isTest(SeeAllData=true)
     public static void TestCheckAssignedDistributor_Assigned_Insert()
     {
+        PriceBook2 pb1 = [select Id from Pricebook2 where Name='Enterprise' limit 1];
         Account testAccount= new Account(Name='Test Account');
         insert testAccount;
         Account reseller= new Account(Name='Test Reseller',Type='Partner',Partner_Type__c='Reseller');
@@ -453,13 +454,16 @@ public class TestSPQuoteTriggerHandler {
         insert distributor1;
         reseller.Assigned_Distributor__c=distributor.Id;
         update reseller;
+        Test.startTest();
         //create opportunity and opportunity line item.
-        Opportunity oppo = new Opportunity(AccountId=testAccount.Id,name='test', stageName='Discovery', CloseDate=Date.newInstance(2006,10,10));
+        Opportunity oppo = new Opportunity(AccountId=testAccount.Id,name='test',PriceBook2Id=pb1.Id, stageName='Discovery', CloseDate=Date.newInstance(2006,10,10));
         insert oppo;
         try
         {
+           
             Quote__c qt = new Quote__c(Tier_1_Partner__c=reseller.Id, Tier_2_Partner__c=distributor1.Id,  Quote_Name__c='Test',Opportunity__c = oppo.Id, Quote_Valid_Until__c = Date.today(), Quote_Date__c = Date.today());
             insert qt; 
+            Test.stopTest();
         }
         catch(Exception ex)
         {
@@ -472,6 +476,7 @@ public class TestSPQuoteTriggerHandler {
       @isTest(SeeAllData=true)
     public static void TestCheckAssignedDistributor_Assigned_Update()
     {
+        PriceBook2 pb1 = [select Id from Pricebook2 where Name='Enterprise' limit 1];
         Account testAccount= new Account(Name='Test Account');
         insert testAccount;
         Account reseller= new Account(Name='Test Reseller',Type='Partner',Partner_Type__c='Reseller');
@@ -483,14 +488,17 @@ public class TestSPQuoteTriggerHandler {
         reseller.Assigned_Distributor__c=distributor.Id;
         update reseller;
         //create opportunity and opportunity line item.
-        Opportunity oppo = new Opportunity(AccountId=testAccount.Id,name='test', stageName='Discovery', CloseDate=Date.newInstance(2006,10,10));
+        Opportunity oppo = new Opportunity(AccountId=testAccount.Id,name='test', PriceBook2Id=pb1.Id,  stageName='Discovery', CloseDate=Date.newInstance(2006,10,10));
+        Test.startTest();
         insert oppo;
         try
         {
+            
             Quote__c qt = new Quote__c(Tier_1_Partner__c=reseller.Id, Tier_2_Partner__c=distributor.Id,  Quote_Name__c='Test',Opportunity__c = oppo.Id, Quote_Valid_Until__c = Date.today(), Quote_Date__c = Date.today());
             insert qt; 
             qt.Tier_2_Partner__c=distributor1.Id;
             update qt;
+            Test.stopTest();
         }
         catch(Exception ex)
         {

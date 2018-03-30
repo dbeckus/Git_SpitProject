@@ -6,10 +6,6 @@ public class ContactTriggerHandler implements ITriggerHandler {
     Set<Id> contactIdsToBeMovedOff = new Set<Id>();
     Map<Id,Contact> contactsToBeUpdated = new Map<Id,Contact>();
     List<CampaignMember> newSDCampaignMembers = new List<CampaignMember>();
-    Set<Id> setAcctsTargetAccountTrue = new Set<Id>();
-    Set<Id> setAcctsTargetAccountFalse = new Set<Id>();
-    List<Account> listAcctsToUpdate = new List<Account>();
-    Set<Id> setTriggeredContacts = new Set<Id>();
     
     public ContactTriggerHandler()
     {
@@ -28,13 +24,8 @@ public class ContactTriggerHandler implements ITriggerHandler {
                 if(con.TechnicalPresalesReady__c)
                 {
                     con.TechnicalPresalesReadyCertifiedBy__c = UserInfo.getUserId();
-                }
-                if(con.ABM_Target__c)
-                {
-                    setAcctsTargetAccountTrue.add(con.AccountId);
-                }       
-            }
-            updateTargetAccountToTrue(setAcctsTargetAccountTrue);     
+                }      
+            }     
         }       
     }
     public void BeforeUpdate(Map<Id, SObject> newItems, Map<Id, SObject> oldItems) 
@@ -49,31 +40,12 @@ public class ContactTriggerHandler implements ITriggerHandler {
                 {
                     newContact.TechnicalPresalesReadyCertifiedBy__c= newContact.TechnicalPresalesReady__c?UserInfo.getUserId():null;
                 }
-                if(oldContact.ABM_Target__c != newContact.ABM_Target__c)
-                {
-                    if(newContact.ABM_Target__c){
-                        setAcctsTargetAccountTrue.add(newContact.AccountId);
-                    }
-                    else if (!newContact.ABM_Target__c){
-                        setAcctsTargetAccountFalse.add(newContact.AccountId);
-                        setTriggeredContacts.add(newContact.Id);
-                    }
-                } 
             }
-            updateTargetAccountToTrue(setAcctsTargetAccountTrue);
-            updateTargetAccountToFalse(setAcctsTargetAccountFalse, setTriggeredContacts);
         }
     }
     public void BeforeDelete(Map<Id,SObject> oldItems) 
     {
-        for(Id conId: oldItems.keySet()){
-            Contact oldContact =(Contact)oldItems.get(conId);
-            if(oldContact.ABM_Target__c){ 
-                setAcctsTargetAccountFalse.add(oldContact.AccountId);
-                setTriggeredContacts.add(oldContact.Id);
-            } 
-        }
-        updateTargetAccountToFalse(setAcctsTargetAccountFalse, setTriggeredContacts);
+        
     }
     public void AfterInsert(Map<Id, SObject> newItems) 
     {
@@ -148,13 +120,7 @@ public class ContactTriggerHandler implements ITriggerHandler {
     }
     public void AfterUndelete(Map<Id, SObject> newItems) 
     {
-        for(Id conId: newItems.keySet()){
-            Contact newContact =(Contact)newItems.get(conId);
-            if(newContact.ABM_Target__c){
-                setAcctsTargetAccountTrue.add(newContact.AccountId);
-            } 
-        }
-        updateTargetAccountToTrue(setAcctsTargetAccountTrue); 
+        
     }
     
     
@@ -176,33 +142,6 @@ public class ContactTriggerHandler implements ITriggerHandler {
             SilverPeakUtils.BypassingTriggers = true;
             Database.update(contactsToBeUpdated.values(), false);
             SilverPeakUtils.BypassingTriggers = false;
-        }
-    }
-    
-    private void updateTargetAccountToTrue(Set<Id> setAcctIds){
-        if(setAcctIds != null && setAcctIds.size() > 0){
-            for(Account acc: [Select Id, Target_Account__c from Account where Target_Account__c = False and Id IN :setAcctIds]){
-                acc.Target_Account__c = True;
-                listAcctsToUpdate.add(acc);
-            }
-            if(listAcctsToUpdate.size()>0){
-                update listAcctsToUpdate;
-            }
-        }
-    }
-    
-    private void updateTargetAccountToFalse(Set<Id> setAcctIds, Set<Id> setConIds){  
-        if(setAcctIds != null && setAcctIds.size() > 0){
-            List<Account> listAcctsWithABMTargetContacts = [Select Id, (Select Id, ABM_Target__c from Contacts where Id  NOT IN :setConIds and ABM_Target__c = True) from Account where Id IN :setAcctIds];
-            for(Account acc: listAcctsWithABMTargetContacts){
-                if(acc.Contacts.size()==0){
-                    acc.Target_Account__c = False;
-                    listAcctsToUpdate.add(acc);
-                }
-            }
-            if(listAcctsToUpdate.size()>0){
-                update listAcctsToUpdate;
-            }
         }
     } 
 }

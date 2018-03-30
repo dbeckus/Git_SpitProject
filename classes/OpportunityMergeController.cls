@@ -557,7 +557,7 @@ ApexPages.addMessages(e);
     static void test1()
     {
         PriceBook2 pb = [select Id from Pricebook2 where IsStandard=true limit 1];
-        
+        PriceBook2 pb1 = [select Id from Pricebook2 where Name='Enterprise' limit 1];
         Account oppAccount = new Account(Name = 'Test Opp Account');
         insert oppAccount;
         Contact con= new Contact(LastName='testLastName',Email='abc@test2323.com',AccountId=oppAccount.Id);
@@ -566,7 +566,7 @@ ApexPages.addMessages(e);
         List<Opportunity> opps = new List<Opportunity>();
         for(Integer i = 0; i < 2; i++)
         {
-            opps.add(new Opportunity(Name = 'acme' + i, AccountId = oppAccount.Id, CloseDate = System.today(), StageName = 'Discovery', Pricebook2Id = pb.Id,Technical_Responsible__c=UserInfo.getUserId()));
+            opps.add(new Opportunity(Name = 'acme' + i, AccountId = oppAccount.Id, CloseDate = System.today(), StageName = 'Discovery', Pricebook2Id = pb1.Id,Technical_Responsible__c=UserInfo.getUserId()));
         }
         insert opps;
         List<OpportunityContactRole> oppContactRoles = new List<OpportunityContactRole>();
@@ -580,14 +580,18 @@ ApexPages.addMessages(e);
         insert product;
         PriceBookEntry entry = new PriceBookEntry(IsActive = true, PriceBook2Id = pb.Id, Product2Id = product.Id, UnitPrice = 10, UseStandardPrice = false);
         insert entry;
-        OpportunityLineItem oppLine = new OpportunityLineItem(OpportunityId = opps[0].Id, PriceBookEntryId = entry.Id, Quantity = 1, UnitPrice = 10);
+        PriceBookEntry entry2 = new PriceBookEntry(IsActive = true, PriceBook2Id = pb1.Id, Product2Id = product.Id, UnitPrice = 100, UseStandardPrice = false);
+        insert entry2;
+        OpportunityLineItem oppLine = new OpportunityLineItem(OpportunityId = opps[0].Id, PriceBookEntryId = entry2.Id, Quantity = 1, UnitPrice = 10);
         insert oppLine;
         
         Product2 product1 = new Product2(Name = 'Test Product1', ProductCode = '111AAA111', IsActive = true);
         insert product1;
         PriceBookEntry entry1 = new PriceBookEntry(IsActive = true, PriceBook2Id = pb.Id, Product2Id = product1.Id, UnitPrice = 100, UseStandardPrice = false);
         insert entry1;
-        OpportunityLineItem oppLine1 = new OpportunityLineItem(OpportunityId = opps[1].Id, PriceBookEntryId = entry1.Id, Quantity = 2, UnitPrice = 100);
+        PriceBookEntry entry12 = new PriceBookEntry(IsActive = true, PriceBook2Id = pb1.Id, Product2Id = product1.Id, UnitPrice = 100, UseStandardPrice = false);
+        insert entry12;
+        OpportunityLineItem oppLine1 = new OpportunityLineItem(OpportunityId = opps[1].Id, PriceBookEntryId = entry12.Id, Quantity = 2, UnitPrice = 100);
         insert oppLine1;
         
         List<Quote__c> quotes = new List<Quote__c>(); 

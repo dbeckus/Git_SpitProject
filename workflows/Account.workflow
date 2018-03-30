@@ -909,7 +909,7 @@ Patch__r.Catchall__c
             <name>AcctRecTypetoCust</name>
             <type>FieldUpdate</type>
         </actions>
-        <active>true</active>
+        <active>false</active>
         <criteriaItems>
             <field>Account.Type</field>
             <operation>equals</operation>
@@ -923,7 +923,7 @@ Patch__r.Catchall__c
             <name>AcctRecType2Other</name>
             <type>FieldUpdate</type>
         </actions>
-        <active>true</active>
+        <active>false</active>
         <criteriaItems>
             <field>Account.Type</field>
             <operation>equals</operation>
@@ -938,7 +938,7 @@ Patch__r.Catchall__c
             <name>SetRecTypetoReseller</name>
             <type>FieldUpdate</type>
         </actions>
-        <active>true</active>
+        <active>false</active>
         <criteriaItems>
             <field>Account.Type</field>
             <operation>equals</operation>
@@ -953,12 +953,9 @@ Patch__r.Catchall__c
             <name>Update_the_type_to_partner</name>
             <type>FieldUpdate</type>
         </actions>
-        <active>true</active>
+        <active>false</active>
         <description>Set Record Type to Reseller</description>
-        <formula>AND(
-RecordTypeId==&quot;012500000005QUt&quot;,
-NOT(ISPICKVAL(Type,&quot;Partner&quot;))
-)</formula>
+        <formula>AND( RecordTypeId==&quot;012500000005QUt&quot;, NOT(ISPICKVAL(Type,&quot;Partner&quot;)) )</formula>
         <triggerType>onAllChanges</triggerType>
     </rules>
     <rules>

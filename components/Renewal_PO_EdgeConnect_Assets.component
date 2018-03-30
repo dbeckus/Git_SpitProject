@@ -2,6 +2,7 @@
     <apex:attribute name="EdgeConnectOnly" description="Id of the POC request" type="boolean" assignTo="{!IsEdgeConnect}" />
      <apex:attribute name="AccountIdOnly" description="Id of the account" type="Id" assignTo="{!AccId}" />
          <apex:attribute name="IsECReduction" description="IsEdgeConnectReduction" type="boolean" assignTo="{!IsEdgeConnectReduction}" />
+         <apex:attribute name="IsECReductionProcessing" description="IsEdgeConnectReductionProcessing" type="boolean" assignTo="{!IsEdgeConnectReductionProcessing}" />
     <apex:variable var="termvalue" value="{!DefaultDate}"/>
      <apex:variable var="startvalue" value="{!DefaultDate}"/>
     <apex:variable var="idx" value="{!0}"/>
@@ -13,6 +14,8 @@
 
 </apex:repeat>    
  <br/>
-<apex:outputText rendered="{!!IsEdgeConnectReduction}" value="Your new term will start on:"></apex:outputText><b> <apex:outputText rendered="{!!IsEdgeConnectReduction}" value="{0, date, MMMM d','  yyyy}"><apex:param value="{!startvalue}" /> </apex:outputText> </b> <br/>
-<apex:outputText rendered="{!!IsEdgeConnectReduction}" value="Your term will now expire on:"></apex:outputText><b> <apex:outputText rendered="{!!IsEdgeConnectReduction}" value="{0, date, MMMM d','  yyyy}"><apex:param value="{!termvalue}" /> </apex:outputText> </b> 
+<apex:outputText rendered="{!!OR(IsEdgeConnectReduction, IsEdgeConnectReductionProcessing)}" value="Your new term will start on:"></apex:outputText><b> <apex:outputText rendered="{!!OR(IsEdgeConnectReduction, IsEdgeConnectReductionProcessing)}" value="{0, date, MMMM d','  yyyy}"><apex:param value="{!startvalue}" /> </apex:outputText> </b> <br/>
+<apex:outputText rendered="{!!IsEdgeConnectReductionProcessing}" value="Your term will now expire on:"></apex:outputText><b> <apex:outputText rendered="{!!IsEdgeConnectReductionProcessing}" value="{0, date, MMMM d','  yyyy}"><apex:param value="{!termvalue}" /> </apex:outputText> </b> <br/>
+<apex:outputText rendered="{!IsEdgeConnectReductionProcessing}" value="New term effective date:"></apex:outputText><b> <apex:outputText rendered="{!IsEdgeConnectReductionProcessing}" value="{0, date, MMMM d','  yyyy}"><apex:param value="{!startvalue}" /> </apex:outputText> </b> <br/>
+<apex:outputText rendered="{!IsEdgeConnectReductionProcessing}" value="New term expiration date:"></apex:outputText><b> <apex:outputText rendered="{!IsEdgeConnectReductionProcessing}" value="{0, date, MMMM d','  yyyy}"><apex:param value="{!termvalue}" /> </apex:outputText> </b> 
 </apex:component>

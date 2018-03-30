@@ -474,6 +474,7 @@ System.assertEquals(0, rvaccount2.Won_Amount__c);
     @isTest(SeeAllData = true)
     static void testUpdateForecastCategoryToOpportunity()
     {
+        PriceBook2 pb1 = [select Id from Pricebook2 where Name='Enterprise' limit 1];
         Product2 product = new Product2(IsActive=true, Name='acme', Forecast_Category__c='Virtual');
         insert product;
         
@@ -486,7 +487,9 @@ System.assertEquals(0, rvaccount2.Won_Amount__c);
         PriceBook2 pb = [select Id from Pricebook2 where IsStandard=true limit 1];
         PricebookEntry entry = new PricebookEntry(Product2Id=product.Id, Pricebook2Id=pb.Id, UnitPrice=1, IsActive=true, UseStandardPrice =false);
         insert entry;
-        OpportunityLineItem line = new OpportunityLineItem(OpportunityId=opp.Id, TotalPrice=1, Quantity=1, PriceBookEntryId=entry.Id, Description='test');
+        PricebookEntry entry1 = new PricebookEntry(Product2Id=product.Id, Pricebook2Id=pb1.Id, UnitPrice=1, IsActive=true, UseStandardPrice =false);
+        insert entry1;
+        OpportunityLineItem line = new OpportunityLineItem(OpportunityId=opp.Id, TotalPrice=1, Quantity=1, PriceBookEntryId=entry1.Id, Description='test');
         insert line;
         
         System.assertEquals('Virtual', [select Product_Forecast_Categories__c from Opportunity where Id=:opp.Id limit 1].Product_Forecast_Categories__c);
@@ -499,7 +502,9 @@ System.assertEquals(0, rvaccount2.Won_Amount__c);
         insert product2;
         PricebookEntry entry2 = new PricebookEntry(Product2Id=product2.Id, Pricebook2Id=pb.Id, UnitPrice=1, IsActive=true, UseStandardPrice =false);
         insert entry2;
-        OpportunityLineItem line2 = new OpportunityLineItem(OpportunityId=opp.Id, TotalPrice=1, Quantity=1, PriceBookEntryId=entry2.Id, Description='test');
+        PricebookEntry entry21 = new PricebookEntry(Product2Id=product2.Id, Pricebook2Id=pb1.Id, UnitPrice=1, IsActive=true, UseStandardPrice =false);
+        insert entry21;
+        OpportunityLineItem line2 = new OpportunityLineItem(OpportunityId=opp.Id, TotalPrice=1, Quantity=1, PriceBookEntryId=entry21.Id, Description='test');
         insert line2;
         
         Test.stopTest();

@@ -41,7 +41,7 @@ public class VirtualPOCFulfillmentController
             if(productOptionsCollection == null)
             {
                 productOptionsCollection = new List<SelectOption>();
-                for (Product2 prd : [select Id, Name from Product2 where Family = 'Virtual Image' order by Name]) 
+                for (Product2 prd : [select Id, Name from Product2 where Family = 'Virtual Image' and IsActive=true and IsQuotable__C=true order by Name]) 
                 {
                     productOptionsCollection.add(new SelectOption(prd.Id, prd.Name));
                 }

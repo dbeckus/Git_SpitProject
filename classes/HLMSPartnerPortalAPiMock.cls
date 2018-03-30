@@ -21,7 +21,7 @@ public class HLMSPartnerPortalAPiMock implements HttpCalloutMock
         HttpResponse res = new HttpResponse();
         res.setHeader('Content-Type', 'application/json');
         res.setStatusCode(200);
-		System.debug('req.GetEndPoint'+req.getEndpoint());
+        System.debug('req.GetEndPoint'+req.getEndpoint());
         
         if(req.getEndpoint().indexOf('/Authenticate') > 0)
         {
@@ -36,15 +36,16 @@ public class HLMSPartnerPortalAPiMock implements HttpCalloutMock
         {
             res.setBody('{"Locations":null,"Name":"Silver Peak","Notes":null,"ParentDeptID":0,"Id":"01I38000000RCsg"}');
         }
+        
         // Departments.
         else if(req.getEndpoint().indexOf('/departments') > 0)
         {
-            res.setBody('[{"Id":"01I38000000RCsg","Name":"Silver Peak","Password":null,"Uri":"/departments/85748","Value":"Silver Peak","externalId":null,"parentId":0}]');
+            res.setBody('[{"Id":"01I38000000RCsg","Name":"Silver Peak","Password":null,"Uri":"/departments/01I38000000RCsg","Value":"Silver Peak","externalId":null,"parentId":0}]');
         }
         
         else if(req.getEndpoint().indexOf('/createabsorbaccount') > 0)
         {
-            res.setBody('{"Value":"students/618708"}');
+            res.setBody('{"Id":"01I38000000RCsg","FirstName":"Test","LastName":"Test","EmailAddress":"abc@abc.com","UserName":"abc@abc.com"}');
         }
         else if(req.getEndpoint().indexOf('certificates/') > 0)
         {

@@ -15,7 +15,7 @@ public class PORenewalAssetsController {
         
         if(RenewalAsset==null)
         { RenewalAsset= new Asset();}
-         if(SupportAsset==null)
+        if(SupportAsset==null)
         { SupportAsset= new Asset();}
         License= new License__c();
         CustomerContact = new Purchase_Order__c();
@@ -156,10 +156,9 @@ public class PORenewalAssetsController {
                         if(assets.size()>0)
                         {
                             RenewalAssetsHelper.CheckUnCheckAssets(assets, true);
-                            RenewalAssetsHelper.SendEmailsForPurchaseOrder(true, PORequest,CustomerContact.Email_Contact__c); 
-                            RenewalAssetsHelper.RenewEdgeConnectLicense(assets);
+                            RenewalAssetsHelper.RenewEdgeConnectLicenseAndNotifications(true, assets, PORequest, CustomerContact.Email_Contact__c);
                         }
-                       
+                        
                     }
                     catch(Exception ex)
                     {
@@ -193,7 +192,7 @@ public class PORenewalAssetsController {
                     }
                     finally
                     {
-                       
+                        
                         if(assets.size()>0)
                         {
                             RenewalAssetsHelper.CheckUnCheckAssets(assets, false);
@@ -203,7 +202,7 @@ public class PORenewalAssetsController {
                     
                 }
             }
-             if(AssetTypeSelection=='3')
+            if(AssetTypeSelection=='3')
             {
                 if(assets.size()>0)
                 {
@@ -228,7 +227,7 @@ public class PORenewalAssetsController {
                         if(assets.size()>0)
                         {
                             RenewalAssetsHelper.CheckUnCheckAssets(assets, false);
-                           
+                            
                         }
                     }      
                     

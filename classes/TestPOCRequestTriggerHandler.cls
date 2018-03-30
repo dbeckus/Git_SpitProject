@@ -461,9 +461,11 @@ public class TestPOCRequestTriggerHandler {
         pocRequest.RSM__c=null;
         pocRequest.RSM_Manager__c=null;
         pocRequest.RSM_VP_Sales__c=null;
+        Test.startTest();
         update pocRequest;
         pocRequest.Trigger_POC_Approvers__c=true;
         update pocRequest;
+        Test.stopTest();
         output=[Select Id , RSM__c,SE__c,RSM_Manager__c,RSM_VP_Sales__c,SE_Manager__c,SE_Director__c from Request__c where Id=:pocRequest.Id] ;
         System.assert(output.RSM_Manager__c!=null);
         System.assert(output.RSM__c!=null);

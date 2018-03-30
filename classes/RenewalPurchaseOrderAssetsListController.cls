@@ -6,6 +6,7 @@ public class RenewalPurchaseOrderAssetsListController
     
     public boolean IsEdgeConnect{ get; set; }
     public boolean IsEdgeConnectReduction{ get; set; }
+    public boolean IsEdgeConnectReductionProcessing{ get; set; }
      public Id AccId{ get; set; }
     public Date DefaultDate
     { 

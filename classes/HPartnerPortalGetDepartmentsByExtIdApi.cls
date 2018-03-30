@@ -1,13 +1,13 @@
-public with sharing class HPartnerPortalGetDepartmentsApi extends HPartnerPortalApiBase
+public with sharing class HPartnerPortalGetDepartmentsByExtIdApi extends HPartnerPortalApiBase
 {
     private String token;
-    private string departmentName;
+    private string externalId;
   
 
-    public HPartnerPortalGetDepartmentsApi(String token, String departmentName)
+    public HPartnerPortalGetDepartmentsByExtIdApi(String token, String salesforceId)
     {
         this.token = String.isBlank(token) ? HPartnerPortalSSOStub.getHttpToken(): token;
-        this.departmentName = departmentName;
+        this.externalId = salesforceId;
     }
 
     public List<HPartnerPortalLMSDepartment> departments {get; set;}
@@ -16,9 +16,9 @@ public with sharing class HPartnerPortalGetDepartmentsApi extends HPartnerPortal
     {
         
         String endpoint = BaseEndpoint + '/departments';
-        if(!String.isBlank(departmentName))
+        if(!String.isBlank(externalId))
         {
-            endpoint += '?departmentName=' + EncodingUtil.urlEncode(departmentName, 'UTF-8');
+            endpoint += '?externalId='+externalId;
         }
         return endpoint;
         
@@ -38,6 +38,7 @@ public with sharing class HPartnerPortalGetDepartmentsApi extends HPartnerPortal
     
     public override void processResult(String response)
     {
+        System.debug(response);
         departments = (List<HPartnerPortalLMSDepartment>) JSON.deserialize(response, List<HPartnerPortalLMSDepartment>.class);
     }
 }
