@@ -17,6 +17,14 @@ public class SilverPeakUtils
         Boolean portalUser = (user.UserType == 'CustomerSuccess' || user.UserType == 'PowerCustomerSuccess');
         return portalUser;
     }
+    
+     public static Boolean IsUserNameExistswithEmail(string emailAddress)
+    {
+        List<User> lstUsers = [select Id from User where Email =:emailAddress and IsActive=true and UserType in('CustomerSuccess','PowerCustomerSuccess','Partner')];
+        if(lstUsers!=null && lstUsers.size()>0)
+            return true;
+        return false;
+    }
 	public static Boolean IsCommunityUser()
     {
         User user = [select UserType from User where Id = :UserInfo.getUserId()];

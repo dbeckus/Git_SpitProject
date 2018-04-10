@@ -40,6 +40,10 @@ public class ContactTriggerHandler implements ITriggerHandler {
                 {
                     newContact.TechnicalPresalesReadyCertifiedBy__c= newContact.TechnicalPresalesReady__c?UserInfo.getUserId():null;
                 }
+                if(newContact.CanAllowPortalSelfReg && !oldContact.CanAllowPortalSelfReg && SilverPeakUtils.IsUserNameExistswithEmail(newContact.Email))
+                {
+                    newContact.addError('There is an active portal license registered with emailaddress.');
+                }
             }
         }
     }

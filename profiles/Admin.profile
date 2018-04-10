@@ -2326,6 +2326,10 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>UserTriggerHandler</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>ValueGetterController</apexClass>
         <enabled>true</enabled>
     </classAccesses>
