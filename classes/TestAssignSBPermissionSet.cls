@@ -1,6 +1,6 @@
 @ISTest
 public class TestAssignSBPermissionSet {
-    @IsTest(SeeAllData=true)
+   @IsTest(SeeAllData=true)
     public static void test1()
     {
         Profile prof = [SELECT Id FROM Profile WHERE Name='1.4- Intl Regional Sales Manager']; 
@@ -15,5 +15,4 @@ public class TestAssignSBPermissionSet {
         List<PermissionSetAssignment> lstData= [Select Id from PermissionSetAssignment where AssigneeId=:usr.Id and PermissionSetId in('0PS38000000LQeF','0PS38000000Xzp1')];
         System.assert(lstData.size()>0);
     }
-
 }

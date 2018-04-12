@@ -27,4 +27,33 @@ public class TestContactTriggerHandler {
             }
         }
     }
+    
+    
+    @isTest(seeAllData=true)
+    static void testCheckPortalRoleAccess()
+    {
+        Account acc = new Account(Name='TestData');
+        insert acc;
+        Contact con= new Contact(AccountId=acc.Id,LastName='Prane',Email='abc@abc.com');
+        insert con;
+        
+        Profile prof=[Select Id from Profile where Name='12d-SP Customer & Partner' LIMIT 1];
+       	User usr = new User(Alias = 'standt', Email='abc@abc.com', 
+                            EmailEncodingKey='UTF-8', LastName='Prane', LanguageLocaleKey='en_US', 
+                            LocaleSidKey='en_US', ProfileId = prof.Id, ContactId=con.Id,
+                            TimeZoneSidKey='America/Los_Angeles', UserName='abc@abc.com');
+        insert usr;
+        Contact con1= new Contact(AccountId=acc.Id,LastName='Prane',Email='abc@abc.com');
+        insert con1;
+        try
+        {
+            con1.CanAllowPortalSelfReg=true;
+        	update con1;
+        }
+        catch(Exception ex)
+        {
+            System.assert(ex.getMessage().contains('There is an active portal license registered with this email address. Please enter other email address.'));
+        }
+        
+    }
 }

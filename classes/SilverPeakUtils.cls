@@ -20,7 +20,7 @@ public class SilverPeakUtils
     
      public static Boolean IsUserNameExistswithEmail(string emailAddress)
     {
-        List<User> lstUsers = [select Id from User where Email =:emailAddress and IsActive=true and UserType in('CustomerSuccess','PowerCustomerSuccess','Partner')];
+        List<User> lstUsers = [select Id from User where Email =:emailAddress and IsActive=true and UserType in('CustomerSuccess','PowerCustomerSuccess','Partner','PowerPartner')];
         if(lstUsers!=null && lstUsers.size()>0)
             return true;
         return false;

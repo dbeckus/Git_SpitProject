@@ -9,7 +9,11 @@ private class SilverPeakUtilsTest
     {
         system.assertEquals(SilverPeakUtils.isPortalUser(), false);
     }
-
+ 	@isTest
+    static void testIsUserNameExistswithEmail()
+    {
+        system.assertEquals(SilverPeakUtils.IsUserNameExistswithEmail('abc@abc.com'), false);
+    }
     @isTest
     static void testGetRecordType()
     {

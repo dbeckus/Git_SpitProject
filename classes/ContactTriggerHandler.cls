@@ -36,14 +36,15 @@ public class ContactTriggerHandler implements ITriggerHandler {
             {
                 Contact oldContact=(Contact)oldItems.get(conId);
                 Contact newContact=(Contact)newItems.get(conId);
+                if(newContact.CanAllowPortalSelfReg && !oldContact.CanAllowPortalSelfReg && SilverPeakUtils.IsUserNameExistswithEmail(newContact.Email))
+                {
+                    newContact.addError('There is an active portal license registered with this email address. Please enter other email address.');
+                }
                 if(newContact.TechnicalPresalesReady__c!=oldContact.TechnicalPresalesReady__c)
                 {
                     newContact.TechnicalPresalesReadyCertifiedBy__c= newContact.TechnicalPresalesReady__c?UserInfo.getUserId():null;
                 }
-                if(newContact.CanAllowPortalSelfReg && !oldContact.CanAllowPortalSelfReg && SilverPeakUtils.IsUserNameExistswithEmail(newContact.Email))
-                {
-                    newContact.addError('There is an active portal license registered with emailaddress.');
-                }
+                
             }
         }
     }

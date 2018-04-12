@@ -2246,6 +2246,10 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>TestUserTriggerHandler</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>TestUtilities</apexClass>
         <enabled>true</enabled>
     </classAccesses>
