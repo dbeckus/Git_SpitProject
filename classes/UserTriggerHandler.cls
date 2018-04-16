@@ -68,12 +68,23 @@ public class UserTriggerHandler implements ITriggerHandler {
     }
     public void AfterInsert(Map<Id, SObject> newItems) 
     {
-        
+        System.debug('After insert');
         if(newItems!=null && newItems.size()>0)
         {
             Set<Id> contactIds = new Set<Id>();
             Set<Id> newUserIds = new Set<Id>();
             Set<Id> syncUserIds = new Set<Id>();
+            
+            List<PermissionSetAssignment> lstPermissionSetAssignment= new List<PermissionSetAssignment>();
+            Set<Id> profileIds = new Set<Id>();
+            profileIds.add('00e50000000vvsg');
+            profileIds.add('00e50000000vMfm');
+            profileIds.add('00e50000000vvsq');
+            profileIds.add('00e50000000vucz');
+            profileIds.add('00e50000000vvBM');
+            profileIds.add('00e50000000vMPT');
+            profileIds.add('00e38000001Buca');
+            
             for (Id userId : newItems.keyset())
             {
                 User newUser= (User)newItems.get(userId);
@@ -90,7 +101,23 @@ public class UserTriggerHandler implements ITriggerHandler {
                 {
                     syncUserIds.add(newUser.Id);
                 }
-               
+                if(profileIds.contains(newUser.ProfileId))
+                {
+                    PermissionSetAssignment obj= new PermissionSetAssignment();
+                    obj.AssigneeId=newUser.Id;
+                    obj.PermissionSetId='0PS38000000LQeF';
+                    lstPermissionSetAssignment.add(obj);
+                    
+                    PermissionSetAssignment obj1= new PermissionSetAssignment();
+                    obj1.AssigneeId=newUser.Id;
+                    obj1.PermissionSetId='0PS38000000Xzp1';
+                    lstPermissionSetAssignment.add(obj1);
+                    
+                }
+            }
+            if(lstPermissionSetAssignment.size()>0)
+            {
+                insert lstPermissionSetAssignment;
             }
             if(contactIds.size() > 0)
             {
@@ -101,19 +128,20 @@ public class UserTriggerHandler implements ITriggerHandler {
                 }
                 Database.update(partners, false);
             }
-           
+            
             PartnerPortalUserSharing.willSharePortalUser(new List<Id>(newUserIds));
             UpdateContacts(syncUserIds);
         }
     }
     public void AfterUpdate(Map<Id, SObject> newItems, Map<Id, SObject> oldItems) 
     {
+        System.debug('After update');
         Set<Id> conList= new Set<Id>();
         if(newItems!=null && newItems.size()>0)
         {
             Set<Id> userIds = new Set<Id>();
             Set<Id> newUserIds = new Set<Id>();
-    		Set<Id> deactivateUserIds = new Set<Id>();
+            Set<Id> deactivateUserIds = new Set<Id>();
             for (Id userId : newItems.keyset())
             {
                 User newUser= (User)newItems.get(userId);
@@ -147,7 +175,7 @@ public class UserTriggerHandler implements ITriggerHandler {
                 UpdateContacts(userIds);
             }
             
-         
+            
             
         }
     }
@@ -164,8 +192,8 @@ public class UserTriggerHandler implements ITriggerHandler {
     {
         return newUser.Email != oldUser.Email || newUser.Phone != oldUser.Phone || newUser.MobilePhone != oldUser.MobilePhone || newUser.Country != oldUser.Country || newUser.State != oldUser.State || newUser.City != oldUser.City || newUser.PostalCode != oldUser.PostalCode || newUser.Street != oldUser.Street;
     }
-    
-    private void UpdateContacts(Set<Id> portalUserIds)
+    @future
+    private static void UpdateContacts(Set<Id> portalUserIds)
     {
         
         System.debug('portalUserIds');
@@ -178,7 +206,7 @@ public class UserTriggerHandler implements ITriggerHandler {
         try
         {
             System.debug(contactsToUpdate);
-            Database.update(contactsToUpdate, false);
+            Database.update(contactsToUpdate, true);
             System.debug('Success');
         }
         catch(Exception ex)
