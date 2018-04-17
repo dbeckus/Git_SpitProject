@@ -786,6 +786,10 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>LH_TEST_Case</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>LMSAssociateLearnerContactByEmail</apexClass>
         <enabled>true</enabled>
     </classAccesses>

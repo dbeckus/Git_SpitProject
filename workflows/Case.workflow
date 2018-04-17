@@ -1123,6 +1123,15 @@
         <protected>false</protected>
     </fieldUpdates>
     <fieldUpdates>
+        <fullName>Update_open_case_wf</fullName>
+        <field>Open_Case_WF_LH__c</field>
+        <formula>Account.Id</formula>
+        <name>Update open case wf</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+    </fieldUpdates>
+    <fieldUpdates>
         <fullName>expire_wanstart_case</fullName>
         <field>Status</field>
         <literalValue>Expired</literalValue>
@@ -2073,6 +2082,16 @@ NOT( Contact.Testing__c )
             <value>Customer</value>
         </criteriaItems>
         <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>Update open case wf</fullName>
+        <actions>
+            <name>Update_open_case_wf</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <formula>Open_Case_WF_LH__c !=  Account.Id &amp;&amp; IsClosed = False</formula>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
     </rules>
     <rules>
         <fullName>UpdatePartnerNoticeEmail</fullName>
