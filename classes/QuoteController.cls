@@ -591,7 +591,7 @@ ApexPages.addMessages(ex);
     //clone current quote
     public PageReference cloneQuoteWithProducts()
     {
-        Quote__c twinQuote = quote.clone(false, true);
+       Quote__c twinQuote = quote.clone(false, true);
         twinQuote.Primary__c = false;  //new quote should not set as primary.
         twinQuote.Quote_Date__c = Date.today();
         twinQuote.Quote_Valid_Until__c = Date.today().addDays(30);
@@ -602,15 +602,19 @@ ApexPages.addMessages(ex);
         for(LineItem lItem : items) 
         {
             	decimal discount =lItem.record.Discount_Percent__c!=null?lItem.record.Discount_Percent__c:0;
-                List<PricebookEntry> pbEntries = [Select UnitPrice From PricebookEntry where Product2Id = :lItem.record.Product__c and Pricebook2Id = :quote.Opportunity__r.Pricebook2Id limit 1];
-            	Quote_Line__c ql = new Quote_Line__c(
-                Quote__c = twinQuote.id,
-                Discount_Percent__c = lItem.record.Discount_Percent__c,
-                Quantity__c = lItem.record.Quantity__c,
-                Unit_Price__c=  (pbEntries!=null && pbEntries.size() > 0)?(pbEntries[0].UnitPrice-(pbEntries[0].UnitPrice*discount/100)):0,
-                Product__c = lItem.record.Product__c
-            ); 
-            qlines.add(ql);     
+                List<PricebookEntry> pbEntries = [Select UnitPrice From PricebookEntry where IsActive=true and Product2.IsActive=true and Product2.isQuotable__c=true and Product2Id = :lItem.record.Product__c and Pricebook2Id = :quote.Opportunity__r.Pricebook2Id limit 1];
+                if(pbEntries!=null && pbEntries.size() > 0)
+                {
+                        Quote_Line__c ql = new Quote_Line__c(
+                        Quote__c = twinQuote.id,
+                        Discount_Percent__c = lItem.record.Discount_Percent__c,
+                        Quantity__c = lItem.record.Quantity__c,
+                        Unit_Price__c=  (pbEntries!=null && pbEntries.size() > 0)?(pbEntries[0].UnitPrice-(pbEntries[0].UnitPrice*discount/100)):0,
+                        Product__c = lItem.record.Product__c
+                    ); 
+                    qlines.add(ql);  
+                }
+              
         }
         insert qlines;
         return new PageReference('/' + twinQuote.Id);
@@ -676,15 +680,11 @@ convertResult += '.00';
         List<Quote__c> quotes = [select Opportunity__c, Id, Name,Reseller_AccountId__c,Tier_1_Partner__c,Tier_2_Partner__c,Tier_3_Partner__c from Quote__c where Opportunity__c = :quote.Opportunity__c];
         for(Quote__c q : quotes)
         {   
-            q.Primary__c = (q.Id == quoteId) ? true : false;
-            if(q.Primary__c)
-                opp= new Opportunity(Id=q.Opportunity__c,Primary_Partner__c=q.Reseller_AccountId__c,Tier1_Partner__c=q.Tier_1_Partner__c,Tier2_Partner__c=q.Tier_2_Partner__c,Tier3_Partner__c=q.Tier_3_Partner__c);
+            q.Primary__c = (q.Id == quoteId) ? true : false;           
             
         }
         if(quotes!=null && quotes.size()>0)
             update quotes;
-        if(opp!=null)
-            update opp;
     }
     
     //copy LineItems To Opportunity

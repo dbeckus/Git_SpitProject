@@ -457,7 +457,7 @@ System.assertEquals(0, rvaccount2.Won_Amount__c);
         List<RecordType> recordTypes = [select Id from RecordType where Name = 'Deal Registration' and SObjectType = 'Lead' and IsActive = true];
         if(!recordTypes.isEmpty())
         {
-            Lead lead = new Lead(LastName = 'acme', Company = 'acme', RecordTypeId = recordTypes[0].Id);
+            Lead lead = new Lead(LeadSource='Deal Registration',LastName = 'acme', Company = 'acme', RecordTypeId = recordTypes[0].Id,Deal_Registration_Status__c='Approved');
             insert lead;
             
             Database.LeadConvert lc = new Database.LeadConvert();
