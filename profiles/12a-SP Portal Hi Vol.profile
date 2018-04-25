@@ -586,6 +586,10 @@
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>ExampleController</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>ExpiringAssetListController</apexClass>
         <enabled>false</enabled>
     </classAccesses>
@@ -1139,6 +1143,10 @@
     </classAccesses>
     <classAccesses>
         <apexClass>OpportunityTriggerHandler</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>OuterClass</apexClass>
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
@@ -9363,6 +9371,10 @@
     </pageAccesses>
     <pageAccesses>
         <apexPage>EnterpriseOpportunityList</apexPage>
+        <enabled>false</enabled>
+    </pageAccesses>
+    <pageAccesses>
+        <apexPage>ExamplePage</apexPage>
         <enabled>false</enabled>
     </pageAccesses>
     <pageAccesses>
