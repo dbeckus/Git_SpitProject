@@ -38,7 +38,7 @@ public class PatchRuleHelper
     public static void assignPatches(List<sObject> objs)
     {
         Map<Id, Patch__c> patches = new Map<Id, Patch__c>();
-        for(Patch__c patch : [select Id, Name,Patch_Name__c, Catchall__c, Type__c, Owner__c, Owner__r.GEO__c, RSM__c, CSM__c, SE__c, ISR__c, Overlay_1__c, Overlay_2__c, Active__c, Overlay__c, FCMM__c from Patch__c])
+        for(Patch__c patch : [select Id, Name,Patch_Name__c, Catchall__c, Type__c, Owner__c, Owner__r.GEO__c, RSM__c,RSS__c, CSM__c, SE__c, ISR__c, Overlay_1__c, Overlay_2__c, Active__c, Overlay__c, FCMM__c from Patch__c])
         {
             patches.put(patch.Id, patch);
             if(patch.Name=='P-603')
@@ -211,7 +211,7 @@ opportunity.Technical_Responsible__c = patch.SE__c;
             patchIds.addAll(overlayPatches);
         }
         
-        Map<Id, Patch__c> patchMap = new Map<Id, Patch__c>([select Id, CSM__c, SE__c, ISR__c, RSM__c, Overlay_1__c, Overlay_2__c, Owner__c, Overlay__c, FCMM__c from Patch__c where Id in :patchIds]);
+         Map<Id, Patch__c> patchMap = new Map<Id, Patch__c>([select Id, CSM__c, SE__c, ISR__c, RSS__c,RSM__c, Overlay_1__c, Overlay_2__c, Owner__c, Overlay__c, FCMM__c from Patch__c where Id in :patchIds]);
         
         List<sObject> result = new List<sObject>();
         for(sObject obj : objs)
@@ -595,6 +595,10 @@ assignTeamMembers(objIds);
                 {
                     result.add(new AccountTeamMember(AccountId=acc.Id, UserId=patch.FCMM__c, TeamMemberRole='Field and Channel Marketing Manager'));
                 }
+                if(patch.RSS__c != null)
+                {
+                    result.add(new AccountTeamMember(AccountId=acc.Id, UserId=patch.RSS__c, TeamMemberRole='Renewal Specialist'));
+                }
             }
             else if(obj instanceOf Opportunity)
             {
@@ -634,6 +638,10 @@ assignTeamMembers(objIds);
                 if(patch.SE__c != null && opp.Technical_Responsible__c!= null && patch.SE__c != opp.Technical_Responsible__c)
                 {
                     result.add(new OpportunityTeamMember(OpportunityId=opp.Id, UserId=opp.Technical_Responsible__c, TeamMemberRole='Systems Engineer'));
+                }
+                if(patch.RSS__c != null)
+                {
+                    result.add(new OpportunityTeamMember(OpportunityId=opp.Id, UserId=patch.RSS__c, TeamMemberRole='Renewal Specialist'));
                 }
             }
         }

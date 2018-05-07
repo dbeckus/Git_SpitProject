@@ -33,4 +33,13 @@
         <unique>false</unique>
     </fields>
     <label>Marketplace Download Link</label>
+    <listViews>
+        <fullName>All</fullName>
+        <columns>NAME</columns>
+        <columns>Model__c</columns>
+        <columns>Hypervisor__c</columns>
+        <columns>Link__c</columns>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+    </listViews>
 </CustomObject>

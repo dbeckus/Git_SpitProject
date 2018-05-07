@@ -24,4 +24,19 @@
         <unique>false</unique>
     </fields>
     <label>Opportunity Stage Transition</label>
+    <listViews>
+        <fullName>Oppty_Matrix</fullName>
+        <columns>NAME</columns>
+        <columns>OBJECT_ID</columns>
+        <columns>SETUP_TYPE</columns>
+        <columns>SETUP_OWNER_NAME</columns>
+        <columns>FromStage__c</columns>
+        <columns>ToStage__c</columns>
+        <columns>UPDATEDBY_USER.ALIAS</columns>
+        <filterScope>Everything</filterScope>
+        <label>Oppty Matrix</label>
+        <sharedTo>
+            <allInternalUsers></allInternalUsers>
+        </sharedTo>
+    </listViews>
 </CustomObject>

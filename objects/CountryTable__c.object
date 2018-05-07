@@ -23,4 +23,12 @@
         <type>Checkbox</type>
     </fields>
     <label>Country Table</label>
+    <listViews>
+        <fullName>All</fullName>
+        <columns>NAME</columns>
+        <columns>CountryName__c</columns>
+        <columns>IsEU__c</columns>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+    </listViews>
 </CustomObject>

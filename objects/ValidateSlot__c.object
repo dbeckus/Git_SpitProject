@@ -62,4 +62,15 @@
         <unique>false</unique>
     </fields>
     <label>Valid Slot</label>
+    <listViews>
+        <fullName>All</fullName>
+        <columns>NAME</columns>
+        <columns>Model__c</columns>
+        <columns>AssetPN__c</columns>
+        <columns>Type__c</columns>
+        <columns>Start__c</columns>
+        <columns>End__c</columns>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+    </listViews>
 </CustomObject>

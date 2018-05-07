@@ -36,4 +36,13 @@
         <unique>false</unique>
     </fields>
     <label>Trigger Handler Setting</label>
+    <listViews>
+        <fullName>All</fullName>
+        <columns>NAME</columns>
+        <columns>SObjectType__c</columns>
+        <columns>Handler__c</columns>
+        <columns>ProcessingSequence__c</columns>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+    </listViews>
 </CustomObject>

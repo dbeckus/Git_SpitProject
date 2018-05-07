@@ -122,6 +122,11 @@
         <relationshipLabel><!-- Patches (RSM) --></relationshipLabel>
     </fields>
     <fields>
+        <label><!-- RSS --></label>
+        <name>RSS__c</name>
+        <relationshipLabel><!-- Patches (RSS) --></relationshipLabel>
+    </fields>
+    <fields>
         <help><!-- A formula referencing the processing sequence of criteria rules, indicating the logic of how the rules to be evaluated. e.g. &quot;4&quot;, &quot;1 AND 2&quot;, &quot;2 AND (3 OR 4)&quot;, &quot;2 AND NOT (3 OR 4)&quot; --></help>
         <label><!-- Rule Logic --></label>
         <name>Rule_Logic__c</name>

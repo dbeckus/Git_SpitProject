@@ -45,4 +45,13 @@ New Business</description>
         <unique>false</unique>
     </fields>
     <label>Quote Approval Matrix</label>
+    <listViews>
+        <fullName>All</fullName>
+        <columns>NAME</columns>
+        <columns>Type__c</columns>
+        <columns>Discount__c</columns>
+        <columns>Level__c</columns>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+    </listViews>
 </CustomObject>

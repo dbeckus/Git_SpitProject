@@ -85,4 +85,18 @@
         <type>Currency</type>
     </fields>
     <label>Purchase Request Matrix</label>
+    <listViews>
+        <fullName>All</fullName>
+        <columns>NAME</columns>
+        <columns>Price__c</columns>
+        <columns>PartNumber__c</columns>
+        <columns>GoldMaintenancePrice__c</columns>
+        <columns>GoldMaintenancePartNumber__c</columns>
+        <columns>PlatinumMaintenancePrice__c</columns>
+        <columns>PlatinumMaintenancePartNumber__c</columns>
+        <columns>SubscriptionPrice__c</columns>
+        <columns>SubscriptionPartNumber__c</columns>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+    </listViews>
 </CustomObject>

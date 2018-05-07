@@ -64,4 +64,18 @@
         <unique>false</unique>
     </fields>
     <label>Replaceable Part Number Matrix</label>
+    <listViews>
+        <fullName>All</fullName>
+        <columns>NAME</columns>
+        <columns>Product_PN__c</columns>
+        <columns>Asset_PN__c</columns>
+        <columns>HDD_PN__c</columns>
+        <columns>SSD_PN__c</columns>
+        <columns>PS_PN__c</columns>
+        <columns>NVME_PN__c</columns>
+        <columns>CREATED_DATE</columns>
+        <columns>SETUP_OWNER_NAME</columns>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+    </listViews>
 </CustomObject>

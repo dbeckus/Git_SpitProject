@@ -120,4 +120,11 @@
         <unique>false</unique>
     </fields>
     <label>Dynamic Layout Element</label>
+    <listViews>
+        <fullName>All</fullName>
+        <columns>NAME</columns>
+        <columns>LayoutNumber__c</columns>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+    </listViews>
 </CustomObject>

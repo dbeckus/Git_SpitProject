@@ -17,4 +17,11 @@ Name field is the product model.</description>
         <unique>false</unique>
     </fields>
     <label>Product Campaign Mapping</label>
+    <listViews>
+        <fullName>All</fullName>
+        <columns>NAME</columns>
+        <columns>CampaignId__c</columns>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+    </listViews>
 </CustomObject>

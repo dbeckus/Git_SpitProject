@@ -356,6 +356,18 @@
         <type>Lookup</type>
     </fields>
     <fields>
+        <fullName>RSS__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>RSS</label>
+        <referenceTo>User</referenceTo>
+        <relationshipName>Patch_Assignments7</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
         <fullName>Rule_Logic__c</fullName>
         <externalId>false</externalId>
         <inlineHelpText>A formula referencing the processing sequence of criteria rules, indicating the logic of how the rules to be evaluated. e.g. &quot;4&quot;, &quot;1 AND 2&quot;, &quot;2 AND (3 OR 4)&quot;, &quot;2 AND NOT (3 OR 4)&quot;</inlineHelpText>

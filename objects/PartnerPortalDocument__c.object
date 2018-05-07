@@ -43,4 +43,27 @@
         <type>Url</type>
     </fields>
     <label>Partner Portal Document</label>
+    <listViews>
+        <fullName>All</fullName>
+        <columns>NAME</columns>
+        <columns>Content_Id__c</columns>
+        <columns>File_Name__c</columns>
+        <columns>Page__c</columns>
+        <columns>Public_URL__c</columns>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+    </listViews>
+    <listViews>
+        <fullName>Broadband_WAN</fullName>
+        <columns>NAME</columns>
+        <columns>File_Name__c</columns>
+        <columns>Content_Id__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Page__c</field>
+            <operation>equals</operation>
+            <value>Broadband WAN</value>
+        </filters>
+        <label>Broadband WAN</label>
+    </listViews>
 </CustomObject>

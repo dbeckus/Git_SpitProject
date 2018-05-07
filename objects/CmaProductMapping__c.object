@@ -24,4 +24,12 @@
         <unique>false</unique>
     </fields>
     <label>CMA Product Mapping</label>
+    <listViews>
+        <fullName>All</fullName>
+        <columns>NAME</columns>
+        <columns>NX__c</columns>
+        <columns>VX__c</columns>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+    </listViews>
 </CustomObject>

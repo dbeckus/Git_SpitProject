@@ -35,4 +35,13 @@
         <unique>false</unique>
     </fields>
     <label>Country State Table</label>
+    <listViews>
+        <fullName>All</fullName>
+        <columns>NAME</columns>
+        <columns>Country__c</columns>
+        <columns>StateCode__c</columns>
+        <columns>StateName__c</columns>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+    </listViews>
 </CustomObject>

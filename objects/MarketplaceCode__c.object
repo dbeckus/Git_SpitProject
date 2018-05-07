@@ -18,4 +18,11 @@
         <unique>false</unique>
     </fields>
     <label>Marketplace Code</label>
+    <listViews>
+        <fullName>All</fullName>
+        <columns>NAME</columns>
+        <columns>Length__c</columns>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+    </listViews>
 </CustomObject>
