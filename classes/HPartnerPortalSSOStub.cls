@@ -8,18 +8,26 @@ public with sharing class HPartnerPortalSSOStub
     
     private static String ssoBase = 'https://partners.silver-peak.com/idp/login?app=0sp380000004CMo';
     private static String adminKey = '33e4e49e-a306-42f9-9230-3a79cdd08d04';//43a8764c-d95b-4f6b-b563-6ad5ffc06f97;
-    private static String httpLoginBase='https://silverpeaksystems.myabsorb.com/api/Rest/v1/Authenticate?username=prane@silver-peak.com&password=Test-1234&privateKey=33e4e49e-a306-42f9-9230-3a79cdd08d04';
+    private static String httpLoginBase='https://silverpeaksystems.myabsorb.com/api/Rest/v1/Authenticate';
     
     public static String getHttpToken()
     {
         string token='';
-        
         HttpRequest request = new HttpRequest();
         request.setMethod('POST');
         request.setHeader('charset', 'UTF-8');
         request.setHeader('Content-Type', 'application/json'); 
         request.setEndpoint(httpLoginBase);
-        request.setBody('');
+        JSONGenerator gen = JSON.createGenerator(true);    
+        gen.writeStartObject();      
+        gen.writeStringField('Username', 'prane@silver-peak.com');
+        gen.writeStringField('Password','Test-1234');
+        gen.writeStringField('PrivateKey','33e4e49e-a306-42f9-9230-3a79cdd08d04');
+        gen.writeEndObject();    
+        String jsonS = gen.getAsString();
+        System.debug(jsonS);
+        request.setBody(jsonS);
+        System.debug('request'+request);
         HttpResponse response = new Http().send(request);
         
         // Process response.
