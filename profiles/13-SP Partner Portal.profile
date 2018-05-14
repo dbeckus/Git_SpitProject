@@ -8524,6 +8524,11 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
+        <editable>false</editable>
+        <field>TestObj__c.te__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>true</editable>
         <field>Training_Course__c.Course_Code__c</field>
         <readable>true</readable>
@@ -9096,6 +9101,9 @@
     </layoutAssignments>
     <layoutAssignments>
         <layout>Task-Partner Tasks</layout>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>TestObj__c-TestObj Layout</layout>
     </layoutAssignments>
     <layoutAssignments>
         <layout>Training_Course__c-Course Layout</layout>

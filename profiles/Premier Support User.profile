@@ -8525,6 +8525,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>TestObj__c.te__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Training_Course__c.Course_Code__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -9093,6 +9098,9 @@
     </layoutAssignments>
     <layoutAssignments>
         <layout>Task-Task Layout</layout>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>TestObj__c-TestObj Layout</layout>
     </layoutAssignments>
     <layoutAssignments>
         <layout>Training_Course__c-Course Layout</layout>
@@ -9757,6 +9765,15 @@
         <allowRead>true</allowRead>
         <modifyAllRecords>true</modifyAllRecords>
         <object>Shipped_Line__c</object>
+        <viewAllRecords>true</viewAllRecords>
+    </objectPermissions>
+    <objectPermissions>
+        <allowCreate>true</allowCreate>
+        <allowDelete>true</allowDelete>
+        <allowEdit>true</allowEdit>
+        <allowRead>true</allowRead>
+        <modifyAllRecords>true</modifyAllRecords>
+        <object>TestObj__c</object>
         <viewAllRecords>true</viewAllRecords>
     </objectPermissions>
     <objectPermissions>
