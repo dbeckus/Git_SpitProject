@@ -1984,6 +1984,10 @@
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>TestController</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>TestCopyECLicenseEndDateToAccount</apexClass>
         <enabled>false</enabled>
     </classAccesses>
@@ -10478,6 +10482,10 @@
     </pageAccesses>
     <pageAccesses>
         <apexPage>Template_MassUpdateCustomObject</apexPage>
+        <enabled>false</enabled>
+    </pageAccesses>
+    <pageAccesses>
+        <apexPage>Test1</apexPage>
         <enabled>false</enabled>
     </pageAccesses>
     <pageAccesses>

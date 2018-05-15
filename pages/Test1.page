@@ -1,0 +1,13 @@
+<apex:page controller="TestController">
+
+<apex:pageMessages />
+
+<apex:form >
+
+ <apex:inputText value="{!Var}"/>
+
+<apex:commandButton action="{!checkNull}" value="Check Null"/>
+
+</apex:form>
+
+</apex:page>
