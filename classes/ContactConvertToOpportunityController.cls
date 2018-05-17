@@ -16,6 +16,8 @@ public without sharing class ContactConvertToOpportunityController
     public Opportunity Opportunity { get; set; }
     public String OpportunityId { get; set; }
     public OpportunityContactRole OCR { get; set; }
+    
+    public List<OpportunityContactRole> ExistingOpps{get;set;}
     //public Boolean IsSendNotificationEmail { get; set; }
 
     public ContactConvertToOpportunityController(ApexPages.StandardController controller)
@@ -24,7 +26,9 @@ public without sharing class ContactConvertToOpportunityController
         if(!contacts.isEmpty()) 
         {
             contact = contacts[0];
-        }
+        } 
+        ExistingOpps= new List<OpportunityContactRole>();
+        ExistingOpps=CheckDuplicateOpportunity();
         Opportunity = new Opportunity();
         Opportunity.AccountId = contact.AccountId;
         Opportunity.OwnerId = contact.Account.OwnerId;
@@ -66,6 +70,8 @@ public without sharing class ContactConvertToOpportunityController
         {
             upsert Opportunity;
             OpportunityId = Opportunity.Id;
+            if(ExistingOpps!=null && ExistingOpps.size()>0)
+            	SendEmailtoSalesOps(Opportunity);
             updateContactRelated(true);
             return new PageReference('/' + OpportunityId);
         }
@@ -121,5 +127,30 @@ public without sharing class ContactConvertToOpportunityController
         contact.Contact_BANT_Qualified__c = false;
         contact.Contact_Me__c = false;
         update contact;
+    }
+    private void SendEmailtoSalesOps(Opportunity opp)
+    {
+        Messaging.SingleEmailMessage mail = new Messaging.SingleEmailMessage();
+        
+        String templateString='A duplicate opportunity {0} has been created for this account {1}.\n Please see the link  {2} \n\n ';
+        String[] arguments = new String[] {opp.Name, contact.Account.Name, System.Url.getSalesforceBaseUrl().toExternalForm()+'/'+opp.AccountId};
+        string bodyText= string.format(templateString,arguments);
+        mail.setPlainTextBody (bodyText);
+        mail.setSubject('Duplicate Opportunity alert: ' + contact.Account.Name);
+        mail.setSaveAsActivity(false);
+        List<String> sendTo = new List<String>();
+        sendTo.add('salesops@silver-peak.com');
+        sendTo.add('mmartin@silver-peak.com');
+        mail.setToAddresses(sendTo);
+        if(!test.isRunningTest())
+            Messaging.sendEmail(new List<Messaging.SingleEmailMessage>{mail});
+        
+        
+        
+    }
+    private  List<OpportunityContactRole> CheckDuplicateOpportunity()
+    {
+        List<OpportunityContactRole> lstOpps=[select id, OpportunityId, Opportunity.Name,Opportunity.StageName,Opportunity.CloseDate,Opportunity.CreatedDate from OpportunityContactRole where Opportunity.Account.Type='Prospect' and Opportunity.IsClosed=false and Opportunity.AccountId=:contact.AccountId ORDER BY Opportunity.CloseDate desc];
+        return lstOpps;
     }
 }

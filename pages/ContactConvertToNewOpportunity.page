@@ -1,19 +1,68 @@
 <apex:page standardController="Contact" extensions="ContactConvertToOpportunityController" tabStyle="Opportunity">
     <apex:sectionHeader title="New Opportunity" subtitle="{!Contact.Name}" />
+    <script type="text/javascript">
     
+    function clickData(dataCount)
+    {
+        if(dataCount>0)
+        {
+            var strconfirm = confirm("You are about to create a duplicate opportunity for this account. Are you sure you want to continue? ");
+            if (strconfirm == true) {
+                return true;
+            }
+            return false;
+        }
+    }
+ </script>
     <apex:form >
         <apex:pageMessages />
         <apex:pageBlock mode="edit">
             <apex:pageBlockButtons >
-                <apex:commandButton value=" Save " action="{!ConvertToNewOpportunity}" />
+                <apex:commandButton value=" Save " onClick="return clickData({!ExistingOpps.size});" action="{!ConvertToNewOpportunity}" />
                 <apex:commandButton value=" Cancel " action="{!Cancel}" />
             </apex:pageBlockButtons>
-
+            
             <apex:pageBlockSection title="Opportunity" columns="1">
                 <!--<apex:pageBlockSectionItem>
-                    <apex:outputLabel value="Send Email to the Owner" for="emailOpt" />
-                    <apex:inputCheckbox value="{!IsSendNotificationEmail}" id="emailOpt" />
-                </apex:pageBlockSectionItem>-->
+<apex:outputLabel value="Send Email to the Owner" for="emailOpt" />
+<apex:inputCheckbox value="{!IsSendNotificationEmail}" id="emailOpt" />
+</apex:pageBlockSectionItem>-->
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputText style="color:red;font-size:14px" rendered="{!ExistingOpps.size>0}" value="There is an open opportunity on this account, please check the below list to confirm a duplicate opportunity is not created. Potential/acceptable scenario when more than one Opportunity exists"></apex:outputText>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                  <apex:outputText style="color:red;" rendered="{!ExistingOpps.size>0}" value="*Customer requires separate PO's based on ship to or product type."></apex:outputText>
+                </apex:pageBlockSectionItem>
+                   <apex:pageBlockSectionItem >
+                   <apex:outputText style="color:red;" rendered="{!ExistingOpps.size>0}" value="*Global Company that requires different distribution or partner in different country?"></apex:outputText>
+                </apex:pageBlockSectionItem>
+                   <apex:pageBlockSectionItem >
+                  <apex:outputText style="color:red;" rendered="{!ExistingOpps.size>0}" value="*Paid POC is placed on separate opportunity/quote?"></apex:outputText>
+                </apex:pageBlockSectionItem>
+                 <apex:pageBlockSectionItem ></apex:pageBlockSectionItem>
+                 <apex:pageBlockSectionItem >
+                    <apex:dataTable width="50%" value="{!ExistingOpps}" rendered="{!ExistingOpps.size>0}" var="item" id="theTable" rowClasses="odd,even" styleClass="tableClass">
+                        <apex:column width="20%">
+                            <apex:facet name="header">Opportunity Name</apex:facet>
+                            <apex:outputLink style="color:red" target="_blank" value="/{!item.opportunityId}">{!item.Opportunity.Name}</apex:outputLink>
+                        </apex:column>
+                        <apex:column width="10%">
+                            <apex:facet name="header">Stage</apex:facet>
+                            <apex:outputText >{!item.opportunity.StageName}</apex:outputText> 
+                        </apex:column>
+                         <apex:column width="20%">
+                            <apex:facet name="header">Created Date</apex:facet>
+                            <apex:outputText value="{0,date,MM/dd/yy}"> <apex:param value="{!item.opportunity.CreatedDate}" /> </apex:outputText>
+                        </apex:column>
+                        <apex:column width="20%">
+                            <apex:facet name="header">Close Date</apex:facet>
+                            <apex:outputText value="{0,date,MM/dd/yy}"> <apex:param value="{!item.opportunity.CloseDate}" /> </apex:outputText>
+                        </apex:column>
+                    </apex:dataTable>
+                </apex:pageBlockSectionItem>
+               <apex:pageBlockSectionItem > </apex:pageBlockSectionItem>
+              
                 <apex:outputField value="{!Opportunity.AccountId}" />
                 <apex:inputField value="{!Opportunity.Name}" />
                 <apex:selectList value="{!Opportunity.Type}" size="1" multiselect="false">
@@ -22,10 +71,11 @@
                     <apex:selectOption itemLabel="Reseller Demo/NFR" itemValue="Reseller Demo/NFR" />
                 </apex:selectList>
                 <apex:inputField value="{!Opportunity.Deal_Type__c}" required="true" />
+                
                 <apex:pageBlockSectionItem >
                     <apex:outputLabel value="Contact Role" for="contactRole" />
                     <apex:outputPanel styleClass="requiredInput" layout="block">
-                    <apex:outputPanel styleClass="requiredBlock" layout="block"/>
+                        <apex:outputPanel styleClass="requiredBlock" layout="block"/>
                         <apex:selectList value="{!OCR.Role}" size="1" required="true" multiselect="false">
                             <apex:selectOption />
                             <apex:selectOption itemLabel="Decision Maker" itemValue="Decision Maker" />

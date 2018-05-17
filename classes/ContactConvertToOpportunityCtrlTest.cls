@@ -24,6 +24,23 @@ private class ContactConvertToOpportunityCtrlTest
         System.assert(ctrl.OpportunityId != null);
     }
     
+     @isTest static void testConvertToNew_CheckDuplicate()
+    {
+        Account acc = new Account(name='acme');
+        insert acc;
+        Contact ct = new Contact(LastName='acme', AccountId=acc.Id);
+        insert ct;
+        
+        ContactConvertToOpportunityController ctrl = new ContactConvertToOpportunityController(new ApexPages.StandardController(ct));
+        ctrl.ConvertToNewOpportunity();
+        
+        ctrl = new ContactConvertToOpportunityController(new ApexPages.StandardController(ct));
+        System.assert(ctrl.ExistingOpps.size()>0);
+        ctrl.ConvertToNewOpportunity();
+        
+        System.assert(ctrl.OpportunityId != null);
+    }
+    
     @isTest static void testConvertToExisting()
     {
         Account acc = new Account(name='acme');
