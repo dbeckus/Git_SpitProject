@@ -8,7 +8,7 @@ public class RevenueRecognitionChecklistController
     public RevenueRecognitionChecklistController()
     {
         String oppId = ApexPages.currentPage().getParameters().get('id');
-        List<opportunity> opps = [Select Id, Name,Owner.ManagerId, AccountId, OwnerId, Finance_Id__c, Signed_By__c, Signed_At__c, Signature_of_Opportunity_Owner__c, ProdRoadmap__c, RightOfReturn__c, Rev_Rec_Reminders__c, Other_Promises_Made__c, 
+        List<opportunity> opps = [Select Id, Name,Owner.ManagerId,ARRID__c, AccountId, OwnerId, Finance_Id__c, Signed_By__c, Signed_At__c, Signature_of_Opportunity_Owner__c, ProdRoadmap__c, RightOfReturn__c, Rev_Rec_Reminders__c, Other_Promises_Made__c, 
                                                     Other_Promises_Made_Diclosed__c, Installation_Notes__c, Installation_Date__c, InstallationExpectations__c, Future_Features_Expected__c, Future_Features_Expected_Specifics__c, Finance_Reviewed__c,
                                                     Finance_Review_Notes__c, Finance_Released_At__c, Describe_Contingencies__c, Contingencies_of_Sale__c,   TrainingOrWANStartExpectations__c, DescribeExpectations__c, UnitsGoingAbroad__c, Is_Foreign_Governor_Entity__c From Opportunity Where id=:oppId];
         
@@ -139,6 +139,7 @@ public class RevenueRecognitionChecklistController
     private RevenueRecognitionChecklist__c opp2Checklist(Opportunity opp)
     {
         RevenueRecognitionChecklist__c rrChecklist = new RevenueRecognitionChecklist__c();
+        rrChecklist.Arrid__c = opp.Arrid__c;
         rrChecklist.Signed_By__c = opp.Signed_By__c;
         rrChecklist.Signed_At__c = opp.Signed_At__c;
         rrChecklist.Signature_of_Opportunity_Owner__c = opp.Signature_of_Opportunity_Owner__c;
@@ -166,8 +167,9 @@ public class RevenueRecognitionChecklistController
     
     private void checklist2Opp(RevenueRecognitionChecklist__c checklist, Opportunity opp)
     {
-        //opp.Signed_By__c = checklist.Signed_By__c;
-        //opp.Signed_At__c = checklist.Signed_At__c;
+        opp.Signed_By__c = checklist.Signed_By__c;
+        opp.Signed_At__c = checklist.Signed_At__c;
+        opp.Arrid__c = checklist.Arrid__c;
         opp.Signature_of_Opportunity_Owner__c = checklist.Signature_of_Opportunity_Owner__c;
         opp.ProdRoadmap__c = checklist.Roadmap_Information__c;
         opp.RightOfReturn__c = checklist.RightOfReturn__c;

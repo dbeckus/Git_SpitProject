@@ -8074,6 +8074,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>RevenueRecognitionChecklist__c.ARRID__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>RevenueRecognitionChecklist__c.Contingencies_of_Sale__c</field>
         <readable>false</readable>
     </fieldPermissions>
