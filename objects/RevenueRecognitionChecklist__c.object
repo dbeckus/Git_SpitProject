@@ -58,6 +58,7 @@
     <fields>
         <fullName>ARRID__c</fullName>
         <externalId>false</externalId>
+        <inlineHelpText>ARRID as assigned by Finance for this opp</inlineHelpText>
         <label>ARRID</label>
         <length>80</length>
         <required>false</required>

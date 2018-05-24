@@ -8074,7 +8074,7 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>true</editable>
+        <editable>false</editable>
         <field>RevenueRecognitionChecklist__c.ARRID__c</field>
         <readable>true</readable>
     </fieldPermissions>

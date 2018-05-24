@@ -9,6 +9,7 @@
         <value>Revenue Recognition Checklists</value>
     </caseValues>
     <fields>
+        <help><!-- ARRID as assigned by Finance for this opp --></help>
         <label><!-- ARRID --></label>
         <name>ARRID__c</name>
     </fields>
