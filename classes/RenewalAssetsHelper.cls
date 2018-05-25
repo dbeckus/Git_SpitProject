@@ -26,7 +26,7 @@ public  class RenewalAssetsHelper
             for(Asset asset: lstAsset)
             {
                 string prodName= asset.Product2.Name;
-                if((prodName.startsWith('EC-BASE')||prodName.startsWith('EC-PLUS'))&& asset.Licenses_Nodes__c <= asset.Renewal_Nodes__c )
+                if((prodName.startsWith('EC-BASE')||prodName.startsWith('EC-PLUS')||prodName.startsWith('EC-MINI'))&& asset.Licenses_Nodes__c <= asset.Renewal_Nodes__c )
                 {
                     asset.Licenses_Nodes__c= asset.Renewal_Nodes__c;
                 }
@@ -39,7 +39,7 @@ public  class RenewalAssetsHelper
                 {
                     System.debug('asset.Renewal_Nodes__c'+ asset.Renewal_Nodes__c);
                     mapAssets.put(asset.Id,asset.Renewal_Date__c);
-                    if((prodName.startsWith('EC-BASE')||prodName.startsWith('EC-PLUS')||prodName.startsWith('EC-BOOST'))&& asset.Renewal_Nodes__c==0)
+                    if((prodName.startsWith('EC-BASE')||prodName.startsWith('EC-PLUS')||prodName.startsWith('EC-BOOST')||prodName.startsWith('EC-MINI'))&& asset.Renewal_Nodes__c==0)
                     {
                         mapAssets.remove(asset.Id);
                     }
@@ -96,7 +96,7 @@ public  class RenewalAssetsHelper
             for(Asset asset: lstAsset)
             {
                 string prodName= asset.Product2.Name;
-                if(prodName.startsWith('EC-BASE')||prodName.startsWith('EC-PLUS'))
+                if(prodName.startsWith('EC-BASE')||prodName.startsWith('EC-PLUS')||prodName.startsWith('EC-MINI'))
                 {
                     if(asset.Licenses_Nodes__c <= asset.Renewal_Nodes__c)
                     {
@@ -123,7 +123,7 @@ public  class RenewalAssetsHelper
                 {
                     System.debug('asset.Renewal_Nodes__c'+ asset.Renewal_Nodes__c);
                     mapAssets.put(asset.Id,asset.Renewal_Date__c);
-                    if((prodName.startsWith('EC-BASE')||prodName.startsWith('EC-PLUS')||prodName.startsWith('EC-BOOST'))&& asset.Renewal_Nodes__c==0)
+                    if((prodName.startsWith('EC-BASE')||prodName.startsWith('EC-PLUS')||prodName.startsWith('EC-BOOST')||prodName.startsWith('EC-MINI'))&& asset.Renewal_Nodes__c==0)
                     {
                         mapAssets.remove(asset.Id);
                     }
@@ -188,7 +188,7 @@ public  class RenewalAssetsHelper
             for(Asset asset: lstAsset)
             {
                 string prodName= asset.Product2.Name;
-                if((prodName.startsWith('EC-BASE')||prodName.startsWith('EC-PLUS')))
+                if((prodName.startsWith('EC-BASE')||prodName.startsWith('EC-PLUS'))||prodName.startsWith('EC-MINI'))
                 {
                     asset.EC_Old_Node_Count__c=asset.Licenses_Nodes__c;
                     asset.Licenses_Nodes__c= asset.Renewal_Nodes__c;
@@ -228,7 +228,7 @@ public  class RenewalAssetsHelper
             {
                 
                 string prodName= asset.Product2.Name;
-                if((prodName.startsWith('EC-BASE')||prodName.startsWith('EC-PLUS'))&& asset.Licenses_Nodes__c <=asset.Renewal_Nodes__c )
+                if((prodName.startsWith('EC-BASE')||prodName.startsWith('EC-PLUS')||prodName.startsWith('EC-MINI'))&& asset.Licenses_Nodes__c <=asset.Renewal_Nodes__c )
                 {
                     asset.Renewal_Nodes__c=0;
                     asset.Renewal_Date__c=null;
@@ -527,6 +527,7 @@ public  class RenewalAssetsHelper
                     ccs.add(contactPerson.Email);
                 }
                 ccs.add('notifications@silver-peak.com');
+                ccs.add('RenewalsTeam@silver-peak.com');
                 Messaging.SingleEmailMessage email = new Messaging.SingleEmailMessage();
                 email.setTemplateId(template[0].Id);
                 email.setTargetObjectId(purchaseOrder.Email_Contact__c);
@@ -559,6 +560,7 @@ public  class RenewalAssetsHelper
                     ccs.add(contactPerson.Email);
                 }
                 ccs.add('notifications@silver-peak.com');
+                ccs.add('RenewalsTeam@silver-peak.com');
                 Messaging.SingleEmailMessage email = new Messaging.SingleEmailMessage();
                 email.setTemplateId(template[0].Id);
                 email.setTargetObjectId(purchaseOrder.Email_Contact__c);
@@ -585,6 +587,7 @@ public  class RenewalAssetsHelper
             {
                 List<String> ccs = getAccountTeam(purchaseOrder.Opportunity__r.AccountId);
                 ccs.add('notifications@silver-peak.com');
+                ccs.add('RenewalsTeam@silver-peak.com');
                 Messaging.SingleEmailMessage email = new Messaging.SingleEmailMessage();
                 email.setTemplateId(template[0].Id);
                 email.setTargetObjectId(purchaseOrder.Email_Contact__c);
