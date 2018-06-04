@@ -20,7 +20,7 @@ global class NewRMAController
         caseInfo = new Case();
         contact = new Contact();
         
-        Products = new List<ProductInfo> { new ProductInfo('System'), new ProductInfo('HDD', 1), new ProductInfo('SSD', 1), new ProductInfo('Power Supply'), new ProductInfo('NVME',1) };
+        Products = new List<ProductInfo> { new ProductInfo('System'), new ProductInfo('HDD', 1), new ProductInfo('SSD', 1), new ProductInfo('Power Supply'), new ProductInfo('NVME',1),new ProductInfo('SFP',1),new ProductInfo('Fiber',1) };
             
         User user = [select UserType, ContactId, Contact.AccountId from User where Id = :UserInfo.getUserId()];
         if(user.UserType == 'CustomerSuccess' || user.UserType == 'PowerCustomerSuccess')
@@ -163,8 +163,8 @@ global class NewRMAController
         {
             asset = assets[0]; 
         }
-        List<ReplaceablePartNumberMatrix__c> replaceableParts = [select HDD_PN__c, SSD_PN__c, PS_PN__c,NVME_PN__c from ReplaceablePartNumberMatrix__c where Product_PN__c=:asset.Product2.ProductCode and Asset_PN__c=:asset.Part_Number__c limit 1];
-        ReplaceablePartNumberMatrix__c replaceablePart = (replaceableParts.size() > 0) ? replaceableParts[0] : new ReplaceablePartNumberMatrix__c(HDD_PN__c=null, SSD_PN__c=null, PS_PN__c=null);
+        List<ReplaceablePartNumberMatrix__c> replaceableParts = [select HDD_PN__c, SSD_PN__c, PS_PN__c,NVME_PN__c,Fiber_Module_PN__c,SFP_PN__c from ReplaceablePartNumberMatrix__c where Product_PN__c=:asset.Product2.ProductCode and Asset_PN__c=:asset.Part_Number__c limit 1];
+        ReplaceablePartNumberMatrix__c replaceablePart = (replaceableParts.size() > 0) ? replaceableParts[0] : new ReplaceablePartNumberMatrix__c(HDD_PN__c=null, SSD_PN__c=null, PS_PN__c=null,SFP_PN__c=null,Fiber_Module_PN__c=null);
         if(checkProductComponents(asset, replaceablePart)) 
         {
             // Creates a case if the returned product is system from portal user.
@@ -389,6 +389,34 @@ global class NewRMAController
                 {
                     
                     Product2 psProduct = [select Id, RMA_Primary_Replacement__c from Product2 where ProductCode=:replaceablePart.NVME_PN__c limit 1];
+                    if(psProduct.RMA_Primary_Replacement__c != null)
+                    {
+                        item.Product2__c = psProduct.RMA_Primary_Replacement__c;
+                        item.AltProdPreviouslyOrdered__c = psProduct.Id;
+                    }
+                    else
+                    {
+                        item.Product2__c = psProduct.Id;
+                    }
+                }
+                else if(p.Name.equals('SFP'))
+                {
+                    
+                    Product2 psProduct = [select Id, RMA_Primary_Replacement__c from Product2 where ProductCode=:replaceablePart.SFP_PN__c limit 1];
+                    if(psProduct.RMA_Primary_Replacement__c != null)
+                    {
+                        item.Product2__c = psProduct.RMA_Primary_Replacement__c;
+                        item.AltProdPreviouslyOrdered__c = psProduct.Id;
+                    }
+                    else
+                    {
+                        item.Product2__c = psProduct.Id;
+                    }
+                }
+                else if(p.Name.equals('Fiber'))
+                {
+                    
+                    Product2 psProduct = [select Id, RMA_Primary_Replacement__c from Product2 where ProductCode=:replaceablePart.Fiber_Module_PN__c limit 1];
                     if(psProduct.RMA_Primary_Replacement__c != null)
                     {
                         item.Product2__c = psProduct.RMA_Primary_Replacement__c;
@@ -995,6 +1023,24 @@ global class NewRMAController
                     if([select count() from Product2 where ProductCode=:replaceablePart.NVME_PN__c and IsActive=true limit 1] == 0)
                     {
                         ApexPages.addMessage(new ApexPages.Message(ApexPages.Severity.ERROR, 'The asset you selected doesn\'t contain NVME component' ));
+                        return false;
+                    }
+                }
+                else if(p.Name.equals('SFP') && replaceablePart.SFP_PN__c == null)
+                {
+                    System.debug('replaceablePart.SFP_PN__c '+replaceablePart.SFP_PN__c);
+                    if([select count() from Product2 where ProductCode=:replaceablePart.SFP_PN__c and IsActive=true limit 1] == 0)
+                    {
+                        ApexPages.addMessage(new ApexPages.Message(ApexPages.Severity.ERROR, 'The asset you selected doesn\'t contain SFP component' ));
+                        return false;
+                    }
+                }
+                else if(p.Name.equals('Fiber') && replaceablePart.Fiber_Module_PN__c == null)
+                {
+                    System.debug('replaceablePart.Fiber_Module_PN__c '+replaceablePart.Fiber_Module_PN__c);
+                    if([select count() from Product2 where ProductCode=:replaceablePart.Fiber_Module_PN__c and IsActive=true limit 1] == 0)
+                    {
+                        ApexPages.addMessage(new ApexPages.Message(ApexPages.Severity.ERROR, 'The asset you selected doesn\'t contain Fiber component' ));
                         return false;
                     }
                 }

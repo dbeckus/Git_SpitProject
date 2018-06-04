@@ -14,6 +14,16 @@
         <unique>false</unique>
     </fields>
     <fields>
+        <fullName>Fiber_Module_PN__c</fullName>
+        <externalId>false</externalId>
+        <label>Fiber Module PN</label>
+        <length>250</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
         <fullName>HDD_PN__c</fullName>
         <externalId>false</externalId>
         <label>HDD PN</label>
@@ -47,6 +57,16 @@
         <fullName>Product_PN__c</fullName>
         <externalId>false</externalId>
         <label>Product PN</label>
+        <length>250</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>SFP_PN__c</fullName>
+        <externalId>false</externalId>
+        <label>SFP PN</label>
         <length>250</length>
         <required>false</required>
         <trackTrending>false</trackTrending>

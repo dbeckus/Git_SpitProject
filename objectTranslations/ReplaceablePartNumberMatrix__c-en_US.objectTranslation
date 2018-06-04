@@ -13,6 +13,10 @@
         <name>Asset_PN__c</name>
     </fields>
     <fields>
+        <label><!-- Fiber Module PN --></label>
+        <name>Fiber_Module_PN__c</name>
+    </fields>
+    <fields>
         <label><!-- HDD PN --></label>
         <name>HDD_PN__c</name>
     </fields>
@@ -27,6 +31,10 @@
     <fields>
         <label><!-- Product PN --></label>
         <name>Product_PN__c</name>
+    </fields>
+    <fields>
+        <label><!-- SFP PN --></label>
+        <name>SFP_PN__c</name>
     </fields>
     <fields>
         <label><!-- SSD PN --></label>
