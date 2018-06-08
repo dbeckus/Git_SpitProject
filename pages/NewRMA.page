@@ -236,10 +236,16 @@
                      <apex:column width="40px">
                          <apex:outputLabel value="Qty"  for="prdQty" style="font-weight:bold; font-size:91%; padding:0px 10px 0px 0px;" rendered="{!prd.Name == 'Power Supply'}" />
                          <apex:outputLabel value="Slot #" style="font-weight:bold; font-size:91%; padding:0px 10px 0px 0px;" rendered="{!Or(prd.Name == 'HDD', prd.Name == 'SSD',prd.Name == 'NVME')}" />
+                         <apex:outputLabel value="Type" style="font-weight:bold; font-size:91%; padding:0px 10px 0px 0px;" rendered="{!Or(prd.Name == 'SFP', prd.Name == 'Fiber')}" />
                      </apex:column>
                      <apex:column >
                       <apex:inputText html-readonly="true" value="{!prd.Qty}" style="width:60px" rendered="{!prd.Name == 'Power Supply'}" id="prdQty" title="{!prd.Name} Qty"/>
                       <apex:inputText html-autofocus="autofocus" value="{!prd.Slot}" id="slot" style="width:60px" rendered="{!Or(prd.Name == 'HDD', prd.Name == 'SSD',prd.Name == 'NVME')}" title="{!prd.Name} Slot #"/>
+                         <apex:selectList id="type" value="{!prd.Type}" size="1" style="width:100px" rendered="{!Or(prd.Name == 'SFP', prd.Name == 'Fiber')}" title="{!prd.Name} Type">
+                              <apex:selectOption itemlabel="None" itemValue="None"/>
+                             <apex:selectOption itemlabel="Long Reach" itemValue="Long"/>
+                             <apex:selectOption itemlabel="Short Reach" itemValue="Short"/>
+                         </apex:selectList> 
                      </apex:column>
                  </apex:pageBlockTable>
              </apex:pageBlockSection>

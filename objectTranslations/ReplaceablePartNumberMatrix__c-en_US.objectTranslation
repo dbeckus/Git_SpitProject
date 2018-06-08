@@ -13,8 +13,12 @@
         <name>Asset_PN__c</name>
     </fields>
     <fields>
-        <label><!-- Fiber Module PN --></label>
-        <name>Fiber_Module_PN__c</name>
+        <label><!-- Fiber LR --></label>
+        <name>Fiber_LR__c</name>
+    </fields>
+    <fields>
+        <label><!-- Fiber SR --></label>
+        <name>Fiber_SR__c</name>
     </fields>
     <fields>
         <label><!-- HDD PN --></label>
@@ -33,8 +37,12 @@
         <name>Product_PN__c</name>
     </fields>
     <fields>
-        <label><!-- SFP PN --></label>
-        <name>SFP_PN__c</name>
+        <label><!-- SFP LR --></label>
+        <name>SFP_LR__c</name>
+    </fields>
+    <fields>
+        <label><!-- SFP SR --></label>
+        <name>SFP_SR__c</name>
     </fields>
     <fields>
         <label><!-- SSD PN --></label>

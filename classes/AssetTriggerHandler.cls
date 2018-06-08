@@ -38,9 +38,9 @@ public class AssetTriggerHandler implements ITriggerHandler {
             List<Asset> lstNewAssets=(List<Asset>)newItems;
             for(Asset newAsset:lstNewAssets)
             {
-                if(newAsset.End_of_Maintenance__c== null && newAsset.Product_Quote_Type__c=='NX/VX')
+               if(newAsset.End_of_Maintenance__c== null && newAsset.Product_Quote_Type__c=='NX/VX' && newAsset.Product_Family__c=='Product')
                 {
-                    lstAsset.add(newAsset);
+                    newAsset.End_of_Maintenance__c=newAsset.Ship_Date__c!=null?newAsset.Ship_Date__c.addYears(5):null;
                 }
                 if(newAsset.AccountId!=null && newAsset.Status!='Customer Evaluation')
                 {
@@ -57,7 +57,7 @@ public class AssetTriggerHandler implements ITriggerHandler {
                     }
                 }
             }
-            UpdateEOMDate(lstAsset);
+            //UpdateEOMDate(lstAsset);
             MakeFinalUpdateToAccount();
         }
         
@@ -74,9 +74,10 @@ public class AssetTriggerHandler implements ITriggerHandler {
             {
                 Asset newAsset=(Asset)newItems.get(assetId);
                 Asset oldAsset=(Asset)oldItems.get(assetId);
-                if(oldAsset.Ship_Date__c!=newAsset.Ship_Date__c && newAsset.Product_Quote_Type__c=='NX/VX')
+             	if(oldAsset.Ship_Date__c!=newAsset.Ship_Date__c && newAsset.Product_Quote_Type__c=='NX/VX' && newAsset.Product_Family__c=='Product')
                 {
-                    lstAsset.add(newAsset);
+                    newAsset.End_of_Maintenance__c=newAsset.Ship_Date__c!=null?newAsset.Ship_Date__c.addYears(5):null;
+                    //lstAsset.add(newAsset);
                 }
                 //decommission asset
                 if(newAsset.AccountId == silverpeakSystemsId && oldAsset.AccountId != newAsset.AccountId)
@@ -117,7 +118,7 @@ public class AssetTriggerHandler implements ITriggerHandler {
                     }
                 }
             }
-            UpdateEOMDate(lstAsset);
+            //UpdateEOMDate(lstAsset);
             MakeFinalUpdateToAccount();
         }
     }
@@ -320,6 +321,7 @@ public class AssetTriggerHandler implements ITriggerHandler {
             update lstHardwareAssetToUpdate;
         }
     }
+    /*
     private void UpdateEOMDate(List<Asset> lstAssets)
     {
         if(lstAssets!=null && lstAssets.size()>0)
@@ -342,5 +344,5 @@ public class AssetTriggerHandler implements ITriggerHandler {
                 asset.End_of_Maintenance__c = (minEomDate == Date.newInstance(3000, 01, 01) ? null : minEomDate);
             }
         }
-    }
+    }*/
 }

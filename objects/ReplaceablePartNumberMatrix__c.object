@@ -14,10 +14,20 @@
         <unique>false</unique>
     </fields>
     <fields>
-        <fullName>Fiber_Module_PN__c</fullName>
+        <fullName>Fiber_LR__c</fullName>
         <externalId>false</externalId>
-        <label>Fiber Module PN</label>
-        <length>250</length>
+        <label>Fiber LR</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Fiber_SR__c</fullName>
+        <externalId>false</externalId>
+        <label>Fiber SR</label>
+        <length>255</length>
         <required>false</required>
         <trackTrending>false</trackTrending>
         <type>Text</type>
@@ -64,10 +74,20 @@
         <unique>false</unique>
     </fields>
     <fields>
-        <fullName>SFP_PN__c</fullName>
+        <fullName>SFP_LR__c</fullName>
         <externalId>false</externalId>
-        <label>SFP PN</label>
-        <length>250</length>
+        <label>SFP LR</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>SFP_SR__c</fullName>
+        <externalId>false</externalId>
+        <label>SFP SR</label>
+        <length>255</length>
         <required>false</required>
         <trackTrending>false</trackTrending>
         <type>Text</type>
@@ -95,6 +115,10 @@
         <columns>NVME_PN__c</columns>
         <columns>CREATED_DATE</columns>
         <columns>SETUP_OWNER_NAME</columns>
+        <columns>Fiber_LR__c</columns>
+        <columns>Fiber_SR__c</columns>
+        <columns>SFP_LR__c</columns>
+        <columns>SFP_SR__c</columns>
         <filterScope>Everything</filterScope>
         <label>All</label>
     </listViews>
