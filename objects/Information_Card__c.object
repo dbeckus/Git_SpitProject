@@ -53,6 +53,7 @@
     <enableReports>true</enableReports>
     <enableSharing>true</enableSharing>
     <enableStreamingApi>true</enableStreamingApi>
+    <externalSharingModel>ControlledByParent</externalSharingModel>
     <fieldSets>
         <fullName>Account_Values</fullName>
         <description>Comparison visualforce page.</description>

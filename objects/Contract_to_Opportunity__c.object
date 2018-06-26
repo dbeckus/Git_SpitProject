@@ -54,6 +54,7 @@
     <enableReports>false</enableReports>
     <enableSharing>true</enableSharing>
     <enableStreamingApi>true</enableStreamingApi>
+    <externalSharingModel>ReadWrite</externalSharingModel>
     <fields>
         <fullName>Contract__c</fullName>
         <deleteConstraint>SetNull</deleteConstraint>

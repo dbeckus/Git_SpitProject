@@ -225,7 +225,7 @@
                 <field>Term__c</field>
             </layoutItems>
             <layoutItems>
-                <behavior>Readonly</behavior>
+                <behavior>Edit</behavior>
                 <field>Deployment_End_Date__c</field>
             </layoutItems>
         </layoutColumns>

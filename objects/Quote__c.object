@@ -59,6 +59,7 @@
     <enableReports>true</enableReports>
     <enableSharing>true</enableSharing>
     <enableStreamingApi>true</enableStreamingApi>
+    <externalSharingModel>Read</externalSharingModel>
     <fields>
         <fullName>ApprovalLevelMax__c</fullName>
         <description>The Quote&apos;s approval level decided by the max approval level of quote lines.</description>

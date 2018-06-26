@@ -53,6 +53,7 @@
     <enableReports>false</enableReports>
     <enableSharing>false</enableSharing>
     <enableStreamingApi>false</enableStreamingApi>
+    <externalSharingModel>ReadWrite</externalSharingModel>
     <fields>
         <fullName>te__c</fullName>
         <externalId>false</externalId>

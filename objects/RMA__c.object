@@ -54,6 +54,7 @@
     <enableReports>true</enableReports>
     <enableSharing>true</enableSharing>
     <enableStreamingApi>true</enableStreamingApi>
+    <externalSharingModel>Private</externalSharingModel>
     <fields>
         <fullName>Account_Manager_Email_1__c</fullName>
         <externalId>false</externalId>

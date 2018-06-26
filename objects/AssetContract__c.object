@@ -54,6 +54,7 @@
     <enableReports>true</enableReports>
     <enableSharing>true</enableSharing>
     <enableStreamingApi>true</enableStreamingApi>
+    <externalSharingModel>Private</externalSharingModel>
     <fields>
         <fullName>Asset__c</fullName>
         <deleteConstraint>SetNull</deleteConstraint>

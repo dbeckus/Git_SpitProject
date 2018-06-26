@@ -3127,11 +3127,6 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>Deployment_End_Date__c</field>
-            <table>Opportunity.SBQQ__WebAccounts__r.Assets</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
             <field>Bandwidth_Nodes__c</field>
             <table>Opportunity.SBQQ__WebAccounts__r.Assets</table>
         </columns>

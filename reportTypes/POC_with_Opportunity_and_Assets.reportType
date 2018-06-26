@@ -1977,11 +1977,6 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>Deployment_End_Date__c</field>
-            <table>Opportunity.Requests__r.Assets__r</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
             <field>Description</field>
             <table>Opportunity.Requests__r.Assets__r</table>
         </columns>

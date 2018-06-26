@@ -54,6 +54,7 @@
     <enableReports>true</enableReports>
     <enableSharing>true</enableSharing>
     <enableStreamingApi>true</enableStreamingApi>
+    <externalSharingModel>Private</externalSharingModel>
     <fields>
         <fullName>Account_Activity_PoC_Mobile_Phone__c</fullName>
         <externalId>false</externalId>

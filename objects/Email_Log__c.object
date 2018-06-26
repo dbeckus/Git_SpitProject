@@ -54,6 +54,7 @@
     <enableReports>false</enableReports>
     <enableSharing>true</enableSharing>
     <enableStreamingApi>true</enableStreamingApi>
+    <externalSharingModel>ReadWrite</externalSharingModel>
     <fields>
         <fullName>counter__c</fullName>
         <displayFormat>{0000000000}</displayFormat>

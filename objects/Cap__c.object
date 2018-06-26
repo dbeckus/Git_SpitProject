@@ -53,6 +53,7 @@
     <enableReports>true</enableReports>
     <enableSharing>true</enableSharing>
     <enableStreamingApi>true</enableStreamingApi>
+    <externalSharingModel>Private</externalSharingModel>
     <fields>
         <fullName>Account_Name__c</fullName>
         <deleteConstraint>SetNull</deleteConstraint>

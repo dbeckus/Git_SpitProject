@@ -58,6 +58,7 @@
     <enableReports>true</enableReports>
     <enableSharing>true</enableSharing>
     <enableStreamingApi>true</enableStreamingApi>
+    <externalSharingModel>ControlledByParent</externalSharingModel>
     <fields>
         <fullName>ApprovalLevel__c</fullName>
         <defaultValue>0</defaultValue>

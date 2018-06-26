@@ -87,7 +87,8 @@ public class ShippingInputFormController
                     sno = sno.trim();
                     if(!SNoSets.Contains(sno))
                     {
-                        if(isValidSerialNumber(sno))
+                         SNoSets.add(sno);
+                        /*if(isValidSerialNumber(sno))
                         {
                             SNoSets.add(sno);
                         }
@@ -95,7 +96,7 @@ public class ShippingInputFormController
                         {
                             ApexPages.addMessage(new ApexPages.Message(ApexPages.Severity.ERROR, 'Incorrect Serial Number: ' + sno));
                             break;
-                        }
+                        }*/
                     }                  
                 }
             }
@@ -487,7 +488,9 @@ public class ShippingInputFormController
     
     private String removeDashes(String serialNumber)
     {
-        return serialNumber.replaceAll('\\.', '').replaceAll('\\-', '');
+        string test=serialNumber.replaceAll('\\.', '').replaceAll('\\-', '');
+        System.debug('test'+test);
+        return test;
     }
     
     public class ShipLineInfo
