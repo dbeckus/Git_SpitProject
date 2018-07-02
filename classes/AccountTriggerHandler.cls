@@ -46,7 +46,7 @@ public class AccountTriggerHandler implements ITriggerHandler {
     {
         if(newItems!=null && newItems.size()>0)
         {
-            PopulateOrchestratorVersion();
+           PopulateOrchestratorVersion();
             for (Id accId : newItems.keyset())
             {
                 System.debug('BEfore Update');
@@ -110,6 +110,9 @@ public class AccountTriggerHandler implements ITriggerHandler {
                         }
                     }
                 }
+                
+                System.debug('newAccInfo.IsCustomerPortal ' + newAccInfo.IsCustomerPortal);
+                System.debug('oldAccInfo.IsCustomerPortal ' + oldAccInfo.IsCustomerPortal);
             }
             
         }
@@ -164,6 +167,7 @@ public class AccountTriggerHandler implements ITriggerHandler {
     }
     public void AfterUpdate(Map<Id, SObject> newItems, Map<Id, SObject> oldItems) 
     {
+        System.debug('After Update');
         List<Account> lstPartnerAcctIds= new List<Account>();
         List<Id> setPortalUserAcctId= new List<Id>();
         Set<Id> setSelfRegAcctIds= new Set<Id>();
@@ -192,8 +196,12 @@ public class AccountTriggerHandler implements ITriggerHandler {
                 {
                     setPortalUserAcctId.add(newAccInfo.Id);
                 }
+                System.debug('test');
+                System.debug('newAccInfo.IsCustomerPortal ' + newAccInfo.IsCustomerPortal);
+                System.debug('oldAccInfo.IsCustomerPortal ' + oldAccInfo.IsCustomerPortal);
                 if(!newAccInfo.IsCustomerPortal && oldAccInfo.IsCustomerPortal)
                 {
+                    System.debug('Disable reg');
                     setSelfRegAcctIds.add(newAccInfo.Id);
                 }   
                 if(newAccInfo.First_Asset_Quarter__c!=oldAccInfo.First_Asset_Quarter__c)
@@ -514,6 +522,7 @@ insert lstCapCase;
     {
         if(accIds.size()>0)
         {
+            System.debug('DisableSelfReg');
             List<Contact> lstCon=[Select Id from Contact where AccountId in: accIds and CanAllowPortalSelfReg=true];
             Set<Id> conIds= new Set<Id>();
             for(Contact con: lstCon)

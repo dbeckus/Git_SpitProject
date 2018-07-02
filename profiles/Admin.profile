@@ -1987,6 +1987,10 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>TestData</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>TestDataController</apexClass>
         <enabled>true</enabled>
     </classAccesses>

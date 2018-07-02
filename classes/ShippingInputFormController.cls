@@ -488,9 +488,7 @@ public class ShippingInputFormController
     
     private String removeDashes(String serialNumber)
     {
-        string test=serialNumber.replaceAll('\\.', '').replaceAll('\\-', '');
-        System.debug('test'+test);
-        return test;
+        return serialNumber.replaceAll('\\.', '').replaceAll('\\-', '');
     }
     
     public class ShipLineInfo

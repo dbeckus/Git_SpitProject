@@ -46,12 +46,12 @@ public without sharing class PartnerPortalIndividualRegController
         if(userIsExist())
         {
             //Error Scenario 1
-            ApexPages.addMessage(new ApexPages.Message(ApexPages.Severity.Warning, 'Our records indicate that you already have partner portal access. Please click <a href="https://partners.silver-peak.com/PartnerPortalForgotPassword" style="font-size:100%;margin:0;text-decoration:underline">here</a> to reset your password.'));
+            ApexPages.addMessage(new ApexPages.Message(ApexPages.Severity.Warning, 'Our records indicate that you already have partner portal access. Please click <a href="https://partners.silver-peak.com/PartnerPortalForgotPassword" style="font-size:100%;margin:0;text-decoration:underline">here</a> to reset your password or contact support@silver-peak.com to resolve login issues.'));
             return null;
         }
         if(SilverPeakUtils.IsUserNameExistswithEmail(Email))
         {
-            ApexPages.addMessage(new ApexPages.Message(ApexPages.Severity.Warning, 'Our records indicate that you already have customer portal access. Please contact channels team.'));
+            ApexPages.addMessage(new ApexPages.Message(ApexPages.Severity.Warning, 'Our records indicate that you already have portal access. Please contact support@silver-peak.com to resolve this issue.'));
             return null;
         }
         if(PortalTC == FALSE)
@@ -195,6 +195,7 @@ public without sharing class PartnerPortalIndividualRegController
         newUser.MailingState = State;
         newUser.MailingCity = City;
         newUser.MailingPostalCode = ZipCode;
+        newUser.Country_Picklist__c = TemporaryAddress.Country__c;
         newUser.LeadSource = 'Partner Portal';
         //adding checkbox to track partner portal T & C agreement
         newUser.PortalTermsandConditionsAgreement__c = PortalTC;

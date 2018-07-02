@@ -18,7 +18,7 @@ public class TestAccountTriggerHandler {
         
     }
     
-   @IsTest
+    @IsTest
     public static void OrchDomainDuplicate_Insert()
     {
         
@@ -58,7 +58,7 @@ public class TestAccountTriggerHandler {
         } 
         
     }
-      @IsTest
+    @IsTest
     public static void OrchDomainVersion_Insert()
     {
         
@@ -66,7 +66,7 @@ public class TestAccountTriggerHandler {
         {
             Account acc = new Account(Name='test', Unity_Orch_Version__c='1222.21.1.12222');
             insert acc;
-         
+            
         }
         catch(Exception e)
         {
@@ -76,7 +76,7 @@ public class TestAccountTriggerHandler {
         } 
         
     }
-      @IsTest
+    @IsTest
     public static void OrchDomainVersion_Update()
     {
         
@@ -86,7 +86,7 @@ public class TestAccountTriggerHandler {
             insert acc;
             acc.Unity_Orch_Version__c='12.21.1.1222';
             update acc;
-         
+            
         }
         catch(Exception e)
         {
@@ -97,7 +97,7 @@ public class TestAccountTriggerHandler {
         
     }
     
-     @IsTest
+    @IsTest
     public static void OrchDomainVersion_NotInSystem_Insert()
     {
         
@@ -119,7 +119,7 @@ public class TestAccountTriggerHandler {
             
             Account acc = new Account(Name='test', Unity_Orch_Version__c='1.21.1.12222');
             insert acc;
-         
+            
         }
         catch(Exception e)
         {
@@ -129,7 +129,7 @@ public class TestAccountTriggerHandler {
         } 
         
     }
-      @IsTest
+    @IsTest
     public static void OrchDomainVersion_NotInSystem_Update()
     {
         
@@ -150,7 +150,7 @@ public class TestAccountTriggerHandler {
             insert build;
             Account acc = new Account(Name='test', Unity_Orch_Admin_User__c='abc@abc.com',Unity_Orch_Domain__c='testabc6',Unity_Orch_Location__c='Canada (Central)');
             insert acc;
-           	acc.Unity_Orch_Version__c='12.21.1.12222';
+            acc.Unity_Orch_Version__c='12.21.1.12222';
             update acc;
         }
         catch(Exception e)
@@ -161,7 +161,7 @@ public class TestAccountTriggerHandler {
         } 
         
     }
-      @IsTest
+    @IsTest
     public static void OrchDomainVersion_InSystem_Update()
     {
         
@@ -182,7 +182,7 @@ public class TestAccountTriggerHandler {
             insert build;
             Account acc = new Account(Name='test', Unity_Orch_Admin_User__c='abc@abc.com',Unity_Orch_Domain__c='testabc6',Unity_Orch_Location__c='Canada (Central)');
             insert acc;
-           	acc.Unity_Orch_Version__c='8.1.1.12222';
+            acc.Unity_Orch_Version__c='8.1.1.12222';
             update acc;
         }
         catch(Exception e)
@@ -193,7 +193,7 @@ public class TestAccountTriggerHandler {
         } 
         
     }
-      @IsTest
+    @IsTest
     public static void OrchDomainVersion_InSystem_Update_Underscore()
     {
         
@@ -214,7 +214,7 @@ public class TestAccountTriggerHandler {
             insert build;
             Account acc = new Account(Name='test', Unity_Orch_Admin_User__c='abc@abc.com',Unity_Orch_Domain__c='testabc6',Unity_Orch_Location__c='Canada (Central)');
             insert acc;
-           	acc.Unity_Orch_Version__c='8.1.1.12222';
+            acc.Unity_Orch_Version__c='8.1.1.12222';
             update acc;
         }
         catch(Exception e)
@@ -253,7 +253,7 @@ public class TestAccountTriggerHandler {
         } 
         
     }
-   @IsTest(SeeAllData=true)
+    @IsTest(SeeAllData=true)
     public static void test1_Contact()
     {
         Test.startTest();
@@ -282,13 +282,11 @@ public class TestAccountTriggerHandler {
     public static void test1_Account()
     {
         Test.startTest();
-        
         Set<String> customerUserTypes = new Set<String> {'PowerCustomerSuccess'};
             Profile prof = [select Id,name from Profile where UserType in :customerUserTypes limit 1];
-        Account acc = new Account(Name = 'Test Opp Account');
+        Account acc = new Account(Name = 'Test Opp Account',Type='Prospect');
         insert acc;
         Contact con = new Contact(LastName='test',email='test-user@fakeemail.com',AccountId=acc.Id);
-        con.CanAllowPortalSelfReg=true;
         insert con;
         User u1 = new User( email='test-user@fakeemail.com', IsActive=true,contactid = con.id, profileid = prof.Id, UserName='test-user@fakeemail.com', alias='tuser1', CommunityNickName='tuser1',
                            TimeZoneSidKey='America/New_York', LocaleSidKey='en_US', EmailEncodingKey='ISO-8859-1',
@@ -296,8 +294,8 @@ public class TestAccountTriggerHandler {
         insert u1;
         User thisUser = [ select Id from User where Id = :UserInfo.getUserId() ];
         System.runAs ( thisUser ) {
-           u1.IsActive=false;
-           update u1;
+            acc.IsCustomerPortal=false;
+            update acc;
         }
         Test.stopTest();
         Contact con1 =[Select Id,CanAllowPortalSelfReg from Contact where id=:con.Id];
@@ -313,7 +311,7 @@ public class TestAccountTriggerHandler {
         acc.Cloud_Portal_Account_Name__c='test';
         update acc;
     }
-   @IsTest
+    @IsTest
     public static void ECSPFlag_AccountSyncedinCP()
     {
         Account acc=new Account(Name='Test',Cloud_Portal_Account_Name__c='Test',ECSP__c=true,Service_Provider_Account_type__c='Perpetual',Service_Provider_Admin_User__c='abc@abc.com');
@@ -343,7 +341,7 @@ public class TestAccountTriggerHandler {
         }
         
     }
-   // @IsTest
+    @IsTest
     public static void ECSPFlag_AccountAssetsCreated()
     {
         Account acc=new Account(Name='Test',ECSP__c=true,Service_Provider_Account_type__c='Perpetual',Service_Provider_Admin_User__c='abc@abc.com');
@@ -384,7 +382,7 @@ public class TestAccountTriggerHandler {
         acc.Partner_Application_Status__c='Approved';
         update acc;
     }
-   @IsTest
+    @IsTest
     public static void AllowECSPFlagChange()
     {
         Account acc=new Account(Name='Test',ECSP__c=true,Service_Provider_Account_type__c='Perpetual',Service_Provider_Admin_User__c='abc@abc.com');
@@ -437,7 +435,7 @@ public class TestAccountTriggerHandler {
         }
         
     }
-   @IsTest(SeeAllData=true)
+    @IsTest(SeeAllData=true)
     public static void test1_Account_UnityCloudSyncedinCP()
     {
         Account acc=new Account(Name='Test',Cloud_Portal_Account_Name__c='Test',Unity_Orch_Admin_User__c='abc@abc.com',Unity_Orch_Domain__c='test123',Unity_Orch_Location__c='US East (Ohio)');
@@ -466,41 +464,34 @@ public class TestAccountTriggerHandler {
             
         }
     }
-     @IsTest
-    public static void UpdateOppTypeforAccount()
+    @IsTest(SeeAllData=true)
+    public static void NewInReviewAccount()
     {
-        
-        Account acc = new Account(Name='acme', Type='Eval');
+        Account acc = new Account(Name='Test In Review Account', Type='In Review');
         insert acc;
-        Contact con = new Contact(LastName='acme', AccountId=acc.Id);
-        con.MailingStreet='address1 \r\n address2';
-        insert con;
-        
-        Opportunity opp1 = new Opportunity(Name='test', StageName='New', CloseDate=Date.today().addDays(30),AccountId = acc.Id,Opportunity_Source__c='RSM',Type='New Business');
-        insert opp1;
-        Opportunity opp2 = new Opportunity(Name='test', StageName='New', CloseDate=Date.today().addDays(100),AccountId = acc.Id,Opportunity_Source__c='RSM',Type='New Business');
-        insert opp2;
-        Test.startTest();
-        opp1.Finance_Reviewed__c=true;
-        opp1.StageName='Closed Won';
-        update opp1;
-        
-        List<Opportunity> result=[Select Id,Fiscal_Quarter_Name__c from Opportunity where Id=:acc.Id];
-        for(Opportunity opp: result)
-        {
-            System.assertEquals(opp.Type, 'Follow on Business');
-        }
-        Test.stopTest();
-    }
-    
-      @IsTest
-    public static void EnforcePortalUserGroup()
-    {
-        Test.startTest();
-        Account acc = new Account(Name='acme', Type='Eval',GEO_Supported__c='NAM');
-        insert acc;
-       	acc.GEO_Supported__c='EMEA';
+        Account acc1= [Select Id, Patch__c from Account where id =: acc.id];
+        system.assertEquals(Null, acc1.Patch__c); 
+        acc.BillingCountry = 'Austria';
         update acc;
-        Test.stopTest();
-    }
+        Account acc2= [Select Id, Patch__c from Account where id =: acc.id];
+        system.assertEquals(Null, acc2.Patch__c);
+        acc.Trigger_Assignment__c = True;
+        update acc;
+        Account acc3= [Select Id, Patch__c from Account where id =: acc.id];
+        system.assertEquals(Null, acc3.Patch__c);
+    } 
+    @IsTest(SeeAllData=true)
+    public static void NotInReviewAccount()
+    {
+        Account acc = new Account(Name='Test Prospect Account', Type='Prospect');
+        insert acc;
+        Account acc1= [Select Id, Patch__c from Account where id =: acc.id];
+        Patch__c p= [Select Id from Patch__c where Name='P-480'];
+        system.assertEquals(p.Id, acc1.Patch__c); 
+        acc.BillingCountry = 'Austria';
+        update acc;
+        Account acc2= [Select Id, Patch__c from Account where id =: acc.id];
+        Patch__c p1= [Select Id from Patch__c where Name='P-364'];
+        system.assertEquals(p1.Id, acc2.Patch__c);
+    } 
 }
