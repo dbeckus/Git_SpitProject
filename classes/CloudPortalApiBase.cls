@@ -2,7 +2,7 @@ public abstract class CloudPortalApiBase {
    
     public static Integer ApiTimeOut = 60000;
     public static String ContentCharset = 'UTF-8';
-    public static String BaseEndpoint = SilverPeakUtils.IsProduction()?'https://cloudportal.silver-peak.com/portal/apis/rest':'https://portaldev.silver-peak.com/portal/apis/rest';
+    public static String BaseEndpoint = SilverPeakUtils.IsProduction()?'https://cloudportal.silver-peak.com/portal/apis/rest':'https://portaleng.silverpeaksystems.net/portal/apis/rest';
     
     public Boolean isSucceed { get; set; }
     
