@@ -1059,6 +1059,10 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>NewSalesDevelopmentController</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>NewVirtualAssetController</apexClass>
         <enabled>true</enabled>
     </classAccesses>
@@ -10350,6 +10354,10 @@
         <enabled>true</enabled>
     </pageAccesses>
     <pageAccesses>
+        <apexPage>NewSalesDevelopment</apexPage>
+        <enabled>true</enabled>
+    </pageAccesses>
+    <pageAccesses>
         <apexPage>NewVirtualAsset</apexPage>
         <enabled>true</enabled>
     </pageAccesses>
@@ -10992,6 +11000,10 @@
     <tabVisibilities>
         <tab>NX_To_VX</tab>
         <visibility>DefaultOff</visibility>
+    </tabVisibilities>
+    <tabVisibilities>
+        <tab>New_Sales_Development</tab>
+        <visibility>DefaultOn</visibility>
     </tabVisibilities>
     <tabVisibilities>
         <tab>POC_Asset_Metric__c</tab>

@@ -1059,6 +1059,10 @@
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>NewSalesDevelopmentController</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>NewVirtualAssetController</apexClass>
         <enabled>false</enabled>
     </classAccesses>
@@ -10349,6 +10353,10 @@
         <enabled>false</enabled>
     </pageAccesses>
     <pageAccesses>
+        <apexPage>NewSalesDevelopment</apexPage>
+        <enabled>false</enabled>
+    </pageAccesses>
+    <pageAccesses>
         <apexPage>NewVirtualAsset</apexPage>
         <enabled>false</enabled>
     </pageAccesses>
@@ -10887,6 +10895,10 @@
     </tabVisibilities>
     <tabVisibilities>
         <tab>Mass_Update_User</tab>
+        <visibility>DefaultOff</visibility>
+    </tabVisibilities>
+    <tabVisibilities>
+        <tab>New_Sales_Development</tab>
         <visibility>DefaultOff</visibility>
     </tabVisibilities>
     <tabVisibilities>

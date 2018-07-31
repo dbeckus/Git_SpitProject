@@ -1,0 +1,374 @@
+<apex:page controller="NewSalesDevelopmentController" tabStyle="Sales_Development__tab">
+    <apex:includeScript value="{!URLFOR($Resource.SalesDevelopment, 'jquery.min.js')}" />
+    <apex:includeScript value="{!URLFOR($Resource.SalesDevelopment, 'SPDialog.js')}" />
+    <style>
+        .circle {
+            border-radius: 50%;
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            opacity: 0.9;
+            cursor: pointer;
+        }
+        .red-circle {
+            background-color: #d9534f;
+        }
+        .green-circle {
+            background-color: #5cb85c;
+        }
+        .blue-circle {
+            background-color: #337ab7;
+        }
+    </style>
+    <script>
+        jQuery(document).ready(function() {
+            var dialog = new SPDialogBox($("#statusDialog")[0], "Change Status");
+            dialog.onSave = function() {
+                if(($("select[id$='statusDpd']").val() != "Rejected - Not Interested" && $("select[id$='statusDpd']").val() != "Rejected - Wrong Role" && $("select[id$='statusDpd']").val() != "Rejected - Unresponsive/Check Back" && $("select[id$='statusDpd']").val() != "Rejected - Do Not Contact" && $("select[id$='statusDpd']").val() != "Rejected -Reseller Partner") || $("select[id$='substatusDpd']").val()) {
+                    $("input[id$='selected1']").val("");
+                    $(".listIds").each(function(i){
+                        if($(this).prop("checked")) {
+                            var s = $("input[id$='selected1']").val();
+                            $("input[id$='selected1']").val((s || '') + $(this).attr("record-id") + ",");
+                        }
+                    });
+                    updateStatus();
+                    return true;
+                }
+                else {
+                    alert("Sub Status is required.");
+                    return false;
+                }
+            };
+            var ownerDialog = new SPDialogBox($("#ownerDialog")[0], "Change Owner");
+            ownerDialog.onSave = function() {
+                $("input[id$='selected2']").val("");
+                $(".listIds").each(function(i){
+                    if($(this).prop("checked")) {
+                        var s = $("input[id$='selected2']").val();
+                        $("input[id$='selected2']").val((s || '') + $(this).attr("record-id") + ",");
+                    }
+                });
+                updateOwner();
+                return true;
+            };
+            var removeDialog = new SPDialogBox($("#removeFromC")[0], "Remove from Campaign");
+            removeDialog.onSave = function() {
+                $("input[id$='selected3']").val("");
+                $(".listIds").each(function(i){
+                    if($(this).prop("checked")) {
+                        var s = $("input[id$='selected3']").val();
+                        $("input[id$='selected3']").val((s || '') + $(this).attr("record-id") + ",");
+                    }
+                });
+                removeFromCampaign();
+                return true;
+            };
+            if(sendCTIMessage) {
+                $(".clickDialPhoneDisabled").hide();
+                $(".clickDialPhoneEnabled").show();
+            }
+            else {
+                $(".clickDialPhoneDisabled").show();
+                $(".clickDialPhoneEnabled").hide();
+            }
+        });
+        function sortOn(field) {
+          if($("input[id$='sortField']").val() == field)
+          {
+            var newOrder = ($("input[id$='sortAsc']").val() == "true") ? "false" : "true";
+            $("input[id$='sortAsc']").val(newOrder);
+          }
+          $("input[id$='sortField']").val(field);
+          $("select[id$='pageIndex']").val("0");
+          refreshList();
+        }
+        function flipRejected() {
+            $("select[id$='statusDpd']").val("Sales Rejected");
+            $("select[id$='statusDpd'] option").each(function() {
+                if($(this).val() != "Rejected - Not Interested" && $(this).val() != "Rejected - Wrong Role" && $(this).val() != "Rejected - Unresponsive/Check Back" && $(this).val() != "Rejected - Do Not Contact" && $(this).val() != "Rejected -Reseller Partner" && $(this).val() != "Sales Accepted - Contacting" && $(this).val() != "Sales Accepted - Passed to Partner") {
+                    $(this).remove();
+                }
+            });
+            $("select[id$='statusDpd']").trigger("change");
+        }
+        function checkAllBox() {
+            var isChecked = $("#allCheckbox").prop("checked");
+            $(".listIds").each(function() {
+                $(this).prop("checked", isChecked);
+            });
+        }
+        function checkEachBox() {
+            $("#allCheckbox").prop("checked", true);
+            $(".listIds").each(function() {
+                if(!$(this).prop("checked")) {
+                $("#allCheckbox").prop("checked", false);
+                    return;
+                }
+            });
+        }
+   	 function SendToWatchList(type) {
+     var searchIDs=[];
+      $(".listIds").each(function(i){
+                    if($(this).prop("checked")) {
+                        searchIDs.push($(this).attr("record-id"));
+                    }
+                    });
+         
+        var encodedIdsString = encodeURIComponent(searchIDs);
+         if(type=="Lead")
+             {
+                window.top.location = "/apex/mkto_si__Add_to_Watch_List?contactType=Lead&contactIds=" + encodedIdsString +"&retURL=" + encodeURIComponent(document.location.href);
+             }
+         else
+             {
+                 
+                 window.top.location = "/apex/mkto_si__Add_to_Watch_List?contactType=Contact&contactIds=" + encodedIdsString +"&retURL=" + encodeURIComponent(document.location.href); 
+             }
+        
+           return false;
+        }
+     function AddToMarketoCampaign(type) {
+       
+    var searchIDs=[];
+      $(".listIds").each(function(i){
+                    if($(this).prop("checked")) {
+                        searchIDs.push($(this).attr("record-id"));
+                    }
+                    });
+         
+        var encodedIdsString = encodeURIComponent(searchIDs);
+         if(type=="Lead")
+             {
+                  
+                window.top.location = "/apex/mkto_si__Add_to_Marketo_Campaign?contactType=Lead&contactIds=" + encodedIdsString +"&retUrl=" + encodeURIComponent(document.location.href);
+             }
+         else
+             {
+                 
+                 window.top.location = "/apex/mkto_si__Add_to_Marketo_Campaign?contactType=Contact&contactIds=" + encodedIdsString +"&retUrl=" + encodeURIComponent(document.location.href);
+             }
+          return false;
+        }
+    
+    function SendMarketoEmail(type) {
+        
+     var searchIDs=[];
+      $(".listIds").each(function(i){
+                    if($(this).prop("checked")) {
+                        searchIDs.push($(this).attr("record-id"));
+                    }
+                    });
+         
+        var encodedIdsString = encodeURIComponent(searchIDs);
+         if(type=="Lead")
+             {
+                window.top.location = "/apex/mkto_si__Send_Marketo_Email?contactType=Lead&contactIds=" + encodedIdsString +"&retUrl=" + encodeURIComponent(document.location.href);
+             }
+         else
+             {
+                 
+                 window.top.location = "/apex/mkto_si__Send_Marketo_Email?contactType=Contact&contactIds=" + encodedIdsString +"&retUrl=" + encodeURIComponent(document.location.href);
+             }
+        return false;
+        }
+    </script>
+    <apex:sectionHeader title="Sales Development"/>
+    <apex:pageMessages />
+    <apex:form >
+        <apex:pageBlock >
+            
+            <table width="100%">
+                
+                <tr>
+                    <td>
+                        <apex:selectList value="{!CampaignId}" size="1">
+                            <apex:selectOptions value="{!CampaignList}" />
+                            <apex:actionSupport action="{!refreshZero}" event="onchange"/>
+                        </apex:selectList>&nbsp;
+                        <apex:selectList value="{!ListView}" size="1">
+                            <apex:selectOptions value="{!ListViewOptions}" />
+                            <apex:actionSupport action="{!refreshZero}" event="onchange"/>
+                        </apex:selectList>&nbsp;
+                        <apex:selectList value="{!LifeCycleStage}" size="1">
+                            <apex:selectOption itemLabel="All" itemValue="" />
+                            <apex:selectOption itemLabel="MQL" itemValue="MQL" />
+                            <apex:selectOption itemLabel="SAL" itemValue="SAL" />
+                            <apex:actionSupport action="{!refreshZero}" event="onchange"/>
+                        </apex:selectList>
+                    </td>
+                    <td width="70%">
+                        <input type="button" class="btn" value="Change Status" onclick="SPDialogBox.open('statusDialog');flipRejected()" style="margin-left:8%"/>
+                        <input type="button" class="btn" value="Change Owner" onclick="SPDialogBox.open('ownerDialog')" style="margin-left:5px"/>
+                        
+                        <apex:outputPanel layout="none" rendered="{!CampaignId != SDCampaignId}">
+                            <input type="button" class="btn" value="Remove from Campaign" onclick="SPDialogBox.open('removeFromC')" />
+                        </apex:outputPanel>
+                        
+                        
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        
+                    </td>
+                    
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <input type="button" class="btn"  value="Lead- Add to WatchList" onclick="SendToWatchList('Lead');"/>
+                        <input type="button" class="btn"  value="Lead- Add To Marketo Campaign" onclick="AddToMarketoCampaign('Lead');" />
+                        <input type="button" class="btn"  value="Lead- Send Marketo Email" onclick="SendMarketoEmail('Lead');" 	/>
+                        <input type="button" class="btn"  value="Contact- Add to WatchList" onclick="SendToWatchList('Contact');" />
+                        <input type="button" class="btn"  value="Contact- Add To Marketo Campaign" onclick="AddToMarketoCampaign('Contact');" />
+                        <input type="button" class="btn"  value="Contact- Send Marketo Email" onclick="SendMarketoEmail('Contact');"/>	
+                    </td>
+                </tr>
+            </table>
+          
+            
+            
+            <apex:actionFunction action="{!refresh}" name="refreshList" />
+            <apex:inputHidden value="{!SortingField}" id="sortField" />
+            <apex:inputHidden value="{!SortingAsc}" id="sortAsc" />
+            <div style="float:right">
+              <apex:commandLink value="< Previous" action="{!previousPage}" rendered="{!PageIndex != 0}" />&nbsp;
+              <apex:selectList size="1" value="{!PageIndex}" id="pageIndex">
+                <apex:selectOptions value="{!PageOptions}"/>
+                <apex:actionSupport action="{!refresh}" event="onchange" />
+              </apex:selectList>&nbsp;
+              <apex:commandLink value="Next >" action="{!nextPage}" rendered="{!PageIndex < PageCount - 1}"/>
+            </div>
+            <apex:pageBlockSection columns="1">
+                <apex:pageBlockTable value="{!Records}" var="obj" rendered="{!Records.size > 0}">
+                    <apex:column >
+                        <apex:facet name="header">
+                            <input type="checkbox" id="allCheckbox" onclick="checkAllBox();"></input>
+                        </apex:facet>
+                        <apex:inputCheckbox value="{!obj.Selected}" styleClass="listIds" html-record-id="{!obj.recordId}" onclick="checkEachBox();"/>
+                    </apex:column>
+                    <apex:column style="width: 80px">
+                        <apex:facet name="header">
+                            <a href="javascript:void(0)" onclick="sortOn('type')">Type</a>
+                        </apex:facet>
+                        <table cellspacing="0" cellpadding="0">
+                            <tr>
+                                <td style="border:none"><apex:outputPanel rendered="{!obj.Type='Contact'}" styleClass="circle {!IF(obj.isContactRole, 'blue-circle', IF(obj.hasOpenOpps, 'green-circle', 'red-circle'))}" title="{!IF(obj.isContactRole, 'On Account with open opps and is a contact role', IF(obj.hasOpenOpps, 'On Account with open opps', 'On Account with no open opps'))}" /></td>
+                                <td style="border:none">{!obj.Type}</td>
+                            </tr>
+                        </table>
+                    </apex:column>
+                    <apex:column headerValue="MQL Stage Date">
+                        <apex:facet name="header">
+                            <a href="javascript:void(0)" onclick="sortOn('mqlDate')">MQL Stage Date</a>
+                        </apex:facet>
+                        <apex:outputText value="{0, date, MM/dd/yyyy}"><apex:param value="{!obj.mqlDate}"/></apex:outputText>
+                    </apex:column>
+                    <apex:column headerValue="Name">
+                        <apex:facet name="header">
+                            <a href="javascript:void(0)" onclick="sortOn('name')">Name</a>
+                        </apex:facet>
+                        <a href="/{!obj.recordId}" target="_blank">{!obj.name}</a>
+                    </apex:column>
+                    <apex:column headerValue="Title">
+                        <apex:facet name="header">
+                            <a href="javascript:void(0)" onclick="sortOn('title')">Title</a>
+                        </apex:facet>
+                        {!obj.title}
+                    </apex:column>
+                    <apex:column headerValue="Company">
+                        <apex:facet name="header">
+                            <a href="javascript:void(0)" onclick="sortOn('accountName')">Company</a>
+                        </apex:facet>
+                        {!obj.accountName}
+                    </apex:column>
+                    <apex:column headerValue="State">
+                        <apex:facet name="header">
+                            <a href="javascript:void(0)" onclick="sortOn('state')">State</a>
+                        </apex:facet>
+                        {!obj.state}
+                    </apex:column>
+                    <apex:column headerValue="Email">
+                        <apex:facet name="header">
+                            <a href="javascript:void(0)" onclick="sortOn('email')">Email</a>
+                        </apex:facet>
+                        <a href="mailto:{!obj.email}">{!obj.email}</a>
+                    </apex:column>
+                    <apex:column headerValue="Phone">
+                        <apex:facet name="header">
+                            <a href="javascript:void(0)" onclick="sortOn('phone')">Phone</a>
+                        </apex:facet>
+                        <apex:outputPanel rendered="{!NOT(ISBLANK(obj.phone))}" layout="none">
+                        <div class="clickDialPhoneDisabled">{!obj.phone}</div>
+                        <div class="clickDialPhoneEnabled" style="display:none"><a href="javascript:void(0);" onclick="disableClicked(this, 'Click to dial disabled');sendCTIMessage('/CLICK_TO_DIAL?DN='+encodeURIComponent('{!obj.phone}')+'&amp;ID={!obj.recordId}&amp;ENTITY_NAME={!obj.Type}&amp;OBJECT_NAME='+encodeURIComponent('{!obj.name}, {!obj.accountName}')+'&amp;DISPLAY_NAME='+encodeURIComponent('{!obj.Type}'));return false;">{!obj.phone}<img src="/img/btn_dial_inline.gif" alt="Click to dial" width="16" height="10" title="Click to dial"/></a></div>
+                        </apex:outputPanel>
+                    </apex:column>
+                    <apex:column headerValue="Status">
+                        <apex:facet name="header">
+                            <a href="javascript:void(0)" onclick="sortOn('status')">Status</a>
+                        </apex:facet>
+                        {!obj.status}{!IF(ISBLANK(obj.substatus), '', ' / ' + obj.substatus)}
+                    </apex:column>
+                    <apex:column headerValue="Last Campaign Type">
+                        <apex:facet name="header">
+                            <a href="javascript:void(0)" onclick="sortOn('lastCampaignType')">Last Campaign Type</a>
+                        </apex:facet>
+                        {!obj.lastCampaignType}
+                    </apex:column>
+                    <apex:column headerValue="Country">
+                        <apex:facet name="header">
+                            <a href="javascript:void(0)" onclick="sortOn('Country')">Country</a>
+                        </apex:facet>
+                        {!obj.country}
+                    </apex:column>
+                    <apex:column headerValue="Owner">
+                        <apex:facet name="header">
+                            <a href="javascript:void(0)" onclick="sortOn('ownerName')">Owner</a>
+                        </apex:facet>
+                        <a href="/{!obj.ownerId}" target="_blank">{!obj.ownerName}</a>
+                    </apex:column>
+                </apex:pageBlockTable>
+                <apex:outputText rendered="{!Records.size == 0}">No records to display.</apex:outputText>
+            </apex:pageBlocksection>
+        </apex:pageBlock>
+    </apex:form>
+    <apex:form >
+        <div id="statusDialog" style="display:none">
+            <table border="0">
+                <tbody>
+                    <tr>
+                        <td class="labelCol">Status</td>
+                        <td><apex:inputField value="{!TempLead.Status}" id="statusDpd" /></td>
+                    </tr>
+                    <tr>
+                        <td class="labelCol">Sub Status</td>
+                        <td><apex:inputField value="{!TempLead.Lead_Sub_Status__c}" id="substatusDpd" /></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <apex:inputHidden value="{!SelectedIds}" id="selected1" />
+        <apex:actionFunction action="{!updateStatus}" name="updateStatus" />
+    </apex:form>
+    <apex:form >
+        <div id="ownerDialog" style="display:none">
+            <table border="0">
+                <tbody>
+                    <tr>
+                        <td class="labelCol">Owner</td>
+                        <td><apex:inputField value="{!TempLead.OwnerId}" /></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <apex:inputHidden value="{!SelectedIds}" id="selected2" />
+        <apex:actionFunction action="{!updateOwner}" name="updateOwner" />
+    </apex:form>
+    <apex:form >
+        <div id="removeFromC" style="display:none">
+            Are you sure you want to remove the selected leads/contacts from the campaign?
+        </div>
+        <apex:inputHidden value="{!SelectedIds}" id="selected3" />
+        <apex:actionFunction action="{!removeFromCampaign}" name="removeFromCampaign" />
+    </apex:form>
+</apex:page>
