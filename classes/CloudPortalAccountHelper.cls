@@ -203,7 +203,7 @@ generator.writeStringField('password', 'Yesadmin4u');
             } 
             if(item.Bandwidth_Nodes__c!=null)
             {
-                cp.BoostNode=((integer.valueOf(item.Bandwidth_Nodes__c)*1000)*100);
+                cp.BoostNode=((integer.valueOf(item.Boost_Bandwidth_Qty__c)*1000)*100);
             }
             if(item.Contract_Number__r.StartDate!=null && item.Contract_Number__r.Status=='Activated')
             {

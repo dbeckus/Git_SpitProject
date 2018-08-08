@@ -72,6 +72,10 @@
                 <field>Bandwidth_Nodes__c</field>
             </layoutItems>
             <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>Boost_Bandwidth_Qty__c</field>
+            </layoutItems>
+            <layoutItems>
                 <behavior>Edit</behavior>
                 <field>Opt_Out_Subscription_Reminder__c</field>
             </layoutItems>
