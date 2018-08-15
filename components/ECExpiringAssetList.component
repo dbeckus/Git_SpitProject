@@ -4,6 +4,6 @@
     <apex:attribute name="expDate" description="Expiration date" type="Date" assignTo="{!LicenseExpirationDate}"></apex:attribute>
     <apex:attribute name="isEC" description="IsECProduct" type="Boolean" assignTo="{!IsECAsset}"></apex:attribute>
     <apex:repeat value="{!Assets}" var="cx">
-       {!cx.Model__c}, S/N {!cx.SerialNumber} {!IF((CONTAINS(cx.EC_Product_Name__c,'BASE')||CONTAINS(cx.EC_Product_Name__c,'PLUS')),', license: ',if(CONTAINS(cx.EC_Product_Name__c,'BOOST'),', bandwidth: ',''))}<apex:outputText value="{0, number,########0}"><apex:param value="{!IF((CONTAINS(cx.EC_Product_Name__c,'BASE')||CONTAINS(cx.EC_Product_Name__c,'PLUS')),cx.Licenses_Nodes__c,if(CONTAINS(cx.EC_Product_Name__c,'BOOST'),cx.Bandwidth_Nodes__c,''))}" /></apex:outputText> <br />
+       {!cx.Model__c}, S/N {!cx.SerialNumber} {!IF((CONTAINS(cx.EC_Product_Name__c,'BASE')||CONTAINS(cx.EC_Product_Name__c,'MINI')||CONTAINS(cx.EC_Product_Name__c,'PLUS')),', license: ',if(CONTAINS(cx.EC_Product_Name__c,'BOOST'),', bandwidth: ',''))}<apex:outputText value="{0, number,########0}"><apex:param value="{!IF((CONTAINS(cx.EC_Product_Name__c,'BASE')||CONTAINS(cx.EC_Product_Name__c,'MINI')||CONTAINS(cx.EC_Product_Name__c,'PLUS')),cx.Licenses_Nodes__c,if(CONTAINS(cx.EC_Product_Name__c,'BOOST'),cx.Bandwidth_Nodes__c,''))}" /></apex:outputText> <br />
     </apex:repeat>
 </apex:component>

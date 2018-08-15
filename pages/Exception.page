@@ -13,7 +13,7 @@
                 <apex:image url="{!$Site.Prefix}{!$Label.site.img_path}/warning.gif"/>
                 <apex:panelGroup >
                   <apex:outputText style="font-size: larger; font-weight: bold;" value="{!$Label.site.error}">      
-                   <apex:param value="{!$Site.ErrorMessage}"/>
+                   <apex:param value="{!$Site.ErrorDescription}"/>
                    <!-- this parameter needs to be italic in the site.error label -->
                   </apex:outputText>
                   <br/>
