@@ -20,6 +20,17 @@
         <senderType>CurrentUser</senderType>
         <template>Sales/DiscountApproved</template>
     </alerts>
+    <alerts>
+        <fullName>Send_Email_to_Oppty_Manager_on_Quote_1M</fullName>
+        <description>Send Email to Oppty Manager on Quote &gt;$1M</description>
+        <protected>false</protected>
+        <recipients>
+            <field>Opp_Owner_Manager__c</field>
+            <type>userLookup</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>unfiled$public/Silver_Peak_Quote_1M</template>
+    </alerts>
     <fieldUpdates>
         <fullName>CheckECApprovalFlag</fullName>
         <field>EC_Approval__c</field>
@@ -224,6 +235,26 @@ ISCHANGED(  Value_At_List__c  )  , ISCHANGED(   Quote_Amount_Rollup__c   )
 
 ), Approval_Made__c =True)</formula>
         <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>Quote Created with Amount%3E %241M</fullName>
+        <actions>
+            <name>Send_Email_to_Oppty_Manager_on_Quote_1M</name>
+            <type>Alert</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>Quote__c.Primary__c</field>
+            <operation>equals</operation>
+            <value>True</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Quote__c.Quote_Amount_Rollup__c</field>
+            <operation>greaterOrEqual</operation>
+            <value>1000000</value>
+        </criteriaItems>
+        <description>Send an email to Oppty Owner Manager when a primary quote is created with amount &gt; $1M</description>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
     </rules>
     <rules>
         <fullName>ResleerDemoTerms</fullName>

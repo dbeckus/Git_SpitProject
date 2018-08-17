@@ -110,6 +110,10 @@
             <start>76.200.148.123</start>
         </ipRanges>
         <ipRanges>
+            <end>74.40.39.222</end>
+            <start>74.40.39.222</start>
+        </ipRanges>
+        <ipRanges>
             <end>70.99.212.158</end>
             <start>70.99.212.129</start>
         </ipRanges>
@@ -140,6 +144,10 @@
         <ipRanges>
             <end>66.239.113.10</end>
             <start>66.239.113.1</start>
+        </ipRanges>
+        <ipRanges>
+            <end>66.185.238.194</end>
+            <start>66.185.238.194</start>
         </ipRanges>
         <ipRanges>
             <end>66.80.160.171</end>
@@ -196,6 +204,10 @@
         <ipRanges>
             <end>24.143.243.255</end>
             <start>24.143.243.0</start>
+        </ipRanges>
+        <ipRanges>
+            <end>24.121.67.243</end>
+            <start>24.121.67.243</start>
         </ipRanges>
         <ipRanges>
             <end>24.10.29.230</end>

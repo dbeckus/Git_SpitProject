@@ -139,7 +139,7 @@
         <description>Account: Send New Partner Approved Distributor Alert</description>
         <protected>false</protected>
         <recipients>
-            <recipient>ewhite@silver-peak.com</recipient>
+            <recipient>mjones@silver-peak.com</recipient>
             <type>user</type>
         </recipients>
         <senderAddress>silverpeakinfo@silver-peak.com</senderAddress>
@@ -163,7 +163,7 @@
         <description>Expired Flag is unchecked</description>
         <protected>false</protected>
         <recipients>
-            <recipient>lcrawford@silver-peak.com</recipient>
+            <recipient>dhead@silver-peak.com</recipient>
             <type>user</type>
         </recipients>
         <senderAddress>noreply@silver-peak.com</senderAddress>
@@ -202,7 +202,7 @@
         <description>Send Email To Shari</description>
         <protected>false</protected>
         <recipients>
-            <recipient>lcrawford@silver-peak.com</recipient>
+            <recipient>dhead@silver-peak.com</recipient>
             <type>user</type>
         </recipients>
         <senderAddress>noreply@silver-peak.com</senderAddress>
@@ -214,7 +214,7 @@
         <description>Send Email to Marketing when the expired customer is checked</description>
         <protected>false</protected>
         <recipients>
-            <recipient>lcrawford@silver-peak.com</recipient>
+            <recipient>dhead@silver-peak.com</recipient>
             <type>user</type>
         </recipients>
         <senderAddress>noreply@silver-peak.com</senderAddress>
@@ -225,6 +225,10 @@
         <fullName>Send_an_alert_to_Evan</fullName>
         <description>Send an alert to Evan</description>
         <protected>false</protected>
+        <recipients>
+            <recipient>akoganti@silver-peak.com</recipient>
+            <type>user</type>
+        </recipients>
         <recipients>
             <recipient>ewhite@silver-peak.com</recipient>
             <type>user</type>
@@ -506,6 +510,15 @@ Standard_Discount_Service__c
         <protected>false</protected>
     </fieldUpdates>
     <fieldUpdates>
+        <fullName>Populate_Account_Group_Name_Field</fullName>
+        <field>Account_Group_Name__c</field>
+        <formula>Name</formula>
+        <name>Populate Account Group Name Field</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+    </fieldUpdates>
+    <fieldUpdates>
         <fullName>SetRecTypetoReseller</fullName>
         <field>RecordTypeId</field>
         <lookupValue>Resellers</lookupValue>
@@ -569,17 +582,6 @@ Standard_Discount_Service__c
         <operation>Literal</operation>
         <protected>false</protected>
     </fieldUpdates>
-    <outboundMessages>
-        <fullName>BL__AccountUpdate</fullName>
-        <apiVersion>8.0</apiVersion>
-        <endpointUrl>https://www.boulderlogic.com/Reference/SfdcNotificationBinding.asmx?blns=BL</endpointUrl>
-        <fields>Id</fields>
-        <includeSessionId>true</includeSessionId>
-        <integrationUser>prane@silver-peak.com</integrationUser>
-        <name>AccountUpdate</name>
-        <protected>false</protected>
-        <useDeadLetterQueue>false</useDeadLetterQueue>
-    </outboundMessages>
     <rules>
         <fullName>Account%3A Partner Account Enabled</fullName>
         <actions>
@@ -761,16 +763,6 @@ Standard_Discount_Service__c
         <triggerType>onAllChanges</triggerType>
     </rules>
     <rules>
-        <fullName>BL__AccountUpdate</fullName>
-        <actions>
-            <name>BL__AccountUpdate</name>
-            <type>OutboundMessage</type>
-        </actions>
-        <active>true</active>
-        <formula>ISCHANGED(LastModifiedDate) &amp;&amp; BL__SyncWithBoulderLogic__c == true</formula>
-        <triggerType>onAllChanges</triggerType>
-    </rules>
-    <rules>
         <fullName>Change  SP MKTG value when ECSP checked to true</fullName>
         <actions>
             <name>Check_SP_MKTG</name>
@@ -864,6 +856,20 @@ Standard_Discount_Service__c
         </criteriaItems>
         <description>Send email to partner team users when new partner is enabled for new account.</description>
         <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>Populate Account Group Name</fullName>
+        <actions>
+            <name>Populate_Account_Group_Name_Field</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>Account.Name</field>
+            <operation>notEqual</operation>
+        </criteriaItems>
+        <description>This workflow is used to populate Account group name field on Account creation</description>
+        <triggerType>onCreateOnly</triggerType>
     </rules>
     <rules>
         <fullName>PopulateRightAccountType</fullName>

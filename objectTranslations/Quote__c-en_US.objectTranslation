@@ -132,6 +132,10 @@ if( Service_Discount_Max__c &gt; RegPartServDisc__c ,3,0)
         <name>IsSelectedForApproval__c</name>
     </fields>
     <fields>
+        <label><!-- Is SP Account --></label>
+        <name>Is_SP_Account__c</name>
+    </fields>
+    <fields>
         <label><!-- CreditHold/Reseller Agreement Approval --></label>
         <name>Level3Required__c</name>
     </fields>
@@ -399,6 +403,14 @@ Minimum program discount: 29% --></help>
         <label><!-- SteelBrick Quote --></label>
         <name>SteelBrick_Quote__c</name>
         <relationshipLabel><!-- Silver Peak Quotes --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Tier1AccountId --></label>
+        <name>Tier1AccountId__c</name>
+    </fields>
+    <fields>
+        <label><!-- Tier2PartnerId --></label>
+        <name>Tier2PartnerId__c</name>
     </fields>
     <fields>
         <label><!-- Tier 1 Partner --></label>

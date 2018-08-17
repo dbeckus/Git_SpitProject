@@ -2,9 +2,9 @@
 <Role xmlns="http://soap.sforce.com/2006/04/metadata">
     <caseAccessLevel>None</caseAccessLevel>
     <contactAccessLevel>Edit</contactAccessLevel>
-    <description>K&amp;N Filters Customer User</description>
+    <description>K &amp; N Engineering, Inc. Customer User</description>
     <mayForecastManagerShare>false</mayForecastManagerShare>
-    <name>K&amp;N Filters Customer User</name>
+    <name>K &amp; N Engineering, Inc. Customer User</name>
     <opportunityAccessLevel>None</opportunityAccessLevel>
     <parentRole>Grade_4_Sales_NAM_West</parentRole>
 </Role>

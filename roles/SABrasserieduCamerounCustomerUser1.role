@@ -2,9 +2,9 @@
 <Role xmlns="http://soap.sforce.com/2006/04/metadata">
     <caseAccessLevel>None</caseAccessLevel>
     <contactAccessLevel>Edit</contactAccessLevel>
-    <description>SA Brasserie du Cameroun Customer User</description>
+    <description>SOCIETE ANONYME DES BRASSERIES DU CAMEROUN Customer User</description>
     <mayForecastManagerShare>false</mayForecastManagerShare>
-    <name>SA Brasserie du Cameroun Customer User</name>
+    <name>SOCIETE ANONYME DES BRASSERIES DU CAMEROUN Customer User</name>
     <opportunityAccessLevel>None</opportunityAccessLevel>
-    <parentRole>Grade_3_Sales_EMEA</parentRole>
+    <parentRole>Grade_3_Sales_EMEA_SOUTH</parentRole>
 </Role>

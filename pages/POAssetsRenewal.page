@@ -110,7 +110,7 @@
                           <apex:column headerValue="Bandwidth"  rendered="{!AssetTypeSelection=='2'}" >
                             <apex:outputText value="{!item.Bandwidth_Nodes__c}" />
                         </apex:column> 
-                          <apex:column headerValue="Updated Nodes"  rendered="{!AssetTypeSelection=='2'}" >
+                         <apex:column headerValue="Updated Nodes"  rendered="{!AssetTypeSelection=='2'}" >
                             <apex:inputField value="{!item.Renewal_Nodes__c}" rendered="{!IF(CONTAINS(item.Product2.Name,'EC-BOOST')||CONTAINS(item.Product2.Name,'EC-BASE')||CONTAINS(item.Product2.Name,'EC-PLUS')||CONTAINS(item.Product2.Name,'EC-MINI'),true,false)}" />
                             <apex:outputText value="{!item.Renewal_Nodes__c}" rendered="{!IF(CONTAINS(item.Product2.Name,'EC-BOOST')||CONTAINS(item.Product2.Name,'EC-BASE')||CONTAINS(item.Product2.Name,'EC-PLUS')||CONTAINS(item.Product2.Name,'EC-MINI'),false,true)}" />
                         </apex:column>  

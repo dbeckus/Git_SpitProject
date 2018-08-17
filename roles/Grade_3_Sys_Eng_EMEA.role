@@ -6,5 +6,5 @@
     <mayForecastManagerShare>false</mayForecastManagerShare>
     <name>Grade 3 Sys Eng EMEA</name>
     <opportunityAccessLevel>Edit</opportunityAccessLevel>
-    <parentRole>Grade_2_Sales_EMEA</parentRole>
+    <parentRole>Grade_2_Sys_Eng_EMEA</parentRole>
 </Role>

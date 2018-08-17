@@ -447,11 +447,6 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>Open_Ops__c</field>
-            <table>Account</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
             <field>Non_Renewal_Bookings__c</field>
             <table>Account</table>
         </columns>
@@ -803,11 +798,6 @@
         <columns>
             <checkedByDefault>false</checkedByDefault>
             <field>Email_Domain_Used__c</field>
-            <table>Account</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>BL__SyncWithBoulderLogic__c</field>
             <table>Account</table>
         </columns>
         <columns>

@@ -37,10 +37,6 @@
                 <behavior>Edit</behavior>
                 <field>Last_Fetch_Date__c</field>
             </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>New_Course_Id__c</field>
-            </layoutItems>
         </layoutColumns>
         <style>TwoColumnsTopToBottom</style>
     </layoutSections>

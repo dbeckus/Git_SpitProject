@@ -1442,16 +1442,6 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>BL__TrackingNumber__c</field>
-            <table>Opportunity</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>ES_APP__TrackingNumber__c</field>
-            <table>Opportunity</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
             <field>Transactional_Opportunity__c</field>
             <table>Opportunity</table>
         </columns>

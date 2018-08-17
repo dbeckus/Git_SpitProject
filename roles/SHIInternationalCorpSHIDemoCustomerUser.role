@@ -6,5 +6,5 @@
     <mayForecastManagerShare>false</mayForecastManagerShare>
     <name>SHI International Corp. (SHI) - Demo Customer User</name>
     <opportunityAccessLevel>None</opportunityAccessLevel>
-    <parentRole>Grade_5_CAM_NAM_Southeast</parentRole>
+    <parentRole>Grade_5_CAM_NAM_Northeast</parentRole>
 </Role>

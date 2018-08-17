@@ -6,5 +6,5 @@
     <mayForecastManagerShare>false</mayForecastManagerShare>
     <name>CACI Customer User</name>
     <opportunityAccessLevel>None</opportunityAccessLevel>
-    <parentRole>SVPSales</parentRole>
+    <parentRole>Grade_4_COMM_NAM_East</parentRole>
 </Role>

@@ -56,6 +56,10 @@
         <relationshipLabel><!-- Patches (ISR) --></relationshipLabel>
     </fields>
     <fields>
+        <label><!-- Is GDPR Country? --></label>
+        <name>Is_GDPR_Country__c</name>
+    </fields>
+    <fields>
         <label><!-- Overlay 1 Email --></label>
         <name>Overlay_1_Email__c</name>
     </fields>
@@ -170,6 +174,10 @@
         <picklistValues>
             <masterLabel>Other</masterLabel>
             <translation><!-- Other --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Overlay</masterLabel>
+            <translation><!-- Overlay --></translation>
         </picklistValues>
     </fields>
     <layouts>

@@ -55,13 +55,12 @@
     <enableReports>true</enableReports>
     <enableSharing>true</enableSharing>
     <enableStreamingApi>true</enableStreamingApi>
-    <externalSharingModel>ReadWrite</externalSharingModel>
     <fields>
         <fullName>Active__c</fullName>
         <defaultValue>true</defaultValue>
         <externalId>false</externalId>
         <label>Active</label>
-        <trackHistory>false</trackHistory>
+        <trackHistory>true</trackHistory>
         <trackTrending>false</trackTrending>
         <type>Checkbox</type>
     </fields>
@@ -176,6 +175,15 @@
         <trackHistory>true</trackHistory>
         <trackTrending>false</trackTrending>
         <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Is_GDPR_Country__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Is GDPR Country?</label>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
     </fields>
     <fields>
         <fullName>Overlay_1_Email__c</fullName>
@@ -364,7 +372,7 @@
         <referenceTo>User</referenceTo>
         <relationshipName>Patch_Assignments7</relationshipName>
         <required>false</required>
-        <trackHistory>false</trackHistory>
+        <trackHistory>true</trackHistory>
         <trackTrending>false</trackTrending>
         <type>Lookup</type>
     </fields>
@@ -453,6 +461,10 @@
             </picklistValues>
             <picklistValues>
                 <fullName>Industry</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Overlay</fullName>
                 <default>false</default>
             </picklistValues>
             <picklistValues>

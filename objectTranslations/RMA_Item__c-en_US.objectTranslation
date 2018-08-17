@@ -106,6 +106,14 @@
         <name>Repair_Date__c</name>
     </fields>
     <fields>
+        <label><!-- Replacement Product Family --></label>
+        <name>Replacement_Product_Family__c</name>
+    </fields>
+    <fields>
+        <label><!-- Replacement Product Name --></label>
+        <name>Replacement_Product_Name__c</name>
+    </fields>
+    <fields>
         <label><!-- SSLSCACCARRIER --></label>
         <name>SSLSCACCARRIER__c</name>
     </fields>

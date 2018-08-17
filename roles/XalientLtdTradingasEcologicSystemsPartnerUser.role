@@ -2,9 +2,9 @@
 <Role xmlns="http://soap.sforce.com/2006/04/metadata">
     <caseAccessLevel>None</caseAccessLevel>
     <contactAccessLevel>Edit</contactAccessLevel>
-    <description>Xalient Ltd Trading as Ecologic Systems Partner User</description>
+    <description>XALIENT LIMITED Partner User</description>
     <mayForecastManagerShare>false</mayForecastManagerShare>
-    <name>Xalient Ltd Trading as Ecologic Systems Partner User</name>
+    <name>XALIENT LIMITED Partner User</name>
     <opportunityAccessLevel>None</opportunityAccessLevel>
     <parentRole>XalientLtdTradingasEcologicSystemsPartnerManager</parentRole>
 </Role>

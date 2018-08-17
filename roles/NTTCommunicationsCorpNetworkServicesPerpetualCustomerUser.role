@@ -6,5 +6,5 @@
     <mayForecastManagerShare>false</mayForecastManagerShare>
     <name>NTT Communications Corp. Network Services-Perpetual Customer User</name>
     <opportunityAccessLevel>None</opportunityAccessLevel>
-    <parentRole>Grade_3_Sales_SP</parentRole>
+    <parentRole>Grade_3_Sales_APAC_ASEAN</parentRole>
 </Role>

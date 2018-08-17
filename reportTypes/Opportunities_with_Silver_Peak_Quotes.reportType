@@ -5,6 +5,10 @@
     <deployed>true</deployed>
     <description>Opps that have an associated silver peak quote</description>
     <join>
+        <join>
+            <outerJoin>true</outerJoin>
+            <relationship>Quote_Lines__r</relationship>
+        </join>
         <outerJoin>true</outerJoin>
         <relationship>Quotes__r</relationship>
     </join>
@@ -147,6 +151,11 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
+            <field>LastModifiedDate</field>
+            <table>Opportunity.Quotes__r.Quote_Lines__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
             <field>Contact_Email__c</field>
             <table>Opportunity</table>
         </columns>
@@ -162,8 +171,23 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
+            <field>Line_Price__c</field>
+            <table>Opportunity.Quotes__r.Quote_Lines__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Reseller_Discount__c</field>
+            <table>Opportunity.Quotes__r.Quote_Lines__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
             <field>Contact_Postal_Code__c</field>
             <table>Opportunity</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Discount_Percent__c</field>
+            <table>Opportunity.Quotes__r.Quote_Lines__r</table>
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
@@ -172,8 +196,53 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
+            <field>Maint_Year_Value__c</field>
+            <table>Opportunity.Quotes__r.Quote_Lines__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
             <field>Contact_Title__c</field>
             <table>Opportunity</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Unit_Price__c</field>
+            <table>Opportunity.Quotes__r.Quote_Lines__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>CreatedBy</field>
+            <table>Opportunity.Quotes__r.Quote_Lines__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Name</field>
+            <table>Opportunity.Quotes__r.Quote_Lines__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>MainDisc__c</field>
+            <table>Opportunity.Quotes__r.Quote_Lines__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>MultiYearMaint__c</field>
+            <table>Opportunity.Quotes__r.Quote_Lines__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Product__c</field>
+            <table>Opportunity.Quotes__r.Quote_Lines__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>ApprovalLevel__c</field>
+            <table>Opportunity.Quotes__r.Quote_Lines__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Prod_Category__c</field>
+            <table>Opportunity.Quotes__r.Quote_Lines__r</table>
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
@@ -182,8 +251,78 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
+            <field>ProdDisc__c</field>
+            <table>Opportunity.Quotes__r.Quote_Lines__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Product_Code__c</field>
+            <table>Opportunity.Quotes__r.Quote_Lines__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Product_Description__c</field>
+            <table>Opportunity.Quotes__r.Quote_Lines__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
             <field>Contract</field>
             <table>Opportunity</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Approval_Date_Time_Stamp__c</field>
+            <table>Opportunity.Quotes__r.Quote_Lines__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Include4Discount__c</field>
+            <table>Opportunity.Quotes__r.Quote_Lines__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Quantity__c</field>
+            <table>Opportunity.Quotes__r.Quote_Lines__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Product_List__c</field>
+            <table>Opportunity.Quotes__r.Quote_Lines__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Discount_Spread__c</field>
+            <table>Opportunity.Quotes__r.Quote_Lines__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Quote__c</field>
+            <table>Opportunity.Quotes__r.Quote_Lines__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Product_Quote_Type__c</field>
+            <table>Opportunity.Quotes__r.Quote_Lines__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>CreatedDate</field>
+            <table>Opportunity.Quotes__r.Quote_Lines__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Id</field>
+            <table>Opportunity.Quotes__r.Quote_Lines__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Include4MultiYYear__c</field>
+            <table>Opportunity.Quotes__r.Quote_Lines__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Include4ConsultingDisc__c</field>
+            <table>Opportunity.Quotes__r.Quote_Lines__r</table>
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
@@ -192,8 +331,33 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
+            <field>ApprovalType__c</field>
+            <table>Opportunity.Quotes__r.Quote_Lines__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>isMaintenance__c</field>
+            <table>Opportunity.Quotes__r.Quote_Lines__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>IsAppliance__c</field>
+            <table>Opportunity.Quotes__r.Quote_Lines__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
             <field>CreatedDate</field>
             <table>Opportunity</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>isConsulting__c</field>
+            <table>Opportunity.Quotes__r.Quote_Lines__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Include4ServiceDiscount__c</field>
+            <table>Opportunity.Quotes__r.Quote_Lines__r</table>
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
@@ -222,8 +386,18 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
+            <field>LastModifiedBy</field>
+            <table>Opportunity.Quotes__r.Quote_Lines__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
             <field>Dead_Description__c</field>
             <table>Opportunity</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>LastActivityDate</field>
+            <table>Opportunity.Quotes__r.Quote_Lines__r</table>
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
@@ -1470,6 +1644,11 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
+            <field>Tier_1_Partner__c</field>
+            <table>Opportunity.Quotes__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
             <field>Shipping_Address__c</field>
             <table>Opportunity.Quotes__r</table>
         </columns>
@@ -1486,6 +1665,11 @@
         <columns>
             <checkedByDefault>false</checkedByDefault>
             <field>Shipping_Postal_Code__c</field>
+            <table>Opportunity.Quotes__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Tier_2_Partner__c</field>
             <table>Opportunity.Quotes__r</table>
         </columns>
         <columns>

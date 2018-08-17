@@ -96,6 +96,10 @@
                 <behavior>Edit</behavior>
                 <field>Comp_Rate2__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>Is_ACV_Enabled__c</field>
+            </layoutItems>
         </layoutColumns>
         <style>TwoColumnsTopToBottom</style>
     </layoutSections>
@@ -146,7 +150,6 @@
     <multilineLayoutFields>UnitPrice</multilineLayoutFields>
     <multilineLayoutFields>ListPrice</multilineLayoutFields>
     <multilineLayoutFields>ServiceDate</multilineLayoutFields>
-    <multilineLayoutFields>Description</multilineLayoutFields>
     <multilineLayoutFields>OpportunityId</multilineLayoutFields>
     <showEmailCheckbox>false</showEmailCheckbox>
     <showRunAssignmentRulesCheckbox>false</showRunAssignmentRulesCheckbox>

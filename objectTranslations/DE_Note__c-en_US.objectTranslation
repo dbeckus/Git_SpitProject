@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Deployment Engineering Note</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Deployment Engineering Notes</value>
+    </caseValues>
+    <fields>
+        <label><!-- Account Name Formula --></label>
+        <name>Acc_Name__c</name>
+    </fields>
+    <fields>
+        <label><!-- Account Name --></label>
+        <name>Account_Name__c</name>
+        <relationshipLabel><!-- Deployment Engineering Notes --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Additional Email Recipients --></label>
+        <name>Additional_Email_Recipients__c</name>
+    </fields>
+    <fields>
+        <label><!-- Attachment Count --></label>
+        <name>Attachment_Count__c</name>
+    </fields>
+    <fields>
+        <label><!-- Deployment Engineering Notes --></label>
+        <name>DE_Notes__c</name>
+    </fields>
+    <fields>
+        <label><!-- Deployment Engineer --></label>
+        <name>Deployment_Engineer__c</name>
+    </fields>
+    <fields>
+        <label><!-- Has Attachment? --></label>
+        <name>Has_Attachment__c</name>
+    </fields>
+    <layouts>
+        <layout>Deployment Engineering Note Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+    </layouts>
+    <startsWith>Consonant</startsWith>
+    <validationRules>
+        <errorMessage><!-- DE Notes can be created only when Deployment Engineering is checked on Account --></errorMessage>
+        <name>DE_Note_creation_when_DE_is_not_checked</name>
+    </validationRules>
+</CustomObjectTranslation>

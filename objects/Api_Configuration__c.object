@@ -53,7 +53,14 @@
     <enableReports>false</enableReports>
     <enableSharing>true</enableSharing>
     <enableStreamingApi>true</enableStreamingApi>
-    <externalSharingModel>ReadWrite</externalSharingModel>
+    <fields>
+        <fullName>Base_Endpoint__c</fullName>
+        <externalId>false</externalId>
+        <label>Base Endpoint</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Url</type>
+    </fields>
     <fields>
         <fullName>Endpoint_URL__c</fullName>
         <externalId>false</externalId>

@@ -1,0 +1,13 @@
+<apex:page standardcontroller="Account">
+    <table>
+        <tr style="display: {!IF(!Account.Deployment_Engineering__c , 'none', 'table-row')};">
+            <td>
+                <apex:outputPanel rendered="{!Account.Deployment_Engineering__c}" layout="none"> 
+                    <marquee style="box-shadow: 0px 0px 15px black; border-radius: 5px; padding: 10px; background-color: blue; font-weight: bolder; font-size: 14px; margin: 10px; width:1100px; color: white;">Deployment Customer – please check DE notes for any special instructions for this customer. </marquee>
+                </apex:outputPanel>
+            </td>
+        </tr>
+        
+    </table>
+    
+</apex:page>

@@ -52,6 +52,11 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
+            <field>Temp_Account_Owner__c</field>
+            <table>Account</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
             <field>AnnualRevenue</field>
             <table>Account</table>
         </columns>
@@ -313,11 +318,6 @@
         <columns>
             <checkedByDefault>false</checkedByDefault>
             <field>of_Enterprise_Locations__c</field>
-            <table>Account</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>Open_Ops__c</field>
             <table>Account</table>
         </columns>
         <columns>
@@ -1745,6 +1745,11 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
+            <field>Global_Ultimate_FIPS_Country_Code__c</field>
+            <table>Account</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
             <field>Win_Reason_3__c</field>
             <table>Account.Opportunities</table>
         </columns>
@@ -1752,6 +1757,76 @@
             <checkedByDefault>false</checkedByDefault>
             <field>IsWon</field>
             <table>Account.Opportunities</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Global_Ultimate_D_U_N_S_Number__c</field>
+            <table>Account</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Has_Open_Opportunity__c</field>
+            <table>Account</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Headquarter_D_U_N_S_Number__c</field>
+            <table>Account</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Parent_Company__c</field>
+            <table>Account</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Patch_Matched_Name__c</field>
+            <table>Account</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Region__c</field>
+            <table>Account</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Segment__c</field>
+            <table>Account</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>State_Province_Name__c</field>
+            <table>Account</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Patch_Owner__c</field>
+            <table>Account.Opportunities</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Regional_Sales_Manager__c</field>
+            <table>Account.Opportunities</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Named_Account__c</field>
+            <table>Account</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>AccountId18Digit__c</field>
+            <table>Account</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>D_B_Data_Update__c</field>
+            <table>Account</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Need_Hierarchy__c</field>
+            <table>Account</table>
         </columns>
         <masterLabel>Opportunities</masterLabel>
     </sections>

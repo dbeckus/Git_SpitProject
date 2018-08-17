@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customSettingsType>List</customSettingsType>
+    <customSettingsVisibility>Public</customSettingsVisibility>
+    <description>Custom Settings to maintain the oppty record type change based on Initial solution Interest, Type and Stage</description>
+    <enableFeeds>false</enableFeeds>
+    <fields>
+        <fullName>Initial_Solution_Interest__c</fullName>
+        <externalId>false</externalId>
+        <label>Initial Solution Interest</label>
+        <length>100</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Record_Type_Id__c</fullName>
+        <externalId>false</externalId>
+        <label>Record Type Id</label>
+        <length>100</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Record_Type_Name__c</fullName>
+        <externalId>false</externalId>
+        <label>Record Type Name</label>
+        <length>100</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Stage__c</fullName>
+        <externalId>false</externalId>
+        <label>Stage</label>
+        <length>100</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Type__c</fullName>
+        <externalId>false</externalId>
+        <label>Type</label>
+        <length>100</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <label>Opportunity Record Type Transition</label>
+    <listViews>
+        <fullName>Custom_Setting_Details</fullName>
+        <columns>NAME</columns>
+        <columns>Initial_Solution_Interest__c</columns>
+        <columns>Type__c</columns>
+        <columns>Stage__c</columns>
+        <columns>Record_Type_Name__c</columns>
+        <columns>Record_Type_Id__c</columns>
+        <filterScope>Everything</filterScope>
+        <label>Custom Setting Details</label>
+    </listViews>
+</CustomObject>

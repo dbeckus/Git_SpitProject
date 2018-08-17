@@ -2,9 +2,9 @@
 <Role xmlns="http://soap.sforce.com/2006/04/metadata">
     <caseAccessLevel>None</caseAccessLevel>
     <contactAccessLevel>Edit</contactAccessLevel>
-    <description>VeriStor Systems Partner User</description>
+    <description>Veristor Systems, Incorporated Partner User</description>
     <mayForecastManagerShare>false</mayForecastManagerShare>
-    <name>VeriStor Systems Partner User</name>
+    <name>Veristor Systems, Incorporated Partner User</name>
     <opportunityAccessLevel>None</opportunityAccessLevel>
     <parentRole>VeriStorSystemsPartnerManager</parentRole>
 </Role>

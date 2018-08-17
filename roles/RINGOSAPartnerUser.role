@@ -2,9 +2,9 @@
 <Role xmlns="http://soap.sforce.com/2006/04/metadata">
     <caseAccessLevel>None</caseAccessLevel>
     <contactAccessLevel>Edit</contactAccessLevel>
-    <description>RINGO S.A. Partner User</description>
+    <description>Ringo Partner User</description>
     <mayForecastManagerShare>false</mayForecastManagerShare>
-    <name>RINGO S.A. Partner User</name>
+    <name>Ringo Partner User</name>
     <opportunityAccessLevel>None</opportunityAccessLevel>
     <parentRole>RINGOSAPartnerManager</parentRole>
 </Role>

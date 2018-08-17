@@ -2,9 +2,9 @@
 <Role xmlns="http://soap.sforce.com/2006/04/metadata">
     <caseAccessLevel>None</caseAccessLevel>
     <contactAccessLevel>Edit</contactAccessLevel>
-    <description>Insight Enterprises, Inc. Partner User</description>
+    <description>Insight Partner User</description>
     <mayForecastManagerShare>false</mayForecastManagerShare>
-    <name>Insight Enterprises, Inc. Partner User</name>
+    <name>Insight Partner User</name>
     <opportunityAccessLevel>None</opportunityAccessLevel>
     <parentRole>InsightEnterprisesIncPartnerManager</parentRole>
 </Role>

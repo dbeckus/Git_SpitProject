@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Role xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseAccessLevel>Edit</caseAccessLevel>
+    <contactAccessLevel>Edit</contactAccessLevel>
+    <description>Dennis Beckus Role</description>
+    <mayForecastManagerShare>false</mayForecastManagerShare>
+    <name>Dennis Beckus Role</name>
+    <opportunityAccessLevel>Edit</opportunityAccessLevel>
+</Role>

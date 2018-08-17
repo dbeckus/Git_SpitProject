@@ -24,7 +24,7 @@
         jQuery(document).ready(function() {
             var dialog = new SPDialogBox($("#statusDialog")[0], "Change Status");
             dialog.onSave = function() {
-                if($("select[id$='statusDpd']").val() != "Sales Rejected" || $("select[id$='substatusDpd']").val()) {
+                if(($("select[id$='statusDpd']").val() != "Rejected - Not Interested" && $("select[id$='statusDpd']").val() != "Rejected - Wrong Role" && $("select[id$='statusDpd']").val() != "Rejected - Unresponsive/Check Back" && $("select[id$='statusDpd']").val() != "Rejected - Do Not Contact" && $("select[id$='statusDpd']").val() != "Rejected -Reseller Partner") || $("select[id$='substatusDpd']").val()) {
                     $("input[id$='selected1']").val("");
                     $(".listIds").each(function(i){
                         if($(this).prop("checked")) {
@@ -86,7 +86,7 @@
         function flipRejected() {
             $("select[id$='statusDpd']").val("Sales Rejected");
             $("select[id$='statusDpd'] option").each(function() {
-                if($(this).val() != "Sales Rejected" && $(this).val() != "Sales Accepted - Contacting" && $(this).val() != "Sales Accepted - Passed to Partner") {
+                if($(this).val() != "Rejected - Not Interested" && $(this).val() != "Rejected - Wrong Role" && $(this).val() != "Rejected - Unresponsive/Check Back" && $(this).val() != "Rejected - Do Not Contact" && $(this).val() != "Rejected -Reseller Partner" && $(this).val() != "Sales Accepted - Contacting" && $(this).val() != "Sales Accepted - Passed to Partner") {
                     $(this).remove();
                 }
             });

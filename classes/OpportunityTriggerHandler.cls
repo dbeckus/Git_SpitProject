@@ -1,5 +1,8 @@
 public class OpportunityTriggerHandler implements ITriggerHandler {
-    
+    Id MasterRT = Schema.SObjectType.Opportunity.getRecordTypeInfosByName().get('All_Master').getRecordTypeId();
+    List<Opportunity> listOpps = new List<Opportunity>();
+    List<OpportunityRecordTypeTransition__c> listCSDataset = OpportunityRecordTypeTransition__c.getall().values(); 
+    String productValue; 
     Map<Id,Id> mapOppTR = null;
     public OpportunityTriggerHandler()
     {
@@ -25,7 +28,9 @@ public class OpportunityTriggerHandler implements ITriggerHandler {
                 }
                 System.debug('newOpp.CloseDate'+newOpp.CloseDate);
                 newOpp.Fiscal_Quarter_Name__c=RetrieveQuarterName(newOpp.CloseDate);
+                listOpps.add(newOpp);
             }
+            populateOpportunityRecordTypes(listOpps);
         }
         
     }
@@ -94,8 +99,12 @@ public class OpportunityTriggerHandler implements ITriggerHandler {
                         newOpp.POC_End_Date__c = Date.today();
                     } 
                 }
+                if(oldOpp.Deal_Type__c != newOpp.Deal_Type__c || oldOpp.Type != newOpp.Type || oldOpp.StageName != newOpp.StageName || oldOpp.Product_Type__c != newOpp.Product_Type__c)
+                {
+                    listOpps.add(newOpp);
+                } 
             }
-            
+            populateOpportunityRecordTypes(listOpps);
         }
     }
     public void BeforeDelete(Map<Id,SObject> oldItems) 
@@ -143,7 +152,6 @@ public class OpportunityTriggerHandler implements ITriggerHandler {
                         oppNeedsTeamAssign.add(newOpp.Id);
                     }
                 }
-                
                 if(newOpp.Registered_Distributor_Contact__c!=null || newOpp.Registering_Partner_Sales_Rep__c!=null || newOpp.Registered_Distributor__c!=null || newOpp.Registering_Partner__c!=null)
                 {
                     oppsNeedSharing.add(newOpp);
@@ -212,13 +220,13 @@ public class OpportunityTriggerHandler implements ITriggerHandler {
                         setAccIds.add(newOpp.AccountId);
                     }
                 }
-                //if(newOpp.LeadSource=='Deal Registration')
+               // if(newOpp.LeadSource=='Deal Registration')
                // {
-                if(isChanged(oldOpp, newOpp, new String[] { 'LeadSource', 'OwnerId', 'Registered_Distributor_Contact__c', 'Registering_Partner_Sales_Rep__c', 'Registered_Distributor__c', 'Registering_Partner__c'}))
-                {
-                    oppsNeedSharing.add(newOpp);
-                    oppIdsNeedSharing.add(newOpp.Id);
-                }
+                    if(isChanged(oldOpp, newOpp, new String[] { 'LeadSource', 'OwnerId', 'Registered_Distributor_Contact__c', 'Registering_Partner_Sales_Rep__c', 'Registered_Distributor__c', 'Registering_Partner__c'}))
+                    {
+                        oppsNeedSharing.add(newOpp);
+                        oppIdsNeedSharing.add(newOpp.Id);
+                    }
                // }
                 if(newOpp.Technical_Responsible__c !=null && newOpp.Technical_Responsible__c != oldOpp.Technical_Responsible__c)
                 {
@@ -510,6 +518,34 @@ update lstContactRole;
             }
         }
     }
+    
+    private void populateOpportunityRecordTypes(List<Opportunity> listOppsRT)
+    {
+        for(Opportunity o: listOppsRT){
+            if(o.Product_Type__c == null){
+                productValue = o.Deal_Type__c;
+            }
+            else if(o.Product_Type__c != null){
+                productValue = o.Product_Type__c;
+            }
+            if(productValue == null || o.Type == null || o.StageName == null)
+            {
+                o.RecordTypeId = MasterRT;
+            }
+            else
+            {
+                for(OpportunityRecordTypeTransition__c ort: listCSDataset){
+                    o.RecordTypeId = MasterRT;
+                    if(ort.Initial_Solution_Interest__c == productValue && ort.Type__c == o.Type && ort.Stage__c == o.StageName)
+                    {
+                        o.RecordTypeId = ort.Record_Type_Id__c;
+                        break;
+                    }
+                }
+            }
+        }
+    }
+    
     private void AddTRToOpportunityTeam(Map<Id,Id> mapOppsTRValue)
     {
         if(mapOppsTRValue.size()>0){

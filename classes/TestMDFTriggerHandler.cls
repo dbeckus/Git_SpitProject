@@ -1,12 +1,15 @@
 @IsTest
 public class TestMDFTriggerHandler {
-  @isTest
+    @isTest
     static void testCopyMdfToAccount()
     {
+        Id OtherRecordType = Schema.SObjectType.MDF_Request__c.getRecordTypeInfosByName().get('Others').getRecordTypeId();
         Account acc = new Account(Name='acme');
         insert acc;
         MDF_Request__c mdf = new MDF_Request__c(Account__c=acc.Id, Estimated_Silver_Peak_Amount__c=1000);
         insert mdf;
+        MDF_Request__c mdf1 = new MDF_Request__c(Account__c=acc.Id, Estimated_Silver_Peak_Amount__c=1000, RecordTypeId = OtherRecordType);
+        insert mdf1;
         
         acc = [select Id, Total_Requested_MDF__c from Account where Id=:acc.Id limit 1];
         System.assertEquals(1000, acc.Total_Requested_MDF__c);
@@ -27,7 +30,7 @@ public class TestMDFTriggerHandler {
         mdf = [select Id, Approval_Status__c from MDF_Request__c where Id=:mdf.Id limit 1];
         System.assertEquals('Approved', mdf.Approval_Status__c);
     }
-     @isTest
+    @isTest
     static void testSubmitPurchaseRequestOnMdfApproval()
     {
         List<RecordType> purchaseRecordType = [select Id from RecordType where SobjectType='Purchasing_Request__c' and Name='MDF Request' limit 1];
@@ -70,16 +73,16 @@ public class TestMDFTriggerHandler {
         MDF_Request__c mdf = new MDF_Request__c(Account__c = portalUser.Contact.AccountId);
         MDF_Request__c mdf2 = new MDF_Request__c(Account__c = portalUser.Contact.AccountId);
         insert new List<MDF_Request__c> {mdf, mdf2};
-        mdf.Account__c = null;
+            mdf.Account__c = null;
         update mdf;
         ShareMDFToPartnerHelper.shareMDFs(new List<MDF_Request__c> {mdf, mdf2});
         Test.stopTest();
     }
-     @isTest
+    @isTest
     static void testMDFShare_PortalUser()
     {
         Test.startTest();
-       	Account acc = new Account(Name='acme');
+        Account acc = new Account(Name='acme');
         insert acc;
         MDF_Request__c mdf = new MDF_Request__c(Account__c=acc.Id, Estimated_Silver_Peak_Amount__c=1000,Is_Portal_Request__c=true);
         insert mdf;
@@ -104,7 +107,7 @@ public class TestMDFTriggerHandler {
         Database.executeBatch(currentBatchJob, 1);
         Test.stopTest();
     }
-     @isTest
+    @isTest
     static void testSubmitPurchaseRequestOnMdfApproval1()
     {
         List<RecordType> purchaseRecordType = [select Id from RecordType where SobjectType='Purchasing_Request__c' and Name='MDF Request' limit 1];
@@ -125,8 +128,8 @@ public class TestMDFTriggerHandler {
         update request;
     }
     
-     @isTest(seeAllData=true)
-	public static void testSendEmailAndCreateCampaign()
+    @isTest(seeAllData=true)
+    public static void testSendEmailAndCreateCampaign()
     {
         List<User> currentUser = [Select Id, Profile.Name, Profile.Id, Name from User where Profile.Name != '13g-SP Partner Community' and IsActive = true limit 1];
         if(currentUser.isEmpty())
@@ -142,10 +145,22 @@ public class TestMDFTriggerHandler {
         newMDF.Activity_Complete__c = false;
         newMDF.MDF_Status__c = 'Past Due';
         newMDF.SendReminder__c = true;
-		Test.startTest();
+        Test.startTest();
         update newMDF;
         Test.stopTest();
-		mdf = [Select Id, Campaign__c from MDF_Request__c where Id =: newMDF.Id];
-		system.assertEquals(1, [Select Count() from Campaign where Id =: mdf.Campaign__c]);
+        mdf = [Select Id, Campaign__c from MDF_Request__c where Id =: newMDF.Id];
+        system.assertEquals(1, [Select Count() from Campaign where Id =: mdf.Campaign__c]);
+    }
+    
+    @isTest(seeAllData=True)
+    public static void testPurchaseRequestforOthers()
+    {
+        Id OtherRecordType = Schema.SObjectType.MDF_Request__c.getRecordTypeInfosByName().get('Others').getRecordTypeId();
+        Account acc = new Account(Name='acme');
+        insert acc;
+        MDF_Request__c mdf = new MDF_Request__c(Account__c=acc.Id, Estimated_Silver_Peak_Amount__c=1000, RecordTypeId = OtherRecordType);
+        insert mdf;
+        List<Purchasing_Request__c> pr = [Select Id from Purchasing_Request__c where Id IN  (Select Purchasing_Request__c from MDF_Request__c where Id =:mdf.Id) limit 1];
+        system.assertEquals(0, pr.size());
     }
 }

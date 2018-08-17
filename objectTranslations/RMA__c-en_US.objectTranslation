@@ -216,6 +216,10 @@
             <translation><!-- Disk Drive --></translation>
         </picklistValues>
         <picklistValues>
+            <masterLabel>EOS</masterLabel>
+            <translation><!-- EOS --></translation>
+        </picklistValues>
+        <picklistValues>
             <masterLabel>Embedded USB Flash Drive</masterLabel>
             <translation><!-- Embedded USB Flash Drive --></translation>
         </picklistValues>
@@ -224,12 +228,20 @@
             <translation><!-- Encryption Card --></translation>
         </picklistValues>
         <picklistValues>
+            <masterLabel>Environment</masterLabel>
+            <translation><!-- Environment --></translation>
+        </picklistValues>
+        <picklistValues>
             <masterLabel>Fan</masterLabel>
             <translation><!-- Fan --></translation>
         </picklistValues>
         <picklistValues>
             <masterLabel>Investigating</masterLabel>
             <translation><!-- Investigating --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>LPC</masterLabel>
+            <translation><!-- LPC --></translation>
         </picklistValues>
         <picklistValues>
             <masterLabel>Memory</masterLabel>
@@ -250,6 +262,10 @@
         <picklistValues>
             <masterLabel>Obsolete no FA</masterLabel>
             <translation><!-- Obsolete no FA --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>PMIC</masterLabel>
+            <translation><!-- PMIC --></translation>
         </picklistValues>
         <picklistValues>
             <masterLabel>Power Adapter</masterLabel>
@@ -514,6 +530,10 @@
         <help><!-- Enter in format CARRIER:TRACKING NUMBERS --></help>
         <label><!-- Tracking Information --></label>
         <name>Tracking_Information__c</name>
+    </fields>
+    <fields>
+        <label><!-- Trigger Time 05 --></label>
+        <name>Trigger_Time_05__c</name>
     </fields>
     <fields>
         <label><!-- Type --></label>

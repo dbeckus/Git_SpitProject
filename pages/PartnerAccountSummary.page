@@ -41,7 +41,7 @@
                     <apex:column value="{!lead.RSM__r.Name}" headerValue="RSM"/>
                     <apex:column value="{!lead.CSM__r.Name}" headerValue="CAM"/>
                     <apex:column headerValue="Registered Partner" rendered="{!!IsDistributor}">
-                        <apex:outputLink target="_top" value="{!URLFOR($Action.Account.View,lead.Registered_Partner__c)}">{!lead.Registered_Partner__r.Name}</apex:outputLink>
+                        <apex:outputLink target="_top" rendered="{!(NOT(ISBLANK(lead)) && NOT(ISBLANK(lead.Registered_Partner__c)))}" value="{!URLFOR($Action.Account.View,lead.Registered_Partner__c)}">{!lead.Registered_Partner__r.Name}</apex:outputLink>
                     </apex:column>
                     <apex:column value="{!lead.Registered_Partner_Sales_Rep__r.Name}" rendered="{!!IsDistributor}"  headerValue="Registered Partner Rep" />
                     <apex:column value="{!lead.Status}" headerValue="Lead Status"/>
@@ -56,7 +56,7 @@
                     <apex:column value="{!lead.RSM__r.Name}" headerValue="RSM"/>
                     <apex:column value="{!lead.CSM__r.Name}" headerValue="CAM"/>
                     <apex:column headerValue="Registered Partner">
-                        <apex:outputLink target="_top" value="{!URLFOR($Action.Account.View,lead.Registered_Partner__c)}">{!lead.Registered_Partner__r.Name}</apex:outputLink>
+                        <apex:outputLink target="_top" rendered="{!(NOT(ISBLANK(lead)) && NOT(ISBLANK(lead.Registered_Partner__c)))}" value="{!URLFOR($Action.Account.View,lead.Registered_Partner__c)}">{!lead.Registered_Partner__r.Name}</apex:outputLink>
                     </apex:column>
                     <apex:column value="{!lead.Registered_Partner_Sales_Rep__r.Name}" headerValue="Registered Partner Rep" />
                     <apex:column value="{!lead.Status}" headerValue="Lead Status"/>
@@ -76,7 +76,7 @@
                     <apex:pageBlockTable value="{!OpenOppsList}" var="o" rendered="{!OpenOppsList.size >0}" width="100%">
                         <apex:column > <apex:inputCheckbox disabled="{!o.isDisabled}" title="{!IF(o.IsDisabled,'There is an open POC on this opportunity. You cannot request another trial.','')}" value="{!o.isChecked}" /></apex:column>
                         <apex:column headerValue="Opportunity Name" >
-                            <apex:outputLink target="_top" value="{!URLFOR($Action.Opportunity.View,o.oppWrapper.Id)}">{!o.oppWrapper.Name}</apex:outputLink>
+                            <apex:outputLink target="_top" rendered="{! (NOT(ISBLANK(o)) && NOT(ISBLANK(o.oppWrapper)) && NOT(ISBLANK(o.oppWrapper.Id)))}" value="{!URLFOR($Action.Opportunity.View,o.oppWrapper.Id)}">{!o.oppWrapper.Name}</apex:outputLink>
                         </apex:column>
                         <apex:column value="{!o.oppWrapper.Owner.Name}" headerValue="Opportunity Owner"/>
                         <apex:column value="{!o.oppWrapper.StageName}" headerValue="Stage"/>
@@ -84,7 +84,7 @@
                         <apex:column value="{!o.oppWrapper.Amount}" headerValue="Amount"/>
                         <apex:column value="{!o.oppWrapper.CloseDate}" headerValue="Close Date"/>
                         <apex:column headerValue="Registered Partner">
-                            <apex:outputLink target="_top" value="{!URLFOR($Action.Account.View,o.oppWrapper.Registering_Partner__c)}">{!o.oppWrapper.Registering_Partner__r.Name}</apex:outputLink>
+                            <apex:outputLink target="_top" rendered="{!(NOT(ISBLANK(o)) && NOT(ISBLANK(o.oppWrapper)) && NOT(ISBLANK(o.oppWrapper.Registering_Partner__c)))}" value="{!URLFOR($Action.Account.View,o.oppWrapper.Registering_Partner__c)}">{!o.oppWrapper.Registering_Partner__r.Name}</apex:outputLink>
                         </apex:column>
                         <apex:column value="{!o.oppWrapper.Registering_Partner_Sales_Rep__r.Name}" headerValue="Registered Partner Sales Rep" />
                     </apex:pageBlockTable>  
@@ -96,11 +96,11 @@
                 <apex:outputText value="There are no renewal opportunities." rendered="{!RenewalOppsList.size=0}"></apex:outputText>
                 <apex:pageBlockTable value="{!RenewalOppsList}" var="o" rendered="{!RenewalOppsList.size >0}" width="100%">
                     <apex:column headerValue="Opportunity Name">
-                        <apex:outputLink target="_top" value="{!URLFOR($Action.Opportunity.View,o.Id)}">{!o.Name}</apex:outputLink>
+                        <apex:outputLink target="_top" rendered="{!(NOT(ISBLANK(o)) && NOT(ISBLANK(o.Id)))}" value="{!URLFOR($Action.Opportunity.View,o.Id)}">{!o.Name}</apex:outputLink>
                     </apex:column>
                     <apex:column value="{!o.Owner.Name}" headerValue="Opportunity Owner"/>
                     <apex:column headerValue="Registered Partner">
-                        <apex:outputLink target="_top" value="{!URLFOR($Action.Account.View,o.Registering_Partner__c)}">{!o.Registering_Partner__r.Name}</apex:outputLink>
+                        <apex:outputLink target="_top" rendered="{!(NOT(ISBLANK(o)) && NOT(ISBLANK(o.Registering_Partner__c)))}" value="{!URLFOR($Action.Account.View,o.Registering_Partner__c)}">{!o.Registering_Partner__r.Name}</apex:outputLink>
                     </apex:column>
                     <apex:column value="{!o.Registering_Partner_Sales_Rep__r.Name}" headerValue="Registered Partner Rep" />
                     <apex:column value="{!o.Amount}" headerValue="Amount"/>
@@ -147,7 +147,7 @@
                     <apex:commandButton rendered="{!cases_setCon.hasNext}" value="next" action="{!cases_setCon.next}"/>
                     <apex:commandButton rendered="{!cases_setCon.hasNext}" value="last" action="{!cases_setCon.last}"/>
                 </apex:pageBlock>
-            </apex:pageBlockSection>	
+            </apex:pageBlockSection>    
             
             <apex:pageBlockSection columns="1" collapsible="false" title="Contacts">
                 <apex:pageBlock >

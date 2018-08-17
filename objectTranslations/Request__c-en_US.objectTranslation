@@ -485,6 +485,14 @@
             <translation><!-- EdgeConnect --></translation>
         </picklistValues>
         <picklistValues>
+            <masterLabel>Perpetual</masterLabel>
+            <translation><!-- Perpetual --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Perpetual-Orchestrator SP</masterLabel>
+            <translation><!-- Perpetual-Orchestrator SP --></translation>
+        </picklistValues>
+        <picklistValues>
             <masterLabel>WAN Op</masterLabel>
             <translation><!-- WAN Op --></translation>
         </picklistValues>
@@ -593,6 +601,26 @@
     <fields>
         <label><!-- Physical Quantity5 --></label>
         <name>PhysicalQuantity5__c</name>
+    </fields>
+    <fields>
+        <label><!-- Physical Transceiver1 --></label>
+        <name>Physical_Transceiver1__c</name>
+    </fields>
+    <fields>
+        <label><!-- Physical Transceiver2 --></label>
+        <name>Physical_Transceiver2__c</name>
+    </fields>
+    <fields>
+        <label><!-- Physical Transceiver3 --></label>
+        <name>Physical_Transceiver3__c</name>
+    </fields>
+    <fields>
+        <label><!-- Physical Transceiver4 --></label>
+        <name>Physical_Transceiver4__c</name>
+    </fields>
+    <fields>
+        <label><!-- Physical Transceiver5 --></label>
+        <name>Physical_Transceiver5__c</name>
     </fields>
     <fields>
         <help><!-- Enter the contact name for the person to be granted Portal Access duing the POC --></help>
@@ -811,6 +839,46 @@
         <name>TR_Approved__c</name>
     </fields>
     <fields>
+        <label><!-- TR EC-SFP-LR1 --></label>
+        <name>TR_EC_SFP_LR1__c</name>
+    </fields>
+    <fields>
+        <label><!-- TR EC-SFP-LR2 --></label>
+        <name>TR_EC_SFP_LR2__c</name>
+    </fields>
+    <fields>
+        <label><!-- TR EC-SFP-LR3 --></label>
+        <name>TR_EC_SFP_LR3__c</name>
+    </fields>
+    <fields>
+        <label><!-- TR EC-SFP-LR4 --></label>
+        <name>TR_EC_SFP_LR4__c</name>
+    </fields>
+    <fields>
+        <label><!-- TR EC-SFP-LR5 --></label>
+        <name>TR_EC_SFP_LR5__c</name>
+    </fields>
+    <fields>
+        <label><!-- TR EC-SFP-SR1 --></label>
+        <name>TR_EC_SFP_SR1__c</name>
+    </fields>
+    <fields>
+        <label><!-- TR EC-SFP-SR2 --></label>
+        <name>TR_EC_SFP_SR2__c</name>
+    </fields>
+    <fields>
+        <label><!-- TR EC-SFP-SR3 --></label>
+        <name>TR_EC_SFP_SR3__c</name>
+    </fields>
+    <fields>
+        <label><!-- TR EC-SFP-SR4 --></label>
+        <name>TR_EC_SFP_SR4__c</name>
+    </fields>
+    <fields>
+        <label><!-- TR EC-SFP-SR5 --></label>
+        <name>TR_EC_SFP_SR5__c</name>
+    </fields>
+    <fields>
         <label><!-- SE Email --></label>
         <name>TR_Email__c</name>
     </fields>
@@ -998,7 +1066,61 @@
         </sections>
     </layouts>
     <layouts>
+        <layout>New Request Layout_Ops</layout>
+        <sections>
+            <label><!-- CC List --></label>
+            <section>CC List</section>
+        </sections>
+        <sections>
+            <label><!-- Contact and Comments --></label>
+            <section>Contact and Comments</section>
+        </sections>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+        <sections>
+            <label><!-- Products and Ship To --></label>
+            <section>Products and Ship To</section>
+        </sections>
+        <sections>
+            <label><!-- Success Criteria --></label>
+            <section>Success Criteria</section>
+        </sections>
+    </layouts>
+    <layouts>
         <layout>Request Layout</layout>
+        <sections>
+            <label><!-- Approvers --></label>
+            <section>Approvers</section>
+        </sections>
+        <sections>
+            <label><!-- CC List --></label>
+            <section>CC List</section>
+        </sections>
+        <sections>
+            <label><!-- Contact and Comments --></label>
+            <section>Contact and Comments</section>
+        </sections>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+        <sections>
+            <label><!-- Extension Justification --></label>
+            <section>Extension Justification</section>
+        </sections>
+        <sections>
+            <label><!-- Products and Ship To --></label>
+            <section>Products and Ship To</section>
+        </sections>
+        <sections>
+            <label><!-- Success Criteria --></label>
+            <section>Success Criteria</section>
+        </sections>
+    </layouts>
+    <layouts>
+        <layout>Request Layout_Ops</layout>
         <sections>
             <label><!-- Approvers --></label>
             <section>Approvers</section>
@@ -1093,6 +1215,10 @@
         <name>POC_cant_be_created_without_prim_quotes</name>
     </validationRules>
     <validationRules>
+        <errorMessage><!-- POC Contact is not a valid contact for this account. Please select valid contact. --></errorMessage>
+        <name>POc_Contact_part_of_Opp_Account</name>
+    </validationRules>
+    <validationRules>
         <errorMessage><!-- Only the oportunity owner can approve this request --></errorMessage>
         <name>RSM_of_Oppty_Approves</name>
     </validationRules>
@@ -1151,6 +1277,10 @@
     <webLinks>
         <label><!-- Request_Extension --></label>
         <name>Request_Extension</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- SB_Approval_Dummy --></label>
+        <name>SB_Approval_Dummy</name>
     </webLinks>
     <webLinks>
         <label><!-- Submit_for_Approval_Custom --></label>

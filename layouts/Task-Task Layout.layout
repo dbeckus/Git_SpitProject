@@ -99,6 +99,14 @@
                 <behavior>Edit</behavior>
                 <field>qbdialer__Call_Hour__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Playbooks_Call_Date__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Playbooks_Call_Hour__c</field>
+            </layoutItems>
         </layoutColumns>
         <style>TwoColumnsTopToBottom</style>
     </layoutSections>

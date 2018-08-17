@@ -4,7 +4,7 @@ public class AccountTriggerHandler implements ITriggerHandler {
     List<String> directorEmails = new List<String>();
     Map<Id, String> user2TREmail = new Map<Id, String>();
     Set<string> ValidBuildNumber= new Set<string>();
-   
+    
     public AccountTriggerHandler()
     {
         
@@ -46,7 +46,7 @@ public class AccountTriggerHandler implements ITriggerHandler {
     {
         if(newItems!=null && newItems.size()>0)
         {
-           PopulateOrchestratorVersion();
+            PopulateOrchestratorVersion();
             for (Id accId : newItems.keyset())
             {
                 System.debug('BEfore Update');
@@ -62,7 +62,7 @@ public class AccountTriggerHandler implements ITriggerHandler {
                     {
                         newAccInfo.Unity_Orch_Version__c.addError('This field can only accept in **.**.**.***** format. For ex 8.1.14.33650.' );
                     }
-                   else if(!ValidBuildNumber.contains(newAccInfo.Unity_Orch_Version__c) )
+                    else if(!ValidBuildNumber.contains(newAccInfo.Unity_Orch_Version__c) )
                     {
                         newAccInfo.Unity_Orch_Version__c.addError('Invalid version number. Please enter valid version.' );
                     }
@@ -110,9 +110,6 @@ public class AccountTriggerHandler implements ITriggerHandler {
                         }
                     }
                 }
-                
-                System.debug('newAccInfo.IsCustomerPortal ' + newAccInfo.IsCustomerPortal);
-                System.debug('oldAccInfo.IsCustomerPortal ' + oldAccInfo.IsCustomerPortal);
             }
             
         }
@@ -153,13 +150,16 @@ public class AccountTriggerHandler implements ITriggerHandler {
             for (Id accId : newItems.keyset())
             {
                 Account newAccInfo= (Account)newItems.get(accId);
-                if(newAccInfo.Patch__c == null)
+                if(newAccInfo.Type != 'In Review')
                 {
-                    accNeedsPatchAssign.add(newAccInfo.Id);
-                }
-                else
-                {
-                    accNeedsTeamAssign.add(newAccInfo.Id);
+                    if(newAccInfo.Patch__c == null)
+                    {
+                        accNeedsPatchAssign.add(newAccInfo.Id);
+                    }
+                    else
+                    {
+                        accNeedsTeamAssign.add(newAccInfo.Id);
+                    }
                 }
             }
             LinkAccountToPatch(accNeedsPatchAssign, accNeedsTeamAssign, null);
@@ -167,7 +167,6 @@ public class AccountTriggerHandler implements ITriggerHandler {
     }
     public void AfterUpdate(Map<Id, SObject> newItems, Map<Id, SObject> oldItems) 
     {
-        System.debug('After Update');
         List<Account> lstPartnerAcctIds= new List<Account>();
         List<Id> setPortalUserAcctId= new List<Id>();
         Set<Id> setSelfRegAcctIds= new Set<Id>();
@@ -196,19 +195,15 @@ public class AccountTriggerHandler implements ITriggerHandler {
                 {
                     setPortalUserAcctId.add(newAccInfo.Id);
                 }
-                System.debug('test');
-                System.debug('newAccInfo.IsCustomerPortal ' + newAccInfo.IsCustomerPortal);
-                System.debug('oldAccInfo.IsCustomerPortal ' + oldAccInfo.IsCustomerPortal);
                 if(!newAccInfo.IsCustomerPortal && oldAccInfo.IsCustomerPortal)
                 {
-                    System.debug('Disable reg');
                     setSelfRegAcctIds.add(newAccInfo.Id);
                 }   
                 if(newAccInfo.First_Asset_Quarter__c!=oldAccInfo.First_Asset_Quarter__c)
                 {
                     oppTypeAccIds.put(newAccInfo.Id,newAccInfo.First_Asset_Quarter__c);
                 }
-                if(newAccInfo.Patch_Locked__c == false)
+                if(newAccInfo.Patch_Locked__c == false && newAccInfo.Type != 'In Review')
                 {
                     PatchRuleEngineBase.Target target = PatchRuleHelper.getTarget(newAccInfo);
                     PatchRuleEngineBase.Target oldTarget = PatchRuleHelper.getTarget(oldAccInfo);
@@ -217,7 +212,7 @@ public class AccountTriggerHandler implements ITriggerHandler {
                         accNeedsPatchAssign.add(newAccInfo.Id);
                     }
                 }
-                if(newAccInfo.Patch__c != oldAccInfo.Patch__c || newAccInfo.Trigger_Assignment__c)
+                if(newAccInfo.Type != 'In Review' && (newAccInfo.Patch__c != oldAccInfo.Patch__c || newAccInfo.Trigger_Assignment__c))
                 {
                     accNeedsTeamAssign.add(newAccInfo.Id);
                 }
@@ -261,7 +256,7 @@ capCreationAcctId.add(newAccInfo.Id);
     {
         List<Account> lstAccount= null;
         if(acctId!=null)
-        	lstAccount=[Select Id from Account where (NOT Id=:acctId) and ECSP__c=false and Unity_Orch_Domain__c=:inputDomain];
+            lstAccount=[Select Id from Account where (NOT Id=:acctId) and ECSP__c=false and Unity_Orch_Domain__c=:inputDomain];
         else
             lstAccount=[Select Id from Account where ECSP__c=false and Unity_Orch_Domain__c=:inputDomain];
         
@@ -269,7 +264,7 @@ capCreationAcctId.add(newAccInfo.Id);
         if(lstAccount!=null && lstAccount.size()>0)
         {
             
-            	return true;
+            return true;
         }
         return false;
     }
@@ -338,8 +333,8 @@ insert lstCapCase;
         List<Contract> lstContractToUpdate= new List<Contract>();
         List<Account> lstAccountToUpdate= new List<Account>();
         System.debug('lstContracts'+lstContracts.size() );
-         System.debug('lstContracts'+lstContracts);
-           System.debug('mapAcct'+mapAcct);
+        System.debug('lstContracts'+lstContracts);
+        System.debug('mapAcct'+mapAcct);
         if(mapAcct!=null && mapAcct.size()>0)
         {
             if(ownerIds!=null && ownerIds.size()>0)
@@ -432,26 +427,26 @@ insert lstCapCase;
     private boolean CheckOrchVersion(string inputData)
     {
         pattern myPattern = pattern.compile('^([0-9]{1,2}+[.])?([0-9]{1,2}+[.])?([0-9]{1,2}+[.])?([0-9]{5,})$'); 
-		matcher myMatcher = myPattern.matcher(inputData);
-		return (myMatcher.matches() && myMatcher.hitEnd());
+        matcher myMatcher = myPattern.matcher(inputData);
+        return (myMatcher.matches() && myMatcher.hitEnd());
     }
     private void PopulateOrchestratorVersion()
     {
-       List<Builds__c> lstBuildData=[Select Build_Number__c from Builds__c where Release__r.Type__c='GMS' and Inactive__c=false and Release__r.Name like 'GMS 8%' and (NOT Release__r.Name = 'GMS 8.0')];
-	          
-       if(lstBuildData!=null && lstBuildData.size()>0)
-       {
-           for(Builds__c data:lstBuildData)
-           {
-               string buildNumber=data.Build_Number__c;
-               if(buildNumber.contains('_'))
-               {
-                   buildNumber=buildNumber.replace('_', '.');
-               }
-               ValidBuildNumber.add(buildNumber) ;
-           }
-           System.debug(ValidBuildNumber);
-       }
+        List<Builds__c> lstBuildData=[Select Build_Number__c from Builds__c where Release__r.Type__c='GMS' and Inactive__c=false and Release__r.Name like 'GMS 8%' and (NOT Release__r.Name = 'GMS 8.0')];
+        
+        if(lstBuildData!=null && lstBuildData.size()>0)
+        {
+            for(Builds__c data:lstBuildData)
+            {
+                string buildNumber=data.Build_Number__c;
+                if(buildNumber.contains('_'))
+                {
+                    buildNumber=buildNumber.replace('_', '.');
+                }
+                ValidBuildNumber.add(buildNumber) ;
+            }
+            System.debug(ValidBuildNumber);
+        }
     }
     private void LinkAccountToPatch(List<Id> accPatchIds, List<Id> accTeamIds,List<Opportunity> lstOpp)
     {
@@ -498,14 +493,14 @@ insert lstCapCase;
                             if(opp.Type==null|| opp.Type=='New Business'|| opp.Type=='Follow on Business')
                             {
                                 string type='New Business';
-                                string recordTypeId='012500000005bUW';
+                                // string recordTypeId='012500000005bUW';
                                 if(mapOppType.get(accId)!=null && opp.Fiscal_Quarter_Name__c!=mapOppType.get(accId))
                                 {
                                     type='Follow on Business';
-                                    recordTypeId='012500000005bUb';
+                                    // recordTypeId='012500000005bUb';
                                 }
                                 opp.Type= type;
-                                opp.RecordTypeId=recordTypeId;
+                                // opp.RecordTypeId=recordTypeId;
                                 allOppsToUpdate.add(opp);
                             }
                         }
@@ -522,7 +517,6 @@ insert lstCapCase;
     {
         if(accIds.size()>0)
         {
-            System.debug('DisableSelfReg');
             List<Contact> lstCon=[Select Id from Contact where AccountId in: accIds and CanAllowPortalSelfReg=true];
             Set<Id> conIds= new Set<Id>();
             for(Contact con: lstCon)
@@ -666,7 +660,7 @@ insert lstCapCase;
             {
                 recipients.add(user2TREmail.get(acc.OwnerId));
             }
-            recipients.addAll(directorEmails);
+            //recipients.addAll(directorEmails);
             mail.setccAddresses(recipients);
             mail.setWhatId(ct.Id);
             mail.setUseSignature(false);

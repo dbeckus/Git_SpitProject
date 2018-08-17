@@ -7,7 +7,6 @@
     <customButtons>Forward_Lead</customButtons>
     <customButtons>Renewal</customButtons>
     <customButtons>Merge</customButtons>
-    <customButtons>BL__Find_Reference</customButtons>
     <excludeButtons>Clone</excludeButtons>
     <excludeButtons>Submit</excludeButtons>
     <layoutSections>
@@ -59,6 +58,22 @@
             <layoutItems>
                 <behavior>Edit</behavior>
                 <field>Description</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>Account_Website__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Tier1_Partner_CDW__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Tier1_Partner_AT_T__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Metered_Service_Provider__c</field>
             </layoutItems>
         </layoutColumns>
         <layoutColumns>
@@ -312,6 +327,7 @@
         <fields>Primary__c</fields>
         <fields>Quote_Amount_Rollup__c</fields>
         <fields>PreparedFor__c</fields>
+        <fields>Tier_1_Partner__c</fields>
         <relatedList>Quote__c.Opportunity__c</relatedList>
         <sortField>NAME</sortField>
         <sortOrder>Desc</sortOrder>

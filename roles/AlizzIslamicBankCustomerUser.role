@@ -2,9 +2,9 @@
 <Role xmlns="http://soap.sforce.com/2006/04/metadata">
     <caseAccessLevel>None</caseAccessLevel>
     <contactAccessLevel>Edit</contactAccessLevel>
-    <description>Alizz Islamic Bank Customer User</description>
+    <description>AL IZZ ISLAMIC BANK Customer User</description>
     <mayForecastManagerShare>false</mayForecastManagerShare>
-    <name>Alizz Islamic Bank Customer User</name>
+    <name>AL IZZ ISLAMIC BANK Customer User</name>
     <opportunityAccessLevel>None</opportunityAccessLevel>
-    <parentRole>Grade_3_Sales_EMEA</parentRole>
+    <parentRole>Grade_4_Sales_EMEA_SOUTH</parentRole>
 </Role>

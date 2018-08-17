@@ -62,7 +62,7 @@
             <operation>equals</operation>
             <value>0013800001F3baz</value>
         </criteriaItems>
-        <caseAccessLevel>Edit</caseAccessLevel>
+        <caseAccessLevel>Read</caseAccessLevel>
         <name>Share Axians cases with other users</name>
     </criteriaBasedRules>
     <criteriaBasedRules>
@@ -77,6 +77,19 @@
         </criteriaItems>
         <caseAccessLevel>Read</caseAccessLevel>
         <name>Share Interroute Cases with interoute partner user</name>
+    </criteriaBasedRules>
+    <criteriaBasedRules>
+        <fullName>Share_Xalient_Account_with_Partner_Users</fullName>
+        <sharedTo>
+            <portalRole>XalientLtdTradingasEcologicSystemsPartnerUser</portalRole>
+        </sharedTo>
+        <criteriaItems>
+            <field>AccountId</field>
+            <operation>equals</operation>
+            <value>0015000000c25Fr</value>
+        </criteriaItems>
+        <caseAccessLevel>Read</caseAccessLevel>
+        <name>Share Xalient Account with Partner Users</name>
     </criteriaBasedRules>
     <criteriaBasedRules>
         <fullName>VP_Business_Development_Subordinates</fullName>

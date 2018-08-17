@@ -6,5 +6,5 @@
     <mayForecastManagerShare>false</mayForecastManagerShare>
     <name>Mercedes-Benz Grand Prix Customer User</name>
     <opportunityAccessLevel>None</opportunityAccessLevel>
-    <parentRole>Grade_3_Sales_EMEA</parentRole>
+    <parentRole>Grade_4_Sales_EMEA_UK_I_ZA</parentRole>
 </Role>

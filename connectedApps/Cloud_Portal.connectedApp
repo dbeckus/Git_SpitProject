@@ -5,7 +5,7 @@
     <label>Cloud Portal</label>
     <oauthConfig>
         <callbackUrl>https://silverpeaksystems.my.salesforce.com</callbackUrl>
-        <consumerKey>3MVG982oBBDdwyHiqGsOXQz6wLEX5H8yf0UODJKmGIa9U16ZMxOjfrsyC8NPFUQ0QVwC6iI7Xdw3.jdHvPNio</consumerKey>
+        <consumerKey>3MVG9Vik22TUgUphKhs9dOlQTsuQfczbcC5C45Bx9_0CgiSm3NeqzV.UzEdThDzfkBOVBVmWDImBW.cy.d6_S</consumerKey>
         <scopes>Api</scopes>
     </oauthConfig>
 </ConnectedApp>

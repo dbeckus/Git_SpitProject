@@ -2,9 +2,9 @@
 <Role xmlns="http://soap.sforce.com/2006/04/metadata">
     <caseAccessLevel>None</caseAccessLevel>
     <contactAccessLevel>Edit</contactAccessLevel>
-    <description>Expereo Usa, Inc. Partner User</description>
+    <description>Expereo International Partner User</description>
     <mayForecastManagerShare>false</mayForecastManagerShare>
-    <name>Expereo Usa, Inc. Partner User</name>
+    <name>Expereo International Partner User</name>
     <opportunityAccessLevel>None</opportunityAccessLevel>
     <parentRole>ExpereoUsaIncPartnerManager</parentRole>
 </Role>

@@ -3,12 +3,12 @@
     <contactEmail>prane@silver-peak.com</contactEmail>
     <label>LMS SSO</label>
     <samlConfig>
-        <acsUrl>https://silverpeaksystems-migration.sandbox.myabsorb.com/Account/SAML</acsUrl>
+        <acsUrl>https://silverpeaksystems.myabsorb.com/Account/SAML</acsUrl>
         <encryptionType>AES_128</encryptionType>
-        <entityUrl>https://silverpeaksystems-migration.sandbox.myabsorb.com/Account/SAML</entityUrl>
-        <issuer>https://silverpeaksystems--spit.cs13.my.salesforce.com</issuer>
+        <entityUrl>https://silverpeaksystems.myabsorb.com/Account/SAML</entityUrl>
+        <issuer>https://silverpeaksystems.my.salesforce.com</issuer>
         <samlNameIdFormat>Unspecified</samlNameIdFormat>
-        <samlSubjectCustomAttr>EmailAddressFormula</samlSubjectCustomAttr>
+        <samlSubjectCustomAttr>LMS_Email</samlSubjectCustomAttr>
         <samlSubjectType>CustomAttribute</samlSubjectType>
     </samlConfig>
 </ConnectedApp>

@@ -297,11 +297,6 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>Open_Ops__c</field>
-            <table>Account</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
             <field>OwnerIsActive__c</field>
             <table>Account</table>
         </columns>

@@ -5,6 +5,22 @@
     <excludeButtons>Submit</excludeButtons>
     <layoutSections>
         <customLabel>true</customLabel>
+        <detailHeading>false</detailHeading>
+        <editHeading>false</editHeading>
+        <label>Deployment Engineering</label>
+        <layoutColumns>
+            <layoutItems>
+                <height>50</height>
+                <page>DeploymentEngineeringAccountWarning</page>
+                <showLabel>false</showLabel>
+                <showScrollbars>false</showScrollbars>
+                <width>100%</width>
+            </layoutItems>
+        </layoutColumns>
+        <style>OneColumn</style>
+    </layoutSections>
+    <layoutSections>
+        <customLabel>true</customLabel>
         <detailHeading>true</detailHeading>
         <editHeading>false</editHeading>
         <label>Assignment</label>
@@ -55,6 +71,10 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
+                <field>HQ_in_USA__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
                 <field>Clean_Status_Changed__c</field>
             </layoutItems>
             <layoutItems>
@@ -66,18 +86,34 @@
                 <field>SP_MKTG__c</field>
             </layoutItems>
             <layoutItems>
-                <behavior>Edit</behavior>
-                <field>geo_1__c</field>
+                <behavior>Readonly</behavior>
+                <field>Has_Open_Opportunity__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>encrypted1__c</field>
+                <field>ABM__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Account_Group_Name__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>D_B_Data_Update__c</field>
             </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>
                 <behavior>Edit</behavior>
                 <field>Trigger_Assignment__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Deployment_Engineering__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Deployment_Engineer__c</field>
             </layoutItems>
         </layoutColumns>
         <style>TwoColumnsLeftToRight</style>
@@ -210,8 +246,30 @@
                 <behavior>Edit</behavior>
                 <field>Reference_Status__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Default_PriceBook__c</field>
+            </layoutItems>
         </layoutColumns>
         <style>TwoColumnsTopToBottom</style>
+    </layoutSections>
+    <layoutSections>
+        <customLabel>true</customLabel>
+        <detailHeading>true</detailHeading>
+        <editHeading>true</editHeading>
+        <label>Sync Information</label>
+        <layoutColumns>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Sync_Virtual_Assets_with_CP__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Sync_with_Cloud_Portal__c</field>
+            </layoutItems>
+        </layoutColumns>
+        <layoutColumns/>
+        <style>TwoColumnsLeftToRight</style>
     </layoutSections>
     <layoutSections>
         <customLabel>true</customLabel>
@@ -385,6 +443,10 @@
             <layoutItems>
                 <behavior>Edit</behavior>
                 <field>SP_Engagement_Type__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Attributes__c</field>
             </layoutItems>
         </layoutColumns>
         <style>OneColumn</style>
@@ -587,6 +649,15 @@
         <relatedList>RelatedOpportunityList</relatedList>
     </relatedLists>
     <relatedLists>
+        <fields>NAME</fields>
+        <fields>Has_Attachment__c</fields>
+        <fields>DE_Notes__c</fields>
+        <fields>CREATED_DATE</fields>
+        <relatedList>DE_Note__c.Account_Name__c</relatedList>
+        <sortField>NAME</sortField>
+        <sortOrder>Desc</sortOrder>
+    </relatedLists>
+    <relatedLists>
         <fields>CASES.CASE_NUMBER</fields>
         <fields>CASES.TYPE</fields>
         <fields>NAME</fields>
@@ -727,16 +798,6 @@
         <excludeButtons>New</excludeButtons>
         <fields>NAME</fields>
         <relatedList>Information_Card__c.Account__c</relatedList>
-    </relatedLists>
-    <relatedLists>
-        <fields>CASES.CASE_NUMBER</fields>
-        <fields>CASES.TYPE</fields>
-        <fields>CASES.STATUS</fields>
-        <fields>ACCOUNT.NAME</fields>
-        <fields>CASES.SUBJECT</fields>
-        <fields>CASES.CREATED_DATE</fields>
-        <fields>CASES.PRIORITY</fields>
-        <relatedList>Case.Open_AccountLH__c</relatedList>
     </relatedLists>
     <relatedObjects>ParentId</relatedObjects>
     <showEmailCheckbox>false</showEmailCheckbox>

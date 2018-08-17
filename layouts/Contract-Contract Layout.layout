@@ -55,10 +55,6 @@
                 <behavior>Edit</behavior>
                 <field>Pricebook2Id</field>
             </layoutItems>
-            <layoutItems>
-                <behavior>Readonly</behavior>
-                <field>Account_if_Active__c</field>
-            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>

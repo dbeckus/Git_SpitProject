@@ -105,11 +105,11 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>X100_Silver_Peak_Funded__c</field>
+                <field>Partner_Contribution__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>Partner_Contribution__c</field>
+                <field>Campaign_Funding__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Readonly</behavior>

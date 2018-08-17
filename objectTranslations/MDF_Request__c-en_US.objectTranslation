@@ -352,6 +352,10 @@
             <masterLabel>Pending Results</masterLabel>
             <translation><!-- Pending Results --></translation>
         </picklistValues>
+        <picklistValues>
+            <masterLabel>Planned</masterLabel>
+            <translation><!-- Planned --></translation>
+        </picklistValues>
     </fields>
     <fields>
         <label><!-- Marketing Activity PoC: Email --></label>
@@ -381,6 +385,10 @@
     <fields>
         <label><!-- Number of Certifications --></label>
         <name>Number_of_Certifications__c</name>
+    </fields>
+    <fields>
+        <label><!-- Others --></label>
+        <name>Others__c</name>
     </fields>
     <fields>
         <label><!-- Owner Role --></label>
@@ -510,6 +518,10 @@
         <name>Result_Detail__c</name>
     </fields>
     <fields>
+        <label><!-- Sales People --></label>
+        <name>Sales_People__c</name>
+    </fields>
+    <fields>
         <help><!-- A time-dependent workflow to check this checkbox and send alert email to client to remind them filling up the post activity information (one day after activity date) --></help>
         <label><!-- Send Reminder --></label>
         <name>SendReminder__c</name>
@@ -588,6 +600,10 @@
         <name>Supplies__c</name>
     </fields>
     <fields>
+        <label><!-- System Engineers --></label>
+        <name>System_Engineers__c</name>
+    </fields>
+    <fields>
         <label><!-- Target Audience Profile --></label>
         <name>Target_Audience_Profile__c</name>
     </fields>
@@ -608,6 +624,10 @@
         <name>Total_Leads_Generated__c</name>
     </fields>
     <fields>
+        <label><!-- Total Number of People --></label>
+        <name>Total_Number_of_People__c</name>
+    </fields>
+    <fields>
         <label><!-- Total Qualified Leads --></label>
         <name>Total_Qualified_Leads__c</name>
     </fields>
@@ -618,6 +638,10 @@
     <fields>
         <label><!-- Type of Program --></label>
         <name>Type_of_Program__c</name>
+        <picklistValues>
+            <masterLabel>Alignment</masterLabel>
+            <translation><!-- Alignment --></translation>
+        </picklistValues>
         <picklistValues>
             <masterLabel>Awareness</masterLabel>
             <translation><!-- Awareness --></translation>
@@ -633,6 +657,10 @@
         <picklistValues>
             <masterLabel>Engagement</masterLabel>
             <translation><!-- Engagement --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Other</masterLabel>
+            <translation><!-- Other --></translation>
         </picklistValues>
     </fields>
     <fields>
@@ -693,6 +721,21 @@
         <sections>
             <label><!-- Shipping Information --></label>
             <section>Shipping Information</section>
+        </sections>
+    </layouts>
+    <layouts>
+        <layout>Others Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+        <sections>
+            <label><!-- Partner Individuals --></label>
+            <section>Partner Individuals</section>
+        </sections>
+        <sections>
+            <label><!-- Program Details --></label>
+            <section>Program Details</section>
         </sections>
     </layouts>
     <layouts>
@@ -760,6 +803,10 @@
     <recordTypes>
         <label><!-- Approved MDF --></label>
         <name>Approved_MDF</name>
+    </recordTypes>
+    <recordTypes>
+        <label><!-- Others --></label>
+        <name>Others</name>
     </recordTypes>
     <startsWith>Consonant</startsWith>
     <validationRules>

@@ -2,9 +2,9 @@
 <Role xmlns="http://soap.sforce.com/2006/04/metadata">
     <caseAccessLevel>None</caseAccessLevel>
     <contactAccessLevel>Edit</contactAccessLevel>
-    <description>Tarim Kredi Kooperatifi Birligi Customer User</description>
+    <description>TURKIYE TARIM KREDI KOOPERATIFLERI MERKEZ BIRLIGI Customer User</description>
     <mayForecastManagerShare>false</mayForecastManagerShare>
-    <name>Tarim Kredi Kooperatifi Birligi Customer User</name>
+    <name>TURKIYE TARIM KREDI KOOPERATIFLERI MERKEZ BIRLIGI Customer User</name>
     <opportunityAccessLevel>None</opportunityAccessLevel>
-    <parentRole>Grade_3_Sales_EMEA</parentRole>
+    <parentRole>Grade_3_Sales_EMEA_SOUTH</parentRole>
 </Role>

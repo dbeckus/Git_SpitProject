@@ -62,13 +62,6 @@
         <layoutColumns/>
         <style>CustomLinks</style>
     </layoutSections>
-    <miniLayout>
-        <fields>Product2Id</fields>
-        <fields>Pricebook2Id</fields>
-        <fields>UnitPrice</fields>
-        <fields>IsActive</fields>
-        <fields>Not_Discountable__c</fields>
-    </miniLayout>
     <multilineLayoutFields>Product2Id</multilineLayoutFields>
     <multilineLayoutFields>Pricebook2Id</multilineLayoutFields>
     <multilineLayoutFields>IsActive</multilineLayoutFields>

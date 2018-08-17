@@ -3,6 +3,7 @@
     <customButtons>Submit_for_Approval_Custom</customButtons>
     <customButtons>Virtual_POC_Fulfillment</customButtons>
     <customButtons>Renew_Virtual_Assets</customButtons>
+    <customButtons>SB_Approval_Dummy</customButtons>
     <customButtons>Request_Extension</customButtons>
     <customButtons>Refresh_POC_Approvers</customButtons>
     <excludeButtons>Submit</excludeButtons>
@@ -37,6 +38,10 @@
                 <field>Is_Unity_Cloud_Orchestrator__c</field>
             </layoutItems>
             <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Contract_Number__c</field>
+            </layoutItems>
+            <layoutItems>
                 <behavior>Readonly</behavior>
                 <field>POC_COntact_ID__c</field>
             </layoutItems>
@@ -45,6 +50,10 @@
             <layoutItems>
                 <behavior>Required</behavior>
                 <field>Requested_Delivery_Date__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>IsAllVirtual__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
@@ -144,6 +153,38 @@
             <layoutItems>
                 <behavior>Edit</behavior>
                 <field>CC_List_4__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>PhysicalProduct1__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>PhysicalLocation1__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>PhysicalQuantity1__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Physical_Transceiver1__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>PhysicalProduct2__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>PhysicalLocation2__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>PhysicalQuantity2__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Physical_Transceiver2__c</field>
             </layoutItems>
         </layoutColumns>
         <style>TwoColumnsLeftToRight</style>

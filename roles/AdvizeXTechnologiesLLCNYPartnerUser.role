@@ -2,9 +2,9 @@
 <Role xmlns="http://soap.sforce.com/2006/04/metadata">
     <caseAccessLevel>None</caseAccessLevel>
     <contactAccessLevel>Edit</contactAccessLevel>
-    <description>Advizex Technologies, LLC Partner User</description>
+    <description>AdvizeX Technologies, LLC Partner User</description>
     <mayForecastManagerShare>false</mayForecastManagerShare>
-    <name>Advizex Technologies, LLC Partner User</name>
+    <name>AdvizeX Technologies, LLC Partner User</name>
     <opportunityAccessLevel>None</opportunityAccessLevel>
     <parentRole>AdvizeXTechnologiesLLCNYPartnerManager</parentRole>
 </Role>

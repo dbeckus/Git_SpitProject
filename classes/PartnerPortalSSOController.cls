@@ -11,18 +11,21 @@ public with sharing class PartnerPortalSSOController
 
     public PageReference redirect()
     {
-        System.debug('ProfileValid'+ProfileValid);
         if(ProfileValid)
         {
-            /*String ssoRequest = ApexPages.currentPage().getParameters().get('SSORequest');
-            if(String.isNotBlank(ssoRequest))
+            
+            String ssoRequest = ApexPages.currentPage().getParameters().get('SSORequest');
+            System.debug('ssoRequest '+ ssoRequest);
+ 			return ssoLoginTry();
+            
+            /*if(String.isNotBlank(ssoRequest))
             {
-                return ssoLoginCofirm();
+                return ssoLoginConfirm();
             }
             else
-            {*/
+            {
                 return ssoLoginTry();
-            //}   
+            }   */
         }
         else
         {
@@ -32,10 +35,11 @@ public with sharing class PartnerPortalSSOController
     
     private PageReference ssoLoginTry()
     {
+        System.debug('UserInfo.getUserType() '+ UserInfo.getUserType());
         if(UserInfo.getUserType() == 'PowerPartner')
         {
             String url = HPartnerPortalSSOStub.getSSOLink(UserInfo.getUserId());
-            System.debug('URL '+url );
+            System.debug(url);
             return new PageReference(url);
         }
         else
@@ -43,14 +47,10 @@ public with sharing class PartnerPortalSSOController
             ApexPages.addMessage(new ApexPages.Message(ApexPages.Severity.Error, 'Only Partner Portal user can login to the LMS.'));
             return null;
         }
-     
-       
     }
-    
-    private PageReference ssoLoginCofirm()
+    /*
+    private PageReference ssoLoginConfirm()
     {
-        String ssoRequest = ApexPages.currentPage().getParameters().get('SSORequest');
-        String ssoResponse = PartnerPortalSSOStub.md5Hash(ssoRequest);
-        return new PageReference('http://training.silver-peak.com/get.ashx?method=sso&SSOResponse=' + ssoResponse);
-    }
+        return new PageReference('https://partners.silver-peak.com/idp/login?app=0sp380000004CMo');
+    }*/
 }

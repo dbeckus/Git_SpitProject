@@ -360,7 +360,7 @@
         <allowDelegate>true</allowDelegate>
         <approvalActions>
             <action>
-                <name>Approval_Status_hidden_Update</name>
+                <name>Approval_Status_Hidden_to_Approved</name>
                 <type>FieldUpdate</type>
             </action>
         </approvalActions>
@@ -735,11 +735,16 @@ Change Log:
     <emailTemplate>MDF/New_MDF_Request_Submitted_for_Approval_Internal</emailTemplate>
     <enableMobileDeviceAccess>false</enableMobileDeviceAccess>
     <entryCriteria>
-        <booleanFilter>1</booleanFilter>
+        <booleanFilter>1 AND 2</booleanFilter>
         <criteriaItems>
             <field>MDF_Request__c.Approval_Status__c</field>
             <operation>equals</operation>
             <value>Unsubmitted,Denied</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>MDF_Request__c.RecordType</field>
+            <operation>notEqual</operation>
+            <value>Others</value>
         </criteriaItems>
     </entryCriteria>
     <finalApprovalActions>

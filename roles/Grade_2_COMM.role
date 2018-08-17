@@ -6,5 +6,5 @@
     <mayForecastManagerShare>false</mayForecastManagerShare>
     <name>Grade 2 COMM</name>
     <opportunityAccessLevel>Edit</opportunityAccessLevel>
-    <parentRole>Grade_1_Sales_COMM</parentRole>
+    <parentRole>Grade_1_Sales</parentRole>
 </Role>

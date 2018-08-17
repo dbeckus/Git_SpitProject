@@ -4,6 +4,22 @@
     <layoutSections>
         <customLabel>true</customLabel>
         <detailHeading>false</detailHeading>
+        <editHeading>false</editHeading>
+        <label>Deployment Engineering</label>
+        <layoutColumns>
+            <layoutItems>
+                <height>50</height>
+                <page>DeploymentEngineeringAccountWarning</page>
+                <showLabel>false</showLabel>
+                <showScrollbars>false</showScrollbars>
+                <width>100%</width>
+            </layoutItems>
+        </layoutColumns>
+        <style>OneColumn</style>
+    </layoutSections>
+    <layoutSections>
+        <customLabel>true</customLabel>
+        <detailHeading>false</detailHeading>
         <editHeading>true</editHeading>
         <label>Account Information</label>
         <layoutColumns>
@@ -77,6 +93,10 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
+                <field>HQ_in_USA__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
                 <field>Clean_Status_Changed__c</field>
             </layoutItems>
             <layoutItems>
@@ -88,12 +108,20 @@
                 <field>SP_MKTG__c</field>
             </layoutItems>
             <layoutItems>
-                <behavior>Edit</behavior>
-                <field>geo_1__c</field>
+                <behavior>Readonly</behavior>
+                <field>Has_Open_Opportunity__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>encrypted1__c</field>
+                <field>ABM__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Account_Group_Name__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>D_B_Data_Update__c</field>
             </layoutItems>
         </layoutColumns>
         <layoutColumns>
@@ -128,6 +156,14 @@
             <layoutItems>
                 <behavior>Edit</behavior>
                 <field>Reseller_Agreement_Acknowledged__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Deployment_Engineering__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Deployment_Engineer__c</field>
             </layoutItems>
         </layoutColumns>
         <style>TwoColumnsTopToBottom</style>
@@ -305,6 +341,10 @@
                 <behavior>Edit</behavior>
                 <field>SP_Engagement_Type__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Attributes__c</field>
+            </layoutItems>
         </layoutColumns>
         <style>OneColumn</style>
     </layoutSections>
@@ -439,6 +479,15 @@
         <relatedList>RelatedHistoryList</relatedList>
     </relatedLists>
     <relatedLists>
+        <fields>NAME</fields>
+        <fields>Has_Attachment__c</fields>
+        <fields>DE_Notes__c</fields>
+        <fields>CREATED_DATE</fields>
+        <relatedList>DE_Note__c.Account_Name__c</relatedList>
+        <sortField>NAME</sortField>
+        <sortOrder>Desc</sortOrder>
+    </relatedLists>
+    <relatedLists>
         <fields>CASES.CASE_NUMBER</fields>
         <fields>CASES.TYPE</fields>
         <fields>NAME</fields>
@@ -464,16 +513,6 @@
     <relatedLists>
         <fields>NAME</fields>
         <relatedList>SW_Only_Asset__c.Account__c</relatedList>
-    </relatedLists>
-    <relatedLists>
-        <fields>CASES.CASE_NUMBER</fields>
-        <fields>CASES.TYPE</fields>
-        <fields>CASES.STATUS</fields>
-        <fields>ACCOUNT.NAME</fields>
-        <fields>CASES.SUBJECT</fields>
-        <fields>CASES.CREATED_DATE</fields>
-        <fields>CASES.PRIORITY</fields>
-        <relatedList>Case.Open_AccountLH__c</relatedList>
     </relatedLists>
     <relatedObjects>ParentId</relatedObjects>
     <showEmailCheckbox>false</showEmailCheckbox>

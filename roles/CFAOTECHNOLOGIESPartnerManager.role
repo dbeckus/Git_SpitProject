@@ -2,9 +2,9 @@
 <Role xmlns="http://soap.sforce.com/2006/04/metadata">
     <caseAccessLevel>None</caseAccessLevel>
     <contactAccessLevel>Edit</contactAccessLevel>
-    <description>CFAO TECHNOLOGIES Partner Manager</description>
+    <description>CFAO TECHNOLOGIES Ivory Coast Partner Manager</description>
     <mayForecastManagerShare>false</mayForecastManagerShare>
-    <name>CFAO TECHNOLOGIES Partner Manager</name>
+    <name>CFAO TECHNOLOGIES Ivory Coast Partner Manager</name>
     <opportunityAccessLevel>None</opportunityAccessLevel>
     <parentRole>Grade_3_CAM_EMEA</parentRole>
 </Role>

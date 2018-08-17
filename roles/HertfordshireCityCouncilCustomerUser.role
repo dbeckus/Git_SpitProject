@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Role xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseAccessLevel>None</caseAccessLevel>
+    <contactAccessLevel>Edit</contactAccessLevel>
+    <description>Hertfordshire City Council Customer User</description>
+    <mayForecastManagerShare>false</mayForecastManagerShare>
+    <name>Hertfordshire City Council Customer User</name>
+    <opportunityAccessLevel>None</opportunityAccessLevel>
+    <parentRole>Grade_4_Sales_EMEA_UK_I_ZA</parentRole>
+</Role>

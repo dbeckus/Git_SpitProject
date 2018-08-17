@@ -2,9 +2,9 @@
 <Role xmlns="http://soap.sforce.com/2006/04/metadata">
     <caseAccessLevel>None</caseAccessLevel>
     <contactAccessLevel>Edit</contactAccessLevel>
-    <description>Micro Focus Customer User</description>
+    <description>Micro Focus (us), Inc. Customer User</description>
     <mayForecastManagerShare>false</mayForecastManagerShare>
-    <name>Micro Focus Customer User</name>
+    <name>Micro Focus (us), Inc. Customer User</name>
     <opportunityAccessLevel>None</opportunityAccessLevel>
-    <parentRole>Grade_4_Sales_NAM_West</parentRole>
+    <parentRole>Grade_4_COMM_NAM_West</parentRole>
 </Role>

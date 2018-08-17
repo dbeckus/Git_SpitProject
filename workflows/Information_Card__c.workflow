@@ -26,10 +26,15 @@
     </alerts>
     <alerts>
         <fullName>Send_Information_Card_Submitted_for_Approval_cc</fullName>
+        <ccEmails>channel@silver-peak.com</ccEmails>
         <description>Send Information Card Submitted for Approval cc</description>
         <protected>false</protected>
         <recipients>
             <recipient>ddalponte@silver-peak.com</recipient>
+            <type>user</type>
+        </recipients>
+        <recipients>
+            <recipient>mjones@silver-peak.com</recipient>
             <type>user</type>
         </recipients>
         <senderAddress>silverpeakinfo@silver-peak.com</senderAddress>

@@ -54,7 +54,6 @@
     <enableReports>true</enableReports>
     <enableSharing>true</enableSharing>
     <enableStreamingApi>true</enableStreamingApi>
-    <externalSharingModel>Read</externalSharingModel>
     <fields>
         <fullName>Active__c</fullName>
         <defaultValue>true</defaultValue>

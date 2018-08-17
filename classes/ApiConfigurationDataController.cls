@@ -3,7 +3,7 @@ public class ApiConfigurationDataController {
     
     public static Api_Configuration__c RetreiveApiCredentials(string apiEnvName)
     {
-        List<Api_Configuration__c> lstDataObj=[Select Endpoint_URL__c ,UserName__c,Password__c from Api_Configuration__c where Environment_Name__c=:apiEnvName];
+        List<Api_Configuration__c> lstDataObj=[Select Endpoint_URL__c ,UserName__c,Password__c,Base_Endpoint__c from Api_Configuration__c where Environment_Name__c=:apiEnvName];
         if(lstDataObj!=null && lstDataObj.size()>0)
         {
             return lstDataObj[0];

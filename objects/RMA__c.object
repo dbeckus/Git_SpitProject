@@ -54,7 +54,6 @@
     <enableReports>true</enableReports>
     <enableSharing>true</enableSharing>
     <enableStreamingApi>true</enableStreamingApi>
-    <externalSharingModel>Private</externalSharingModel>
     <fields>
         <fullName>Account_Manager_Email_1__c</fullName>
         <externalId>false</externalId>
@@ -496,11 +495,23 @@ TODAY() -  DATEVALUE(CreatedDate) ,0)</formula>
                 <default>false</default>
             </picklistValues>
             <picklistValues>
+                <fullName>Environment</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>EOS</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
                 <fullName>Fan</fullName>
                 <default>false</default>
             </picklistValues>
             <picklistValues>
                 <fullName>Investigating</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>LPC</fullName>
                 <default>false</default>
             </picklistValues>
             <picklistValues>
@@ -529,6 +540,10 @@ TODAY() -  DATEVALUE(CreatedDate) ,0)</formula>
             </picklistValues>
             <picklistValues>
                 <fullName>Power Supply</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>PMIC</fullName>
                 <default>false</default>
             </picklistValues>
             <picklistValues>
@@ -626,7 +641,7 @@ TODAY() -  DATEVALUE(CreatedDate) ,0)</formula>
         <description>Used for email notification triggered by a workflow</description>
         <externalId>false</externalId>
         <label>Is Recycling</label>
-        <trackHistory>false</trackHistory>
+        <trackHistory>true</trackHistory>
         <trackTrending>false</trackTrending>
         <type>Checkbox</type>
     </fields>
@@ -1008,6 +1023,17 @@ TODAY() -  DATEVALUE(CreatedDate) ,0)</formula>
         <unique>false</unique>
     </fields>
     <fields>
+        <fullName>Trigger_Time_05__c</fullName>
+        <externalId>false</externalId>
+        <formula>CreatedDate - 0.038</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Trigger Time 05</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
         <fullName>Type__c</fullName>
         <externalId>false</externalId>
         <label>Type</label>
@@ -1153,6 +1179,10 @@ TODAY() -  DATEVALUE(CreatedDate) ,0)</formula>
                 <default>false</default>
             </values>
             <values>
+                <fullName>LPC</fullName>
+                <default>false</default>
+            </values>
+            <values>
                 <fullName>Memory</fullName>
                 <default>false</default>
             </values>
@@ -1170,6 +1200,10 @@ TODAY() -  DATEVALUE(CreatedDate) ,0)</formula>
             </values>
             <values>
                 <fullName>Obsolete no FA</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>PMIC</fullName>
                 <default>false</default>
             </values>
             <values>
@@ -1356,6 +1390,10 @@ TODAY() -  DATEVALUE(CreatedDate) ,0)</formula>
         <picklistValues>
             <picklist>Fault_Category__c</picklist>
             <values>
+                <fullName>LPC</fullName>
+                <default>false</default>
+            </values>
+            <values>
                 <fullName>NIC</fullName>
                 <default>false</default>
             </values>
@@ -1507,6 +1545,10 @@ TODAY() -  DATEVALUE(CreatedDate) ,0)</formula>
                 <default>false</default>
             </values>
             <values>
+                <fullName>EOS</fullName>
+                <default>false</default>
+            </values>
+            <values>
                 <fullName>Embedded USB Flash Drive</fullName>
                 <default>false</default>
             </values>
@@ -1515,11 +1557,19 @@ TODAY() -  DATEVALUE(CreatedDate) ,0)</formula>
                 <default>false</default>
             </values>
             <values>
+                <fullName>Environment</fullName>
+                <default>false</default>
+            </values>
+            <values>
                 <fullName>Fan</fullName>
                 <default>false</default>
             </values>
             <values>
                 <fullName>Investigating</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>LPC</fullName>
                 <default>false</default>
             </values>
             <values>
@@ -1540,6 +1590,10 @@ TODAY() -  DATEVALUE(CreatedDate) ,0)</formula>
             </values>
             <values>
                 <fullName>Obsolete no FA</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>PMIC</fullName>
                 <default>false</default>
             </values>
             <values>

@@ -78,6 +78,10 @@
                 <behavior>Edit</behavior>
                 <field>Comments__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Old_LMS_User_Id__c</field>
+            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>

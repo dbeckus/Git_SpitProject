@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ConnectedApp xmlns="http://soap.sforce.com/2006/04/metadata">
+    <contactEmail>support@engagio.com</contactEmail>
+    <label>Engagio</label>
+    <oauthConfig>
+        <callbackUrl>https://app.engagio.com/admin/oauthcallback</callbackUrl>
+        <consumerKey>3MVG9Vik22TUgUphKhs9dOlQTsuQfczbcC5C41BF9Be.lAcQm.GxnAtQ80QwUokSyhDIGgq.xK4UFOdEMESTc</consumerKey>
+        <scopes>Api</scopes>
+        <scopes>RefreshToken</scopes>
+    </oauthConfig>
+</ConnectedApp>

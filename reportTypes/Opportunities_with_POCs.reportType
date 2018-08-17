@@ -1377,11 +1377,6 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>BL__TrackingNumber__c</field>
-            <table>Opportunity</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
             <field>LID__LinkedIn_Company_Id__c</field>
             <table>Opportunity</table>
         </columns>
@@ -1528,11 +1523,6 @@
         <columns>
             <checkedByDefault>false</checkedByDefault>
             <field>Tier3_Partner__c</field>
-            <table>Opportunity</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>ES_APP__TrackingNumber__c</field>
             <table>Opportunity</table>
         </columns>
         <masterLabel>Opportunities</masterLabel>

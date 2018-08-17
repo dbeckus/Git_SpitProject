@@ -55,6 +55,10 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
+                <field>HQ_in_USA__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
                 <field>Clean_Status_Changed__c</field>
             </layoutItems>
             <layoutItems>
@@ -66,12 +70,20 @@
                 <field>SP_MKTG__c</field>
             </layoutItems>
             <layoutItems>
-                <behavior>Edit</behavior>
-                <field>geo_1__c</field>
+                <behavior>Readonly</behavior>
+                <field>Has_Open_Opportunity__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>encrypted1__c</field>
+                <field>ABM__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Account_Group_Name__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>D_B_Data_Update__c</field>
             </layoutItems>
         </layoutColumns>
         <layoutColumns>
@@ -216,16 +228,6 @@
         <fields>Primary_Account_Contact__c</fields>
         <fields>PortalUserActive__c</fields>
         <relatedList>RelatedContactList</relatedList>
-    </relatedLists>
-    <relatedLists>
-        <fields>CASES.CASE_NUMBER</fields>
-        <fields>CASES.TYPE</fields>
-        <fields>CASES.STATUS</fields>
-        <fields>ACCOUNT.NAME</fields>
-        <fields>CASES.SUBJECT</fields>
-        <fields>CASES.CREATED_DATE</fields>
-        <fields>CASES.PRIORITY</fields>
-        <relatedList>Case.Open_AccountLH__c</relatedList>
     </relatedLists>
     <relatedObjects>ParentId</relatedObjects>
     <showEmailCheckbox>false</showEmailCheckbox>

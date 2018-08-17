@@ -2,9 +2,9 @@
 <Role xmlns="http://soap.sforce.com/2006/04/metadata">
     <caseAccessLevel>None</caseAccessLevel>
     <contactAccessLevel>Edit</contactAccessLevel>
-    <description>SOBEBRA Customer User</description>
+    <description>SOBEBRA SA Customer User</description>
     <mayForecastManagerShare>false</mayForecastManagerShare>
-    <name>SOBEBRA Customer User</name>
+    <name>SOBEBRA SA Customer User</name>
     <opportunityAccessLevel>None</opportunityAccessLevel>
-    <parentRole>Grade_3_Sales_EMEA</parentRole>
+    <parentRole>Grade_3_Sales_EMEA_SOUTH</parentRole>
 </Role>

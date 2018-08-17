@@ -14,4 +14,5 @@
     <tab>standard-Dashboard</tab>
     <tab>standard-report</tab>
     <tab>standard-ContentSearch</tab>
+    <tab>LearnCore</tab>
 </CustomApplication>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Role xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseAccessLevel>None</caseAccessLevel>
+    <contactAccessLevel>Edit</contactAccessLevel>
+    <description>RTP Company Customer User</description>
+    <mayForecastManagerShare>false</mayForecastManagerShare>
+    <name>RTP Company Customer User</name>
+    <opportunityAccessLevel>None</opportunityAccessLevel>
+    <parentRole>Grade_4_COMM_NAM_Central</parentRole>
+</Role>

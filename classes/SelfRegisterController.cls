@@ -14,6 +14,7 @@ public class SelfRegisterController
     public String LastName { get; set; }
     public String PhoneNumber { get; set; }
     public String CompanyName { get; set; }
+    public String ContactCountry { get; set; }
     public String Email { get; set; }
     public String SerialNumber { get; set; }
     public String Subject { get; set; }
@@ -98,6 +99,11 @@ public class SelfRegisterController
             result = false;
             ApexPages.addMessage(new ApexPages.Message(ApexPages.Severity.Error, 'Phone: Value is required.'));
         }
+        if(ContactCountry == null || ContactCountry == '--None--')
+        {
+            result = false;
+            ApexPages.addMessage(new ApexPages.Message(ApexPages.Severity.Error, 'Country: Value is required.'));
+        } 
         if(CompanyName == null || CompanyName == '')
         {
             result = false;
@@ -203,9 +209,22 @@ public class SelfRegisterController
         }
     }
     
+    public List<SelectOption> getCountryPicklistValues()
+    {
+        List<SelectOption> lstCountryValues = new List<SelectOption>();
+        lstCountryValues.add(new SelectOption('','--None--'));
+        Schema.DescribeFieldResult fieldResult = Contact.Country_Picklist__c.getDescribe();
+        List<Schema.PicklistEntry> ple = fieldResult.getPicklistValues();
+        for(Schema.PicklistEntry f : ple)
+        {
+            lstCountryValues.add(new SelectOption(f.getLabel(), f.getValue()));
+        }
+        return lstCountryValues;
+    }
+    
     private Contact createContact(Id accountId)
     {
-        Contact ct = new Contact(FirstName=FirstName, LastName=LastName, Email=Email, Phone=PhoneNumber, AccountId=accountId, LeadSource='Customer Service');
+        Contact ct = new Contact(FirstName=FirstName, LastName=LastName, Email=Email, Phone=PhoneNumber, AccountId=accountId, Country_Picklist__c =ContactCountry, LeadSource='Customer Service');
         insert ct;
         return ct;
     }
@@ -241,6 +260,7 @@ public class SelfRegisterController
         controller.PhoneNumber = '1';
         controller.CompanyName = '1';
         controller.SerialNumber = '1';
+        controller.ContactCountry = 'United States';
         controller.submit();
         
         controller = new SelfRegisterController();
@@ -249,7 +269,7 @@ public class SelfRegisterController
         controller.PhoneNumber = '1';
         controller.CompanyName = '1';
         controller.SerialNumber = '1';
-        
+        controller.ContactCountry = 'United States';
         controller.submit();
     }
 }

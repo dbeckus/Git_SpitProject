@@ -112,13 +112,13 @@ public virtual class PatchRuleEngineBase
 
   public class Match
   {
-      public Match(Id patchId, List<Id> overlays)
+      public Match()
       {
-          this.PatchId = patchId;
-          this.OverlayMatches = overlays;
+          this.OverlayMatches = new List<Id>();
       }
 
       public Id PatchId { get; set; }
+      public Id GeoPatchId { get; set; }
       public List<Id> OverlayMatches { get; set; }
   }
 }

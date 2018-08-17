@@ -1,6 +1,6 @@
 /*
- * Realigns patches after patch criteria changed or member changed
- */
+* Realigns patches after patch criteria changed or member changed
+*/
 public class PatchRealignJob implements Database.Batchable<SObject>, Database.Stateful
 {
     private enum PatchRealignJobType { Lead, Account, Opportunity }
@@ -47,6 +47,10 @@ public class PatchRealignJob implements Database.Batchable<SObject>, Database.St
         {
             criteria.add('Type != \'Marketplace\'');
             criteria.add('IsClosed=false');
+        }
+        else if(JobType == PatchRealignJobType.Account)
+        {
+            criteria.add('Type != \'In Review\'');
         }
         if(criteria.size() > 0)
         {

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Role xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseAccessLevel>None</caseAccessLevel>
+    <contactAccessLevel>Edit</contactAccessLevel>
+    <description>SOCIETE FRANCAISE DU RADIOTELEPHONE - SFR Partner User</description>
+    <mayForecastManagerShare>false</mayForecastManagerShare>
+    <name>SOCIETE FRANCAISE DU RADIOTELEPHONE - SFR Partner User</name>
+    <opportunityAccessLevel>None</opportunityAccessLevel>
+    <parentRole>SOCIETEFRANCAISEDURADIOTELEPHONESFRPartnerManager</parentRole>
+</Role>

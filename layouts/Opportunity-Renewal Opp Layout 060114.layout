@@ -57,6 +57,14 @@
                 <behavior>Readonly</behavior>
                 <field>NX_VX_Amount__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Tier1_Partner_CDW__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Tier1_Partner_AT_T__c</field>
+            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>
@@ -231,6 +239,7 @@
         <fields>Primary__c</fields>
         <fields>Quote_Amount_Rollup__c</fields>
         <fields>PreparedFor__c</fields>
+        <fields>Tier_1_Partner__c</fields>
         <relatedList>Quote__c.Opportunity__c</relatedList>
         <sortField>NAME</sortField>
         <sortOrder>Desc</sortOrder>

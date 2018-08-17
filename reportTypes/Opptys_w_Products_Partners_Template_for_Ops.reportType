@@ -247,6 +247,11 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
+            <field>First_Win_Opportunity__c</field>
+            <table>Opportunity</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
             <field>Deal_Greater_than_40k__c</field>
             <table>Opportunity</table>
         </columns>
@@ -282,6 +287,11 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
+            <field>Patch_Owner__c</field>
+            <table>Opportunity</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
             <field>DescribeExpectations__c</field>
             <table>Opportunity</table>
         </columns>
@@ -297,12 +307,22 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
+            <field>Product_Type__c</field>
+            <table>Opportunity</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
             <field>Did_we_exp_a_major_sw_bug__c</field>
             <table>Opportunity</table>
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
             <field>Did_we_exp_a_network_issue__c</field>
+            <table>Opportunity</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Channel_Manager__c</field>
             <table>Opportunity</table>
         </columns>
         <columns>
@@ -487,6 +507,16 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
+            <field>HDWR_AMT__c</field>
+            <table>Opportunity</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Net_Contract_Value__c</field>
+            <table>Opportunity</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
             <field>ISR__c</field>
             <table>Opportunity</table>
         </columns>
@@ -508,6 +538,11 @@
         <columns>
             <checkedByDefault>false</checkedByDefault>
             <field>ISR_Owner__c</field>
+            <table>Opportunity</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Annual_Contract_Value__c</field>
             <table>Opportunity</table>
         </columns>
         <columns>
@@ -543,6 +578,11 @@
         <columns>
             <checkedByDefault>false</checkedByDefault>
             <field>LastStageChangeDate</field>
+            <table>Opportunity</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Regional_Sales_Manager__c</field>
             <table>Opportunity</table>
         </columns>
         <columns>
@@ -1580,11 +1620,6 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>Tier1_Partner__c.Open_Ops__c</field>
-            <table>Opportunity</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
             <field>Tier1_Partner__c.OwnerIsActive__c</field>
             <table>Opportunity</table>
         </columns>
@@ -2154,11 +2189,6 @@
         <columns>
             <checkedByDefault>false</checkedByDefault>
             <field>Tier2_Partner__c.of_Enterprise_Locations__c</field>
-            <table>Opportunity</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>Tier2_Partner__c.Open_Ops__c</field>
             <table>Opportunity</table>
         </columns>
         <columns>

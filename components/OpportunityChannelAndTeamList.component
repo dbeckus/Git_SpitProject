@@ -45,7 +45,7 @@
         <apex:pageBlockTable value="{!AllPartners}" var="p" headerClass="hidden" styleClass="opplist">
             <apex:facet name="caption">
                 <span class="fa fa-globe listCaption"> {!IF(AllPartners.size > 0, 'Channels', 'No channel defined')}</span>
-                <span class="listAction"><a href="javascript:spDynamicPage.onButtonClick('OpportunityDefineChannel')">Define Channel</a></span>
+                <!--<span class="listAction"><a href="javascript:spDynamicPage.onButtonClick('OpportunityDefineChannel')">Define Channel</a></span>-->
             </apex:facet>
             <apex:column headerValue="Role">
                 <apex:outputText value="{!p.Role}"/>

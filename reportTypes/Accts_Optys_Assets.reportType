@@ -1376,11 +1376,6 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>BL__TrackingNumber__c</field>
-            <table>Opportunity</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
             <field>LID__LinkedIn_Company_Id__c</field>
             <table>Opportunity</table>
         </columns>
@@ -1959,11 +1954,6 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>Open_Ops__c</field>
-            <table>Opportunity.SBQQ__WebAccounts__r</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
             <field>Non_Renewal_Bookings__c</field>
             <table>Opportunity.SBQQ__WebAccounts__r</table>
         </columns>
@@ -2310,11 +2300,6 @@
         <columns>
             <checkedByDefault>false</checkedByDefault>
             <field>Email_Domain_Used__c</field>
-            <table>Opportunity.SBQQ__WebAccounts__r</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>BL__SyncWithBoulderLogic__c</field>
             <table>Opportunity.SBQQ__WebAccounts__r</table>
         </columns>
         <columns>

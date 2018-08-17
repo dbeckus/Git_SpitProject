@@ -25,6 +25,10 @@
         <name>Course_Id__c</name>
     </fields>
     <fields>
+        <label><!-- Course Name --></label>
+        <name>Course_Name__c</name>
+    </fields>
+    <fields>
         <label><!-- Enrollment Id --></label>
         <name>Enrollment_Id__c</name>
     </fields>

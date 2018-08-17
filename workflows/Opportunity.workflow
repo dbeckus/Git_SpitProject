@@ -42,6 +42,27 @@
         <template>Sales/LatestGreater_Than_100_k_Opportunity</template>
     </alerts>
     <alerts>
+        <fullName>Closed_Won_New_and_FO_EMEA</fullName>
+        <ccEmails>SFDCAllHands@silver-peak.com</ccEmails>
+        <description>Closed Won New and FO- EMEA</description>
+        <protected>false</protected>
+        <recipients>
+            <recipient>ddalponte@silver-peak.com</recipient>
+            <type>user</type>
+        </recipients>
+        <recipients>
+            <recipient>ewhite@silver-peak.com</recipient>
+            <type>user</type>
+        </recipients>
+        <recipients>
+            <recipient>rbooth@silver-peak.com</recipient>
+            <type>user</type>
+        </recipients>
+        <senderAddress>silverpeakinfo@silver-peak.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>Sales/LatestGreater_Than_50K_Oppty_Won_EMEA</template>
+    </alerts>
+    <alerts>
         <fullName>Commit_Changed</fullName>
         <description>Commit Changed</description>
         <protected>false</protected>
@@ -178,23 +199,27 @@
         <description>New Oppty opened</description>
         <protected>false</protected>
         <recipients>
+            <type>creator</type>
+        </recipients>
+        <recipients>
             <recipient>Account Manager</recipient>
-            <type>accountTeam</type>
+            <type>opportunityTeam</type>
         </recipients>
         <recipients>
             <recipient>Channel Manager</recipient>
-            <type>accountTeam</type>
+            <type>opportunityTeam</type>
         </recipients>
         <recipients>
             <recipient>Inside Sale Representative</recipient>
-            <type>accountTeam</type>
+            <type>opportunityTeam</type>
         </recipients>
         <recipients>
             <recipient>Systems Engineer</recipient>
-            <type>accountTeam</type>
+            <type>opportunityTeam</type>
         </recipients>
         <recipients>
-            <type>creator</type>
+            <recipient>Team Owner</recipient>
+            <type>opportunityTeam</type>
         </recipients>
         <recipients>
             <type>owner</type>
@@ -212,31 +237,11 @@
             <type>role</type>
         </recipients>
         <recipients>
-            <recipient>Grade_3_Sales_NAM_Central</recipient>
-            <type>role</type>
-        </recipients>
-        <recipients>
-            <recipient>Grade_3_Sales_NAM_East</recipient>
-            <type>role</type>
-        </recipients>
-        <recipients>
-            <recipient>Grade_3_Sales_NAM_South</recipient>
-            <type>role</type>
-        </recipients>
-        <recipients>
-            <recipient>Grade_3_Sales_NAM_West</recipient>
-            <type>role</type>
-        </recipients>
-        <recipients>
             <recipient>InsideSalesMgr</recipient>
             <type>roleSubordinatesInternal</type>
         </recipients>
         <recipients>
             <recipient>afuoss@silver-peak.com</recipient>
-            <type>user</type>
-        </recipients>
-        <recipients>
-            <recipient>ewhite@silver-peak.com</recipient>
             <type>user</type>
         </recipients>
         <senderType>CurrentUser</senderType>
@@ -276,10 +281,6 @@
             <recipient>Grade_3_Sales_APAC_ASEAN</recipient>
             <type>role</type>
         </recipients>
-        <recipients>
-            <recipient>ewhite@silver-peak.com</recipient>
-            <type>user</type>
-        </recipients>
         <senderType>CurrentUser</senderType>
         <template>Sales/new_oppty_alert</template>
     </alerts>
@@ -317,10 +318,6 @@
             <recipient>VPSalesEMEA</recipient>
             <type>role</type>
         </recipients>
-        <recipients>
-            <recipient>ewhite@silver-peak.com</recipient>
-            <type>user</type>
-        </recipients>
         <senderType>CurrentUser</senderType>
         <template>Sales/new_oppty_alert</template>
     </alerts>
@@ -357,10 +354,6 @@
         <recipients>
             <recipient>Grade_2_Sales_LATAM</recipient>
             <type>roleSubordinatesInternal</type>
-        </recipients>
-        <recipients>
-            <recipient>ewhite@silver-peak.com</recipient>
-            <type>user</type>
         </recipients>
         <senderType>CurrentUser</senderType>
         <template>Sales/new_oppty_alert</template>
@@ -482,6 +475,14 @@
             <type>user</type>
         </recipients>
         <recipients>
+            <recipient>mjones@silver-peak.com</recipient>
+            <type>user</type>
+        </recipients>
+        <recipients>
+            <recipient>mlabelle@silver-peak.com</recipient>
+            <type>user</type>
+        </recipients>
+        <recipients>
             <recipient>rbooth@silver-peak.com</recipient>
             <type>user</type>
         </recipients>
@@ -543,14 +544,6 @@
             <type>owner</type>
         </recipients>
         <recipients>
-            <recipient>CEO</recipient>
-            <type>role</type>
-        </recipients>
-        <recipients>
-            <recipient>CFO</recipient>
-            <type>role</type>
-        </recipients>
-        <recipients>
             <recipient>DirectorofCustomerService</recipient>
             <type>role</type>
         </recipients>
@@ -571,11 +564,59 @@
             <type>role</type>
         </recipients>
         <recipients>
+            <recipient>amai@silver-peak.com</recipient>
+            <type>user</type>
+        </recipients>
+        <recipients>
+            <recipient>cyodis@silver-peak.com</recipient>
+            <type>user</type>
+        </recipients>
+        <recipients>
+            <recipient>dhead@silver-peak.com</recipient>
+            <type>user</type>
+        </recipients>
+        <recipients>
+            <recipient>dhughes@silver-peak.com</recipient>
+            <type>user</type>
+        </recipients>
+        <recipients>
+            <recipient>elee@silver-peak.com</recipient>
+            <type>user</type>
+        </recipients>
+        <recipients>
+            <recipient>eyeaman@silver-peak.com</recipient>
+            <type>user</type>
+        </recipients>
+        <recipients>
             <recipient>jvincenzo@silver-peak.com</recipient>
             <type>user</type>
         </recipients>
         <recipients>
+            <recipient>kreichert@silver-peak.com</recipient>
+            <type>user</type>
+        </recipients>
+        <recipients>
+            <recipient>mlear@silver-peak.com</recipient>
+            <type>user</type>
+        </recipients>
+        <recipients>
             <recipient>rrammaha@silver-peak.com</recipient>
+            <type>user</type>
+        </recipients>
+        <recipients>
+            <recipient>rvasquez@silver-peak.com</recipient>
+            <type>user</type>
+        </recipients>
+        <recipients>
+            <recipient>sseidler@silver-peak.com</recipient>
+            <type>user</type>
+        </recipients>
+        <recipients>
+            <recipient>tton@silver-peak.com</recipient>
+            <type>user</type>
+        </recipients>
+        <recipients>
+            <recipient>vchow@silver-peak.com</recipient>
             <type>user</type>
         </recipients>
         <senderType>CurrentUser</senderType>
@@ -662,6 +703,10 @@
             <recipient>InsideSalesMgr</recipient>
             <type>role</type>
         </recipients>
+        <recipients>
+            <recipient>dennis@silver-peak.com</recipient>
+            <type>user</type>
+        </recipients>
         <senderType>CurrentUser</senderType>
         <template>unfiled$public/oppty_closed_stage_dead</template>
     </alerts>
@@ -719,6 +764,22 @@
         <name>Clear Bypassing Validation</name>
         <notifyAssignee>false</notifyAssignee>
         <operation>Literal</operation>
+        <protected>false</protected>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Clear_Signed_At</fullName>
+        <field>Signed_At__c</field>
+        <name>Clear Signed At</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Null</operation>
+        <protected>false</protected>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Clear_Signed_By</fullName>
+        <field>Signed_By__c</field>
+        <name>Clear Signed By</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>LookupValue</operation>
         <protected>false</protected>
     </fieldUpdates>
     <fieldUpdates>
@@ -917,6 +978,24 @@
         <protected>false</protected>
     </fieldUpdates>
     <fieldUpdates>
+        <fullName>Unclear_the_signature_of_Opp_checkbox</fullName>
+        <field>Signature_of_Opportunity_Owner__c</field>
+        <literalValue>0</literalValue>
+        <name>Unclear the signature of Opp checkbox\</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Dead_Reason_As_Won_As_Metered</fullName>
+        <field>Dead_Reason__c</field>
+        <literalValue>Won as Metered</literalValue>
+        <name>Update Dead Reason As Won As Metered</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+    </fieldUpdates>
+    <fieldUpdates>
         <fullName>Update_Last_Modified_Date</fullName>
         <field>Owner_Last_Activity_Date__c</field>
         <formula>LastModifiedDate</formula>
@@ -932,6 +1011,34 @@
         <name>Update Opp Stage as Discovery RSM</name>
         <notifyAssignee>false</notifyAssignee>
         <operation>Literal</operation>
+        <protected>false</protected>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Tier1_Partner_AT_T</fullName>
+        <field>Tier1_Partner_AT_T__c</field>
+        <literalValue>1</literalValue>
+        <name>Update Tier1 Partner AT&amp;T</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Tier1_Partner_CDW</fullName>
+        <field>Tier1_Partner_CDW__c</field>
+        <literalValue>1</literalValue>
+        <name>Update Tier1 Partner CDW?</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_the_CAM_of_record</fullName>
+        <field>First_CAM_Assigned__c</field>
+        <lookupValue>jacqui@silver-peak.com</lookupValue>
+        <lookupValueType>User</lookupValueType>
+        <name>Update the CAM of record</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>LookupValue</operation>
         <protected>false</protected>
     </fieldUpdates>
     <fieldUpdates>
@@ -1106,13 +1213,9 @@ ISBLANK(Signed_By__c)
             <name>SetPOCType2Trial</name>
             <type>FieldUpdate</type>
         </actions>
-        <active>true</active>
+        <active>false</active>
         <description>when a marketplace opp is closed, then set a bunch of fields</description>
-        <formula>AND (
-ISPICKVAL(  Type , &quot;Marketplace&quot;),
-ISPICKVAL(  StageName , &quot;Closed Dead&quot;),
-ISCHANGED(StageName)
-)</formula>
+        <formula>AND ( ISPICKVAL(  Type , &quot;Marketplace&quot;), ISPICKVAL(  StageName , &quot;Closed Dead&quot;), ISCHANGED(StageName) )</formula>
         <triggerType>onAllChanges</triggerType>
     </rules>
     <rules>
@@ -1308,6 +1411,54 @@ ISCHANGED(StageName)
         <triggerType>onCreateOrTriggeringUpdate</triggerType>
     </rules>
     <rules>
+        <fullName>Morethan50KOpportunity Closed Won%28FO%29-EMEA</fullName>
+        <actions>
+            <name>Closed_Won_New_and_FO_EMEA</name>
+            <type>Alert</type>
+        </actions>
+        <active>true</active>
+        <booleanFilter>1 AND 2 AND 3 AND 4 AND 5 AND 6 AND 7 AND 8</booleanFilter>
+        <criteriaItems>
+            <field>Opportunity.StageName</field>
+            <operation>equals</operation>
+            <value>Closed Won</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Opportunity.Type</field>
+            <operation>equals</operation>
+            <value>Follow on Business,Support Renewal,Subscription Renewal,EC Renewal</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Opportunity.Win_Description__c</field>
+            <operation>notEqual</operation>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Opportunity.Number_of_branches__c</field>
+            <operation>notEqual</operation>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Opportunity.primary_competitor__c</field>
+            <operation>notEqual</operation>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Opportunity.GEO_Region__c</field>
+            <operation>equals</operation>
+            <value>EMEA</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Opportunity.Amount</field>
+            <operation>greaterThan</operation>
+            <value>50000</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Opportunity.Amount</field>
+            <operation>lessThan</operation>
+            <value>100000</value>
+        </criteriaItems>
+        <description>Sends an email when a follow on opportunity is closed/won with Amount &gt;50000 for EMEA Opportunities</description>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
         <fullName>NewMarketplaceOppOpened</fullName>
         <actions>
             <name>New_Opp_Opened_from_Marketplace_inquiry</name>
@@ -1486,7 +1637,7 @@ ISCHANGED(StageName)
             <type>Alert</type>
         </actions>
         <active>true</active>
-        <booleanFilter>1 AND ((2 AND 3)  OR (4 AND 5)) AND 6</booleanFilter>
+        <booleanFilter>1 AND ((2 AND 3)  OR (4 AND 5) OR (6 AND 7 AND 8 AND 9)) AND 10</booleanFilter>
         <criteriaItems>
             <field>Opportunity.StageName</field>
             <operation>equals</operation>
@@ -1510,6 +1661,26 @@ ISCHANGED(StageName)
         <criteriaItems>
             <field>Opportunity.Amount</field>
             <operation>greaterThan</operation>
+            <value>100000</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Opportunity.Type</field>
+            <operation>equals</operation>
+            <value>Follow on Business,Support Renewal,Subscription Renewal,EC Renewal</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Opportunity.GEO_Region__c</field>
+            <operation>equals</operation>
+            <value>EMEA</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Opportunity.Amount</field>
+            <operation>greaterThan</operation>
+            <value>50000</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Opportunity.Amount</field>
+            <operation>lessThan</operation>
             <value>100000</value>
         </criteriaItems>
         <criteriaItems>
@@ -1564,7 +1735,7 @@ ISCHANGED(StageName)
             <name>SetRecordTypeDefault</name>
             <type>FieldUpdate</type>
         </actions>
-        <active>true</active>
+        <active>false</active>
         <criteriaItems>
             <field>Opportunity.RecordTypeId</field>
             <operation>notEqual</operation>
@@ -1583,7 +1754,7 @@ ISCHANGED(StageName)
             <name>SetRecordTypeSpecificFO</name>
             <type>FieldUpdate</type>
         </actions>
-        <active>true</active>
+        <active>false</active>
         <criteriaItems>
             <field>Opportunity.RecordTypeId</field>
             <operation>notEqual</operation>
@@ -1602,7 +1773,7 @@ ISCHANGED(StageName)
             <name>SetRecordTypeSpecificMR</name>
             <type>FieldUpdate</type>
         </actions>
-        <active>true</active>
+        <active>false</active>
         <criteriaItems>
             <field>Opportunity.RecordTypeId</field>
             <operation>notEqual</operation>
@@ -1690,6 +1861,87 @@ NOT(New_Business__c)
         <triggerType>onCreateOrTriggeringUpdate</triggerType>
     </rules>
     <rules>
+        <fullName>Unclear the signature of Opp checkbox</fullName>
+        <actions>
+            <name>Clear_Signed_At</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <actions>
+            <name>Clear_Signed_By</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <actions>
+            <name>Unclear_the_signature_of_Opp_checkbox</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>Opportunity.Signature_of_Opportunity_Owner__c</field>
+            <operation>equals</operation>
+            <value>True</value>
+        </criteriaItems>
+        <triggerType>onCreateOnly</triggerType>
+    </rules>
+    <rules>
+        <fullName>Update CAM of Record for CDW</fullName>
+        <actions>
+            <name>Update_the_CAM_of_record</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <formula>AND( 
+ISPICKVAL(StageName,&quot;Closed Won&quot;), 
+NOT(ISBLANK(Tier1_Partner__c)), 
+Tier1_Partner__c==&quot;0013000000ARVVc&quot; 
+)</formula>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>Update Dead Reason As Won As Metered</fullName>
+        <actions>
+            <name>Update_Dead_Reason_As_Won_As_Metered</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>Opportunity.Metered_Claimed_as_Enterprise__c</field>
+            <operation>equals</operation>
+            <value>True</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Opportunity.StageName</field>
+            <operation>equals</operation>
+            <value>Closed Dead</value>
+        </criteriaItems>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>Update Tier1 Partner AT%26T field for Sharing</fullName>
+        <actions>
+            <name>Update_Tier1_Partner_AT_T</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <formula>AND( 
+NOT(ISBLANK(Tier1_Partner__c)), 
+CONTAINS( Tier1_Partner__r.Name , &quot;AT&amp;T&quot;) 
+)</formula>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>Update Tier1 Partner CDW field for Sharing</fullName>
+        <actions>
+            <name>Update_Tier1_Partner_CDW</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <formula>AND(  
+NOT(ISBLANK(Tier1_Partner__c)), 
+Tier1_Partner__c==&quot;0013000000ARVVc&quot; 
+)</formula>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
         <fullName>UpdateLeadSource</fullName>
         <active>false</active>
         <description>when a lead source is null, then update it to the opportunity source when that field is set or changes</description>
@@ -1724,7 +1976,7 @@ IF(ISPICKVAL (LeadSource, &quot;Customer Referral.&quot;), 1,0), &quot;Used&quot
             <name>NewOpptyopened_APAC</name>
             <type>Alert</type>
         </actions>
-        <active>true</active>
+        <active>false</active>
         <criteriaItems>
             <field>Opportunity.CreatedDate</field>
             <operation>greaterThan</operation>
@@ -1753,7 +2005,7 @@ IF(ISPICKVAL (LeadSource, &quot;Customer Referral.&quot;), 1,0), &quot;Used&quot
             <name>NewOpptyopened_EMEA</name>
             <type>Alert</type>
         </actions>
-        <active>true</active>
+        <active>false</active>
         <criteriaItems>
             <field>Opportunity.CreatedDate</field>
             <operation>greaterThan</operation>
@@ -1794,14 +2046,9 @@ IF(ISPICKVAL (LeadSource, &quot;Customer Referral.&quot;), 1,0), &quot;Used&quot
             <value>Free Marketplace Trial</value>
         </criteriaItems>
         <criteriaItems>
-            <field>Opportunity.Sales_Region__c</field>
-            <operation>contains</operation>
-            <value>NAM,GAM</value>
-        </criteriaItems>
-        <criteriaItems>
             <field>Opportunity.Type</field>
             <operation>notEqual</operation>
-            <value>Support Renewal,Reseller Demo/NFR,Training/WanStart</value>
+            <value>Support Renewal,Subscription Renewal,Reseller Demo/NFR,Training/WanStart,Marketplace,EC Renewal</value>
         </criteriaItems>
         <triggerType>onCreateOnly</triggerType>
         <workflowTimeTriggers>
@@ -1815,7 +2062,7 @@ IF(ISPICKVAL (LeadSource, &quot;Customer Referral.&quot;), 1,0), &quot;Used&quot
             <name>NewOpptyopened_LAT</name>
             <type>Alert</type>
         </actions>
-        <active>true</active>
+        <active>false</active>
         <criteriaItems>
             <field>Opportunity.CreatedDate</field>
             <operation>greaterThan</operation>

@@ -53,7 +53,6 @@
     <enableReports>true</enableReports>
     <enableSharing>true</enableSharing>
     <enableStreamingApi>true</enableStreamingApi>
-    <externalSharingModel>ControlledByParent</externalSharingModel>
     <fields>
         <fullName>Actual_Results__c</fullName>
         <externalId>false</externalId>
@@ -121,7 +120,6 @@
         <externalId>false</externalId>
         <label>POC Summary</label>
         <referenceTo>POC_Summary__c</referenceTo>
-        <relationshipLabel>POC Results</relationshipLabel>
         <relationshipName>POC_Results</relationshipName>
         <relationshipOrder>0</relationshipOrder>
         <reparentableMasterDetail>false</reparentableMasterDetail>
@@ -391,7 +389,7 @@
         <trackTrending>false</trackTrending>
         <type>Picklist</type>
     </fields>
-    <label>POC Results</label>
+    <label>POC Results(R)</label>
     <nameField>
         <displayFormat>PR-{00000}</displayFormat>
         <label>Ref Id</label>

@@ -54,7 +54,6 @@
     <enableReports>false</enableReports>
     <enableSharing>true</enableSharing>
     <enableStreamingApi>true</enableStreamingApi>
-    <externalSharingModel>ReadWrite</externalSharingModel>
     <fields>
         <fullName>Converted_to_Opp__c</fullName>
         <externalId>false</externalId>

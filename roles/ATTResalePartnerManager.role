@@ -2,9 +2,9 @@
 <Role xmlns="http://soap.sforce.com/2006/04/metadata">
     <caseAccessLevel>None</caseAccessLevel>
     <contactAccessLevel>Edit</contactAccessLevel>
-    <description>AT&amp;T Resale Partner Manager</description>
+    <description>AT&amp;T Resell Partner Manager</description>
     <mayForecastManagerShare>false</mayForecastManagerShare>
-    <name>AT&amp;T Resale Partner Manager</name>
+    <name>AT&amp;T Resell Partner Manager</name>
     <opportunityAccessLevel>None</opportunityAccessLevel>
     <parentRole>Grade_2_Sales_SP</parentRole>
 </Role>

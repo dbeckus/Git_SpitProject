@@ -14,6 +14,14 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
+                <field>Territory__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Description__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
                 <field>ProcessingSequence__c</field>
             </layoutItems>
             <layoutItems>
@@ -42,11 +50,7 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>Description__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>Territory__c</field>
+                <field>Is_GDPR_Country__c</field>
             </layoutItems>
         </layoutColumns>
         <layoutColumns>

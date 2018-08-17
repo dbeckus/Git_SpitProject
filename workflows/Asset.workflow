@@ -439,7 +439,8 @@
     <fieldUpdates>
         <fullName>Add_Software_Support_Date</fullName>
         <field>End_of_Software_Support__c</field>
-        <formula>DATE( (YEAR( Ship_Date__c   )+ 5) ,MONTH( Ship_Date__c) , DAY( Ship_Date__c) )</formula>
+        <formula>IF(AND(NOT(CONTAINS( Product2.Name,&quot;-SR&quot;)),NOT(CONTAINS( Product2.Name,&quot;-LR&quot;))), 
+DATE( (YEAR( Ship_Date__c )+ 5) ,MONTH( Ship_Date__c) , DAY( Ship_Date__c)),null)</formula>
         <name>Add Software Support Date</name>
         <notifyAssignee>false</notifyAssignee>
         <operation>Formula</operation>
@@ -616,6 +617,15 @@ Evaluation_Start_Date__c )</formula>
         <protected>false</protected>
     </fieldUpdates>
     <fieldUpdates>
+        <fullName>Convert_lower_to_upper_for_serial_number</fullName>
+        <field>SerialNumber</field>
+        <formula>Upper( SerialNumber )</formula>
+        <name>Convert lower to upper for serial number</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+    </fieldUpdates>
+    <fieldUpdates>
         <fullName>SetEvalEndDate</fullName>
         <field>Evaluation_End_Date__c</field>
         <formula>today()+91</formula>
@@ -733,6 +743,15 @@ IF(MONTH(Deployment_Date__c)+MOD(VALUE(TEXT(Term__c)),12)&gt;12, MONTH(Deploymen
 DAY(Deployment_Date__c) 
 )</formula>
         <name>Update Deployment End Date</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>convert_lower_to_upper_asset_name</fullName>
+        <field>Name</field>
+        <formula>UPPER(Name)</formula>
+        <name>convert lower to upper asset name</name>
         <notifyAssignee>false</notifyAssignee>
         <operation>Formula</operation>
         <protected>false</protected>
@@ -905,6 +924,28 @@ BEGINS( Product2.Name ,&quot;EC&quot;)
         <triggerType>onCreateOrTriggeringUpdate</triggerType>
     </rules>
     <rules>
+        <fullName>Convert lowercase to upper case serial number</fullName>
+        <actions>
+            <name>Convert_lower_to_upper_for_serial_number</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <actions>
+            <name>convert_lower_to_upper_asset_name</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>Product2.Family</field>
+            <operation>equals</operation>
+            <value>Product</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Asset.SerialNumber</field>
+            <operation>notEqual</operation>
+        </criteriaItems>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
         <fullName>EC Hardware Add Warranty Dates</fullName>
         <actions>
             <name>Add_Software_Support_Date</name>
@@ -919,7 +960,9 @@ BEGINS( Product2.Name ,&quot;EC&quot;)
             <type>FieldUpdate</type>
         </actions>
         <active>true</active>
-        <formula>AND(  ISPICKVAL( Product2.Family,&quot;Product&quot;),  OR(  ISPICKVAL(Product2.Product_Type__c ,&quot;EDGECONNECT&quot;),  ISPICKVAL(Product2.Product_Type__c ,&quot;EC-SP-Perpetual&quot;),  ISPICKVAL(Product2.Product_Type__c ,&quot;EC-SP-Metered&quot;), ISPICKVAL(Product2.Product_Type__c ,&quot;EC-SP-Term&quot;) ),  ISPICKVAL(Status,&quot;Customer Owned&quot;),  OR(  ISNEW(),  ISCHANGED( Ship_Date__c ),  ISCHANGED( Product2Id )  )  )</formula>
+        <formula>AND(  ISPICKVAL( Product2.Family,&quot;Product&quot;),  OR(  ISPICKVAL(Product2.Product_Type__c ,&quot;EDGECONNECT&quot;),  ISPICKVAL(Product2.Product_Type__c ,&quot;EC-SP-Perpetual&quot;),  ISPICKVAL(Product2.Product_Type__c ,&quot;EC-SP-Metered&quot;), ISPICKVAL(Product2.Product_Type__c ,&quot;EC-SP-Term&quot;) ),  OR(ISPICKVAL(Status,&quot;Customer Owned&quot;),
+ISPICKVAL(Status,&quot;Owned Eval/NFR&quot;)
+),  OR(  ISNEW(),  ISCHANGED( Ship_Date__c ),  ISCHANGED( Product2Id )  )  )</formula>
         <triggerType>onAllChanges</triggerType>
     </rules>
     <rules>

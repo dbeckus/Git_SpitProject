@@ -2,9 +2,9 @@
 <Role xmlns="http://soap.sforce.com/2006/04/metadata">
     <caseAccessLevel>None</caseAccessLevel>
     <contactAccessLevel>Edit</contactAccessLevel>
-    <description>LAM Research Customer User</description>
+    <description>Lam Research Corporation Customer User</description>
     <mayForecastManagerShare>false</mayForecastManagerShare>
-    <name>LAM Research Customer User</name>
+    <name>Lam Research Corporation Customer User</name>
     <opportunityAccessLevel>None</opportunityAccessLevel>
     <parentRole>LAMResearchCustomerManager</parentRole>
 </Role>

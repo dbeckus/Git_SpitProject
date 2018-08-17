@@ -2,9 +2,9 @@
 <Role xmlns="http://soap.sforce.com/2006/04/metadata">
     <caseAccessLevel>None</caseAccessLevel>
     <contactAccessLevel>Edit</contactAccessLevel>
-    <description>QLS quality solutions AB Partner User</description>
+    <description>QLS Quality Solutions AB Partner User</description>
     <mayForecastManagerShare>false</mayForecastManagerShare>
-    <name>QLS quality solutions AB Partner User</name>
+    <name>QLS Quality Solutions AB Partner User</name>
     <opportunityAccessLevel>None</opportunityAccessLevel>
     <parentRole>QLSqualitysolutionsABPartnerManager</parentRole>
 </Role>

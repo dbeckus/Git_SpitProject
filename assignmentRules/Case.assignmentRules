@@ -14,7 +14,7 @@
             <criteriaItems>
                 <field>Case.RecordTypeId</field>
                 <operation>notEqual</operation>
-                <value>IT Help Requests,WANstart,Orchestrator,HR Requests,Facilities,DevOps Help Requests,Lab Help Requests</value>
+                <value>IT Help Requests,WANstart,Orchestrator,HR Requests,Facilities,DevOps Help Requests,Lab Help Requests,Perf Help Requests</value>
             </criteriaItems>
             <template>Support/TechSupportCaseinQueue</template>
         </ruleEntry>
@@ -29,7 +29,7 @@
             <criteriaItems>
                 <field>Case.RecordTypeId</field>
                 <operation>notEqual</operation>
-                <value>IT Help Requests,WANstart,Orchestrator,HR Requests,Facilities,DevOps Help Requests,Lab Help Requests</value>
+                <value>IT Help Requests,WANstart,Orchestrator,HR Requests,Facilities,DevOps Help Requests,Lab Help Requests,Perf Help Requests</value>
             </criteriaItems>
             <template>Support/TechSupportCaseinQueue</template>
         </ruleEntry>

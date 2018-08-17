@@ -1654,6 +1654,10 @@
         <name>Number_of_Sales_Representatives__c</name>
     </fields>
     <fields>
+        <label><!-- Old LMS Department Id --></label>
+        <name>Old_LMS_Department_Id__c</name>
+    </fields>
+    <fields>
         <label><!-- Other % --></label>
         <name>Other__c</name>
         <picklistValues>

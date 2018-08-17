@@ -7,7 +7,6 @@
     <customButtons>Forward_Lead</customButtons>
     <customButtons>Renewal</customButtons>
     <customButtons>Merge</customButtons>
-    <customButtons>BL__Find_Reference</customButtons>
     <excludeButtons>Clone</excludeButtons>
     <excludeButtons>Submit</excludeButtons>
     <layoutSections>
@@ -63,6 +62,22 @@
             <layoutItems>
                 <behavior>Readonly</behavior>
                 <field>NX_VX_Amount__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>Account_Website__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Tier1_Partner_CDW__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Tier1_Partner_AT_T__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Metered_Service_Provider__c</field>
             </layoutItems>
         </layoutColumns>
         <layoutColumns>

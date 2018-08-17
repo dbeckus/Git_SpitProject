@@ -119,7 +119,7 @@ BEGINS(Opportunity__r.GEO_Region__c,&quot;ANZ&quot;)
         <allowDelegate>true</allowDelegate>
         <assignedApprover>
             <approver>
-                <name>napplegarth@silver-peak.com</name>
+                <name>apaton@silver-peak.com</name>
                 <type>user</type>
             </approver>
             <whenMultipleApprovers>FirstResponse</whenMultipleApprovers>

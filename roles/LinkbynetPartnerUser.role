@@ -2,9 +2,9 @@
 <Role xmlns="http://soap.sforce.com/2006/04/metadata">
     <caseAccessLevel>None</caseAccessLevel>
     <contactAccessLevel>Edit</contactAccessLevel>
-    <description>Linkbynet Partner User</description>
+    <description>LINKBYNET INDIAN OCEAN (L.I.O.) LIMITED Partner User</description>
     <mayForecastManagerShare>false</mayForecastManagerShare>
-    <name>Linkbynet Partner User</name>
+    <name>LINKBYNET INDIAN OCEAN (L.I.O.) LIMITED Partner User</name>
     <opportunityAccessLevel>None</opportunityAccessLevel>
     <parentRole>LinkbynetPartnerManager</parentRole>
 </Role>

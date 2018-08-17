@@ -6,5 +6,5 @@
     <mayForecastManagerShare>false</mayForecastManagerShare>
     <name>Dennis Beckus Customer Support Account Customer User</name>
     <opportunityAccessLevel>None</opportunityAccessLevel>
-    <parentRole>DirectorofIT</parentRole>
+    <parentRole>Dennis_Beckus_Role</parentRole>
 </Role>

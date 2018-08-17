@@ -11,6 +11,58 @@
         <type>role</type>
     </allowedSubmitters>
     <allowedSubmitters>
+        <submitter>Grade_4_Sys_Eng_APAC</submitter>
+        <type>role</type>
+    </allowedSubmitters>
+    <allowedSubmitters>
+        <submitter>Grade_4_Sys_Eng_EMEA</submitter>
+        <type>role</type>
+    </allowedSubmitters>
+    <allowedSubmitters>
+        <submitter>Grade_4_Sys_Eng_EMEA_DACH</submitter>
+        <type>role</type>
+    </allowedSubmitters>
+    <allowedSubmitters>
+        <submitter>Grade_4_Sys_Eng_EMEA_META</submitter>
+        <type>role</type>
+    </allowedSubmitters>
+    <allowedSubmitters>
+        <submitter>Grade_4_Sys_Eng_EMEA_NE</submitter>
+        <type>role</type>
+    </allowedSubmitters>
+    <allowedSubmitters>
+        <submitter>Grade_4_Sys_Eng_EMEA_SOUTH</submitter>
+        <type>role</type>
+    </allowedSubmitters>
+    <allowedSubmitters>
+        <submitter>Grade_4_Sys_Eng_EMEA_UK_I_ZA</submitter>
+        <type>role</type>
+    </allowedSubmitters>
+    <allowedSubmitters>
+        <submitter>Grade_4_Sys_Eng_LATAM</submitter>
+        <type>role</type>
+    </allowedSubmitters>
+    <allowedSubmitters>
+        <submitter>Grade_4_Sys_Eng_NAM_Central</submitter>
+        <type>role</type>
+    </allowedSubmitters>
+    <allowedSubmitters>
+        <submitter>Grade_4_Sys_Eng_NAM_East</submitter>
+        <type>role</type>
+    </allowedSubmitters>
+    <allowedSubmitters>
+        <submitter>Grade_4_Sys_Eng_NAM_South</submitter>
+        <type>role</type>
+    </allowedSubmitters>
+    <allowedSubmitters>
+        <submitter>Grade_4_Sys_Eng_NAM_West</submitter>
+        <type>role</type>
+    </allowedSubmitters>
+    <allowedSubmitters>
+        <submitter>Grade_4_Sys_Eng_SP</submitter>
+        <type>role</type>
+    </allowedSubmitters>
+    <allowedSubmitters>
         <submitter>OperationsManager</submitter>
         <type>role</type>
     </allowedSubmitters>
@@ -119,7 +171,7 @@ BEGINS(Opportunity__r.GEO_Region__c,&quot;ANZ&quot;)
         <allowDelegate>true</allowDelegate>
         <assignedApprover>
             <approver>
-                <name>napplegarth@silver-peak.com</name>
+                <name>apaton@silver-peak.com</name>
                 <type>user</type>
             </approver>
             <whenMultipleApprovers>FirstResponse</whenMultipleApprovers>

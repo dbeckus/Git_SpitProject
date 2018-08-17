@@ -1,5 +1,10 @@
-public class H_LMSFetchCertificationsBatch implements  Database.Batchable<sObject>,Database.Stateful,Database.AllowsCallouts
+public class H_LMSFetchCertificationsBatch implements  Schedulable,Database.Batchable<sObject>,Database.Stateful,Database.AllowsCallouts
 {
+    public void execute(SchedulableContext context)
+    {
+        H_LMSFetchCertificationsBatch obj = new H_LMSFetchCertificationsBatch();
+        Database.executeBatch(obj,1);
+    }
     public Database.QueryLocator start(Database.BatchableContext context)
     {
         return Database.getQueryLocator([Select Id,New_Course_Id__c,Last_Fetch_Date__c,Course_Name__c from LMS_Course__c where Is_Active__c=true]);

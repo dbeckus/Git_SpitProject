@@ -59,7 +59,6 @@
     <enableReports>true</enableReports>
     <enableSharing>true</enableSharing>
     <enableStreamingApi>true</enableStreamingApi>
-    <externalSharingModel>Read</externalSharingModel>
     <fields>
         <fullName>ApprovalLevelMax__c</fullName>
         <description>The Quote&apos;s approval level decided by the max approval level of quote lines.</description>
@@ -410,10 +409,20 @@ Tier_1_Partner__r.Assigned_Distributor__c +&quot;|&quot; + Tier_1_Partner__r.Ass
         <type>Checkbox</type>
     </fields>
     <fields>
+        <fullName>Is_SP_Account__c</fullName>
+        <externalId>false</externalId>
+        <formula>Opportunity__r.Account.ECSP__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Is SP Account</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
         <fullName>Level3Required__c</fullName>
         <externalId>false</externalId>
         <formula>if(
-Or(Opportunity__r.Primary_Partner__r.CreditHold__c , not( Opportunity__r.Primary_Partner__r.Reseller_Agreement__c ))
+Primary_Partner_Credit_Hold__c
 ,1,0)</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>CreditHold/Reseller Agreement Approval</label>
@@ -1155,6 +1164,30 @@ Minimum program discount: 29%</inlineHelpText>
         <type>Lookup</type>
     </fields>
     <fields>
+        <fullName>Tier1AccountId__c</fullName>
+        <externalId>false</externalId>
+        <formula>Tier_1_Partner__r.Id</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Tier1AccountId</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Tier2PartnerId__c</fullName>
+        <externalId>false</externalId>
+        <formula>Tier_2_Partner__r.Id</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Tier2PartnerId</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
         <fullName>Tier_1_Partner__c</fullName>
         <deleteConstraint>SetNull</deleteConstraint>
         <externalId>false</externalId>
@@ -1403,13 +1436,13 @@ alert(&quot;Please enter special instructions&quot;);
 } 
 else 
 { 
-if(&quot;{!Quote__c.Approval_Status__c}&quot; == &quot;Approved&quot; &amp;&amp; &quot;{!Quote__c.Primary__c}&quot; == &quot;1&quot;) 
+if(&quot;{!Quote__c.Approval_Status__c}&quot; == &quot;Approved&quot;) 
 { 
 window.open(&quot;/apex/EmailQuoteDocument?id={!Quote__c.Id}&quot;, &quot;_blank&quot;, &quot;width=600,height=400&quot;); 
 } 
 else 
 { 
-alert(&quot;Quote must be approved and primary.&quot;); 
+alert(&quot;Quote must be approved.&quot;); 
 } 
 }</url>
     </webLinks>

@@ -41,7 +41,7 @@ public class PatchRuleEngineBuilder
         String methodHeader = '  //returns the matched patch\r\n' +
                               '  public override Match match(Target t)\r\n' +
                               '  {\r\n';
-        String methodBody = '    Match result = null;\r\n    Id patchId = null;\r\n    List<Id> overlays = new List<Id>();\r\n';
+        String methodBody = '    Match result = new Match();\r\n';
         Integer groupIndex = 0;
         List<Patch__c> patchGroup = new List<Patch__c>();
         for(Patch__c patch : [select Id, Active__c, Patch_Name__c, Catchall__c, Overlay__c, CSM__c, ISR__c, Owner__c, ProcessingSequence__c, RSM__c, Rule_Logic__c, SE__c, Type__c, (select Id, Patch__r.Patch_Name__c, Type__c, Value__c, Operation__c, Range_Low__c, Range_High__c, ProcessingSequence__c from Patch_Rules__r order by ProcessingSequence__c) from Patch__c where Active__c=true order by ProcessingSequence__c])
@@ -63,23 +63,24 @@ public class PatchRuleEngineBuilder
 
     private void registerGroupMatchMethod(List<Patch__c> patches, Integer groupNumber)
     {
-        String body = '  private Id matchGroup' + groupNumber + '(Target t, List<Id> overlays)\r\n' +
+        String body = '  private void matchGroup' + groupNumber + '(Target t, Match match)\r\n' +
                       '  {\r\n';
         Integer i = 0;
         for(Patch__c patch : patches)
         {
             body += buildPatch(patch, i++);
         }
-        body += '    return null;\r\n  }\r\n';
+        body += '    return;\r\n  }\r\n';
         methods.add(body);
     }
 
     private String buildPatchGroup(List<Patch__c> patches, Integer groupNumber)
     {
-        String methodBody = '    patchId = matchGroup'+groupNumber+'(t, overlays);\r\n' +
-                            '    if(patchId != null)\r\n' +
+        String methodBody = '    matchGroup'+groupNumber+'(t, result);\r\n' +
+                            '    result.PatchId = result.PatchId == null ? result.GeoPatchId : result.PatchId;\r\n' +
+                            '    if(result.GeoPatchId != null)\r\n' +
                             '    {\r\n' +
-                            '      return new Match(patchId, overlays);\r\n' +
+                            '      return result;\r\n' +
                             '    }\r\n';
         registerGroupMatchMethod(patches, groupNumber);
         return methodBody;
@@ -166,22 +167,27 @@ public class PatchRuleEngineBuilder
                 body += ruleLogic;
             }
             body += ')';
-            if(patch.Overlay__c)
+            if(patch.Type__c == 'Overlay')
             {
                 String patchName = (patch.Patch_Name__c == null) ? '' : String.escapeSingleQuotes(patch.Patch_Name__c);
-                body += 'overlays.add(\'' + patch.Id + '\');';
+                body += 'match.OverlayMatches.add(\'' + patch.Id + '\');';
             }
-            else
+            else if(patch.Type__c == 'Named Accounts')
             {
                 String patchName = (patch.Patch_Name__c == null) ? '' : String.escapeSingleQuotes(patch.Patch_Name__c);
-                body += 'return \'' + patch.Id + '\';';
+                body += 'match.PatchId = match.PatchId == null ? \'' + patch.Id + '\' : match.PatchId;';
+            }
+            else 
+            {
+                //GEO patch
+                body += '{match.GeoPatchId = \'' + patch.Id + '\';return;}';
             }
         }
         else
         {
             if(patch.Catchall__c)
             {
-                body += '    return \'' + patch.Id + '\'; ';
+                body += '    {match.GeoPatchId = \'' + patch.Id + '\';return;}';
             }
             else
             {

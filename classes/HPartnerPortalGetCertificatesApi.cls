@@ -20,11 +20,11 @@ public with sharing class HPartnerPortalGetCertificatesApi extends HPartnerPorta
     {
         if(this.validSince!=null)
         {
-            return BaseEndpoint + '/courses/' + courseId + '/certificates?acquiredDate='+validSince;
+            return BaseEndpoint + '/courses/' + courseId + '/certificates?includeExpired=true&acquiredDate='+validSince;
         }
         else
         {
-            return BaseEndpoint + '/courses/' + courseId + '/certificates';
+            return BaseEndpoint + '/courses/' + courseId + '/certificates?includeExpired=true';
         }
         
     }

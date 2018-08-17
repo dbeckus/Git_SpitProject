@@ -205,7 +205,16 @@
             }            
         });
         if (!isValid) { alert("Qty must greater than 0."); return isValid; }
-
+        
+        $(".requiredTRField").each(function(index){
+             
+            if($(this).val() == null || $(this).val() == '')
+            {
+                isValid = false;
+            }            
+        });
+        if (!isValid) { alert("EC-SFP-SR and EC-SFP-LR cannot be blank."); return isValid; }
+       
         $(".requiredField").each(function(index){
             
             if(($(this).val() == null || $(this).val() == ''))
@@ -449,6 +458,26 @@
                                 </tr>
                                 <tr style="height:32px" class="subSectionHeader">
                                     <td> 
+                                        EC-SFP-SR :
+                                    </td>
+                                </tr>                        
+                                <tr>
+                                    <td style="height:20px">                                
+                                        {!info.TransRec_SR}
+                                    </td>
+                                </tr>
+                                    <tr style="height:32px" class="subSectionHeader">
+                                    <td> 
+                                        EC-SFP-LR :
+                                    </td>
+                                </tr>                        
+                                <tr>
+                                    <td style="height:20px">                                
+                                        {!info.TransRec_LR}
+                                    </td>
+                                </tr>
+                                <tr style="height:32px" class="subSectionHeader">
+                                    <td> 
                                         Qty:
                                     </td>
                                 </tr>                        
@@ -620,7 +649,18 @@
                             <td class="editTableContentTd">
                                 <apex:selectList value="{!info.ProductName}"   size="1" styleclass="apexElementsStyle">
                                     <apex:selectOptions value="{!PhysicalProductOptions}"/>
+                                        <apex:actionSupport event="onchange" rerender="physicalInfoPanel" />
                                 </apex:selectList>
+                        </td></tr>
+                        <tr>
+                            <td class="editTableTitleTd" align="right">EC-SFP-SR:</td>
+                            <td class="editTableContentTd">
+                                <apex:inputText value="{!info.TransRec_SR}" styleclass="{!IF(info.ProductName == 'EC-M-P-1Y', 'requiredTRField apexElementsStyle', 'apexElementsStyle')}"   rendered="{!IF(info.ProductName == 'EC-M-P-1Y', true, false)}" />
+                        </td></tr>
+                        <tr>
+                            <td class="editTableTitleTd" align="right">EC-SFP-LR:</td>
+                            <td class="editTableContentTd">
+                                <apex:inputText value="{!info.TransRec_LR}" styleclass="{!IF(info.ProductName == 'EC-M-P-1Y', 'requiredTRField apexElementsStyle', 'apexElementsStyle')}"  rendered="{!IF(info.ProductName == 'EC-M-P-1Y', true, false)}" />
                         </td></tr>
                         <tr>
                             <td class="editTableTitleTd" align="right">Qty:<span class="requiredSpan"> |</span></td>

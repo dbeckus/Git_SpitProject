@@ -54,7 +54,6 @@
     <enableReports>true</enableReports>
     <enableSharing>true</enableSharing>
     <enableStreamingApi>true</enableStreamingApi>
-    <externalSharingModel>ReadWrite</externalSharingModel>
     <fields>
         <fullName>Activity_Date__c</fullName>
         <defaultValue>Today()</defaultValue>

@@ -2,9 +2,9 @@
 <Role xmlns="http://soap.sforce.com/2006/04/metadata">
     <caseAccessLevel>None</caseAccessLevel>
     <contactAccessLevel>Edit</contactAccessLevel>
-    <description>ZELTIQ Aesthetics Customer User</description>
+    <description>Zeltiq Aesthetics, Inc. Customer User</description>
     <mayForecastManagerShare>false</mayForecastManagerShare>
-    <name>ZELTIQ Aesthetics Customer User</name>
+    <name>Zeltiq Aesthetics, Inc. Customer User</name>
     <opportunityAccessLevel>None</opportunityAccessLevel>
     <parentRole>Grade_4_Sales_NAM_West</parentRole>
 </Role>

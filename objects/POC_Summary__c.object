@@ -54,7 +54,6 @@
     <enableReports>true</enableReports>
     <enableSharing>true</enableSharing>
     <enableStreamingApi>true</enableStreamingApi>
-    <externalSharingModel>ReadWrite</externalSharingModel>
     <fields>
         <fullName>Contact_1_Role__c</fullName>
         <externalId>false</externalId>
@@ -706,7 +705,6 @@
         <externalId>false</externalId>
         <label>POC Contact1</label>
         <referenceTo>Contact</referenceTo>
-        <relationshipLabel>POCSummaries</relationshipLabel>
         <relationshipName>POCSummaries</relationshipName>
         <required>false</required>
         <trackHistory>false</trackHistory>
@@ -719,7 +717,6 @@
         <externalId>false</externalId>
         <label>POC Contact2</label>
         <referenceTo>Contact</referenceTo>
-        <relationshipLabel>POCSummaries (POC Contact2)</relationshipLabel>
         <relationshipName>POCSummaries1</relationshipName>
         <required>false</required>
         <trackHistory>false</trackHistory>
@@ -732,7 +729,6 @@
         <externalId>false</externalId>
         <label>POC Contact3</label>
         <referenceTo>Contact</referenceTo>
-        <relationshipLabel>POCSummaries (POC Contact3)</relationshipLabel>
         <relationshipName>POCSummaries2</relationshipName>
         <required>false</required>
         <trackHistory>false</trackHistory>
@@ -746,7 +742,6 @@
         <inlineHelpText>To link to this, go to files tab and upload you POC network diagram and then you can browse and link it here.</inlineHelpText>
         <label>POC Diagram</label>
         <referenceTo>Ensemblestorage__EnsembleFile__c</referenceTo>
-        <relationshipLabel>POCSummaries</relationshipLabel>
         <relationshipName>POCSummaries</relationshipName>
         <required>false</required>
         <trackHistory>false</trackHistory>
@@ -784,7 +779,6 @@
         <inlineHelpText>which opportunity this is related to</inlineHelpText>
         <label>POC For:</label>
         <referenceTo>Opportunity</referenceTo>
-        <relationshipLabel>POCSummary</relationshipLabel>
         <relationshipName>POCSummaries</relationshipName>
         <required>false</required>
         <trackHistory>false</trackHistory>
@@ -1840,7 +1834,6 @@
         <externalId>false</externalId>
         <label>Contact</label>
         <referenceTo>Contact</referenceTo>
-        <relationshipLabel>POCSummaries (Site 1 Contact)</relationshipLabel>
         <relationshipName>POCSummaries3</relationshipName>
         <required>false</required>
         <trackHistory>false</trackHistory>
@@ -2197,7 +2190,6 @@
         <externalId>false</externalId>
         <label>Contact</label>
         <referenceTo>Contact</referenceTo>
-        <relationshipLabel>POCSummaries (Site 2 Contact)</relationshipLabel>
         <relationshipName>POCSummaries4</relationshipName>
         <required>false</required>
         <trackHistory>false</trackHistory>
@@ -2554,7 +2546,6 @@
         <externalId>false</externalId>
         <label>Contact</label>
         <referenceTo>Contact</referenceTo>
-        <relationshipLabel>POCSummaries (Site 3 Contact)</relationshipLabel>
         <relationshipName>POCSummaries5</relationshipName>
         <required>false</required>
         <trackHistory>false</trackHistory>
@@ -2911,7 +2902,6 @@
         <externalId>false</externalId>
         <label>Contact</label>
         <referenceTo>Contact</referenceTo>
-        <relationshipLabel>POCSummaries (Site 4 Contact)</relationshipLabel>
         <relationshipName>POCSummaries6</relationshipName>
         <required>false</required>
         <trackHistory>false</trackHistory>
@@ -3791,7 +3781,7 @@
         <type>MultiselectPicklist</type>
         <visibleLines>8</visibleLines>
     </fields>
-    <label>POC Summary</label>
+    <label>POC Summary(R)</label>
     <listViews>
         <fullName>POCList</fullName>
         <columns>NAME</columns>

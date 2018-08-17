@@ -29,6 +29,10 @@
             <translation><!-- Lab Help Requests --></translation>
         </picklistValues>
         <picklistValues>
+            <masterLabel>Perf Help Requests</masterLabel>
+            <translation><!-- Perf Help Requests --></translation>
+        </picklistValues>
+        <picklistValues>
             <masterLabel>Technical Support</masterLabel>
             <translation><!-- Technical Support --></translation>
         </picklistValues>

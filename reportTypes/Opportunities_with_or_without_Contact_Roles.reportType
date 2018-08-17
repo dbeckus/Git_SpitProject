@@ -1377,11 +1377,6 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>BL__TrackingNumber__c</field>
-            <table>Opportunity</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
             <field>LID__LinkedIn_Company_Id__c</field>
             <table>Opportunity</table>
         </columns>
@@ -1528,11 +1523,6 @@
         <columns>
             <checkedByDefault>false</checkedByDefault>
             <field>Tier3_Partner__c</field>
-            <table>Opportunity</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>ES_APP__TrackingNumber__c</field>
             <table>Opportunity</table>
         </columns>
         <columns>
@@ -3100,11 +3090,6 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>BL__SynchWithBoulderLogic__c</field>
-            <table>Opportunity.OpportunityContactRoles</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
             <field>LID__LinkedIn_Company_Id__c</field>
             <table>Opportunity.OpportunityContactRoles</table>
         </columns>
@@ -3250,26 +3235,6 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>ES_APP__ESCreatedTimestamp__c</field>
-            <table>Opportunity.OpportunityContactRoles</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>ES_APP__ESEnrichedTimestamp__c</field>
-            <table>Opportunity.OpportunityContactRoles</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>ES_APP__ESEnriched__c</field>
-            <table>Opportunity.OpportunityContactRoles</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>ES_APP__ESSource__c</field>
-            <table>Opportunity.OpportunityContactRoles</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
             <field>mkto71_Lead_Score__c</field>
             <table>Opportunity.OpportunityContactRoles</table>
         </columns>
@@ -3366,11 +3331,6 @@
         <columns>
             <checkedByDefault>false</checkedByDefault>
             <field>Owner_GEO__c</field>
-            <table>Opportunity.OpportunityContactRoles</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>ABM_Target__c</field>
             <table>Opportunity.OpportunityContactRoles</table>
         </columns>
         <masterLabel>Contact Roles</masterLabel>

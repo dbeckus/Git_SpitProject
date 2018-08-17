@@ -261,11 +261,26 @@
         <description>New MFR Request Submitted (internal)</description>
         <protected>false</protected>
         <recipients>
-            <recipient>kallison@silver-peak.com</recipient>
+            <recipient>ddalponte@silver-peak.com</recipient>
             <type>user</type>
         </recipients>
         <senderType>CurrentUser</senderType>
         <template>MDF/New_MDF_Request_Submitted_for_Approval_Internal</template>
+    </alerts>
+    <alerts>
+        <fullName>Notification_to_Finance_Team_on_Rejection_of_Approved_MFR</fullName>
+        <description>Notification to Finance Team on Rejection of Approved MFR</description>
+        <protected>false</protected>
+        <recipients>
+            <recipient>pmusunuru@silver-peak.com</recipient>
+            <type>user</type>
+        </recipients>
+        <recipients>
+            <recipient>vchow@silver-peak.com</recipient>
+            <type>user</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>unfiled$public/Notification_on_Rejection_of_Approved_MDF</template>
     </alerts>
     <fieldUpdates>
         <fullName>Approval_Date_Updates</fullName>

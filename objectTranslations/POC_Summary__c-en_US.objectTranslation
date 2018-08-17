@@ -2,7 +2,7 @@
 <CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
     <caseValues>
         <plural>false</plural>
-        <value>POC Summary</value>
+        <value>POC Summary(R)</value>
     </caseValues>
     <caseValues>
         <plural>true</plural>
@@ -370,7 +370,7 @@
     <fields>
         <label><!-- POC Contact1 --></label>
         <name>POC_Contact1__c</name>
-        <relationshipLabel><!-- POCSummaries --></relationshipLabel>
+        <relationshipLabel><!-- POCSummaries (POC Contact1) --></relationshipLabel>
     </fields>
     <fields>
         <label><!-- POC Contact2 --></label>
@@ -401,7 +401,7 @@
         <help><!-- which opportunity this is related to --></help>
         <label><!-- POC For: --></label>
         <name>POC_For__c</name>
-        <relationshipLabel><!-- POCSummary --></relationshipLabel>
+        <relationshipLabel><!-- POCSummaries --></relationshipLabel>
     </fields>
     <fields>
         <help><!-- Date POC equipment shipped --></help>
@@ -1280,7 +1280,7 @@
     <fields>
         <label><!-- Contact --></label>
         <name>Site_1_Contact__c</name>
-        <relationshipLabel><!-- POCSummaries (Site 1 Contact) --></relationshipLabel>
+        <relationshipLabel><!-- POCSummaries (Contact) --></relationshipLabel>
     </fields>
     <fields>
         <label><!-- HW Vendors --></label>
@@ -1593,7 +1593,7 @@
     <fields>
         <label><!-- Contact --></label>
         <name>Site_2_Contact__c</name>
-        <relationshipLabel><!-- POCSummaries (Site 2 Contact) --></relationshipLabel>
+        <relationshipLabel><!-- POCSummaries (Contact) --></relationshipLabel>
     </fields>
     <fields>
         <label><!-- HW Vendors --></label>
@@ -1906,7 +1906,7 @@
     <fields>
         <label><!-- Contact --></label>
         <name>Site_3_Contact__c</name>
-        <relationshipLabel><!-- POCSummaries (Site 3 Contact) --></relationshipLabel>
+        <relationshipLabel><!-- POCSummaries (Contact) --></relationshipLabel>
     </fields>
     <fields>
         <label><!-- HW Vendors --></label>
@@ -2219,7 +2219,7 @@
     <fields>
         <label><!-- Contact --></label>
         <name>Site_4_Contact__c</name>
-        <relationshipLabel><!-- POCSummaries (Site 4 Contact) --></relationshipLabel>
+        <relationshipLabel><!-- POCSummaries (Contact) --></relationshipLabel>
     </fields>
     <fields>
         <label><!-- HW Vendors --></label>

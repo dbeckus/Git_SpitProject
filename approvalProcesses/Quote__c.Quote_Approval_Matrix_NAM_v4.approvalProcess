@@ -66,6 +66,10 @@
         <type>role</type>
     </allowedSubmitters>
     <allowedSubmitters>
+        <submitter>Grade_2_BDR</submitter>
+        <type>role</type>
+    </allowedSubmitters>
+    <allowedSubmitters>
         <submitter>InsideSalesEast</submitter>
         <type>role</type>
     </allowedSubmitters>
@@ -311,7 +315,7 @@
     <enableMobileDeviceAccess>false</enableMobileDeviceAccess>
     <entryCriteria>
         <formula>and(
- CONTAINS(Opportunity__r.GEO_Region__c,&quot;NAM&quot;),
+OR( CONTAINS(Opportunity__r.GEO_Region__c,&quot;NAM&quot;),CONTAINS(Opportunity__r.GEO_Region__c,&quot;GAM&quot;)),
  Approval_Required__c =1,
  Approval_Made__c =False,
 len( Discount_Justification__c ) &gt; 0)</formula>

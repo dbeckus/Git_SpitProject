@@ -1,5 +1,6 @@
 public class MDFTriggerHandler implements ITriggerHandler{
     private string MDFRecordTypeId=null;
+    private string OtherRecordTypeId =null;
     Map<Id, Account> moreAccounts=null;
     Map<Id, Contact> moreContacts=null;
     Account loggedInUserAccount=null;
@@ -9,11 +10,14 @@ public class MDFTriggerHandler implements ITriggerHandler{
         if(SilverPeakutils.IsProduction())
         {
             MDFRecordTypeId= '012500000005btC';
+            OtherRecordTypeId= '01238000000EBSY';
         }
         else
         {
             List<RecordType> purchaseRecordType = [select Id from RecordType where SobjectType = 'Purchasing_Request__c' and Name = 'MDF Request' limit 1];
             MDFRecordTypeId = (purchaseRecordType.size() > 0) ? purchaseRecordType[0].Id : null;
+            List<RecordType> otherMDFRecordType = [select Id from RecordType where SobjectType = 'MDF_Request__c' and Name = 'Others' limit 1];
+            OtherRecordTypeId = (otherMDFRecordType.size() > 0) ? otherMDFRecordType[0].Id : null;         
         }
         
     }
@@ -36,23 +40,29 @@ public class MDFTriggerHandler implements ITriggerHandler{
             List<MDF_Request__c> lstMDF=( List<MDF_Request__c> )newItems;
             for(MDF_Request__c mdfReq:lstMDF)
             {
-                Purchasing_Request__c purchaseRequest = new Purchasing_Request__c(RecordTypeId = MDFRecordTypeId);
-                purchaseRequests.add(purchaseRequest);
-                if(mdfReq.Account__c == null)
-                {
-                    //MDF created by portal user
-                    UpdateAcctGEO(mdfReq,loggedInUserContact,loggedInUserAccount);
-                }
-                else
-                {
-                    //MDF created by internal user
-                    Account acc = moreAccounts.get(mdfReq.Account__c);
-                    Contact ct = moreContacts.get(mdfReq.Contact__c);
-                    UpdateAcctGEO(mdfReq,ct,acc);
+                if(mdfReq.RecordTypeId != OtherRecordTypeId)
+                {   
+                    Purchasing_Request__c purchaseRequest = new Purchasing_Request__c(RecordTypeId = MDFRecordTypeId);
+                    purchaseRequests.add(purchaseRequest);
+                    if(mdfReq.Account__c == null)
+                    {
+                        //MDF created by portal user
+                        UpdateAcctGEO(mdfReq,loggedInUserContact,loggedInUserAccount);
+                    }
+                    else
+                    {
+                        //MDF created by internal user
+                        Account acc = moreAccounts.get(mdfReq.Account__c);
+                        Contact ct = moreContacts.get(mdfReq.Contact__c);
+                        UpdateAcctGEO(mdfReq,ct,acc);
+                    }
                 }
             }
             insert purchaseRequests;
-            AssociateMDFWithPurchaseRequest(newItems,purchaseRequests);
+            if(purchaseRequests != null && purchaseRequests.size()>0)
+            {
+                AssociateMDFWithPurchaseRequest(newItems,purchaseRequests);
+            }
         }        
     }
     public void BeforeUpdate(Map<Id, SObject> newItems, Map<Id, SObject> oldItems) 
@@ -64,7 +74,6 @@ public class MDFTriggerHandler implements ITriggerHandler{
             {
                 MDF_Request__c newMDF = (MDF_Request__c)newItems.get(mdfId);
                 MDF_Request__c oldMDF = (MDF_Request__c)oldItems.get(mdfId);
-                
                 if(isApproval(newMDF.Approval_Status_Hidden__c) && !isApproval(oldMDF.Approval_Status_Hidden__c))
                 {
                     if(newMDF.Purchasing_Request__c!=null && newMDF.Purchasing_Request_First_Approver__c == null)
@@ -102,12 +111,16 @@ public class MDFTriggerHandler implements ITriggerHandler{
             for (Id mdfId : newItems.keyset())
             {
                 MDF_Request__c mdf= (MDF_Request__c)newItems.get(mdfId);
-                accountIds.add(mdf.Account__c);
-                if(mdf.Is_Portal_Request__c)
-                    lstRequests.add(mdf);
-                if(mdf.Account__c!=null)
+                if(mdf.RecordTypeId != OtherRecordTypeId)
                 {
-                    lstMDF.add(mdf);
+                    accountIds.add(mdf.Account__c);
+                    
+                    if(mdf.Is_Portal_Request__c)
+                        lstRequests.add(mdf);
+                    if(mdf.Account__c!=null)
+                    {
+                        lstMDF.add(mdf);
+                    }
                 }
                 if(mdf.CSM__c!=null || mdf.OwnerId!=null || mdf.RSM__c!=null)
                 {
@@ -156,8 +169,10 @@ public class MDFTriggerHandler implements ITriggerHandler{
                 {
                     setCampMdfIds.add(newMDF.Id);
                 }
-                if(newMDF.Account__c!=oldMDF.Account__c || newMDF.OwnerId!=oldMdf.OwnerId)
+                if((newMDF.Account__c!=oldMDF.Account__c || newMDF.OwnerId!=oldMdf.OwnerId) && newMDF.RecordTypeId != OtherRecordTypeId)
+                {
                     lstMDF.add(newMDF);
+                }
                 if(newMDF.Approval_Status_Hidden__c == 'Approved' && oldMDF.Approval_Status_Hidden__c != 'Approved')
                 {
                     lstMDFPRApproval.add(newMDF);
@@ -266,7 +281,7 @@ public class MDFTriggerHandler implements ITriggerHandler{
     {
         if(lstMDFReq!=null && lstMDFReq.size()>0)
         {
-            List<MDF_Request__c> mdfs = [select Id, Purchasing_Request__c, Account__c, Account__r.Name, OwnerId, Owner.Name, Owner.Email, Company_Billing_Address__c, Remit_to_Address__c from MDF_Request__c where Id in :lstMDFReq];
+            List<MDF_Request__c> mdfs = [select Id, Purchasing_Request__c, Account__c, Account__r.Name, OwnerId, Owner.Name, Owner.Email, Company_Billing_Address__c, Remit_to_Address__c from MDF_Request__c where Id in :lstMDFReq and RecordTypeId != :OtherRecordTypeId];
             List<Purchasing_Request__c> requests = new List<Purchasing_Request__c>();
             for(MDF_Request__c mdf : mdfs)
             {
@@ -286,24 +301,27 @@ public class MDFTriggerHandler implements ITriggerHandler{
     }
     private void AutoSubmitMDFRequest(List<MDF_Request__c> lstRequests)
     {
-        List<Approval.ProcessSubmitRequest> requests = new List<Approval.ProcessSubmitRequest>();
-        for(MDF_Request__c item : lstRequests)
+        if(lstRequests != null && lstRequests.size()>0)
         {
-            Approval.ProcessSubmitRequest submitReq = new Approval.ProcessSubmitRequest();
-            submitReq.setComments('Submitting request for approval.');
-            submitReq.setObjectId(item.Id);
-            //submitReq.setSubmitterId(UserInfo.getUserId());
-            //submitReq.setProcessDefinitionNameOrId('New_MDF_Request');
-            //submitReq.setSkipEntryCriteria(true);
-            requests.add(submitReq);
-        }
-        try
-        {
-            List<Approval.ProcessResult> results = Approval.process(requests, false);
-        }
-        catch(Exception ex)
-        {
-            System.debug('An exception was thrown: ' + ex);
+            List<Approval.ProcessSubmitRequest> requests = new List<Approval.ProcessSubmitRequest>();
+            for(MDF_Request__c item : lstRequests)
+            {
+                Approval.ProcessSubmitRequest submitReq = new Approval.ProcessSubmitRequest();
+                submitReq.setComments('Submitting request for approval.');
+                submitReq.setObjectId(item.Id);
+                //submitReq.setSubmitterId(UserInfo.getUserId());
+                //submitReq.setProcessDefinitionNameOrId('New_MDF_Request');
+                //submitReq.setSkipEntryCriteria(true);
+                requests.add(submitReq);
+            }
+            try
+            {
+                List<Approval.ProcessResult> results = Approval.process(requests, false);
+            }
+            catch(Exception ex)
+            {
+                System.debug('An exception was thrown: ' + ex);
+            }
         }
     }
     
@@ -406,12 +424,15 @@ public class MDFTriggerHandler implements ITriggerHandler{
     private void ShareMDFToCSM(List<MDF_Request__c> needToShareMDFs)
     {
         List<MDF_Request__Share> lstMDFShare= new List<MDF_Request__Share>();
-        for(MDF_Request__c mdf:needToShareMDFs)
+        if(needToShareMDFs.size()>0 && needToShareMDFs != null)
         {
-            MDF_Request__Share mdfShare = new MDF_Request__Share(ParentId = mdf.Id, UserOrGroupId = mdf.CSM__c, AccessLevel = 'Edit');
-            lstMDFShare.add(mdfShare);
+            for(MDF_Request__c mdf:needToShareMDFs)
+            {
+                MDF_Request__Share mdfShare = new MDF_Request__Share(ParentId = mdf.Id, UserOrGroupId = mdf.CSM__c, AccessLevel = 'Edit');
+                lstMDFShare.add(mdfShare);
+            }
+            Database.Insert(lstMDFShare,false);
         }
-        Database.Insert(lstMDFShare,false);
     }
     
     

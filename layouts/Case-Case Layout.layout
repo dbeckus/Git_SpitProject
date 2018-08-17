@@ -5,13 +5,20 @@
     <excludeButtons>Submit</excludeButtons>
     <layoutSections>
         <customLabel>true</customLabel>
-        <detailHeading>true</detailHeading>
-        <editHeading>true</editHeading>
-        <label>CAP Section</label>
+        <detailHeading>false</detailHeading>
+        <editHeading>false</editHeading>
+        <label>CAP and DE Section</label>
         <layoutColumns>
             <layoutItems>
                 <height>50</height>
                 <page>CapWarningMessage</page>
+                <showLabel>false</showLabel>
+                <showScrollbars>false</showScrollbars>
+                <width>100%</width>
+            </layoutItems>
+            <layoutItems>
+                <height>50</height>
+                <page>DeploymentEngineeringCaseWarningMessage</page>
                 <showLabel>false</showLabel>
                 <showScrollbars>false</showScrollbars>
                 <width>100%</width>
@@ -98,20 +105,8 @@
                 <field>TAC_Hours__c</field>
             </layoutItems>
             <layoutItems>
-                <behavior>Readonly</behavior>
-                <field>Open_Account__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Readonly</behavior>
-                <field>Open_Contact__c</field>
-            </layoutItems>
-            <layoutItems>
                 <behavior>Edit</behavior>
-                <field>Open_AccountLH__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>Open_Contact_LH__c</field>
+                <field>Case_Opened_Priority__c</field>
             </layoutItems>
         </layoutColumns>
         <layoutColumns>
@@ -190,6 +185,14 @@
             <layoutItems>
                 <behavior>Readonly</behavior>
                 <field>Link_to_Bug__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>Cap_Critical_Case__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>Last_Update_Age__c</field>
             </layoutItems>
         </layoutColumns>
         <style>TwoColumnsTopToBottom</style>
@@ -389,6 +392,10 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Readonly</behavior>
+                <field>Asset_Account__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
                 <field>Product__c</field>
             </layoutItems>
             <layoutItems>
@@ -518,6 +525,18 @@
     </relatedContent>
     <relatedLists>
         <relatedList>RelatedTeamMemberList</relatedList>
+    </relatedLists>
+    <relatedLists>
+        <excludeButtons>New</excludeButtons>
+        <fields>DE_Note__c.NAME</fields>
+        <fields>DE_Note__c.Has_Attachment__c</fields>
+        <fields>DE_Note__c.Deployment_Engineer__c</fields>
+        <fields>DE_Notes__c</fields>
+        <fields>User.CREATED</fields>
+        <fields>DE_Note__c.CREATED_DATE</fields>
+        <relatedList>DE_Case_Note__c.Case_Number__c</relatedList>
+        <sortField>DE_Note__c.Has_Attachment__c</sortField>
+        <sortOrder>Desc</sortOrder>
     </relatedLists>
     <relatedLists>
         <fields>NAME</fields>

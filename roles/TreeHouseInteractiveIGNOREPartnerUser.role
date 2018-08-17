@@ -2,9 +2,9 @@
 <Role xmlns="http://soap.sforce.com/2006/04/metadata">
     <caseAccessLevel>None</caseAccessLevel>
     <contactAccessLevel>Edit</contactAccessLevel>
-    <description>TreeHouse Interactive - IGNORE Partner User</description>
+    <description>Treehouse Interactive, Inc. Partner User</description>
     <mayForecastManagerShare>false</mayForecastManagerShare>
-    <name>TreeHouse Interactive - IGNORE Partner User</name>
+    <name>Treehouse Interactive, Inc. Partner User</name>
     <opportunityAccessLevel>None</opportunityAccessLevel>
     <parentRole>TreeHouseInteractiveIGNOREPartnerManager</parentRole>
 </Role>

@@ -2,9 +2,9 @@
 <Role xmlns="http://soap.sforce.com/2006/04/metadata">
     <caseAccessLevel>None</caseAccessLevel>
     <contactAccessLevel>Edit</contactAccessLevel>
-    <description>Sodrugestvo Group S.a Customer User</description>
+    <description>Sodrugestvo Group SA Customer User</description>
     <mayForecastManagerShare>false</mayForecastManagerShare>
-    <name>Sodrugestvo Group S.a Customer User</name>
+    <name>Sodrugestvo Group SA Customer User</name>
     <opportunityAccessLevel>None</opportunityAccessLevel>
-    <parentRole>Grade_2_BDR</parentRole>
+    <parentRole>Grade_4_Sales_EMEA_SOUTH</parentRole>
 </Role>

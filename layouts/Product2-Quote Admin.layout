@@ -87,6 +87,30 @@
                 <behavior>Edit</behavior>
                 <field>Total_Comp_Rate_Enabled__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Dims_max__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Weight__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>HTS__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>ECCN__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>CCATS__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>License_Exception_Type__c</field>
+            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>
@@ -153,6 +177,10 @@
             <layoutItems>
                 <behavior>Edit</behavior>
                 <field>Description</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Abridged_Description__c</field>
             </layoutItems>
         </layoutColumns>
         <style>OneColumn</style>
@@ -261,6 +289,10 @@
     </layoutSections>
     <relatedLists>
         <relatedList>RelatedStandardPriceList</relatedList>
+    </relatedLists>
+    <relatedLists>
+        <fields>NAME</fields>
+        <relatedList>SBQQ__Cost__c.SBQQ__Product__c</relatedList>
     </relatedLists>
     <relatedLists>
         <relatedList>RelatedPricebookEntryList</relatedList>

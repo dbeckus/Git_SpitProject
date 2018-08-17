@@ -41,7 +41,6 @@
     </alerts>
     <alerts>
         <fullName>Deal_Registration_Submitted_Email_Alert_to_Marketing</fullName>
-        <ccEmails>mchristiansen@silver-peak.com;tsiragusa@silver-peak.com</ccEmails>
         <description>Deal Registration Submitted Email Alert to Marketing</description>
         <protected>false</protected>
         <recipients>
@@ -868,6 +867,15 @@ Sales_Rejected_Comments__c</formula>
         <protected>false</protected>
     </fieldUpdates>
     <fieldUpdates>
+        <fullName>Update_Email_Opt_Out_Lead</fullName>
+        <field>HasOptedOutOfEmail</field>
+        <literalValue>1</literalValue>
+        <name>Update Email Opt Out-Lead</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+    </fieldUpdates>
+    <fieldUpdates>
         <fullName>Update_Lead_Status_for_Conversion_Text</fullName>
         <field>Lead_Status_for_Convert_Text__c</field>
         <formula>TEXT(Status)</formula>
@@ -1025,6 +1033,26 @@ Sales_Rejected_Comments__c</formula>
             <operation>equals</operation>
             <value>Deal Registration</value>
         </criteriaItems>
+        <triggerType>onCreateOnly</triggerType>
+    </rules>
+    <rules>
+        <fullName>Email Opt Out to True for GDPR Countries-Lead</fullName>
+        <actions>
+            <name>Update_Email_Opt_Out_Lead</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>Lead.Is_GDPR_Country__c</field>
+            <operation>equals</operation>
+            <value>True</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Lead.CreatedById</field>
+            <operation>notEqual</operation>
+            <value>Demand Generation</value>
+        </criteriaItems>
+        <description>Set Email Opt Out to true for GDPR Countries based on Patch</description>
         <triggerType>onCreateOnly</triggerType>
     </rules>
     <rules>

@@ -56,11 +56,6 @@
         <visible>true</visible>
     </applicationVisibilities>
     <applicationVisibilities>
-        <application>standard__AllTabSet</application>
-        <default>false</default>
-        <visible>true</visible>
-    </applicationVisibilities>
-    <applicationVisibilities>
         <application>standard__AppLauncher</application>
         <default>false</default>
         <visible>true</visible>
@@ -292,6 +287,10 @@
     </classAccesses>
     <classAccesses>
         <apexClass>CaseSupportEmailHandlerTest</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>CaseTriggerHandler</apexClass>
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
@@ -531,6 +530,10 @@
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>DeploymentEngineeringNotesTriggerHandler</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>DownloadExtension</apexClass>
         <enabled>false</enabled>
     </classAccesses>
@@ -591,16 +594,16 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
-        <apexClass>ExampleController</apexClass>
-        <enabled>false</enabled>
-    </classAccesses>
-    <classAccesses>
         <apexClass>ExpiringAssetListController</apexClass>
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
         <apexClass>ExpiringContractListController</apexClass>
         <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>FindContactReferences</apexClass>
+        <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
         <apexClass>ForecastAutoSubmit</apexClass>
@@ -645,10 +648,6 @@
     <classAccesses>
         <apexClass>ForwardLeadController</apexClass>
         <enabled>true</enabled>
-    </classAccesses>
-    <classAccesses>
-        <apexClass>GEORegionChangeTriggerHandler</apexClass>
-        <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
         <apexClass>GenerateGmsLicenseController</apexClass>
@@ -792,10 +791,6 @@
     </classAccesses>
     <classAccesses>
         <apexClass>InternalHelpDeskEmailHandler</apexClass>
-        <enabled>false</enabled>
-    </classAccesses>
-    <classAccesses>
-        <apexClass>LH_TEST_Case</apexClass>
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
@@ -1152,10 +1147,6 @@
     </classAccesses>
     <classAccesses>
         <apexClass>OpportunityTriggerHandler</apexClass>
-        <enabled>false</enabled>
-    </classAccesses>
-    <classAccesses>
-        <apexClass>OuterClass</apexClass>
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
@@ -1555,6 +1546,14 @@
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>PerfHelpEmailHandler</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>PerfHelpEmailHandlerTest</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>PickAssetForNewCaseController</apexClass>
         <enabled>false</enabled>
     </classAccesses>
@@ -1612,6 +1611,10 @@
     </classAccesses>
     <classAccesses>
         <apexClass>QuoteHelper</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>RHX_TEST_OpportunityLineItem</apexClass>
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
@@ -1907,10 +1910,6 @@
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
-        <apexClass>TestAssociateLMSCertificateWithContact</apexClass>
-        <enabled>false</enabled>
-    </classAccesses>
-    <classAccesses>
         <apexClass>TestAutomatePOCRenewalExtensions</apexClass>
         <enabled>false</enabled>
     </classAccesses>
@@ -1944,6 +1943,10 @@
     </classAccesses>
     <classAccesses>
         <apexClass>TestCaseShareWithPartnerManager</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>TestCaseTriggerHandler</apexClass>
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
@@ -1983,15 +1986,7 @@
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
-        <apexClass>TestController</apexClass>
-        <enabled>false</enabled>
-    </classAccesses>
-    <classAccesses>
         <apexClass>TestCopyECLicenseEndDateToAccount</apexClass>
-        <enabled>false</enabled>
-    </classAccesses>
-    <classAccesses>
-        <apexClass>TestData</apexClass>
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
@@ -2016,6 +2011,10 @@
     </classAccesses>
     <classAccesses>
         <apexClass>TestDeletionNotAllowedSyncToCp</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>TestDeploymentEnggNotesTriggerHandler</apexClass>
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
@@ -2116,6 +2115,10 @@
     </classAccesses>
     <classAccesses>
         <apexClass>TestNewReleasesController</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>TestNewSalesDevelopment</apexClass>
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
@@ -2272,10 +2275,6 @@
     </classAccesses>
     <classAccesses>
         <apexClass>TestUpdateStageOnOpportunityForTask</apexClass>
-        <enabled>false</enabled>
-    </classAccesses>
-    <classAccesses>
-        <apexClass>TestUserTriggerHandler</apexClass>
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
@@ -2558,6 +2557,11 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>AccountWithTimeline__c.VX__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Api_Configuration__c.Base_Endpoint__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -3024,6 +3028,41 @@
         <editable>false</editable>
         <field>Customer_Satisfaction_Survey__c.TAC_Success__c</field>
         <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>DE_Case_Note__c.DE_Notes__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>DE_Note__c.Acc_Name__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>DE_Note__c.Additional_Email_Recipients__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>DE_Note__c.Attachment_Count__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>DE_Note__c.DE_Notes__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>DE_Note__c.Deployment_Engineer__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>DE_Note__c.Has_Attachment__c</field>
+        <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
@@ -3678,7 +3717,7 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>LMS_Course_Certification__c.Acquired_Date__c</field>
-        <readable>false</readable>
+        <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
@@ -3688,7 +3727,7 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>LMS_Course_Certification__c.Certification_Title__c</field>
-        <readable>true</readable>
+        <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
@@ -3697,8 +3736,13 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>LMS_Course_Certification__c.Course_Name__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>LMS_Course_Certification__c.Enrollment_Id__c</field>
-        <readable>false</readable>
+        <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
@@ -3753,12 +3797,12 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>LMS_Course_Certification__c.URI__c</field>
-        <readable>true</readable>
+        <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
         <field>LMS_Course_Certification__c.Validity_Date__c</field>
-        <readable>true</readable>
+        <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
@@ -4061,9 +4105,9 @@
         <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>MDF_Request__c.Activity_Date__c</field>
-        <readable>false</readable>
+        <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
@@ -4106,9 +4150,9 @@
         <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>MDF_Request__c.Approval_Date__c</field>
-        <readable>false</readable>
+        <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
@@ -4121,9 +4165,9 @@
         <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>MDF_Request__c.CSM__c</field>
-        <readable>false</readable>
+        <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
@@ -4176,9 +4220,9 @@
         <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>MDF_Request__c.Estimated_Partner_Amount__c</field>
-        <readable>false</readable>
+        <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
@@ -4261,9 +4305,9 @@
         <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>MDF_Request__c.GEO__c</field>
-        <readable>false</readable>
+        <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
@@ -4286,17 +4330,17 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>MDF_Request__c.Is_Portal_Request__c</field>
-        <readable>false</readable>
+        <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>MDF_Request__c.Location_of_Event__c</field>
-        <readable>false</readable>
+        <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>MDF_Request__c.MDF_Status__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -4336,14 +4380,19 @@
         <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
+        <editable>true</editable>
+        <field>MDF_Request__c.Others__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>false</editable>
         <field>MDF_Request__c.Owner_Role__c</field>
         <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>MDF_Request__c.PO_No__c</field>
-        <readable>false</readable>
+        <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
@@ -4373,7 +4422,7 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>MDF_Request__c.Purchasing_Request_First_Approver__c</field>
-        <readable>true</readable>
+        <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
@@ -4381,9 +4430,9 @@
         <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>MDF_Request__c.Purchasing_Request__c</field>
-        <readable>false</readable>
+        <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
@@ -4451,6 +4500,11 @@
         <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
+        <editable>true</editable>
+        <field>MDF_Request__c.Sales_People__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>false</editable>
         <field>MDF_Request__c.SendReminder__c</field>
         <readable>false</readable>
@@ -4516,6 +4570,11 @@
         <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
+        <editable>true</editable>
+        <field>MDF_Request__c.System_Engineers__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>false</editable>
         <field>MDF_Request__c.Target_Audience_Profile__c</field>
         <readable>false</readable>
@@ -4542,6 +4601,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>MDF_Request__c.Total_Number_of_People__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>MDF_Request__c.Total_Qualified_Leads__c</field>
         <readable>false</readable>
     </fieldPermissions>
@@ -4551,9 +4615,9 @@
         <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>MDF_Request__c.Type_of_Program__c</field>
-        <readable>false</readable>
+        <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
@@ -5432,6 +5496,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Partner_Account_Profile__c.Old_LMS_Department_Id__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Partner_Account_Profile__c.Other__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -5757,6 +5826,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Partner_Contact_Profile__c.Old_LMS_User_Id__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Partner_Contact_Profile__c.Partner_Level__c</field>
         <readable>false</readable>
     </fieldPermissions>
@@ -5932,6 +6006,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Patch_Change__e.RSS_Name__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Patch__c.Active__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -5987,6 +6066,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Patch__c.Is_GDPR_Country__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Patch__c.Overlay_1_Email__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -6038,7 +6122,7 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Patch__c.Patch_Owner_Phone__c</field>
-        <readable>true</readable>
+        <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
@@ -6642,6 +6726,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Quote__c.Is_SP_Account__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Quote__c.Level3Required__c</field>
         <readable>false</readable>
     </fieldPermissions>
@@ -6891,6 +6980,16 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
+        <editable>false</editable>
+        <field>Quote__c.Tier1AccountId__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Quote__c.Tier2PartnerId__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>true</editable>
         <field>Quote__c.Tier_1_Partner__c</field>
         <readable>true</readable>
@@ -7013,6 +7112,16 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>RMA_Item__c.Repair_Date__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>RMA_Item__c.Replacement_Product_Family__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>RMA_Item__c.Replacement_Product_Name__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -7388,7 +7497,7 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>RMA__c.Received_Count__c</field>
-        <readable>false</readable>
+        <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
@@ -7434,6 +7543,11 @@
         <editable>true</editable>
         <field>RMA__c.Tracking_Information__c</field>
         <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>RMA__c.Trigger_Time_05__c</field>
+        <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
@@ -7806,6 +7920,31 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
+        <editable>false</editable>
+        <field>Request__c.Physical_Transceiver1__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Request__c.Physical_Transceiver2__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Request__c.Physical_Transceiver3__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Request__c.Physical_Transceiver4__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Request__c.Physical_Transceiver5__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>true</editable>
         <field>Request__c.Portal_Access_Contact__c</field>
         <readable>true</readable>
@@ -7976,6 +8115,56 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
+        <editable>true</editable>
+        <field>Request__c.TR_EC_SFP_LR1__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Request__c.TR_EC_SFP_LR2__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Request__c.TR_EC_SFP_LR3__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Request__c.TR_EC_SFP_LR4__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Request__c.TR_EC_SFP_LR5__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Request__c.TR_EC_SFP_SR1__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Request__c.TR_EC_SFP_SR2__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Request__c.TR_EC_SFP_SR3__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Request__c.TR_EC_SFP_SR4__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Request__c.TR_EC_SFP_SR5__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>false</editable>
         <field>Request__c.TR_Email__c</field>
         <readable>true</readable>
@@ -8073,11 +8262,6 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Request__c.eval_length__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>RevenueRecognitionChecklist__c.ARRID__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -8537,11 +8721,6 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>TestObj__c.te__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
         <field>Training_Course__c.Course_Code__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -8725,7 +8904,7 @@
         <layout>AOLead__c-AOLead Layout</layout>
     </layoutAssignments>
     <layoutAssignments>
-        <layout>Account-Account Layout with Ops Temp</layout>
+        <layout>Account-Account Layout with Ops Temp with LeanData Info</layout>
     </layoutAssignments>
     <layoutAssignments>
         <layout>AccountBrand-Account BrandLayout</layout>
@@ -8794,7 +8973,7 @@
         <layout>CollaborationGroup-Group Layout</layout>
     </layoutAssignments>
     <layoutAssignments>
-        <layout>Contact-Sales Dev Contact Layout</layout>
+        <layout>Contact-Sales Power User Contact Layout with LeanData Info</layout>
     </layoutAssignments>
     <layoutAssignments>
         <layout>ContentPage__c-Partner Portal Page Layout</layout>
@@ -8813,6 +8992,12 @@
     </layoutAssignments>
     <layoutAssignments>
         <layout>Customer_Satisfaction_Survey__c-Customer Satisfaction Survey Layout</layout>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>DE_Case_Note__c-Deployment Engineering Case Note Layout</layout>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>DE_Note__c-Deployment Engineering Note Layout</layout>
     </layoutAssignments>
     <layoutAssignments>
         <layout>DandBCompany-D%26B Company Layout</layout>
@@ -8884,7 +9069,7 @@
         <layout>LMS_Course__c-LMS Course Layout</layout>
     </layoutAssignments>
     <layoutAssignments>
-        <layout>Lead-Sales Dev Lead Layout</layout>
+        <layout>Lead-Sales Dev Lead Layout with LeanData info</layout>
     </layoutAssignments>
     <layoutAssignments>
         <layout>Lead_Match__c-Lead Match Layout</layout>
@@ -8924,6 +9109,10 @@
         <recordType>MDF_Request__c.Approved_MDF</recordType>
     </layoutAssignments>
     <layoutAssignments>
+        <layout>MDF_Request__c-Others Layout</layout>
+        <recordType>MDF_Request__c.Others</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
         <layout>Macro-Macro Layout</layout>
     </layoutAssignments>
     <layoutAssignments>
@@ -8936,7 +9125,7 @@
         <layout>MultiLinkContact_del__c-MultiLinkContact Layout</layout>
     </layoutAssignments>
     <layoutAssignments>
-        <layout>Opportunity-CPQ RSM Opp Layout 031816</layout>
+        <layout>Opportunity-Opportunity Layout</layout>
     </layoutAssignments>
     <layoutAssignments>
         <layout>OpportunityLineItem-Opportunity Product Layout</layout>
@@ -9112,9 +9301,6 @@
         <layout>Task-Task Layout</layout>
     </layoutAssignments>
     <layoutAssignments>
-        <layout>TestObj__c-TestObj Layout</layout>
-    </layoutAssignments>
-    <layoutAssignments>
         <layout>Training_Course__c-Course Layout</layout>
     </layoutAssignments>
     <layoutAssignments>
@@ -9282,6 +9468,24 @@
         <allowRead>true</allowRead>
         <modifyAllRecords>true</modifyAllRecords>
         <object>Customer_Satisfaction_Survey__c</object>
+        <viewAllRecords>true</viewAllRecords>
+    </objectPermissions>
+    <objectPermissions>
+        <allowCreate>false</allowCreate>
+        <allowDelete>false</allowDelete>
+        <allowEdit>false</allowEdit>
+        <allowRead>true</allowRead>
+        <modifyAllRecords>false</modifyAllRecords>
+        <object>DE_Case_Note__c</object>
+        <viewAllRecords>true</viewAllRecords>
+    </objectPermissions>
+    <objectPermissions>
+        <allowCreate>false</allowCreate>
+        <allowDelete>false</allowDelete>
+        <allowEdit>false</allowEdit>
+        <allowRead>true</allowRead>
+        <modifyAllRecords>false</modifyAllRecords>
+        <object>DE_Note__c</object>
         <viewAllRecords>true</viewAllRecords>
     </objectPermissions>
     <objectPermissions>
@@ -9954,6 +10158,14 @@
         <enabled>true</enabled>
     </pageAccesses>
     <pageAccesses>
+        <apexPage>DeploymentEngineeringAccountWarning</apexPage>
+        <enabled>true</enabled>
+    </pageAccesses>
+    <pageAccesses>
+        <apexPage>DeploymentEngineeringCaseWarningMessage</apexPage>
+        <enabled>true</enabled>
+    </pageAccesses>
+    <pageAccesses>
         <apexPage>DocumentListing</apexPage>
         <enabled>true</enabled>
     </pageAccesses>
@@ -9994,10 +10206,6 @@
         <enabled>true</enabled>
     </pageAccesses>
     <pageAccesses>
-        <apexPage>ExamplePage</apexPage>
-        <enabled>false</enabled>
-    </pageAccesses>
-    <pageAccesses>
         <apexPage>Exception</apexPage>
         <enabled>false</enabled>
     </pageAccesses>
@@ -10007,6 +10215,10 @@
     </pageAccesses>
     <pageAccesses>
         <apexPage>FileNotFound</apexPage>
+        <enabled>false</enabled>
+    </pageAccesses>
+    <pageAccesses>
+        <apexPage>FindContactReferences</apexPage>
         <enabled>false</enabled>
     </pageAccesses>
     <pageAccesses>
@@ -10291,7 +10503,7 @@
     </pageAccesses>
     <pageAccesses>
         <apexPage>NewSalesDevelopment</apexPage>
-        <enabled>false</enabled>
+        <enabled>true</enabled>
     </pageAccesses>
     <pageAccesses>
         <apexPage>NewVirtualAsset</apexPage>
@@ -10722,10 +10934,6 @@
         <enabled>false</enabled>
     </pageAccesses>
     <pageAccesses>
-        <apexPage>Test1</apexPage>
-        <enabled>false</enabled>
-    </pageAccesses>
-    <pageAccesses>
         <apexPage>TestPage</apexPage>
         <enabled>false</enabled>
     </pageAccesses>
@@ -10751,7 +10959,7 @@
     </pageAccesses>
     <pageAccesses>
         <apexPage>UserListView</apexPage>
-        <enabled>false</enabled>
+        <enabled>true</enabled>
     </pageAccesses>
     <pageAccesses>
         <apexPage>VirtualPOCFulfillment</apexPage>
@@ -10763,7 +10971,13 @@
     </pageAccesses>
     <recordTypeVisibilities>
         <default>true</default>
+        <personAccountDefault>true</personAccountDefault>
         <recordType>MDF_Request__c.Approved_MDF</recordType>
+        <visible>true</visible>
+    </recordTypeVisibilities>
+    <recordTypeVisibilities>
+        <default>false</default>
+        <recordType>MDF_Request__c.Others</recordType>
         <visible>true</visible>
     </recordTypeVisibilities>
     <recordTypeVisibilities>
@@ -10837,6 +11051,10 @@
         <visibility>DefaultOn</visibility>
     </tabVisibilities>
     <tabVisibilities>
+        <tab>BDR</tab>
+        <visibility>DefaultOn</visibility>
+    </tabVisibilities>
+    <tabVisibilities>
         <tab>Concur_Expense_Reporting</tab>
         <visibility>DefaultOff</visibility>
     </tabVisibilities>
@@ -10869,6 +11087,10 @@
         <visibility>DefaultOn</visibility>
     </tabVisibilities>
     <tabVisibilities>
+        <tab>MDF_Request__c</tab>
+        <visibility>DefaultOff</visibility>
+    </tabVisibilities>
+    <tabVisibilities>
         <tab>Mass_Update_User</tab>
         <visibility>DefaultOn</visibility>
     </tabVisibilities>
@@ -10879,10 +11101,6 @@
     <tabVisibilities>
         <tab>NX_To_VX</tab>
         <visibility>DefaultOff</visibility>
-    </tabVisibilities>
-    <tabVisibilities>
-        <tab>New_Sales_Development</tab>
-        <visibility>DefaultOn</visibility>
     </tabVisibilities>
     <tabVisibilities>
         <tab>Partner_Documentation</tab>
@@ -11100,6 +11318,10 @@
     <userPermissions>
         <enabled>true</enabled>
         <name>ExportReport</name>
+    </userPermissions>
+    <userPermissions>
+        <enabled>true</enabled>
+        <name>GovernNetworks</name>
     </userPermissions>
     <userPermissions>
         <enabled>true</enabled>

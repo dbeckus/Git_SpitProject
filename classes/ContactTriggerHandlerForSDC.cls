@@ -28,7 +28,7 @@ public class ContactTriggerHandlerForSDC extends TriggerHandler
     private void moveContactOnOffCampaign()
     {
         Set<String> moveToSDCampaignStages = new Set<String> { '03 MQL', '04 SAL', '13 MQC', '14 SAC', 'MQL', 'SAL', 'MQC' };
-        Set<String> rejectStatuses = new Set<String> { 'Sales Rejected', 'Rejected' };
+        Set<String> rejectStatuses = new Set<String> { 'Sales Rejected', 'Rejected', 'Rejected - Not Interested', 'Rejected - Wrong Role', 'Rejected - Unresponsive/Check Back', 'Rejected - Do Not Contact', 'Rejected -Reseller Partner' };
 
         String sdCampaignId = SalesDevelopmentHelper.getSDCampaign();
 

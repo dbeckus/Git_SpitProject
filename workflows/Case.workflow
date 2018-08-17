@@ -508,7 +508,7 @@
             <type>user</type>
         </recipients>
         <recipients>
-            <recipient>kbrown@silver-peak.com</recipient>
+            <recipient>mkulkarni@silver-peak.com</recipient>
             <type>user</type>
         </recipients>
         <recipients>
@@ -582,6 +582,44 @@
         <senderAddress>support@silver-peak.com</senderAddress>
         <senderType>OrgWideEmailAddress</senderType>
         <template>Support/CaseOwnershipAssigned</template>
+    </alerts>
+    <alerts>
+        <fullName>PerfHelp_Case_Comments</fullName>
+        <description>PerfHelp - Case Comments</description>
+        <protected>false</protected>
+        <recipients>
+            <field>CC1__c</field>
+            <type>email</type>
+        </recipients>
+        <recipients>
+            <field>ContactEmail</field>
+            <type>email</type>
+        </recipients>
+        <recipients>
+            <type>owner</type>
+        </recipients>
+        <senderAddress>perfhelp@silver-peak.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>Support/TicketCommentUpdate</template>
+    </alerts>
+    <alerts>
+        <fullName>PerfHelp_Case_Opened</fullName>
+        <description>PerfHelp - Case Opened</description>
+        <protected>false</protected>
+        <recipients>
+            <field>CC1__c</field>
+            <type>email</type>
+        </recipients>
+        <recipients>
+            <field>ContactEmail</field>
+            <type>email</type>
+        </recipients>
+        <recipients>
+            <type>owner</type>
+        </recipients>
+        <senderAddress>perfhelp@silver-peak.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>Support/PerfHelp_Ticket_Creation</template>
     </alerts>
     <alerts>
         <fullName>SampleEntryForCaseAccountTeam</fullName>
@@ -818,15 +856,15 @@
             <type>user</type>
         </recipients>
         <recipients>
-            <recipient>clerma@silver-peak.com</recipient>
-            <type>user</type>
-        </recipients>
-        <recipients>
             <recipient>jcreasy@silver-peak.com</recipient>
             <type>user</type>
         </recipients>
         <recipients>
             <recipient>jslaughterbeck@silver-peak.com</recipient>
+            <type>user</type>
+        </recipients>
+        <recipients>
+            <recipient>ldenton@silver-peak.com</recipient>
             <type>user</type>
         </recipients>
         <senderType>CurrentUser</senderType>
@@ -850,6 +888,22 @@
         </recipients>
         <senderType>CurrentUser</senderType>
         <template>Support/CaseOwnershipAssigned</template>
+    </alerts>
+    <alerts>
+        <fullName>Send_Support_Case_Notification_to_CSR_Team</fullName>
+        <ccEmails>customerresponse@answer1.com</ccEmails>
+        <ccEmails>Alicia@answer1.com</ccEmails>
+        <ccEmails>Cameron@answer1.com</ccEmails>
+        <ccEmails>Athena@answer1.com</ccEmails>
+        <ccEmails>tsemanagers@silver-peak.com</ccEmails>
+        <description>Send Support Case Notification to CSR Team</description>
+        <protected>false</protected>
+        <recipients>
+            <recipient>pmusunuru@silver-peak.com</recipient>
+            <type>user</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>unfiled$public/Support_Case_Notification_to_Csr_Team</template>
     </alerts>
     <alerts>
         <fullName>notify_customer_wanstart_activated</fullName>
@@ -904,6 +958,15 @@
         <template>Support/WANstart_Activation</template>
     </alerts>
     <fieldUpdates>
+        <fullName>Case_Notification_TimeStamp</fullName>
+        <field>Case_Notification_TimeStamp__c</field>
+        <formula>NOW()- 0.02073</formula>
+        <name>Case Notification TimeStamp</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+    </fieldUpdates>
+    <fieldUpdates>
         <fullName>ChangeCaseRecordType</fullName>
         <field>RecordTypeId</field>
         <lookupValue>TechnicalSupport</lookupValue>
@@ -928,6 +991,16 @@
         <lookupValue>ITHelp</lookupValue>
         <lookupValueType>Queue</lookupValueType>
         <name>ChangeOwner4ITRequests</name>
+        <notifyAssignee>true</notifyAssignee>
+        <operation>LookupValue</operation>
+        <protected>false</protected>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>ChangeOwner4PerfHelpRequests</fullName>
+        <field>OwnerId</field>
+        <lookupValue>PerfHelp</lookupValue>
+        <lookupValueType>Queue</lookupValueType>
+        <name>ChangeOwner4PerfHelpRequests</name>
         <notifyAssignee>true</notifyAssignee>
         <operation>LookupValue</operation>
         <protected>false</protected>
@@ -959,6 +1032,24 @@
         <name>FU:RT-SetToWANStart</name>
         <notifyAssignee>false</notifyAssignee>
         <operation>LookupValue</operation>
+        <protected>false</protected>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Get_Case_Opened_Priority</fullName>
+        <field>Case_Opened_Priority__c</field>
+        <formula>TEXT(Priority)</formula>
+        <name>Get Case Opened Priority</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Get_Product_Quote_Type</fullName>
+        <field>Product_Quote_Type__c</field>
+        <formula>TEXT(Asset.Product2.Product_Type__c)</formula>
+        <name>Get Product Quote Type</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
         <protected>false</protected>
     </fieldUpdates>
     <fieldUpdates>
@@ -1052,6 +1143,26 @@
         <protected>false</protected>
     </fieldUpdates>
     <fieldUpdates>
+        <fullName>Support_Case_30_min_Notification1_False</fullName>
+        <field>Support_Case_30_min_Notification__c</field>
+        <literalValue>0</literalValue>
+        <name>Support Case 30 min Notification1-False</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>true</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Support_Case_30_min_Notification1_True</fullName>
+        <field>Support_Case_30_min_Notification__c</field>
+        <literalValue>1</literalValue>
+        <name>Support Case 30 min Notification1-True</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>true</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
         <fullName>UpdateApprovalStatus</fullName>
         <field>Change_Development_Stage__c</field>
         <literalValue>Approved</literalValue>
@@ -1120,15 +1231,6 @@
         <name>Update Entitlement Type</name>
         <notifyAssignee>false</notifyAssignee>
         <operation>Literal</operation>
-        <protected>false</protected>
-    </fieldUpdates>
-    <fieldUpdates>
-        <fullName>Update_open_case_wf</fullName>
-        <field>Open_Case_WF_LH__c</field>
-        <formula>Account.Id</formula>
-        <name>Update open case wf</name>
-        <notifyAssignee>false</notifyAssignee>
-        <operation>Formula</operation>
         <protected>false</protected>
     </fieldUpdates>
     <fieldUpdates>
@@ -1563,6 +1665,17 @@ RecordType.Id =&apos;01238000000E9ik&apos;)</formula>
         <triggerType>onAllChanges</triggerType>
     </rules>
     <rules>
+        <fullName>Get Product Quote Type on Case</fullName>
+        <actions>
+            <name>Get_Product_Quote_Type</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <formula>OR(ISNEW(),
+   ISCHANGED(AssetId))</formula>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
         <fullName>HR Support Case Creation</fullName>
         <actions>
             <name>Email_HR_Support_Case_Creation</name>
@@ -1848,7 +1961,8 @@ NOT(RecordType.DeveloperName = &quot;IT_Help_Requests&quot;),
 NOT(RecordType.DeveloperName = &quot;HR_Requests&quot;),
 NOT(RecordType.DeveloperName = &quot;Facilities&quot;),
 NOT(RecordType.DeveloperName = &quot;Lab_Help_Requests&quot;),
-NOT(RecordType.DeveloperName = &quot;DevOps_Help_Requests&quot;)
+NOT(RecordType.DeveloperName = &quot;DevOps_Help_Requests&quot;),
+NOT(RecordType.DeveloperName = &quot;Perf_Help_Requests&quot;)
 )</formula>
         <triggerType>onAllChanges</triggerType>
     </rules>
@@ -1899,6 +2013,93 @@ PRIORVALUE( OwnerId) = &apos;00530000000j42G&apos;
 NOT( Contact.Testing__c )
 )</formula>
         <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>Perf Help - Customer Case Comments</fullName>
+        <actions>
+            <name>PerfHelp_Case_Comments</name>
+            <type>Alert</type>
+        </actions>
+        <actions>
+            <name>Update_Case_Field</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>Case.RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Perf Help Requests</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Case.UpdatedBy__c</field>
+            <operation>equals</operation>
+            <value>Customer</value>
+        </criteriaItems>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>Perf Help - Owner Case Comments</fullName>
+        <actions>
+            <name>PerfHelp_Case_Comments</name>
+            <type>Alert</type>
+        </actions>
+        <actions>
+            <name>Update_Case_Field</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>Case.RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Perf Help Requests</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Case.UpdatedBy__c</field>
+            <operation>equals</operation>
+            <value>Owner</value>
+        </criteriaItems>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+    <rules>
+        <fullName>PerfHelpRequests- Case Opened</fullName>
+        <actions>
+            <name>PerfHelp_Case_Opened</name>
+            <type>Alert</type>
+        </actions>
+        <actions>
+            <name>ChangeOwner4PerfHelpRequests</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <actions>
+            <name>SetStatus</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>Case.RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Perf Help Requests</value>
+        </criteriaItems>
+        <description>New PerfHelp Requests</description>
+        <triggerType>onCreateOnly</triggerType>
+    </rules>
+    <rules>
+        <fullName>Priority when Case Opened</fullName>
+        <actions>
+            <name>Get_Case_Opened_Priority</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>Contact.mkto_si__Priority__c</field>
+            <operation>notEqual</operation>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Case.RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Incoming Email,WANstart,Technical Support</value>
+        </criteriaItems>
+        <triggerType>onCreateOnly</triggerType>
     </rules>
     <rules>
         <fullName>RemoveAllowRMAFlagonAssetChange</fullName>
@@ -1965,7 +2166,7 @@ NOT( Contact.Testing__c )
             <type>FieldUpdate</type>
         </actions>
         <active>true</active>
-        <booleanFilter>(1 OR 2) AND 3 AND 4</booleanFilter>
+        <booleanFilter>(1 OR 2) AND 3 AND (4 AND 5 AND 6)</booleanFilter>
         <criteriaItems>
             <field>Case.Severity__c</field>
             <operation>equals</operation>
@@ -1985,6 +2186,16 @@ NOT( Contact.Testing__c )
             <field>User.ProfileId</field>
             <operation>notEqual</operation>
             <value>8-TSE Team</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>User.ProfileId</field>
+            <operation>notEqual</operation>
+            <value>8a-TSE Manager</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>User.ProfileId</field>
+            <operation>notEqual</operation>
+            <value>3-SP Sys Admin</value>
         </criteriaItems>
         <description>When Severity S1 or Priority P1 case is opened or changed,, send an email to Escalation Engineering and Management team</description>
         <triggerType>onCreateOrTriggeringUpdate</triggerType>
@@ -2050,6 +2261,102 @@ NOT( Contact.Testing__c )
         <triggerType>onAllChanges</triggerType>
     </rules>
     <rules>
+        <fullName>Support Case 30 mins Notification-1</fullName>
+        <actions>
+            <name>Case_Notification_TimeStamp</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <booleanFilter>1 AND 2 AND (3 OR 4) AND 5</booleanFilter>
+        <criteriaItems>
+            <field>Case.RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Incoming Email,Technical Support</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Case.IsClosed</field>
+            <operation>notEqual</operation>
+            <value>True</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Case.OwnerId</field>
+            <operation>equals</operation>
+            <value>Tier1</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Case.OwnerId</field>
+            <operation>equals</operation>
+            <value>Csr Answer1</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Case.Support_Case_30_min_Notification__c</field>
+            <operation>equals</operation>
+            <value>False</value>
+        </criteriaItems>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+        <workflowTimeTriggers>
+            <actions>
+                <name>Send_Support_Case_Notification_to_CSR_Team</name>
+                <type>Alert</type>
+            </actions>
+            <actions>
+                <name>Support_Case_30_min_Notification1_True</name>
+                <type>FieldUpdate</type>
+            </actions>
+            <offsetFromField>Case.Case_Notification_TimeStamp__c</offsetFromField>
+            <timeLength>1</timeLength>
+            <workflowTimeTriggerUnit>Hours</workflowTimeTriggerUnit>
+        </workflowTimeTriggers>
+    </rules>
+    <rules>
+        <fullName>Support Case 30 mins Notification-2</fullName>
+        <actions>
+            <name>Case_Notification_TimeStamp</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <booleanFilter>1 AND 2 AND (3 OR 4) AND 5</booleanFilter>
+        <criteriaItems>
+            <field>Case.RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Incoming Email,Technical Support</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Case.IsClosed</field>
+            <operation>notEqual</operation>
+            <value>True</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Case.OwnerId</field>
+            <operation>equals</operation>
+            <value>Tier1</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Case.OwnerId</field>
+            <operation>equals</operation>
+            <value>Csr Answer1</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Case.Support_Case_30_min_Notification__c</field>
+            <operation>equals</operation>
+            <value>True</value>
+        </criteriaItems>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+        <workflowTimeTriggers>
+            <actions>
+                <name>Send_Support_Case_Notification_to_CSR_Team</name>
+                <type>Alert</type>
+            </actions>
+            <actions>
+                <name>Support_Case_30_min_Notification1_False</name>
+                <type>FieldUpdate</type>
+            </actions>
+            <offsetFromField>Case.Case_Notification_TimeStamp__c</offsetFromField>
+            <timeLength>1</timeLength>
+            <workflowTimeTriggerUnit>Hours</workflowTimeTriggerUnit>
+        </workflowTimeTriggers>
+    </rules>
+    <rules>
         <fullName>Update Case CC Email</fullName>
         <actions>
             <name>Update_Case_CC_10_Email</name>
@@ -2082,16 +2389,6 @@ NOT( Contact.Testing__c )
             <value>Customer</value>
         </criteriaItems>
         <triggerType>onAllChanges</triggerType>
-    </rules>
-    <rules>
-        <fullName>Update open case wf</fullName>
-        <actions>
-            <name>Update_open_case_wf</name>
-            <type>FieldUpdate</type>
-        </actions>
-        <active>true</active>
-        <formula>Open_Case_WF_LH__c !=  Account.Id &amp;&amp; IsClosed = False</formula>
-        <triggerType>onCreateOrTriggeringUpdate</triggerType>
     </rules>
     <rules>
         <fullName>UpdatePartnerNoticeEmail</fullName>

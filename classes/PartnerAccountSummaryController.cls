@@ -235,7 +235,7 @@ public class PartnerAccountSummaryController {
                 Opportunity opp= setOppIds.get(oppId);
                 Request__c req= new Request__c();
                 req.Opportunity__c=opp.id;
-                //req.POC_Contact__c=LoggedinContact.Id;
+                req.POC_Contact__c=LoggedinContact.Id;
                 insert req;
                 List<string> toAddress=new List<string>();
                 List<OpportunityteamMember> lstSETeamMember=[Select UserId,User.email,TeamMemberRole from OpportunityteamMember where opportunityId=:opp.Id and TeamMemberRole in('Systems Engineer')];

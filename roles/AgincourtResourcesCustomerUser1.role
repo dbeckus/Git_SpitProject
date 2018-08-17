@@ -2,9 +2,9 @@
 <Role xmlns="http://soap.sforce.com/2006/04/metadata">
     <caseAccessLevel>None</caseAccessLevel>
     <contactAccessLevel>Edit</contactAccessLevel>
-    <description>PT Agincourt Resources (PTAR) Customer User</description>
+    <description>AGINCOURT RESOURCES, PT Customer User</description>
     <mayForecastManagerShare>false</mayForecastManagerShare>
-    <name>PT Agincourt Resources (PTAR) Customer User</name>
+    <name>AGINCOURT RESOURCES, PT Customer User</name>
     <opportunityAccessLevel>None</opportunityAccessLevel>
     <parentRole>Grade_3_Sales_APAC_ASEAN</parentRole>
 </Role>

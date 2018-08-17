@@ -1,8 +1,8 @@
 /*
- * 1. Sends email to the case owners if the open case has not been udpated in 10 days.
- * 2. Sends email to the case owner if there is a P1 open case has not been updated over 24 hrs.
- * 3. Sends email to case owner and cc to Shabib if there is a P1 open case has not been updated over 24 hrs.
- */
+* 1. Sends email to the case owners if the open case has not been udpated in 10 days.
+* 2. Sends email to the case owner if there is a P1 open case has not been updated over 24 hrs.
+* 3. Sends email to case owner and cc to Shabib if there is a P1 open case has not been updated over 24 hrs.
+*/
 global class CaseAuditBatchJob implements Database.Batchable<sObject>, Database.Stateful
 {
     private Integer caseCount = 0;
@@ -36,20 +36,20 @@ global class CaseAuditBatchJob implements Database.Batchable<sObject>, Database.
         {
             ccemails.add(u.email);
         }
-
+        
         for(User usr : scope)
         {
-            Integer T10 = (Test.isRunningTest()) ? 0 : 9;
-            List<Case> openCasesOver10Days = [select Id, CaseNumber, Priority, Account.Name from Case where IsClosed=false and RecordType.Name in ('Incoming Email', 'Technical Support') and OwnerId=:usr.Id and Last_Update_Age__c >= :T10 order by Priority];
-            if(openCasesOver10Days.size() > 0)
+            Integer T3 = (Test.isRunningTest()) ? 0 : 3;
+            List<Case> openCasesOver3Days = [select Id, CaseNumber, Priority, Account.Name from Case where IsClosed=false and RecordType.Name in ('Incoming Email', 'Technical Support') and OwnerId=:usr.Id and Last_Update_Age__c >= :T3 order by Priority];
+            if(openCasesOver3Days.size() > 0)
             {
-                caseCount += openCasesOver10Days.size();
+                caseCount += openCasesOver3Days.size();
                 Messaging.SingleEmailMessage email = new Messaging.SingleEmailMessage();
                 //email.setTargetObjectId('00530000000giMZ');  //for test purpose
                 email.setTargetObjectId(usr.Id);
                 email.setCcAddresses(ccemails);
                 email.setSubject('Case Audit');
-                email.setHtmlBody(composeOpenCaseEmail(openCasesOver10Days));
+                email.setHtmlBody(composeOpenCaseEmail(openCasesOver3Days));
                 email.setSaveAsActivity(false);
                 if(EmailAddressId != null)
                 {
@@ -92,7 +92,7 @@ global class CaseAuditBatchJob implements Database.Batchable<sObject>, Database.
                 }
                 mails.add(email);
             }
-            if(openCasesOver10Days.size() > 0 || p1CasesT1.size() > 0 || p1CasesT2.size() > 0)
+            if(openCasesOver3Days.size() > 0 || p1CasesT1.size() > 0 || p1CasesT2.size() > 0)
             {
                 userCount++;
             }
@@ -101,7 +101,7 @@ global class CaseAuditBatchJob implements Database.Batchable<sObject>, Database.
         {
             if(!Test.isRunningTest())
             {
-            	Messaging.sendEmail(mails);
+                Messaging.sendEmail(mails);
             }
             mails = new List<Messaging.SingleEMailMessage>();
         }
@@ -121,14 +121,14 @@ global class CaseAuditBatchJob implements Database.Batchable<sObject>, Database.
             }
             if(!Test.isRunningTest())
             {
-            	Messaging.sendEmail(new Messaging.Email[] {email});
+                Messaging.sendEmail(new Messaging.Email[] {email});
             }
         }
     }
     
     private String composeOpenCaseEmail(List<Case> cases)
     {
-        String result = 'The following case(s) has not been updated in over ten days, please review and update as needed.<br/>';
+        String result = 'The following case(s) has not been updated in over three days, please review and update as needed.<br/>';
         result += '<ul>';
         for(Case cs : cases)
         {

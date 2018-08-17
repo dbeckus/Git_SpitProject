@@ -32,5 +32,5 @@
     <tab>Aviso</tab>
     <tab>Account_Summary</tab>
     <tab>Mass_Update_User</tab>
-    <tab>New_Sales_Development</tab>
+    <tab>BDR</tab>
 </CustomApplication>

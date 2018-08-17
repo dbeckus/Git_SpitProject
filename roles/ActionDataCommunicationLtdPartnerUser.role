@@ -2,9 +2,9 @@
 <Role xmlns="http://soap.sforce.com/2006/04/metadata">
     <caseAccessLevel>None</caseAccessLevel>
     <contactAccessLevel>Edit</contactAccessLevel>
-    <description>Action Data Communication Ltd Partner User</description>
+    <description>Action Data Communication Ltd DBA Paladin Technologies Partner User</description>
     <mayForecastManagerShare>false</mayForecastManagerShare>
-    <name>Action Data Communication Ltd Partner User</name>
+    <name>Action Data Communication Ltd DBA Paladin Technologies Partner User</name>
     <opportunityAccessLevel>None</opportunityAccessLevel>
     <parentRole>ActionDataCommunicationLtdPartnerManager</parentRole>
 </Role>

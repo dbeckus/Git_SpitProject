@@ -54,7 +54,6 @@
     <enableReports>true</enableReports>
     <enableSharing>true</enableSharing>
     <enableStreamingApi>true</enableStreamingApi>
-    <externalSharingModel>ReadWrite</externalSharingModel>
     <fields>
         <fullName>Course_Code__c</fullName>
         <externalId>false</externalId>

@@ -1,23 +1,9 @@
 public virtual class AssetListViewBase {
     public  List<AccountInfo> AccountKeyList{get;set;}
-    public  Boolean IsPartnerManager{get;set;}
-    public  Boolean IsPartnerUser{get;set;}
-    public  Id PartnerAccountId{get;set;}
     public AssetListViewBase()
     {
-        List<User> lstUser=  [Select Id , Name,UserRole.Name, ProfileId,UserType,Contact.Account.Name,Contact.AccountId from User where Id=:UserInfo.getUserId()];
-        if(lstUser[0].UserRole.Name.contains('Partner Manager'))
-        {
-            IsPartnerManager=true;
-        }
-        if(lstUser[0].UserRole.Name.contains('Partner User'))
-        {
-            IsPartnerUser=true;
-        }
-        if(lstUser[0].Contact.AccountId!=null)
-        {
-            PartnerAccountId=lstUser[0].Contact.AccountId;
-        }
+        List<User> lstUser=  [Select Id , Name, ProfileId,UserType,Contact.Account.Name,Contact.AccountId from User where Id=:UserInfo.getUserId()];
+        
         if(lstUser!=null && lstUser.size()>0)
         {
             AccountKeyList = new List<AccountInfo>();

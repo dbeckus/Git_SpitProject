@@ -270,7 +270,7 @@
         </recipients>
         <senderAddress>notifications@silver-peak.com</senderAddress>
         <senderType>OrgWideEmailAddress</senderType>
-        <template>unfiled$public/NonEvalReturn_Shipping_Instructions_2010</template>
+        <template>unfiled$public/NonEvalReturn_Shipping_Instructions</template>
     </alerts>
     <alerts>
         <fullName>Send_Recycling_Instructions</fullName>
@@ -675,10 +675,6 @@
     </rules>
     <rules>
         <fullName>RMA Email Trigger-NonEval</fullName>
-        <actions>
-            <name>Return_Shipment_Instructions_Non_Eval_RMA</name>
-            <type>Alert</type>
-        </actions>
         <active>true</active>
         <criteriaItems>
             <field>RMA__c.CreatedById</field>
@@ -696,6 +692,15 @@
         </criteriaItems>
         <description>An email sent whenever a non-eval RMA is created. Additionally emails will go out to the contacts on the RMA with the return shipping instructions.</description>
         <triggerType>onCreateOnly</triggerType>
+        <workflowTimeTriggers>
+            <actions>
+                <name>Return_Shipment_Instructions_Non_Eval_RMA</name>
+                <type>Alert</type>
+            </actions>
+            <offsetFromField>RMA__c.Trigger_Time_05__c</offsetFromField>
+            <timeLength>1</timeLength>
+            <workflowTimeTriggerUnit>Hours</workflowTimeTriggerUnit>
+        </workflowTimeTriggers>
     </rules>
     <rules>
         <fullName>RMA Email Trigger-Recycling</fullName>

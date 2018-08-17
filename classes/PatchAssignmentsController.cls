@@ -8,7 +8,7 @@ public class PatchAssignmentsController
     private Integer pageSize;
     private List<String> pageNumbers;
     private List<Id> subordinateUsers;
-    public static Set<String> marketingStatuses = new Set<String> { 'Marketing Nurturing', 'Sales Rejected', 'Rejected', 'Marketing Qualifiying'};
+    public static Set<String> marketingStatuses = new Set<String> { 'Marketing Nurturing', 'Sales Rejected', 'Rejected', 'Marketing Qualifiying', 'Rejected - Not Interested', 'Rejected - Wrong Role', 'Rejected - Unresponsive/Check Back', 'Rejected - Do Not Contact', 'Rejected -Reseller Partner' };
     public static Set<String> salesStatuses;
     public static Set<String> qualifiedStatuses = new Set<String> { 'Marketing Qualified' };
     public static Set<String> untouchedStatuses = new Set<String> { 'ISR Qualified','Marketing Qualified' };

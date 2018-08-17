@@ -3,18 +3,18 @@
  */
 public with sharing class ArchiveDeletedOpportunityController 
 {
-   	private static Id AdminId = '005500000045fp1';// Dennis Beckus
-    private static Id DeletedOppRecordTypeId = '012500000005X67'; //Record type 'Deleted'
+    private static Id AdminId = '005500000045fp1';// Dennis Beckus
+   //private static Id DeletedOppRecordTypeId = '012500000005X67'; //Record type 'Deleted'
     private Opportunity opp;
     
     public ArchiveDeletedOpportunityController(ApexPages.StandardController controller) 
     {
         opp = (Opportunity)controller.getRecord();
-        Map<String,Schema.RecordTypeInfo> recordTypes = Schema.SObjectType.Opportunity.getRecordTypeInfosByName();
+      /*  Map<String,Schema.RecordTypeInfo> recordTypes = Schema.SObjectType.Opportunity.getRecordTypeInfosByName();
         if(recordTypes.containsKey('Deleted'))
         {
             DeletedOppRecordTypeId = recordTypes.get('Deleted').getRecordTypeId();
-        }
+        } */
     }
     
     public PageReference archive()
@@ -22,7 +22,7 @@ public with sharing class ArchiveDeletedOpportunityController
         try
         {
             opp.OwnerId = AdminId;
-            opp.RecordTypeId = DeletedOppRecordTypeId;
+           // opp.RecordTypeId = DeletedOppRecordTypeId;
             opp.StageName = 'Closed Deleted';
             opp.ForecastCategoryName = 'Omitted';
             update opp;
@@ -46,17 +46,17 @@ public with sharing class ArchiveDeletedOpportunityController
         }
     }
 
-    @isTest
+    @isTest(SeeAllData=True)
     static void testArchiveDeletedOpportunityController()
     {
-        Opportunity opp = new Opportunity(Name='acme', CloseDate=Date.today(), StageName='Discovery');
+        Opportunity opp = new Opportunity(Name='acme', CloseDate=Date.today(), StageName='Discovery', Type ='Follow On Business', Deal_Type__c='WAN Op');
         insert opp;
         
         ArchiveDeletedOpportunityController controller = new ArchiveDeletedOpportunityController(new ApexPages.StandardController(opp));
         controller.archive();
         
         opp = [select Id, OwnerId, RecordType.Name from Opportunity where Id=:opp.Id limit 1];
-        System.assertEquals('Deleted', opp.RecordType.Name);
+        System.assertEquals('All_All_ClosedDeleted', opp.RecordType.Name);
     }
     
     

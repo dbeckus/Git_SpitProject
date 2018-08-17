@@ -51,6 +51,7 @@ public class PatchRuleHelper
         for(sObject obj : objs)
         {
             Id patchId = null;
+            Id geoPatchId = null;
             if(obj instanceOf Lead && (Boolean)obj.get('Patch_Locked__c'))
             {
                 //if a lead is locked, we keep the patch member up to date, leave the patch unchanged
@@ -61,14 +62,16 @@ public class PatchRuleHelper
                 PatchRuleEngineBase.Target target = getTarget(obj);
                 PatchRuleEngine engine = new PatchRuleEngine();
                 PatchRuleEngineBase.Match match = engine.match(target);
+                System.debug(match);
                 if(match != null)
                 {
                     patchId = match.PatchId;
+                    geoPatchId = match.GeoPatchId == null ? match.PatchId : match.GeoPatchId;
                     overlayHolder.put(obj.Id, match.OverlayMatches);
                 }
             }
             Patch__c patch = patches.get(patchId);
-            assignPatch(obj, patch);
+            assignPatch(obj, patch, geoPatchId);
             ownerGEO.put((Id)obj.get('OwnerId'), null);
         }
         for(User usr : [select Id, GEO_Region__c from User where Id in :ownerGEO.keyset()])
@@ -90,6 +93,11 @@ public class PatchRuleHelper
     
     public static void assignPatch(sObject obj, Patch__c patch)
     {
+        assignPatch(obj, patch, null);
+    }
+    
+    public static void assignPatch(sObject obj, Patch__c patch, Id additionalPatch)
+    {
         Boolean locked = (Boolean)obj.get('Patch_Locked__c');
         if(patch != null)
         {
@@ -104,6 +112,7 @@ public class PatchRuleHelper
                     }
                 }
                 ld.Patch__c = patch.Id;
+                ld.GEO_Patch__c = additionalPatch;
                 ld.CSM__c = patch.CSM__c;
                 ld.ISR__c = patch.ISR__c;
                 ld.Patch_Owner__c = patch.Owner__c;
@@ -147,17 +156,18 @@ public class PatchRuleHelper
                     }
                 }
                 obj.put('Patch__c', patch.Id);
+                obj.put('GEO_Patch__c', additionalPatch);
                 /*
-if(patch.RSM__c != null)
-{
-obj.put('OwnerId', patch.RSM__c);
-}
-String geo = obj.get('GEO_Supported__c') == null ? '' : (String)obj.get('GEO_Supported__c');
-if(patch.CSM__c != null && obj.get('Type') == 'Partner' && !geo.contains('APAC') && !geo.contains('EMEA'))
-{
-obj.put('OwnerId', patch.CSM__c);
-}
-*/
+                if(patch.RSM__c != null)
+                {
+                obj.put('OwnerId', patch.RSM__c);
+                }
+                String geo = obj.get('GEO_Supported__c') == null ? '' : (String)obj.get('GEO_Supported__c');
+                if(patch.CSM__c != null && obj.get('Type') == 'Partner' && !geo.contains('APAC') && !geo.contains('EMEA'))
+                {
+                obj.put('OwnerId', patch.CSM__c);
+                }
+                */
             }
             else if(obj instanceOf Opportunity)
             {
@@ -174,13 +184,12 @@ obj.put('OwnerId', patch.CSM__c);
                 opportunity.Bypassing_Validation__c = true;
                 opportunity.Patch_Locked__c = opportunity.Account.Patch_Locked__c;
                 /*
-if(patch.RSM__c != null && !opportunity.IsClosed)
-{
-opportunity.OwnerId = patch.RSM__c;
-opportunity.Technical_Responsible__c = patch.SE__c;
-}
-
-*/
+                if(patch.RSM__c != null && !opportunity.IsClosed)
+                {
+                opportunity.OwnerId = patch.RSM__c;
+                opportunity.Technical_Responsible__c = patch.SE__c;
+                }
+                */
             }
         }
         else

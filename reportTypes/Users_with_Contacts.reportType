@@ -1873,11 +1873,6 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>BL__SynchWithBoulderLogic__c</field>
-            <table>User.Contact$OwnerId</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
             <field>TechnicalPresalesReady__c</field>
             <table>User.Contact$OwnerId</table>
         </columns>

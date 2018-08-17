@@ -14,26 +14,6 @@
         <unique>false</unique>
     </fields>
     <fields>
-        <fullName>Fiber_LR__c</fullName>
-        <externalId>false</externalId>
-        <label>Fiber LR</label>
-        <length>255</length>
-        <required>false</required>
-        <trackTrending>false</trackTrending>
-        <type>Text</type>
-        <unique>false</unique>
-    </fields>
-    <fields>
-        <fullName>Fiber_SR__c</fullName>
-        <externalId>false</externalId>
-        <label>Fiber SR</label>
-        <length>255</length>
-        <required>false</required>
-        <trackTrending>false</trackTrending>
-        <type>Text</type>
-        <unique>false</unique>
-    </fields>
-    <fields>
         <fullName>HDD_PN__c</fullName>
         <externalId>false</externalId>
         <label>HDD PN</label>
@@ -74,26 +54,6 @@
         <unique>false</unique>
     </fields>
     <fields>
-        <fullName>SFP_LR__c</fullName>
-        <externalId>false</externalId>
-        <label>SFP LR</label>
-        <length>255</length>
-        <required>false</required>
-        <trackTrending>false</trackTrending>
-        <type>Text</type>
-        <unique>false</unique>
-    </fields>
-    <fields>
-        <fullName>SFP_SR__c</fullName>
-        <externalId>false</externalId>
-        <label>SFP SR</label>
-        <length>255</length>
-        <required>false</required>
-        <trackTrending>false</trackTrending>
-        <type>Text</type>
-        <unique>false</unique>
-    </fields>
-    <fields>
         <fullName>SSD_PN__c</fullName>
         <externalId>false</externalId>
         <label>SSD PN</label>
@@ -115,10 +75,6 @@
         <columns>NVME_PN__c</columns>
         <columns>CREATED_DATE</columns>
         <columns>SETUP_OWNER_NAME</columns>
-        <columns>Fiber_LR__c</columns>
-        <columns>Fiber_SR__c</columns>
-        <columns>SFP_LR__c</columns>
-        <columns>SFP_SR__c</columns>
         <filterScope>Everything</filterScope>
         <label>All</label>
     </listViews>

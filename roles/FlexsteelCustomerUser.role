@@ -6,5 +6,5 @@
     <mayForecastManagerShare>false</mayForecastManagerShare>
     <name>Flexsteel Customer User</name>
     <opportunityAccessLevel>None</opportunityAccessLevel>
-    <parentRole>Grade_4_Sales_NAM_Central</parentRole>
+    <parentRole>Grade_4_Sales_NAM_Majors</parentRole>
 </Role>

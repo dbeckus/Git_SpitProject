@@ -26,7 +26,7 @@ public class PatchChangeTriggerHandler implements ITriggerHandler {
     {
         Map<Id,String> setCAMChange = new Map<Id,String>();
         Map<Id,String> setRSMChange = new Map<Id,String>();
-        
+        Map<Id,String> setRSSChange = new Map<Id,String>();
         for(Id recId:newItems.keyset())
         {
             Patch_Change__e obj= (Patch_Change__e)newItems.get(recId);
@@ -37,6 +37,10 @@ public class PatchChangeTriggerHandler implements ITriggerHandler {
             if(obj.RSM_Name__c!=null)
             {
                 setRSMChange.put((Id)obj.Patch_Id__c,obj.RSM_Name__c);
+            }
+             if(obj.RSS_Name__c!=null)
+            {
+                setRSSChange.put((Id)obj.Patch_Id__c,obj.RSS_Name__c);
             }
             
         }
@@ -65,6 +69,20 @@ public class PatchChangeTriggerHandler implements ITriggerHandler {
                     for(Opportunity opp: lstOpp)
                     {
                         opp.Regional_Sales_Manager__c=setRSMChange.get(opp.Patch__c);
+                    }
+                    Database.update(lstOpp, false);
+                    System.debug('Done');
+                }
+                
+            }
+            if(setRSSChange.size()>0)
+            {
+                List<Opportunity> lstOpp=[Select Id,Patch__c,Renewal_Specialist__c from Opportunity where IsClosed=false and Patch__c in:setRSSChange.keyset()];
+                if(lstOpp!=null && lstOpp.size()>0)
+                {
+                    for(Opportunity opp: lstOpp)
+                    {
+                        opp.Renewal_Specialist__c=setRSSChange.get(opp.Patch__c);
                     }
                     Database.update(lstOpp, false);
                     System.debug('Done');

@@ -6,5 +6,5 @@
     <mayForecastManagerShare>false</mayForecastManagerShare>
     <name>Silver Peak Systems Customer Manager</name>
     <opportunityAccessLevel>None</opportunityAccessLevel>
-    <parentRole>SVPMarketing</parentRole>
+    <parentRole>Grade_2_CAM</parentRole>
 </Role>

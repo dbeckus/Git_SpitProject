@@ -2,9 +2,9 @@
 <Role xmlns="http://soap.sforce.com/2006/04/metadata">
     <caseAccessLevel>None</caseAccessLevel>
     <contactAccessLevel>Edit</contactAccessLevel>
-    <description>University of Central Lancashire Customer User</description>
+    <description>UNIVERSITY OF CENTRAL LANCASHIRE EMPLOYMENT SERVICES LIMITED Customer User</description>
     <mayForecastManagerShare>false</mayForecastManagerShare>
-    <name>University of Central Lancashire Customer User</name>
+    <name>UNIVERSITY OF CENTRAL LANCASHIRE EMPLOYMENT SERVICES LIMITED Customer User</name>
     <opportunityAccessLevel>None</opportunityAccessLevel>
-    <parentRole>Grade_3_Sales_EMEA</parentRole>
+    <parentRole>Grade_3_Sales_EMEA_UK_I_ZA</parentRole>
 </Role>

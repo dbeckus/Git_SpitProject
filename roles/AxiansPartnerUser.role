@@ -2,9 +2,9 @@
 <Role xmlns="http://soap.sforce.com/2006/04/metadata">
     <caseAccessLevel>None</caseAccessLevel>
     <contactAccessLevel>Edit</contactAccessLevel>
-    <description>Axians Partner User</description>
+    <description>Axians Caen Partner User</description>
     <mayForecastManagerShare>false</mayForecastManagerShare>
-    <name>Axians Partner User</name>
+    <name>Axians Caen Partner User</name>
     <opportunityAccessLevel>None</opportunityAccessLevel>
     <parentRole>AxiansPartnerManager</parentRole>
 </Role>

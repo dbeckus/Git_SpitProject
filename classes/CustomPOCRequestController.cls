@@ -48,7 +48,7 @@ global with sharing class CustomPOCRequestController
             //return getPicklistItems(Request__c.PhysicalProduct1__c.getDescribe());      
             return GetPOCProduct(false,requestId);
         }
-    }    
+    }  
     public List<SelectOption> CountryList 
     {
         get
@@ -96,13 +96,33 @@ global with sharing class CustomPOCRequestController
                         CurrentRequest.PhysicalQuantity1__c = PhysicalProducts[0].Qty;
                         CurrentRequest.PhysicalLocation1__c = PhysicalProducts[0].composeLocation(); 
                         CurrentRequest.EndCustomerName1__c = PhysicalProducts[0].EndCustomerName;
+                        if(CurrentRequest.PhysicalProduct1__c=='EC-M-P-1Y')
+                        {
+                            CurrentRequest.TR_EC_SFP_LR1__c= PhysicalProducts[0].TransRec_LR;
+                            CurrentRequest.TR_EC_SFP_SR1__c= PhysicalProducts[0].TransRec_SR;
+                        }
+                        else
+                        {
+                            CurrentRequest.TR_EC_SFP_LR1__c= null;
+                            CurrentRequest.TR_EC_SFP_SR1__c= null;
+                        }
                     }
                     else if(i == 1)
                     {
                         CurrentRequest.PhysicalProduct2__c = PhysicalProducts[1].ProductName;
                         CurrentRequest.PhysicalQuantity2__c = PhysicalProducts[1].Qty;
                         CurrentRequest.PhysicalLocation2__c = PhysicalProducts[1].composeLocation();
-                        CurrentRequest.EndCustomerName2__c = PhysicalProducts[1].EndCustomerName;
+                        if(CurrentRequest.PhysicalProduct2__c=='EC-M-P-1Y')
+                        {
+                            CurrentRequest.TR_EC_SFP_LR2__c= PhysicalProducts[1].TransRec_LR;
+                            CurrentRequest.TR_EC_SFP_SR2__c= PhysicalProducts[1].TransRec_SR;
+                        }
+                        else
+                        {
+                            CurrentRequest.TR_EC_SFP_LR2__c= null;
+                            CurrentRequest.TR_EC_SFP_SR2__c= null;
+                        }
+                        
                     }
                     else if (i == 2) 
                     {
@@ -110,6 +130,16 @@ global with sharing class CustomPOCRequestController
                         CurrentRequest.PhysicalQuantity3__c = PhysicalProducts[2].Qty;
                         CurrentRequest.PhysicalLocation3__c = PhysicalProducts[2].composeLocation();
                         CurrentRequest.EndCustomerName3__c = PhysicalProducts[2].EndCustomerName;
+                        if(CurrentRequest.PhysicalProduct3__c=='EC-M-P-1Y')
+                        {
+                            CurrentRequest.TR_EC_SFP_LR3__c= PhysicalProducts[2].TransRec_LR;
+                            CurrentRequest.TR_EC_SFP_SR3__c= PhysicalProducts[2].TransRec_SR;
+                        }
+                        else
+                        {
+                            CurrentRequest.TR_EC_SFP_LR3__c= null;
+                            CurrentRequest.TR_EC_SFP_SR3__c= null;
+                        }
                     }
                     else if (i == 3) 
                     {
@@ -117,6 +147,16 @@ global with sharing class CustomPOCRequestController
                         CurrentRequest.PhysicalQuantity4__c = PhysicalProducts[3].Qty;
                         CurrentRequest.PhysicalLocation4__c = PhysicalProducts[3].composeLocation();
                         CurrentRequest.EndCustomerName4__c = PhysicalProducts[3].EndCustomerName;
+                        if(CurrentRequest.PhysicalProduct4__c=='EC-M-P-1Y')
+                        {
+                            CurrentRequest.TR_EC_SFP_LR4__c= PhysicalProducts[3].TransRec_LR;
+                            CurrentRequest.TR_EC_SFP_SR4__c= PhysicalProducts[3].TransRec_SR;
+                        }
+                        else
+                        {
+                            CurrentRequest.TR_EC_SFP_LR4__c= null;
+                            CurrentRequest.TR_EC_SFP_SR4__c= null;
+                        }
                     }
                     else if (i == 4) 
                     {
@@ -124,6 +164,16 @@ global with sharing class CustomPOCRequestController
                         CurrentRequest.PhysicalQuantity5__c = PhysicalProducts[4].Qty;
                         CurrentRequest.PhysicalLocation5__c = PhysicalProducts[4].composeLocation();
                         CurrentRequest.EndCustomerName5__c = PhysicalProducts[4].EndCustomerName;
+                        if(CurrentRequest.PhysicalProduct5__c=='EC-M-P-1Y')
+                        {
+                            CurrentRequest.TR_EC_SFP_LR5__c= PhysicalProducts[4].TransRec_LR;
+                            CurrentRequest.TR_EC_SFP_SR5__c= PhysicalProducts[4].TransRec_SR;
+                        }
+                        else
+                        {
+                            CurrentRequest.TR_EC_SFP_LR5__c= null;
+                            CurrentRequest.TR_EC_SFP_SR5__c= null;
+                        }
                     }
                     else {
                         //nothing to do
@@ -452,7 +502,7 @@ global with sharing class CustomPOCRequestController
                                      PhysicalQuantity1__c, PhysicalQuantity2__c, PhysicalQuantity3__c, PhysicalQuantity4__c, PhysicalQuantity5__c, 
                                      Ship_To_Location_1__c, PhysicalLocation1__c, PhysicalLocation2__c, PhysicalLocation3__c, PhysicalLocation4__c, PhysicalLocation5__c,
                                      EndCustomerName1__c, EndCustomerName2__c, EndCustomerName3__c, EndCustomerName4__c, EndCustomerName5__c,
-                                     Status__c, Actual_Ship_Date__c, Target_End_Date__c,POC_Type__c,First_POC_on_Account__c  from Request__c where Id = :requestId];                                                               
+                                     Status__c, Actual_Ship_Date__c, Target_End_Date__c,POC_Type__c,First_POC_on_Account__c,TR_EC_SFP_LR1__c,TR_EC_SFP_LR2__c,TR_EC_SFP_LR3__c,TR_EC_SFP_LR4__c,TR_EC_SFP_LR5__c,TR_EC_SFP_SR1__c,TR_EC_SFP_SR2__c,TR_EC_SFP_SR3__c,TR_EC_SFP_SR4__c,TR_EC_SFP_SR5__c  from Request__c where Id = :requestId];                                                               
         if(!requests.isEmpty())
         {
             
@@ -464,23 +514,23 @@ global with sharing class CustomPOCRequestController
             //fill physical products.
             if(CurrentRequest.PhysicalProduct1__c != null && CurrentRequest.PhysicalProduct1__c != '')
             {
-                PhysicalProducts.add(new PhysicalProductInfo(PhysicalProducts.size(), CurrentRequest.PhysicalProduct1__c, CurrentRequest.PhysicalQuantity1__c, CurrentRequest.PhysicalLocation1__c, CurrentRequest.EndCustomerName1__c));
+                PhysicalProducts.add(new PhysicalProductInfo(PhysicalProducts.size(), CurrentRequest.PhysicalProduct1__c, CurrentRequest.PhysicalQuantity1__c, CurrentRequest.PhysicalLocation1__c, CurrentRequest.EndCustomerName1__c,CurrentRequest.TR_EC_SFP_SR1__c,CurrentRequest.TR_EC_SFP_LR1__c));
             }
             if(CurrentRequest.PhysicalProduct2__c != null && CurrentRequest.PhysicalProduct2__c != '')
             {
-                PhysicalProducts.add(new PhysicalProductInfo(PhysicalProducts.size(), CurrentRequest.PhysicalProduct2__c, CurrentRequest.PhysicalQuantity2__c, CurrentRequest.PhysicalLocation2__c, CurrentRequest.EndCustomerName2__c));
+                PhysicalProducts.add(new PhysicalProductInfo(PhysicalProducts.size(), CurrentRequest.PhysicalProduct2__c, CurrentRequest.PhysicalQuantity2__c, CurrentRequest.PhysicalLocation2__c, CurrentRequest.EndCustomerName2__c, CurrentRequest.TR_EC_SFP_SR2__c,CurrentRequest.TR_EC_SFP_LR2__c));
             }
             if(CurrentRequest.PhysicalProduct3__c != null && CurrentRequest.PhysicalProduct3__c != '')
             {
-                PhysicalProducts.add(new PhysicalProductInfo(PhysicalProducts.size(), CurrentRequest.PhysicalProduct3__c, CurrentRequest.PhysicalQuantity3__c, CurrentRequest.PhysicalLocation3__c, CurrentRequest.EndCustomerName3__c));
+                PhysicalProducts.add(new PhysicalProductInfo(PhysicalProducts.size(), CurrentRequest.PhysicalProduct3__c, CurrentRequest.PhysicalQuantity3__c, CurrentRequest.PhysicalLocation3__c, CurrentRequest.EndCustomerName3__c, CurrentRequest.TR_EC_SFP_SR3__c,CurrentRequest.TR_EC_SFP_LR3__c));
             }
             if(CurrentRequest.PhysicalProduct4__c != null && CurrentRequest.PhysicalProduct4__c != '')
             {         
-                PhysicalProducts.add(new PhysicalProductInfo(PhysicalProducts.size(), CurrentRequest.PhysicalProduct4__c, CurrentRequest.PhysicalQuantity4__c, CurrentRequest.PhysicalLocation4__c, CurrentRequest.EndCustomerName4__c));
+                PhysicalProducts.add(new PhysicalProductInfo(PhysicalProducts.size(), CurrentRequest.PhysicalProduct4__c, CurrentRequest.PhysicalQuantity4__c, CurrentRequest.PhysicalLocation4__c, CurrentRequest.EndCustomerName4__c, CurrentRequest.TR_EC_SFP_SR4__c,CurrentRequest.TR_EC_SFP_LR4__c));
             }
             if(CurrentRequest.PhysicalProduct5__c != null && CurrentRequest.PhysicalProduct5__c != '')
             {                              
-                PhysicalProducts.add(new PhysicalProductInfo(PhysicalProducts.size(), CurrentRequest.PhysicalProduct5__c, CurrentRequest.PhysicalQuantity5__c, CurrentRequest.PhysicalLocation5__c, CurrentRequest.EndCustomerName5__c));
+                PhysicalProducts.add(new PhysicalProductInfo(PhysicalProducts.size(), CurrentRequest.PhysicalProduct5__c, CurrentRequest.PhysicalQuantity5__c, CurrentRequest.PhysicalLocation5__c, CurrentRequest.EndCustomerName5__c, CurrentRequest.TR_EC_SFP_SR5__c,CurrentRequest.TR_EC_SFP_LR5__c));
             }  
             
             //fill virtual product
@@ -589,6 +639,7 @@ global with sharing class CustomPOCRequestController
         
         return result;     
     }
+    
     private boolean validateValues()
     {
         Boolean isValid = true;
@@ -637,7 +688,7 @@ global with sharing class CustomPOCRequestController
         request.PhysicalLocation2__c = '';
         request.PhysicalLocation3__c = '';
         request.PhysicalLocation4__c = '';
-        request.PhysicalLocation5__c = '';             
+        request.PhysicalLocation5__c = '';   
     }
     
     public class VirtualProductInfo
@@ -686,11 +737,23 @@ global with sharing class CustomPOCRequestController
             this.Qty = qty;
             SiteLocation = new SiteLocationInfo(location);
         }
+         public PhysicalProductInfo(Integer index, String prodName, Decimal qty, String location, String endName, Decimal transSR,Decimal transLR)
+        {                    
+            this.Index = index;
+            this.ProductName = prodName;
+            this.EndCustomerName = endName;
+            this.Qty = qty;
+            this.TransRec_SR=transSR;
+            this.TransRec_LR=transLR;
+            SiteLocation = new SiteLocationInfo(location);
+        }
         
         public Integer Index { get; set; }
         public String ProductName { get; set; }        
         public String EndCustomerName { get; set; }        
         public Decimal Qty { get; set; }
+        public Decimal TransRec_SR  { get; set; }
+        public Decimal TransRec_LR  { get; set; }
         public SiteLocationInfo SiteLocation { get; set; }
         
         public String composeLocation()
@@ -709,6 +772,14 @@ global with sharing class CustomPOCRequestController
             if(ProductName == null || ProductName == '')
             {
                 ApexPages.Message myMsg = new ApexPages.Message(ApexPages.Severity.FATAL, 'You must select a physical product.'); 
+                ApexPages.addMessage(myMsg);
+                isValid = false;
+            }
+            System.debug('TransRec_SR'+TransRec_SR);
+            System.debug('TransRec_LR'+TransRec_LR);
+            if(ProductName == 'EC-M-P-1Y' && (TransRec_SR == null || TransRec_LR == null ))
+            {
+                ApexPages.Message myMsg = new ApexPages.Message(ApexPages.Severity.FATAL, 'You must enter quantities for EC-M-P-1Y.'); 
                 ApexPages.addMessage(myMsg);
                 isValid = false;
             }
@@ -1245,6 +1316,7 @@ global with sharing class CustomPOCRequestController
         
         
     } 
+    
      @isTest
     static void testECPocRequestECPOC_AutoPopulateVirtualProducts_TermBased()
     {
@@ -1348,5 +1420,71 @@ global with sharing class CustomPOCRequestController
         System.assertEquals('company', loc.ShippingContact.Company);
         loc = new CustomPOCRequestController.SiteLocationInfo('street1\r\nstreet2\r\ncity, 000000\r\ncountry\r\nfirstname lastname\r\n12345678\r\ncompany\r\nfinalCountry\r\nfinalFirstname finalLastname\r\nfinalCompany\r\nvatId\r\nvatCompany\r\nvatAddress\r\nVATPLACEHOLDER');
         System.assertEquals('finalCompany', loc.DestinationContact.Company);
+    }
+    
+    @isTest
+    static void testTransceiversInfo_Validation()
+    {
+        Contact contact = new Contact(FirstName = 'AcmeFirstname', LastName = 'AcmeLastname', Phone='123456789', Email = 'acme@acme.com' );
+        insert contact;
+        Request__c request = new Request__c(POC_Contact__c = contact.Id);
+        request.POC_Type__c='EdgeConnect';
+        insert request;
+        CustomPOCRequestController.PhysicalProductInfo p1= new  CustomPOCRequestController.PhysicalProductInfo();
+        p1.ProductName='EC-M-P-1Y';
+        p1.TransRec_LR=null;
+        p1.TransRec_SR=null;
+        
+      
+        
+        request.PhysicalProduct1__c = 'EC-M-P-1Y';
+        request.PhysicalQuantity1__c = 1;
+        request.TR_EC_SFP_LR1__c = 1;
+        request.TR_EC_SFP_SR1__c = 1;
+        request.PhysicalLocation1__c = 'Street1' + '\r\n' + 'Street2' + '\r\n' + 'Moscow, BC 12' + '\r\n' + 'Canada' + '\r\n' + 'Kevin chong' + '\r\n' + '12111' + '\r\n' + 'company' + '\r\n' + 'finalCountry' + '\r\n' + 'finalFirstname finalLastname' + '\r\n' + '123234' + '\r\n' + 'finalCompany' + '\r\n' + 'vatId' + '\r\n' + 'vatAddress'; 
+
+        ApexPages.StandardController stdController = new ApexPages.StandardController(request);
+        CustomPOCRequestController controller = new CustomPOCRequestController(stdController);
+        List<CustomPOCRequestController.PhysicalProductInfo> lstAllProd= new   List<CustomPOCRequestController.PhysicalProductInfo>();
+        lstAllProd.add(p1);
+        controller.PhysicalProducts=lstAllProd;
+        try
+        {
+            controller.savePage();
+        }
+        catch(Exception e)
+        {
+            Boolean expectedExceptionThrown =  e.getMessage().contains('You must enter quantities for EC-M-P-1Y.') ? true : false;
+            System.AssertEquals(expectedExceptionThrown, true); 
+        }
+    }
+      @isTest
+    static void testTransceiversInfo_Save()
+    {
+        Contact contact = new Contact(FirstName = 'AcmeFirstname', LastName = 'AcmeLastname', Phone='123456789', Email = 'acme@acme.com' );
+        insert contact;
+        Request__c request = new Request__c(POC_Contact__c = contact.Id);
+        request.POC_Type__c='EdgeConnect';
+        insert request;
+        CustomPOCRequestController.PhysicalProductInfo p1= new  CustomPOCRequestController.PhysicalProductInfo();
+        p1.ProductName='EC-M-P-1Y';
+        p1.TransRec_LR=1;
+        p1.TransRec_SR=1;
+        request.PhysicalLocation1__c = 'Street1' + '\r\n' + 'Street2' + '\r\n' + 'Moscow, BC 12' + '\r\n' + 'Canada' + '\r\n' + 'Kevin chong' + '\r\n' + '12111' + '\r\n' + 'company' + '\r\n' + 'finalCountry' + '\r\n' + 'finalFirstname finalLastname' + '\r\n' + '123234' + '\r\n' + 'finalCompany' + '\r\n' + 'vatId' + '\r\n' + 'vatAddress'; 
+
+        ApexPages.StandardController stdController = new ApexPages.StandardController(request);
+        CustomPOCRequestController controller = new CustomPOCRequestController(stdController);
+        List<CustomPOCRequestController.PhysicalProductInfo> lstAllProd= new   List<CustomPOCRequestController.PhysicalProductInfo>();
+        lstAllProd.add(p1);
+        controller.PhysicalProducts=lstAllProd;
+        try
+        {
+            controller.savePage();
+        }
+        catch(Exception e)
+        {
+            Boolean expectedExceptionThrown =  e.getMessage().contains('You must enter quantities for EC-M-P-1Y.') ? true : false;
+            System.AssertNotEquals(expectedExceptionThrown, true); 
+        }
     }
 }

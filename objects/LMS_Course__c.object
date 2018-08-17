@@ -53,7 +53,6 @@
     <enableReports>true</enableReports>
     <enableSharing>true</enableSharing>
     <enableStreamingApi>true</enableStreamingApi>
-    <externalSharingModel>ReadWrite</externalSharingModel>
     <fields>
         <fullName>Course_Description__c</fullName>
         <externalId>false</externalId>
@@ -121,6 +120,12 @@
     <label>LMS Course</label>
     <listViews>
         <fullName>All</fullName>
+        <columns>OBJECT_ID</columns>
+        <columns>NAME</columns>
+        <columns>Course_Id__c</columns>
+        <columns>Course_Name__c</columns>
+        <columns>Is_Active__c</columns>
+        <columns>Last_Fetch_Date__c</columns>
         <filterScope>Everything</filterScope>
         <label>All</label>
     </listViews>

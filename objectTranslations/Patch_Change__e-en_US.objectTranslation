@@ -20,5 +20,9 @@
         <label><!-- RSM Name --></label>
         <name>RSM_Name__c</name>
     </fields>
+    <fields>
+        <label><!-- RSS Name --></label>
+        <name>RSS_Name__c</name>
+    </fields>
     <startsWith>Consonant</startsWith>
 </CustomObjectTranslation>

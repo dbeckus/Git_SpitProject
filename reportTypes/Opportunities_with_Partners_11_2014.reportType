@@ -1580,11 +1580,6 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>Open_Ops__c</field>
-            <table>Opportunity.Partners</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
             <field>OwnerIsActive__c</field>
             <table>Opportunity.Partners</table>
         </columns>
@@ -2164,11 +2159,6 @@
         <columns>
             <checkedByDefault>false</checkedByDefault>
             <field>PartnerAccount.of_Enterprise_Locations__c</field>
-            <table>Opportunity</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>PartnerAccount.Open_Ops__c</field>
             <table>Opportunity</table>
         </columns>
         <columns>

@@ -41,7 +41,7 @@ public with sharing class NewSalesDevelopmentController
         ListViewOptions.add(new SelectOption('My Team\'s Leads', 'My Team\'s Leads'));
         ListViewOptions.add(new SelectOption('My Leads', 'My Leads'));
         ListView = 'My Team\'s Leads';
-        SortingField = 'mqlDate';
+        SortingField = 'aqlDate';
         SortingAsc = false;
         PageSize = 50;
         PageIndex = 0;
@@ -231,8 +231,8 @@ public with sharing class NewSalesDevelopmentController
     {
         String leadSoql = '', contactSoql = '';
 
-        leadSoql = 'select Id, Name, Title, State,Country, Email, Phone, OwnerId, Owner.Name, Company, Status, Lead_Sub_Status__c, Lead_Lifecycle_Stage__c, Last_Mkt_Campaign__c, Last_Campaign_Type__c, MQL_Stage_Date__c from Lead where IsConverted = false and Id in (select LeadId from CampaignMember where CampaignId = :CampaignId)';
-        contactSoql = 'select Id, Name, Title, MailingState, MailingCountry,Email, Phone, OwnerId, Owner.Name, AccountId, Account.Name, Account.Type, Lead_Status__c, Lead_Sub_Status__c, Lead_Lifecycle_Stage__c, Last_Marketing_Campaign__c, Last_Campaign_Type__c, MQL_Stage_Date__c from Contact where Id in (select ContactId from CampaignMember where CampaignId = :CampaignId)';
+        leadSoql = 'select Id, Name, Title, State,Country, Email, Phone, OwnerId, Owner.Name, Company, Status, Lead_Sub_Status__c, Lifecycle_Stage__c, Last_Mkt_Campaign__c, Last_Campaign_Type__c, Current_AQL_Stage_Date__c from Lead where IsConverted = false and Id in (select LeadId from CampaignMember where CampaignId = :CampaignId)';
+        contactSoql = 'select Id, Name, Title, MailingState, MailingCountry,Email, Phone, OwnerId, Owner.Name, AccountId, Account.Name, Account.Type, Lead_Status__c, Lead_Sub_Status__c, Lifecycle_Stage__c, Last_Marketing_Campaign__c, Last_Campaign_Type__c, Current_AQL_Stage_Date__c from Contact where Id in (select ContactId from CampaignMember where CampaignId = :CampaignId)';
         
         List<Id> patchIds = new List<Id>();
         Id userId = UserInfo.getUserId();
@@ -243,15 +243,15 @@ public with sharing class NewSalesDevelopmentController
             contactSoql += ' and (OwnerId=:userId or Account.Patch__c in :patchIds)';
         }
 
-        if(String.isNotEmpty(LifeCycleStage)&& LifeCycleStage!='MQL')
+        if(String.isNotEmpty(LifeCycleStage)&& LifeCycleStage!='AQL')
         {
-            leadSoql += ' and Lead_Lifecycle_Stage__c like \'%' + LifeCycleStage + '%\'';
-            contactSoql += ' and Lead_Lifecycle_Stage__c like \'%' + LifeCycleStage + '%\'';
+            leadSoql += ' and Lifecycle_Stage__c like \'%' + LifeCycleStage + '%\'';
+            contactSoql += ' and Lifecycle_Stage__c like \'%' + LifeCycleStage + '%\'';
         }
-        if(String.isNotEmpty(LifeCycleStage) && LifeCycleStage=='MQL')
+        if(String.isNotEmpty(LifeCycleStage) && LifeCycleStage=='AQL')
         {
-            leadSoql += ' and (Lead_Lifecycle_Stage__c like \'%' + LifeCycleStage + '%\''+' or Lead_Lifecycle_Stage__c like \'%' + 'MQC' + '%\')';
-            contactSoql += ' and (Lead_Lifecycle_Stage__c like \'%' + LifeCycleStage + '%\''+' or Lead_Lifecycle_Stage__c like \'%' + 'MQC' + '%\')';
+            leadSoql += ' and (Lifecycle_Stage__c like \'%' + LifeCycleStage + '%\''+' or Lifecycle_Stage__c like \'%' + 'AQL' + '%\')';
+            contactSoql += ' and (Lifecycle_Stage__c like \'%' + LifeCycleStage + '%\''+' or Lifecycle_Stage__c like \'%' + 'AQL' + '%\')';
         }
 
         leadSoql += ' limit 10000';
@@ -347,7 +347,7 @@ public with sharing class NewSalesDevelopmentController
             this.accountId = ct.AccountId;
             this.accountName = ct.Account.Name;
             this.accountType = ct.Account.Type;
-            this.lifecycleStage = ct.Lead_Lifecycle_Stage__c;
+            this.lifecycleStage = ct.Lifecycle_Stage__c;
             this.status = ct.Lead_Status__c;
             this.substatus = ct.Lead_Sub_Status__c;
             this.ownerId = ct.OwnerId;
@@ -359,7 +359,7 @@ public with sharing class NewSalesDevelopmentController
             this.email = ct.Email;
             this.lastMktCampaign = ct.Last_Marketing_Campaign__c;
             this.lastCampaignType = ct.Last_Campaign_Type__c;
-            this.mqlDate = ct.MQL_Stage_Date__c;
+            this.aqlDate = ct.Current_AQL_Stage_Date__c;
             setSortingField(sortField, sortAsc);
         }
 
@@ -370,7 +370,7 @@ public with sharing class NewSalesDevelopmentController
             this.name = lead.Name;
             this.type = 'Lead';
             this.accountName = lead.Company;
-            this.lifecycleStage = lead.Lead_Lifecycle_Stage__c;
+            this.lifecycleStage = lead.Lifecycle_Stage__c;
             this.status = lead.Status;
             this.substatus = lead.Lead_Sub_Status__c;
             this.ownerId = lead.OwnerId;
@@ -382,7 +382,7 @@ public with sharing class NewSalesDevelopmentController
             this.phone = lead.Phone;
             this.lastMktCampaign = lead.Last_Mkt_Campaign__c;
             this.lastCampaignType = lead.Last_Campaign_Type__c;
-            this.mqlDate = lead.MQL_Stage_Date__c;
+            this.aqlDate = lead.Current_AQL_Stage_Date__c;
             this.hasOpenOpps = false;
             this.isContactRole = false;
             setSortingField(sortField, sortAsc);
@@ -408,7 +408,7 @@ public with sharing class NewSalesDevelopmentController
         public String lastMktCampaign { get; set; }
         public String lastCampaignType { get; set; }
         public DateTime createdDate { get; set; }
-        public DateTime mqlDate { get; set; }
+        public DateTime aqlDate { get; set; }
         public Boolean hasOpenOpps { get; set; }
         public Boolean isContactRole { get; set; }
         
@@ -466,9 +466,9 @@ public with sharing class NewSalesDevelopmentController
             {
                 sortingField = Country;
             }
-            else if(fieldName == 'mqlDate')
+            else if(fieldName == 'aqlDate')
             {
-                sortingField = (mqlDate == null) ? null : mqlDate.format('yyyy-MM-dd');
+                sortingField = (aqlDate == null) ? null : aqlDate.format('yyyy-MM-dd');
             }
             this.sortAsc = sortAsc;
         }

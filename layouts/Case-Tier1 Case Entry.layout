@@ -4,6 +4,22 @@
     <customButtons>attachmentzip__Download_Attachments</customButtons>
     <excludeButtons>Submit</excludeButtons>
     <layoutSections>
+        <customLabel>true</customLabel>
+        <detailHeading>false</detailHeading>
+        <editHeading>false</editHeading>
+        <label>DE Section</label>
+        <layoutColumns>
+            <layoutItems>
+                <height>50</height>
+                <page>DeploymentEngineeringCaseWarningMessage</page>
+                <showLabel>false</showLabel>
+                <showScrollbars>false</showScrollbars>
+                <width>100%</width>
+            </layoutItems>
+        </layoutColumns>
+        <style>OneColumn</style>
+    </layoutSections>
+    <layoutSections>
         <customLabel>false</customLabel>
         <detailHeading>false</detailHeading>
         <editHeading>true</editHeading>
@@ -46,20 +62,8 @@
                 <field>Jira_Issue_Link__c</field>
             </layoutItems>
             <layoutItems>
-                <behavior>Readonly</behavior>
-                <field>Open_Account__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Readonly</behavior>
-                <field>Open_Contact__c</field>
-            </layoutItems>
-            <layoutItems>
                 <behavior>Edit</behavior>
-                <field>Open_AccountLH__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>Open_Contact_LH__c</field>
+                <field>Case_Opened_Priority__c</field>
             </layoutItems>
         </layoutColumns>
         <layoutColumns>
@@ -82,6 +86,10 @@
             <layoutItems>
                 <behavior>Readonly</behavior>
                 <field>Account_Support_Notes__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>Cap_Critical_Case__c</field>
             </layoutItems>
         </layoutColumns>
         <style>TwoColumnsTopToBottom</style>
@@ -297,6 +305,18 @@
             </layoutItem>
         </relatedContentItems>
     </relatedContent>
+    <relatedLists>
+        <excludeButtons>New</excludeButtons>
+        <fields>DE_Note__c.NAME</fields>
+        <fields>DE_Note__c.Has_Attachment__c</fields>
+        <fields>DE_Note__c.Deployment_Engineer__c</fields>
+        <fields>DE_Notes__c</fields>
+        <fields>User.CREATED</fields>
+        <fields>DE_Note__c.CREATED_DATE</fields>
+        <relatedList>DE_Case_Note__c.Case_Number__c</relatedList>
+        <sortField>DE_Note__c.Has_Attachment__c</sortField>
+        <sortOrder>Desc</sortOrder>
+    </relatedLists>
     <relatedLists>
         <fields>TITLE</fields>
         <fields>LAST_UPDATE</fields>

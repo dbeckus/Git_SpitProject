@@ -68,6 +68,10 @@ public class TestPartnerRelatedList {
         
         usr.IsActive =true;
         insert usr;
+        AccountShare accShare = new AccountShare(AccountId=acc.Id,UserOrGroupId=usr.Id,AccountAccessLevel='Edit',OpportunityAccessLevel='Edit');
+        insert accShare;
+        AccountShare acc1Share = new AccountShare(AccountId=acc1.Id,UserOrGroupId=usr.Id,AccountAccessLevel='Edit',OpportunityAccessLevel='Edit');
+        insert acc1Share;
         System.runAs(usr)
         {
             opportunity.Name = 'acme';

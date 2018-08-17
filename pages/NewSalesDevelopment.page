@@ -107,7 +107,7 @@
                 }
             });
         }
-   	 function SendToWatchList(type) {
+     function SendToWatchList(type) {
      var searchIDs=[];
       $(".listIds").each(function(i){
                     if($(this).prop("checked")) {
@@ -192,8 +192,8 @@
                         </apex:selectList>&nbsp;
                         <apex:selectList value="{!LifeCycleStage}" size="1">
                             <apex:selectOption itemLabel="All" itemValue="" />
-                            <apex:selectOption itemLabel="MQL" itemValue="MQL" />
-                            <apex:selectOption itemLabel="SAL" itemValue="SAL" />
+                            <apex:selectOption itemLabel="AQL" itemValue="AQL" />
+                            <apex:selectOption itemLabel="TAL" itemValue="TAL" />
                             <apex:actionSupport action="{!refreshZero}" event="onchange"/>
                         </apex:selectList>
                     </td>
@@ -218,10 +218,10 @@
                     <td colspan="2">
                         <input type="button" class="btn"  value="Lead- Add to WatchList" onclick="SendToWatchList('Lead');"/>
                         <input type="button" class="btn"  value="Lead- Add To Marketo Campaign" onclick="AddToMarketoCampaign('Lead');" />
-                        <input type="button" class="btn"  value="Lead- Send Marketo Email" onclick="SendMarketoEmail('Lead');" 	/>
+                        <input type="button" class="btn"  value="Lead- Send Marketo Email" onclick="SendMarketoEmail('Lead');"  />
                         <input type="button" class="btn"  value="Contact- Add to WatchList" onclick="SendToWatchList('Contact');" />
                         <input type="button" class="btn"  value="Contact- Add To Marketo Campaign" onclick="AddToMarketoCampaign('Contact');" />
-                        <input type="button" class="btn"  value="Contact- Send Marketo Email" onclick="SendMarketoEmail('Contact');"/>	
+                        <input type="button" class="btn"  value="Contact- Send Marketo Email" onclick="SendMarketoEmail('Contact');"/>  
                     </td>
                 </tr>
             </table>
@@ -260,9 +260,9 @@
                     </apex:column>
                     <apex:column headerValue="MQL Stage Date">
                         <apex:facet name="header">
-                            <a href="javascript:void(0)" onclick="sortOn('mqlDate')">MQL Stage Date</a>
+                            <a href="javascript:void(0)" onclick="sortOn('aqlDate')">AQL Stage Date</a>
                         </apex:facet>
-                        <apex:outputText value="{0, date, MM/dd/yyyy}"><apex:param value="{!obj.mqlDate}"/></apex:outputText>
+                        <apex:outputText value="{0, date, MM/dd/yyyy}"><apex:param value="{!obj.aqlDate}"/></apex:outputText>
                     </apex:column>
                     <apex:column headerValue="Name">
                         <apex:facet name="header">

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Deployment Engineering Case Note</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Deployment Engineering Case Notes</value>
+    </caseValues>
+    <fields>
+        <label><!-- Case Number --></label>
+        <name>Case_Number__c</name>
+        <relationshipLabel><!-- Deployment Engineering Case Notes --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- DE Note --></label>
+        <name>DE_Note__c</name>
+        <relationshipLabel><!-- Deployment Engineering Case Notes --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Deployment Engineering Notes --></label>
+        <name>DE_Notes__c</name>
+    </fields>
+    <layouts>
+        <layout>Deployment Engineering Case Note Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+    </layouts>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

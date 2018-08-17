@@ -20,12 +20,12 @@
                 <field>Active_EC_Base_License__c</field>
             </layoutItems>
             <layoutItems>
-                <behavior>Required</behavior>
-                <field>Product2Id</field>
-            </layoutItems>
-            <layoutItems>
                 <behavior>Edit</behavior>
                 <field>EC_Product_Name__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Required</behavior>
+                <field>Product2Id</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
@@ -72,10 +72,6 @@
                 <field>Bandwidth_Nodes__c</field>
             </layoutItems>
             <layoutItems>
-                <behavior>Readonly</behavior>
-                <field>Boost_Bandwidth_Qty__c</field>
-            </layoutItems>
-            <layoutItems>
                 <behavior>Edit</behavior>
                 <field>Opt_Out_Subscription_Reminder__c</field>
             </layoutItems>
@@ -94,6 +90,10 @@
             <layoutItems>
                 <behavior>Readonly</behavior>
                 <field>Product_Quote_Type__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>Product_Category__c</field>
             </layoutItems>
         </layoutColumns>
         <layoutColumns>

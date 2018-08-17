@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <HomePageComponent xmlns="http://soap.sforce.com/2006/04/metadata">
-    <body>&lt;p&gt;&lt;span style=&quot;font-size: 14px;&quot;&gt;&lt;span style=&quot;font-family: tahoma,geneva,sans-serif;&quot;&gt;&lt;b&gt;8.1.5 is available&lt;/b&gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span style=&quot;font-family: tahoma,geneva,sans-serif;&quot;&gt;Did you know that VXOA 8.1.5 requires Orchestrator (GMS) Version 8.1.10 or later?&lt;br&gt; &lt;br&gt;Please remember to upgrade the Orchestrator (GMS) to 8.1.10 or later &lt;b&gt;before&lt;/b&gt; upgrading EdgeConnect, NX, VX and VRX Appliances to VXOA 8.1.5.x.&lt;/span&gt;&lt;br&gt; &lt;/p&gt;</body>
+    <body>&lt;p&gt;&lt;span style=&quot;font-size: 14px;&quot;&gt;&lt;span style=&quot;font-family: tahoma,geneva,sans-serif;&quot;&gt;&lt;b&gt;8.1.7 is now available&lt;/b&gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span style=&quot;font-size: 12px;&quot;&gt;&lt;span style=&quot;font-family: tahoma,geneva,sans-serif;&quot;&gt;VXOA 8.1.7 &amp;amp; Orchestrator 8.3 are now available under &lt;b&gt;GA&lt;/b&gt;.&lt;br&gt; &lt;br&gt;&lt;span style=&quot;background-color: white;&quot;&gt;&lt;span style=&quot;color: #333333;&quot;&gt;Please remember to upgrade the Orchestrator (GMS) to 8.3.x or later &lt;b&gt;before&lt;/b&gt; upgrading EdgeConnect (EC), NX, VX and VRX Appliances to VXOA 8.1.7&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt; &lt;/p&gt;</body>
     <pageComponentType>htmlArea</pageComponentType>
     <width>narrow</width>
 </HomePageComponent>

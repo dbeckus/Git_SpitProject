@@ -26,37 +26,352 @@
         <name>Share Non Renewal opps with Marketo</name>
         <opportunityAccessLevel>Edit</opportunityAccessLevel>
     </criteriaBasedRules>
-    <ownerRules>
-        <fullName>Share_Owned_by_Partner_to_Marketo</fullName>
+    <criteriaBasedRules>
+        <fullName>Tier1_Partner_AT_T_Opps</fullName>
         <sharedTo>
-            <role>Marketo_Integration</role>
+            <group>Tier1_Partner_AT_T_Opps_Access</group>
         </sharedTo>
-        <sharedFrom>
-            <allPartnerUsers></allPartnerUsers>
-        </sharedFrom>
-        <name>Share Owned by Partner to Marketo</name>
+        <criteriaItems>
+            <field>Tier1_Partner_AT_T__c</field>
+            <operation>equals</operation>
+            <value>True</value>
+        </criteriaItems>
+        <description>Share Tier1 AT&amp;T Opps with Robin Marks</description>
+        <name>Tier1 Partner AT&amp;T Opps</name>
         <opportunityAccessLevel>Edit</opportunityAccessLevel>
-    </ownerRules>
-    <ownerRules>
-        <fullName>Share_Owned_by_Partner_to_SP_Employee</fullName>
+    </criteriaBasedRules>
+    <criteriaBasedRules>
+        <fullName>Tier1_Partner_CDW_Opps</fullName>
         <sharedTo>
-            <group>Silver_Peak_Employees</group>
+            <group>Tier1_Partner_CDW_Opps_Access</group>
         </sharedTo>
-        <sharedFrom>
-            <allPartnerUsers></allPartnerUsers>
-        </sharedFrom>
-        <name>Share Owned by Partner to SP Employee</name>
+        <criteriaItems>
+            <field>Tier1_Partner_CDW__c</field>
+            <operation>equals</operation>
+            <value>True</value>
+        </criteriaItems>
+        <description>Share Tier1 CDW Opps with Jacqui</description>
+        <name>Tier1 Partner CDW Opps</name>
         <opportunityAccessLevel>Edit</opportunityAccessLevel>
-    </ownerRules>
+    </criteriaBasedRules>
     <ownerRules>
-        <fullName>Share_with_All_Users</fullName>
+        <fullName>Edit_Access_to_RSS</fullName>
         <sharedTo>
-            <group>Silver_Peak_Employees</group>
+            <group>Renewal_Sales_Specialists</group>
         </sharedTo>
         <sharedFrom>
             <allInternalUsers></allInternalUsers>
         </sharedFrom>
-        <name>Share with All Users</name>
+        <name>Edit Access to RSS</name>
         <opportunityAccessLevel>Edit</opportunityAccessLevel>
+    </ownerRules>
+    <ownerRules>
+        <fullName>Share_APAC_opps_with_Service_Provider_team</fullName>
+        <sharedTo>
+            <roleAndSubordinatesInternal>Grade_2_Sales_SP</roleAndSubordinatesInternal>
+        </sharedTo>
+        <sharedFrom>
+            <role>Grade_3_Sales_APAC_ASEAN</role>
+        </sharedFrom>
+        <description>Share APAC Opps, which are owned by Tricia Png with SP team</description>
+        <name>Share APAC opps with Service Provider team</name>
+        <opportunityAccessLevel>Edit</opportunityAccessLevel>
+    </ownerRules>
+    <ownerRules>
+        <fullName>Share_Grade_2_Sales_APAC_with_Other_Grade_2_Sales</fullName>
+        <sharedTo>
+            <group>Grade_2_Sales_Team</group>
+        </sharedTo>
+        <sharedFrom>
+            <roleAndSubordinatesInternal>Grade_2_Sales_APAC</roleAndSubordinatesInternal>
+        </sharedFrom>
+        <name>Share Grade 2 Sales APAC with Other Grade 2 Sales</name>
+        <opportunityAccessLevel>Read</opportunityAccessLevel>
+    </ownerRules>
+    <ownerRules>
+        <fullName>Share_Grade_2_Sales_EMEA_with_Other_Grade_2_Sales</fullName>
+        <sharedTo>
+            <group>Grade_2_Sales_Team</group>
+        </sharedTo>
+        <sharedFrom>
+            <roleAndSubordinatesInternal>Grade_2_Sales_EMEA</roleAndSubordinatesInternal>
+        </sharedFrom>
+        <name>Share Grade 2 Sales EMEA with Other Grade 2 Sales</name>
+        <opportunityAccessLevel>Read</opportunityAccessLevel>
+    </ownerRules>
+    <ownerRules>
+        <fullName>Share_Grade_2_Sales_LATAM_with_Other_Grade_2_Sales</fullName>
+        <sharedTo>
+            <group>Grade_2_Sales_Team</group>
+        </sharedTo>
+        <sharedFrom>
+            <roleAndSubordinatesInternal>Grade_2_Sales_LATAM</roleAndSubordinatesInternal>
+        </sharedFrom>
+        <name>Share Grade 2 Sales LATAM with Other Grade 2 Sales</name>
+        <opportunityAccessLevel>Read</opportunityAccessLevel>
+    </ownerRules>
+    <ownerRules>
+        <fullName>Share_Grade_2_Sales_NAM_with_Other_Grade_2_Sales</fullName>
+        <sharedTo>
+            <group>Grade_2_Sales_Team</group>
+        </sharedTo>
+        <sharedFrom>
+            <roleAndSubordinatesInternal>Grade_2_Sales_NAM</roleAndSubordinatesInternal>
+        </sharedFrom>
+        <name>Share Grade 2 Sales NAM with Other Grade 2 Sales</name>
+        <opportunityAccessLevel>Read</opportunityAccessLevel>
+    </ownerRules>
+    <ownerRules>
+        <fullName>Share_Grade_2_Sales_SP_with_Other_Grade_2_Sales</fullName>
+        <sharedTo>
+            <group>Grade_2_Sales_Team</group>
+        </sharedTo>
+        <sharedFrom>
+            <roleAndSubordinatesInternal>Grade_2_Sales_SP</roleAndSubordinatesInternal>
+        </sharedFrom>
+        <name>Share Grade 2 Sales SP with Other Grade 2 Sales</name>
+        <opportunityAccessLevel>Read</opportunityAccessLevel>
+    </ownerRules>
+    <ownerRules>
+        <fullName>Share_Grade_3_APAC_ANZ_with_Other_APAC_Regions</fullName>
+        <sharedTo>
+            <group>Grade_3_Sales_APAC_Region</group>
+        </sharedTo>
+        <sharedFrom>
+            <roleAndSubordinatesInternal>Grade_3_Sales_APAC_ANZ</roleAndSubordinatesInternal>
+        </sharedFrom>
+        <name>Share Grade 3 APAC ANZ with Other APAC Regions</name>
+        <opportunityAccessLevel>Read</opportunityAccessLevel>
+    </ownerRules>
+    <ownerRules>
+        <fullName>Share_Grade_3_APAC_ASEAN_with_Other_APAC_Regions</fullName>
+        <sharedTo>
+            <group>Grade_3_Sales_APAC_Region</group>
+        </sharedTo>
+        <sharedFrom>
+            <roleAndSubordinatesInternal>Grade_3_Sales_APAC_ASEAN</roleAndSubordinatesInternal>
+        </sharedFrom>
+        <name>Share Grade 3 APAC ASEAN with Other APAC Regions</name>
+        <opportunityAccessLevel>Read</opportunityAccessLevel>
+    </ownerRules>
+    <ownerRules>
+        <fullName>Share_Grade_3_EMEA_DACH_with_other_EMEA_Regions</fullName>
+        <sharedTo>
+            <group>Grade_3_Sales_EMEA_Region</group>
+        </sharedTo>
+        <sharedFrom>
+            <roleAndSubordinatesInternal>Grade_3_Sales_EMEA_DACH</roleAndSubordinatesInternal>
+        </sharedFrom>
+        <name>Share Grade 3 EMEA DACH with other EMEA Regions</name>
+        <opportunityAccessLevel>Read</opportunityAccessLevel>
+    </ownerRules>
+    <ownerRules>
+        <fullName>Share_Grade_3_EMEA_META_with_other_EMEA_Regions</fullName>
+        <sharedTo>
+            <group>Grade_3_Sales_EMEA_Region</group>
+        </sharedTo>
+        <sharedFrom>
+            <roleAndSubordinatesInternal>Grade_3_Sales_EMEA_META</roleAndSubordinatesInternal>
+        </sharedFrom>
+        <name>Share Grade 3 EMEA META with other EMEA Regions</name>
+        <opportunityAccessLevel>Read</opportunityAccessLevel>
+    </ownerRules>
+    <ownerRules>
+        <fullName>Share_Grade_3_EMEA_NE_with_other_EMEA_Regions</fullName>
+        <sharedTo>
+            <group>Grade_3_Sales_EMEA_Region</group>
+        </sharedTo>
+        <sharedFrom>
+            <roleAndSubordinatesInternal>Grade_3_Sales_EMEA_NE</roleAndSubordinatesInternal>
+        </sharedFrom>
+        <name>Share Grade 3 EMEA NE with other EMEA Regions</name>
+        <opportunityAccessLevel>Read</opportunityAccessLevel>
+    </ownerRules>
+    <ownerRules>
+        <fullName>Share_Grade_3_EMEA_SOUTH_with_other_EMEA_Regions</fullName>
+        <sharedTo>
+            <group>Grade_3_Sales_EMEA_Region</group>
+        </sharedTo>
+        <sharedFrom>
+            <roleAndSubordinatesInternal>Grade_3_Sales_EMEA_SOUTH</roleAndSubordinatesInternal>
+        </sharedFrom>
+        <name>Share Grade 3 EMEA SOUTH with other EMEA Regions</name>
+        <opportunityAccessLevel>Read</opportunityAccessLevel>
+    </ownerRules>
+    <ownerRules>
+        <fullName>Share_Grade_3_EMEA_UK_I_ZA_with_other_EMEA_Regions</fullName>
+        <sharedTo>
+            <group>Grade_3_Sales_EMEA_Region</group>
+        </sharedTo>
+        <sharedFrom>
+            <roleAndSubordinatesInternal>Grade_3_Sales_EMEA_UK_I_ZA</roleAndSubordinatesInternal>
+        </sharedFrom>
+        <name>Share Grade 3 EMEA UK/I/ZA with other EMEA Regions</name>
+        <opportunityAccessLevel>Read</opportunityAccessLevel>
+    </ownerRules>
+    <ownerRules>
+        <fullName>Share_Grade_3_NAM_Central_Opps_with_other_Grade_3_NAM_Regions</fullName>
+        <sharedTo>
+            <group>Grade_3_Sales_NAM_Region</group>
+        </sharedTo>
+        <sharedFrom>
+            <roleAndSubordinatesInternal>Grade_3_Sales_NAM_Central</roleAndSubordinatesInternal>
+        </sharedFrom>
+        <name>Share Grade 3 NAM Central Opps with other Grade 3 NAM Regions</name>
+        <opportunityAccessLevel>Read</opportunityAccessLevel>
+    </ownerRules>
+    <ownerRules>
+        <fullName>Share_Grade_3_NAM_East_Opps_with_other_Grade_3_Sales_NAM_Regions</fullName>
+        <sharedTo>
+            <group>Grade_3_Sales_NAM_Region</group>
+        </sharedTo>
+        <sharedFrom>
+            <roleAndSubordinatesInternal>Grade_3_Sales_NAM_East</roleAndSubordinatesInternal>
+        </sharedFrom>
+        <name>Share Grade 3 NAM East Opps with other Grade 3 Sales NAM Regions</name>
+        <opportunityAccessLevel>Read</opportunityAccessLevel>
+    </ownerRules>
+    <ownerRules>
+        <fullName>Share_Grade_3_NAM_Major_Opps_with_other_Grade_3_NAM_Regions</fullName>
+        <sharedTo>
+            <group>Grade_3_Sales_NAM_Region</group>
+        </sharedTo>
+        <sharedFrom>
+            <roleAndSubordinatesInternal>Grade_3_Sales_NAM_Majors</roleAndSubordinatesInternal>
+        </sharedFrom>
+        <name>Share Grade 3 NAM Major Opps with other Grade 3 NAM Regions</name>
+        <opportunityAccessLevel>Read</opportunityAccessLevel>
+    </ownerRules>
+    <ownerRules>
+        <fullName>Share_Grade_3_NAM_South_Opps_with_other_Grade_3_NAM_Regions</fullName>
+        <sharedTo>
+            <group>Grade_3_Sales_NAM_Region</group>
+        </sharedTo>
+        <sharedFrom>
+            <roleAndSubordinatesInternal>Grade_3_Sales_NAM_South</roleAndSubordinatesInternal>
+        </sharedFrom>
+        <name>Share Grade 3 NAM South Opps with other Grade 3 NAM Regions</name>
+        <opportunityAccessLevel>Read</opportunityAccessLevel>
+    </ownerRules>
+    <ownerRules>
+        <fullName>Share_Grade_3_NAM_West_Opps_with_other_Grade_3_NAM_Regions</fullName>
+        <sharedTo>
+            <group>Grade_3_Sales_NAM_Region</group>
+        </sharedTo>
+        <sharedFrom>
+            <roleAndSubordinatesInternal>Grade_3_Sales_NAM_West</roleAndSubordinatesInternal>
+        </sharedFrom>
+        <name>Share Grade 3 NAM West Opps with other Grade 3 NAM Regions</name>
+        <opportunityAccessLevel>Read</opportunityAccessLevel>
+    </ownerRules>
+    <ownerRules>
+        <fullName>Share_NAM_Central_Opps_with_Super_SE_Central</fullName>
+        <sharedTo>
+            <group>Super_SE_SEAL_Central</group>
+        </sharedTo>
+        <sharedFrom>
+            <role>Grade_4_Sales_NAM_Central</role>
+        </sharedFrom>
+        <name>Share NAM Central Opps with Super SE-Central</name>
+        <opportunityAccessLevel>Edit</opportunityAccessLevel>
+    </ownerRules>
+    <ownerRules>
+        <fullName>Share_NAM_East_Opps_with_Super_SE_East</fullName>
+        <sharedTo>
+            <group>Super_SE_SEAL_East</group>
+        </sharedTo>
+        <sharedFrom>
+            <role>Grade_4_Sales_NAM_East</role>
+        </sharedFrom>
+        <name>Share NAM East Opps with Super SE-East</name>
+        <opportunityAccessLevel>Edit</opportunityAccessLevel>
+    </ownerRules>
+    <ownerRules>
+        <fullName>Share_NAM_West_Opps_with_Super_SE_West</fullName>
+        <sharedTo>
+            <group>Super_SE_SEAL_West</group>
+        </sharedTo>
+        <sharedFrom>
+            <role>Grade_4_Sales_NAM_West</role>
+        </sharedFrom>
+        <name>Share NAM West Opps with Super SE-West</name>
+        <opportunityAccessLevel>Edit</opportunityAccessLevel>
+    </ownerRules>
+    <ownerRules>
+        <fullName>Share_Opps_with_BDR_Team</fullName>
+        <sharedTo>
+            <role>Grade_2_BDR</role>
+        </sharedTo>
+        <sharedFrom>
+            <allInternalUsers></allInternalUsers>
+        </sharedFrom>
+        <name>Share Opps with BDR Team</name>
+        <opportunityAccessLevel>Read</opportunityAccessLevel>
+    </ownerRules>
+    <ownerRules>
+        <fullName>Share_Opps_with_Director_of_Customer_Service</fullName>
+        <sharedTo>
+            <role>DirectorofCustomerService</role>
+        </sharedTo>
+        <sharedFrom>
+            <allInternalUsers></allInternalUsers>
+        </sharedFrom>
+        <name>Share Opps with Director of Customer Service</name>
+        <opportunityAccessLevel>Read</opportunityAccessLevel>
+    </ownerRules>
+    <ownerRules>
+        <fullName>Share_Opps_with_Grade_1_Sys_Eng</fullName>
+        <sharedTo>
+            <role>Grade_1_Sys_Eng</role>
+        </sharedTo>
+        <sharedFrom>
+            <allInternalUsers></allInternalUsers>
+        </sharedFrom>
+        <name>Share Opps with Grade 1 Sys Eng</name>
+        <opportunityAccessLevel>Edit</opportunityAccessLevel>
+    </ownerRules>
+    <ownerRules>
+        <fullName>Share_Opps_with_Marketing_Team</fullName>
+        <sharedTo>
+            <roleAndSubordinatesInternal>SVPMarketing</roleAndSubordinatesInternal>
+        </sharedTo>
+        <sharedFrom>
+            <allInternalUsers></allInternalUsers>
+        </sharedFrom>
+        <name>Share Opps with Marketing Team</name>
+        <opportunityAccessLevel>Edit</opportunityAccessLevel>
+    </ownerRules>
+    <ownerRules>
+        <fullName>Share_Opps_with_Operations_Team</fullName>
+        <sharedTo>
+            <role>OperationsManager</role>
+        </sharedTo>
+        <sharedFrom>
+            <allInternalUsers></allInternalUsers>
+        </sharedFrom>
+        <name>Share Opps with Operations Team</name>
+        <opportunityAccessLevel>Edit</opportunityAccessLevel>
+    </ownerRules>
+    <ownerRules>
+        <fullName>Share_Opps_with_Product_Management_Team</fullName>
+        <sharedTo>
+            <role>VPProductManagement</role>
+        </sharedTo>
+        <sharedFrom>
+            <allInternalUsers></allInternalUsers>
+        </sharedFrom>
+        <name>Share Opps with Product Management Team</name>
+        <opportunityAccessLevel>Read</opportunityAccessLevel>
+    </ownerRules>
+    <ownerRules>
+        <fullName>Share_Opps_with_VP_of_Business_Development</fullName>
+        <sharedTo>
+            <role>VPofBusinessDevlopment</role>
+        </sharedTo>
+        <sharedFrom>
+            <allInternalUsers></allInternalUsers>
+        </sharedFrom>
+        <name>Share Opps with VP of Business Development</name>
+        <opportunityAccessLevel>Read</opportunityAccessLevel>
     </ownerRules>
 </OpportunitySharingRules>

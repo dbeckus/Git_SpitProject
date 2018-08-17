@@ -13,7 +13,7 @@
         <label>Information</label>
         <layoutColumns>
             <layoutItems>
-                <behavior>Edit</behavior>
+                <behavior>Readonly</behavior>
                 <field>Status__c</field>
             </layoutItems>
             <layoutItems>

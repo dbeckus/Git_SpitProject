@@ -9,6 +9,10 @@
         <value>Api Configurations</value>
     </caseValues>
     <fields>
+        <label><!-- Base Endpoint --></label>
+        <name>Base_Endpoint__c</name>
+    </fields>
+    <fields>
         <label><!-- Endpoint URL --></label>
         <name>Endpoint_URL__c</name>
     </fields>

@@ -2,9 +2,9 @@
 <Role xmlns="http://soap.sforce.com/2006/04/metadata">
     <caseAccessLevel>None</caseAccessLevel>
     <contactAccessLevel>Edit</contactAccessLevel>
-    <description>Sirius Computer Solutions (Sirius) Partner Manager</description>
+    <description>Sirius Computer Solutions, Inc. Partner Manager</description>
     <mayForecastManagerShare>false</mayForecastManagerShare>
-    <name>Sirius Computer Solutions (Sirius) Partner Manager</name>
+    <name>Sirius Computer Solutions, Inc. Partner Manager</name>
     <opportunityAccessLevel>None</opportunityAccessLevel>
-    <parentRole>Grade_5_CAM_NAM_Northwest</parentRole>
+    <parentRole>Grade_5_CAM_NAM_South_Central</parentRole>
 </Role>

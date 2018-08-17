@@ -2,9 +2,9 @@
 <Role xmlns="http://soap.sforce.com/2006/04/metadata">
     <caseAccessLevel>None</caseAccessLevel>
     <contactAccessLevel>Edit</contactAccessLevel>
-    <description>Westcon Solutions (M) Sdn Bhd Partner Manager</description>
+    <description>WESTCON SOLUTIONS (M) SDN. BHD Partner Manager</description>
     <mayForecastManagerShare>false</mayForecastManagerShare>
-    <name>Westcon Solutions (M) Sdn Bhd Partner Manager</name>
+    <name>WESTCON SOLUTIONS (M) SDN. BHD Partner Manager</name>
     <opportunityAccessLevel>None</opportunityAccessLevel>
     <parentRole>Grade_3_Sales_APAC_ASEAN</parentRole>
 </Role>

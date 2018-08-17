@@ -2,9 +2,9 @@
 <Role xmlns="http://soap.sforce.com/2006/04/metadata">
     <caseAccessLevel>None</caseAccessLevel>
     <contactAccessLevel>Edit</contactAccessLevel>
-    <description>Linkbynet Customer User</description>
+    <description>LINKBYNET INDIAN OCEAN (L.I.O.) LIMITED Customer User</description>
     <mayForecastManagerShare>false</mayForecastManagerShare>
-    <name>Linkbynet Customer User</name>
+    <name>LINKBYNET INDIAN OCEAN (L.I.O.) LIMITED Customer User</name>
     <opportunityAccessLevel>None</opportunityAccessLevel>
-    <parentRole>Grade_3_Sales_EMEA</parentRole>
+    <parentRole>Grade_3_Sales_EMEA_SOUTH</parentRole>
 </Role>

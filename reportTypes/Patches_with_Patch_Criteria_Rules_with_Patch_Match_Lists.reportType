@@ -6,10 +6,10 @@
     <description>Patches with Patch Criteria Rules with Patch Match Lists</description>
     <join>
         <join>
-            <outerJoin>false</outerJoin>
+            <outerJoin>true</outerJoin>
             <relationship>MatchList__r</relationship>
         </join>
-        <outerJoin>false</outerJoin>
+        <outerJoin>true</outerJoin>
         <relationship>Patch_Rules__r</relationship>
     </join>
     <label>Patches with Patch Criteria Rules with Patch Match Lists</label>

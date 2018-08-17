@@ -2,7 +2,7 @@ public abstract class HPartnerPortalApiBase
 {
     public static Integer ApiTimeOut = 60000;
     public static String ContentCharset = 'UTF-8';
-    public static String BaseEndpoint = 'https://silverpeaksystems-migration.sandbox.myabsorb.com/api/Rest/v1';
+    public static String BaseEndpoint = 'https://silverpeaksystems.myabsorb.com/api/Rest/v1';
     
     public Boolean isSucceed { get; set; }
 
@@ -17,11 +17,9 @@ public abstract class HPartnerPortalApiBase
             // Sets http request headers and body.
             HttpRequest request = setHeaders(new HttpRequest());
             request.setEndpoint(generateEndPoint());
-            System.debug(request.getEndpoint());
             request = setBody(request);
             //system.debug(request);
             // Sends request.
-            System.debug(request.getBody());
             HttpResponse response = new Http().send(request);
             
             // Process response.

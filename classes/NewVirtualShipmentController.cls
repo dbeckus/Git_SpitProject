@@ -14,15 +14,13 @@ public with sharing class NewVirtualShipmentController
 {
     private Asset_mac__c am;        
     private Shipment__c shipmentRecord;
-    private List<Product2> products;   
-    private static Date ECShipmentOldDate;
+    private List<Product2> products;     
     public NewVirtualShipmentController(ApexPages.StandardController std)
     {
         String poId = ApexPages.currentPage().getParameters().get('poId');
         shipmentRecord = (Shipment__c)std.getRecord();
         TempAsset = new Asset();
         PoOpp = null;
-        ECShipmentOldDate=null;
         List<Purchase_Order__c> purchaseOrders = [SELECT Id, Name, Email_Contact__c, Opportunity__r.Account.Id, Opportunity__c FROM Purchase_Order__c WHERE Id = :poId];
         if(purchaseOrders.size() <= 0)
         {
@@ -95,7 +93,7 @@ public with sharing class NewVirtualShipmentController
             return ecProdIds;            
         }
     }
-      private Map<Id,String> UnityORCHSPProductIds {
+    private Map<Id,String> UnityORCHSPProductIds {
         get{
             Map<Id,String> ecProdIds= new Map<Id,String>();
             try
@@ -114,7 +112,7 @@ public with sharing class NewVirtualShipmentController
             return ecProdIds;            
         }
     }
-  
+    
     public List<Product2> ProductsList
     {
         get
@@ -154,9 +152,9 @@ public with sharing class NewVirtualShipmentController
         {
             Integer index = Integer.valueOf(rowIndex);
             /*if(index>0)
-            {
-                index=index-1;
-            }*/
+{
+index=index-1;
+}*/
             AssetLines.remove(index);
         }
         catch(Exception ex)
@@ -218,10 +216,10 @@ public with sharing class NewVirtualShipmentController
             //string tobeUpdatedECProductName=lstExistingECAssets.c(virtualAsset.Asset.Product2Id);
             if(lstExistingECAssets!=null && lstExistingECAssets.containsKey(updatedECProductName))
             {
+                
                 Asset currAsset= lstExistingECAssets.get(updatedECProductName);
                 VirtualAssetManager.VirtualAsset vasset= new VirtualAssetManager.VirtualAsset();
                 vasset.Asset = currAsset;
-                ECShipmentOldDate=currAsset.License_End_Date__c;
                 vasset.Asset.Evaluation_End_Date__c= virtualAsset.Asset.Evaluation_End_Date__c;
                 if(currAsset.Product2.Name=='EC-ORCH')
                 {
@@ -255,7 +253,7 @@ public with sharing class NewVirtualShipmentController
                 if(ECProductIds!=null && ECProductIds.size()>0 && ECProductIds.containsKey(virtualAsset.Asset.Product2Id))
                 {
                     virtualAsset.Asset.Status='Customer Subscription Active';
-                  
+                    
                     virtualAsset.Asset.EC_Product_Name__c=ECProductIds.get(virtualAsset.Asset.Product2Id);
                     if(virtualAsset.Asset.EC_Product_Name__c!=null && virtualAsset.Asset.EC_Product_Name__c.contains('EC-ORCH-AAS'))
                     {
@@ -267,7 +265,7 @@ public with sharing class NewVirtualShipmentController
                         if(UnityORCHSPProductIds!=null && UnityORCHSPProductIds.containsKey(virtualAsset.Asset.Product2Id))
                             virtualAsset.Asset.EC_Product_Name__c=UnityORCHSPProductIds.get(virtualAsset.Asset.Product2Id);
                     }
-                  
+                    
                 }
                 //If the EC Orchestrator is selected, then hardcode the GMS Nodes to 10000
                 if(ECProductIds!=null && ECProductIds.size()>0 && ECProductIds.containsKey(virtualAsset.Asset.Product2Id) &&  ECProductIds.get(virtualAsset.Asset.Product2Id) =='EC-ORCH' )
@@ -396,7 +394,6 @@ public with sharing class NewVirtualShipmentController
         {
             for(VirtualAssetManager.VirtualAsset virtualAsset : updateAssetLines)
             {
-                
                 virtualAsset.Asset.Evaluation_End_Date__c = null;
                 nullifyEvalUpdatedAssets.add(virtualAsset.Asset);
             }
@@ -421,7 +418,7 @@ public with sharing class NewVirtualShipmentController
         Set<Date> setDates= new Set<Date>();
         for(VirtualAssetManager.VirtualAsset virtualAsset : AssetLines)
         {
-            if(ECProductIds.containsKey(virtualAsset.Asset.Product2Id) && ECProductIds.get(virtualAsset.Asset.Product2Id) !='EC-ORCH')
+            if(ECProductIds.containsKey(virtualAsset.Asset.Product2Id) && ECProductIds.get(virtualAsset.Asset.Product2Id) !='EC-ORCH' && !UnityORCHProductIds.containsKey(virtualAsset.Asset.Product2Id))
             {
                 setDates.add(virtualAsset.Asset.Evaluation_End_Date__c);
             }
@@ -455,7 +452,7 @@ public with sharing class NewVirtualShipmentController
     }
     private static void UpdateLicensesForEdgeConnectAssets(Id shipmentId, Id accountId)
     {
-        List<Asset> lstAssetsinShipment= [Select Id,license_End_Date__c from Asset where status='Customer Subscription Active' and Product2.Family='Virtual Image' and Product2.Name like 'EC-%' and Id in (Select Asset__c from Shipped_Line__c where Shipment_Id__c=: shipmentId)];
+        List<Asset> lstAssetsinShipment= [Select Id,license_End_Date__c from Asset where status='Customer Subscription Active' and Product2.Family='Virtual Image' and Product2.Name like 'EC-%' and (NOT Product2.Name like'EC-ORCH%') and Id in (Select Asset__c from Shipped_Line__c where Shipment_Id__c=: shipmentId)];
         System.debug('Shipment ID '+ shipmentId);
         System.debug('Account ID ' +accountId);
         System.debug('Assets in Shipment '+ lstAssetsinShipment.size());
@@ -467,8 +464,7 @@ public with sharing class NewVirtualShipmentController
             newLicenseEndDate = lstAssetsinShipment[0].license_End_Date__c;
             assetIds= (new Map<Id,Asset>(lstAssetsinShipment)).keySet();
             List<Asset> assetsToUpdate= new List<Asset>();
-            System.debug('ECShipmentOldDate ' + ECShipmentOldDate);
-            assetsToUpdate=[Select Id, (Select Id,Name,License_Expiration__c from licenses__r ) from Asset where  AccountId =: accountId and Product2.Family='Virtual Image' and Product2.Name like 'EC-%' and status='Customer Subscription Active' and (not Id in:assetIds) and License_End_Date__c=:ECShipmentOldDate and (NOT Product2.Name ='EC-ORCH')];
+            assetsToUpdate=[Select Id, (Select Id,Name,License_Expiration__c from licenses__r ) from Asset where  AccountId =: accountId and Product2.Family='Virtual Image' and Product2.Name like 'EC-%' and status='Customer Subscription Active' and (not Id in:assetIds) and (NOT Product2.Name like'EC-ORCH%')];
             System.debug('Assets not in Shipment '+ assetsToUpdate.size());
             if(assetsToUpdate.size()>0) 
             {
@@ -535,7 +531,7 @@ public with sharing class NewVirtualShipmentController
         {
             assetIds.Add(shippedLineItem.Asset__c);
         } 
-        List<Asset> lstAssets= [Select Id,Product2Id,Product2.Name,License_End_Date__c,Product2.SteelBrick_Category__c,Quantity,Bandwidth_Nodes__c,Licenses_Nodes__c,Status from Asset where Id in :assetIds and status='Customer Subscription Active' and Product2Id in :productIds];
+        List<Asset> lstAssets= [Select Id,Product2Id,Product2.Name,Product2.SteelBrick_Category__c,Quantity,Bandwidth_Nodes__c,Licenses_Nodes__c,Status from Asset where Id in :assetIds and status='Customer Subscription Active' and Product2Id in :productIds];
         for(Asset assetItem :lstAssets)
         {
             mapAssetItems.put(assetItem.Product2.SteelBrick_Category__c, assetItem);
@@ -544,7 +540,7 @@ public with sharing class NewVirtualShipmentController
         
         return mapAssetItems;
     }
-        
+    
     public PageReference cancel()
     {
         PageReference pageResult = new PageReference('/' + PO.Id);

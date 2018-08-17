@@ -31,7 +31,7 @@ public class LeadTriggerHandlerForSDC extends TriggerHandler
     {
         Set<String> moveToSDCampaignStages = new Set<String> { '03 MQL', '04 SAL', '13 MQC', '14 SAC', 'MQL', 'SAL', 'MQC' };
         Set<String> excludedStatuses = new Set<String> {'Submitted', 'Approved', 'Rejected' };
-        Set<String> rejectedStatuses = new Set<String> { 'Sales Rejected', 'Rejected' };
+        Set<String> rejectedStatuses = new Set<String> { 'Sales Rejected', 'Rejected', 'Rejected - Not Interested', 'Rejected - Wrong Role', 'Rejected - Unresponsive/Check Back', 'Rejected - Do Not Contact', 'Rejected -Reseller Partner' };
 
         String sdCampaignId = SalesDevelopmentHelper.getSDCampaign();
         List<CampaignMember> newSDCampaignMembers = new List<CampaignMember>();

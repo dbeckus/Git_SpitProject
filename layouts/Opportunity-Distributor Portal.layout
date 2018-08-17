@@ -27,16 +27,28 @@
                 <field>Name</field>
             </layoutItems>
             <layoutItems>
-                <behavior>Required</behavior>
+                <behavior>Readonly</behavior>
                 <field>AccountId</field>
             </layoutItems>
             <layoutItems>
-                <behavior>Edit</behavior>
+                <behavior>Readonly</behavior>
                 <field>Registering_Partner__c</field>
             </layoutItems>
             <layoutItems>
-                <behavior>Edit</behavior>
+                <behavior>Readonly</behavior>
                 <field>Registering_Partner_Sales_Rep__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Tier1_Partner_CDW__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Tier1_Partner_AT_T__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Metered_Service_Provider__c</field>
             </layoutItems>
         </layoutColumns>
         <layoutColumns>
@@ -57,8 +69,12 @@
                 <field>ForecastCategoryName</field>
             </layoutItems>
             <layoutItems>
-                <behavior>Readonly</behavior>
+                <behavior>Edit</behavior>
                 <field>NextStep</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Dead_Reason__c</field>
             </layoutItems>
         </layoutColumns>
         <style>TwoColumnsTopToBottom</style>
@@ -97,6 +113,11 @@
         <fields>Quote_Name__c</fields>
         <fields>Quote_Date__c</fields>
         <fields>Quote_Valid_Until__c</fields>
+        <fields>Approval_Status__c</fields>
+        <fields>Primary__c</fields>
+        <fields>Quote_Amount_Rollup__c</fields>
+        <fields>PreparedFor__c</fields>
+        <fields>Tier_1_Partner__c</fields>
         <relatedList>Quote__c.Opportunity__c</relatedList>
     </relatedLists>
     <relatedLists>
@@ -111,6 +132,9 @@
         <fields>OppAccessLevel</fields>
         <fields>TeamMemberRole</fields>
         <relatedList>RelatedOpportunitySalesTeam</relatedList>
+    </relatedLists>
+    <relatedLists>
+        <relatedList>RelatedContactRoleList</relatedList>
     </relatedLists>
     <relatedObjects>AccountId</relatedObjects>
     <showEmailCheckbox>false</showEmailCheckbox>

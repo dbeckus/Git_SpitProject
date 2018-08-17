@@ -6,5 +6,5 @@
     <mayForecastManagerShare>false</mayForecastManagerShare>
     <name>Inrix, Inc. Customer User</name>
     <opportunityAccessLevel>None</opportunityAccessLevel>
-    <parentRole>Grade_4_Sales_NAM_West</parentRole>
+    <parentRole>Grade_4_COMM_NAM_West</parentRole>
 </Role>

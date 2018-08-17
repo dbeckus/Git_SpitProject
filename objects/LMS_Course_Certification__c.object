@@ -53,7 +53,6 @@
     <enableReports>true</enableReports>
     <enableSharing>true</enableSharing>
     <enableStreamingApi>true</enableStreamingApi>
-    <externalSharingModel>ControlledByParent</externalSharingModel>
     <fields>
         <fullName>Acquired_Date__c</fullName>
         <externalId>false</externalId>
@@ -87,6 +86,17 @@
         <externalId>false</externalId>
         <label>Course Id</label>
         <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Course_Name__c</fullName>
+        <externalId>false</externalId>
+        <formula>LMS_Course_Id__r.Course_Name__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Course Name</label>
         <required>false</required>
         <trackTrending>false</trackTrending>
         <type>Text</type>

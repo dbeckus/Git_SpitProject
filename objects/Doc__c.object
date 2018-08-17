@@ -53,7 +53,6 @@
     <enableReports>false</enableReports>
     <enableSharing>false</enableSharing>
     <enableStreamingApi>false</enableStreamingApi>
-    <externalSharingModel>ReadWrite</externalSharingModel>
     <label>Doc</label>
     <nameField>
         <label>Doc Name</label>

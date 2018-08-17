@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <HomePageComponent xmlns="http://soap.sforce.com/2006/04/metadata">
-    <body>&lt;img style=&quot;width: 225px; height: 74px;&quot; src=&quot;/servlet/servlet.ImageServer?oid=00DW0000008xkoV&amp;amp;id=015300000002jCJ&quot; align=&quot;left&quot; border=&quot;0&quot;&gt;&lt;br&gt;</body>
+    <body>&lt;img style=&quot;width: 225px; height: 74px;&quot; src=&quot;/servlet/servlet.ImageServer?oid=00D29000000EH0j&amp;amp;id=015300000002jCJ&quot; align=&quot;left&quot; border=&quot;0&quot;&gt;&lt;br&gt;</body>
     <pageComponentType>imageOrNote</pageComponentType>
 </HomePageComponent>

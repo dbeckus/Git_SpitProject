@@ -1,0 +1,209 @@
+<apex:page showHeader="false" controller="FindContactReferences">
+    <apex:pageBlock title="Contact References">
+        <apex:pageBlockSection Title="Cases" columns="1" collapsible="false">
+            <apex:outputText value="There are no cases" rendered="{!lstCases.size=0}"></apex:outputText>
+            <apex:pageBlockTable value="{!lstCases}" var="c" rendered="{!lstCases.size>0}" width="100%">
+                <apex:column headerValue="Case Number" >
+                    <apex:outputLink target="_top" rendered="{!(NOT(ISBLANK(c)))}" value="{!URLFOR($Action.Case.View,c.Id)}">{!c.CaseNumber}</apex:outputLink>    
+                </apex:column>
+                <apex:column value="{!c.Contact.Name}"/>
+                <apex:column value="{!c.Status}"/>
+                <apex:column value="{!c.RecordType.Name}"/>
+            </apex:pageBlockTable>
+        </apex:pageBlockSection>
+        
+        <apex:pageBlockSection Title="Leads" columns="1" collapsible="false">
+            <apex:outputText value="There are no Leads" rendered="{!LstLeads.size=0}"></apex:outputText>
+            <apex:pageBlockTable value="{!LstLeads}" var="o" rendered="{!LstLeads.size>0}" width="100%">
+                <apex:column headerValue="Lead Name" >
+                    <apex:outputLink target="_top" rendered="{!(NOT(ISBLANK(o)))}" value="{!URLFOR($Action.Lead.View,o.Id)}">{!o.Name}</apex:outputLink>    
+                </apex:column>
+                <apex:column value="{!o.Name}"/>
+                <apex:column value="{!o.Deal_Registration_Reseller_Contact__r.Name}" headerValue="Deal Reg Reseller Contact"/>
+                <apex:column value="{!o.Registered_Distributor_Contact__r.Name}" headerValue="Registered Distributor Contact"/>
+                <apex:column value="{!o.Registered_Partner_Sales_Rep__r.Name}" headerValue="Registered partner Sales Rep"/>
+            </apex:pageBlockTable>
+        </apex:pageBlockSection>
+        
+        <apex:pageBlockSection Title="Associated Opportunites" columns="1" collapsible="false">
+            <apex:outputText value="There are no Associated Opps" rendered="{!lstOppContactroles.size=0}"></apex:outputText>
+            <apex:pageBlockTable value="{!lstOppContactroles}" var="o" rendered="{!lstOppContactroles.size>0}" width="100%">
+                <apex:column headerValue="Opportunity Name" >
+                    <apex:outputLink target="_top" rendered="{!(NOT(ISBLANK(o)))}" value="{!URLFOR($Action.Opportunity.View,o.Id)}">{!o.Name}</apex:outputLink>    
+                </apex:column>
+                <apex:column value="{!o.StageName}"/>
+            </apex:pageBlockTable>
+        </apex:pageBlockSection>
+        
+        <apex:pageBlockSection Title="Partner/Distributor Opportunites" columns="1" collapsible="false">
+            <apex:outputText value="There are no Opps" rendered="{!lstOpportunities.size=0}"></apex:outputText>
+            <apex:pageBlockTable value="{!lstOpportunities}" var="o" rendered="{!lstOpportunities.size>0}" width="100%">
+                <apex:column headerValue="Opportunity Name" >
+                    <apex:outputLink target="_top" rendered="{!(NOT(ISBLANK(o)))}" value="{!URLFOR($Action.Opportunity.View,o.Id)}">{!o.Name}</apex:outputLink>    
+                </apex:column>
+                <apex:column value="{!o.StageName}"/>
+                <apex:column value="{!o.Registered_Distributor_Contact__r.Name}" headerValue="Registered Distributor Name"/>
+                <apex:column value="{!o.Registering_Partner_Sales_Rep__r.Name}" headerValue="Registered Partner Sales Rep"/>
+            </apex:pageBlockTable>
+        </apex:pageBlockSection>
+        
+        <apex:pageBlockSection Title="Silver Peak Quotes" columns="1" collapsible="false">
+            <apex:outputText value="There are no Silver Peak Quotes" rendered="{!lstQuotes.size=0}"></apex:outputText>
+            <apex:pageBlockTable value="{!lstQuotes}" var="o" rendered="{!lstQuotes.size>0}" width="100%">
+                <apex:column headerValue="Quote Name" >
+                    <apex:outputLink target="_top" rendered="{!(NOT(ISBLANK(o)))}" value="{!URLFOR($Action.Quote__c.View,o.Id)}">{!o.Name}</apex:outputLink>    
+                </apex:column>
+                <apex:column value="{!o.Opportunity__r.Name}"/>
+                <apex:column value="{!o.PreparedFor__r.Name}"/>
+            </apex:pageBlockTable>
+        </apex:pageBlockSection>
+        
+        <apex:pageBlockSection Title="POC Requests" columns="1" collapsible="false">
+            <apex:outputText value="There are no POC Requests" rendered="{!lstPOCRequests.size=0}"></apex:outputText>
+            <apex:pageBlockTable value="{!lstPOCRequests}" var="pr" rendered="{!lstPOCRequests.size>0}" width="100%">
+                <apex:column headerValue="Request ID" >
+                    <apex:outputLink target="_top" rendered="{!(NOT(ISBLANK(pr)))}" value="{!URLFOR($Action.Request__c.View,pr.Id)}">{!pr.Name}</apex:outputLink>    
+                </apex:column>   
+                <apex:column value="{!pr.POC_Contact__r.Name}"/>
+                <apex:column value="{!pr.Status__c}"/>
+                <apex:column value="{!pr.Type__c}"/>
+            </apex:pageBlockTable>  
+        </apex:pageBlockSection>
+        
+        <apex:pageBlockSection Title="Contracts" columns="1" collapsible="false">
+            <apex:outputText value="There are no Contracts" rendered="{!lstContracts.size=0}"></apex:outputText>
+            <apex:pageBlockTable value="{!lstContracts}" var="o" rendered="{!lstContracts.size>0}" width="100%">
+                <apex:column headerValue="ContractNumber" >
+                    <apex:outputLink target="_top" rendered="{!(NOT(ISBLANK(o)))}" value="{!URLFOR($Action.Contract.View,o.Id)}">{!o.ContractNumber}</apex:outputLink>    
+                </apex:column>
+                <apex:column value="{!o.ContractNumber}"/>
+                <apex:column value="{!o.CustomerSigned.Name}" headerValue="COntract Signed By"/>
+                <apex:column value="{!o.Customer_Addl_Notices__r.Name}" headerValue="Customer Addl Notices"/>
+                <apex:column value="{!o.Customer_Addl_Notices_2__r.Name}" headerValue="Customer Addl Notices"/>
+                <apex:column value="{!o.Reseller_Addl_Notices__r.Name}" headerValue="Reseller Additional Notices"/>   
+            </apex:pageBlockTable>
+        </apex:pageBlockSection>
+        
+        <apex:pageBlockSection Title="Shipments" columns="1" collapsible="false">
+            <apex:outputText value="There are no Shipments" rendered="{!lstShipments.size=0}"></apex:outputText>
+            <apex:pageBlockTable value="{!lstShipments}" var="o" rendered="{!lstShipments.size>0}" width="100%">
+                <apex:column headerValue="ShipmentId" >
+                    <apex:outputLink target="_top" rendered="{!(NOT(ISBLANK(o)))}" value="{!URLFOR($Action.Shipment__c.View,o.Id)}">{!o.Name}</apex:outputLink>    
+                </apex:column>
+                <apex:column value="{!o.Shipment_Contact__r.Name}"/>  
+            </apex:pageBlockTable>
+        </apex:pageBlockSection>
+        
+        <apex:pageBlockSection Title="Assets" columns="1" collapsible="false">
+            <apex:outputText value="There are no Assets" rendered="{!lstAssets.size=0}"></apex:outputText>
+            <apex:pageBlockTable value="{!lstAssets}" var="o" rendered="{!lstAssets.size>0}" width="100%">
+                <apex:column headerValue="Asset Name" >
+                    <apex:outputLink target="_top" rendered="{!(NOT(ISBLANK(o)))}" value="{!URLFOR($Action.Asset.View,o.Id)}">{!o.Name}</apex:outputLink>    
+                </apex:column>
+                <apex:column value="{!o.Contact.Name}"/> 
+                <apex:column value="{!o.Shipment_Contact__r.Name}"/> 
+            </apex:pageBlockTable>
+        </apex:pageBlockSection>
+        
+        <apex:pageBlockSection Title="Purchase Orders" columns="1" collapsible="false">
+            <apex:outputText value="There are no Purchase Orders" rendered="{!lstPurchaseOrders.size=0}"></apex:outputText>
+            <apex:pageBlockTable value="{!lstPurchaseOrders}" var="o" rendered="{!lstPurchaseOrders.size>0}" width="100%">
+                <apex:column headerValue="PO Number" >
+                    <apex:outputLink target="_top" rendered="{!(NOT(ISBLANK(o)))}" value="{!URLFOR($Action.Purchase_Order__c.View,o.Id)}">{!o.Name}</apex:outputLink>    
+                </apex:column>
+                <apex:column value="{!o.Email_Contact__r.Name}" headerValue="Email To Contact Name"/> 
+            </apex:pageBlockTable>
+        </apex:pageBlockSection>
+        
+        <apex:pageBlockSection Title="RMA's" columns="1" collapsible="false">
+            <apex:outputText value="There are no RMA's" rendered="{!lstRMAs.size=0}"></apex:outputText>
+            <apex:pageBlockTable value="{!lstRMAs}" var="o" rendered="{!lstRMAs.size>0}" width="100%">
+                <apex:column headerValue="RMA Name" >
+                    <apex:outputLink target="_top" rendered="{!(NOT(ISBLANK(o)))}" value="{!URLFOR($Action.RMA__c.View,o.Id)}">{!o.Name}</apex:outputLink>    
+                </apex:column>
+                <apex:column value="{!o.Contact__r.Name}" headerValue="Contact Name"/> 
+                <apex:column value="{!o.Contact_Loc_1__r.Name}" headerValue="Contact- Loc 1"/> 
+                <apex:column value="{!o.Contact_Loc_2__r.Name}" headerValue="Contact- Loc 2"/> 
+                <apex:column value="{!o.Contact_Loc_3__r.Name}" headerValue="Contact- Loc 3"/> 
+                <apex:column value="{!o.Contact_Loc_4__r.Name}" headerValue="Contact- Loc 4"/>
+            </apex:pageBlockTable>
+        </apex:pageBlockSection>
+        
+        <apex:pageBlockSection Title="RMA Item's" columns="1" collapsible="false">
+            <apex:outputText value="There are no RMA Item's" rendered="{!lstRMAItems.size=0}"></apex:outputText>
+            <apex:pageBlockTable value="{!lstRMAItems}" var="o" rendered="{!lstRMAItems.size>0}" width="100%">
+                <apex:column headerValue="RMA Item Name" >
+                    <apex:outputLink target="_top" rendered="{!(NOT(ISBLANK(o)))}" value="{!URLFOR($Action.RMA_Item__c.View,o.Id)}">{!o.Name}</apex:outputLink>    
+                </apex:column>
+                <apex:column value="{!o.Ship_To_Contact__r.Name}" headerValue="Ship To Contact"/> 
+            </apex:pageBlockTable>
+        </apex:pageBlockSection>
+        
+        <apex:pageBlockSection Title="Funding Requests" columns="1" collapsible="false">
+            <apex:outputText value="There are no Funding Requests" rendered="{!lstFundingRequests.size=0}"></apex:outputText>
+            <apex:pageBlockTable value="{!lstFundingRequests}" var="o" rendered="{!lstFundingRequests.size>0}" width="100%">
+                <apex:column headerValue="Request Id" >
+                    <apex:outputLink target="_top" rendered="{!(NOT(ISBLANK(o)))}" value="{!URLFOR($Action.MDF_Request__c.View,o.Id)}">{!o.Name}</apex:outputLink>    
+                </apex:column>
+                <apex:column value="{!o.Contact__r.Name}" headerValue="Contact"/>
+                <apex:column value="{!o.Submitter__r.Name}" headerValue="Submitter"/>
+            </apex:pageBlockTable>
+        </apex:pageBlockSection>
+        
+        <apex:pageBlockSection Title="Licenses" columns="1" collapsible="false">
+            <apex:outputText value="There are no Licenses" rendered="{!lstLicenses.size=0}"></apex:outputText>
+            <apex:pageBlockTable value="{!lstLicenses}" var="o" rendered="{!lstLicenses.size>0}" width="100%">
+                <apex:column headerValue="License Name" >
+                    <apex:outputLink target="_top" rendered="{!(NOT(ISBLANK(o)))}" value="{!URLFOR($Action.License__c.View,o.Id)}">{!o.Name}</apex:outputLink>    
+                </apex:column>
+                <apex:column value="{!o.Contact_for_Notification__r.Name}" headerValue="Contact for Notification"/>
+            </apex:pageBlockTable>
+        </apex:pageBlockSection>
+        
+        <apex:pageBlockSection Title="LMS License Certifications" columns="1" collapsible="false">
+            <apex:outputText value="There are no LMS License Certifications" rendered="{!lstLMSCourseCerts.size=0}"></apex:outputText>
+            <apex:pageBlockTable value="{!lstLMSCourseCerts}" var="o" rendered="{!lstLMSCourseCerts.size>0}" width="100%">
+                <apex:column headerValue="LMS Id" >
+                    <apex:outputLink target="_top" rendered="{!(NOT(ISBLANK(o)))}" value="{!URLFOR($Action.LMS_Course_Certification__c.View,o.Id)}">{!o.Name}</apex:outputLink>    
+                </apex:column>
+                <apex:column value="{!o.Learner_Contact__r.Name}" headerValue="Learner Contact"/>
+            </apex:pageBlockTable>
+        </apex:pageBlockSection>
+        
+        <apex:pageBlockSection Title="Information Cards" columns="1" collapsible="false">
+            <apex:outputText value="There are no Information Cards" rendered="{!lstInformationCards.size=0}"></apex:outputText>
+            <apex:pageBlockTable value="{!lstInformationCards}" var="o" rendered="{!lstInformationCards.size>0}" width="100%">
+                <apex:column headerValue="Information Card Id" >
+                    <apex:outputLink target="_top" rendered="{!(NOT(ISBLANK(o)))}" value="{!URLFOR($Action.Information_Card__c.View,o.Id)}">{!o.Name}</apex:outputLink>    
+                </apex:column>
+                <apex:column value="{!o.MarketingPartnerContact__r.Name}" headerValue="Marketing Partner Contact"/>
+                <apex:column value="{!o.PrimaryPartnerContact__r.Name}" headerValue="Primary Partner Contact"/>
+                <apex:column value="{!o.RegisteringUserContact__r.Name}" headerValue="Registering User Contact"/>
+                <apex:column value="{!o.SignatoryPartnerContact__r.Name}" headerValue="Signatory Partner Contact"/>
+            </apex:pageBlockTable>
+        </apex:pageBlockSection>
+        
+        <apex:pageBlockSection Title="Contact Referenced Accounts" columns="1" collapsible="false">
+            <apex:outputText value="There are no Accounts where contact is referenced" rendered="{!lstContactRefAccounts.size=0}"></apex:outputText>
+            <apex:pageBlockTable value="{!lstContactRefAccounts}" var="o" rendered="{!lstContactRefAccounts.size>0}" width="100%">
+                <apex:column headerValue="Account Name" >
+                    <apex:outputLink target="_top" rendered="{!(NOT(ISBLANK(o)))}" value="{!URLFOR($Action.Account.View,o.Id)}">{!o.Name}</apex:outputLink>    
+                </apex:column>
+                <apex:column value="{!o.Dell_Contact__r.Name}" headerValue="Dell Contact"/>
+                <apex:column value="{!o.EMC_Contact__r.Name}" headerValue="EMC Contact"/>
+                <apex:column value="{!o.HDS_Contact__r.Name}" headerValue="HDS Contact"/>
+                <apex:column value="{!o.MarketingPartnerContact__r.Name}" headerValue="Marketing Partner Contact"/>
+                <apex:column value="{!o.PrimaryPartnerContact__r.Name}" headerValue="Primary Partner Contact"/>
+                <apex:column value="{!o.RegisteringUserContact__r.Name}" headerValue="Registering Partner Contact"/>
+                <apex:column value="{!o.Renewal_Contact__r.Name}" headerValue="Renewal Contact"/>
+                <apex:column value="{!o.SignatoryPartnerContact__r.Name}" headerValue="Signatory Contact"/>
+                <apex:column value="{!o.Support_Contact1__r.Name}" headerValue="Support Contact1"/>
+                <apex:column value="{!o.Support_Contact2__r.Name}" headerValue="Support Contact2"/>
+                <apex:column value="{!o.Support_Contact3__r.Name}" headerValue="Support Contact3"/>
+                <apex:column value="{!o.VAR1_Contact__r.Name}" headerValue="VAR1 Contact"/>
+                <apex:column value="{!o.VAR2_Contact__r.Name}" headerValue="VAR2 Contact"/>
+            </apex:pageBlockTable>
+        </apex:pageBlockSection>  
+        
+    </apex:pageBlock> 
+</apex:page>

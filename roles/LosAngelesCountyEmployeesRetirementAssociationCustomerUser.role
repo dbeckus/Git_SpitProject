@@ -6,5 +6,5 @@
     <mayForecastManagerShare>false</mayForecastManagerShare>
     <name>Los Angeles County Employees Retirement Association Customer User</name>
     <opportunityAccessLevel>None</opportunityAccessLevel>
-    <parentRole>Grade_4_Sales_NAM_West</parentRole>
+    <parentRole>Grade_4_Sales_NAM_Majors</parentRole>
 </Role>

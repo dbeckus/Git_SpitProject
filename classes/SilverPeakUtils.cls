@@ -193,7 +193,7 @@ public class SilverPeakUtils
             errMsg = errMsg.substring(0, 32767);
         }
         Messaging.SingleEmailMessage errorMail = new Messaging.SingleEmailMessage();
-        errorMail.setToAddresses(new String[] { 'prane@silver-peak.com', 'devteam@snapbi.com','dbeckus@silver-peak.com','pmusunuru@silver-peak.com' });
+        errorMail.setToAddresses(new String[] { 'prane@silver-peak.com','dbeckus@silver-peak.com','pmusunuru@silver-peak.com' });
         errorMail.setSubject(subject);
         errorMail.setPlainTextBody(errMsg);
         if(!Test.isRunningTest())

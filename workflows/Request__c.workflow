@@ -6,26 +6,6 @@
         <description>Eval Approved</description>
         <protected>false</protected>
         <recipients>
-            <field>CC_List_1__c</field>
-            <type>email</type>
-        </recipients>
-        <recipients>
-            <field>CC_List_2__c</field>
-            <type>email</type>
-        </recipients>
-        <recipients>
-            <field>CC_List_3__c</field>
-            <type>email</type>
-        </recipients>
-        <recipients>
-            <field>CC_List_4__c</field>
-            <type>email</type>
-        </recipients>
-        <recipients>
-            <field>CC_List_5__c</field>
-            <type>email</type>
-        </recipients>
-        <recipients>
             <field>RSM_Manager__c</field>
             <type>userLookup</type>
         </recipients>
@@ -58,26 +38,6 @@
         <ccEmails>notifications@silver-peak.com</ccEmails>
         <description>Eval Approved - All Virtual</description>
         <protected>false</protected>
-        <recipients>
-            <field>CC_List_1__c</field>
-            <type>email</type>
-        </recipients>
-        <recipients>
-            <field>CC_List_2__c</field>
-            <type>email</type>
-        </recipients>
-        <recipients>
-            <field>CC_List_3__c</field>
-            <type>email</type>
-        </recipients>
-        <recipients>
-            <field>CC_List_4__c</field>
-            <type>email</type>
-        </recipients>
-        <recipients>
-            <field>CC_List_5__c</field>
-            <type>email</type>
-        </recipients>
         <recipients>
             <field>RSM_Manager__c</field>
             <type>userLookup</type>
@@ -172,26 +132,6 @@
         <ccEmails>notifications@silver-peak.com</ccEmails>
         <description>Notify Requestor of eval denied</description>
         <protected>false</protected>
-        <recipients>
-            <field>CC_List_1__c</field>
-            <type>email</type>
-        </recipients>
-        <recipients>
-            <field>CC_List_2__c</field>
-            <type>email</type>
-        </recipients>
-        <recipients>
-            <field>CC_List_3__c</field>
-            <type>email</type>
-        </recipients>
-        <recipients>
-            <field>CC_List_4__c</field>
-            <type>email</type>
-        </recipients>
-        <recipients>
-            <field>CC_List_5__c</field>
-            <type>email</type>
-        </recipients>
         <recipients>
             <field>RSM_Manager__c</field>
             <type>userLookup</type>
