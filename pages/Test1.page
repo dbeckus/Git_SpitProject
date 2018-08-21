@@ -1,13 +1,69 @@
-<apex:page controller="TestController">
+<apex:page >
 
-<apex:pageMessages />
+    <style>
+    .clicker { border: 1px solid #999; cursor: pointer;
+        margin: .5em; padding: 1em; width: 10em; text-align: center; }
+    </style>
 
-<apex:form >
+    <apex:form id="theForm">
+        <apex:pageBlock id="thePageBlock" title="Targeting IDs with $Component">
+            <apex:pageBlockSection id="theSection">
+                <apex:pageBlockSectionItem id="theSectionItem">
+                    All the alerts refer to this component.
+                    
+                    <p>The full DOM ID resembles something like this:<br/>
+                    j_id0:theForm:thePageBlock:theSection:theSectionItem</p>
+                </apex:pageBlockSectionItem>
 
- <apex:inputText value="{!Var}"/>
+                <!-- Works because this outputPanel has a parent in common 
+                     with "theSectionItem" component -->
+                <apex:outputPanel layout="block" styleClass="clicker"
+                    onclick="alert('{!$Component.theSectionItem}');">
+                    First click here
+                </apex:outputPanel>
+            </apex:pageBlockSection>
+            
+            <apex:pageBlockButtons id="theButtons" location="bottom">
+                <!-- Works because this outputPanel has a grandparent ("theSection")
+                     in common with "theSectionItem" -->
+                <apex:outputPanel layout="block" styleClass="clicker"
+                    onclick="alert('{!$Component.theSection.theSectionItem}');">
+                    Second click here
+                </apex:outputPanel>
 
-<apex:commandButton action="{!checkNull}" value="Check Null"/>
+                <!-- Works because this outputPanel has a distant ancestor ("theForm")
+                     in common with "theSectionItem" -->
+                <apex:outputPanel layout="block" styleClass="clicker"
+                    onclick="alert('
+                    {!$Component.theForm.thePageBlock.theSection.theSectionItem}');">
+                    Third click here
+                </apex:outputPanel>
+            </apex:pageBlockButtons>
 
-</apex:form>
+        </apex:pageBlock>
 
+        <!-- Works because this outputPanel is a sibling to "thePageBlock",
+             and specifies the complete ID path from that sibling -->
+        <apex:outputPanel layout="block" styleClass="clicker"
+            onclick="alert('{!$Component.thePageBlock.theSection.theSectionItem}');">
+            Fourth click here
+        </apex:outputPanel>
+        
+        <hr/>
+        
+        <!-- Won't work because this outputPanel doesn't provide a path 
+             that includes a sibling or common ancestor -->
+        <apex:outputPanel layout="block" styleClass="clicker"
+            onclick="alert('{!$Component.theSection.theSectionItem}');">
+            This won't work
+        </apex:outputPanel>
+
+        <!-- Won't work because this outputPanel doesn't provide a path 
+             that includes a sibling or common ancestor -->
+        <apex:outputPanel layout="block" styleClass="clicker"
+            onclick="alert('{!$Component.theSectionItem}');">
+            Won't work either
+        </apex:outputPanel>
+
+    </apex:form>
 </apex:page>

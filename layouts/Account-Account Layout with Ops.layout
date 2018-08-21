@@ -582,6 +582,13 @@
                 <width>100%</width>
             </layoutItems>
             <layoutItems>
+                <height>200</height>
+                <page>TestDataPage</page>
+                <showLabel>false</showLabel>
+                <showScrollbars>false</showScrollbars>
+                <width>100%</width>
+            </layoutItems>
+            <layoutItems>
                 <behavior>Edit</behavior>
                 <field>SP_Engagement_Type__c</field>
             </layoutItems>

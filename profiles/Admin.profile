@@ -494,6 +494,10 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>DataTestController</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>DeferralLeadBatchJob</apexClass>
         <enabled>true</enabled>
     </classAccesses>
@@ -2383,6 +2387,14 @@
     </classAccesses>
     <classAccesses>
         <apexClass>VirtualPOCFulfillmentControllerTest</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>compositionExample</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>exampleCon</apexClass>
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
@@ -10989,6 +11001,18 @@
         <enabled>true</enabled>
     </pageAccesses>
     <pageAccesses>
+        <apexPage>Test1</apexPage>
+        <enabled>true</enabled>
+    </pageAccesses>
+    <pageAccesses>
+        <apexPage>Test2</apexPage>
+        <enabled>true</enabled>
+    </pageAccesses>
+    <pageAccesses>
+        <apexPage>TestDataPage</apexPage>
+        <enabled>true</enabled>
+    </pageAccesses>
+    <pageAccesses>
         <apexPage>TestPage</apexPage>
         <enabled>true</enabled>
     </pageAccesses>
@@ -11022,6 +11046,10 @@
     </pageAccesses>
     <pageAccesses>
         <apexPage>buQuotePdf</apexPage>
+        <enabled>true</enabled>
+    </pageAccesses>
+    <pageAccesses>
+        <apexPage>myFormComposition</apexPage>
         <enabled>true</enabled>
     </pageAccesses>
     <recordTypeVisibilities>

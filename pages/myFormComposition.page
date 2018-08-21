@@ -1,0 +1,13 @@
+<apex:page controller="compositionExample">
+    <apex:form >
+        <apex:outputLabel value="Enter your name: " for="nameField"/>
+        <apex:inputText id="nameField" value="{!nameField}"/>
+        <br />
+        <apex:insert name="age" />
+        <br />
+        <apex:insert name="meal" />
+        <br />      
+        <p>That's everything, right?</p>
+        <apex:commandButton action="{!save}" value="Save" id="saveButton"/>
+    </apex:form>
+</apex:page>
