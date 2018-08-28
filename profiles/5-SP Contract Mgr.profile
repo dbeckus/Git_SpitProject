@@ -1002,6 +1002,10 @@
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>MyController</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>MyProfilePageController</apexClass>
         <enabled>false</enabled>
     </classAccesses>
@@ -2094,6 +2098,10 @@
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>TestInvocationQueryAction</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>TestLMSFetchCertificationsBatch</apexClass>
         <enabled>false</enabled>
     </classAccesses>
@@ -2175,6 +2183,10 @@
     </classAccesses>
     <classAccesses>
         <apexClass>TestPopulatePOCApprovers</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>TestProcessPlugin</apexClass>
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
@@ -8732,6 +8744,16 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
+        <editable>false</editable>
+        <field>TEst__mdt.Amount__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>TEst__mdt.GEO__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>true</editable>
         <field>Training_Course__c.Course_Code__c</field>
         <readable>true</readable>
@@ -9311,6 +9333,9 @@
     </layoutAssignments>
     <layoutAssignments>
         <layout>Solution-Solution Layout</layout>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>TEst__mdt-TEst Layout</layout>
     </layoutAssignments>
     <layoutAssignments>
         <layout>Task-Task Layout</layout>
@@ -10691,6 +10716,10 @@
         <enabled>false</enabled>
     </pageAccesses>
     <pageAccesses>
+        <apexPage>TestData</apexPage>
+        <enabled>false</enabled>
+    </pageAccesses>
+    <pageAccesses>
         <apexPage>TestDataPage</apexPage>
         <enabled>false</enabled>
     </pageAccesses>
@@ -10725,6 +10754,10 @@
     <pageAccesses>
         <apexPage>VirtualPOCFulfillment</apexPage>
         <enabled>true</enabled>
+    </pageAccesses>
+    <pageAccesses>
+        <apexPage>WElcomePage</apexPage>
+        <enabled>false</enabled>
     </pageAccesses>
     <pageAccesses>
         <apexPage>buQuotePdf</apexPage>

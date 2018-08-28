@@ -981,6 +981,10 @@
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>MyController</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>MyProfilePageController</apexClass>
         <enabled>false</enabled>
     </classAccesses>
@@ -2073,6 +2077,10 @@
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>TestInvocationQueryAction</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>TestLMSFetchCertificationsBatch</apexClass>
         <enabled>false</enabled>
     </classAccesses>
@@ -2154,6 +2162,10 @@
     </classAccesses>
     <classAccesses>
         <apexClass>TestPopulatePOCApprovers</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>TestProcessPlugin</apexClass>
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
@@ -9122,6 +9134,24 @@
         <allowEdit>false</allowEdit>
         <allowRead>true</allowRead>
         <modifyAllRecords>false</modifyAllRecords>
+        <object>Globals1__c</object>
+        <viewAllRecords>true</viewAllRecords>
+    </objectPermissions>
+    <objectPermissions>
+        <allowCreate>false</allowCreate>
+        <allowDelete>false</allowDelete>
+        <allowEdit>false</allowEdit>
+        <allowRead>true</allowRead>
+        <modifyAllRecords>false</modifyAllRecords>
+        <object>Globals__c</object>
+        <viewAllRecords>true</viewAllRecords>
+    </objectPermissions>
+    <objectPermissions>
+        <allowCreate>false</allowCreate>
+        <allowDelete>false</allowDelete>
+        <allowEdit>false</allowEdit>
+        <allowRead>true</allowRead>
+        <modifyAllRecords>false</modifyAllRecords>
         <object>ISR_Metrics__c</object>
         <viewAllRecords>true</viewAllRecords>
     </objectPermissions>
@@ -10543,6 +10573,10 @@
         <enabled>false</enabled>
     </pageAccesses>
     <pageAccesses>
+        <apexPage>TestData</apexPage>
+        <enabled>false</enabled>
+    </pageAccesses>
+    <pageAccesses>
         <apexPage>TestDataPage</apexPage>
         <enabled>false</enabled>
     </pageAccesses>
@@ -10576,6 +10610,10 @@
     </pageAccesses>
     <pageAccesses>
         <apexPage>VirtualPOCFulfillment</apexPage>
+        <enabled>false</enabled>
+    </pageAccesses>
+    <pageAccesses>
+        <apexPage>WElcomePage</apexPage>
         <enabled>false</enabled>
     </pageAccesses>
     <pageAccesses>

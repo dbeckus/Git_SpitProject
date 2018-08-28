@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Globals1</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Globals1</value>
+    </caseValues>
+    <fields>
+        <label><!-- GEO --></label>
+        <name>GEO__c</name>
+    </fields>
+    <fields>
+        <label><!-- amount --></label>
+        <name>amount__c</name>
+    </fields>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

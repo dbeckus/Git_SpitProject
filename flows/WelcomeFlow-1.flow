@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label>WelcomeFlow</label>
+    <processType>Flow</processType>
+    <screens>
+        <name>InputData</name>
+        <label>InputData</label>
+        <locationX>418</locationX>
+        <locationY>61</locationY>
+        <allowBack>true</allowBack>
+        <allowFinish>true</allowFinish>
+        <fields>
+            <name>welcomeData</name>
+            <fieldText>{!infoData}</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+    </screens>
+    <startElementReference>InputData</startElementReference>
+    <variables>
+        <name>infoData</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <name>welcomeText</name>
+        <dataType>String</dataType>
+        <isCollection>true</isCollection>
+        <isInput>true</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+</Flow>

@@ -1,0 +1,4 @@
+<apex:page controller="MyController" >
+    
+    {!Name1}-{!Name2}-{!Name3}
+</apex:page>

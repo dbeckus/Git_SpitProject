@@ -981,6 +981,10 @@
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>MyController</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>MyProfilePageController</apexClass>
         <enabled>false</enabled>
     </classAccesses>
@@ -2073,6 +2077,10 @@
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>TestInvocationQueryAction</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>TestLMSFetchCertificationsBatch</apexClass>
         <enabled>false</enabled>
     </classAccesses>
@@ -2154,6 +2162,10 @@
     </classAccesses>
     <classAccesses>
         <apexClass>TestPopulatePOCApprovers</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>TestProcessPlugin</apexClass>
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
@@ -9815,6 +9827,10 @@
         <enabled>false</enabled>
     </pageAccesses>
     <pageAccesses>
+        <apexPage>TestData</apexPage>
+        <enabled>false</enabled>
+    </pageAccesses>
+    <pageAccesses>
         <apexPage>TestDataPage</apexPage>
         <enabled>false</enabled>
     </pageAccesses>
@@ -9848,6 +9864,10 @@
     </pageAccesses>
     <pageAccesses>
         <apexPage>VirtualPOCFulfillment</apexPage>
+        <enabled>false</enabled>
+    </pageAccesses>
+    <pageAccesses>
+        <apexPage>WElcomePage</apexPage>
         <enabled>false</enabled>
     </pageAccesses>
     <pageAccesses>

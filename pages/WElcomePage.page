@@ -1,0 +1,6 @@
+<apex:page >
+    
+    <flow:interview name="WelcomeFlow">
+    <apex:param name="infoData" value="Prajakta"></apex:param>
+    </flow:interview>
+</apex:page>
