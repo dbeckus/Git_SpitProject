@@ -18,11 +18,11 @@ trigger CopyCampaignTypeToLead on CampaignMember (after insert)
     Map<Id, String> campaignId2Name = new Map<Id, String>();
     Map<Id, Id> campaignId2Sponsor = new Map<Id, Id>();
     Set<Id> doNotTeleQualifyCampaigns = new Set<Id>();
-    for(Campaign campaign : [select Id, Name, Type, Sponsoring_Partner__c, Do_Not_Tele_Qualify__c from Campaign where Id in :lead2Campaign.values()])
+    for(Campaign campaign : [select Id, Name, Type, Do_Not_Tele_Qualify__c from Campaign where Id in :lead2Campaign.values()])
     {
         campaignId2Type.put(campaign.Id, campaign.Type);
         campaignId2Name.put(campaign.Id, campaign.Name);
-        campaignId2Sponsor.put(campaign.Id, campaign.Sponsoring_Partner__c);
+        //campaignId2Sponsor.put(campaign.Id, campaign.Sponsoring_Partner__c);
         if(campaign.Do_Not_Tele_Qualify__c)
         {
             doNotTeleQualifyCampaigns.add(campaign.Id);
@@ -37,8 +37,8 @@ trigger CopyCampaignTypeToLead on CampaignMember (after insert)
                            Last_Campaign_Type__c = campaignId2Type.get(campaignId), 
                            Last_Campaign_Date__c = System.today(), 
                            Last_Mkt_Campaign_Id__c = campaignId, 
-                           Last_Mkt_Campaign__c = campaignId2Name.get(campaignId),
-                           Sponsoring_Partner__c = campaignId2Sponsor.get(campaignId));
+                           Last_Mkt_Campaign__c = campaignId2Name.get(campaignId));
+                           //Sponsoring_Partner__c = campaignId2Sponsor.get(campaignId));
         if(doNotTeleQualifyCampaigns.contains(campaignId))
         {
             newLead.Do_Not_Tele_Qualify__c = true;

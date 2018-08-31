@@ -1,9 +1,7 @@
 @IsTest
 public class TestDefineChannelQuoteController {
     @Istest(SeeAllData=true)
-    static void testDefineChannelQuoteController()
-    {
-        
+    static void testDefineChannelQuoteController() {
         Profile prof = [SELECT Id FROM Profile WHERE Name='1.4- Intl Regional Sales Manager']; 
         Pricebook2 priceBook = new Pricebook2(Name='standard');
         insert priceBook;
@@ -25,7 +23,6 @@ public class TestDefineChannelQuoteController {
         insert patch;
         Opportunity opp = new Opportunity(Name='acme', StageName='Discovery', CloseDate=Date.today(), AccountId=acc.Id, Pricebook2id=priceBook.Id, Amount=1,Patch__c=patch.Id);
         insert opp;
-    
         
         PageReference page = new PageReference('/apex/DefineChannelForQuote?id=' + opp.Id);
         Test.setCurrentPage(page);
@@ -36,13 +33,10 @@ public class TestDefineChannelQuoteController {
         System.assert(DefineChannelQuoteController.InitResellerContacts(partnerAcc.Name, '')!='');
         
         //tests isValidInput method
-        
     }
     
     @Istest(SeeAllData=true)
-    static void testDefineChannelQuoteController_Save()
-    {
-        
+    static void testDefineChannelQuoteController_Save() {    
         Profile prof = [SELECT Id FROM Profile WHERE Name='1.4- Intl Regional Sales Manager']; 
         Pricebook2 priceBook = new Pricebook2(Name='standard');
         insert priceBook;
@@ -75,14 +69,16 @@ public class TestDefineChannelQuoteController {
         System.assert(DefineChannelQuoteController.InitResellerContacts(partnerAcc.Name, '')!='');
         controller.PartnerData.Registering_PartnerId=partnerAcc.Id;
         controller.PartnerData.Registering_Partner_Sales_RepId=con.Id;
+        Test.startTest();
         controller.save();
         Opportunity expopp=[Select Id, Registering_Partner__c, Registering_Partner_Sales_Rep__c from Opportunity where Id=:opp.Id];
+        Test.stopTest();
         System.assertEquals(partnerAcc.Id, expopp.Registering_Partner__c);
         System.assertEquals(con.Id, expopp.Registering_Partner_Sales_Rep__c);
     }
+    
     @Istest(SeeAllData=true)
-    static void testDefineChannelQuoteController_NAM_Validation()
-    {
+    static void testDefineChannelQuoteController_NAM_Validation() {
         Profile prof = [SELECT Id FROM Profile WHERE Name='1.4- Intl Regional Sales Manager']; 
         User techUser = new User(Alias = 'standt', Email='testUser@testtechuser.com', 
                                  EmailEncodingKey='UTF-8', LastName='Testing', LanguageLocaleKey='en_US', 
@@ -106,7 +102,6 @@ public class TestDefineChannelQuoteController {
         
         Opportunity opp = new Opportunity(Name='acme', StageName='Discovery', CloseDate=Date.today(), AccountId=acc.Id, Pricebook2id=priceBook.Id, Amount=1,Patch__c=patch.Id);
         insert opp;
-
         
         PageReference page = new PageReference('/apex/DefineChannelForQuote?id=' + opp.Id);
         Test.setCurrentPage(page);
@@ -115,7 +110,9 @@ public class TestDefineChannelQuoteController {
         System.assert(DefineChannelQuoteController.InitDistributorAccounts(acc.Id, 'Test')!='');
         System.assert(DefineChannelQuoteController.InitTier3Accounts(acc.Id, 'Test')!='');
         System.assert(DefineChannelQuoteController.InitResellerContacts(partnerAcc.Name, '')!='');
+        Test.startTest();
         controller.save();
+        Test.stopTest();
         List<Apexpages.Message> msgs = ApexPages.getMessages();
         boolean b = false;
         for(Apexpages.Message msg:msgs){
@@ -124,8 +121,7 @@ public class TestDefineChannelQuoteController {
         system.assert(b);
     }
     
-    static void testDefineChannelQuoteController_Distributor_Validation()
-    {
+    static void testDefineChannelQuoteController_Distributor_Validation() {
         Profile prof = [SELECT Id FROM Profile WHERE Name='1.4- Intl Regional Sales Manager']; 
         User techUser = new User(Alias = 'standt', Email='testUser@testtechuser.com', 
                                  EmailEncodingKey='UTF-8', LastName='Testing', LanguageLocaleKey='en_US', 
@@ -149,7 +145,6 @@ public class TestDefineChannelQuoteController {
         
         Opportunity opp = new Opportunity(Name='acme', StageName='Discovery', CloseDate=Date.today(), AccountId=acc.Id, Pricebook2id=priceBook.Id, Amount=1,Patch__c=patch.Id);
         insert opp;
-       
         
         PageReference page = new PageReference('/apex/DefineChannelForQuote?id=' + opp.Id);
         Test.setCurrentPage(page);
@@ -158,7 +153,9 @@ public class TestDefineChannelQuoteController {
         System.assert(DefineChannelQuoteController.InitDistributorAccounts(acc.Id, 'Test')!='');
         System.assert(DefineChannelQuoteController.InitTier3Accounts(acc.Id, 'Test')!='');
         System.assert(DefineChannelQuoteController.InitResellerContacts(partnerAcc.Name, '')!='');
+        Test.startTest();
         controller.save();
+        Test.stopTest();
         List<Apexpages.Message> msgs = ApexPages.getMessages();
         boolean b = false;
         for(Apexpages.Message msg:msgs){
@@ -168,8 +165,7 @@ public class TestDefineChannelQuoteController {
     }
     
     @Istest(SeeAllData=true)
-    static void testDefineChannelQuoteController_NAM_Distributor_Validation()
-    {
+    static void testDefineChannelQuoteController_NAM_Distributor_Validation() {
         Profile prof = [SELECT Id FROM Profile WHERE Name='1.4- Intl Regional Sales Manager']; 
         User techUser = new User(Alias = 'standt', Email='testUser@testtechuser.com', 
                                  EmailEncodingKey='UTF-8', LastName='Testing', LanguageLocaleKey='en_US', 
@@ -193,7 +189,6 @@ public class TestDefineChannelQuoteController {
         
         Opportunity opp = new Opportunity(Name='acme', StageName='Discovery', CloseDate=Date.today(), AccountId=acc.Id, Pricebook2id=priceBook.Id, Amount=1,Patch__c=patch.Id);
         insert opp;
-       
         
         PageReference page = new PageReference('/apex/DefineChannelForQuote?id=' + opp.Id);
         Test.setCurrentPage(page);
@@ -203,7 +198,9 @@ public class TestDefineChannelQuoteController {
         System.assert(DefineChannelQuoteController.InitTier3Accounts(acc.Id, 'Test')!='');
         System.assert(DefineChannelQuoteController.InitResellerContacts(partnerAcc.Name, '')!='');
         controller.PartnerData.Registering_PartnerId=partnerAcc.Id;
+        Test.startTest();
         controller.save();
+        Test.stopTest();
         List<Apexpages.Message> msgs = ApexPages.getMessages();
         boolean b = false;
         for(Apexpages.Message msg:msgs){
@@ -213,8 +210,7 @@ public class TestDefineChannelQuoteController {
     }
     
     @Istest(SeeAllData=true)
-    static void testDefineChannelQuoteController_Contact_Mismatch_Validation()
-    {
+    static void testDefineChannelQuoteController_Contact_Mismatch_Validation() {
         Profile prof = [SELECT Id FROM Profile WHERE Name='1.4- Intl Regional Sales Manager']; 
         User techUser = new User(Alias = 'standt', Email='testUser@testtechuser.com', 
                                  EmailEncodingKey='UTF-8', LastName='Testing', LanguageLocaleKey='en_US', 
@@ -239,8 +235,7 @@ public class TestDefineChannelQuoteController {
         insert con1;
         Opportunity opp = new Opportunity(Name='acme', StageName='Discovery', CloseDate=Date.today(), AccountId=acc.Id, Pricebook2id=priceBook.Id, Amount=1,Patch__c=patch.Id);
         insert opp;
-       
-        
+           
         PageReference page = new PageReference('/apex/DefineChannelForQuote?id=' + opp.Id);
         Test.setCurrentPage(page);
         DefineChannelQuoteController controller = new DefineChannelQuoteController();
@@ -250,7 +245,9 @@ public class TestDefineChannelQuoteController {
         System.assert(DefineChannelQuoteController.InitResellerContacts(partnerAcc.Name, '')!='');
         controller.PartnerData.Registering_PartnerId=partnerAcc.Id;
         controller.PartnerData.Registering_Partner_Sales_RepId=con1.Id;
+        Test.startTest();
         controller.save();
+        Test.stopTest();
         List<Apexpages.Message> msgs = ApexPages.getMessages();
         boolean b = false;
         for(Apexpages.Message msg:msgs){
@@ -258,9 +255,9 @@ public class TestDefineChannelQuoteController {
         }
         system.assert(b);
     }
+    
     @Istest(SeeAllData=true)
-    static void testDefineChannelQuoteController_Distributor_Contact_Validation()
-    {
+    static void testDefineChannelQuoteController_Distributor_Contact_Validation() {
         Profile prof = [SELECT Id FROM Profile WHERE Name='1.4- Intl Regional Sales Manager']; 
         User techUser = new User(Alias = 'standt', Email='testUser@testtechuser.com', 
                                  EmailEncodingKey='UTF-8', LastName='Testing', LanguageLocaleKey='en_US', 
@@ -294,14 +291,15 @@ public class TestDefineChannelQuoteController {
         System.assert(DefineChannelQuoteController.InitResellerContacts(partnerAcc.Name, '')!='');
         controller.PartnerData.Registered_DistributorId=partnerAcc.Id;
         
+        Test.startTest();
         controller.save();
+        Test.stopTest();
         Opportunity expopp=[Select Id, Registered_Distributor_Contact__c from Opportunity where Id=:opp.Id];
         System.assertEquals(con.Id, expopp.Registered_Distributor_Contact__c);
     }
 
     @Istest(SeeAllData=true)
-    static void testDefineChannelQuoteController_InitialValues()
-    {
+    static void testDefineChannelQuoteController_InitialValues() {
         Profile prof = [SELECT Id FROM Profile WHERE Name='1.4- Intl Regional Sales Manager']; 
         User techUser = new User(Alias = 'standt', Email='testUser@testtechuser.com', 
                                  EmailEncodingKey='UTF-8', LastName='Testing', LanguageLocaleKey='en_US', 
@@ -325,8 +323,7 @@ public class TestDefineChannelQuoteController {
         
         Opportunity opp = new Opportunity(Name='acme', StageName='Discovery', CloseDate=Date.today(), AccountId=acc.Id, Pricebook2id=priceBook.Id, Amount=1,Patch__c=patch.Id,Registering_Partner__c=partnerAcc.Id,Registering_Partner_Sales_Rep__c=con.Id);
         insert opp;
-
-        
+    
         PageReference page = new PageReference('/apex/DefineChannelForQuote?id=' + opp.Id);
         Test.setCurrentPage(page);
         DefineChannelQuoteController controller = new DefineChannelQuoteController();
@@ -336,9 +333,9 @@ public class TestDefineChannelQuoteController {
         System.assert(DefineChannelQuoteController.InitResellerContacts(partnerAcc.Name, '')!='');
         System.assert(controller.InitialSelectedPartners.size()>0);
     }
-     @Istest(SeeAllData=true)
-    static void testDefineChannelQuoteController_Partner_Initiated()
-    {
+    
+    @Istest(SeeAllData=true)
+    static void testDefineChannelQuoteController_Partner_Initiated() {
         Profile prof = [SELECT Id FROM Profile WHERE Name='1.4- Intl Regional Sales Manager']; 
         User techUser = new User(Alias = 'standt', Email='testUser@testtechuser.com', 
                                  EmailEncodingKey='UTF-8', LastName='Testing', LanguageLocaleKey='en_US', 

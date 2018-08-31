@@ -392,6 +392,7 @@ System.assertEquals(0, rvaccount2.Won_Amount__c);
         insert asset;
     }
     
+    /* Commented as part of Reseller View PE Package Uninstall.
     @isTest
     static void testLinkRVMemberWithContact()
     {
@@ -408,7 +409,7 @@ System.assertEquals(0, rvaccount2.Won_Amount__c);
         List<Contact> newContacts = [select Id, RV_Member__c from Contact where Email = 'rvmembertest2@silverpeak.acme'];
         system.assertEquals(rvMember3.Id, newContacts[0].RV_Member__c);
         system.assertEquals(newContacts[0].Id, [select rvpe__SFContact__c from rvpe__RVMember__c where Id = :rvMember3.Id limit 1].rvpe__SFContact__c);
-    }
+    }*/
     
     @isTest
     static void testSetTechnicalResponsibility()

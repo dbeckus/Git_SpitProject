@@ -1,10 +1,10 @@
-public with sharing class RvAccountToAccountBatchProcess implements Database.Batchable<Sobject>, Database.Stateful
-{
-    public Database.Querylocator start(Database.BatchableContext BC)
+// Commented as part of Reseller View PE Package Uninstall.
+public with sharing class RvAccountToAccountBatchProcess {
+    /*public Database.Querylocator start(Database.BatchableContext BC)
     {
          return Database.getQueryLocator([select Id, rvpe__SFAccount__c  FROM rvpe__RVAccount__c]);
     }
-    
+
     public void execute(Database.BatchableContext BC, List<rvpe__RVAccount__c> rvas)
     {
         List<String> accIds = (List<String>)TriggerTools.getValueFromField(rvas, 'rvpe__SFAccount__c', new List<String>());
@@ -21,9 +21,9 @@ public with sharing class RvAccountToAccountBatchProcess implements Database.Bat
         }
         database.update(accs,false);
     }
-    
-    public void finish(Database.BatchableContext BC) 
+
+    public void finish(Database.BatchableContext BC)
     {
-        
-    }
+
+    }*/
 }

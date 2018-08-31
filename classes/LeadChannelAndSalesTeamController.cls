@@ -15,9 +15,7 @@ public with sharing class LeadChannelAndSalesTeamController
         {
             if(theLead == null)
             {
-                List<Lead> leads = [SELECT OwnerId, Patch_Locked__c, rvpe__RVAccount__c, rvpe__RVAccount__r.Name, rvpe__RVMember__c, rvpe__RVMember__r.Name, 
-                                           Secondary_RV_Account__c, Secondary_RV_Account__r.Name, Secondary_RV_Member__c, Secondary_RV_Member__r.Name,
-                                           SE__c, SE__r.Name, CSM__c, CSM__r.Name, ISR__c, ISR__r.Name, RSM__c, RSM__r.Name 
+                List<Lead> leads = [SELECT OwnerId, Patch_Locked__c, SE__c, SE__r.Name, CSM__c, CSM__r.Name, ISR__c, ISR__r.Name, RSM__c, RSM__r.Name 
                                     FROM Lead 
                                     WHERE Id = :LeadId 
                                     LIMIT 1];
@@ -26,7 +24,8 @@ public with sharing class LeadChannelAndSalesTeamController
             return theLead;
         }
     }
-
+    
+    /* Commented as part of Reseller View PE Package Uninstall.
     public List<PartnerInfo> AllPartners
     {
         get
@@ -50,7 +49,7 @@ public with sharing class LeadChannelAndSalesTeamController
             }
             return result;
         }
-    }
+    }*/
     
     public List<MemberInfo> AllMembers
     {
@@ -99,7 +98,8 @@ public with sharing class LeadChannelAndSalesTeamController
         User currentUser = [SELECT Id, Profile.PermissionsModifyAllData FROM User WHERE Id = :UserInfo.getUserId() LIMIT 1];
         isAdminUser = currentUser.Profile.PermissionsModifyAllData;
     }
-
+    
+    /* Commented as part of Reseller View PE Package Uninstall.
     public class PartnerInfo
     {
         public PartnerInfo(String role, String accountId, String accountName)
@@ -112,7 +112,7 @@ public with sharing class LeadChannelAndSalesTeamController
         public String Role          { get; set; }
         public String AccountId     { get; set; }
         public String AccountName   { get; set; }
-    }
+    }*/
 
     public class MemberInfo
     {

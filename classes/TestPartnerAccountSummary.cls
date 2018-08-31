@@ -2,8 +2,7 @@
 public class TestPartnerAccountSummary {
     
     @isTest(SeeAllData=true)
-    public static void CheckPageName_OpenOpp()
-    {
+    public static void CheckPageName_OpenOpp() {
         Account acc = new Account(Name='testECPOC');
         insert acc;
         System.debug('acc'+acc.Id);
@@ -35,26 +34,21 @@ public class TestPartnerAccountSummary {
         opportunity.Registering_Partner_Sales_Rep__c=contact.Id;
         opportunity.First_CAM_Assigned__c=usr.Id;
         insert opportunity;
-        
-        
-        
+                
         OpportunityShare oppShare = new OpportunityShare(OpportunityId=opportunity.Id,UserOrGroupId=usr.Id,OpportunityAccessLevel='Edit');
         insert oppShare;
-        System.runAs(usr)
-        {
+        System.runAs(usr) {
             System.debug(opportunity.Registering_Partner__c);
             System.debug(opportunity.Registering_Partner_Sales_Rep__c);
             PageReference pageRef= Page.PartnerAccountSummary;
             Test.setCurrentPage(pageRef);
             PartnerAccountSummaryController obj= new PartnerAccountSummaryController();
             System.assertEquals(1, obj.OpenOppsList.size());
-        }
-        
+        }        
     }
     
     @isTest(SeeAllData=true)
-    public static void CheckPageName_RenewalOpp()
-    {
+    public static void CheckPageName_RenewalOpp() {
         Account acc = new Account(Name='testECPOC');
         insert acc;
         Account acc1 = new Account(Name='testACC');
@@ -74,8 +68,7 @@ public class TestPartnerAccountSummary {
         insert accShare;
         AccountShare acc1Share = new AccountShare(AccountId=acc1.Id,UserOrGroupId=usr.Id,AccountAccessLevel='Edit',OpportunityAccessLevel='Edit');
         insert acc1Share;
-        System.runAs(usr)
-        {
+        System.runAs(usr) {
             opportunity.Name = 'acme';
             opportunity.AccountId = acc1.Id;
             opportunity.StageName = 'Discovery';
@@ -102,23 +95,18 @@ public class TestPartnerAccountSummary {
         insert usr1;
         OpportunityShare oppShare = new OpportunityShare(OpportunityId=opportunity.Id,UserOrGroupId=usr1.Id,OpportunityAccessLevel='Edit');
         insert oppShare;
-        System.runAs(usr1)
-        {
+        System.runAs(usr1) {
             //PageReference pageRef= Page.ShowRenewalOppRelatedListToPartner;
             //Test.setCurrentPage(pageRef);
             PageReference pageRef= Page.PartnerAccountSummary;
             Test.setCurrentPage(pageRef);
             PartnerAccountSummaryController obj= new PartnerAccountSummaryController();
             System.assertEquals(1, obj.RenewalOppsList.size());
-        }
-        
-        
-        
+        }        
     }
     
     @isTest(SeeAllData=true)
-    public static void CheckPageName_OpenLeads()
-    {
+    public static void CheckPageName_OpenLeads() {
         Account acc = new Account(Name='testECPOC');
         insert acc;
         
@@ -146,8 +134,7 @@ public class TestPartnerAccountSummary {
         insert usr;
         LeadShare leadShare = new LeadShare(LeadId=lead.Id,UserOrGroupId=usr.Id,LeadAccessLevel='Edit');
         insert leadShare;
-        System.runAs(usr)
-        {
+        System.runAs(usr) {
             //PageReference pageRef= Page.ShowPendingDealRegToPartner;
             //Test.setCurrentPage(pageRef);
             //
@@ -155,14 +142,10 @@ public class TestPartnerAccountSummary {
             Test.setCurrentPage(pageRef);
             PartnerAccountSummaryController openOpps= new PartnerAccountSummaryController();
             System.assertEquals(1, openOpps.PendingDealReg.size());
-        }
-        
-        
+        }        
     }
     
-    @isTest(SeeAllData=true)
-    public static void RequestTrial_OpenOpp()
-    {
+    static testMethod void RequestTrial_OpenOpp() {
         Account acc = new Account(Name='testECPOC');
         insert acc;
         System.debug('acc'+acc.Id);
@@ -181,7 +164,7 @@ public class TestPartnerAccountSummary {
         insert usr;
         Opportunity opportunity = new Opportunity();
         opportunity.Name = 'acme';
-        opportunity.AccountId = acc1.Id;
+        opportunity.AccountId = acc.Id;
         opportunity.StageName = 'Discovery';
         opportunity.Dead_Reason__c = 'acme';
         opportunity.CloseDate = Date.today().addYears(1);
@@ -194,13 +177,10 @@ public class TestPartnerAccountSummary {
         opportunity.Registering_Partner_Sales_Rep__c=contact.Id;
         opportunity.First_CAM_Assigned__c=usr.Id;
         insert opportunity;
-        
-        
-        
+                
         OpportunityShare oppShare = new OpportunityShare(OpportunityId=opportunity.Id,UserOrGroupId=usr.Id,OpportunityAccessLevel='Edit');
         insert oppShare;
-        System.runAs(usr)
-        {
+        System.runAs(usr) {
             System.debug(opportunity.Registering_Partner__c);
             System.debug(opportunity.Registering_Partner_Sales_Rep__c);
             PageReference pageRef= Page.PartnerAccountSummary;
@@ -211,7 +191,6 @@ public class TestPartnerAccountSummary {
             Test.startTest();
             obj.RequestTrial();
             Test.stopTest();
-        }
-        
+        }        
     }
 }

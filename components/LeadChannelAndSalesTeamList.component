@@ -35,7 +35,7 @@
             </apex:column>
         </apex:pageBlockTable>
 
-        <apex:pageBlockTable value="{!AllPartners}" var="partner" headerClass="hidden" styleClass="listData">
+        <!--<apex:pageBlockTable value="{!AllPartners}" var="partner" headerClass="hidden" styleClass="listData">
             <apex:facet name="caption">
                 <span class="fa fa-globe listCaption">{!IF(AllPartners.size > 0, 'Channels', 'No channel defined')}</span>
                 
@@ -46,6 +46,6 @@
             <apex:column headerValue="Partner">
                 <a href="/{!partner.AccountId}" target="_blank">{!partner.AccountName}</a>
             </apex:column>
-        </apex:pageBlockTable>
+        </apex:pageBlockTable>-->
     </apex:pageBlockSection>
 </apex:component>

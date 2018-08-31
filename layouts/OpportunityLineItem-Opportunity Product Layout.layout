@@ -50,6 +50,10 @@
                 <behavior>Edit</behavior>
                 <field>Calculate_Contract_Values__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Original_Quantity__c</field>
+            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>

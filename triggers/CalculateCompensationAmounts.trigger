@@ -18,10 +18,26 @@ trigger CalculateCompensationAmounts on OpportunityLineItem (before update) {
             System.debug(totalPrice);
             if((lineItem.Quote_Type__c=='EDGECONNECT'|| lineItem.Quote_Type__c=='EC-SP-Term')&& lineitem.Product_Family__c=='Virtual Image' )
             {
-                
-                lineItem.Total_Comp_Rate__c =lineItem.Is_Total_Comp_Rate_Enabled__c?totalPrice:0;
-                lineItem.Comp_Rate1__c= lineItem.Is_Comp_Rate1_Enabled__c?(lineItem.Term__c>1?(totalPrice/lineitem.Term__c):totalPrice):0;
-                lineItem.Comp_Rate2__c=lineItem.Is_Comp_Rate2_Enabled__c?(totalPrice-lineItem.Comp_Rate1__c):0;
+                if(lineItem.Product_Name__c.contains('1MO') && lineItem.Original_Quantity__c!=null && lineItem.Original_Quantity__c>0 )
+                {
+                    decimal computedAmt= ((lineItem.Original_Quantity__c*12)/lineItem.Quantity)*totalPrice;
+                    lineItem.Total_Comp_Rate__c =lineItem.Is_Total_Comp_Rate_Enabled__c?totalPrice:0;
+                    lineItem.Comp_Rate1__c= lineItem.Is_Comp_Rate1_Enabled__c?computedAmt:0;
+                    lineItem.Comp_Rate2__c=lineItem.Is_Comp_Rate2_Enabled__c?(totalPrice-lineItem.Comp_Rate1__c):0;
+                }
+                else if(lineItem.Product_Name__c.contains('1MO') && lineItem.Original_Quantity__c!=null && lineItem.Original_Quantity__c==0 )
+                {
+                    lineItem.Total_Comp_Rate__c =lineItem.Is_Total_Comp_Rate_Enabled__c?totalPrice:0;
+                    lineItem.Comp_Rate1__c= 0;
+                    lineItem.Comp_Rate2__c=lineItem.Is_Comp_Rate2_Enabled__c?(totalPrice-lineItem.Comp_Rate1__c):0;
+                }
+                else 
+                {
+                    lineItem.Total_Comp_Rate__c =lineItem.Is_Total_Comp_Rate_Enabled__c?totalPrice:0;
+                    lineItem.Comp_Rate1__c= lineItem.Is_Comp_Rate1_Enabled__c?(lineItem.Term__c>1?(totalPrice/lineitem.Term__c):totalPrice):0;
+                    lineItem.Comp_Rate2__c=lineItem.Is_Comp_Rate2_Enabled__c?(totalPrice-lineItem.Comp_Rate1__c):0;
+                }
+              
             }
             else if(lineItem.Quote_Type__c=='EDGECONNECT'&& lineitem.Product_Family__c=='Product')
             {
@@ -41,7 +57,7 @@ trigger CalculateCompensationAmounts on OpportunityLineItem (before update) {
                 }
                 
             }
-            else if((lineItem.Quote_Type__c=='EDGECONNECT'||lineItem.Quote_Type__c=='EC-SP-Term' )&& lineitem.Product_Family__c!='Product' && lineitem.Product_Family__c!='Virtual Image' )
+            else if((lineItem.Quote_Type__c=='EDGECONNECT'||lineItem.Quote_Type__c=='Service Provider'||lineItem.Quote_Type__c=='EC-SP-Term' )&& lineitem.Product_Family__c!='Product' && lineitem.Product_Family__c!='Virtual Image' )
             {
                 lineItem.Total_Comp_Rate__c=lineItem.Is_Total_Comp_Rate_Enabled__c?totalPrice:0;
                 lineItem.Comp_Rate1__c=lineItem.Is_Comp_Rate1_Enabled__c?(lineItem.Term__c>1?(totalPrice/lineitem.Term__c):totalPrice):0;
@@ -49,7 +65,7 @@ trigger CalculateCompensationAmounts on OpportunityLineItem (before update) {
                 
                 
             }
-            else if(lineItem.Quote_Type__c=='NX/VX' || lineItem.Quote_Type__c=='EC-SP-Metered'|| lineItem.Quote_Type__c=='EC-SP-Perpetual')
+            else if(lineItem.Quote_Type__c=='NX/VX' || lineItem.Quote_Type__c=='Service Provider'|| lineItem.Quote_Type__c=='EC-SP-Metered'|| lineItem.Quote_Type__c=='EC-SP-Perpetual')
             {
                 lineItem.Total_Comp_Rate__c=lineItem.Is_Total_Comp_Rate_Enabled__c?totalPrice:0;
                 lineItem.Comp_Rate1__c= lineItem.Is_Comp_Rate1_Enabled__c?0:0;

@@ -278,6 +278,10 @@
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>CaseData</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>CaseSharePartnerUserQueryAction</apexClass>
         <enabled>false</enabled>
     </classAccesses>

@@ -2,9 +2,4 @@
 <ApexComponent xmlns="http://soap.sforce.com/2006/04/metadata">
     <apiVersion>30.0</apiVersion>
     <label>Lead Channel and Sales Team List</label>
-    <packageVersions>
-        <majorNumber>1</majorNumber>
-        <minorNumber>2</minorNumber>
-        <namespace>rvpe</namespace>
-    </packageVersions>
 </ApexComponent>

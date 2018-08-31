@@ -4,9 +4,4 @@
     <availableInTouch>false</availableInTouch>
     <confirmationTokenRequired>false</confirmationTokenRequired>
     <label>Lead</label>
-    <packageVersions>
-        <majorNumber>1</majorNumber>
-        <minorNumber>2</minorNumber>
-        <namespace>rvpe</namespace>
-    </packageVersions>
 </ApexPage>

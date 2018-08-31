@@ -3381,11 +3381,13 @@ ISPICKVAL(Opportunity__r.Product_Type__c,&quot;&quot;))</errorConditionFormula>
     </validationRules>
     <validationRules>
         <fullName>POc_Contact_part_of_Opp_Account</fullName>
-        <active>false</active>
-        <errorConditionFormula>AND(
-NOT(ISPICKVAL(Owner:User.UserType,&quot;Standard&quot;)),
-POC_Contact__r.AccountId != Opportunity__r.AccountId
-)</errorConditionFormula>
+        <active>true</active>
+        <errorConditionFormula>AND( 
+$Profile.Name!=&quot;9-Operations Manager&quot;, 
+$Profile.Name!=&quot;System Administrator&quot;, 
+$Profile.Name!=&quot;13g-SP Partner Community&quot;, 
+$Profile.Name!=&quot;13g-SP Distributor Community&quot;, 
+POC_Contact__r.AccountId != Opportunity__r.AccountId)</errorConditionFormula>
         <errorDisplayField>POC_Contact__c</errorDisplayField>
         <errorMessage>POC Contact is not a valid contact for this account. Please select valid contact.</errorMessage>
     </validationRules>

@@ -1,13 +1,12 @@
 @ISTest
 public class TestDeleteSPContractsForExpiredPOC {
     @ISTest
-    public static void TestDeleteSPContract()
-    {
+    public static void TestDeleteSPContract() {
         
         Account acc = new Account(Name='testECPOC',Unity_Orch_Admin_User__c=null,Unity_Orch_Domain__c=null,Unity_Orch_Location__c=null,ECSP__c=true,Service_Provider_Account_Type__c='Perpetual',Service_Provider_Admin_User__c='abc@abc.com',Service_Provider_Domain__c='abc1323',Service_Provider_Location__c='Canada (Central)');
         System.debug(acc.Unity_Orch_Admin_User__c+ acc.Unity_Orch_Domain__c+ acc.Unity_Orch_Location__c);
         insert acc;
-       	
+        
         Contact contact = new Contact(FirstName = 'AcmeFirstname', LastName = 'AcmeLastname', Phone='123456789', Email = 'acme@acme.com' , accountId=acc.Id);
         insert contact;
         Account spAcc = new Account(Name='Silver Peak Systems');
@@ -48,11 +47,12 @@ public class TestDeleteSPContractsForExpiredPOC {
         con.AccountId=acc.Id;
         con.Contract_Type__c='Evaluation';
         con.Status='Draft';
-        insert con;
         Test.startTest();
+        insert con;
+        //Test.startTest();
         con.Status='Activated';
         update con;
-       	
+        
         pocRequest.Contract_Number__c=con.Id;
         update pocRequest;
       
@@ -63,11 +63,9 @@ public class TestDeleteSPContractsForExpiredPOC {
        
         DeleteSPContractsForExpiredPOCScheduler obj=new DeleteSPContractsForExpiredPOCScheduler();
         obj.execute(null);
-        Test.stopTest();
+        //Test.stopTest();
         Request__c req=[Select Id,Contract_Number__c from Request__c where Id=:pocRequest.Id];
-        System.assert(req.Contract_Number__c==null);
-       
-        
-    }
-    
+        Test.stopTest();
+        System.assert(req.Contract_Number__c==null);        
+    }    
 }
