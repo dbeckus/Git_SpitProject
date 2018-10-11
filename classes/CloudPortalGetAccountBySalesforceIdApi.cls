@@ -13,6 +13,7 @@ public class CloudPortalGetAccountBySalesforceIdApi extends CloudPortalApiBase {
     
     public override HttpRequest setHeaders(HttpRequest request)
     {
+        super.setHeaders(request);
         request.setMethod('GET');
         request.setHeader('charset', ContentCharset);
         request.setHeader('Content-Type', 'application/json');

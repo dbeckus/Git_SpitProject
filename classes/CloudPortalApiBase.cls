@@ -9,7 +9,8 @@ public abstract class CloudPortalApiBase {
         get
         {
             Api_Configuration__c apiData;
-            if(SilverPeakUtils.IsProduction())
+        
+            if(!Test.isRunningTest() && SilverPeakUtils.IsProduction())
             {
                 apiData=ApiConfigurationDataController.RetreiveApiCredentials('Cloud Portal Production');
                 System.debug('apiData.Base_Endpoint__c '+apiData.Base_Endpoint__c);
@@ -31,7 +32,8 @@ public abstract class CloudPortalApiBase {
     /**
 * Executes this api.
 */
-    public void execute()
+    
+    public  void execute()
     {
         isSucceed = false;
         try
@@ -40,11 +42,11 @@ public abstract class CloudPortalApiBase {
             HttpRequest request = setHeaders(new HttpRequest());
             request.setEndpoint(generateEndPoint());
             request = setBody(request);
-            system.debug('request Content Length'+ request.getHeader('Content-Length'));
+           
               
             // Sends request.
             HttpResponse response = new Http().send(request);
-            system.debug('response Content Length'+ response.getHeader('Content-Length'));
+           
             // Process response.
             if(response.getStatusCode() >= 200 && response.getStatusCode() < 400)
             {
@@ -57,14 +59,13 @@ public abstract class CloudPortalApiBase {
             else
             {
                 //system.debug(response.getStatusCode());
-                system.debug(response.getBody());
                 insert new ErrorLog__c(Subject__c='CloudPortal Http Send Failure', Message__c=response.getBody());
             }
         }
         catch(Exception ex)
         {
             insert new ErrorLog__c(Subject__c='Error in Cloud Portal RestAPI Base', Message__c=ex.getMessage() + '\r\n' + ex.getStackTraceString());
-            throw ex;
+         	throw ex;
            
             // TBD: throw exception.
         }
@@ -82,6 +83,7 @@ public abstract class CloudPortalApiBase {
         request.setHeader('Content-Type', 'application/json');
         return request;
     }
+    
     
     /**
 * Generates the endpoint for this dropbox api.

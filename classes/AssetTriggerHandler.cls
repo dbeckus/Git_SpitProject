@@ -1,5 +1,5 @@
 public class AssetTriggerHandler implements ITriggerHandler {
-    Id silverpeakSystemsId='00130000007mEjX';// production Id
+    Id silverpeakSystemsId='0012900000N1AYP';// production Id
     Set<Id> lstHWCPAccount {get;set;} //Provision Decommission Account
     Set<Id> lstSWCPAccount {get;set;} //Provision Decommission Account
     Set<Id> lstTACAccount {get;set;}//ActiveAssetCount
@@ -26,7 +26,10 @@ public class AssetTriggerHandler implements ITriggerHandler {
     }
     public Boolean IsDisabled()
     {
-        return false;
+        if (Trigger_Settings__c.getvalues('AllTriggers')!=null && Trigger_Settings__c.getvalues('AllTriggers').Disabled__c==true)
+            return true;
+        else
+            return false;
     }
     public void BeforeInsert(List<SObject> newItems) 
     {

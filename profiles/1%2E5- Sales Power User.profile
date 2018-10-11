@@ -7214,6 +7214,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>RMA_Item__c.Ship_To_Name__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>RMA_Item__c.Ship_to_address__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -9011,6 +9016,15 @@
         <layout>CollaborationGroup-Group Layout</layout>
     </layoutAssignments>
     <layoutAssignments>
+        <layout>CommunityMemberLayout-Community Member Layout</layout>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>ConsumptionRate-Consumption Rate Layout</layout>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>ConsumptionSchedule-Consumption Schedule Layout</layout>
+    </layoutAssignments>
+    <layoutAssignments>
         <layout>Contact-Sales Power User Contact Layout with LeanData Info</layout>
     </layoutAssignments>
     <layoutAssignments>
@@ -9236,6 +9250,9 @@
     </layoutAssignments>
     <layoutAssignments>
         <layout>Product2-Quote Admin</layout>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>ProductConsumptionSchedule-Product Consumption Schedule Layout</layout>
     </layoutAssignments>
     <layoutAssignments>
         <layout>Purchase_Order__c-Purchase Order Layout</layout>

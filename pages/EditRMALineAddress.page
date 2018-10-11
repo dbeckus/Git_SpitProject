@@ -59,8 +59,10 @@
                 <apex:inputField value="{!Contact.LastName}"/>-->
                 <apex:outputField value="{!RMA_Item__c.Ship_To_Contact__r.FirstName}" rendered="false" />
                 <apex:outputField value="{!RMA_Item__c.Ship_To_Contact__r.LastName}" rendered="false" />
+                <apex:inputField value="{!RMA_Item__c.Ship_To_Name__c}" required="true"/>
                 <apex:inputField value="{!RMA_Item__c.Contact_Email__c}" required="true"/>
-                <apex:inputField value="{!RMA_Item__c.Contact_Phone__c}" required="true"/>
+				<apex:inputField value="{!RMA_Item__c.Contact_Phone__c}" required="true"/>
+                <br/>
                 <apex:inputField value="{!RMA_Item__c.ShipToCompany__c}" required="true" id="company"/>
                 <apex:outputText />
                 <apex:pageBlockSectionItem id="countryItem">

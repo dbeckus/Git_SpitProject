@@ -1435,6 +1435,18 @@ After change set, get from RMA header if populated, otherwise same.</description
         <type>Lookup</type>
     </fields>
     <fields>
+        <fullName>Ship_To_Name__c</fullName>
+        <externalId>false</externalId>
+        <label>Ship To Name</label>
+        <length>255</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
         <fullName>Ship_to_address__c</fullName>
         <externalId>false</externalId>
         <label>Ship-To Address</label>

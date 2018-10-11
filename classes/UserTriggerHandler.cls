@@ -3,7 +3,10 @@ public class UserTriggerHandler implements ITriggerHandler {
         if(system.isFuture()) return;
     }
     public Boolean IsDisabled() {
-        return false;
+        if (Trigger_Settings__c.getvalues('AllTriggers')!=null && Trigger_Settings__c.getvalues('AllTriggers').Disabled__c==true)
+            return true;
+        else
+            return false;
     }
     public void BeforeInsert(List<SObject> newItems) {
         if(newItems!=null && newItems.size()>0) {            

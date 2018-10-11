@@ -3,11 +3,12 @@ public class TestCloudPortalProvisionAssetsJob {
     @IsTest
     public static void TestBatchProvision()
     {
-        Account acc= new Account(Name='acme',Cloud_Portal_Account_Id__c='123666669898');
+        Account acc= new Account(Name='acme',Cloud_Portal_Account_Id__c='123666669898',Sync_With_Cloud_Portal__c=true);
         insert acc;
-       
-        //Account acc1= new Account(Name='Silver Peak Systems');
-        //insert acc1;
+        Api_Configuration__c apicOnfig= new Api_Configuration__c(Base_Endpoint__c='https://portaleng.silverpeaksystems.net/portal',Endpoint_URL__c='https://portaleng.silverpeaksystems.net/portal/apis/rest',Environment_Name__c='Cloud Portal Testing',UserName__c='abc@silver-peak.com',Password__c='test');
+        insert apicOnfig;
+        Account acc1= new Account(Name='Silver Peak Systems');
+        insert acc1;
         Product2 product = new Product2();
         product.Name = 'EC-XS';
         product.ProductCode = 'EC-XS';
@@ -46,9 +47,10 @@ public class TestCloudPortalProvisionAssetsJob {
     @IsTest
     public static void TestBatchDecommission()
     {
-        Account acc= new Account(Name='acme',Cloud_Portal_Account_Id__c='123666669898');
+        Account acc= new Account(Name='acme',Cloud_Portal_Account_Id__c='123666669898',Sync_With_Cloud_Portal__c=true);
         insert acc;
-       
+        Api_Configuration__c apicOnfig= new Api_Configuration__c(Base_Endpoint__c='https://portaleng.silverpeaksystems.net/portal',Endpoint_URL__c='https://portaleng.silverpeaksystems.net/portal/apis/rest',Environment_Name__c='Cloud Portal Testing',UserName__c='abc@silver-peak.com',Password__c='test');
+        insert apicOnfig;
         Account acc1= new Account(Name='Silver Peak Systems');
         insert acc1;
         Product2 product = new Product2();

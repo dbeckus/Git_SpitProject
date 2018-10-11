@@ -190,6 +190,14 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
+                <field>TechnicalPresalesReady__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>TechnicalPresalesReadyCertifiedBy__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
                 <field>Explicit_Consent__c</field>
             </layoutItems>
             <layoutItems>

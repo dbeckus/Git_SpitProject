@@ -153,7 +153,7 @@ generator.writeStringField('password', 'Yesadmin4u');
             string prodType=counter.Product2.Product_Type__c;
             if(assetType=='UNITYORCH'&& prodName.startsWith('EC-ORCH-AAS') && prodType=='EDGECONNECT')
             {filterAssets.add(counter);}
-            if(assetType=='EC'&& prodName.startsWith('EC')&& !prodName.contains('EC-SAAS')&& !prodName.contains('EC-SP') && prodType=='EDGECONNECT')
+            if(assetType=='EC'&& prodName.startsWith('EC')&& !prodName.startsWith('EC-ORCH-AAS') && !prodName.contains('EC-SAAS')&& !prodName.contains('EC-SP') && prodType=='EDGECONNECT')
             {filterAssets.add(counter);}
             if(assetType=='SAAS' && (prodName.contains('EC-SAAS') || prodName.contains('UNITY CLOUD INTELLIGENCE')))
             {filterAssets.add(counter);}

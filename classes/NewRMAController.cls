@@ -760,6 +760,22 @@ global class NewRMAController
         return address;
     }
     
+      public static String concateAddress(String street1, String street2, String city, String state, String zip, String country, String ContactName, String phone)
+    {
+        String address = (street1 != null) ? (street1 + '\r\n') : '';
+        address += (street2 != null) ? (street2 + '\r\n') : '';
+        address += (city != null ? (city + '\r\n') : '');
+        address += (zip != null ? (zip + ' ') : '') + (state != null ? state : '') + '\r\n';
+        address += country != null ? (country + '\r\n') : '';
+        address += (ContactName != null ? (ContactName + ' ') : '') + ((phone != null) ? phone : '');
+        address = address.replaceAll('(\r\n)+', '\r\n').trim();
+        if(address.endsWith('\r\n'))
+        {
+            address = address.subString(0, address.length() - 2);
+        }
+        return address;
+    }
+    
     private static Boolean isEntitledAsset(Id assetId)
     {
         Asset[] assets = [select Entitled_For_RMA__c from Asset where Id=:assetId limit 1];

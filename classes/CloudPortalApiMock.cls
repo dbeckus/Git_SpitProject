@@ -1,4 +1,3 @@
-@IsTest
 public class CloudPortalApiMock implements HttpCalloutMock {
   	protected Integer code;
     protected String status;
@@ -11,15 +10,14 @@ public class CloudPortalApiMock implements HttpCalloutMock {
         this.status = status;
         this.body = body;
         this.responseHeaders = responseHeaders;
-        //this.token='test123';
+        
     }
-    
     public HTTPResponse respond(HTTPRequest req) 
     {
         // Create a fake response
         HttpResponse res = new HttpResponse();
         res.setHeader('Content-Type', 'application/json');
-        res.setStatusCode(200);
+        res.setStatusCode(code);
 		System.debug('req.GetEndPoint'+req.getEndpoint());
     	if(req.getEndpoint().indexOf('/provision') > 0)
         {
@@ -35,7 +33,7 @@ public class CloudPortalApiMock implements HttpCalloutMock {
         }
         if(req.getEndpoint().indexOf('/salesforce/account?salesforceId') > 0)
         {
-            res.setBody('{"accounts":[{"salesforceId":"001W000000LN3hQ","id":"123666669889","name":"acme_test","accountkey":"aed873823iui887"}]}');
+            res.setBody('{"accounts":[{"salesforceId":"001W000000LN3hQ","Id":"123666669889","name":"acme_test","accountKey":"aed873823iui887"}]}');
         }
         if(req.getEndpoint().indexOf('/salesforce/account?modifiedTime') > 0)
         {
@@ -45,7 +43,7 @@ public class CloudPortalApiMock implements HttpCalloutMock {
         {
             res.setBody('{"Value":"test123"}');
         }
-        
+        System.debug('res' +res);
         return res;
     }
 }

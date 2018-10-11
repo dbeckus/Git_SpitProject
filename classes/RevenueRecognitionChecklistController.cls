@@ -85,6 +85,7 @@ public class RevenueRecognitionChecklistController
     private void checkUserAccessibility()
     {
         String userId = UserInfo.getUserId();
+        String profileId=UserInfo.getProfileId();
         //only when current user is opp owner or who in finance team group, he is accessible to the revenue checklist fields.
         Set<String> accessibleUsers = finaceUser();
         isAccessible = (userId.equals(opp.OwnerId) || userId.equals(opp.Owner.ManagerId) || accessibleUsers.contains(userId));
@@ -97,6 +98,7 @@ public class RevenueRecognitionChecklistController
         return  accessibleUsers.contains(userId);
     }
     
+   
     private Set<String> finaceUser()
     {
         Set<String> accessibleUsers  = new Set<String>();

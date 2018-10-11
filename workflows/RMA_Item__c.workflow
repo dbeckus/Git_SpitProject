@@ -13,6 +13,15 @@
         <template>Support/NewRMACreated</template>
     </alerts>
     <fieldUpdates>
+        <fullName>Populate_Ship_to_Name</fullName>
+        <field>Ship_To_Name__c</field>
+        <formula>Contact_Name__c</formula>
+        <name>Populate Ship to Name</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+    </fieldUpdates>
+    <fieldUpdates>
         <fullName>RMA_Item_Update_Email</fullName>
         <field>Contact_Email__c</field>
         <formula>RMA__r.Contact__r.Email</formula>
@@ -52,6 +61,19 @@
         <targetObject>RMA__c</targetObject>
     </fieldUpdates>
     <rules>
+        <fullName>Populate Contact Name</fullName>
+        <actions>
+            <name>Populate_Ship_to_Name</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>false</active>
+        <criteriaItems>
+            <field>RMA_Item__c.Contact_Name__c</field>
+            <operation>notEqual</operation>
+        </criteriaItems>
+        <triggerType>onCreateOnly</triggerType>
+    </rules>
+    <rules>
         <fullName>RMA -new item added to an RMA</fullName>
         <actions>
             <name>NewRMAitemadded</name>
@@ -90,12 +112,9 @@
         <description>this rule is used to undispatch RMA&apos;s for countries we do not want systems to go to on replacement automatically</description>
         <formula>AND(
 OR( ispickval(ShipToCountry__c, &apos;Argentina&apos;)
-, ispickval(ShipToCountry__c, &apos;Mexico&apos;)
-, ispickval(ShipToCountry__c, &apos;Hong Kong&apos;)
 , ispickval(ShipToCountry__c, &apos;Saudi Arabia&apos;)
 , ispickval(ShipToCountry__c, &apos;Indonesia&apos;)
 , ispickval(ShipToCountry__c, &apos;Philippines&apos;)
-, ispickval(ShipToCountry__c, &apos;Israel&apos;)
 ),  IsSystemReplacement__c =1
 , ispickval( RMA__r.Status__c , &apos;Dispatched&apos;)
  )</formula>

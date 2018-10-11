@@ -8,6 +8,12 @@ global with sharing class EditRMALineAddressController
     public EditRMALineAddressController(ApexPages.StandardController controller) 
     {
         item = (RMA_Item__c)controller.getRecord();
+        if( item.Id!=null && (item.Ship_To_Name__c=='' || item.Ship_To_Name__c==null))
+        {
+            RMA_Item__c updRMAItem=[Select Contact_Name__c from RMA_Item__c where Id=:item.Id];
+            item.Ship_To_Name__c=updRMAItem.Contact_Name__c;
+        }
+         
     }
     
     @RemoteAction
@@ -25,7 +31,9 @@ global with sharing class EditRMALineAddressController
         
         try
         {
-            item.Ship_to_address__c = NewRMAController.concateAddress(item.ShipToAddress__c, item.ShipToAddressAdditional__c, item.ShipToCity__c, item.ShipToStateOrProvince__c, item.ShipToPostalCode__c, item.ShipToCountry__c, item.Ship_To_Contact__r.FirstName, item.Ship_To_Contact__r.LastName, item.Contact_Phone__c);
+            
+                
+            item.Ship_to_address__c = NewRMAController.concateAddress(item.ShipToAddress__c, item.ShipToAddressAdditional__c, item.ShipToCity__c, item.ShipToStateOrProvince__c, item.ShipToPostalCode__c, item.ShipToCountry__c, item.Ship_To_Name__c,item.Contact_Phone__c);
             upsert item;
             ApexPages.addMessage(new ApexPages.Message(ApexPages.Severity.Info, 'Updated successfully<script>top.opener.location="/'+item.Id+'";top.close();</script>'));
         }
@@ -66,6 +74,19 @@ global with sharing class EditRMALineAddressController
         insert state;
         
         RMA_Item__c item = new RMA_Item__c(ShipToCountry__c='United States', ShipToStateOrProvince__c='CA');
+        ApexPages.StandardController ctrl = new ApexPages.StandardController(item);
+        EditRMALineAddressController controller = new EditRMALineAddressController(ctrl);
+        List<CountryStateTable__c> states = getStateList('United States');
+        controller.save();
+    }
+    @isTest
+    static void testEditRMALineAddressController_Contact()
+    {
+        CountryStateTable__c state = new CountryStateTable__c(Name='acme', Country__c='United States', StateCode__c='CA', StateName__c='California');
+        insert state;
+        Contact con= new Contact(FirstName='Test', LastName='LastName',Email='abc2323@1212.com');
+        insert con;
+        RMA_Item__c item = new RMA_Item__c(ShipToCountry__c='United States', ShipToStateOrProvince__c='CA',Ship_To_Contact__c=con.Id);
         ApexPages.StandardController ctrl = new ApexPages.StandardController(item);
         EditRMALineAddressController controller = new EditRMALineAddressController(ctrl);
         

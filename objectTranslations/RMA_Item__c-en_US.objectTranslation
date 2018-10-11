@@ -1100,6 +1100,10 @@
         <relationshipLabel><!-- RMA Items --></relationshipLabel>
     </fields>
     <fields>
+        <label><!-- Ship To Name --></label>
+        <name>Ship_To_Name__c</name>
+    </fields>
+    <fields>
         <label><!-- Ship-To Address --></label>
         <name>Ship_to_address__c</name>
     </fields>

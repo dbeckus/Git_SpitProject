@@ -112,6 +112,10 @@
                 <field>ShipToCompany__c</field>
             </layoutItems>
             <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Ship_To_Name__c</field>
+            </layoutItems>
+            <layoutItems>
                 <behavior>Readonly</behavior>
                 <field>ShipToCountry__c</field>
             </layoutItems>
