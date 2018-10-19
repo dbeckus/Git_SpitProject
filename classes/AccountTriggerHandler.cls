@@ -11,9 +11,6 @@ public class AccountTriggerHandler implements ITriggerHandler {
     }
     public Boolean IsDisabled()
     {
-         if (Trigger_Settings__c.getvalues('AllTriggers')!=null && Trigger_Settings__c.getvalues('AllTriggers').Disabled__c==true)
-            return true;
-        else
             return false;
     }
     public void BeforeInsert(List<SObject> newItems) 

@@ -7,9 +7,10 @@ public class TriggerDispatcher
     public static void Run(ITriggerHandler handler)
     {
         // Check to see if the trigger has been disabled. If it has, return
-        if (handler.IsDisabled())
-            return;
-             
+        //if (handler.IsDisabled())
+            //return;
+        if (TriggersFlags__c.getInstance().Disabled__c ==true)
+            return ; 
         // Detect the current trigger context and fire the relevant methods on the trigger handler:
  
         // Before trigger logic

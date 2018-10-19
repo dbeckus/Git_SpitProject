@@ -6,7 +6,7 @@ public class LicenseTriggerHandler implements ITriggerHandler {
     
     public Boolean IsDisabled()
     {
-         if (Trigger_Settings__c.getvalues('AllTriggers')!=null && Trigger_Settings__c.getvalues('AllTriggers').Disabled__c==true)
+        if (TriggersFlags__c.getInstance().Disabled__c ==true)
             return true;
         else
             return false;
