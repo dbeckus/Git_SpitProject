@@ -163,6 +163,16 @@
         <type>Checkbox</type>
     </fields>
     <fields>
+        <fullName>Min_Orchestrator_Release__c</fullName>
+        <externalId>false</externalId>
+        <label>Min Orchestrator Release</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
         <fullName>ReleaseCode__c</fullName>
         <externalId>false</externalId>
         <formula>if ( OR( ISPICKVAL(Release__r.Type__c , &apos;GMS&apos;), ISPICKVAL(Release__r.Type__c , &apos;GX-V Image&apos;)),  Build_Number__c  ,

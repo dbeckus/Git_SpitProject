@@ -107,6 +107,13 @@
                                         <apex:outputText value="{!build.FIPS_Compliant__c}">
                                         </apex:outputText>
                                     </apex:column>
+                                      <apex:column width="5%">
+                                        <apex:facet name="header" >
+                                            <apex:outputText >Orchestrator versions supported▼▲</apex:outputText>
+                                        </apex:facet>
+                                        <apex:outputText value="{!build.Min_Orchestrator_Release__c}">
+                                        </apex:outputText>
+                                    </apex:column>
                                 </apex:pageBlockTable>
                             </apex:pageBlock>
                             <apex:pageBlock rendered="{!NOT(ISNULL(GAOtherBuilds)) && GAOtherBuilds.size > 0}">
@@ -143,6 +150,13 @@
                                         <apex:outputText value="{!buildb.FIPS_Compliant__c}">
                                         </apex:outputText>
                                     </apex:column>
+                                       <apex:column width="5%">
+                                        <apex:facet name="header" >
+                                            <apex:outputText >Orchestrator versions supported▼▲</apex:outputText>
+                                        </apex:facet>
+                                        <apex:outputText value="{!buildb.Min_Orchestrator_Release__c}">
+                                        </apex:outputText>
+                                    </apex:column>
                                 </apex:pageBlockTable>
                             </apex:pageBlock>
                         </div>
@@ -176,6 +190,13 @@
                                         <apex:outputText value="{!build.FIPS_Compliant__c}">
                                         </apex:outputText>
                                     </apex:column>
+                                       <apex:column width="5%">
+                                        <apex:facet name="header" >
+                                            <apex:outputText >Orchestrator versions supported▼▲</apex:outputText>
+                                        </apex:facet>
+                                        <apex:outputText value="{!build.Min_Orchestrator_Release__c}">
+                                        </apex:outputText>
+                                    </apex:column>
                                 </apex:pageBlockTable>
                             </apex:pageBlock>
                             <apex:pageBlock rendered="{!NOT(ISNULL(FCSOtherBuilds)) && FCSOtherBuilds.size > 0}">
@@ -202,6 +223,13 @@
                                             <apex:outputText >FIPS Compliant▼▲</apex:outputText>
                                         </apex:facet>
                                         <apex:outputText value="{!buildb.FIPS_Compliant__c}">
+                                        </apex:outputText>
+                                    </apex:column>
+                                       <apex:column width="5%">
+                                        <apex:facet name="header" >
+                                            <apex:outputText >Orchestrator versions supported▼▲</apex:outputText>
+                                        </apex:facet>
+                                        <apex:outputText value="{!buildb.Min_Orchestrator_Release__c}">
                                         </apex:outputText>
                                     </apex:column>
                                 </apex:pageBlockTable>
@@ -235,6 +263,20 @@
                                         <apex:outputText value="{!build.FIPS_Compliant__c}">
                                         </apex:outputText>
                                     </apex:column>
+                                       <apex:column width="5%">
+                                        <apex:facet name="header" >
+                                            <apex:outputText >Orchestrator versions supported▼▲</apex:outputText>
+                                        </apex:facet>
+                                        <apex:outputText value="{!build.Min_Orchestrator_Release__c}">
+                                        </apex:outputText>
+                                    </apex:column>
+                                                <apex:column width="5%">
+                                        <apex:facet name="header" >
+                                            <apex:outputText >Orchestrator versions supported▼▲</apex:outputText>
+                                        </apex:facet>
+                                        <apex:outputText value="{!build.Min_Orchestrator_Release__c}">
+                                        </apex:outputText>
+                                    </apex:column>
                                 </apex:pageBlockTable>
                             </apex:pageBlock>
                             <apex:pageBlock rendered="{!NOT(ISNULL(PatchOtherBuilds)) && PatchOtherBuilds.size > 0}">
@@ -261,6 +303,13 @@
                                             <apex:outputText >FIPS Compliant▼▲</apex:outputText>
                                         </apex:facet>
                                         <apex:outputText value="{!buildb.FIPS_Compliant__c}">
+                                        </apex:outputText>
+                                    </apex:column>
+                                                <apex:column width="5%">
+                                        <apex:facet name="header" >
+                                            <apex:outputText >Orchestrator versions supported▼▲</apex:outputText>
+                                        </apex:facet>
+                                        <apex:outputText value="{!buildb.Min_Orchestrator_Release__c}">
                                         </apex:outputText>
                                     </apex:column>
                                 </apex:pageBlockTable>
@@ -295,6 +344,13 @@
                                         <apex:outputText value="{!build.FIPS_Compliant__c}">
                                         </apex:outputText>
                                     </apex:column>
+                                     <apex:column width="5%">
+                                        <apex:facet name="header" >
+                                            <apex:outputText >Orchestrator versions supported▼▲</apex:outputText>
+                                        </apex:facet>
+                                        <apex:outputText value="{!build.Min_Orchestrator_Release__c}">
+                                        </apex:outputText>
+                                    </apex:column>
                                 </apex:pageBlockTable>
                             </apex:pageBlock>
                             <apex:pageBlock rendered="{!NOT(ISNULL(BetaOtherBuilds)) && BetaOtherBuilds.size > 0}">
@@ -321,6 +377,13 @@
                                             <apex:outputText >FIPS Compliant▼▲</apex:outputText>
                                         </apex:facet>
                                         <apex:outputText value="{!buildb.FIPS_Compliant__c}">
+                                        </apex:outputText>
+                                    </apex:column>
+                                       <apex:column width="5%">
+                                        <apex:facet name="header" >
+                                            <apex:outputText >Orchestrator versions supported▼▲</apex:outputText>
+                                        </apex:facet>
+                                        <apex:outputText value="{!buildb.Min_Orchestrator_Release__c}">
                                         </apex:outputText>
                                     </apex:column>
                                 </apex:pageBlockTable>

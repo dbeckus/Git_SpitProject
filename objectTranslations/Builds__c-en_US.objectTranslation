@@ -68,6 +68,10 @@
         <name>IsRecommended__c</name>
     </fields>
     <fields>
+        <label><!-- Min Orchestrator Release --></label>
+        <name>Min_Orchestrator_Release__c</name>
+    </fields>
+    <fields>
         <label><!-- Release # --></label>
         <name>ReleaseCode__c</name>
     </fields>

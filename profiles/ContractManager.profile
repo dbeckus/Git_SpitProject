@@ -2743,6 +2743,11 @@
         <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
+        <editable>true</editable>
+        <field>Builds__c.Min_Orchestrator_Release__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>false</editable>
         <field>Builds__c.ReleaseCode__c</field>
         <readable>true</readable>
