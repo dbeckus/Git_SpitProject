@@ -10528,6 +10528,10 @@
     <userLicense>Guest User License</userLicense>
     <userPermissions>
         <enabled>true</enabled>
+        <name>ActivitiesAccess</name>
+    </userPermissions>
+    <userPermissions>
+        <enabled>true</enabled>
         <name>ChatterEnabledForUser</name>
     </userPermissions>
     <userPermissions>
