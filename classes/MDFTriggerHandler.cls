@@ -23,9 +23,6 @@ public class MDFTriggerHandler implements ITriggerHandler{
     }
     public Boolean IsDisabled()
     {
-       if (TriggersFlags__c.getInstance().Disabled__c ==true)
-            return true;
-        else
             return false;
     }
     public void BeforeInsert(List<SObject> newItems) 
